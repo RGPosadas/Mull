@@ -20,7 +20,7 @@
     "format": "nx format:write",
     "format:check": "nx format:check",
     "format:write": "nx format:write",
-    "generate-sw": "npx workbox-cli generateSW workbox-config.js",
+    "generate-sw": "workbox generateSW workbox-config.js",
     "help": "nx help",
     "lint": "nx workspace-lint && nx lint",
     "nx": "nx",
@@ -78,6 +78,7 @@
     "ts-jest": "26.1.4",
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
-    "typescript": "~3.9.3"
+    "typescript": "~3.9.3",
+    "workbox-cli": "^5.1.3"
   }
 }

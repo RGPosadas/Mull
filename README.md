@@ -35,3 +35,19 @@
       - Add the `-S` option if using HTTPS
 2. Serve the production backend:
    - `node dist/apps/rally-api/main.js`
+
+# Building and running the application with Docker
+
+## Front-end
+
+1. Build
+   - `docker build -t rally-ui:dev -f apps/rally-ui/Dockerfile .`
+2. Run
+   - `docker run -p 8080:80 rally-ui:dev`
+
+## Back-end
+
+1. Build
+   - `docker build -t rally-api:dev -f apps/rally-api/Dockerfile .`
+2. Run
+   - `docker run -p 3333:3333 rally-api:dev`
