@@ -17,6 +17,7 @@
             "tsConfig": "apps/rally-ui/tsconfig.app.json",
             "assets": [
               "apps/rally-ui/src/favicon.ico",
+              "apps/rally-ui/src/manifest.json",
               "apps/rally-ui/src/assets"
             ],
             "styles": ["apps/rally-ui/src/styles.scss"],
