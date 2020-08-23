@@ -51,7 +51,8 @@
         "serve": {
           "builder": "@nrwl/web:dev-server",
           "options": {
-            "buildTarget": "rally-ui:build"
+            "buildTarget": "rally-ui:build",
+            "proxyConfig": "apps/rally-ui/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -104,6 +105,62 @@
             "linter": "eslint",
             "tsConfig": ["apps/rally-ui-e2e/tsconfig.e2e.json"],
             "exclude": ["**/node_modules/**", "!apps/rally-ui-e2e/**/*"]
+          }
+        }
+      }
+    },
+    "rally-api": {
+      "root": "apps/rally-api",
+      "sourceRoot": "apps/rally-api/src",
+      "projectType": "application",
+      "prefix": "rally-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/rally-api",
+            "main": "apps/rally-api/src/main.ts",
+            "tsConfig": "apps/rally-api/tsconfig.app.json",
+            "assets": ["apps/rally-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/rally-api/src/environments/environment.ts",
+                  "with": "apps/rally-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "rally-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/rally-api/tsconfig.app.json",
+              "apps/rally-api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/rally-api/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/rally-api/jest.config.js",
+            "tsConfig": "apps/rally-api/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }

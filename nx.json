@@ -28,6 +28,9 @@
     "rally-ui-e2e": {
       "tags": [],
       "implicitDependencies": ["rally-ui"]
+    },
+    "rally-api": {
+      "tags": []
     }
   }
 }
