@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: litterrally
+  name: litterrally-dev
 spec:
   type: ClusterIP
   ports:
@@ -10,4 +10,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: litterrally
+    app.kubernetes.io/name: litterrally-dev
