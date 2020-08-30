@@ -1,0 +1,39 @@
+{
+  "npmScope": "litter-rally",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "workspace.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.base.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "projects": {
+    "rally-ui": {
+      "tags": []
+    },
+    "rally-ui-e2e": {
+      "tags": [],
+      "implicitDependencies": ["rally-ui"]
+    },
+    "rally-api": {
+      "tags": []
+    },
+    "types": {
+      "tags": []
+    }
+  }
+}

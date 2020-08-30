@@ -1,0 +1,36 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.main-content {
+  text-align: center;
+}
+
+.message {
+  font-size: 20px;
+  box-sizing: border-box;
+
+  background-color: #101010;
+  color: white;
+
+  height: fit-content;
+  margin: auto;
+  border-radius: 10px;
+  white-space: nowrap;
+
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) 0.5s;
+}
+
+.empty {
+  padding: 15px 0px;
+  width: 0px;
+}
+
+.full {
+  padding: 15px;
+  width: 50%;
+}
+
+h1 {
+  font-size: 36px;
+}
