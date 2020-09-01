@@ -2,19 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 import './app.scss';
 
-import { ReactComponent as Logo } from './logo.svg';
-import star from './star.svg';
-
-import { Route, Link } from 'react-router-dom';
 import { environment } from '../environments/environment';
 
 export const App = () => {
-  let [apiMessage, setApiMessage] = useState('');
-  let [messageClasses, setMessageClasses] = useState('message empty');
+  const [apiMessage, setApiMessage] = useState('');
+  const [messageClasses, setMessageClasses] = useState('message empty');
 
   useEffect(() => {
-    apiMessage = '';
-
     fetch(environment.backendUrl)
       .then((r) => r.json())
       .then((data) => {
