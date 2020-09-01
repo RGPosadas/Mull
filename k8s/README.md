@@ -50,7 +50,7 @@ Pre-requisites:
      3. Go to `localhost:8080` and set
         ```
         user: admin
-        password: the pod name you get from step 1
+        password: The name of the Argo CD server pod
         ```
 
    - On GKE:
@@ -67,8 +67,7 @@ Pre-requisites:
 
    ```
    $ export LITTERRALLY_POD=$(kubectl get pods -n litterrally-[dev|prod] | awk '{print $1}' | sed -n '2 p')
-   $ kubectl -n litterrally-[dev|prod] port-forward $LITTERRALLY_POD 9000:8080
-   $ kubectl -n litterrally-[dev|prod] port-forward $LITTERRALLY_POD 3333:3333
+   $ kubectl -n litterrally-[dev|prod] port-forward $LITTERRALLY_POD 9000:80 3333
    ```
 
    Access the frontend using `localhost:9000`, and access the backend using `localhost:3333/api`.
