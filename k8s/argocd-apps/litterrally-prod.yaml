@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: litterrally-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/RGPosadas/LitterRally.git
+    targetRevision: master
+    path: k8s/kustomize/env/prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: litterrally-prod

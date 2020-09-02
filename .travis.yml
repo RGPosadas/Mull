@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - '12.18.3'
+cache:
+  npm: true
+  directories:
+    - $HOME/.cache/pre-commit
+before_script:
+  - pyenv global 3.7.1
+  - pip3 install pre-commit
+script:
+  - pre-commit run -a
+# To uncomment when we have meaningful code
+# - npm install --log-level=error
+# - npm run lint
