@@ -65,10 +65,7 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "tsConfig": [
-              "apps/mull-ui/tsconfig.app.json",
-              "apps/mull-ui/tsconfig.spec.json"
-            ],
+            "tsConfig": ["apps/mull-ui/tsconfig.app.json", "apps/mull-ui/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!apps/mull-ui/**/*"]
           }
         },
@@ -149,10 +146,7 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "tsConfig": [
-              "apps/mull-api/tsconfig.app.json",
-              "apps/mull-api/tsconfig.spec.json"
-            ],
+            "tsConfig": ["apps/mull-api/tsconfig.app.json", "apps/mull-api/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!apps/mull-api/**/*"]
           }
         },
@@ -176,10 +170,7 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "tsConfig": [
-              "libs/types/tsconfig.lib.json",
-              "libs/types/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/types/tsconfig.lib.json", "libs/types/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!libs/types/**/*"]
           }
         },
