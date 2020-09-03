@@ -20,7 +20,7 @@ export const App = () => {
 
   return (
     <div className="main-content">
-      <h1 className="card">Welcome to rally-ui!</h1>
+      <h1 className="card">Welcome to mull-ui!</h1>
       <h1>
         Is this a production build? {environment.production ? 'Yes' : 'No'}!{' '}
       </h1>

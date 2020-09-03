@@ -1,26 +1,26 @@
 {
   "version": 1,
   "projects": {
-    "rally-ui": {
-      "root": "apps/rally-ui",
-      "sourceRoot": "apps/rally-ui/src",
+    "mull-ui": {
+      "root": "apps/mull-ui",
+      "sourceRoot": "apps/mull-ui/src",
       "projectType": "application",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "@nrwl/web:build",
           "options": {
-            "outputPath": "dist/apps/rally-ui",
-            "index": "apps/rally-ui/src/index.html",
-            "main": "apps/rally-ui/src/main.tsx",
-            "polyfills": "apps/rally-ui/src/polyfills.ts",
-            "tsConfig": "apps/rally-ui/tsconfig.app.json",
+            "outputPath": "dist/apps/mull-ui",
+            "index": "apps/mull-ui/src/index.html",
+            "main": "apps/mull-ui/src/main.tsx",
+            "polyfills": "apps/mull-ui/src/polyfills.ts",
+            "tsConfig": "apps/mull-ui/tsconfig.app.json",
             "assets": [
-              "apps/rally-ui/src/favicon.ico",
-              "apps/rally-ui/src/manifest.json",
-              "apps/rally-ui/src/assets"
+              "apps/mull-ui/src/favicon.ico",
+              "apps/mull-ui/src/manifest.json",
+              "apps/mull-ui/src/assets"
             ],
-            "styles": ["apps/rally-ui/src/styles.scss"],
+            "styles": ["apps/mull-ui/src/styles.scss"],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -28,8 +28,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/rally-ui/src/environments/environment.ts",
-                  "with": "apps/rally-ui/src/environments/environment.prod.ts"
+                  "replace": "apps/mull-ui/src/environments/environment.ts",
+                  "with": "apps/mull-ui/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -52,12 +52,12 @@
         "serve": {
           "builder": "@nrwl/web:dev-server",
           "options": {
-            "buildTarget": "rally-ui:build",
-            "proxyConfig": "apps/rally-ui/proxy.conf.json"
+            "buildTarget": "mull-ui:build",
+            "proxyConfig": "apps/mull-ui/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "buildTarget": "rally-ui:build:production"
+              "buildTarget": "mull-ui:build:production"
             }
           }
         },
@@ -66,37 +66,37 @@
           "options": {
             "linter": "eslint",
             "tsConfig": [
-              "apps/rally-ui/tsconfig.app.json",
-              "apps/rally-ui/tsconfig.spec.json"
+              "apps/mull-ui/tsconfig.app.json",
+              "apps/mull-ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/rally-ui/**/*"]
+            "exclude": ["**/node_modules/**", "!apps/mull-ui/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/rally-ui/jest.config.js",
-            "tsConfig": "apps/rally-ui/tsconfig.spec.json",
+            "jestConfig": "apps/mull-ui/jest.config.js",
+            "tsConfig": "apps/mull-ui/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
       }
     },
-    "rally-ui-e2e": {
-      "root": "apps/rally-ui-e2e",
-      "sourceRoot": "apps/rally-ui-e2e/src",
+    "mull-ui-e2e": {
+      "root": "apps/mull-ui-e2e",
+      "sourceRoot": "apps/mull-ui-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/rally-ui-e2e/cypress.json",
-            "tsConfig": "apps/rally-ui-e2e/tsconfig.e2e.json",
-            "devServerTarget": "rally-ui:serve"
+            "cypressConfig": "apps/mull-ui-e2e/cypress.json",
+            "tsConfig": "apps/mull-ui-e2e/tsconfig.e2e.json",
+            "devServerTarget": "mull-ui:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "rally-ui:serve:production"
+              "devServerTarget": "mull-ui:serve:production"
             }
           }
         },
@@ -104,26 +104,26 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "tsConfig": ["apps/rally-ui-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/rally-ui-e2e/**/*"]
+            "tsConfig": ["apps/mull-ui-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/mull-ui-e2e/**/*"]
           }
         }
       }
     },
-    "rally-api": {
-      "root": "apps/rally-api",
-      "sourceRoot": "apps/rally-api/src",
+    "mull-api": {
+      "root": "apps/mull-api",
+      "sourceRoot": "apps/mull-api/src",
       "projectType": "application",
-      "prefix": "rally-api",
+      "prefix": "mull-api",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist/apps/rally-api",
-            "main": "apps/rally-api/src/main.ts",
-            "tsConfig": "apps/rally-api/tsconfig.app.json",
-            "assets": ["apps/rally-api/src/assets"]
+            "outputPath": "dist/apps/mull-api",
+            "main": "apps/mull-api/src/main.ts",
+            "tsConfig": "apps/mull-api/tsconfig.app.json",
+            "assets": ["apps/mull-api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -132,8 +132,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/rally-api/src/environments/environment.ts",
-                  "with": "apps/rally-api/src/environments/environment.prod.ts"
+                  "replace": "apps/mull-api/src/environments/environment.ts",
+                  "with": "apps/mull-api/src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -142,7 +142,7 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "rally-api:build"
+            "buildTarget": "mull-api:build"
           }
         },
         "lint": {
@@ -150,17 +150,17 @@
           "options": {
             "linter": "eslint",
             "tsConfig": [
-              "apps/rally-api/tsconfig.app.json",
-              "apps/rally-api/tsconfig.spec.json"
+              "apps/mull-api/tsconfig.app.json",
+              "apps/mull-api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/rally-api/**/*"]
+            "exclude": ["**/node_modules/**", "!apps/mull-api/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/rally-api/jest.config.js",
-            "tsConfig": "apps/rally-api/tsconfig.spec.json",
+            "jestConfig": "apps/mull-api/jest.config.js",
+            "tsConfig": "apps/mull-api/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -213,5 +213,5 @@
       }
     }
   },
-  "defaultProject": "rally-ui"
+  "defaultProject": "mull-ui"
 }

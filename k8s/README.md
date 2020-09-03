@@ -2,7 +2,7 @@
 
 This directory covers everything related to Kubernetes.
 
-## LitterRally Deployment
+## Müll Deployment
 
 The application in both dev and prod environments are deployed through ArgoCD.
 
@@ -59,15 +59,15 @@ Pre-requisites:
 
 4. Sync Applications
 
-   Once logged in to ArgoCD, click `SYNC` on each application environment to sync the ArgoCD applications, which will finally deploy the LitterRally applications.
+   Once logged in to ArgoCD, click `SYNC` on each application environment to sync the ArgoCD applications, which will finally deploy the Müll applications.
 
 5. Access the Applications
 
    We currently don't have an ingress installed, so we have to port-forward the frontend and backend.
 
    ```
-   $ export LITTERRALLY_POD=$(kubectl get pods -n litterrally-[dev|prod] | awk '{print $1}' | sed -n '2 p')
-   $ kubectl -n litterrally-[dev|prod] port-forward $LITTERRALLY_POD 9000:80 3333
+   $ export MULL_POD=$(kubectl get pods -n mull-[dev|prod] | awk '{print $1}' | sed -n '2 p')
+   $ kubectl -n mull-[dev|prod] port-forward $MULL_POD 9000:80 3333
    ```
 
    Access the frontend using `localhost:9000`, and access the backend using `localhost:3333/api`.

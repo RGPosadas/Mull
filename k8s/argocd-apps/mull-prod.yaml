@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: litterrally-prod
+  name: mull-prod
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/RGPosadas/LitterRally.git
+    repoURL: https://github.com/RGPosadas/Mull.git
     targetRevision: master
     path: k8s/kustomize/env/prod
   destination:
     server: https://kubernetes.default.svc
-    namespace: litterrally-prod
+    namespace: mull-prod

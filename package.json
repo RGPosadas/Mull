@@ -1,5 +1,5 @@
 {
-  "name": "litter-rally",
+  "name": "mull",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
@@ -13,8 +13,8 @@
     "affected:lint": "nx affected:lint",
     "affected:test": "nx affected:test",
     "build": "nx build",
-    "build-api": "nx build rally-api --prod",
-    "build-ui": "nx build rally-ui --prod && npm run generate-sw",
+    "build-api": "nx build mull-api --prod",
+    "build-ui": "nx build mull-ui --prod && npm run generate-sw",
     "dep-graph": "nx dep-graph",
     "e2e": "nx e2e",
     "format": "nx format:write",

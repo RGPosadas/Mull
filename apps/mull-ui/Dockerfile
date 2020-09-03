@@ -1,6 +1,6 @@
 FROM node:12 as build
 
-WORKDIR /rally-ui
+WORKDIR /mull-ui
 
 COPY ./ ./
 
@@ -9,5 +9,5 @@ RUN npm run build-ui
 
 FROM nginx:stable-alpine
 
-COPY --from=build /rally-ui/dist/apps/rally-ui /usr/share/nginx/html
+COPY --from=build /mull-ui/dist/apps/mull-ui /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]

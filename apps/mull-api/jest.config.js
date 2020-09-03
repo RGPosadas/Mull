@@ -1,10 +1,10 @@
 module.exports = {
-  name: 'rally-api',
+  name: 'mull-api',
   preset: '../../jest.config.js',
   globals: {
     'ts-jest': {
       tsConfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  coverageDirectory: '../../coverage/apps/rally-api',
+  coverageDirectory: '../../coverage/apps/mull-api',
 };

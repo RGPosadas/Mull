@@ -1,4 +1,4 @@
-# LitterRally
+# Müll
 
 # Setting up a development environment
 
@@ -15,9 +15,9 @@
 ## Serving the application locally for development:
 
 1. Serve the front-end application:
-   - `npm start rally-ui`
+   - `npm start mull-ui`
 2. Serve the back-end application (in a different tab):
-   - `npm start rally-api`
+   - `npm start mull-api`
 
 ## Building the application for production:
 
@@ -31,23 +31,23 @@
    2. (Optional) Generate local SSL certificates for HTTPS
       - `openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem`
    3. Run a server locally:
-      - `http-server dist/apps/rally-ui -p 8080 -c-1`
+      - `http-server dist/apps/mull-ui -p 8080 -c-1`
       - Add the `-S` option if using HTTPS
 2. Serve the production backend:
-   - `node dist/apps/rally-api/main.js`
+   - `node dist/apps/mull-api/main.js`
 
 # Building and running the application with Docker
 
 ## Front-end
 
 1. Build
-   - `docker build -t rally-ui:dev -f apps/rally-ui/Dockerfile .`
+   - `docker build -t mull-ui:dev -f apps/mull-ui/Dockerfile .`
 2. Run
-   - `docker run -p 8080:80 rally-ui:dev`
+   - `docker run -p 8080:80 mull-ui:dev`
 
 ## Back-end
 
 1. Build
-   - `docker build -t rally-api:dev -f apps/rally-api/Dockerfile .`
+   - `docker build -t mull-api:dev -f apps/mull-api/Dockerfile .`
 2. Run
-   - `docker run -p 3333:3333 rally-api:dev`
+   - `docker run -p 3333:3333 mull-api:dev`
