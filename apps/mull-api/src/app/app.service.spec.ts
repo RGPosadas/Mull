@@ -14,8 +14,8 @@ describe('AppService', () => {
   });
 
   describe('getData', () => {
-    it('should return "Welcome to rally-api!"', () => {
-      expect(service.getData()).toEqual({ message: 'Welcome to rally-api!' });
+    it('should return "Welcome to mull-api!"', () => {
+      expect(service.getData()).toEqual({ message: 'Welcome to mull-api!' });
     });
   });
 });

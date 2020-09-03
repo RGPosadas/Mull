@@ -1,5 +1,5 @@
 module.exports = {
-  globDirectory: 'dist/apps/rally-ui',
+  globDirectory: 'dist/apps/mull-ui',
   globPatterns: ['**/*.{txt,ico,html,js}'],
-  swDest: 'dist/apps/rally-ui/service-worker.js',
+  swDest: 'dist/apps/mull-ui/service-worker.js',
 };

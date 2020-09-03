@@ -23,6 +23,6 @@ describe('App', () => {
       </BrowserRouter>
     );
 
-    expect(getByText('Welcome to rally-ui!')).toBeTruthy();
+    expect(getByText('Welcome to mull-ui!')).toBeTruthy();
   });
 });

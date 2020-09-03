@@ -1,5 +1,5 @@
 {
-  "npmScope": "litter-rally",
+  "npmScope": "mull",
   "affected": {
     "defaultBase": "master"
   },
@@ -22,14 +22,14 @@
     }
   },
   "projects": {
-    "rally-ui": {
+    "mull-ui": {
       "tags": []
     },
-    "rally-ui-e2e": {
+    "mull-ui-e2e": {
       "tags": [],
-      "implicitDependencies": ["rally-ui"]
+      "implicitDependencies": ["mull-ui"]
     },
-    "rally-api": {
+    "mull-api": {
       "tags": []
     },
     "types": {
