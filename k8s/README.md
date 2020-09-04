@@ -2,7 +2,10 @@
 
 This directory covers everything related to Kubernetes.
 
-## Müll Deployment
+- [Müll Deployment](#müll-deployment)
+  - [Deployment Steps](#deployment-steps)
+
+# Müll Deployment
 
 The application in both dev and prod environments are deployed through ArgoCD.
 
@@ -11,7 +14,7 @@ Pre-requisites:
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - A kubernetes cluster (minikube, GKE, etc)
 
-### Deployment Steps
+## Deployment Steps
 
 1. Deploy ArgoCD
 
