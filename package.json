@@ -24,6 +24,7 @@
     "help": "nx help",
     "lint": "nx workspace-lint && nx lint",
     "nx": "nx",
+    "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner",
     "start": "nx serve",
     "test": "nx test",
     "update": "nx migrate latest",
@@ -78,6 +79,7 @@
     "ts-jest": "26.1.4",
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
+    "sonar-scanner": "^3.1.0",
     "typescript": "~3.9.3",
     "workbox-cli": "^5.1.3"
   }
