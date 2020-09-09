@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - '12.18.3'
+git:
+  depth: false
 cache:
   npm: true
   directories:
@@ -10,6 +12,4 @@ before_script:
   - pip3 install pre-commit
 script:
   - pre-commit run -a
-# To uncomment when we have meaningful code
-# - npm install --log-level=error
-# - npm run lint
+  - npm run affected:lint -- --base=origin/master
