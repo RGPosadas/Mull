@@ -18,6 +18,7 @@ describe('AppController', () => {
       const appController = app.get<AppController>(AppController);
       expect(appController.getData()).toEqual({
         message: 'Welcome to mull-api!',
+        info: { production: false },
       });
     });
   });

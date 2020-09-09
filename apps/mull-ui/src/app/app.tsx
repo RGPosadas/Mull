@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './app.scss';
 
 import { environment } from '../environments/environment';
+import { Message } from '@mull/types';
 
 export const App = () => {
   const [apiMessage, setApiMessage] = useState('');
@@ -11,7 +12,7 @@ export const App = () => {
   useEffect(() => {
     fetch(environment.backendUrl)
       .then((r) => r.json())
-      .then((data) => {
+      .then((data: Message) => {
         setApiMessage(data.message);
         console.log(data.message);
         setMessageClasses('message full');
