@@ -15,7 +15,10 @@ describe('AppService', () => {
 
   describe('getData', () => {
     it('should return "Welcome to mull-api!"', () => {
-      expect(service.getData()).toEqual({ message: 'Welcome to mull-api!' });
+      expect(service.getData()).toEqual({
+        message: 'Welcome to mull-api!',
+        info: { production: false },
+      });
     });
   });
 });
