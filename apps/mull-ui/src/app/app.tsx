@@ -17,7 +17,8 @@ export const App = () => {
         setApiMessage(data.message);
         console.log(data.message);
         setMessageClasses('message full');
-      });
+      })
+      .catch(() => undefined);
   }, []);
 
   return (

@@ -7,4 +7,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
   coverageDirectory: '../../coverage/apps/mull-ui',
+  setupFiles: ['./jest.config.setup.js'],
 };
