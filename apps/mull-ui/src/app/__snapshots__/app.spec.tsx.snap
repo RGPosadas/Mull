@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should match snapshot 1`] = `
+<div
+  className="main-content"
+>
+  <h1
+    className="card"
+  >
+    Welcome to mull-ui!
+  </h1>
+  <h1>
+    Is this a production build? 
+    No
+    ! 
+  </h1>
+  <h1
+    className="card"
+  >
+    Below, a message from the backend should appear!
+  </h1>
+  <div
+    className="message empty"
+  >
+    
+  </div>
+</div>
+`;
