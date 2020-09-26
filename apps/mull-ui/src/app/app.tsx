@@ -4,7 +4,6 @@ import './app.scss';
 
 import { environment } from '../environments/environment';
 import { Message } from '@mull/types';
-
 import { UiLib } from '@mull/ui-lib';
 
 export const App = () => {
