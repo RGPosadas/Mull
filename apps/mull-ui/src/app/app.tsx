@@ -4,6 +4,7 @@ import './app.scss';
 
 import { environment } from '../environments/environment';
 import { Message } from '@mull/types';
+import { UiLib } from '@mull/ui-lib';
 
 export const App = () => {
   const [apiMessage, setApiMessage] = useState('');
@@ -25,6 +26,7 @@ export const App = () => {
       <h1>Is this a production build? {environment.production ? 'Yes' : 'No'}! </h1>
       <h1 className="card">Below, a message from the backend should appear!</h1>
       <div className={messageClasses}>{apiMessage}</div>
+      <UiLib></UiLib>
     </div>
   );
 };
