@@ -17,10 +17,10 @@ Lorem ipsum...
 
 **Acceptance Criteria**
 
-- [ ] US criteria #1
-- [ ] US criteria #2
+- [ ] Task criteria #1
+- [ ] Task criteria #2
 ...
-- [ ] US criteria #n
+- [ ] Task criteria #n
 - [ ] Documentation present for every new component and function
 ```
  * Description of Function/Component
