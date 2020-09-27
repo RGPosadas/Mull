@@ -2,14 +2,16 @@
 
 - [Team Members](#team-members)
 - [Development Guidelines](#development-guidelines)
-- [Setting up a development environment](#setting-up-a-development-environment)
-- [Running the application](#running-the-application)
+- [Setting Up A Development Environment](#setting-up-a-development-environment)
+- [Running The Application](#running-the-application)
   - [Serving the application locally for development:](#serving-the-application-locally-for-development)
   - [Building the application for production:](#building-the-application-for-production)
   - [Serving the production built stack locally:](#serving-the-production-built-stack-locally)
-- [Building and running the application with Docker](#building-and-running-the-application-with-docker)
+- [Running Tests](#running-tests)
+- [Building and Running The Application with Docker](#building-and-running-the-application-with-docker)
   - [Front-end](#front-end)
   - [Back-end](#back-end)
+- [Enforcing Code Formatting and Standards](#enforcing-code-formatting-and-standards)
 - [Troubleshooting](#troubleshooting)
   - [Inonsistent/Failing Travis Builds](#inonsistentfailing-travis-builds)
 
@@ -30,9 +32,9 @@ Müll is brought to you by members of `Team Bug bytes`.
 # Development Guidelines
 
 - We try our best to adhere to the set of rules and guidelines that we've come up as a team in order to have an efficient workflow.
-- To view, refer to our [GitHub Wiki](https://github.com/RGPosadas/Mull/wiki).
+- To view our guidelines, refer to our [GitHub Wiki](https://github.com/RGPosadas/Mull/wiki).
 
-# Setting up a development environment
+# Setting Up A Development Environment
 
 1. Install the Nx CLI:
    - `npm install -g nx`
@@ -42,7 +44,7 @@ Müll is brought to you by members of `Team Bug bytes`.
    - `pip install pre-commit`
    - `pre-commit install` (Run in the root dir. of the project)
 
-# Running the application
+# Running The Application
 
 ## Serving the application locally for development:
 
@@ -68,7 +70,41 @@ Müll is brought to you by members of `Team Bug bytes`.
 2. Serve the production backend:
    - `node dist/apps/mull-api/main.js`
 
-# Building and running the application with Docker
+# Running Tests
+
+## Unit and UI Snapshot Tests
+
+Our unit tests use Jest as their test runner. As for snapshot tests, they are handled by the `react-test-renderer` package.
+
+To run all unit and snapshot tests:
+
+```
+nx run-many --all --target=test
+```
+
+To run only affected unit and snapshot tests against a base branch:
+
+```
+nx affected:test --base=origin/<base-branch>
+```
+
+## E2E Tests
+
+We use Cypress as our framework for E2E tests.
+
+To run all e2e tests:
+
+```
+nx run-many --all --target=e2e
+```
+
+To run only affected E2E tests against a base branch:
+
+```
+nx affected:e2e --base=origin/<base-branch>
+```
+
+# Building and Running The Application with Docker
 
 ## Front-end
 
@@ -83,6 +119,24 @@ Müll is brought to you by members of `Team Bug bytes`.
    - `docker build -t mull-api:dev -f apps/mull-api/Dockerfile .`
 2. Run
    - `docker run -p 3333:3333 mull-api:dev`
+
+# Enforcing Code Formatting and Standards
+
+`Team Bug bytes` code enforces formatting and standards through pre-commit and ESLint. To further enforce these standards, if these enforcements do not pass, then Travis will fail the build.
+
+## Prerequisites
+
+- [Install pre-commit](https://pre-commit.com/#install)
+- Run `pre-commit install` to install the git hooks
+
+## Pre-commit and Linting
+
+To manually run pre-commit and linting against a base branch:
+
+```
+pre-commit run -a
+npm run affected:lint -- --base=origin/<base-branch>
+```
 
 # Troubleshooting
 

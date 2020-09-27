@@ -18,4 +18,6 @@ addons:
 script:
   - pre-commit run -a
   - npm run affected:lint -- --base=origin/master
+  - npm run affected:test -- --base=origin/master
+  - npm run affected:e2e -- --base=origin/master
   - sonar-scanner
