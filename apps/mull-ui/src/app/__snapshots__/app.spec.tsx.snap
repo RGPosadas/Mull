@@ -24,5 +24,10 @@ exports[`App should match snapshot 1`] = `
   >
     
   </div>
+  <div>
+    <h1>
+      Welcome to ui-lib!
+    </h1>
+  </div>
 </div>
 `;
