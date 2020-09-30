@@ -22,6 +22,9 @@ Lorem ipsum...
 ...
 1. Step n
 
+**Pre-requisites**
+
+- [ ] React component hierarchy exists for devs to follow
 
 **Acceptance Criteria**
 
