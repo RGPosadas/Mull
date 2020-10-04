@@ -1,0 +1,19 @@
+//Mobile navbar
+@media (max-width: 30em) {
+  .nav-buttons {
+    background: #ffffff;
+    border-radius: 0px 0px 40px 40px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5em;
+    a {
+      text-decoration: none;
+    }
+  }
+}

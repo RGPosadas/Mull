@@ -4,8 +4,8 @@ import './app.scss';
 
 import { environment } from '../environments/environment';
 import { Message } from '@mull/types';
-import { UiLib } from '@mull/ui-lib';
-import Navigation from './components/navigation';
+
+import NavigationBar from './components/navigation-bar/navigation-bar';
 
 export const App = () => {
   const [apiMessage, setApiMessage] = useState('');
@@ -22,9 +22,7 @@ export const App = () => {
       .catch(() => undefined);
   }, []);
 
-  return (
-      <Navigation />
-  );
+  return <NavigationBar />;
 };
 
 export default App;
