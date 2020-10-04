@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Message } from '@mull/types';
+import { environment } from '../environments/environment';
 
-import './app.scss';
+import CreateEventPage from './pages/create-event/create-event.component';
 
 import NavigationBar from './components/navigation-bar/navigation-bar';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { ROUTES } from '../constants';
+import './app.scss';
 
 /**
  * Main component of the application
@@ -17,9 +20,9 @@ export const App = () => {
           <Route exact path="/">
             {<Redirect to={ROUTES.HOME} />}
           </Route>
+          <Route exact path="/create-event" component={CreateEventPage} />
         </Switch>
       </div>
-
       <NavigationBar />
     </div>
   );
