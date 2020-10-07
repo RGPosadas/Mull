@@ -2,108 +2,40 @@ import React from 'react';
 
 import './navigation-bar.scss';
 
-import { ReactComponent as NewEventIcon } from '../../../assets/icons/nav/NewEventIcon.svg';
-import { ReactComponent as HomeIcon } from '../../../assets/icons/nav/HomeIcon.svg';
-import { ReactComponent as MapIcon } from '../../../assets/icons/nav/MapIcon.svg';
-import { ReactComponent as ToolMenuIcon } from '../../../assets/icons/nav/ToolMenuIcon.svg';
-import { ReactComponent as ProfileIcon } from '../../../assets/icons/nav/ProfileIcon.svg';
+import { ReactComponent as NewEventIcon } from '../../../assets/icons/nav-bar-icons/NewEventIcon.svg';
+import { ReactComponent as HomeIcon } from '../../../assets/icons/nav-bar-icons/HomeIcon.svg';
+import { ReactComponent as MapIcon } from '../../../assets/icons/nav-bar-icons/MapIcon.svg';
+import { ReactComponent as ToolMenuIcon } from '../../../assets/icons/nav-bar-icons/ToolMenuIcon.svg';
+import { ReactComponent as ProfileIcon } from '../../../assets/icons/nav-bar-icons/ProfileIcon.svg';
 
-import { Link, useLocation } from 'react-router-dom';
-import { ROUTES } from '../../constants';
+import logo from '../../../assets/mull-logo.png';
 
-/* eslint-disable-next-line */
+import { NavLink } from 'react-router-dom';
+import { ROUTES } from '../../../constants';
+
 export interface NavigationBarProps {}
 
-export const NavigationBar = (props: NavigationBarProps) => {
-  const location = useLocation();
-
-  const routeisActive = (route: string): boolean => {
-    return route === location.pathname;
-  };
-
+export const NavigationBar = ({}: NavigationBarProps) => {
   return (
     <div className="nav-container">
-      <Link to={ROUTES.HOME}>
-        <HomeIcon fill={routeisActive(ROUTES.HOME) ? '#27B09A' : '#FFFFFF'} />
-      </Link>
-      <Link to={ROUTES.MAP}>
-        <MapIcon fill={routeisActive(ROUTES.MAP) ? '#27B09A' : '#FFFFFF'} />
-      </Link>
-      <Link to={ROUTES.NEW_EVENT}>
-        <NewEventIcon fill={routeisActive(ROUTES.NEW_EVENT) ? '#27B09A' : '#FFFFFF'} />
-      </Link>
-      <Link to={ROUTES.TOOLS}>
-        <ToolMenuIcon fill={routeisActive(ROUTES.TOOLS) ? '#27B09A' : '#FFFFFF'} />
-      </Link>
-      <Link to={ROUTES.PROFILE}>
-        <ProfileIcon fill={routeisActive(ROUTES.PROFILE) ? '#27B09A' : '#FFFFFF'} />
-      </Link>
+      <img src={logo} className="logo nav-element" />
+      <NavLink to={ROUTES.HOME} activeClassName="active">
+        <HomeIcon className="nav-button nav-element" />
+      </NavLink>
+      <NavLink to={ROUTES.MAP} activeClassName="active">
+        <MapIcon className="nav-button nav-element" />
+      </NavLink>
+      <NavLink to={ROUTES.NEW_EVENT} activeClassName="active">
+        <NewEventIcon className="nav-button nav-element" />
+      </NavLink>
+      <NavLink to={ROUTES.TOOLS} activeClassName="active">
+        <ToolMenuIcon className="nav-button nav-element" />
+      </NavLink>
+      <NavLink to={ROUTES.PROFILE} activeClassName="active">
+        <ProfileIcon className="nav-button nav-element" />
+      </NavLink>
     </div>
   );
 };
 
 export default NavigationBar;
-
-// Using the svg as a component cuts it off and idk how to fix it, I'm leaving this here for now
-{
-  /* <Link to={ROUTES.HOME}>
-        <HomeIcon
-          fill={routeisActive(ROUTES.HOME) ? '#00AA00' : '#FFFFFF'}
-          className="nav-button"
-        />
-      </Link>
-      <Link to={ROUTES.MAP} className="nav-button">
-        <MapIcon fill={routeisActive(ROUTES.MAP) ? '#00AA00' : '#FFFFFF'} className="nav-button" />
-      </Link>
-      <Link to={ROUTES.NEW_EVENT}>
-        <NewEventIcon
-          fill={routeisActive(ROUTES.NEW_EVENT) ? '#00AA00' : '#FFFFFF'}
-          className="nav-button"
-        />
-      </Link>
-      <Link to={ROUTES.TOOLS}>
-        <ToolMenuIcon fill={routeisActive(ROUTES.TOOLS) ? '#00AA00' : '#FFFFFF'} />
-      </Link>
-      <Link to={ROUTES.PROFILE}>
-        <ProfileIcon fill={routeisActive(ROUTES.PROFILE) ? '#00AA00' : '#FFFFFF'} />
-      </Link> */
-}
-
-// Using the svg as a img makes it hard to apply color
-{
-  /* <Link to={ROUTES.HOME}>
-        <img
-          className={`nav-button ${routeisActive(ROUTES.HOME) ? 'active' : ''}`}
-          src={HomeIcon}
-          alt="Home Button"
-        />
-      </Link>
-      <Link to={ROUTES.MAP}>
-        <img
-          className={`nav-button ${routeisActive(ROUTES.MAP) ? 'active' : ''}`}
-          src={MapIcon}
-          alt="Map Button"
-        />
-      </Link>
-      <Link to={ROUTES.NEW_EVENT}>
-        <img
-          className={`nav-button ${routeisActive(ROUTES.NEW_EVENT) ? 'active' : ''}`}
-          src={NewEventIcon}
-          alt="New Event Button"
-        />
-      </Link>
-      <Link to={ROUTES.TOOLS}>
-        <img
-          className={`nav-button ${routeisActive(ROUTES.TOOLS) ? 'active' : ''}`}
-          src={ToolMenuIcon}
-          alt="Tools Menu"
-        />
-      </Link>
-      <Link to={ROUTES.PROFILE}>
-        <img
-          className={`nav-button ${routeisActive(ROUTES.PROFILE) ? 'active' : ''}`}
-          src={ProfileIcon}
-          alt="Profile Button"
-        />
-      </Link> */
-}

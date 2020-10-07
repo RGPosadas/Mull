@@ -1,20 +1,51 @@
-//Mobile navbar
+@import '../../../variables.scss';
+
 .nav-container {
   background: #ffffff;
 
   left: 0;
   right: 0;
+  bottom: 1em;
+  position: fixed;
 
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
 
-  @media (max-width: 30em) {
-    position: fixed;
-    bottom: 0;
-  }
-  @media (min-width: 30em) {
+  @media (min-width: $breakpoint-mobile) {
+    bottom: auto;
     top: 0;
+
+    padding: 1em 0;
+    gap: 3em;
+
+    justify-content: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.nav-button {
+  width: 3em;
+  height: 3em;
+
+  @media (min-width: $breakpoint-mobile) {
+    width: 4em;
+    height: 4em;
+  }
+}
+
+.active {
+  svg {
+    fill: #27b09a;
+  }
+}
+
+.logo {
+  display: none;
+  width: 11em;
+
+  @media (min-width: $breakpoint-mobile) {
+    display: inline-block;
   }
 }
