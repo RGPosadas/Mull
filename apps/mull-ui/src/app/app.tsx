@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import './app.scss';
-
-import { environment } from '../environments/environment';
-import { Message } from '@mull/types';
 
 import NavigationBar from './components/navigation-bar/navigation-bar';
 import { Redirect, Route, Switch } from 'react-router-dom';
@@ -11,12 +8,15 @@ import { ROUTES } from '../constants';
 
 export const App = () => {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/">
-          {<Redirect to={ROUTES.HOME} />}
-        </Route>
-      </Switch>
+    <div className="container">
+      <div className="main-content">
+        <Switch>
+          <Route exact path="/">
+            {<Redirect to={ROUTES.HOME} />}
+          </Route>
+        </Switch>
+      </div>
+
       <NavigationBar />
     </div>
   );
