@@ -2,32 +2,80 @@
 
 exports[`App should match snapshot 1`] = `
 <div
-  className="main-content"
+  className="container"
 >
-  <h1
-    className="card"
-  >
-    Welcome to mull-ui!
-  </h1>
-  <h1>
-    Is this a production build? 
-    No
-    ! 
-  </h1>
-  <h1
-    className="card"
-  >
-    Below, a message from the backend should appear!
-  </h1>
   <div
-    className="message empty"
+    className="main-content"
+  />
+  <div
+    className="nav-container"
   >
-    
-  </div>
-  <div>
-    <h1>
-      Welcome to ui-lib!
-    </h1>
+    <img
+      className="logo nav-element"
+      src="mull-logo.png"
+    />
+    <a
+      aria-current="page"
+      className="active"
+      data-testid="home-navlink"
+      href="/home"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      <svg
+        className="nav-button"
+      >
+        HomeIcon.svg
+      </svg>
+    </a>
+    <a
+      aria-current={null}
+      data-testid="map-navlink"
+      href="/map"
+      onClick={[Function]}
+    >
+      <svg
+        className="nav-button"
+      >
+        MapIcon.svg
+      </svg>
+    </a>
+    <a
+      aria-current={null}
+      data-testid="new-event-navlink"
+      href="/new-event"
+      onClick={[Function]}
+    >
+      <svg
+        className="nav-button"
+      >
+        NewEventIcon.svg
+      </svg>
+    </a>
+    <a
+      aria-current={null}
+      data-testid="tools-navlink"
+      href="/tools"
+      onClick={[Function]}
+    >
+      <svg
+        className="nav-button"
+      >
+        ToolMenuIcon.svg
+      </svg>
+    </a>
+    <a
+      aria-current={null}
+      data-testid="profile-navlink"
+      href="/profile"
+      onClick={[Function]}
+    >
+      <svg
+        className="nav-button"
+      >
+        ProfileIcon.svg
+      </svg>
+    </a>
   </div>
 </div>
 `;

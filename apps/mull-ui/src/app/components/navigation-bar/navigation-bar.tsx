@@ -24,20 +24,20 @@ export const NavigationBar = ({}: NavigationBarProps) => {
   return (
     <div className="nav-container">
       <img src={logo} className="logo nav-element" />
-      <NavLink to={ROUTES.HOME} activeClassName="active">
-        <HomeIcon className="nav-button nav-element" />
+      <NavLink to={ROUTES.HOME} activeClassName="active" data-testid="home-navlink">
+        <HomeIcon className="nav-button" />
       </NavLink>
-      <NavLink to={ROUTES.MAP} activeClassName="active">
-        <MapIcon className="nav-button nav-element" />
+      <NavLink to={ROUTES.MAP} activeClassName="active" data-testid="map-navlink">
+        <MapIcon className="nav-button" />
       </NavLink>
-      <NavLink to={ROUTES.NEW_EVENT} activeClassName="active">
-        <NewEventIcon className="nav-button nav-element" />
+      <NavLink to={ROUTES.NEW_EVENT} activeClassName="active" data-testid="new-event-navlink">
+        <NewEventIcon className="nav-button" />
       </NavLink>
-      <NavLink to={ROUTES.TOOLS} activeClassName="active">
-        <ToolMenuIcon className="nav-button nav-element" />
+      <NavLink to={ROUTES.TOOLS} activeClassName="active" data-testid="tools-navlink">
+        <ToolMenuIcon className="nav-button" />
       </NavLink>
-      <NavLink to={ROUTES.PROFILE} activeClassName="active">
-        <ProfileIcon className="nav-button nav-element" />
+      <NavLink to={ROUTES.PROFILE} activeClassName="active" data-testid="profile-navlink">
+        <ProfileIcon className="nav-button" />
       </NavLink>
     </div>
   );
