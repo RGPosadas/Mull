@@ -13,17 +13,15 @@ import logo from '../../../assets/mull-logo.png';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
 
-export interface NavigationBarProps {}
-
 /**
  * Component for navigation across the different routes of the application.
  *
  * @see ROUTES
  */
-export const NavigationBar = ({}: NavigationBarProps) => {
+export const NavigationBar = () => {
   return (
     <div className="nav-container">
-      <img src={logo} className="logo nav-element" />
+      <img src={logo} className="logo nav-element" alt="Mull logo" />
       <NavLink to={ROUTES.HOME} activeClassName="active" data-testid="home-navlink">
         <HomeIcon className="nav-button" />
       </NavLink>

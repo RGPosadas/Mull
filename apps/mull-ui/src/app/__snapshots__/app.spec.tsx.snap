@@ -11,6 +11,7 @@ exports[`App should match snapshot 1`] = `
     className="nav-container"
   >
     <img
+      alt="Mull logo"
       className="logo nav-element"
       src="mull-logo.png"
     />

@@ -5,7 +5,7 @@ import NavigationBar from './navigation-bar';
 import { Router } from 'react-router-dom';
 
 import { createMemoryHistory } from 'history';
-import { ROUTES } from 'apps/mull-ui/src/constants';
+import { ROUTES } from '../../../constants';
 
 import renderer from 'react-test-renderer';
 
@@ -23,7 +23,7 @@ describe('NavigationBar', () => {
     expect(baseElement).toBeTruthy();
   });
 
-  it('button associated with current should be active', () => {
+  it('button associated with current should be active ', () => {
     const testIds = {
       [ROUTES.HOME]: 'home-navlink',
       [ROUTES.MAP]: 'map-navlink',
@@ -39,10 +39,10 @@ describe('NavigationBar', () => {
       </Router>
     );
 
-    for (let key in ROUTES) {
+    for (const key in ROUTES) {
       history.push(ROUTES[key]);
 
-      let element = dom.getByTestId(testIds[ROUTES[key]]);
+      const element = dom.getByTestId(testIds[ROUTES[key]]);
 
       expect(element.classList.contains('active')).toBeTruthy();
     }
