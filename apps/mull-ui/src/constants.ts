@@ -1,3 +1,6 @@
+/**
+ * Map of the current routes for the application
+ */
 export const ROUTES = {
   HOME: '/home',
   MAP: '/map',

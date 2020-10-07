@@ -6,6 +6,9 @@ import NavigationBar from './components/navigation-bar/navigation-bar';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { ROUTES } from '../constants';
 
+/**
+ * Main component of the application
+ */
 export const App = () => {
   return (
     <div className="container">

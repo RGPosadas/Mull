@@ -15,6 +15,11 @@ import { ROUTES } from '../../../constants';
 
 export interface NavigationBarProps {}
 
+/**
+ * Component for navigation across the different routes of the application.
+ *
+ * @see ROUTES
+ */
 export const NavigationBar = ({}: NavigationBarProps) => {
   return (
     <div className="nav-container">
