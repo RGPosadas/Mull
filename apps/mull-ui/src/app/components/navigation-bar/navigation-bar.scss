@@ -27,6 +27,16 @@
   }
 }
 
+.nav-middle-button {
+  width: 3.5em;
+  height: 3.5em;
+
+  @media (min-width: $breakpoint-mobile) {
+    width: 4em;
+    height: 4em;
+  }
+}
+
 .active {
   svg {
     fill: $primary-color;
