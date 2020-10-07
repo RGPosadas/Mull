@@ -40,7 +40,7 @@ exports[`NavigationBar should match snapshot 1`] = `
     onClick={[Function]}
   >
     <svg
-      className="nav-button"
+      className="nav-middle-button"
     >
       NewEventIcon.svg
     </svg>
