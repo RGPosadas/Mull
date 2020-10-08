@@ -3,10 +3,14 @@ import { Message } from '@mull/types';
 import { environment } from '../environments/environment';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import CreateEventPage from './pages/create-event/create-event';
 =======
 import CreateEventPage from './pages/create-event/create-event.component';
 >>>>>>> 1f180a8... Add Create Event page #27
+=======
+import CreateEventPage from './pages/create-event/create-event';
+>>>>>>> 9e37f4d... added pill options #27
 
 import NavigationBar from './components/navigation-bar/navigation-bar';
 import { Redirect, Route, Switch } from 'react-router-dom';

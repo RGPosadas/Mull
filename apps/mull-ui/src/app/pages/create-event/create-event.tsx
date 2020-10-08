@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { PillOptions } from '@mull/ui-lib';
 
 import './create-event.scss';
@@ -13,30 +14,47 @@ const CreateEventPage = () => {
 
 =======
 import SimpleReactCalendar from 'simple-react-calendar';
+=======
+import { PillOptions } from '@mull/ui-lib';
+>>>>>>> 9e37f4d... added pill options #27
 
-import './create-event.styles.scss';
+import './create-event.scss';
+
+/* eslint-disable-next-line */
+export interface CreateEventProps {}
 
 const CreateEventPage = () => {
   const [imageFile, setImageFile] = useState(null);
+<<<<<<< HEAD
 >>>>>>> a0edb24... Rename project files #27
+=======
+  const [activeRestriction, setActiveRestriction] = useState(null);
+
+>>>>>>> 9e37f4d... added pill options #27
   const handleFileUpload = (event) => {
     console.log(event.target.files[0]);
     setImageFile(URL.createObjectURL(event.target.files[0]));
   };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9e37f4d... added pill options #27
   const handleRestrictions = (idx) => {
     setActiveRestriction(idx);
   };
 
+<<<<<<< HEAD
   return (
     <div className="create-event">
       <p className="create-event-text">Create Event</p>
       <label htmlFor="file-upload" className="custom-file-upload event-input-border">
 =======
+=======
+>>>>>>> 9e37f4d... added pill options #27
   return (
     <div className="create-event">
-      <p className="create-event-text">Create Event</p>
+      <p className="create-event-text"> {activeRestriction} Create Event</p>
       <label htmlFor="file-upload" className="custom-file-upload">
 >>>>>>> a0edb24... Rename project files #27
         {imageFile ? (
@@ -90,8 +108,16 @@ const CreateEventPage = () => {
         Location
       </label>
       <input className="create-event-input" id="location" type="text" />
+<<<<<<< HEAD
 
 >>>>>>> a0edb24... Rename project files #27
+=======
+      <PillOptions
+        options={['Everyone', 'Friends', 'Invitation Only']}
+        onChange={handleRestrictions}
+        active={activeRestriction}
+      />
+>>>>>>> 9e37f4d... added pill options #27
       <button className="create-event-button">create +</button>
     </div>
   );
