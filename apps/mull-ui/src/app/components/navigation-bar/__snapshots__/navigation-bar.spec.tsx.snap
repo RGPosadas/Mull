@@ -35,7 +35,7 @@ exports[`NavigationBar should match snapshot 1`] = `
   </a>
   <a
     aria-current={null}
-    data-testid="new-event-navlink"
+    data-testid="create-event-navlink"
     href="/create-event"
     onClick={[Function]}
   >

@@ -27,7 +27,7 @@ describe('NavigationBar', () => {
     const testIds = {
       [ROUTES.HOME]: 'home-navlink',
       [ROUTES.MAP]: 'map-navlink',
-      [ROUTES.CREATE_EVENT]: 'new-event-navlink',
+      [ROUTES.CREATE_EVENT]: 'create-event-navlink',
       [ROUTES.TOOLS]: 'tools-navlink',
       [ROUTES.PROFILE]: 'profile-navlink',
     };
