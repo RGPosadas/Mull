@@ -16,7 +16,7 @@ exports[`NavigationBar should match snapshot 1`] = `
     onClick={[Function]}
   >
     <svg
-      className="nav-button"
+      className="nav-button mobile-button"
     >
       HomeIcon.svg
     </svg>
@@ -28,7 +28,7 @@ exports[`NavigationBar should match snapshot 1`] = `
     onClick={[Function]}
   >
     <svg
-      className="nav-button"
+      className="nav-button mobile-button"
     >
       MapIcon.svg
     </svg>
@@ -40,7 +40,7 @@ exports[`NavigationBar should match snapshot 1`] = `
     onClick={[Function]}
   >
     <svg
-      className="nav-middle-button"
+      className="nav-button mobile-middle-button"
     >
       NewEventIcon.svg
     </svg>
@@ -52,7 +52,7 @@ exports[`NavigationBar should match snapshot 1`] = `
     onClick={[Function]}
   >
     <svg
-      className="nav-button"
+      className="nav-button mobile-button"
     >
       ToolMenuIcon.svg
     </svg>
@@ -64,7 +64,7 @@ exports[`NavigationBar should match snapshot 1`] = `
     onClick={[Function]}
   >
     <svg
-      className="nav-button"
+      className="nav-button mobile-button"
     >
       ProfileIcon.svg
     </svg>
