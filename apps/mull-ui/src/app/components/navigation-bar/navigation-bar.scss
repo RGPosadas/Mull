@@ -8,6 +8,8 @@
   align-items: center;
   justify-content: space-around;
 
+  padding: 0.7em 0;
+
   @media (min-width: $breakpoint-mobile) {
     padding: 1em 0;
     gap: 3em;
@@ -18,8 +20,8 @@
 }
 
 .nav-button {
-  width: 3em;
-  height: 3em;
+  width: 2.2em;
+  height: 2.2em;
 
   @media (min-width: $breakpoint-mobile) {
     width: 4em;
@@ -28,8 +30,8 @@
 }
 
 .nav-middle-button {
-  width: 3.5em;
-  height: 3.5em;
+  width: 2.5em;
+  height: 2.5em;
 
   @media (min-width: $breakpoint-mobile) {
     width: 4em;

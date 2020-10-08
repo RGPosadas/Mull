@@ -28,7 +28,7 @@ export const NavigationBar = () => {
       <NavLink to={ROUTES.MAP} activeClassName="active" data-testid="map-navlink">
         <MapIcon className="nav-button" />
       </NavLink>
-      <NavLink to={ROUTES.NEW_EVENT} activeClassName="active" data-testid="new-event-navlink">
+      <NavLink to={ROUTES.CREATE_EVENT} activeClassName="active" data-testid="new-event-navlink">
         <NewEventIcon className="nav-middle-button" />
       </NavLink>
       <NavLink to={ROUTES.TOOLS} activeClassName="active" data-testid="tools-navlink">

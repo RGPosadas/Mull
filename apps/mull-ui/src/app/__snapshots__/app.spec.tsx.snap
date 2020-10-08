@@ -44,7 +44,7 @@ exports[`App should match snapshot 1`] = `
     <a
       aria-current={null}
       data-testid="new-event-navlink"
-      href="/new-event"
+      href="/create-event"
       onClick={[Function]}
     >
       <svg

@@ -4,7 +4,7 @@
 export const ROUTES = {
   HOME: '/home',
   MAP: '/map',
-  NEW_EVENT: '/new-event',
+  CREATE_EVENT: '/create-event',
   TOOLS: '/tools',
   PROFILE: '/profile',
 };
