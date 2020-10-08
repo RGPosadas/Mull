@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
-import SimpleReactCalendar from 'simple-react-calendar';
+import { PillOptions } from '@mull/ui-lib';
 
-import './create-event.styles.scss';
+import './create-event.scss';
+
+/* eslint-disable-next-line */
+export interface CreateEventProps {}
 
 const CreateEventPage = () => {
   const [imageFile, setImageFile] = useState(null);
+  const [activeRestriction, setActiveRestriction] = useState(null);
+
   const handleFileUpload = (event) => {
     console.log(event.target.files[0]);
     setImageFile(URL.createObjectURL(event.target.files[0]));
   };
 
+  const handleRestrictions = (idx) => {
+    setActiveRestriction(idx);
+  };
+
   return (
     <div className="create-event">
-      <p className="create-event-text">Create Event</p>
+      <p className="create-event-text"> {activeRestriction} Create Event</p>
       <label htmlFor="file-upload" className="custom-file-upload">
         {imageFile ? (
           <img src={imageFile} style={{ width: '50%', height: '50%' }} alt="sup" />
@@ -40,7 +49,11 @@ const CreateEventPage = () => {
         Location
       </label>
       <input className="create-event-input" id="location" type="text" />
-
+      <PillOptions
+        options={['Everyone', 'Friends', 'Invitation Only']}
+        onChange={handleRestrictions}
+        active={activeRestriction}
+      />
       <button className="create-event-button">create +</button>
     </div>
   );

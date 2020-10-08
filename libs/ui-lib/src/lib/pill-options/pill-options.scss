@@ -1,0 +1,24 @@
+.create-event-restriction {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.restriction-option {
+  border: 1px #27b09a solid;
+  outline: none;
+  margin-bottom: 20px;
+  padding: 0 5em;
+
+  &:first-child {
+    border-radius: 10px 0px 0px 10px;
+  }
+
+  &:last-child {
+    border-radius: 0px 10px 10px 0px;
+  }
+
+  &.active {
+    background-color: #27b09a;
+  }
+}
