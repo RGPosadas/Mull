@@ -9,9 +9,9 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Media } from './media.entity';
-import { Channel } from './channel.entity';
 import { Participants } from './participants.entity';
 import { Event } from './event.entity';
+import { PostReaction } from './postReaction.entity';
 
 @Entity()
 export class User {
@@ -55,12 +55,12 @@ export class User {
   @JoinTable({ name: 'friends', joinColumn: { name: 'friendId' } })
   user: User[];
 
-  @ManyToMany('Channel', 'channelParticipants')
-  public channels: Channel[];
-
   @OneToMany('Participants', 'user')
   participants: Participants[];
 
   @OneToMany('Event', 'host')
   events: Event[];
+
+  @OneToMany('PostReaction', 'user')
+  postReactions: PostReaction[];
 }

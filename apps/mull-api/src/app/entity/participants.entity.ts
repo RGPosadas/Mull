@@ -1,14 +1,7 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
-  ManyToMany,
-  ManyToOne,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, ManyToOne, JoinTable } from 'typeorm';
 import { Event } from './event.entity';
 import { User } from './user.entity';
+import { Channel } from './channel.entity';
 
 @Entity()
 export class Participants {
@@ -23,4 +16,8 @@ export class Participants {
 
   @ManyToOne('User', 'participants')
   user: User;
+
+  @ManyToMany('Channel', 'participants')
+  @JoinTable({ name: 'channel_participants' })
+  channels: Channel[];
 }

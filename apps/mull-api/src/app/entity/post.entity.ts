@@ -1,4 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToOne, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+  OneToOne,
+  OneToMany,
+  ManyToOne,
+} from 'typeorm';
 import { Channel } from './channel.entity';
 import { User } from './user.entity';
 import { PostMedia } from './postMedia.entity';
@@ -8,10 +16,6 @@ import { PostReaction } from './postReaction.entity';
 export class Post {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @OneToOne('Channel')
-  @JoinColumn()
-  channel: Channel;
 
   @OneToOne('User')
   @JoinColumn()
@@ -32,4 +36,7 @@ export class Post {
 
   @OneToMany('PostReaction', 'post')
   reactions: PostReaction[];
+
+  @ManyToOne('Channel', 'posts')
+  channel: Channel;
 }

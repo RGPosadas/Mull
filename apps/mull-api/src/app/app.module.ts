@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from './users/users.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -9,7 +8,7 @@ import { Connection } from 'typeorm';
 import config from '../ormconfig.js';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(config), UsersModule],
+  imports: [TypeOrmModule.forRoot(config)],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -128,6 +128,7 @@ nx affected:e2e --base=origin/<base-branch>
 
 - [Install pre-commit](https://pre-commit.com/#install)
 - Run `pre-commit install` to install the git hooks
+- Add ormconfig.js in `apps/mull-api/src`. File is available in Bug Bytes docs and resources slack channel.
 
 ## Pre-commit and Linting
 
