@@ -1,14 +1,9 @@
-<<<<<<< HEAD
 .pill-options {
-=======
-.create-event-restriction {
->>>>>>> 9e37f4d... added pill options #27
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-<<<<<<< HEAD
 .pill-option {
   border: 1.3px #27b09a solid;
   outline: none;
@@ -16,13 +11,6 @@
   justify-content: center;
   font-size: 12px;
   text-align: center;
-=======
-.restriction-option {
-  border: 1px #27b09a solid;
-  outline: none;
-  margin-bottom: 20px;
-  padding: 0 5em;
->>>>>>> 9e37f4d... added pill options #27
 
   &:first-child {
     border-radius: 10px 0px 0px 10px;
@@ -34,9 +22,6 @@
 
   &.active {
     background-color: #27b09a;
-<<<<<<< HEAD
     color: #ffffff;
-=======
->>>>>>> 9e37f4d... added pill options #27
   }
 }
