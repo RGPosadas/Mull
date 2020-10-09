@@ -21,8 +21,8 @@ const CreateEventPage = () => {
 
   return (
     <div className="create-event">
-      <p className="create-event-text"> {activeRestriction} Create Event</p>
-      <label htmlFor="file-upload" className="custom-file-upload">
+      <p className="create-event-text">Create Event</p>
+      <label htmlFor="file-upload" className="custom-file-upload event-input-border">
         {imageFile ? (
           <img src={imageFile} style={{ width: '50%', height: '50%' }} alt="sup" />
         ) : (
@@ -35,22 +35,26 @@ const CreateEventPage = () => {
         id="file-upload"
         type="file"
       />
-      <label className="create-event-label" htmlFor="event-title">
-        Event Title
-      </label>
-      <input className="create-event-input" id="event-title" type="text" />
-
-      <label className="create-event-label" htmlFor="description">
-        Description
-      </label>
-      <input className="create-event-input" id="description" type="text" />
-
-      <label className="create-event-label" htmlFor="location">
-        Location
-      </label>
-      <input className="create-event-input" id="location" type="text" />
+      <div>
+        <label className="create-event-label" htmlFor="event-title">
+          Event Title
+        </label>
+        <input className="create-event-input event-input-border" id="event-title" type="text" />
+      </div>
+      <div>
+        <label className="create-event-label" htmlFor="description">
+          Description
+        </label>
+        <input className="create-event-input event-input-border" id="description" type="text" />
+      </div>
+      <div>
+        <label className="create-event-label" htmlFor="location">
+          Location
+        </label>
+        <input className="create-event-input event-input-border" id="location" type="text" />
+      </div>
       <PillOptions
-        options={['Everyone', 'Friends', 'Invitation Only']}
+        options={['Everyone', 'Friends', 'Invite Only']}
         onChange={handleRestrictions}
         active={activeRestriction}
       />

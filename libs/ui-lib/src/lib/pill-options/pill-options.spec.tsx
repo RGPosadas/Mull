@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import RestrictionOptions from './restriction-options';
+import PillOptions from './pill-options';
 
 describe('RestrictionOptions', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<RestrictionOptions />);
+    const { baseElement } = render(<PillOptions options={['test']} />);
     expect(baseElement).toBeTruthy();
   });
 });

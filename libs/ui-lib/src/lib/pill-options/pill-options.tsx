@@ -11,11 +11,11 @@ export interface PillOptionsProps {
 
 export const PillOptions = ({ options, onChange, active }: PillOptionsProps) => {
   return (
-    <div className="create-event-restriction">
+    <div className="pill-options">
       {options.map((option, idx) => (
         <div
           key={option}
-          className={`restriction-option ${active === idx ? `active` : ''}`}
+          className={`pill-option ${active === idx ? `active` : ''}`}
           onClick={() => {
             onChange(idx);
           }}

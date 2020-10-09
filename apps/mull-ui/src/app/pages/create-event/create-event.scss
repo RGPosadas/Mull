@@ -1,21 +1,34 @@
+@import '../../../variables.scss';
+
 .create-event {
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  padding: 0em 1em;
+
+  width: 100%;
+  @media (min-width: $breakpoint-mobile) {
+    width: 50%;
+    margin: auto;
+  }
 }
 
 .event-image-upload {
   display: none;
 }
 
-.custom-file-upload {
-  display: flex;
-  padding: 6px 12px;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #27b09a;
+.event-input-border {
   border-radius: 20px;
+  border: 1.5px $primary-color solid;
+}
+
+.custom-file-upload {
+  display: block;
+  padding: 1.8em 5em;
+  cursor: pointer;
+
   margin-bottom: 20px;
 
   &:hover {
@@ -24,19 +37,23 @@
 }
 
 .create-event-text {
-  color: #27b09a;
+  color: $primary-color;
 }
 
 .create-event-label {
-  color: #27b09a;
+  color: $primary-color;
   align-items: left;
 }
 
 .create-event-input {
-  border: 1px #27b09a solid;
-  border-radius: 20px;
+  display: block;
+  box-sizing: border-box;
+
   outline: none;
   margin-bottom: 20px;
+  padding-left: 1em;
+  width: 100%;
+  height: 2.8em;
 }
 
 .create-event-button {
@@ -47,4 +64,9 @@
   border: 1px solid #6fb4a5;
   border-radius: 19px;
   outline: none;
+  margin-top: 20px;
+}
+
+div {
+  width: 100%;
 }

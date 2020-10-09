@@ -20,7 +20,7 @@ export const App = () => {
           <Route exact path="/">
             {<Redirect to={ROUTES.HOME} />}
           </Route>
-          <Route exact path="/create-event" component={CreateEventPage} />
+          <Route exact path={ROUTES.CREATE_EVENT} component={CreateEventPage} />
         </Switch>
       </div>
       <NavigationBar />
