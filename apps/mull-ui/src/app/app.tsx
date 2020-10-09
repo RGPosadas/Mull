@@ -1,33 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import './app.scss';
 
-import { environment } from '../environments/environment';
-import { Message } from '@mull/types';
-import { UiLib } from '@mull/ui-lib';
+import NavigationBar from './components/navigation-bar/navigation-bar';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { ROUTES } from '../constants';
 
+/**
+ * Main component of the application
+ */
 export const App = () => {
-  const [apiMessage, setApiMessage] = useState('');
-  const [messageClasses, setMessageClasses] = useState('message empty');
-
-  useEffect(() => {
-    fetch(environment.backendUrl)
-      .then((r) => r.json())
-      .then((data: Message) => {
-        setApiMessage(data.message);
-        console.log(data.message);
-        setMessageClasses('message full');
-      })
-      .catch(() => undefined);
-  }, []);
-
   return (
-    <div className="main-content">
-      <h1 className="card">Welcome to mull-ui!</h1>
-      <h1>Is this a production build? {environment.production ? 'Yes' : 'No'}! </h1>
-      <h1 className="card">Below, a message from the backend should appear!</h1>
-      <div className={messageClasses}>{apiMessage}</div>
-      <UiLib></UiLib>
+    <div className="container">
+      <div className="main-content">
+        <Switch>
+          <Route exact path="/">
+            {<Redirect to={ROUTES.HOME} />}
+          </Route>
+        </Switch>
+      </div>
+
+      <NavigationBar />
     </div>
   );
 };

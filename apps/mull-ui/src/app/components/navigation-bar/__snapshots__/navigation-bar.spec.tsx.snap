@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavigationBar should match snapshot 1`] = `
+<div
+  className="nav-container"
+>
+  <img
+    alt="Mull logo"
+    className="logo nav-element"
+    src="mull-logo.png"
+  />
+  <a
+    aria-current={null}
+    data-testid="home-navlink"
+    href="/home"
+    onClick={[Function]}
+  >
+    <svg
+      className="nav-button mobile-button"
+    >
+      HomeIcon.svg
+    </svg>
+  </a>
+  <a
+    aria-current={null}
+    data-testid="map-navlink"
+    href="/map"
+    onClick={[Function]}
+  >
+    <svg
+      className="nav-button mobile-button"
+    >
+      MapIcon.svg
+    </svg>
+  </a>
+  <a
+    aria-current={null}
+    data-testid="create-event-navlink"
+    href="/create-event"
+    onClick={[Function]}
+  >
+    <svg
+      className="nav-button mobile-middle-button"
+    >
+      CreateEventIcon.svg
+    </svg>
+  </a>
+  <a
+    aria-current={null}
+    data-testid="tools-navlink"
+    href="/tools"
+    onClick={[Function]}
+  >
+    <svg
+      className="nav-button mobile-button"
+    >
+      ToolMenuIcon.svg
+    </svg>
+  </a>
+  <a
+    aria-current={null}
+    data-testid="profile-navlink"
+    href="/profile"
+    onClick={[Function]}
+  >
+    <svg
+      className="nav-button mobile-button"
+    >
+      ProfileIcon.svg
+    </svg>
+  </a>
+</div>
+`;
