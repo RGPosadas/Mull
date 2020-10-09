@@ -42,7 +42,7 @@ exports[`NavigationBar should match snapshot 1`] = `
     <svg
       className="nav-button mobile-middle-button"
     >
-      NewEventIcon.svg
+      CreateEventIcon.svg
     </svg>
   </a>
   <a

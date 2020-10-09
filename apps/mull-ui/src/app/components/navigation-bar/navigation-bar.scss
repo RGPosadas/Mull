@@ -28,6 +28,7 @@
 }
 
 .nav-button {
+  fill: $inactive-button-color;
   width: 2.2em;
   height: 2.2em;
 
@@ -49,9 +50,9 @@
 
 .logo {
   display: none;
-  width: 13em;
 
   @media (min-width: $breakpoint-mobile) {
     display: inline-block;
+    width: 13em;
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import './navigation-bar.scss';
 
-import { ReactComponent as NewEventIcon } from '../../../assets/icons/nav-bar-icons/NewEventIcon.svg';
+import { ReactComponent as CreateEventIcon } from '../../../assets/icons/nav-bar-icons/CreateEventIcon.svg';
 import { ReactComponent as HomeIcon } from '../../../assets/icons/nav-bar-icons/HomeIcon.svg';
 import { ReactComponent as MapIcon } from '../../../assets/icons/nav-bar-icons/MapIcon.svg';
 import { ReactComponent as ToolMenuIcon } from '../../../assets/icons/nav-bar-icons/ToolMenuIcon.svg';
@@ -29,7 +29,7 @@ export const NavigationBar = () => {
         <MapIcon className="nav-button mobile-button" />
       </NavLink>
       <NavLink to={ROUTES.CREATE_EVENT} activeClassName="active" data-testid="create-event-navlink">
-        <NewEventIcon className="nav-button mobile-middle-button" />
+        <CreateEventIcon className="nav-button mobile-middle-button" />
       </NavLink>
       <NavLink to={ROUTES.TOOLS} activeClassName="active" data-testid="tools-navlink">
         <ToolMenuIcon className="nav-button mobile-button" />
