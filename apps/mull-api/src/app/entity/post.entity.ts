@@ -9,8 +9,8 @@ import {
 } from 'typeorm';
 import { Channel } from './channel.entity';
 import { User } from './user.entity';
-import { PostMedia } from './postMedia.entity';
-import { PostReaction } from './postReaction.entity';
+import { PostMedia } from './post-media.entity';
+import { PostReaction } from './post-reaction.entity';
 
 @Entity()
 export class Post {

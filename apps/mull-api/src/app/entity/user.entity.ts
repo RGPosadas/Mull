@@ -11,7 +11,7 @@ import {
 import { Media } from './media.entity';
 import { Participants } from './participants.entity';
 import { Event } from './event.entity';
-import { PostReaction } from './postReaction.entity';
+import { PostReaction } from './post-reaction.entity';
 
 @Entity()
 export class User {
@@ -24,8 +24,8 @@ export class User {
   @Column()
   email: string;
 
-  @Column({ default: true })
-  timezone: boolean;
+  @Column()
+  timezone: string;
 
   @OneToOne('Media')
   @JoinColumn()
