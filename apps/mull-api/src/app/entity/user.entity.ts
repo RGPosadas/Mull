@@ -48,8 +48,8 @@ export class User {
   friends: User[];
 
   /**
-   * Friends of this user. People who are following this user (followers).
-   * e.g: You are friends with me. Your ID would go in this list.
+   * This generates a pivot table named friends.
+   * In this column, the current userId would be added.
    */
   @ManyToMany('User', 'friends')
   @JoinTable({ name: 'friends', joinColumn: { name: 'friendId' } })
