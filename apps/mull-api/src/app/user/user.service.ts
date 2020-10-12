@@ -20,9 +20,8 @@ export class UserService {
   }
 
   async findAllFriends(id: number): Promise<User[]> {
-    const what = await this.userRepository.find({ relations: ['friends'] });
-    console.log(JSON.stringify(what));
-    return null;
+    const { friends } = await this.userRepository.findOne(id, { relations: ['friends'] });
+    return friends;
   }
 
   async remove(id: string): Promise<void> {

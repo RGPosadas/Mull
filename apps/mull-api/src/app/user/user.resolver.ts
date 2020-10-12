@@ -13,13 +13,12 @@ export class UserResolver {
 
   @Query(() => UserType)
   async user(@Args('id', { type: () => Int }) id: number) {
-    this.userService.findAllFriends(id);
     return this.userService.findOne(id);
   }
 
-  //   @ResolveField()
-  //   async friends(@Parent() user: UserType) {
-  //     const { id } = user;
-  //     return this.userService.findAllFriends();
-  //   }
+  @ResolveField(() => [UserType])
+  async friends(@Parent() user: UserType) {
+    const { id } = user;
+    return this.userService.findAllFriends(id);
+  }
 }
