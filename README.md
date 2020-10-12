@@ -1,21 +1,27 @@
 # Müll
 
-- [Team Members](#team-members)
-- [Development Guidelines](#development-guidelines)
-- [Setting Up A Development Environment](#setting-up-a-development-environment)
-- [Running The Application](#running-the-application)
-  - [Serving the application locally for development:](#serving-the-application-locally-for-development)
-  - [Building the application for production:](#building-the-application-for-production)
-  - [Serving the production built stack locally:](#serving-the-production-built-stack-locally)
-- [Running Tests](#running-tests)
-- [Building and Running The Application with Docker](#building-and-running-the-application-with-docker)
-  - [Front-end](#front-end)
-  - [Back-end](#back-end)
-- [Enforcing Code Formatting and Standards](#enforcing-code-formatting-and-standards)
-- [Troubleshooting](#troubleshooting)
-  - [Inonsistent/Failing Travis Builds](#inonsistentfailing-travis-builds)
+- [Müll](#m-ll)
+  - [Team Members](#team-members)
+  - [Development Guidelines](#development-guidelines)
+  - [Setting Up your Development Environment](#setting-up-your-development-environment)
+    - [Nx and npm](#nx-and-npm)
+    - [Enforcing Code Formatting and Standards](#enforcing-code-formatting-and-standards)
+    - [Secrets and configuration](#secrets-and-configuration)
+  - [Running Linting](#running-linting)
+  - [Running Tests](#running-tests)
+    - [Unit and UI Snapshot Tests](#unit-and-ui-snapshot-tests)
+    - [E2E Tests](#e2e-tests)
+  - [Running The Application](#running-the-application)
+    - [Serving the application locally for development:](#serving-the-application-locally-for-development-)
+    - [Building the application for production:](#building-the-application-for-production-)
+    - [Serving the production built stack locally:](#serving-the-production-built-stack-locally-)
+  - [Building and Running The Application with Docker](#building-and-running-the-application-with-docker)
+    - [Front-end](#front-end)
+    - [Back-end](#back-end)
+  - [Troubleshooting](#troubleshooting)
+    - [Inconsistent/Failing Travis Builds](#inconsistent-failing-travis-builds)
 
-# Team Members
+## Team Members
 
 Müll is brought to you by members of `Team Bug bytes`.
 
@@ -29,37 +35,134 @@ Müll is brought to you by members of `Team Bug bytes`.
 - Leo Jr. Silao, @leojrsilao
 - Ragith Sabapathipillai, @r-saba
 
-# Development Guidelines
+## Development Guidelines
 
-- We try our best to adhere to the set of rules and guidelines that we've come up as a team in order to have an efficient workflow.
-- To view our guidelines, refer to our [GitHub Wiki](https://github.com/RGPosadas/Mull/wiki).
+We try our best to adhere to the set of rules and guidelines that we've come up as a team to have an efficient workflow. To view our guidelines, refer to our [GitHub Wiki](https://github.com/RGPosadas/Mull/wiki).
 
-# Setting Up A Development Environment
+## Setting Up your Development Environment
 
+### Nx and npm
+
+We use npm and Nx to manage our workspace and dependencies. The Nx CLI offers powerful tools for development, and we recommend you install it when contributing to the project.
+
+1. Install npm and nodejs for your operating system.
 1. Install the Nx CLI:
    - `npm install -g nx`
-2. Install dependencies
+1. Install dependencies:
    - `npm i`
-3. Install pre-commit: https://pre-commit.com/
+
+### Enforcing Code Formatting and Standards
+
+This project uses pre-commit to enforce formatting and standards. To make sure standards are followed, Travis fails commits which don't comply. This section will detail how to setup pre-commit locally.
+
+1. [Install pre-commit](https://pre-commit.com/#install):
    - `pip install pre-commit`
-   - `pre-commit install` (Run in the root dir. of the project)
-4. Add the database configuration file.
-   - Add ormconfig.js in `apps/mull-api/src`. File is available in Bug Bytes docs and resources slack channel.
+2. Install the git hooks needed for pre-commit for every commit:
+   - `pre-commit install`
+3. Run pre-commit on all files:
+   - `pre-commit run -a`
+4. You're done! pre-commit will now run when you create a commit for our repository!
 
-# Running The Application
+### Secrets and configuration
 
-## Serving the application locally for development:
+Some secrets and sensitive configuration files are needed to properly operate certains parts of the stack.
+
+1. Add a database configuration file to `apps/mull-api/src/ormconfig.js`. The file and its contents are available on the Bug Bytes #docs-and-resources Slack channel.
+
+## Running Linting
+
+Linting is done through the [Nx CLI](https://nx.dev/latest/react/cli/lint), and uses ESLint.
+
+To lint a project:
+
+```bash
+nx lint <project>
+```
+
+To lint all projects:
+
+```bash
+nx run-many --target=lint --all
+```
+
+To lint projects affected by your changes:
+
+```bash
+nx affected:lint --base=origin/<base-branch>
+```
+
+## Running Tests
+
+### Unit and UI Snapshot Tests
+
+Testing is done thought the [Nx CLI](https://nx.dev/latest/react/cli/test), and uses Jest as the main test runner. Unit tests for our ui project(s) also include snapshot tests using [React Test Renderer](https://reactjs.org/docs/test-renderer.html).
+
+To test a project:
+
+```bash
+nx test <project>
+```
+
+To update the snapshots of a project:
+
+```bash
+nx test <project> --updateSnapshot
+```
+
+To test all projects:
+
+```bash
+nx run-many --target=test --all
+```
+
+To test projects affected by your changes:
+
+```bash
+nx affected:test --base=origin/<base-branch>
+```
+
+### E2E Tests
+
+E2E testing is done thought the [Nx CLI](https://nx.dev/latest/react/cli/e2e), and uses [cypress](https://www.cypress.io/).
+
+To run e2e tests for a project:
+
+```bash
+nx e2e <project>
+```
+
+To run e2e tests in watch mode:
+
+```bash
+nx e2e <project> --watch
+```
+
+To run e2e tests in headless mode:
+
+```bash
+nx e2e <project> --headless
+```
+
+To run e2e tests on projects affected by your changes:
+
+```bash
+nx affected:e2e --base=origin/<base-branch>
+```
+
+## Running The Application
+
+### Serving the application locally for development:
 
 1. Serve the front-end application:
    - `npm start mull-ui`
 2. Serve the back-end application (in a different tab):
    - `npm start mull-api`
 
-## Building the application for production:
+### Building the application for production:
 
 - `npm run build-ui && npm run build-api`
 
-## Serving the production built stack locally:
+### Serving the production built stack locally:
 
 1. Serve the production frontend:
    1. Install `http-server` (or some other web server)
@@ -72,77 +175,25 @@ Müll is brought to you by members of `Team Bug bytes`.
 2. Serve the production backend:
    - `node dist/apps/mull-api/main.js`
 
-# Running Tests
+## Building and Running The Application with Docker
 
-## Unit and UI Snapshot Tests
-
-Our unit tests use Jest as their test runner. As for snapshot tests, they are handled by the `react-test-renderer` package.
-
-To run all unit and snapshot tests:
-
-```
-nx run-many --all --target=test
-```
-
-To run only affected unit and snapshot tests against a base branch:
-
-```
-nx affected:test --base=origin/<base-branch>
-```
-
-## E2E Tests
-
-We use Cypress as our framework for E2E tests.
-
-To run all e2e tests:
-
-```
-nx run-many --all --target=e2e
-```
-
-To run only affected E2E tests against a base branch:
-
-```
-nx affected:e2e --base=origin/<base-branch>
-```
-
-# Building and Running The Application with Docker
-
-## Front-end
+### Front-end
 
 1. Build
    - `docker build -t mull-ui:dev -f apps/mull-ui/Dockerfile .`
 2. Run
    - `docker run -p 8080:80 mull-ui:dev`
 
-## Back-end
+### Back-end
 
 1. Build
    - `docker build -t mull-api:dev -f apps/mull-api/Dockerfile .`
 2. Run
    - `docker run -p 3333:3333 mull-api:dev`
 
-# Enforcing Code Formatting and Standards
+## Troubleshooting
 
-`Team Bug bytes` code enforces formatting and standards through pre-commit and ESLint. To further enforce these standards, if these enforcements do not pass, then Travis will fail the build.
-
-## Prerequisites
-
-- [Install pre-commit](https://pre-commit.com/#install)
-- Run `pre-commit install` to install the git hooks
-
-## Pre-commit and Linting
-
-To manually run pre-commit and linting against a base branch:
-
-```
-pre-commit run -a
-npm run affected:lint -- --base=origin/<base-branch>
-```
-
-# Troubleshooting
-
-## Inonsistent/Failing Travis Builds
+### Inconsistent/Failing Travis Builds
 
 We are now caching `npm` and `pre-commit` for faster build times. However, it is possible for the cache to be spoiled with bad data, or can simply become invalid/obsolete. This would result in inconsistent, or even failed, Travis builds compared to local builds.
 

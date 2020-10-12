@@ -10,4 +10,3 @@ RUN npm run build-api
 WORKDIR /usr/src/app/dist/apps/mull-api
 
 CMD ["node", "main.js"]
-
