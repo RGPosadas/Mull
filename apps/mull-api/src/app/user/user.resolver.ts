@@ -1,4 +1,5 @@
 import { Resolver, Query, Mutation, Args, ResolveField, Parent, Int } from '@nestjs/graphql';
+import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 import { UserService } from './user.service';
 import { UserType } from './user.type';
 
@@ -20,5 +21,20 @@ export class UserResolver {
   async friends(@Parent() user: UserType) {
     const { id } = user;
     return this.userService.findAllFriends(id);
+  }
+
+  @Mutation(() => UserType)
+  async createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
+    return this.userService.create(createUserInput);
+  }
+
+  @Mutation(() => UserType)
+  async updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
+    return this.userService.updateUser(updateUserInput);
+  }
+
+  @Mutation(() => UserType)
+  async deleteUser(@Args('id', { type: () => Int }) id: number) {
+    return this.userService.delete(id);
   }
 }

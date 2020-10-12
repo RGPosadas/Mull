@@ -14,9 +14,6 @@ export class UserType {
   @Field()
   timezone: string;
 
-  //   @Field(() => MediaType)
-  //   avatar: MediaType;
-
   @Field()
   name: string;
 
@@ -29,9 +26,14 @@ export class UserType {
   @Field(() => [UserType])
   friends: UserType[];
 
+  // TODO: Implement modules, services, types for Entities below
+
   //   @Field(() => [EventType])
   //   events: EventType[];
 
   //   @Field(() => [PostReactionType])
   //   postReactions: PostReactionType[];
+
+  //   @Field(() => MediaType)
+  //   avatar: MediaType;
 }

@@ -24,7 +24,9 @@ export class User {
   @Column()
   email: string;
 
-  @Column()
+  @Column({
+    default: '',
+  })
   timezone: string;
 
   @OneToOne('Media')
@@ -37,7 +39,9 @@ export class User {
   @Column()
   age: string;
 
-  @Column()
+  @Column({
+    default: '',
+  })
   description: string;
 
   /**

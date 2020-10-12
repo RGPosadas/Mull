@@ -2,9 +2,29 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateUserInput {
+  age: String!
+  email: String!
+  name: String!
+  password: String!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  deleteUser(id: Int!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+}
+
 type Query {
   user(id: Int!): User!
   users: [User!]!
+}
+
+input UpdateUserInput {
+  age: String
+  email: String
+  id: ID!
+  name: String
 }
 
 type User {
