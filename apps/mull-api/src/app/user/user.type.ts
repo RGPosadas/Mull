@@ -2,7 +2,7 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 @ObjectType('User')
 export class UserType {
-  @Field(() => ID)
+  @Field(/* istanbul ignore next */ () => ID)
   id: number;
 
   @Field()
@@ -23,7 +23,7 @@ export class UserType {
   @Field()
   description: string;
 
-  @Field(() => [UserType])
+  @Field(/* istanbul ignore next */ () => [UserType])
   friends: UserType[];
 
   // TODO: Implement modules, services, types for Entities below

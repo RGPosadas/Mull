@@ -18,7 +18,7 @@ export class CreateUserInput implements Partial<UserType> {
 
 @InputType()
 export class UpdateUserInput implements Partial<UserType> {
-  @Field(() => ID)
+  @Field(/* istanbul ignore next */ () => ID)
   id: number;
   @Field({ nullable: true })
   age?: string;
