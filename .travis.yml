@@ -17,7 +17,7 @@ addons:
       secure: $SONAR_TOKEN
 script:
   - pre-commit run -a
-  - npm run affected:lint -- --base=origin/master
-  - npm run affected:test -- --base=origin/master --codeCoverage
-  - npm run affected:e2e -- --base=origin/master
+  - npm run affected:lint -- --base=origin/develop
+  - npm run affected:test -- --base=origin/develop --codeCoverage
+  - npm run affected:e2e -- --base=origin/develop
   - sonar-scanner
