@@ -3,7 +3,7 @@ import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 import { UserService } from './user.service';
 import { UserType } from './user.type';
 
-@Resolver(() => UserType)
+@Resolver(/* istanbul ignore next */ () => UserType)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
@@ -13,7 +13,7 @@ export class UserResolver {
   }
 
   @Query(/* istanbul ignore next */ () => UserType)
-  async user(@Args('id', { type: () => Int }) id: number) {
+  async user(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
     return this.userService.findOne(id);
   }
 
@@ -34,7 +34,7 @@ export class UserResolver {
   }
 
   @Mutation(/* istanbul ignore next */ () => UserType)
-  async deleteUser(@Args('id', { type: () => Int }) id: number) {
+  async deleteUser(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
     return this.userService.delete(id);
   }
 }
