@@ -8,7 +8,7 @@ const mockUserService = () => ({
   create: jest.fn((mockUserData: CreateUserInput) => ({ ...mockUserData })),
   findOne: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
   findAll: jest.fn(() => mockAllUsers),
-  findAllFriends: jest.fn((id: number) => mockAllUsers[0].friends),
+  findAllFriends: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id).friends),
   updateUser: jest.fn((mockUserData: UpdateUserInput) => ({ ...mockUserData })),
   delete: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
 });

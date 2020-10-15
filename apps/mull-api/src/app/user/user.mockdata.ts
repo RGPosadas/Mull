@@ -1,5 +1,5 @@
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
-import { UserType } from '../types/user.type';
+import { User } from '../entity';
 
 export const mockPartialUser: CreateUserInput | UpdateUserInput = {
   password: 'password',
@@ -8,7 +8,7 @@ export const mockPartialUser: CreateUserInput | UpdateUserInput = {
   name: 'Mock McMockson',
 };
 
-export const mockAllUsers: UserType[] = [
+export const mockAllUsers: User[] = [
   {
     id: 1,
     password: 'abc123',

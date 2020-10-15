@@ -1,8 +1,8 @@
 import { Field, ID, InputType } from '@nestjs/graphql';
-import { UserType } from '../../types/user.type';
+import { User } from '../../entity';
 
 @InputType()
-export class CreateUserInput implements Partial<UserType> {
+export class CreateUserInput implements Partial<User> {
   @Field()
   name: string;
 
@@ -17,7 +17,7 @@ export class CreateUserInput implements Partial<UserType> {
 }
 
 @InputType()
-export class UpdateUserInput implements Partial<UserType> {
+export class UpdateUserInput implements Partial<User> {
   @Field(/* istanbul ignore next */ () => ID)
   id: number;
   @Field({ nullable: true })
