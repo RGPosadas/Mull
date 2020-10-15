@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { User } from '../entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
+import { CreateUserInput } from './inputs/user.input';
 import { mockAllUsers, mockPartialUser } from './user.mockdata';
 import { FindOneOptions } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';

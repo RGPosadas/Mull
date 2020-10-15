@@ -1,5 +1,5 @@
-import { UserType } from './user.type';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
+import { UserType } from '../types/user.type';
 
 export const mockPartialUser: CreateUserInput | UpdateUserInput = {
   password: 'password',
