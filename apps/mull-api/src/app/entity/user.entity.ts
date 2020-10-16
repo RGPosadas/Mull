@@ -12,32 +12,45 @@ import { Media } from './media.entity';
 import { Participants } from './participants.entity';
 import { Event } from './event.entity';
 import { PostReaction } from './post-reaction.entity';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 @Entity()
+@ObjectType()
 export class User {
+  @Field(/* istanbul ignore next */ () => ID)
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Field()
   @Column()
   password: string;
 
+  @Field()
   @Column()
   email: string;
 
-  @Column()
+  @Field()
+  @Column({
+    default: '',
+  })
   timezone: string;
 
   @OneToOne('Media')
   @JoinColumn()
-  avatar: Media;
+  avatar?: Media;
 
+  @Field()
   @Column()
   name: string;
 
+  @Field()
   @Column()
   age: string;
 
-  @Column()
+  @Field()
+  @Column({
+    default: '',
+  })
   description: string;
 
   /**
@@ -45,6 +58,7 @@ export class User {
    * e.g: I am friends with you. Your ID would go in this list.
    */
   @ManyToMany('User', 'user')
+  @Field(/* istanbul ignore next */ () => [User])
   friends: User[];
 
   /**
@@ -53,14 +67,14 @@ export class User {
    */
   @ManyToMany('User', 'friends')
   @JoinTable({ name: 'friends', joinColumn: { name: 'friendId' } })
-  user: User[];
+  user?: User[];
 
   @OneToMany('Participants', 'user')
-  participants: Participants[];
+  participants?: Participants[];
 
   @OneToMany('Event', 'host')
-  events: Event[];
+  events?: Event[];
 
   @OneToMany('PostReaction', 'user')
-  postReactions: PostReaction[];
+  postReactions?: PostReaction[];
 }
