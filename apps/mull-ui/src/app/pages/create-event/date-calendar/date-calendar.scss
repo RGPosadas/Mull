@@ -1,0 +1,18 @@
+@import '../../../../variables.scss';
+
+.event-calendar {
+  display: flex;
+  justify-content: center;
+  > div:first-of-type {
+    width: 65%;
+  }
+}
+.nice-dates-day:before {
+  background-color: $primary-color;
+  z-index: 1;
+}
+
+.nice-dates-day:after {
+  background-color: $primary-color;
+  z-index: 1;
+}

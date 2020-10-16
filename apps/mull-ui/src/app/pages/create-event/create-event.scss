@@ -7,6 +7,7 @@
   justify-content: center;
   align-items: center;
   padding: 0em 1em;
+  margin: auto;
 
   width: 100%;
   @media (min-width: $breakpoint-mobile) {
@@ -42,7 +43,7 @@
 
 .create-event-label {
   color: $primary-color;
-  align-items: left;
+  align-items: flex-start;
 }
 
 .create-event-input {
@@ -69,4 +70,49 @@
 
 div {
   width: 100%;
+}
+
+.event-time {
+  border: none;
+  color: #2a2c2d;
+  font-size: 14px;
+  font-family: helvetica;
+  width: 220px;
+}
+
+.event-time::-webkit-datetime-edit-fields-wrapper {
+  display: flex;
+  width: auto;
+}
+
+.event-time::-webkit-datetime-edit-text {
+  padding: 19px 4px;
+}
+
+.event-time::-webkit-datetime-edit-hour-field {
+  background-color: #f2f4f5;
+  color: #000000;
+  border-radius: 15%;
+  padding: 19px 13px;
+}
+
+.event-time::-webkit-datetime-edit-minute-field {
+  background-color: #f2f4f5;
+  color: #000000;
+  border-radius: 15%;
+  padding: 19px 13px;
+}
+
+.event-time::-webkit-datetime-edit-ampm-field {
+  background-color: $primary-color;
+  color: #fff;
+  border-radius: 15%;
+  padding: 19px 13px;
+}
+
+.time-picker {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-direction: column;
 }

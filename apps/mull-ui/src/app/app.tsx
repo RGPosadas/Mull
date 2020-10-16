@@ -3,7 +3,6 @@ import { Message } from '@mull/types';
 import { environment } from '../environments/environment';
 
 import CreateEventPage from './pages/create-event/create-event';
-
 import NavigationBar from './components/navigation-bar/navigation-bar';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { ROUTES } from '../constants';
