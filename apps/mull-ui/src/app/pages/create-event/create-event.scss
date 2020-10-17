@@ -2,18 +2,9 @@
 
 .create-event {
   display: flex;
-  box-sizing: border-box;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0em 1em;
-  margin: auto;
-
-  width: 100%;
-  @media (min-width: $breakpoint-mobile) {
-    width: 50%;
-    margin: auto;
-  }
 }
 
 .event-image-upload {
@@ -113,6 +104,6 @@ div {
 .time-picker {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
   flex-direction: column;
 }

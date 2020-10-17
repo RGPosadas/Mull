@@ -3,8 +3,10 @@
 .event-calendar {
   display: flex;
   justify-content: center;
-  > div:first-of-type {
-    width: 65%;
+  @media (min-width: $breakpoint-mobile) {
+    > div:first-of-type {
+      width: 65%;
+    }
   }
 }
 .nice-dates-day:before {
