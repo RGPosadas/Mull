@@ -6,6 +6,7 @@ import CreateEventPage from './pages/create-event/create-event';
 import NavigationBar from './components/navigation-bar/navigation-bar';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { ROUTES } from '../constants';
+
 import './app.scss';
 
 /**
@@ -13,15 +14,13 @@ import './app.scss';
  */
 export const App = () => {
   return (
-    <div className="container">
-      <div className="main-content">
-        <Switch>
-          <Route exact path="/">
-            {<Redirect to={ROUTES.HOME} />}
-          </Route>
-          <Route exact path={ROUTES.CREATE_EVENT} component={CreateEventPage} />
-        </Switch>
-      </div>
+    <div className="main-content">
+      <Switch>
+        <Route exact path="/">
+          {<Redirect to={ROUTES.HOME} />}
+        </Route>
+        <Route exact path={ROUTES.CREATE_EVENT} component={CreateEventPage} />
+      </Switch>
       <NavigationBar />
     </div>
   );
