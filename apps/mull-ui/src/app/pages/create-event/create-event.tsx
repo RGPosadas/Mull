@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PillOptions } from '@mull/ui-lib';
+import { PillOptions, CustomTextInput } from '@mull/ui-lib';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -30,11 +30,11 @@ const CreateEventPage = () => {
       endTime: Yup.string(),
       eventTitle: Yup.string()
         .required('Event Title is required.')
-        .length(65, 'Event Title length must be under 65 characters.'),
+        .max(65, 'Event Title length must be under 65 characters.'),
       activeRestriction: Yup.number().min(0).max(2),
       description: Yup.string()
         .required('Event Description is required.')
-        .length(5000, 'Event Description must be under 5000 characters'),
+        .max(5000, 'Event Description must be under 5000 characters'),
       location: Yup.string().required('Event Location is required.'),
     }),
 
@@ -102,45 +102,31 @@ const CreateEventPage = () => {
             onChange={formik.handleChange}
           />
         </div>
-        <div>
-          <label className="create-event-label" htmlFor="eventTitle">
-            Event Title
-          </label>
-          <input
-            className="create-event-input event-input-border"
-            id="eventTitle"
-            name="eventTitle"
-            type="text"
-            value={formik.values.eventTitle}
-            onChange={formik.handleChange}
-          />
-        </div>
-        <div>
-          <label className="create-event-label" htmlFor="description">
-            Description
-          </label>
-          <input
-            className="create-event-input event-input-border"
-            id="description"
-            name="description"
-            type="text"
-            value={formik.values.description}
-            onChange={formik.handleChange}
-          />
-        </div>
-        <div>
-          <label className="create-event-label" htmlFor="location">
-            Location
-          </label>
-          <input
-            className="create-event-input event-input-border"
-            id="location"
-            name="location"
-            type="text"
-            value={formik.values.location}
-            onChange={formik.handleChange}
-          />
-        </div>
+        <CustomTextInput
+          title="Event Title"
+          fieldName="eventTitle"
+          value={formik.values.eventTitle}
+          onChange={formik.handleChange}
+          hasErrors={formik.touched.eventTitle && !!formik.errors.eventTitle}
+          errorMessage={formik.errors.eventTitle}
+        />
+        <CustomTextInput
+          title="Description"
+          fieldName="description"
+          value={formik.values.description}
+          onChange={formik.handleChange}
+          hasErrors={formik.touched.description && !!formik.errors.description}
+          errorMessage={formik.errors.description}
+        />
+        <CustomTextInput
+          title="Location"
+          fieldName="location"
+          value={formik.values.location}
+          onChange={formik.handleChange}
+          hasErrors={formik.touched.location && !!formik.errors.location}
+          errorMessage={formik.errors.location}
+        />
+
         <PillOptions
           options={['Everyone', 'Friends', 'Invite Only']}
           onChange={handleRestrictions}
