@@ -4,7 +4,7 @@ import { User } from '../entity';
 export const mockPartialUser: CreateUserInput | UpdateUserInput = {
   password: 'password',
   email: 'mock@mock.com',
-  age: '25',
+  dob: new Date(),
   name: 'Mock McMockson',
 };
 
@@ -15,7 +15,7 @@ export const mockAllUsers: User[] = [
     email: 'gr@ph.ql',
     timezone: '',
     name: 'Bob',
-    age: '',
+    dob: new Date(),
     description: 'I am very good programmer',
     friends: [
       {
@@ -24,7 +24,7 @@ export const mockAllUsers: User[] = [
         email: 'me@me.com',
         timezone: '',
         name: 'Cristian',
-        age: '',
+        dob: new Date(),
         description: "There's a first for everything",
         friends: [],
       },
@@ -34,7 +34,7 @@ export const mockAllUsers: User[] = [
         email: 'tim@green.co',
         timezone: '',
         name: 'Tim',
-        age: '',
+        dob: new Date(),
         description: '',
         friends: [],
       },
@@ -46,7 +46,7 @@ export const mockAllUsers: User[] = [
     email: 'me@me.com',
     timezone: '',
     name: 'Cristian',
-    age: '',
+    dob: new Date(),
     description: "There's a first for everything",
     friends: [
       {
@@ -55,7 +55,7 @@ export const mockAllUsers: User[] = [
         email: 'gr@ph.ql',
         timezone: '',
         name: 'Bob',
-        age: '',
+        dob: new Date(),
         description: 'I am very good programmer',
         friends: [],
       },
@@ -65,7 +65,7 @@ export const mockAllUsers: User[] = [
         email: 'tim@green.co',
         timezone: '',
         name: 'Tim',
-        age: '',
+        dob: new Date(),
         description: '',
         friends: [],
       },

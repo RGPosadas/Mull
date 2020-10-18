@@ -13,7 +13,7 @@ export class CreateUserInput implements Partial<User> {
   email: string;
 
   @Field()
-  age: string;
+  dob: Date;
 }
 
 @InputType()
@@ -21,7 +21,7 @@ export class UpdateUserInput implements Partial<User> {
   @Field(/* istanbul ignore next */ () => ID)
   id: number;
   @Field({ nullable: true })
-  age?: string;
+  dob: Date;
 
   @Field({ nullable: true })
   name?: string;

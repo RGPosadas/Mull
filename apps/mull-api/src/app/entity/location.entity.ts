@@ -9,6 +9,6 @@ export class Location {
   @Column('point')
   point: string;
 
-  @OneToMany('Event', 'location')
+  @OneToMany(() => Event, (event) => event.location)
   events: Event[];
 }

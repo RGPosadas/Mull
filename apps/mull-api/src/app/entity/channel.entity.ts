@@ -1,7 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  ManyToMany,
+  OneToMany,
+  JoinTable,
+} from 'typeorm';
 import { Event } from './event.entity';
 import { Post } from './post.entity';
-import { Participants } from './participants.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class Channel {
@@ -9,14 +17,18 @@ export class Channel {
   id: number;
 
   @Column()
+  name: string;
+
+  @Column()
   rights: number;
 
-  @ManyToOne('Event', 'channels')
-  public event: Event;
+  @ManyToOne(() => Event, (event) => event.channels)
+  event: Event;
 
-  @OneToMany('Post', 'channel')
+  @OneToMany(() => Post, (post) => post.channel)
   posts: Post[];
 
-  @ManyToMany('Participants', 'channels')
-  participants: Participants[];
+  @ManyToMany(() => User)
+  @JoinTable({ name: 'channel_participants' })
+  participants: User[];
 }
