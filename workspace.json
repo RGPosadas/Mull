@@ -120,7 +120,8 @@
             "outputPath": "dist/apps/mull-api",
             "main": "apps/mull-api/src/main.ts",
             "tsConfig": "apps/mull-api/tsconfig.app.json",
-            "assets": ["apps/mull-api/src/assets"]
+            "assets": ["apps/mull-api/src/assets"],
+            "showCircularDependencies": false
           },
           "configurations": {
             "production": {
