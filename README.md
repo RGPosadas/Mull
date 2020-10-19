@@ -67,18 +67,17 @@ This project uses pre-commit to enforce formatting and standards. To make sure s
 
 Some secrets and sensitive configuration files are needed to properly operate certains parts of the stack.
 
-1. Add a database configuration file to `apps/mull-api/src/ormconfig.js`. The file and its contents are available on the Bug Bytes #docs-and-resources Slack channel.
 1. Copy the .env.example file and configure the environmental variables.
    - `cp .env.example .env && nano .env`
-1. Start the server and client dev server in another terminal
-   - `nx serve mull-api`
-   - `nx serve mull`
 1. Add an .env file with the required credentials in the root of the project:
    ```
    DB_HOST=<host>
    DB_USERNAME=<username>
    DB_PASSWORD=<password>
    ```
+1. Start the server and client dev server in another terminal to test that everything is working correctly.
+   - `nx serve mull-api`
+   - `nx serve mull`
 
 ## Running Linting
 
