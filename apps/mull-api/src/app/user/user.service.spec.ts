@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
-import { User } from '../entity';
+import { User } from '../entities';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { CreateUserInput } from './inputs/user.input';
 import { mockAllUsers, mockPartialUser } from './user.mockdata';

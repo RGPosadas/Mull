@@ -1,5 +1,5 @@
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
-import { User } from '../entity';
+import { User } from '../entities';
 
 export const mockPartialUser: CreateUserInput | UpdateUserInput = {
   password: 'password',

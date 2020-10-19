@@ -46,10 +46,15 @@ We try our best to adhere to the set of rules and guidelines that we've come up 
 We use npm and Nx to manage our workspace and dependencies. The Nx CLI offers powerful tools for development, and we recommend you install it when contributing to the project.
 
 1. Install npm and nodejs for your operating system.
-1. Install the Nx CLI:
+2. Install the Nx CLI:
    - `npm install -g nx`
-1. Install dependencies:
+3. Install dependencies:
    - `npm i`
+4. Copy the .env.example file and configure the environmental variables.
+   - `cp .env.example .env && nano .env`
+5. Start the server and client dev server in another terminal
+   - `nx serve mull-api`
+   - `nx serve mull`
 
 ### Enforcing Code Formatting and Standards
 

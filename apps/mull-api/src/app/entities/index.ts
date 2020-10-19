@@ -5,3 +5,5 @@ export * from './channel.entity';
 export * from './post.entity';
 export * from './post-reaction.entity';
 export * from './location.entity';
+
+export * from './entities.module';
