@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Post } from './post.entity';
 
 @Entity()
 export class Media {
@@ -7,4 +8,7 @@ export class Media {
 
   @Column()
   mediaType: string;
+
+  @ManyToOne(() => Post, (post) => post.medias)
+  post: Post;
 }

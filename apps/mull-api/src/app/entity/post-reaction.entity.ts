@@ -10,9 +10,9 @@ export class PostReaction {
   @Column()
   type: number;
 
-  @ManyToOne('Post', 'reactions')
+  @ManyToOne(() => Post, (post) => post.reactions)
   post: Post;
 
-  @ManyToOne('User', 'postReactions')
+  @ManyToOne(() => User, (user) => user.postReactions)
   user: User;
 }

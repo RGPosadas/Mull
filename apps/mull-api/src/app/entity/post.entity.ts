@@ -9,19 +9,19 @@ import {
 } from 'typeorm';
 import { Channel } from './channel.entity';
 import { User } from './user.entity';
-import { PostMedia } from './post-media.entity';
 import { PostReaction } from './post-reaction.entity';
+import { Media } from './media.entity';
 
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne('User')
+  @OneToOne(() => User)
   @JoinColumn()
   user: User;
 
-  @OneToOne('Post')
+  @OneToOne(() => Post)
   @JoinColumn()
   parentPost: Post;
 
@@ -31,12 +31,12 @@ export class Post {
   @Column()
   createdTime: Date;
 
-  @OneToMany('PostMedia', 'post')
-  medias: PostMedia[];
+  @OneToMany(() => Media, (media) => media.post)
+  medias: Media[];
 
-  @OneToMany('PostReaction', 'post')
+  @OneToMany(() => PostReaction, (reaction) => reaction.post)
   reactions: PostReaction[];
 
-  @ManyToOne('Channel', 'posts')
+  @ManyToOne(() => Channel, (channel) => channel.posts)
   channel: Channel;
 }

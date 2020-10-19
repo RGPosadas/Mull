@@ -11,7 +11,6 @@ import {
 } from 'typeorm';
 import { Media } from './media.entity';
 import { Channel } from './channel.entity';
-import { Participants } from './participants.entity';
 import { User } from './user.entity';
 import { Location } from './location.entity';
 
@@ -26,20 +25,24 @@ export class Event {
   @Column()
   endTime: Date;
 
-  @OneToOne('Media')
+  @OneToOne(() => Media)
   @JoinColumn()
   image: Media;
 
-  @OneToMany('Channel', 'event')
-  public channels: Channel[];
+  @OneToMany(() => Channel, (channel) => channel.event)
+  channels: Channel[];
 
-  @ManyToMany('Participants', 'events')
+  @ManyToMany(() => User)
   @JoinTable({ name: 'event_participants' })
-  public participants: Participants[];
+  participants: User[];
 
-  @ManyToOne('User', 'events')
+  @ManyToMany(() => User)
+  @JoinTable({ name: 'event_cohosts' })
+  coHosts: User[];
+
+  @ManyToOne(() => User, (user) => user.events)
   host: User;
 
-  @ManyToOne('Location', 'events')
+  @ManyToOne(() => Location, (location) => location.events)
   location: Location;
 }
