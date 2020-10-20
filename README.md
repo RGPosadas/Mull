@@ -67,8 +67,6 @@ This project uses pre-commit to enforce formatting and standards. To make sure s
 
 Some secrets and sensitive configuration files are needed to properly operate certains parts of the stack.
 
-1. Copy the .env.example file and configure the environmental variables.
-   - `cp .env.example .env && nano .env`
 1. Add an .env file with the required credentials in the root of the project:
    ```
    DB_HOST=<host>
