@@ -39,6 +39,9 @@ import { EntitiesModule } from './entities';
        * Access the graphql playground at https://localhost:port/graphql
        */
       playground: !environment.production,
+      uploads: {
+        maxFileSize: 10000000000000,
+      },
     }),
   ],
   controllers: [AppController],
