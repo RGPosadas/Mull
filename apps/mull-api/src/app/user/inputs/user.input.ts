@@ -1,5 +1,5 @@
 import { Field, ID, InputType } from '@nestjs/graphql';
-import { User } from '../../entity';
+import { User } from '../../entities';
 
 @InputType()
 export class CreateUserInput implements Partial<User> {

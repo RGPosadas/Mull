@@ -57,17 +57,25 @@ This project uses pre-commit to enforce formatting and standards. To make sure s
 
 1. [Install pre-commit](https://pre-commit.com/#install):
    - `pip install pre-commit`
-2. Install the git hooks needed for pre-commit for every commit:
+1. Install the git hooks needed for pre-commit for every commit:
    - `pre-commit install`
-3. Run pre-commit on all files:
+1. Run pre-commit on all files:
    - `pre-commit run -a`
-4. You're done! pre-commit will now run when you create a commit for our repository!
+1. You're done! pre-commit will now run when you create a commit for our repository!
 
 ### Secrets and configuration
 
 Some secrets and sensitive configuration files are needed to properly operate certains parts of the stack.
 
-1. Add a database configuration file to `apps/mull-api/src/ormconfig.js`. The file and its contents are available on the Bug Bytes #docs-and-resources Slack channel.
+1. Add an .env file with the required credentials in the root of the project:
+   ```
+   DB_HOST=<host>
+   DB_USERNAME=<username>
+   DB_PASSWORD=<password>
+   ```
+1. Start the server and client dev server in another terminal to test that everything is working correctly.
+   - `nx serve mull-api`
+   - `nx serve mull`
 
 ## Running Linting
 
