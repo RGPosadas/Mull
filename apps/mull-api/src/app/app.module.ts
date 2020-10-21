@@ -12,8 +12,8 @@ import { AppService } from './app.service';
 // Modules
 import { UserModule } from './user';
 import { EntitiesModule } from './entities';
-import { MediaService } from './media/media.service';
 import { MediaModule } from './media/media.module';
+import { environment } from '../environments/environment';
 
 @Module({
   imports: [
@@ -47,7 +47,7 @@ import { MediaModule } from './media/media.module';
     MediaModule,
   ],
   controllers: [AppController],
-  providers: [AppService, MediaService],
+  providers: [AppService],
 })
 export class AppModule {
   constructor(private connection: Connection) {}
