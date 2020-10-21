@@ -3,9 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { Connection } from 'typeorm';
 import { join } from 'path';
-import { environment } from '../environments/environment';
 
-// Controllers
 import { AppController } from './app.controller';
 
 // Services
@@ -14,6 +12,8 @@ import { AppService } from './app.service';
 // Modules
 import { UserModule } from './user';
 import { EntitiesModule } from './entities';
+import { MediaService } from './media/media.service';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
@@ -43,9 +43,11 @@ import { EntitiesModule } from './entities';
         maxFileSize: 10000000000000,
       },
     }),
+    UserModule,
+    MediaModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, MediaService],
 })
 export class AppModule {
   constructor(private connection: Connection) {}
