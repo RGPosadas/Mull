@@ -13,21 +13,42 @@ import { Media } from './media.entity';
 import { Channel } from './channel.entity';
 import { User } from './user.entity';
 import { Location } from './location.entity';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { RestrictionOption } from '@mull/types';
 
 @Entity()
+@ObjectType()
 export class Event {
+  @Field(/* istanbul ignore next */ () => ID)
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Field()
+  @Column()
+  title: string;
+
+  @Field()
   @Column()
   startTime: Date;
 
+  @Field()
   @Column()
   endTime: Date;
+
+  @Field()
+  @Column()
+  description: string;
 
   @OneToOne(() => Media)
   @JoinColumn()
   image: Media;
+
+  @Column({
+    type: 'enum',
+    enum: RestrictionOption,
+    default: RestrictionOption.NONE,
+  })
+  restriction: RestrictionOption;
 
   @OneToMany(() => Channel, (channel) => channel.event)
   channels: Channel[];

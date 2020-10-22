@@ -12,12 +12,15 @@ import { AppService } from './app.service';
 
 // Modules
 import { UserModule } from './user';
+import { EventModule } from './event/event.module';
 import { EntitiesModule } from './entities';
 import { MediaModule } from './media/media.module';
 import { environment } from '../environments/environment';
 
 @Module({
   imports: [
+    UserModule,
+    EventModule,
     EntitiesModule,
     UserModule,
     MediaModule,

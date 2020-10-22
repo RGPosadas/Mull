@@ -4,3 +4,12 @@ export interface Message {
   message: string;
   info: { production: boolean };
 }
+
+/**
+ * Restriction options for events
+ */
+export enum RestrictionOption {
+  NONE,
+  FRIENDS_ONLY,
+  INVITE_ONLY,
+}
