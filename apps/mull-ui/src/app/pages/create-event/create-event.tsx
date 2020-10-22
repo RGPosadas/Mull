@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useMutation, gql } from '@apollo/client';
 import { PillOptions, CustomTextInput } from '@mull/ui-lib';
+import { RestrictionOption } from '@mull/types';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -10,10 +12,26 @@ import './create-event.scss';
 /* eslint-disable-next-line */
 export interface CreateEventProps {}
 
+const CREATE_EVENT = gql`
+  mutation CreateEvent($createEventInput: CreateEventInput!) {
+    createEvent(createEventInput: $createEventInput) {
+      id
+    }
+  }
+`;
+
 const CreateEventPage = () => {
+  const addTimeToDate = (time: string, date: Date) => {
+    const [hour, minute] = time.split(':');
+    date.setHours(parseInt(hour));
+    date.setMinutes(parseInt(minute));
+  };
+
+  const [createEvent, { data }] = useMutation(CREATE_EVENT);
+
   const formik = useFormik({
     initialValues: {
-      activeRestriction: 0,
+      activeRestriction: RestrictionOption.NONE,
       startDate: new Date(),
       endDate: new Date(),
       startTime: '',
@@ -39,7 +57,15 @@ const CreateEventPage = () => {
     }),
 
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      addTimeToDate(values.startTime, values.startDate);
+      addTimeToDate(values.endTime, values.endDate);
+      const payload = {
+        startTime: values.startDate,
+        endTime: values.endDate,
+        description: values.description,
+        title: values.eventTitle,
+      };
+      createEvent({ variables: { createEventInput: payload } });
     },
   });
 
