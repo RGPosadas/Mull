@@ -3,6 +3,9 @@ import { Post } from './post.entity';
 
 @Entity()
 export class Media {
+  constructor(mediaType) {
+    this.mediaType = mediaType;
+  }
   @PrimaryGeneratedColumn()
   id: number;
 

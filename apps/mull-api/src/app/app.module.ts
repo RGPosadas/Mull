@@ -17,7 +17,6 @@ import { environment } from '../environments/environment';
 
 @Module({
   imports: [
-    UserModule,
     EntitiesModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
