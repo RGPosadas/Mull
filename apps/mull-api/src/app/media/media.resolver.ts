@@ -7,9 +7,9 @@ import { MediaService } from './media.service';
 export class MediaResolver {
   constructor(private readonly mediaService: MediaService) {}
 
-  @Mutation(() => Boolean)
+  @Mutation(/* istanbul ignore next */ () => Boolean)
   async uploadFile(
-    @Args({ name: 'file', type: () => GraphQLUpload })
+    @Args({ name: 'file', type: /* istanbul ignore next */ () => GraphQLUpload })
     file: FileUpload
   ): Promise<boolean> {
     return this.mediaService
@@ -18,8 +18,7 @@ export class MediaResolver {
         return this.mediaService.create(file.mimetype);
       })
       .then(({ id, mediaType }) => {
-        this.mediaService.updateFilename(file.filename, id, mediaType);
-        return true;
+        return this.mediaService.updateFilename(file.filename, id, mediaType);
       })
       .catch(() => false);
   }

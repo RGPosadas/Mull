@@ -3,12 +3,12 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Media } from '../entities';
 import { MediaService } from './media.service';
 import { mockFile, mockInvalidFile } from './media.mockdata';
+import fs = require('fs');
 
-const fs = require('fs');
 const mockMediaRepository = () => ({
   create: jest.fn((mockMimeType: string) => {
     const mockFileType = mockMimeType.split('/')[1];
-    let mockMedia = new Media(mockFileType);
+    const mockMedia = new Media(mockFileType);
     return mockMedia;
   }),
   save: jest.fn((file: Media) => file),
@@ -32,6 +32,7 @@ describe('MediaService', () => {
 
   afterAll(() => {
     fs.unlinkSync(`apps/mull-api/uploads/0.jpeg`);
+    fs.unlinkSync(`apps/mull-api/uploads/undefined.jpeg`);
     fs.unlinkSync(`apps/mull-api/uploads/zoro`);
   });
 
@@ -59,5 +60,14 @@ describe('MediaService', () => {
     const mockFileType = mockFile.mimetype.split('/')[1];
     const mockRenameFileName = service.updateFilename(mockFile.filename, 0, mockFileType);
     expect(mockRenameFileName).toEqual(true);
+  });
+
+  it('should not rename a file', async () => {
+    try {
+      const mockRenameFileName = service.updateFilename('error', 0, '');
+      expect(mockRenameFileName).toEqual(true);
+    } catch (err) {
+      expect(err.syscall).toEqual('rename');
+    }
   });
 });
