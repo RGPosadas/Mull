@@ -4,8 +4,8 @@
 
 input CreateEventInput {
   description: String!
-  endTime: DateTime!
-  startTime: DateTime!
+  endDate: DateTime!
+  startDate: DateTime!
   title: String!
 }
 
@@ -23,9 +23,9 @@ scalar DateTime
 
 type Event {
   description: String!
-  endTime: DateTime!
+  endDate: DateTime!
   id: ID!
-  startTime: DateTime!
+  startDate: DateTime!
   title: String!
 }
 
@@ -48,9 +48,9 @@ type Query {
 
 input UpdateEventInput {
   description: String
-  endTime: DateTime
+  endDate: DateTime
   id: ID!
-  startTime: DateTime
+  startDate: DateTime
   title: String
 }
 

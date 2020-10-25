@@ -7,10 +7,10 @@ export class CreateEventInput implements Partial<Event> {
   title: string;
 
   @Field()
-  startTime: Date;
+  startDate: Date;
 
   @Field()
-  endTime: Date;
+  endDate: Date;
 
   @Field()
   description: string;
@@ -29,10 +29,10 @@ export class UpdateEventInput implements Partial<Event> {
   title?: string;
 
   @Field({ nullable: true })
-  startTime?: Date;
+  startDate?: Date;
 
   @Field({ nullable: true })
-  endTime?: Date;
+  endDate?: Date;
 
   @Field({ nullable: true })
   description?: string;

@@ -29,11 +29,11 @@ export class Event {
 
   @Field()
   @Column()
-  startTime: Date;
+  startDate: Date;
 
   @Field()
   @Column()
-  endTime: Date;
+  endDate: Date;
 
   @Field()
   @Column()

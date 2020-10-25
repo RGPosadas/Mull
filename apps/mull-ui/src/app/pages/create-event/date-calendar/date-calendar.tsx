@@ -21,10 +21,11 @@ const DateCalendar = ({
 }: DateCalendarProps) => {
   const START_DATE: DateRangeFocus = 'startDate';
   const [focus, setFocus] = useState<DateRangeFocus>(START_DATE);
-  const currentDate = new Date();
-  const handleFocusChange = (newFocus) => {
+
+  const handleFocusChange = (newFocus: DateRangeFocus) => {
     setFocus(newFocus || START_DATE);
   };
+
   return (
     <div>
       <div className="event-calendar">
@@ -36,8 +37,7 @@ const DateCalendar = ({
           onEndDateChange={onEndDateChange}
           onFocusChange={handleFocusChange}
           locale={enGB}
-          minimumDate={currentDate}
-          maximumDate={new Date(+currentDate + 30 * 86400000)}
+          minimumDate={new Date()}
         />
       </div>
     </div>

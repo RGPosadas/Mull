@@ -8,3 +8,5 @@ export enum ROUTES {
   TOOLS = '/tools',
   PROFILE = '/profile',
 }
+
+export const DAY_IN_MILLISECONDS = 86400000;
