@@ -3,7 +3,7 @@ import { Post } from './post.entity';
 
 @Entity()
 export class Media {
-  constructor(mediaType) {
+  constructor(mediaType: string) {
     this.mediaType = mediaType;
   }
   @PrimaryGeneratedColumn()

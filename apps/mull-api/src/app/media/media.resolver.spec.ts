@@ -4,9 +4,8 @@ import { mockFile, mockInvalidFile } from './media.mockdata';
 import { MediaResolver } from './media.resolver';
 import { MediaService } from './media.service';
 import { FileUpload } from 'graphql-upload';
-import { createWriteStream, renameSync } from 'fs';
+import { createWriteStream, renameSync, unlinkSync } from 'fs';
 import { join } from 'path';
-import fs = require('fs');
 
 const mockMediaService = () => ({
   create: jest.fn((mockMimeType: string) => {
@@ -27,15 +26,10 @@ const mockMediaService = () => ({
   }),
   updateFilename: jest.fn(
     (mockPrevFilename: string, mockNextFilename: number, mockFileType: string) => {
-      try {
-        renameSync(
-          join(process.cwd(), `apps/mull-api/uploads/${mockPrevFilename}`),
-          join(process.cwd(), `apps/mull-api/uploads/${mockNextFilename}.${mockFileType}`)
-        );
-      } catch (err) {
-        console.log(err);
-        throw err;
-      }
+      renameSync(
+        join(process.cwd(), `apps/mull-api/uploads/${mockPrevFilename}`),
+        join(process.cwd(), `apps/mull-api/uploads/${mockNextFilename}.${mockFileType}`)
+      );
       return true;
     }
   ),
@@ -59,7 +53,7 @@ describe('MediaResolver', () => {
   });
 
   afterAll(() => {
-    fs.unlinkSync(`apps/mull-api/uploads/undefined.jpeg`);
+    unlinkSync(`apps/mull-api/uploads/undefined.jpeg`);
   });
 
   it('should be defined', () => {
@@ -71,7 +65,7 @@ describe('MediaResolver', () => {
     expect(mockUploadedFile).toEqual(true);
   });
 
-  it('should not upload a file', async () => {
+  it('should not upload an invalid file', async () => {
     const mockUploadedFile = await resolver.uploadFile(mockInvalidFile);
     expect(mockUploadedFile).toEqual(false);
   });

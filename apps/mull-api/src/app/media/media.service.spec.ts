@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Media } from '../entities';
 import { MediaService } from './media.service';
 import { mockFile, mockInvalidFile } from './media.mockdata';
-import fs = require('fs');
+import { unlinkSync } from 'fs';
 
 const mockMediaRepository = () => ({
   create: jest.fn((mockMimeType: string) => {
@@ -31,9 +31,9 @@ describe('MediaService', () => {
   });
 
   afterAll(() => {
-    fs.unlinkSync(`apps/mull-api/uploads/0.jpeg`);
-    fs.unlinkSync(`apps/mull-api/uploads/undefined.jpeg`);
-    fs.unlinkSync(`apps/mull-api/uploads/zoro`);
+    unlinkSync(`apps/mull-api/uploads/0.jpeg`);
+    unlinkSync(`apps/mull-api/uploads/undefined.jpeg`);
+    unlinkSync(`apps/mull-api/uploads/zoro`);
   });
 
   it('should be defined', () => {
@@ -50,7 +50,7 @@ describe('MediaService', () => {
     expect(returnedPromise).toEqual(true);
   });
 
-  it('should not create a file', async () => {
+  it('should not create an invalid file', async () => {
     return await service.saveFile(mockInvalidFile).catch((error) => {
       expect(error).toEqual(false);
     });
@@ -62,7 +62,7 @@ describe('MediaService', () => {
     expect(mockRenameFileName).toEqual(true);
   });
 
-  it('should not rename a file', async () => {
+  it('should not rename a nonexistent file', async () => {
     try {
       const mockRenameFileName = service.updateFilename('error', 0, '');
       expect(mockRenameFileName).toEqual(true);

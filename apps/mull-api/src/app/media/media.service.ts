@@ -33,15 +33,10 @@ export class MediaService {
   }
 
   updateFilename(prevFilename: string, nextFilename: number, fileType: string): boolean {
-    try {
-      renameSync(
-        join(process.cwd(), `apps/mull-api/uploads/${prevFilename}`),
-        join(process.cwd(), `apps/mull-api/uploads/${nextFilename}.${fileType}`)
-      );
-    } catch (err) {
-      console.log(err);
-      throw err;
-    }
+    renameSync(
+      join(process.cwd(), `apps/mull-api/uploads/${prevFilename}`),
+      join(process.cwd(), `apps/mull-api/uploads/${nextFilename}.${fileType}`)
+    );
     return true;
   }
 }

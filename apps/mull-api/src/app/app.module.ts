@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { Connection } from 'typeorm';
 import { join } from 'path';
 
+// Controllers
 import { AppController } from './app.controller';
 
 // Services
@@ -18,6 +19,8 @@ import { environment } from '../environments/environment';
 @Module({
   imports: [
     EntitiesModule,
+    UserModule,
+    MediaModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: environment.db.host,
@@ -42,8 +45,6 @@ import { environment } from '../environments/environment';
         maxFileSize: 10000000000000,
       },
     }),
-    UserModule,
-    MediaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
