@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { toast, TypeOptions } from 'react-toastify';
 import * as Yup from 'yup';
 
-import { RestrictionOption } from '@mull/types';
+import { EventRestriction } from '@mull/types';
 import { PillOptions, CustomTextInput, CustomTimePicker } from '@mull/ui-lib';
 import DateCalendar from '../create-event/date-calendar/date-calendar';
 
@@ -54,7 +54,7 @@ const CreateEventPage = ({ history }) => {
 
   const formik = useFormik({
     initialValues: {
-      activeRestriction: RestrictionOption.NONE,
+      activeRestriction: EventRestriction.NONE,
       startDate: null,
       endDate: null,
       startTime: '',
@@ -95,6 +95,7 @@ const CreateEventPage = ({ history }) => {
         endDate: values.endDate,
         description: values.description,
         title: values.eventTitle,
+        restriction: values.activeRestriction,
       };
       createEvent({ variables: { createEventInput: payload } })
         .then(({ errors }) => {

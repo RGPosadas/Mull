@@ -8,7 +8,7 @@ export interface Message {
 /**
  * Restriction options for events
  */
-export enum RestrictionOption {
+export enum EventRestriction {
   NONE,
   FRIENDS_ONLY,
   INVITE_ONLY,

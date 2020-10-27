@@ -14,7 +14,7 @@ import { Channel } from './channel.entity';
 import { User } from './user.entity';
 import { Location } from './location.entity';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { RestrictionOption } from '@mull/types';
+import { EventRestriction } from '@mull/types';
 
 @Entity()
 @ObjectType()
@@ -39,31 +39,40 @@ export class Event {
   @Column()
   description: string;
 
-  @OneToOne(() => Media)
+  @OneToOne(/* istanbul ignore next */ () => Media)
   @JoinColumn()
-  image: Media;
+  image?: Media;
 
   @Column({
     type: 'enum',
-    enum: RestrictionOption,
-    default: RestrictionOption.NONE,
+    enum: EventRestriction,
+    default: EventRestriction.NONE,
   })
-  restriction: RestrictionOption;
+  restriction: EventRestriction;
 
-  @OneToMany(() => Channel, (channel) => channel.event)
-  channels: Channel[];
+  @OneToMany(
+    /* istanbul ignore next */ () => Channel,
+    /* istanbul ignore next */ (channel) => channel.event
+  )
+  channels?: Channel[];
 
-  @ManyToMany(() => User)
+  @ManyToMany(/* istanbul ignore next */ () => User)
   @JoinTable({ name: 'event_participants' })
-  participants: User[];
+  participants?: User[];
 
-  @ManyToMany(() => User)
+  @ManyToMany(/* istanbul ignore next */ () => User)
   @JoinTable({ name: 'event_cohosts' })
-  coHosts: User[];
+  coHosts?: User[];
 
-  @ManyToOne(() => User, (user) => user.events)
-  host: User;
+  @ManyToOne(
+    /* istanbul ignore next */ () => User,
+    /* istanbul ignore next */ (user) => user.events
+  )
+  host?: User;
 
-  @ManyToOne(() => Location, (location) => location.events)
-  location: Location;
+  @ManyToOne(
+    /* istanbul ignore next */ () => Location,
+    /* istanbul ignore next */ (location) => location.events
+  )
+  location?: Location;
 }
