@@ -7,17 +7,17 @@ cache:
   npm: true
   directories:
     - $HOME/.cache/pre-commit
-before_script:
-  - pyenv global 3.7.1
-  - pip3 install pre-commit
 addons:
   - sonarcloud:
     organization: 'rgposadas'
     token:
       secure: $SONAR_TOKEN
+
+before_script:
+  - pyenv global 3.7.1
+  - pip3 install pre-commit
+
 script:
   - pre-commit run -a
-  - npm run affected:lint -- --base=origin/develop
-  - npm run affected:test -- --base=origin/develop --codeCoverage
-  - npm run affected:e2e -- --base=origin/develop
+  - ./scripts/ci-checks.sh
   - sonar-scanner

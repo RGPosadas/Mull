@@ -12,6 +12,7 @@
     "affected:libs": "nx affected:libs",
     "affected:lint": "nx affected:lint",
     "affected:test": "nx affected:test",
+    "all-projects": "nx run-many --all=true",
     "build": "nx build",
     "build-api": "nx build mull-api --prod",
     "build-ui": "nx build mull-ui --prod && npm run generate-sw",
