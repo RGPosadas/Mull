@@ -1,6 +1,12 @@
 @import '../../../../variables.scss';
 
-.event-calendar {
+.date-calendar-container {
+  & .error-message {
+    text-align: center;
+  }
+}
+
+.date-calendar {
   display: flex;
   justify-content: center;
   @media (min-width: $breakpoint-mobile) {
@@ -9,6 +15,7 @@
     }
   }
 }
+
 .nice-dates-day:before {
   background-color: $primary-color;
   z-index: 1;

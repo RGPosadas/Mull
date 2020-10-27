@@ -13,7 +13,11 @@ body {
     margin: auto;
   }
 }
-
+.Toastify__toast-container {
+  @media (min-width: $breakpoint-mobile) {
+    top: 7.5rem;
+  }
+}
 .Toastify__toast--success {
   background: $primary_color;
 }

@@ -1,12 +1,12 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { useFormik } from 'formik';
+import { toast, TypeOptions } from 'react-toastify';
 import * as Yup from 'yup';
 
 import { RestrictionOption } from '@mull/types';
-import { PillOptions, CustomTextInput } from '@mull/ui-lib';
+import { PillOptions, CustomTextInput, CustomTimePicker } from '@mull/ui-lib';
 import DateCalendar from '../create-event/date-calendar/date-calendar';
-import { toast } from 'react-toastify';
 
 import { DAY_IN_MILLISECONDS } from '../../../constants';
 
@@ -26,13 +26,31 @@ const CREATE_EVENT = gql`
 `;
 
 const CreateEventPage = ({ history }) => {
+  const toastId = useRef(null);
+  const [createEvent] = useMutation(CREATE_EVENT);
+  const [imageFile, setImageFile] = useState(null);
+
+  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    setImageFile(URL.createObjectURL(event.target.files[0]));
+  };
+
   const addTimeToDate = (time: string, date: Date) => {
     const [hour, minute] = time.split(':');
     date.setHours(parseInt(hour));
     date.setMinutes(parseInt(minute));
   };
 
-  const [createEvent] = useMutation(CREATE_EVENT);
+  const notifySubmissionToast = () => {
+    toastId.current = toast('Submitting Event...', { autoClose: false });
+  };
+
+  const updateSubmissionToast = (type: TypeOptions, message: string) => {
+    toast.update(toastId.current, {
+      type,
+      render: message,
+      autoClose: 3000,
+    });
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -51,23 +69,25 @@ const CreateEventPage = ({ history }) => {
       endDate: Yup.date()
         .nullable()
         .required('End date is required')
-        .test('maxEventLength', 'Event Length cannot be over 30 days', function (endDate) {
+        .test('maxEventLength', 'Event length cannot be over 30 days.', function (endDate) {
           const diff = Math.abs(+endDate - +this.parent.startDate);
           return diff <= 30 * DAY_IN_MILLISECONDS;
         }),
-      startTime: Yup.string().required('Start Time is required'),
-      endTime: Yup.string().required('End Time is required'),
+      startTime: Yup.string().required('Start Time is required.'),
+      endTime: Yup.string().required('End Time is required.'),
       eventTitle: Yup.string()
         .required('Event Title is required.')
         .max(65, 'Event Title length must be under 65 characters.'),
       activeRestriction: Yup.number().min(0).max(2),
       description: Yup.string()
         .required('Event Description is required.')
-        .max(5000, 'Event Description must be under 5000 characters'),
+        .max(5000, 'Event Description must be under 5000 characters.'),
       location: Yup.string().required('Event Location is required.'),
     }),
 
-    onSubmit: async (values) => {
+    onSubmit: (values) => {
+      notifySubmissionToast();
+      console.log(toastId.current);
       addTimeToDate(values.startTime, values.startDate);
       addTimeToDate(values.endTime, values.endDate);
       const payload = {
@@ -76,25 +96,20 @@ const CreateEventPage = ({ history }) => {
         description: values.description,
         title: values.eventTitle,
       };
-      const res = await createEvent({ variables: { createEventInput: payload } });
-      if (res.errors) {
-        toast.error('Event Not Created', {
-          position: toast.POSITION.TOP_RIGHT,
+      createEvent({ variables: { createEventInput: payload } })
+        .then(({ errors }) => {
+          if (errors) {
+            updateSubmissionToast(toast.TYPE.ERROR, 'Event Not Created');
+          } else {
+            updateSubmissionToast(toast.TYPE.SUCCESS, 'Event Created');
+            history.push('/home');
+          }
+        })
+        .catch(() => {
+          updateSubmissionToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
         });
-      } else {
-        toast.success('Event Created', {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-        history.push('/home');
-      }
     },
   });
-
-  const [imageFile, setImageFile] = useState(null);
-
-  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    setImageFile(URL.createObjectURL(event.target.files[0]));
-  };
 
   const handleRestrictions = (idx: number) => {
     formik.setFieldValue('activeRestriction', idx);
@@ -120,6 +135,8 @@ const CreateEventPage = ({ history }) => {
         <DateCalendar
           startDate={formik.values.startDate}
           endDate={formik.values.endDate}
+          hasErrors={formik.touched.endDate && !!formik.errors.endDate}
+          errorMessage={formik.errors.endDate as string}
           onStartDateChange={(date) => {
             formik.setFieldValue('startDate', date);
           }}
@@ -127,38 +144,24 @@ const CreateEventPage = ({ history }) => {
             formik.setFieldValue('endDate', date);
           }}
         />
-        {formik.touched.endDate && formik.errors.endDate ? (
-          <span className="error-message">{formik.errors.endDate}</span>
-        ) : null}
-
-        <div className="time-picker">
-          <label className="create-event-label">Start Time</label>
-          <input
-            type="time"
-            className="event-time"
-            id="startTime"
-            name="startTime"
+        <div className="create-event-time">
+          <CustomTimePicker
+            label="Start Time"
+            fieldName="startTime"
             value={formik.values.startTime}
             onChange={formik.handleChange}
+            hasErrors={formik.touched.startTime && !!formik.errors.startTime}
+            errorMessage={formik.errors.startTime}
           />
-        </div>
-        {formik.touched.startTime && formik.errors.startTime ? (
-          <span className="error-message">{formik.errors.startTime}</span>
-        ) : null}
-        <div className="time-picker">
-          <label className="create-event-label">End Time</label>
-          <input
-            type="time"
-            className="event-time"
-            id="endTime"
-            name="endTime"
+          <CustomTimePicker
+            label="End Time"
+            fieldName="endTime"
             value={formik.values.endTime}
             onChange={formik.handleChange}
+            hasErrors={formik.touched.endTime && !!formik.errors.endTime}
+            errorMessage={formik.errors.endTime}
           />
         </div>
-        {formik.touched.endTime && formik.errors.endTime ? (
-          <span className="error-message">{formik.errors.endTime}</span>
-        ) : null}
         <CustomTextInput
           title="Event Title"
           fieldName="eventTitle"

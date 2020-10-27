@@ -41,6 +41,22 @@
   font-weight: 600;
 }
 
+.create-event-time {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  & .custom-time-picker-container {
+    margin: 0 0 1.25rem;
+  }
+
+  @media (min-width: $breakpoint-mobile) {
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 0 0 1.25rem;
+  }
+}
+
 .create-event-input {
   display: block;
   box-sizing: border-box;
@@ -63,48 +79,4 @@
 
 div {
   width: 100%;
-}
-
-.event-time {
-  border: none;
-  color: #2a2c2d;
-  font-size: 14px;
-  font-family: helvetica;
-  width: 220px;
-}
-
-.event-time::-webkit-datetime-edit-fields-wrapper {
-  display: flex;
-  width: auto;
-}
-
-.event-time::-webkit-datetime-edit-text {
-  padding: 19px 4px;
-}
-
-.event-time::-webkit-datetime-edit-hour-field {
-  background-color: #f2f4f5;
-  color: #000000;
-  border-radius: 15%;
-  padding: 19px 13px;
-}
-
-.event-time::-webkit-datetime-edit-minute-field {
-  background-color: #f2f4f5;
-  color: #000000;
-  border-radius: 15%;
-  padding: 19px 13px;
-}
-
-.event-time::-webkit-datetime-edit-ampm-field {
-  background-color: $primary-color;
-  color: #fff;
-  border-radius: 15%;
-  padding: 19px 13px;
-}
-
-.time-picker {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 }

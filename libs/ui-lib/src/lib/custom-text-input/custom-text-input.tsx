@@ -7,9 +7,9 @@ export interface CustomTextInputProps {
   title: string;
   value: string;
   fieldName: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  hasErrors: boolean;
   errorMessage: string;
+  hasErrors: boolean;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const CustomTextInput = ({

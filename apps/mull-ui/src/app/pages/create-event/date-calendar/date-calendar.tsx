@@ -9,6 +9,8 @@ import './date-calendar.scss';
 export interface DateCalendarProps {
   startDate: Date;
   endDate: Date;
+  hasErrors: boolean;
+  errorMessage: string;
   onStartDateChange: (date: Date) => void;
   onEndDateChange: (date: Date) => void;
 }
@@ -18,6 +20,8 @@ const DateCalendar = ({
   endDate,
   onStartDateChange,
   onEndDateChange,
+  hasErrors,
+  errorMessage,
 }: DateCalendarProps) => {
   const START_DATE: DateRangeFocus = 'startDate';
   const [focus, setFocus] = useState<DateRangeFocus>(START_DATE);
@@ -27,8 +31,8 @@ const DateCalendar = ({
   };
 
   return (
-    <div>
-      <div className="event-calendar">
+    <div className="date-calendar-container">
+      <div className="date-calendar">
         <DateRangePickerCalendar
           startDate={startDate}
           endDate={endDate}
@@ -40,6 +44,7 @@ const DateCalendar = ({
           minimumDate={new Date()}
         />
       </div>
+      {hasErrors ? <span className="error-message">{errorMessage}</span> : null}
     </div>
   );
 };

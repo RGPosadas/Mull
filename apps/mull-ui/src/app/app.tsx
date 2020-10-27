@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import CreateEventPage from './pages/create-event/create-event';
@@ -22,10 +22,10 @@ export const App = () => {
         <Route exact path={ROUTES.CREATE_EVENT} component={CreateEventPage} />
       </Switch>
       <ToastContainer
-        position="bottom-right"
+        position={toast.POSITION.TOP_RIGHT}
         autoClose={5000}
         hideProgressBar={false}
-        newestOnTop={false}
+        newestOnTop={true}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
