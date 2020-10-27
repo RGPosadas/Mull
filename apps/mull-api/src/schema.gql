@@ -18,6 +18,7 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   deleteUser(id: Int!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
+  uploadFile(file: Upload!): Boolean!
 }
 
 type Query {
@@ -31,6 +32,9 @@ input UpdateUserInput {
   id: ID!
   name: String
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 type User {
   description: String!

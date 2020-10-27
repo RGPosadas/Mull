@@ -3,7 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { Connection } from 'typeorm';
 import { join } from 'path';
-import { environment } from '../environments/environment';
 
 // Controllers
 import { AppController } from './app.controller';
@@ -14,11 +13,14 @@ import { AppService } from './app.service';
 // Modules
 import { UserModule } from './user';
 import { EntitiesModule } from './entities';
+import { MediaModule } from './media/media.module';
+import { environment } from '../environments/environment';
 
 @Module({
   imports: [
-    UserModule,
     EntitiesModule,
+    UserModule,
+    MediaModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: environment.db.host,
@@ -39,6 +41,9 @@ import { EntitiesModule } from './entities';
        * Access the graphql playground at https://localhost:port/graphql
        */
       playground: !environment.production,
+      uploads: {
+        maxFileSize: 10000000000000,
+      },
     }),
   ],
   controllers: [AppController],

@@ -41,6 +41,7 @@
     "document-register-element": "1.13.1",
     "graphql": "^15.3.0",
     "graphql-tools": "^6.2.4",
+    "graphql-upload": "^11.0.0",
     "mysql": "^2.18.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
