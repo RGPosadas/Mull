@@ -22,10 +22,13 @@ export const CustomTimePicker = ({
 }: CustomTimePickerProps) => {
   return (
     <div className="custom-time-picker-container">
-      <label className="custom-time-picker-label">{label}</label>
+      <label className="custom-time-picker-label" htmlFor={fieldName}>
+        {label}
+      </label>
       <input
         type="time"
         className="custom-time-picker"
+        data-testid="custom-time-input"
         id={fieldName}
         name={fieldName}
         value={value}

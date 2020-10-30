@@ -29,6 +29,7 @@ export const CustomTextInput = ({
         className={`custom-text-input input-border ${hasErrors ? 'error' : ''}`}
         id={fieldName}
         name={fieldName}
+        data-testid="custom-text-input"
         type="text"
         value={value}
         onChange={onChange}

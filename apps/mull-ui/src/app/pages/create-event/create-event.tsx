@@ -140,6 +140,7 @@ const CreateEventPage = ({ history }) => {
           errorMessage={formik.errors.endDate as string}
           onStartDateChange={(date) => {
             formik.setFieldValue('startDate', date);
+            formik.setFieldValue('endDate', null);
           }}
           onEndDateChange={(date) => {
             formik.setFieldValue('endDate', date);

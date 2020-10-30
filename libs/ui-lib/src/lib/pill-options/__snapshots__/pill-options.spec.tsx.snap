@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PillOptions should match snapshot 1`] = `
+<div
+  className="pill-options"
+>
+  <div
+    className="pill-option active"
+    data-testid="pill-id-0"
+    onClick={[Function]}
+  >
+    Yes
+  </div>
+  <div
+    className="pill-option "
+    data-testid="pill-id-1"
+    onClick={[Function]}
+  >
+    No
+  </div>
+  <div
+    className="pill-option "
+    data-testid="pill-id-2"
+    onClick={[Function]}
+  >
+    Maybe
+  </div>
+</div>
+`;

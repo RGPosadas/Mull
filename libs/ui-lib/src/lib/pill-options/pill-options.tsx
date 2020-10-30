@@ -14,6 +14,7 @@ export const PillOptions = ({ options, onChange, active }: PillOptionsProps) => 
     <div className="pill-options">
       {options.map((option, idx) => (
         <div
+          data-testid={`pill-id-${idx}`}
           key={option}
           className={`pill-option ${active === idx ? `active` : ''}`}
           onClick={() => {

@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomTextInput should match snapshot 1`] = `
+<div
+  className="custom-text-input-container"
+>
+  <label
+    className="custom-text-input-label"
+    htmlFor="text"
+  >
+    Text
+  </label>
+  <input
+    className="custom-text-input input-border error"
+    data-testid="custom-text-input"
+    id="text"
+    name="text"
+    onChange={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            SyntheticEvent {
+              "_dispatchInstances": null,
+              "_dispatchListeners": null,
+              "_targetInst": null,
+              "bubbles": null,
+              "cancelable": null,
+              "currentTarget": [Function],
+              "defaultPrevented": null,
+              "dispatchConfig": null,
+              "eventPhase": null,
+              "isDefaultPrevented": [Function],
+              "isPropagationStopped": [Function],
+              "isTrusted": null,
+              "nativeEvent": null,
+              "target": null,
+              "timeStamp": [Function],
+              "type": null,
+            },
+          ],
+        ],
+        "results": Array [
+          Object {
+            "type": "return",
+            "value": undefined,
+          },
+        ],
+      }
+    }
+    type="text"
+    value=""
+  />
+  <span
+    className="error-message"
+  >
+    Text is not valid.
+  </span>
+</div>
+`;

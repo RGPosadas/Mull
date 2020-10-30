@@ -2,10 +2,10 @@
 
 exports[`App should match snapshot 1`] = `
 <div
-  className="container"
+  className="main-content"
 >
   <div
-    className="main-content"
+    className="Toastify"
   />
   <div
     className="nav-container"
