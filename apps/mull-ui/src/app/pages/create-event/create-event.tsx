@@ -87,7 +87,6 @@ const CreateEventPage = ({ history }) => {
 
     onSubmit: (values) => {
       notifySubmissionToast();
-      console.log(toastId.current);
       addTimeToDate(values.startTime, values.startDate);
       addTimeToDate(values.endTime, values.endDate);
       const payload = {
