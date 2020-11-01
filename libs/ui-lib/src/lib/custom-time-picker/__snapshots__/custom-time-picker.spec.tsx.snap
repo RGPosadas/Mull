@@ -6,6 +6,7 @@ exports[`CustomTimePicker should match snapshot 1`] = `
 >
   <label
     className="custom-time-picker-label"
+    htmlFor="text"
   >
     Text
   </label>

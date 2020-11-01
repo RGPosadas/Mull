@@ -1,5 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react';
-import { format } from 'date-fns';
+import React, { useState } from 'react';
 import { enGB } from 'date-fns/locale';
 import { DateRangeFocus, DateRangePickerCalendar } from 'react-nice-dates';
 import 'react-nice-dates/build/style.css';
