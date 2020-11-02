@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { cache } from './cache';
 
+import { ApolloClient, ApolloProvider, InMemoryCache, gql, useQuery } from '@apollo/client';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './app/app';
+import { environment } from './environments/environment';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
@@ -20,11 +23,18 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+const client = new ApolloClient({
+  uri: environment.backendUrl,
+  cache: cache,
+});
+
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
