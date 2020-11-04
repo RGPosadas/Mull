@@ -1,5 +1,5 @@
 import { EventRestriction } from '@mull/types';
-import { Field, ID, InputType } from '@nestjs/graphql';
+import { Field, ID, InputType, Int } from '@nestjs/graphql';
 import { Event } from '../../entities';
 
 @InputType()
@@ -16,7 +16,7 @@ export class CreateEventInput implements Partial<Event> {
   @Field()
   description: string;
 
-  @Field()
+  @Field(/* istanbul ignore next */ () => Int)
   restriction: EventRestriction;
 
   //   host: User;
@@ -40,7 +40,7 @@ export class UpdateEventInput implements Partial<Event> {
   @Field({ nullable: true })
   description?: string;
 
-  @Field({ nullable: true })
+  @Field(/* istanbul ignore next */ () => Int, { nullable: true })
   restriction: EventRestriction;
   // image: Media;
   // location: Location;

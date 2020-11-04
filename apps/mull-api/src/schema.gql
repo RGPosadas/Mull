@@ -5,6 +5,7 @@
 input CreateEventInput {
   description: String!
   endDate: DateTime!
+  restriction: Int!
   startDate: DateTime!
   title: String!
 }
@@ -50,6 +51,7 @@ input UpdateEventInput {
   description: String
   endDate: DateTime
   id: ID!
+  restriction: Int
   startDate: DateTime
   title: String
 }
