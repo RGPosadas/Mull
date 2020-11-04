@@ -163,37 +163,39 @@ const CreateEventPage = ({ history }) => {
             errorMessage={formik.errors.endTime}
           />
         </div>
-        <CustomTextInput
-          title="Event Title"
-          fieldName="eventTitle"
-          value={formik.values.eventTitle}
-          onChange={formik.handleChange}
-          hasErrors={formik.touched.eventTitle && !!formik.errors.eventTitle}
-          errorMessage={formik.errors.eventTitle}
-        />
-        <CustomTextInput
-          title="Description"
-          fieldName="description"
-          value={formik.values.description}
-          onChange={formik.handleChange}
-          hasErrors={formik.touched.description && !!formik.errors.description}
-          errorMessage={formik.errors.description}
-        />
-        <CustomTextInput
-          title="Location"
-          fieldName="location"
-          value={formik.values.location}
-          onChange={formik.handleChange}
-          hasErrors={formik.touched.location && !!formik.errors.location}
-          errorMessage={formik.errors.location}
-        />
-        <PillOptions
-          options={['Everyone', 'Friends', 'Invite Only']}
-          onChange={handleRestrictions}
-          active={formik.values.activeRestriction}
-        />
+        <div className="create-event-fields">
+          <CustomTextInput
+            title="Event Title"
+            fieldName="eventTitle"
+            value={formik.values.eventTitle}
+            onChange={formik.handleChange}
+            hasErrors={formik.touched.eventTitle && !!formik.errors.eventTitle}
+            errorMessage={formik.errors.eventTitle}
+          />
+          <CustomTextInput
+            title="Description"
+            fieldName="description"
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            hasErrors={formik.touched.description && !!formik.errors.description}
+            errorMessage={formik.errors.description}
+          />
+          <CustomTextInput
+            title="Location"
+            fieldName="location"
+            value={formik.values.location}
+            onChange={formik.handleChange}
+            hasErrors={formik.touched.location && !!formik.errors.location}
+            errorMessage={formik.errors.location}
+          />
+          <PillOptions
+            options={['Everyone', 'Friends', 'Invite Only']}
+            onChange={handleRestrictions}
+            active={formik.values.activeRestriction}
+          />
+        </div>
         <button type="submit" className="create-event-button">
-          create +
+          Done
         </button>
       </div>
     </form>

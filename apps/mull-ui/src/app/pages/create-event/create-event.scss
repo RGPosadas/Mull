@@ -5,6 +5,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  .custom-text-input-container {
+    margin-bottom: 30px;
+  }
 }
 
 .event-image-upload {
@@ -46,7 +50,7 @@
   align-items: center;
   flex-direction: column;
 
-  & .custom-time-picker-container {
+  .custom-time-picker-container {
     margin: 0 0 1.25rem;
   }
 
@@ -69,14 +73,18 @@
 .create-event-button {
   color: white;
   font-weight: bold;
-  padding: 15px 32px;
-  background: #6fb4a5;
-  border: 1px solid #6fb4a5;
-  border-radius: 19px;
+  padding: 15px 55px;
+  background: $primary-color;
+  border: 1px solid $primary-color;
+  border-radius: 9px;
   outline: none;
   margin-top: 20px;
 }
 
-div {
+.create-event-fields {
   width: 100%;
+
+  @media (min-width: $breakpoint-mobile) {
+    width: 70%;
+  }
 }
