@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { cache } from './cache';
 
-import { ApolloClient, ApolloProvider, InMemoryCache, gql, useQuery } from '@apollo/client';
+import { ApolloClient, ApolloProvider } from '@apollo/client';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './app/app';
@@ -24,7 +24,7 @@ if ('serviceWorker' in navigator) {
 }
 
 const client = new ApolloClient({
-  uri: environment.backendUrl,
+  uri: environment.backendUrl, //url of graphql api
   cache: cache,
 });
 

@@ -7,15 +7,13 @@ import { ReactComponent as HomeIcon } from '../../../assets/icons/nav-bar-icons/
 import { ReactComponent as MapIcon } from '../../../assets/icons/nav-bar-icons/MapIcon.svg';
 import { ReactComponent as ToolMenuIcon } from '../../../assets/icons/nav-bar-icons/ToolMenuIcon.svg';
 import { ReactComponent as ProfileIcon } from '../../../assets/icons/nav-bar-icons/ProfileIcon.svg';
-import { loginMutations } from '../../operations/mutations';
 
 import logo from '../../../assets/mull-logo.png';
 
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
 
-import { GET_LOGIN } from '../../operations/queries/login';
-import { useQuery } from '@apollo/client';
+import { loginMutations } from '../../operations/mutations';
 
 /**
  * Component for navigation across the different routes of the application.

@@ -13,6 +13,7 @@ import { useQuery } from '@apollo/client';
  */
 export const App = () => {
   const loginResults = useQuery(GET_LOGIN);
+
   console.log(loginResults.data);
   return (
     <div className="container">
