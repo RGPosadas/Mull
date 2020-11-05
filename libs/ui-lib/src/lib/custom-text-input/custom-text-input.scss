@@ -1,3 +1,18 @@
+.custom-text-input-container {
+  position: relative;
+  svg {
+    position: absolute;
+    bottom: 0.9rem;
+    right: 1rem;
+  }
+  &.error svg {
+    bottom: 2.6rem;
+    path {
+      fill: red;
+    }
+  }
+}
+
 .custom-text-input-label {
   color: black;
   align-items: flex-start;

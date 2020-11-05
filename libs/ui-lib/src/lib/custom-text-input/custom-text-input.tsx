@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, ReactNode } from 'react';
 
 import './custom-text-input.scss';
 
@@ -9,6 +9,7 @@ export interface CustomTextInputProps {
   fieldName: string;
   errorMessage: string;
   hasErrors: boolean;
+  svgIcon: ReactNode;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -19,9 +20,10 @@ export const CustomTextInput = ({
   onChange,
   hasErrors,
   errorMessage,
+  svgIcon,
 }: CustomTextInputProps) => {
   return (
-    <div className="custom-text-input-container">
+    <div className={`custom-text-input-container ${hasErrors ? 'error' : ''}`}>
       <label className="custom-text-input-label" htmlFor={fieldName}>
         {title}
       </label>
@@ -34,6 +36,7 @@ export const CustomTextInput = ({
         value={value}
         onChange={onChange}
       />
+      {svgIcon}
       {hasErrors ? <span className="error-message">{errorMessage}</span> : null}
     </div>
   );

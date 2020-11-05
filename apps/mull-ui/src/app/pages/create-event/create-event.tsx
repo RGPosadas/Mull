@@ -10,6 +10,11 @@ import DateCalendar from '../create-event/date-calendar/date-calendar';
 
 import { DAY_IN_MILLISECONDS } from '../../../constants';
 
+import { ReactComponent as PencilIcon } from '../../../assets/icons/event-form-icons/pencil.svg';
+import { ReactComponent as DescriptionIcon } from '../../../assets/icons/event-form-icons/description.svg';
+import { ReactComponent as LocationIcon } from '../../../assets/icons/event-form-icons/pin.svg';
+import { ReactComponent as UploadIcon } from '../../../assets/icons/event-form-icons/upload.svg';
+
 import './create-event.scss';
 
 export interface CreateEventProps {
@@ -121,9 +126,9 @@ const CreateEventPage = ({ history }) => {
           <p className="create-event-text">Create Event</p>
           <label htmlFor="imageFile" className="custom-file-upload event-input-border">
             {imageFile ? (
-              <img src={imageFile} style={{ width: '50%', height: '50%' }} alt="Event" />
+              <img src={imageFile} style={{ width: '50%', height: '50%' }} alt="sup" />
             ) : (
-              '🧼'
+              <UploadIcon />
             )}
           </label>
           <input
@@ -145,7 +150,6 @@ const CreateEventPage = ({ history }) => {
               formik.setFieldValue('endDate', date);
             }}
           />
-
           <CustomTimePicker
             label="Start Time"
             fieldName="startTime"
@@ -169,6 +173,7 @@ const CreateEventPage = ({ history }) => {
             onChange={formik.handleChange}
             hasErrors={formik.touched.eventTitle && !!formik.errors.eventTitle}
             errorMessage={formik.errors.eventTitle}
+            svgIcon={<PencilIcon />}
           />
           <CustomTextInput
             title="Description"
@@ -177,6 +182,7 @@ const CreateEventPage = ({ history }) => {
             onChange={formik.handleChange}
             hasErrors={formik.touched.description && !!formik.errors.description}
             errorMessage={formik.errors.description}
+            svgIcon={<DescriptionIcon />}
           />
           <CustomTextInput
             title="Location"
@@ -185,6 +191,7 @@ const CreateEventPage = ({ history }) => {
             onChange={formik.handleChange}
             hasErrors={formik.touched.location && !!formik.errors.location}
             errorMessage={formik.errors.location}
+            svgIcon={<LocationIcon />}
           />
           <PillOptions
             options={['Everyone', 'Friends', 'Invite Only']}
