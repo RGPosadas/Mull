@@ -1,29 +1,24 @@
-@import '../variables.scss';
-
-body {
-  padding: 1.25rem 0.5rem 5.125rem;
-  @media (min-width: $breakpoint-mobile) {
-    padding: 7.5rem 0 1.25rem;
-  }
-}
+@import 'variables';
 
 div {
   width: 100%;
 }
 
 .page-container {
-  @media (min-width: $breakpoint-mobile) {
-    width: 50%;
-    margin: auto;
-  }
-}
-
-.Toastify__toast-container {
-  @media (min-width: $breakpoint-mobile) {
-    top: 7.5rem;
-  }
+  padding: 0 0 $nav-bar-height-mobile;
 }
 
 .Toastify__toast--success {
   background: $primary_color;
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .Toastify__toast-container {
+    top: 7.5rem;
+  }
+  .page-container {
+    width: 35%;
+    margin: auto;
+    padding: $nav-bar-height-desktop 0 0;
+  }
 }

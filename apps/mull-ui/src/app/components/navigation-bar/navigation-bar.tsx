@@ -20,7 +20,7 @@ import { ROUTES } from '../../../constants';
  */
 export const NavigationBar = () => {
   return (
-    <div className="nav-container">
+    <div className="nav-container test-test">
       <img src={logo} className="logo nav-element" alt="Mull logo" />
       <NavLink to={ROUTES.HOME} activeClassName="active" data-testid="home-navlink">
         <HomeIcon className="nav-button mobile-button" />

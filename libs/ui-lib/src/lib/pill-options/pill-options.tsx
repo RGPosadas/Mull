@@ -2,7 +2,6 @@ import React from 'react';
 
 import './pill-options.scss';
 
-/* eslint-disable-next-line */
 export interface PillOptionsProps {
   options: string[];
   onChange: (idx: number) => void;

@@ -19,9 +19,7 @@ export class EventService {
   }
 
   async create(eventInput: CreateEventInput): Promise<Event> {
-    const newEvent = this.eventRepository.create(eventInput);
-    await this.eventRepository.save(newEvent);
-    return newEvent;
+    return await this.eventRepository.save(eventInput);
   }
 
   async update(eventInput: UpdateEventInput): Promise<Event> {

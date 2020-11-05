@@ -22,7 +22,6 @@ import { environment } from '../environments/environment';
     UserModule,
     EventModule,
     EntitiesModule,
-    UserModule,
     MediaModule,
     TypeOrmModule.forRoot({
       type: 'mysql',

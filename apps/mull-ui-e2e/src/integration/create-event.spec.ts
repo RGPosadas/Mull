@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 
 describe('create-events', () => {
+  cy.exec('nx serve mull-api');
   beforeEach(() => cy.visit('http://localhost:4200/create-event'));
 
   it('should have the correct page title', () => {

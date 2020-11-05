@@ -14,7 +14,7 @@ import './app.scss';
  */
 export const App = () => {
   return (
-    <div className="main-content">
+    <div>
       <Switch>
         <Route exact path="/">
           {<Redirect to={ROUTES.HOME} />}

@@ -1,13 +1,18 @@
-@import '../../../variables.scss';
+@import 'variables';
 
 .create-event {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  width: 95%;
+  margin: auto;
   .custom-text-input-container {
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem;
+  }
+
+  .custom-time-picker-container {
+    margin: 0 0 1.25rem;
   }
 }
 
@@ -16,7 +21,7 @@
 }
 
 .event-input-border {
-  border-radius: 20px;
+  border-radius: 8px;
   border: 1.5px #27b09a solid;
   &.error {
     border-color: #ff0000;
@@ -37,28 +42,14 @@
 
 .create-event-text {
   color: $primary-color;
+  font-size: 16px;
+  margin-bottom: 0.5rem;
 }
 
 .create-event-label {
   color: black;
   align-items: flex-start;
   font-weight: 600;
-}
-
-.create-event-time {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-
-  .custom-time-picker-container {
-    margin: 0 0 1.25rem;
-  }
-
-  @media (min-width: $breakpoint-mobile) {
-    flex-direction: row;
-    justify-content: space-evenly;
-    margin: 0 0 1.25rem;
-  }
 }
 
 .create-event-input {
@@ -79,12 +70,11 @@
   border-radius: 9px;
   outline: none;
   margin-top: 20px;
+  margin-bottom: 15px;
 }
 
-.create-event-fields {
-  width: 100%;
-
-  @media (min-width: $breakpoint-mobile) {
-    width: 70%;
+@media (min-width: $breakpoint-mobile) {
+  .create-event {
+    padding: 1rem 0 0;
   }
 }

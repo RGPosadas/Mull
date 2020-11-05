@@ -12,7 +12,6 @@ import { DAY_IN_MILLISECONDS } from '../../../constants';
 
 import './create-event.scss';
 
-/* eslint-disable-next-line */
 export interface CreateEventProps {
   history: History;
 }
@@ -117,35 +116,36 @@ const CreateEventPage = ({ history }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <div className="create-event page-container">
-        <p className="create-event-text">Create Event</p>
-        <label htmlFor="imageFile" className="custom-file-upload event-input-border">
-          {imageFile ? (
-            <img src={imageFile} style={{ width: '50%', height: '50%' }} alt="sup" />
-          ) : (
-            '🧼'
-          )}
-        </label>
-        <input
-          className="event-image-upload"
-          id="imageFile"
-          type="file"
-          onChange={handleFileUpload}
-        />
-        <DateCalendar
-          startDate={formik.values.startDate}
-          endDate={formik.values.endDate}
-          hasErrors={formik.touched.endDate && !!formik.errors.endDate}
-          errorMessage={formik.errors.endDate as string}
-          onStartDateChange={(date) => {
-            formik.setFieldValue('startDate', date);
-            formik.setFieldValue('endDate', null);
-          }}
-          onEndDateChange={(date) => {
-            formik.setFieldValue('endDate', date);
-          }}
-        />
-        <div className="create-event-time">
+      <div className="page-container">
+        <div className="create-event">
+          <p className="create-event-text">Create Event</p>
+          <label htmlFor="imageFile" className="custom-file-upload event-input-border">
+            {imageFile ? (
+              <img src={imageFile} style={{ width: '50%', height: '50%' }} alt="Event" />
+            ) : (
+              '🧼'
+            )}
+          </label>
+          <input
+            className="event-image-upload"
+            id="imageFile"
+            type="file"
+            onChange={handleFileUpload}
+          />
+          <DateCalendar
+            startDate={formik.values.startDate}
+            endDate={formik.values.endDate}
+            hasErrors={formik.touched.endDate && !!formik.errors.endDate}
+            errorMessage={formik.errors.endDate as string}
+            onStartDateChange={(date) => {
+              formik.setFieldValue('startDate', date);
+              formik.setFieldValue('endDate', null);
+            }}
+            onEndDateChange={(date) => {
+              formik.setFieldValue('endDate', date);
+            }}
+          />
+
           <CustomTimePicker
             label="Start Time"
             fieldName="startTime"
@@ -162,8 +162,6 @@ const CreateEventPage = ({ history }) => {
             hasErrors={formik.touched.endTime && !!formik.errors.endTime}
             errorMessage={formik.errors.endTime}
           />
-        </div>
-        <div className="create-event-fields">
           <CustomTextInput
             title="Event Title"
             fieldName="eventTitle"
@@ -193,10 +191,10 @@ const CreateEventPage = ({ history }) => {
             onChange={handleRestrictions}
             active={formik.values.activeRestriction}
           />
+          <button type="submit" className="create-event-button">
+            Done
+          </button>
         </div>
-        <button type="submit" className="create-event-button">
-          Done
-        </button>
       </div>
     </form>
   );
