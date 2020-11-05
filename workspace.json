@@ -10,6 +10,10 @@
         "build": {
           "builder": "@nrwl/web:build",
           "options": {
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/ui-lib/src/lib/styles"]
+            },
+            "extractCss": true,
             "outputPath": "dist/apps/mull-ui",
             "index": "apps/mull-ui/src/index.html",
             "main": "apps/mull-ui/src/main.tsx",
@@ -20,7 +24,7 @@
               "apps/mull-ui/src/manifest.json",
               "apps/mull-ui/src/assets"
             ],
-            "styles": ["apps/mull-ui/src/styles.scss"],
+            "styles": ["libs/ui-lib/src/lib/styles/styles.scss"],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
