@@ -2,7 +2,7 @@
 
 exports[`NavigationBar should match snapshot 1`] = `
 <div
-  className="nav-container"
+  className="nav-container test-test"
 >
   <img
     alt="Mull logo"

@@ -1,3 +1,5 @@
+@import 'variables';
+
 .pill-options {
   display: flex;
   flex-direction: row;
@@ -5,7 +7,7 @@
 }
 
 .pill-option {
-  border: 1.3px #27b09a solid;
+  border: 1.3px $primary-color solid;
   outline: none;
   padding: 0.9em 1.9em;
   justify-content: center;
@@ -21,7 +23,7 @@
   }
 
   &.active {
-    background-color: #27b09a;
+    background-color: $primary-color;
     color: #ffffff;
     font-weight: 600;
   }

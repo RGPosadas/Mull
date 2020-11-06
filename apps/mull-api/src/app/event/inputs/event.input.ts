@@ -19,7 +19,8 @@ export class CreateEventInput implements Partial<Event> {
   @Field(/* istanbul ignore next */ () => Int)
   restriction: EventRestriction;
 
-  //   host: User;
+  // TODO: Implement these with appropriate tickets
+  // host: User;
   // image: Media;
   // location: Location;
 }
@@ -42,6 +43,8 @@ export class UpdateEventInput implements Partial<Event> {
 
   @Field(/* istanbul ignore next */ () => Int, { nullable: true })
   restriction: EventRestriction;
+
+  // TODO: Implement these with appropriate tickets
   // image: Media;
   // location: Location;
 }

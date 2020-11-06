@@ -1,14 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App should match snapshot 1`] = `
-<div
-  className="main-content"
->
+<div>
   <div
     className="Toastify"
   />
   <div
-    className="nav-container"
+    className="nav-container test-test"
   >
     <img
       alt="Mull logo"

@@ -66,7 +66,7 @@ describe('CreateEvent', () => {
     input = utils.getByLabelText('Location');
     fireEvent.change(input, { target: { value: 'Rogers Park' } });
     const activeRestriction = utils.container.querySelector(
-      'form > div > div.create-event-fields > div.pill-options > div:nth-child(2)'
+      'form > div > div > div.pill-options > div:nth-child(2)'
     );
     fireEvent.click(activeRestriction);
 

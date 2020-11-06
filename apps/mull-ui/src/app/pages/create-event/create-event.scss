@@ -22,7 +22,7 @@
 
 .event-input-border {
   border-radius: 8px;
-  border: 1.5px #27b09a solid;
+  border: 1.5px $primary-color solid;
   &.error {
     border-color: #ff0000;
   }

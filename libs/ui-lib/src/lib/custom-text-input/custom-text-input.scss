@@ -1,3 +1,5 @@
+@import 'variables';
+
 .custom-text-input-container {
   position: relative;
   svg {
@@ -31,7 +33,7 @@
 
 .input-border {
   border-radius: 20px;
-  border: 1.5px #27b09a solid;
+  border: 1.5px $primary-color solid;
   &.error {
     border-color: #ff0000;
   }

@@ -2,7 +2,7 @@
 
 exports[`CustomTextInput should match snapshot 1`] = `
 <div
-  className="custom-text-input-container"
+  className="custom-text-input-container error"
 >
   <label
     className="custom-text-input-label"
