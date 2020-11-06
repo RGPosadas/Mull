@@ -3,6 +3,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
         # Run all checks on everything
         npm run all-projects -- --target=lint
         npm run all-projects -- --target=test --codeCoverage
+        npm run start -- mull-api &
         npm run all-projects -- --target=e2e --headless
     else
         if [ "$TRAVIS_BRANCH" == "develop" ]; then
@@ -12,6 +13,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
         fi
         npm run affected:lint -- --base=origin/$BASE_BRANCH
         npm run affected:test -- --base=origin/$BASE_BRANCH --codeCoverage
+        npm run start -- mull-api &
         npm run affected:e2e -- --base=origin/$BASE_BRANCH
     fi
 else
