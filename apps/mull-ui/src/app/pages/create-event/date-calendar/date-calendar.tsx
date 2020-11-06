@@ -4,7 +4,6 @@ import { DateRangeFocus, DateRangePickerCalendar } from 'react-nice-dates';
 import 'react-nice-dates/build/style.css';
 import './date-calendar.scss';
 
-/* eslint-disable-next-line */
 export interface DateCalendarProps {
   startDate: Date;
   endDate: Date;
@@ -13,7 +12,15 @@ export interface DateCalendarProps {
   onStartDateChange: (date: Date) => void;
   onEndDateChange: (date: Date) => void;
 }
-
+/**
+ * This component renders a DateCalendar
+ * @param {date} startDate Start Date of the event
+ * @param {date} endDate End Date of event
+ * @param {boolean} hasErrors
+ * @param {string} errorMessage
+ * @param {(date: Date) => void} onStartDateChange Handles start date change
+ * @param {(date: Date) => void} onEndDateChange Handles end date change
+ */
 const DateCalendar = ({
   startDate,
   endDate,
@@ -25,6 +32,10 @@ const DateCalendar = ({
   const START_DATE: DateRangeFocus = 'startDate';
   const [focus, setFocus] = useState<DateRangeFocus>(START_DATE);
 
+  /**
+   * Handles focus changes of the calendar
+   * @param {DateRangeFocus} newFocus Current selected calendar date
+   */
   const handleFocusChange = (newFocus: DateRangeFocus) => {
     setFocus(newFocus || START_DATE);
   };

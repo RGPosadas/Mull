@@ -2,7 +2,6 @@ import React, { ChangeEvent, ReactNode } from 'react';
 
 import './custom-text-input.scss';
 
-/* eslint-disable-next-line */
 export interface CustomTextInputProps {
   title: string;
   value: string;
@@ -13,6 +12,17 @@ export interface CustomTextInputProps {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
+/**
+ * This component renders a text input with a label. It supports validations
+ * based on the values of hasErrors and errorMessage.
+ * @param {string} title Label of the input
+ * @param {string} value
+ * @param {string} fieldName String to identify input
+ * @param {boolean} hasErrors
+ * @param {string} errorMessage
+ * @param {ReactNode} svgIcon The svg in the text input
+ * @param {(event: ChangeEvent<HTMLInputElement>) => void} onChange Handler for when text is changed
+ */
 export const CustomTextInput = ({
   title,
   value,

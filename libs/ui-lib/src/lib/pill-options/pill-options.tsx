@@ -7,7 +7,13 @@ export interface PillOptionsProps {
   onChange: (idx: number) => void;
   active: number;
 }
-
+/**
+ * This component renders a selectable menu where the user can select one out of many options.
+ *
+ * @param {string[]} options The string values of the pill options
+ * @param {(idx: number) => void} onChange Handler for when the pill option has changed
+ * @param {number} active The pill option that is currently selected
+ */
 export const PillOptions = ({ options, onChange, active }: PillOptionsProps) => {
   return (
     <div className="pill-options">

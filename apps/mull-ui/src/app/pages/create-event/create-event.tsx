@@ -21,6 +21,7 @@ export interface CreateEventProps {
   history: History;
 }
 
+// Mutation to create events
 const CREATE_EVENT = gql`
   mutation CreateEvent($createEventInput: CreateEventInput!) {
     createEvent(createEventInput: $createEventInput) {
@@ -29,25 +30,48 @@ const CREATE_EVENT = gql`
   }
 `;
 
+/**
+ * This component renders the create event page
+ * @param {History} history
+ */
 const CreateEventPage = ({ history }) => {
+  // Reference Id for the toast
   const toastId = useRef(null);
+  // GraphQL mutation hook to create events
   const [createEvent] = useMutation(CREATE_EVENT);
+  // Image of Event
   const [imageFile, setImageFile] = useState(null);
 
+  /**
+   * Handles image file uploads
+   * @param {ChangeEvent<HTMLInputElement>} event
+   */
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
     setImageFile(URL.createObjectURL(event.target.files[0]));
   };
 
+  /**
+   * Adds time to a Date object
+   * @param {string} time Time in HH:MM format
+   * @param {Date} date Date object
+   */
   const addTimeToDate = (time: string, date: Date) => {
     const [hour, minute] = time.split(':');
     date.setHours(parseInt(hour));
     date.setMinutes(parseInt(minute));
   };
 
+  /**
+   * Notifies the user of a event submission
+   */
   const notifySubmissionToast = () => {
     toastId.current = toast('Submitting Event...', { autoClose: false });
   };
-
+  /**
+   * Updates existing toast.
+   * @param {TypeOptions} type Type of the toast
+   * @param {string} message Message to display
+   */
   const updateSubmissionToast = (type: TypeOptions, message: string) => {
     toast.update(toastId.current, {
       type,
@@ -115,6 +139,10 @@ const CreateEventPage = ({ history }) => {
     },
   });
 
+  /**
+   * Handles the change of the event restriction.
+   * @param idx Index of Active Restriction
+   */
   const handleRestrictions = (idx: number) => {
     formik.setFieldValue('activeRestriction', idx);
   };
