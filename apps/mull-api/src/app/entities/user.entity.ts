@@ -34,7 +34,7 @@ export class User {
   })
   timezone: string;
 
-  @OneToOne(() => Media)
+  @OneToOne(/* istanbul ignore next */ () => Media)
   @JoinColumn()
   avatar?: Media;
 
@@ -56,14 +56,23 @@ export class User {
    * The friends of this user. People this person is following.
    * e.g: I am friends with you. Your ID would go in this list.
    */
-  @ManyToMany(() => User, (user) => user.friends)
+  @ManyToMany(
+    /* istanbul ignore next */ () => User,
+    /* istanbul ignore next */ (user) => user.friends
+  )
   @JoinTable({ name: 'friends' })
   @Field(/* istanbul ignore next */ () => [User])
   friends: User[];
 
-  @OneToMany(() => Event, (event) => event.host)
+  @OneToMany(
+    /* istanbul ignore next */ () => Event,
+    /* istanbul ignore next */ (event) => event.host
+  )
   events?: Event[];
 
-  @OneToMany(() => PostReaction, (reaction) => reaction.user)
+  @OneToMany(
+    /* istanbul ignore next */ () => PostReaction,
+    /* istanbul ignore next */ (reaction) => reaction.user
+  )
   postReactions?: PostReaction[];
 }

@@ -1,0 +1,52 @@
+@import 'variables';
+
+.custom-time-picker-container {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  flex-direction: column;
+}
+
+.custom-time-picker-label {
+  color: black;
+  align-items: flex-start;
+  font-weight: 600;
+}
+
+.custom-time-picker {
+  border: none;
+  color: #2a2c2d;
+  font-size: 14px;
+  font-family: helvetica, sans-serif;
+  width: 220px;
+
+  &::-webkit-datetime-edit-fields-wrapper {
+    display: flex;
+    width: auto;
+  }
+
+  &::-webkit-datetime-edit-text {
+    padding: 19px 4px;
+  }
+
+  &::-webkit-datetime-edit-hour-field {
+    background-color: #f2f4f5;
+    color: #000000;
+    border-radius: 15%;
+    padding: 19px 13px;
+  }
+
+  &::-webkit-datetime-edit-minute-field {
+    background-color: #f2f4f5;
+    color: #000000;
+    border-radius: 15%;
+    padding: 19px 13px;
+  }
+
+  &::-webkit-datetime-edit-ampm-field {
+    background-color: $primary-color;
+    color: #fff;
+    border-radius: 15%;
+    padding: 19px 13px;
+  }
+}

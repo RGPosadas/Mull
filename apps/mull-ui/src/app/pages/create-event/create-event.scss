@@ -1,0 +1,77 @@
+@import 'variables';
+
+.create-event {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  margin: auto;
+  .custom-text-input-container {
+    margin-bottom: 1.875rem;
+  }
+
+  .custom-time-picker-container {
+    margin: 0 0 1.25rem;
+  }
+}
+
+.event-image-upload {
+  display: none;
+}
+
+.custom-file-upload {
+  display: block;
+  padding: 1.8em 5em;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1.5px $primary-color solid;
+  margin-bottom: 20px;
+
+  &:hover {
+    background: #0ba024;
+  }
+}
+
+.create-event-text {
+  color: $primary-color;
+  font-size: 16px;
+  margin-bottom: 0.5rem;
+}
+
+.create-event-label {
+  color: black;
+  align-items: flex-start;
+  font-weight: 600;
+}
+
+.create-event-input {
+  display: block;
+  box-sizing: border-box;
+  outline: none;
+  padding-left: 1em;
+  width: 100%;
+  height: 2.8em;
+}
+
+.create-event-button {
+  color: white;
+  font-weight: bold;
+  padding: 15px 55px;
+  background: $primary-color;
+  border: 1px solid $primary-color;
+  border-radius: 9px;
+  outline: none;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .create-event {
+    padding: 1rem 0 0;
+  }
+
+  .create-event-text {
+    font-size: 1.5rem;
+  }
+}

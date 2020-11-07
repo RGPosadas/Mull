@@ -1,0 +1,24 @@
+@import 'variables';
+
+.date-calendar-container {
+  & .error-message {
+    text-align: center;
+  }
+}
+
+.nice-dates-day:before {
+  background-color: $primary-color;
+  z-index: 1;
+}
+
+.nice-dates-day:after {
+  background-color: $primary-color;
+  z-index: 1;
+}
+
+.nice-dates-week-header {
+  font-weight: bold;
+}
+.nice-dates-week-header_day {
+  color: black;
+}

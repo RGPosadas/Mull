@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomTimePicker should match snapshot 1`] = `
+<div
+  className="custom-time-picker-container"
+>
+  <label
+    className="custom-time-picker-label"
+    htmlFor="text"
+  >
+    Text
+  </label>
+  <input
+    className="custom-time-picker"
+    data-testid="custom-time-input"
+    id="text"
+    name="text"
+    onChange={[MockFunction]}
+    type="time"
+    value=""
+  />
+  <span
+    className="error-message"
+  >
+    Text is not valid.
+  </span>
+</div>
+`;

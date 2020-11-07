@@ -11,9 +11,9 @@
   border: 0;
 }
 
-html,
-body,
-#root {
-  height: 100%;
-  width: 100%;
+.error-message {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #ff0000;
 }

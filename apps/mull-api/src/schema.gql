@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateEventInput {
+  description: String!
+  endDate: DateTime!
+  restriction: Int!
+  startDate: DateTime!
+  title: String!
+}
+
 input CreateUserInput {
   dob: DateTime!
   email: String!
@@ -14,16 +22,38 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Event {
+  description: String!
+  endDate: DateTime!
+  id: ID!
+  startDate: DateTime!
+  title: String!
+}
+
 type Mutation {
+  createEvent(createEventInput: CreateEventInput!): Event!
   createUser(createUserInput: CreateUserInput!): User!
+  deleteEvent(id: Int!): Event!
   deleteUser(id: Int!): User!
+  updateEvent(updateEventInput: UpdateEventInput!): Event!
   updateUser(updateUserInput: UpdateUserInput!): User!
   uploadFile(file: Upload!): Boolean!
 }
 
 type Query {
+  event(id: Int!): Event!
+  events: [Event!]!
   user(id: Int!): User!
   users: [User!]!
+}
+
+input UpdateEventInput {
+  description: String
+  endDate: DateTime
+  id: ID!
+  restriction: Int
+  startDate: DateTime
+  title: String
 }
 
 input UpdateUserInput {
