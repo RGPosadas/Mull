@@ -199,6 +199,19 @@ nx affected:e2e --base=origin/<base-branch>
 2. Run
    - `docker run -p 3333:3333 mull-api:dev`
 
+## Travis CI
+
+### Scripts
+
+Scripts used for running checks on Travis CI can be found under the `scripts/` folder.
+
+- `ci-checks.sh`: This script is meant to be run by Travis CI. It checks the trigger of the current build and run the appropriate checks.
+- `check-all.sh`: This script runs lint, test and e2e checks on all projects. To run it:
+  1. `bash scripts/check-all.sh`
+- `check-affected.sh`: This script runs lint, test and e2e checks on affected projects. To run it:
+  1. `export BASE_BRANCH=develop`, or some other base branch
+  1. `bash scripts/check-affected.sh`
+
 ## Troubleshooting
 
 ### Inconsistent/Failing Travis Builds
