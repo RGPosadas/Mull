@@ -6,7 +6,7 @@ exports[`App should match snapshot 1`] = `
     className="Toastify"
   />
   <div
-    className="nav-container test-test"
+    className="nav-container"
   >
     <img
       alt="Mull logo"

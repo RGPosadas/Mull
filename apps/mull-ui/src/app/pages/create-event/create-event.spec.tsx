@@ -37,7 +37,7 @@ describe('CreateEvent', () => {
       fireEvent.click(submitButton);
     });
     const error = utils.container.querySelector('span[class="error-message"]');
-    expect(error).toHaveTextContent('End date is required');
+    expect(error).toHaveTextContent('Start Time is required');
   });
 
   it('should submit a valid event', async () => {

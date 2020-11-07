@@ -3,7 +3,7 @@ import { useMutation, gql } from '@apollo/client';
 import { useFormik } from 'formik';
 import { toast, TypeOptions } from 'react-toastify';
 import * as Yup from 'yup';
-
+import { cloneDeep } from 'lodash';
 import { EventRestriction } from '@mull/types';
 import { PillOptions, CustomTextInput, CustomTimePicker } from '@mull/ui-lib';
 import DateCalendar from '../create-event/date-calendar/date-calendar';
@@ -96,8 +96,8 @@ const CreateEventPage = ({ history }) => {
       startDate: Yup.date().required('Start date is required'),
       endDate: Yup.date()
         .nullable()
-        .required('End date is required')
         .test('maxEventLength', 'Event length cannot be over 30 days.', function (endDate) {
+          if (!endDate) return true;
           const diff = Math.abs(+endDate - +this.parent.startDate);
           return diff <= 30 * DAY_IN_MILLISECONDS;
         }),
@@ -115,6 +115,7 @@ const CreateEventPage = ({ history }) => {
 
     onSubmit: (values) => {
       notifySubmissionToast();
+      if (!values.endDate) values.endDate = cloneDeep(values.startDate);
       addTimeToDate(values.startTime, values.startDate);
       addTimeToDate(values.endTime, values.endDate);
       const payload = {
@@ -154,7 +155,7 @@ const CreateEventPage = ({ history }) => {
           <p className="create-event-text">Create Event</p>
           <label htmlFor="imageFile" className="custom-file-upload event-input-border">
             {imageFile ? (
-              <img src={imageFile} style={{ width: '50%', height: '50%' }} alt="sup" />
+              <img src={imageFile} style={{ width: '50%', height: '50%' }} alt="Event" />
             ) : (
               <UploadIcon />
             )}

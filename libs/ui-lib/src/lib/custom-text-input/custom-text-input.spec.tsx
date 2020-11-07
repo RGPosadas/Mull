@@ -12,6 +12,7 @@ const mockCustomTextInputProps: () => CustomTextInputProps = () => ({
   errorMessage: 'Text is not valid.',
   onChange: mockOnChange,
   hasErrors: true,
+  svgIcon: null,
 });
 
 describe('CustomTextInput', () => {

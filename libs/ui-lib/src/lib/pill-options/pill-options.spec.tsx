@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 import PillOptions from './pill-options';
 
 const mockOptions: string[] = ['Yes', 'No', 'Maybe'];
-const mockOnChange: jest.Mock<any, any> = jest.fn();
+const mockOnChange: jest.Mock = jest.fn();
 describe('PillOptions', () => {
   it('should render successfully', () => {
     const { baseElement } = render(

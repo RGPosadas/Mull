@@ -20,19 +20,12 @@
   display: none;
 }
 
-.event-input-border {
-  border-radius: 8px;
-  border: 1.5px $primary-color solid;
-  &.error {
-    border-color: #ff0000;
-  }
-}
-
 .custom-file-upload {
   display: block;
   padding: 1.8em 5em;
   cursor: pointer;
-
+  border-radius: 8px;
+  border: 1.5px $primary-color solid;
   margin-bottom: 20px;
 
   &:hover {
@@ -76,5 +69,9 @@
 @media (min-width: $breakpoint-mobile) {
   .create-event {
     padding: 1rem 0 0;
+  }
+
+  .create-event-text {
+    font-size: 1.5rem;
   }
 }
