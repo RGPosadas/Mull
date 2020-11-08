@@ -5,7 +5,7 @@ div {
 }
 
 .page-container {
-  padding: 0 0 $nav-bar-height-mobile;
+  padding: $header-height-mobile 0 $nav-bar-height-mobile;
 }
 
 .Toastify__toast--success {

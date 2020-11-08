@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header should match snapshot 1`] = `
+<div
+  className="header"
+>
+  <img
+    alt="Mull logo"
+    className="top-logo nav-element"
+    src="mull-logo.png"
+  />
+  <a
+    aria-current={null}
+    data-testid="profile-mobile-navlink"
+    href="/profile"
+    onClick={[Function]}
+  >
+    <svg
+      className="profile-button-mobile"
+    >
+      ProfileIcon.svg
+    </svg>
+  </a>
+</div>
+`;
