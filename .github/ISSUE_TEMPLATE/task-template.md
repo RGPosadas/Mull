@@ -15,10 +15,6 @@ As a developer, I want [feature] so that [value].
 
 Lorem ipsum...
 
-**Pre-requisites**
-
-- [ ] React component hierarchy exists for devs to follow
-
 **Acceptance Criteria**
 
 - [ ] Task criteria #1
