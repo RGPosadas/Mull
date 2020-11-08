@@ -6,6 +6,7 @@ export enum ROUTES {
   MAP = '/map',
   CREATE_EVENT = '/create-event',
   TOOLS = '/tools',
+  MESSAGES = '/messages',
   PROFILE = '/profile',
 }
 

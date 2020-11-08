@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import NavigationBar from './navigation-bar';
+import Header from './header';
 import { Router } from 'react-router-dom';
 
 import { createMemoryHistory } from 'history';
@@ -9,44 +9,31 @@ import { ROUTES } from '../../../constants';
 
 import renderer from 'react-test-renderer';
 
-describe('NavigationBar', () => {
+describe('Header', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
     history.push(ROUTES.HOME);
 
     const { baseElement } = render(
       <Router history={history}>
-        <NavigationBar />
+        <Header />
       </Router>
     );
-
-    expect(baseElement).toBeTruthy();
   });
 
   it('button associated with current should be active ', () => {
-    const testIds = {
-      [ROUTES.HOME]: 'home-navlink',
-      [ROUTES.MAP]: 'map-navlink',
-      [ROUTES.CREATE_EVENT]: 'create-event-navlink',
-      [ROUTES.TOOLS]: 'tools-navlink',
-      [ROUTES.PROFILE]: 'profile-desktop-navlink',
-      [ROUTES.MESSAGES]: 'messages-navlink',
-    };
+    const testId = 'profile-mobile-navlink';
 
     const history = createMemoryHistory();
     const dom = render(
       <Router history={history}>
-        <NavigationBar />
+        <Header />
       </Router>
     );
 
-    for (const key in ROUTES) {
-      history.push(ROUTES[key]);
-
-      const element = dom.getByTestId(testIds[ROUTES[key]]);
-
-      expect(element.classList.contains('active')).toBeTruthy();
-    }
+    history.push(ROUTES.PROFILE);
+    const element = dom.getByTestId(testId);
+    expect(element.classList.contains('active')).toBeTruthy();
   });
 
   it('should match snapshot', () => {
@@ -55,7 +42,7 @@ describe('NavigationBar', () => {
     const tree = renderer
       .create(
         <Router history={history}>
-          <NavigationBar />
+          <Header />
         </Router>
       )
       .toJSON();

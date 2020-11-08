@@ -17,3 +17,11 @@
   margin-bottom: 5px;
   color: #ff0000;
 }
+
+@mixin nav-button {
+  @media (min-width: $breakpoint-mobile) {
+    width: 3.5em;
+    height: 3.5em;
+    margin: 0 1em;
+  }
+}
