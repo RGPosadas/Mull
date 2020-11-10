@@ -28,9 +28,10 @@
   border-radius: 8px;
   border: 1.5px $primary-color solid;
   margin-bottom: 20px;
+  text-align: center;
 
   &:hover {
-    background: #0ba024;
+    cursor: pointer;
   }
 }
 

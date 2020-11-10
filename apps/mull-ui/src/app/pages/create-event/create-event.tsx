@@ -33,6 +33,12 @@ const CREATE_EVENT = gql`
   }
 `;
 
+const UPLOAD_PHOTO = gql`
+  mutation UploadFile($file: Upload!) {
+    uploadFile(file: $file)
+  }
+`;
+
 /**
  * This component renders the create event page
  * @param {History} history
@@ -42,6 +48,7 @@ const CreateEventPage = ({ history }) => {
   const toastId = useRef(null);
   // GraphQL mutation hook to create events
   const [createEvent] = useMutation(CREATE_EVENT);
+  const [uploadPhoto] = useMutation(UPLOAD_PHOTO);
   // Image of Event
   const [imageFile, setImageFile] = useState(null);
 
@@ -128,6 +135,7 @@ const CreateEventPage = ({ history }) => {
         title: values.eventTitle,
         restriction: values.activeRestriction,
       };
+      uploadPhoto({ variables: imageFile });
       createEvent({ variables: { createEventInput: payload } })
         .then(({ errors }) => {
           if (errors) {
