@@ -9,10 +9,12 @@ export class Media implements IMedia {
   constructor(mediaType: string) {
     this.mediaType = mediaType;
   }
+  @Field()
   @PrimaryGeneratedColumn()
   @Field()
   id: number;
 
+  @Field()
   @Column()
   @Field()
   mediaType: string;

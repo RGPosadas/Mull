@@ -2,24 +2,31 @@ import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { FileUpload } from 'graphql-upload';
 import { GraphQLUpload } from 'apollo-server-express';
 import { MediaService } from './media.service';
+import { Media } from '../entities';
 
 @Resolver('Media')
 export class MediaResolver {
   constructor(private readonly mediaService: MediaService) {}
 
-  @Mutation(/* istanbul ignore next */ () => Boolean)
+  @Mutation(/* istanbul ignore next */ () => Media)
   async uploadFile(
     @Args({ name: 'file', type: /* istanbul ignore next */ () => GraphQLUpload })
     file: FileUpload
-  ): Promise<boolean> {
+  ): Promise<Media> {
     return this.mediaService
       .saveFile(file)
       .then(() => {
         return this.mediaService.create(file.mimetype);
       })
-      .then(({ id, mediaType }) => {
-        return this.mediaService.updateFilename(file.filename, id, mediaType);
+      .then((media) => {
+        this.mediaService.updateFilename(file.filename, media.id, media.mediaType);
+        let newMedia = new Media(media.mediaType);
+        newMedia.id = media.id;
+        return newMedia;
       })
-      .catch(() => false);
+      .catch((e) => {
+        console.log(e);
+        return null;
+      });
   }
 }

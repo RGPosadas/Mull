@@ -5,6 +5,7 @@
 input CreateEventInput {
   description: String!
   endDate: DateTime!
+  image: MediaInput!
   restriction: Int!
   startDate: DateTime!
   title: String!
@@ -43,7 +44,7 @@ type Mutation {
   deleteUser(id: Int!): User!
   updateEvent(updateEventInput: UpdateEventInput!): Event!
   updateUser(updateUserInput: UpdateUserInput!): User!
-  uploadFile(file: Upload!): Boolean!
+  uploadFile(file: Upload!): Media!
 }
 
 type Query {

@@ -28,15 +28,14 @@ export class MediaService {
   async create(mediaType: string): Promise<Media> {
     const fileType = mediaType.split('/')[1];
     const newMedia = new Media(fileType);
-    await this.mediaRepository.save(newMedia);
-    return newMedia;
+    return await this.mediaRepository.save(newMedia);
   }
 
-  updateFilename(prevFilename: string, nextFilename: number, fileType: string): boolean {
+  updateFilename(prevFilename: string, nextFilename: number, fileType: string): number {
     renameSync(
       join(process.cwd(), `apps/mull-api/uploads/${prevFilename}`),
       join(process.cwd(), `apps/mull-api/uploads/${nextFilename}.${fileType}`)
     );
-    return true;
+    return nextFilename;
   }
 }

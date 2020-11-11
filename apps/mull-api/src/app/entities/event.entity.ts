@@ -39,6 +39,7 @@ export class Event implements IEvent {
   @Column()
   description: string;
 
+  @Field(() => Media)
   @OneToOne(/* istanbul ignore next */ () => Media)
   @Field(() => Media, { nullable: true })
   @JoinColumn()
