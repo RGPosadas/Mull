@@ -28,7 +28,8 @@ Lorem ipsum...
 - [ ] US criteria #2
 ...
 - [ ] US criteria #n
-- [ ] Documentation present for every new component and function where necessary
+- [ ] User Acceptance Flow is respected
+- [ ] Documentation present where necessary
 - [ ] Unit and UI tests are implemented for every component and function
-- [ ] There must exist an automated Cypress acceptance test in GIF form
+- [ ] There must exist an automated Cypress acceptance test which tests the user acceptance flow
 - [ ] Must match [Mockup](create-mockup-link)
