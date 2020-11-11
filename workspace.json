@@ -56,8 +56,7 @@
         "serve": {
           "builder": "@nrwl/web:dev-server",
           "options": {
-            "buildTarget": "mull-ui:build",
-            "proxyConfig": "apps/mull-ui/proxy.conf.json"
+            "buildTarget": "mull-ui:build"
           },
           "configurations": {
             "production": {
