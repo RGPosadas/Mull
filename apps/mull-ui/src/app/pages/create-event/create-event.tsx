@@ -48,16 +48,17 @@ const CreateEventPage = ({ history }) => {
   const toastId = useRef(null);
   // GraphQL mutation hook to create events
   const [createEvent] = useMutation(CREATE_EVENT);
-  const [uploadPhoto] = useMutation(UPLOAD_PHOTO);
+  const [uploadFile] = useMutation(UPLOAD_PHOTO);
   // Image of Event
-  const [imageFile, setImageFile] = useState(null);
-
+  const [imageURLFile, setImageURLFile] = useState(null);
+  const [file, setFile] = useState<File>(null);
   /**
    * Handles image file uploads
    * @param {ChangeEvent<HTMLInputElement>} event
    */
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    setImageFile(URL.createObjectURL(event.target.files[0]));
+    setImageURLFile(URL.createObjectURL(event.target.files[0]));
+    setFile(event.target.files[0]);
   };
 
   /**
@@ -135,7 +136,7 @@ const CreateEventPage = ({ history }) => {
         title: values.eventTitle,
         restriction: values.activeRestriction,
       };
-      uploadPhoto({ variables: imageFile });
+      uploadFile({ variables: { file: file } });
       createEvent({ variables: { createEventInput: payload } })
         .then(({ errors }) => {
           if (errors) {
@@ -165,8 +166,8 @@ const CreateEventPage = ({ history }) => {
         <div className="create-event">
           <p className="create-event-text">Create Event</p>
           <label htmlFor="imageFile" className="custom-file-upload event-input-border">
-            {imageFile ? (
-              <img src={imageFile} style={{ width: '50%', height: '50%' }} alt="Event" />
+            {imageURLFile ? (
+              <img src={imageURLFile} style={{ width: '50%', height: '50%' }} alt="Event" />
             ) : (
               <FontAwesomeIcon className="event-image-icon" icon={faImages} />
             )}
