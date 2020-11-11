@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { environment } from './environments/environment';
 
+import { createUploadLink } from 'apollo-upload-client';
+
 import App from './app/app';
 
 if ('serviceWorker' in navigator) {
@@ -23,7 +25,9 @@ if ('serviceWorker' in navigator) {
 }
 
 const client = new ApolloClient({
-  uri: environment.backendUrl,
+  link: createUploadLink({
+    uri: environment.backendUrl,
+  }),
   cache: new InMemoryCache(),
 });
 
