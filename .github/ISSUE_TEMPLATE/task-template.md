@@ -15,12 +15,17 @@ As a developer, I want [feature] so that [value].
 
 Lorem ipsum...
 
+**Subtasks**
+
+- [ ] X.1 Subtask 1
+- [ ] X.2 Subtask 2
+
 **Acceptance Criteria**
 
 - [ ] Task criteria #1
 - [ ] Task criteria #2
 ...
 - [ ] Task criteria #n
-- [ ] Documentation present for every new component and function where necessary
+- [ ] Documentation present where necessary
 - [ ] Unit and UI tests are implemented for every component and function
 - [ ] Must match [Mockup](create-mockup-link)
