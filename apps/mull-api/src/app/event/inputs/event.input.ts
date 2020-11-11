@@ -19,6 +19,9 @@ export class CreateEventInput implements Partial<Event> {
   @Field(/* istanbul ignore next */ () => Int)
   restriction: EventRestriction;
 
+  @Field(() => MediaInput)
+  image: Media;
+
   // TODO: Implement these with appropriate tickets
   // host: User;
   // image: Media;
@@ -60,4 +63,13 @@ export class UpdateEventInput implements Partial<Event> {
 
   // @Field()
   // location: Location;
+}
+
+@InputType()
+export class MediaInput implements Partial<Media> {
+  @Field()
+  id: number;
+
+  @Field()
+  mediaType: string;
 }

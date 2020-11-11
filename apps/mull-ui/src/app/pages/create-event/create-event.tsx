@@ -24,6 +24,11 @@ export interface CreateEventProps {
   history: History;
 }
 
+export interface MediaType {
+  id: number;
+  mediaType: string;
+}
+
 // Mutation to create events
 const CREATE_EVENT = gql`
   mutation CreateEvent($createEventInput: CreateEventInput!) {
@@ -35,7 +40,10 @@ const CREATE_EVENT = gql`
 
 const UPLOAD_PHOTO = gql`
   mutation UploadFile($file: Upload!) {
-    uploadFile(file: $file)
+    uploadFile(file: $file) {
+      id
+      mediaType
+    }
   }
 `;
 
@@ -124,19 +132,24 @@ const CreateEventPage = ({ history }) => {
       location: Yup.string().required('Event Location is required.'),
     }),
 
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       notifySubmissionToast();
       if (!values.endDate) values.endDate = cloneDeep(values.startDate);
       addTimeToDate(values.startTime, values.startDate);
       addTimeToDate(values.endTime, values.endDate);
+      let media = await uploadFile({ variables: { file: file } });
+      let imageMedia: MediaType = {
+        id: media.data.uploadFile.id,
+        mediaType: media.data.uploadFile.mediaType,
+      };
       const payload = {
         startDate: values.startDate,
         endDate: values.endDate,
         description: values.description,
         title: values.eventTitle,
         restriction: values.activeRestriction,
+        image: imageMedia,
       };
-      uploadFile({ variables: { file: file } });
       createEvent({ variables: { createEventInput: payload } })
         .then(({ errors }) => {
           if (errors) {
