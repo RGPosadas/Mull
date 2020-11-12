@@ -26,8 +26,14 @@ type Event {
   description: String!
   endDate: DateTime!
   id: ID!
+  image: Media
   startDate: DateTime!
   title: String!
+}
+
+type Media {
+  id: Float!
+  mediaType: String!
 }
 
 type Mutation {
