@@ -33,6 +33,7 @@ export const CustomFileUpload = ({
         type="file"
         onChange={handleFileUpload}
         accept="image/*"
+        data-testid="file"
       />
     </>
   );

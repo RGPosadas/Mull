@@ -135,7 +135,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         .required('Event Description is required.')
         .max(5000, 'Event Description must be under 5000 characters.'),
       location: Yup.string().required('Event Location is required.'),
-      imageFile: Yup.mixed().required('Image File is required'),
+      imageFile: Yup.mixed().required('Image File is required.'),
     }),
 
     onSubmit: async (values) => {
