@@ -67,6 +67,7 @@ const CreateEventPage = ({ history }) => {
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
     setImageURLFile(URL.createObjectURL(event.target.files[0]));
     setFile(event.target.files[0]);
+    formik.setFieldValue('imageFile', event.target.files[0]);
   };
 
   /**
@@ -109,6 +110,7 @@ const CreateEventPage = ({ history }) => {
       eventTitle: '',
       description: '',
       location: '',
+      imageFile: '',
     },
 
     validationSchema: Yup.object({
@@ -130,6 +132,7 @@ const CreateEventPage = ({ history }) => {
         .required('Event Description is required.')
         .max(5000, 'Event Description must be under 5000 characters.'),
       location: Yup.string().required('Event Location is required.'),
+      imageFile: Yup.mixed().required('Image File is required'),
     }),
 
     onSubmit: async (values) => {
@@ -185,11 +188,15 @@ const CreateEventPage = ({ history }) => {
               <FontAwesomeIcon className="event-image-icon" icon={faImages} />
             )}
           </label>
+          {formik.touched.imageFile && !!formik.errors.imageFile ? (
+            <span className="error-message">{formik.errors.imageFile}</span>
+          ) : null}
           <input
             className="event-image-upload"
             id="imageFile"
             type="file"
             onChange={handleFileUpload}
+            accept="image/*"
           />
           <DateCalendar
             startDate={formik.values.startDate}
