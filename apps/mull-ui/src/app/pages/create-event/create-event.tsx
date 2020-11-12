@@ -5,7 +5,7 @@ import { toast, TypeOptions } from 'react-toastify';
 import * as Yup from 'yup';
 import { cloneDeep } from 'lodash';
 import { EventRestriction, EventRestrictionMap } from '@mull/types';
-import { PillOptions, CustomTextInput, CustomTimePicker } from '@mull/ui-lib';
+import { PillOptions, CustomTextInput, CustomTimePicker, CustomFileUpload } from '@mull/ui-lib';
 import { MullButton } from './../../components';
 import DateCalendar from '../create-event/date-calendar/date-calendar';
 
@@ -184,23 +184,13 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       <div className="page-container">
         <div className="create-event">
           <p className="create-event-text">Create Event</p>
-          <label htmlFor="imageFile" className="custom-file-upload event-input-border">
-            {imageURLFile ? (
-              <img src={imageURLFile} style={{ width: '50%', height: '50%' }} alt="Event" />
-            ) : (
-              <FontAwesomeIcon className="event-image-icon" icon={faImages} />
-            )}
-          </label>
-          {formik.touched.imageFile && !!formik.errors.imageFile ? (
-            <span className="error-message">{formik.errors.imageFile}</span>
-          ) : null}
-          <input
-            className="event-image-upload"
-            id="imageFile"
-            type="file"
-            onChange={handleFileUpload}
-            accept="image/*"
-          />
+          <CustomFileUpload
+            imageURL={imageURLFile}
+            hasErrors={formik.touched.imageFile && !!formik.errors.imageFile}
+            errorMessage={formik.errors.imageFile}
+            handleFileUpload={handleFileUpload}
+            uploadIcon={<UploadIcon />}
+          ></CustomFileUpload>
           <DateCalendar
             startDate={formik.values.startDate}
             endDate={formik.values.endDate}
