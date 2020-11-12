@@ -31,11 +31,11 @@ export class MediaService {
     return await this.mediaRepository.save(newMedia);
   }
 
-  updateFilename(prevFilename: string, nextFilename: number, fileType: string): number {
+  updateFilename(prevFilename: string, nextFilename: number, fileType: string): boolean {
     renameSync(
       join(process.cwd(), `apps/mull-api/uploads/${prevFilename}`),
       join(process.cwd(), `apps/mull-api/uploads/${nextFilename}.${fileType}`)
     );
-    return nextFilename;
+    return true;
   }
 }

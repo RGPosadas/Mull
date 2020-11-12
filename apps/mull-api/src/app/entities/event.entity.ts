@@ -39,7 +39,7 @@ export class Event {
   @Column()
   description: string;
 
-  @Field(() => Media)
+  @Field(/* istanbul ignore next */ () => Media)
   @OneToOne(/* istanbul ignore next */ () => Media)
   @JoinColumn()
   image?: Media;

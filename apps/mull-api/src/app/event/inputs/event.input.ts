@@ -19,7 +19,7 @@ export class CreateEventInput implements Partial<Event> {
   @Field(/* istanbul ignore next */ () => Int)
   restriction: EventRestriction;
 
-  @Field(() => MediaInput)
+  @Field(/* istanbul ignore next */ () => MediaInput)
   image: Media;
 
   // TODO: Implement these with appropriate tickets

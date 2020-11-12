@@ -1,6 +1,7 @@
 import { createReadStream, ReadStream } from 'fs';
 import { FileUpload } from 'graphql-upload';
 import { join } from 'path';
+import { Media } from '../entities';
 
 export const mockFile: FileUpload = {
   filename: 'zoro',
@@ -18,4 +19,9 @@ export const mockInvalidFile: FileUpload = {
   createReadStream(): ReadStream {
     return createReadStream(join(process.cwd(), `apps/mull-api/uploads/mock-upload/zoro.jpeg`));
   },
+};
+
+export const mockMedia = {
+  id: undefined,
+  mediaType: 'jpeg',
 };
