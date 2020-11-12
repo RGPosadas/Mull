@@ -14,11 +14,11 @@ import { Channel } from './channel.entity';
 import { User } from './user.entity';
 import { Location } from './location.entity';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { EventRestriction } from '@mull/types';
+import { EventRestriction, IEvent } from '@mull/types';
 
 @Entity()
 @ObjectType()
-export class Event {
+export class Event implements IEvent {
   @Field(/* istanbul ignore next */ () => ID)
   @PrimaryGeneratedColumn()
   id: number;
@@ -40,6 +40,7 @@ export class Event {
   description: string;
 
   @OneToOne(/* istanbul ignore next */ () => Media)
+  @Field(() => Media, { nullable: true })
   @JoinColumn()
   image?: Media;
 
