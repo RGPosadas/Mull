@@ -4,6 +4,8 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 
 import CreateEventPage from './pages/create-event/create-event';
 import { NavigationBar, Header } from './components';
+import LoginPage from './pages/login/login';
+
 import { ROUTES } from '../constants';
 
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -28,6 +30,7 @@ export const App = () => {
             <EventPage event={dummyEvent} prevPage={'Review'} />
           </div>
         </Route>
+        <Route exact path={ROUTES.LOGIN} component={LoginPage} />
       </Switch>
       <ToastContainer
         position={toast.POSITION.TOP_RIGHT}
