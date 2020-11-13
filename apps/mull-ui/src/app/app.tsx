@@ -43,8 +43,6 @@ export const App = () => {
         draggable
         pauseOnHover
       />
-      <Header />
-      <NavigationBar />
     </div>
   );
 };

@@ -1,21 +1,28 @@
 @import 'variables';
 
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  gap: 1.5em;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-column-gap: 1.5em;
+  grid-row-gap: 1.5em;
   margin: 0 auto;
   width: 95%;
+}
+
+.custom-text-input-container,
+.facebook,
+.google,
+.login,
+.separator,
+.twitter {
+  align-self: center;
+  justify-self: center;
 }
 
 .separator {
   display: flex;
   align-items: center;
   color: #27b09a;
-  font-size: 20px;
 }
 
 .separator::before,
@@ -44,7 +51,6 @@
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  gap: 0.5em;
 }
 
 .twitter,
@@ -76,20 +82,48 @@
 }
 
 .login-mull-logo {
+  padding-top: 5em;
   display: block;
   margin: 0 auto;
   width: 30%;
-  padding-bottom: 5em;
+  padding-bottom: 3em;
 }
 
-@media (min-width: $breakpoint-mobile) {
+.sign-up {
+  text-align: center;
+  font-size: 14px;
+}
+
+.register {
+  font-size: 14px;
+  text-decoration: none;
+  color: $primary-color;
+  font-weight: bold;
+}
+
+@media (min-width: 600px) {
   .login,
   .twitter,
   .google,
   .facebook,
   .custom-text-input-container,
   .separator {
-    width: 30%;
+    width: 45%;
+  }
+
+  .login-mull-logo {
+    width: 12%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .login,
+  .twitter,
+  .google,
+  .facebook,
+  .custom-text-input-container,
+  .separator {
+    width: 22%;
   }
 
   .login-mull-logo {

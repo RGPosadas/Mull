@@ -50,21 +50,29 @@ export const Login = () => {
 
         <button className="login">Login</button>
 
+        <div className="sign-up">
+          Don't have an account?{' '}
+          <a href="/register" className="register">
+            {' '}
+            Sign up here!
+          </a>
+        </div>
+
         <div className="separator">or</div>
 
         <button className="twitter">
           <TwitterIcon />
-          Continue with Twitter
+          &nbsp; Continue with Twitter
         </button>
 
         <button className="google">
           <GoogleIcon />
-          Continue with Google
+          &nbsp; Continue with Google
         </button>
 
         <button className="facebook">
           <FacebookIcon />
-          Continue with Facebook
+          &nbsp; Continue with Facebook
         </button>
       </div>
     </form>
