@@ -4,6 +4,7 @@ import { EventRestriction, IEvent } from '@mull/types';
  * enum of the current routes for the application
  */
 export enum ROUTES {
+  REGISTER = '/register',
   LOGIN = '/login',
   HOME = '/home',
   MAP = '/map',

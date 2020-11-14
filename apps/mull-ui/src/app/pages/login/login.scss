@@ -1,6 +1,6 @@
 @import 'variables';
 
-.container {
+.login-container {
   display: grid;
   grid-template-columns: 1fr;
   grid-column-gap: 1.5em;
@@ -65,7 +65,6 @@
   color: #000000;
   background-color: rgba(39, 176, 154, 0.6);
   border: none;
-  cursor: pointer;
 }
 
 .twitter {
@@ -82,7 +81,7 @@
 }
 
 .login-mull-logo {
-  padding-top: 5em;
+  padding-top: 2em;
   display: block;
   margin: 0 auto;
   width: 30%;
@@ -94,7 +93,7 @@
   font-size: 14px;
 }
 
-.register {
+.register-login-page {
   font-size: 14px;
   text-decoration: none;
   color: $primary-color;
@@ -102,12 +101,15 @@
 }
 
 @media (min-width: 600px) {
+  .login-mull-logo {
+    padding-top: 8em;
+  }
   .login,
   .twitter,
   .google,
   .facebook,
-  .custom-text-input-container,
-  .separator {
+  .separator,
+  .custom-text-input-container {
     width: 45%;
   }
 
@@ -127,6 +129,6 @@
   }
 
   .login-mull-logo {
-    width: 12%;
+    width: 10%;
   }
 }

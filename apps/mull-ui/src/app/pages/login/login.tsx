@@ -27,7 +27,7 @@ export const Login = () => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <div className="container">
+      <div className="login-container">
         <img src={logo} className="login-mull-logo" alt="Mull logo" />
 
         <CustomTextInput
@@ -52,7 +52,7 @@ export const Login = () => {
 
         <div className="sign-up">
           Don't have an account?{' '}
-          <a href="/register" className="register">
+          <a href="/register" className="register-login-page">
             {' '}
             Sign up here!
           </a>

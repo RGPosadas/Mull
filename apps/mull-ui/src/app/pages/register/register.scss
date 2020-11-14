@@ -1,0 +1,64 @@
+@import 'variables';
+
+.register-mull-logo {
+  padding-top: 8em;
+  display: block;
+  margin: 0 auto;
+  width: 30%;
+  padding-bottom: 3em;
+}
+
+.register-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-column-gap: 1.5em;
+  grid-row-gap: 1.5em;
+  margin: 0 auto;
+  width: 95%;
+}
+
+.register {
+  font-weight: bold;
+  color: #000000;
+  background-color: rgba(39, 176, 154, 0.6);
+  border: none;
+  height: 45px;
+  cursor: pointer;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  font-size: 16px;
+}
+
+.custom-text-input-container,
+.register {
+  align-self: center;
+  justify-self: center;
+}
+
+.register,
+.custom-text-input-container {
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .register,
+  .custom-text-input-container {
+    width: 45%;
+  }
+  .register-mull-logo {
+    width: 15%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .register,
+  .custom-text-input-container {
+    width: 22%;
+  }
+  .register-mull-logo {
+    width: 10%;
+  }
+}

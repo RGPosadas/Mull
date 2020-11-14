@@ -5,6 +5,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import CreateEventPage from './pages/create-event/create-event';
 import { NavigationBar, Header } from './components';
 import LoginPage from './pages/login/login';
+import RegisterPage from './pages/register/register';
 
 import { ROUTES } from '../constants';
 
@@ -31,6 +32,7 @@ export const App = () => {
           </div>
         </Route>
         <Route exact path={ROUTES.LOGIN} component={LoginPage} />
+        <Route exact path={ROUTES.REGISTER} component={RegisterPage} />
       </Switch>
       <ToastContainer
         position={toast.POSITION.TOP_RIGHT}
@@ -43,6 +45,8 @@ export const App = () => {
         draggable
         pauseOnHover
       />
+      <Header />
+      <NavigationBar />
     </div>
   );
 };
