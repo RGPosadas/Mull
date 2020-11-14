@@ -9,9 +9,7 @@ import { ROUTES } from '../constants';
 import 'react-toastify/dist/ReactToastify.min.css';
 import './app.scss';
 import { EventPageHeader } from './components';
-import { gql, useQuery } from '@apollo/client';
 import { IEvent } from '@mull/types';
-import { date } from 'yup';
 
 /**
  * Main component of the application
@@ -22,7 +20,7 @@ export const App = () => {
   const dummyEvent: IEvent = {
     id: 1,
     title: 'Test title',
-    description: 'Test Desc',
+    description: 'Test description',
     endDate: new Date(),
     startDate: new Date(),
   };

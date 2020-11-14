@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventPageHeader should match snapshot 1`] = `
+<div
+  className="container"
+>
+  <h1
+    className="title"
+  >
+    Test title
+  </h1>
+  <img
+    className="event-image"
+    src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png"
+  />
+  <div
+    className="event-datetime"
+  >
+    <svg
+      className="clock-icon"
+    >
+      ClockIcon.svg
+    </svg>
+    <div
+      className="event-datetime-string"
+      data-testid="start-date-div"
+    >
+      Jan 1
+12:00 AM
+    </div>
+    <svg
+      className="to-icon"
+    >
+      ToIcon.svg
+    </svg>
+    <div
+      className="event-datetime-string"
+      data-testid="end-date-div"
+    >
+      <div>
+        Jan 2
+12:00 AM
+      </div>
+    </div>
+  </div>
+</div>
+`;
