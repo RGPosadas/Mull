@@ -16,6 +16,7 @@ import { EventModule } from './event/event.module';
 import { EntitiesModule } from './entities';
 import { MediaModule } from './media/media.module';
 import { environment } from '../environments/environment';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { environment } from '../environments/environment';
         maxFileSize: 10000000000000,
       },
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -19,6 +19,10 @@ export class UserService {
     return this.userRepository.findOne(id);
   }
 
+  findByEmail(email: string): Promise<User[]> {
+    return this.userRepository.find({ where: { email } });
+  }
+
   async findAllFriends(id: number): Promise<User[]> {
     const { friends } = await this.userRepository.findOne(id, { relations: ['friends'] });
     return friends;
