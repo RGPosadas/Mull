@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { toast, TypeOptions } from 'react-toastify';
 import * as Yup from 'yup';
 import { cloneDeep } from 'lodash';
-import { EventRestriction } from '@mull/types';
+import { EventRestriction, EventRestrictionMap } from '@mull/types';
 import { PillOptions, CustomTextInput, CustomTimePicker } from '@mull/ui-lib';
 import DateCalendar from '../create-event/date-calendar/date-calendar';
 
@@ -228,7 +228,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
             svgIcon={<FontAwesomeIcon icon={faMapMarkerAlt} />}
           />
           <PillOptions
-            options={['Everyone', 'Friends', 'Invite Only']}
+            options={EventRestrictionMap}
             onChange={handleRestrictions}
             active={formik.values.activeRestriction}
           />

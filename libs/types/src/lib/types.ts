@@ -14,6 +14,8 @@ export enum EventRestriction {
   INVITE_ONLY,
 }
 
+export const EventRestrictionMap = ['Everyone', 'Friends', 'Invite Only'];
+
 export interface IEvent {
   id: number;
   title: string;
@@ -21,6 +23,19 @@ export interface IEvent {
   endDate: Date;
   description: string;
   image?: IMedia;
+  restriction: EventRestriction;
+  host?: IUser;
+  location?: ILocation;
+}
+
+export interface ILocation {
+  id: number;
+  point: string;
+  events?: IEvent[];
+}
+
+export interface IUser {
+  name: string;
 }
 
 export interface IMedia {

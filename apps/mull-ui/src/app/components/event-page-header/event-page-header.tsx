@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ReactComponent as ClockIcon } from '../../../assets/icons/event-page-icons/ClockIcon.svg';
-import { ReactComponent as ToIcon } from '../../../assets/icons/event-page-icons/ToIcon.svg';
+import { ReactComponent as ClockIcon } from '../../../assets/icons/event-page-icons/clock.svg';
+import { ReactComponent as ToIcon } from '../../../assets/icons/event-page-icons/to.svg';
 
 import './event-page-header.scss';
 
@@ -26,7 +26,7 @@ export const EventPageHeader = ({ event }: EventPageHeaderProps) => {
   };
 
   return (
-    <div className="container">
+    <div className="event-page-header">
       <h1 className="title">{event.title}</h1>
       {/* TODO: Currently using placeholder. US will need to actually fetch image from media server */}
       <img

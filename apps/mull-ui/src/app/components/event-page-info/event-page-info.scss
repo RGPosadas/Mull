@@ -1,0 +1,33 @@
+@import 'variables';
+
+.info-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+}
+
+.container {
+  div {
+    border-top: 1px solid $primary-color;
+  }
+  div:last-child {
+    border-bottom: 1px solid $primary-color;
+  }
+}
+
+.row-icon {
+  box-sizing: border-box;
+  width: 2rem;
+  height: 2rem;
+}
+
+.row-text {
+  flex: 1;
+  padding: 0 1rem;
+}
+
+img {
+  object-fit: contain;
+}
