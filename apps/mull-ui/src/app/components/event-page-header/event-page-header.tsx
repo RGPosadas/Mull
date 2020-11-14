@@ -12,13 +12,12 @@ export interface EventPageHeaderProps {
 }
 
 export const EventPageHeader = ({ event }: EventPageHeaderProps) => {
-  const dateToString = (fakeDate: Date): string => {
-    let date = new Date(fakeDate);
-    const dateString = Intl.DateTimeFormat('default', {
+  const dateToString = (date: Date): string => {
+    const dateString = Intl.DateTimeFormat('en-us', {
       month: 'short',
       day: 'numeric',
     }).format(date);
-    const timeString = Intl.DateTimeFormat('default', {
+    const timeString = Intl.DateTimeFormat('en-us', {
       hour: '2-digit',
       minute: '2-digit',
     }).format(date);
@@ -33,13 +32,16 @@ export const EventPageHeader = ({ event }: EventPageHeaderProps) => {
       <img
         className="event-image"
         src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png"
+        alt="Event Page"
       />
 
-      <div className="event-time">
+      <div className="event-datetime">
         <ClockIcon className="clock-icon" />
-        <div className="event-time-string">{dateToString(event.startDate)}</div>
+        <div className="event-datetime-string" data-testid="start-date-div">
+          {dateToString(event.startDate)}
+        </div>
         <ToIcon className="to-icon" />
-        <div className="event-time-string">
+        <div className="event-datetime-string" data-testid="end-date-div">
           <div>{dateToString(event.endDate)}</div>
         </div>
       </div>

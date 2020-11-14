@@ -19,6 +19,8 @@ describe('Header', () => {
         <Header />
       </Router>
     );
+
+    expect(baseElement).toBeTruthy();
   });
 
   it('button associated with current should be active ', () => {
