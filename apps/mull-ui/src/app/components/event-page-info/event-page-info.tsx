@@ -18,6 +18,7 @@ export const EventPageInfo = ({ event }: EventPageInfoProps) => {
   return (
     <div className="container">
       <div className="info-row">
+        {/* TODO: Currently using placeholder. The US will need to actually fetch image from media server */}
         <img
           src="https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png"
           className="row-icon"

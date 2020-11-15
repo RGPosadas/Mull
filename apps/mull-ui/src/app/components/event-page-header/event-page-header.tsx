@@ -28,7 +28,7 @@ export const EventPageHeader = ({ event }: EventPageHeaderProps) => {
   return (
     <div className="event-page-header">
       <h1 className="title">{event.title}</h1>
-      {/* TODO: Currently using placeholder. US will need to actually fetch image from media server */}
+      {/* TODO: Currently using placeholder. The US will need to actually fetch image from media server */}
       <img
         className="event-image"
         src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png"
