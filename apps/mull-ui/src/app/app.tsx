@@ -36,7 +36,7 @@ export const App = () => {
   };
 
   return (
-    <div>
+    <>
       <Switch>
         <Route exact path="/">
           {<Redirect to={ROUTES.HOME} />}
@@ -66,7 +66,7 @@ export const App = () => {
       />
       <Header />
       <NavigationBar />
-    </div>
+    </>
   );
 };
 
