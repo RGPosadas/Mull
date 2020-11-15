@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { CustomTextInput } from '@mull/ui-lib';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -10,7 +9,11 @@ import { ReactComponent as FacebookIcon } from '../../../assets/icons/login-icon
 
 import './login.scss';
 
-export const Login = () => {
+export interface LoginProps {
+  history: History;
+}
+
+export const Login = ({ history }) => {
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -49,7 +52,9 @@ export const Login = () => {
           isPassword={true}
         />
 
-        <button className="login">Login</button>
+        <button type="submit" className="login">
+          Login
+        </button>
 
         <div className="sign-up">
           Don't have an account?{' '}

@@ -41,11 +41,11 @@ describe('NavigationBar', () => {
     );
 
     for (const key in ROUTES) {
-      history.push(ROUTES[key]);
-
-      const element = dom.getByTestId(testIds[ROUTES[key]]);
-
-      expect(element.classList.contains('active')).toBeTruthy();
+      if (!['LOGIN', 'REGISTER'].includes(key)) {
+        history.push(ROUTES[key]);
+        const element = dom.getByTestId(testIds[ROUTES[key]]);
+        expect(element.classList.contains('active')).toBeTruthy();
+      }
     }
   });
 
