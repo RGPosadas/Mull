@@ -2,7 +2,7 @@
 
 exports[`EventPageInfo should match snapshot 1`] = `
 <div
-  className="container"
+  className="event-page-info-container "
 >
   <div
     className="info-row"

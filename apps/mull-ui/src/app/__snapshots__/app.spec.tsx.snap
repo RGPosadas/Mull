@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App should match snapshot 1`] = `
-<div>
+Array [
   <div
     className="Toastify"
-  />
+  />,
   <div
     className="header"
   >
@@ -25,7 +25,7 @@ exports[`App should match snapshot 1`] = `
         ProfileIcon.svg
       </svg>
     </a>
-  </div>
+  </div>,
   <div
     className="nav-container"
   >
@@ -109,6 +109,6 @@ exports[`App should match snapshot 1`] = `
         ProfileIcon.svg
       </svg>
     </a>
-  </div>
-</div>
+  </div>,
+]
 `;
