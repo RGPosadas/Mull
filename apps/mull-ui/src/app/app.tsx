@@ -1,6 +1,6 @@
 import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 import CreateEventPage from './pages/create-event/create-event';
 import { NavigationBar, Header } from './components';
@@ -17,6 +17,14 @@ import { dummyEvent } from '../constants';
 /**
  * Main component of the application
  */
+const showHeader = () => {
+  const location = useLocation();
+  if (['/login', '/register'].includes(location.pathname)) {
+    return false;
+  }
+  return true;
+};
+
 export const App = () => {
   return (
     <div>
@@ -45,8 +53,13 @@ export const App = () => {
         draggable
         pauseOnHover
       />
-      <Header />
-      <NavigationBar />
+
+      {showHeader() ? (
+        <>
+          <Header />
+          <NavigationBar />
+        </>
+      ) : null}
     </div>
   );
 };
