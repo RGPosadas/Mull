@@ -5,7 +5,7 @@ import { toast, TypeOptions } from 'react-toastify';
 import * as Yup from 'yup';
 import { cloneDeep } from 'lodash';
 import { EventRestriction, EventRestrictionMap } from '@mull/types';
-import { PillOptions, CustomTextInput, CustomTimePicker } from '@mull/ui-lib';
+import { PillOptions, CustomTextInput, CustomTimePicker, MullButton } from '@mull/ui-lib';
 import DateCalendar from '../create-event/date-calendar/date-calendar';
 
 import { DAY_IN_MILLISECONDS } from '../../../constants';
@@ -232,9 +232,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
             onChange={handleRestrictions}
             active={formik.values.activeRestriction}
           />
-          <button type="submit" className="create-event-button">
-            Done
-          </button>
+          <MullButton className="create-event-button" />
         </div>
       </div>
     </form>
