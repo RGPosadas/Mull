@@ -31,7 +31,7 @@ export const Register = (props: RegisterProps) => {
       <img src={logo} className="register-mull-logo" alt="Mull logo" />
       <CustomTextInput
         title="Name"
-        fieldName="Name"
+        fieldName="name"
         value={formik.values.name}
         onChange={formik.handleChange}
         hasErrors={formik.touched.email && !!formik.errors.email}
@@ -39,7 +39,7 @@ export const Register = (props: RegisterProps) => {
       />
       <CustomTextInput
         title="Email"
-        fieldName="Email"
+        fieldName="email"
         value={formik.values.email}
         onChange={formik.handleChange}
         hasErrors={formik.touched.email && !!formik.errors.email}
@@ -47,11 +47,12 @@ export const Register = (props: RegisterProps) => {
       />
       <CustomTextInput
         title="Password"
-        fieldName="Password"
+        fieldName="password"
         value={formik.values.password}
         onChange={formik.handleChange}
         hasErrors={formik.touched.email && !!formik.errors.password}
         errorMessage={formik.errors.password}
+        isPassword={true}
       />
       <button className="register">Create Account</button>
     </div>

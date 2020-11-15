@@ -32,7 +32,7 @@ export const Login = () => {
 
         <CustomTextInput
           title="Email"
-          fieldName="Email"
+          fieldName="email"
           value={formik.values.email}
           onChange={formik.handleChange}
           hasErrors={formik.touched.email && !!formik.errors.email}
@@ -41,11 +41,12 @@ export const Login = () => {
 
         <CustomTextInput
           title="Password"
-          fieldName="Password"
+          fieldName="password"
           value={formik.values.password}
           onChange={formik.handleChange}
           hasErrors={formik.touched.password && !!formik.errors.password}
           errorMessage={formik.errors.password}
+          isPassword={true}
         />
 
         <button className="login">Login</button>
