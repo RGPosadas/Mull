@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventPageInfo should match snapshot 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="info-row"
+  >
+    <img
+      className="row-icon"
+      src="https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png"
+    />
+    <p
+      className="row-text"
+    >
+      Test user
+    </p>
+    <svg
+      className="row-icon"
+    >
+      message.svg
+    </svg>
+  </div>
+  <div
+    className="info-row"
+  >
+    <svg
+      className="row-icon"
+    >
+      location.svg
+    </svg>
+    <p
+      className="row-text"
+    >
+      1260 Remembrance Road Montreal, Qc
+    </p>
+    <svg
+      className="row-icon"
+    >
+      map.svg
+    </svg>
+  </div>
+  <div
+    className="info-row"
+  >
+    <svg
+      className="row-icon"
+    >
+      description.svg
+    </svg>
+    <p
+      className="row-text"
+    >
+      Lorem ipsum dolor sit amet, regione invidunt democritum vim in, movet antiopam gubergren ne per. Est nibh magna scribentur ea, vel te munere deseruisse disputationi, eros meis ludus ne sea. Odio prompta legendos in sea, ut mei scripta labores theophrastus, id molestie probatus periculis mea. Noluisse invenire splendide sed ne, at erat quando laudem nec, possim apeirian vix at. At eam animal efficiendi interpretaris, eirmod offendit adversarium per et, summo qualisque efficiendi in has. Vel detraxit accusata ea.
+    </p>
+  </div>
+  <div
+    className="info-row"
+  >
+    <svg
+      className="row-icon"
+    >
+      event-restriction.svg
+    </svg>
+    <p
+      className="row-text"
+    >
+      Everyone
+    </p>
+  </div>
+</div>
+`;

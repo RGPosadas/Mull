@@ -3,17 +3,9 @@ import { render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 
 import EventPageHeader from './event-page-header';
-import { IEvent } from '@mull/types';
+import { dummyEvent } from '../../../constants';
 
 describe('EventPageHeader', () => {
-  const dummyEvent: IEvent = {
-    id: 1,
-    title: 'Test title',
-    description: 'Test description',
-    startDate: new Date(2000, 0, 1, 0, 0, 0, 0),
-    endDate: new Date(2000, 0, 2, 0, 0, 0, 0),
-  };
-
   it('should render successfully', () => {
     const { baseElement } = render(<EventPageHeader event={dummyEvent} />);
     expect(baseElement).toBeTruthy();

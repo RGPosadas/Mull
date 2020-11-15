@@ -2,7 +2,7 @@
 
 exports[`EventPageHeader should match snapshot 1`] = `
 <div
-  className="container"
+  className="event-page-header"
 >
   <h1
     className="title"
@@ -10,6 +10,7 @@ exports[`EventPageHeader should match snapshot 1`] = `
     Test title
   </h1>
   <img
+    alt="Event Page"
     className="event-image"
     src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png"
   />
@@ -19,7 +20,7 @@ exports[`EventPageHeader should match snapshot 1`] = `
     <svg
       className="clock-icon"
     >
-      ClockIcon.svg
+      clock.svg
     </svg>
     <div
       className="event-datetime-string"
@@ -31,7 +32,7 @@ exports[`EventPageHeader should match snapshot 1`] = `
     <svg
       className="to-icon"
     >
-      ToIcon.svg
+      to.svg
     </svg>
     <div
       className="event-datetime-string"
