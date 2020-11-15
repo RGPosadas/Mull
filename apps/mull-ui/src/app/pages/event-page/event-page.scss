@@ -1,0 +1,14 @@
+.event-page-container {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.event-page-info {
+  overflow-y: auto;
+}
+
+.event-page-button {
+  margin: 0.5rem 0;
+}

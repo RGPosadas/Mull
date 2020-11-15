@@ -9,14 +9,14 @@ import { ReactComponent as EventRestriction } from '../../../assets/icons/event-
 
 import './event-page-info.scss';
 
-/* eslint-disable-next-line */
 export interface EventPageInfoProps {
   event: IEvent;
+  className?: string;
 }
 
-export const EventPageInfo = ({ event }: EventPageInfoProps) => {
+export const EventPageInfo = ({ event, className = '' }: EventPageInfoProps) => {
   return (
-    <div className="container">
+    <div className={`event-page-info-container ${className}`}>
       <div className="info-row">
         {/* TODO: Currently using placeholder. The US will need to actually fetch image from media server */}
         <img

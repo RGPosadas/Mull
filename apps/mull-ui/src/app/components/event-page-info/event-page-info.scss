@@ -9,12 +9,12 @@
   align-items: flex-start;
 }
 
-.container {
+.event-page-info-container {
   div {
-    border-top: 1px solid $primary-color;
+    border-bottom: 1px solid $primary-color;
   }
   div:last-child {
-    border-bottom: 1px solid $primary-color;
+    border: none;
   }
 }
 

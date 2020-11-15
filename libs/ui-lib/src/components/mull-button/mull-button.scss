@@ -3,7 +3,10 @@
 .mull-button {
   color: white;
   font-weight: bold;
-  padding: 1rem 3.5rem;
+  padding: 1rem 3rem;
   background: $primary-color;
   border-radius: 9px;
+
+  border: none;
+  outline: none;
 }
