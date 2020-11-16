@@ -10,10 +10,13 @@ import DateCalendar from '../create-event/date-calendar/date-calendar';
 
 import { DAY_IN_MILLISECONDS } from '../../../constants';
 
-import { ReactComponent as PencilIcon } from '../../../assets/icons/event-form-icons/pencil.svg';
-import { ReactComponent as DescriptionIcon } from '../../../assets/icons/event-form-icons/description.svg';
-import { ReactComponent as LocationIcon } from '../../../assets/icons/event-form-icons/pin.svg';
-import { ReactComponent as UploadIcon } from '../../../assets/icons/event-form-icons/upload.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faAlignLeft,
+  faPencilAlt,
+  faMapMarkerAlt,
+  faImages,
+} from '@fortawesome/free-solid-svg-icons';
 
 import './create-event.scss';
 
@@ -157,7 +160,7 @@ const CreateEventPage = ({ history }) => {
             {imageFile ? (
               <img src={imageFile} style={{ width: '50%', height: '50%' }} alt="Event" />
             ) : (
-              <UploadIcon />
+              <FontAwesomeIcon className="event-image-icon" icon={faImages} />
             )}
           </label>
           <input
@@ -202,7 +205,7 @@ const CreateEventPage = ({ history }) => {
             onChange={formik.handleChange}
             hasErrors={formik.touched.eventTitle && !!formik.errors.eventTitle}
             errorMessage={formik.errors.eventTitle}
-            svgIcon={<PencilIcon />}
+            svgIcon={<FontAwesomeIcon icon={faPencilAlt} />}
           />
           <CustomTextInput
             title="Description"
@@ -211,7 +214,7 @@ const CreateEventPage = ({ history }) => {
             onChange={formik.handleChange}
             hasErrors={formik.touched.description && !!formik.errors.description}
             errorMessage={formik.errors.description}
-            svgIcon={<DescriptionIcon />}
+            svgIcon={<FontAwesomeIcon icon={faAlignLeft} />}
           />
           <CustomTextInput
             title="Location"
@@ -220,7 +223,7 @@ const CreateEventPage = ({ history }) => {
             onChange={formik.handleChange}
             hasErrors={formik.touched.location && !!formik.errors.location}
             errorMessage={formik.errors.location}
-            svgIcon={<LocationIcon />}
+            svgIcon={<FontAwesomeIcon icon={faMapMarkerAlt} />}
           />
           <PillOptions
             options={['Everyone', 'Friends', 'Invite Only']}
