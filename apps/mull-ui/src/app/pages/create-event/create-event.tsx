@@ -4,9 +4,10 @@ import { useFormik } from 'formik';
 import { toast, TypeOptions } from 'react-toastify';
 import * as Yup from 'yup';
 import { cloneDeep } from 'lodash';
-import { EventRestriction } from '@mull/types';
+import { EventRestriction, IMedia } from '@mull/types';
 import { PillOptions, CustomTextInput, CustomTimePicker, CustomFileUpload } from '@mull/ui-lib';
 import DateCalendar from '../create-event/date-calendar/date-calendar';
+import { History as IHistory } from 'history';
 
 import { DAY_IN_MILLISECONDS } from '../../../constants';
 
@@ -21,12 +22,7 @@ import {
 import './create-event.scss';
 
 export interface CreateEventProps {
-  history: History;
-}
-
-export interface MediaType {
-  id: number;
-  mediaType: string;
+  history: IHistory;
 }
 
 // Mutation to create events
@@ -51,7 +47,7 @@ const UPLOAD_PHOTO = gql`
  * This component renders the create event page
  * @param {History} history
  */
-const CreateEventPage = ({ history }) => {
+const CreateEventPage = ({ history }: CreateEventProps) => {
   // Reference Id for the toast
   const toastId = useRef(null);
   // GraphQL mutation hook to create events
@@ -132,7 +128,7 @@ const CreateEventPage = ({ history }) => {
         .required('Event Description is required.')
         .max(5000, 'Event Description must be under 5000 characters.'),
       location: Yup.string().required('Event Location is required.'),
-      imageFile: Yup.mixed().required('Image File is required.'),
+      imageFile: Yup.mixed().required('Image is required.'),
     }),
 
     onSubmit: async (values) => {
@@ -140,8 +136,8 @@ const CreateEventPage = ({ history }) => {
       if (!values.endDate) values.endDate = cloneDeep(values.startDate);
       addTimeToDate(values.startTime, values.startDate);
       addTimeToDate(values.endTime, values.endDate);
-      let media = await uploadFile({ variables: { file: file } });
-      let imageMedia: MediaType = {
+      const media = await uploadFile({ variables: { file: file } });
+      const imageMedia: IMedia = {
         id: media.data.uploadFile.id,
         mediaType: media.data.uploadFile.mediaType,
       };
@@ -177,7 +173,7 @@ const CreateEventPage = ({ history }) => {
   };
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form className="container" onSubmit={formik.handleSubmit}>
       <div className="page-container">
         <div className="create-event">
           <p className="create-event-text">Create Event</p>
@@ -186,8 +182,8 @@ const CreateEventPage = ({ history }) => {
             hasErrors={formik.touched.imageFile && !!formik.errors.imageFile}
             errorMessage={formik.errors.imageFile}
             handleFileUpload={handleFileUpload}
-            uploadIcon={<UploadIcon />}
-          ></CustomFileUpload>
+            fieldName="imageFile"
+          />
           <DateCalendar
             startDate={formik.values.startDate}
             endDate={formik.values.endDate}

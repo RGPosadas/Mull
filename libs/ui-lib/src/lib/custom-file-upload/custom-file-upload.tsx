@@ -1,41 +1,47 @@
 import React, { ChangeEvent, ReactNode } from 'react';
 
 import './custom-file-upload.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faImages } from '@fortawesome/free-solid-svg-icons';
 
 export interface CustomFileUploadProps {
   hasErrors: boolean;
   errorMessage: string;
   imageURL: string;
   handleFileUpload: (event: ChangeEvent<HTMLInputElement>) => void;
-  uploadIcon: ReactNode;
+  fieldName: string;
 }
 
 export const CustomFileUpload = ({
   imageURL,
-  uploadIcon,
   hasErrors,
   errorMessage,
   handleFileUpload,
+  fieldName,
 }: CustomFileUploadProps) => {
   return (
-    <>
-      <label htmlFor="imageFile" className="custom-file-upload event-input-border">
+    <div>
+      <label htmlFor="imageFile" style={{ boxSizing: 'border-box' }} className="custom-file-upload">
         {imageURL ? (
-          <img src={imageURL} style={{ width: '50%', height: '50%' }} alt="Event" />
+          <img
+            src={imageURL}
+            style={{ width: '100%', display: 'block', borderRadius: '6.5px' }}
+            alt="Event"
+          />
         ) : (
-          uploadIcon
+          <FontAwesomeIcon className="event-image-icon" icon={faImages} />
         )}
       </label>
       {hasErrors ? <span className="error-message">{errorMessage}</span> : null}
       <input
         className="event-image-upload"
-        id="imageFile"
+        id={fieldName}
         type="file"
         onChange={handleFileUpload}
         accept="image/*"
         data-testid="file"
       />
-    </>
+    </div>
   );
 };
 

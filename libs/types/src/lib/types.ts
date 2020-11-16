@@ -5,6 +5,11 @@ export interface Message {
   info: { production: boolean };
 }
 
+export interface IMedia {
+  id: number;
+  mediaType: string;
+}
+
 /**
  * Restriction options for events
  */

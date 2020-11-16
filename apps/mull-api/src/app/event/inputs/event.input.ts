@@ -56,12 +56,3 @@ export class UpdateEventInput implements Partial<Event> {
   // @Field()
   // location: Location;
 }
-
-@InputType()
-export class MediaInput implements Partial<Media> {
-  @Field()
-  id: number;
-
-  @Field()
-  mediaType: string;
-}
