@@ -16,7 +16,9 @@ describe('MullButton', () => {
   });
 
   it('should run the provided function on click', () => {
-    const mockCallback = jest.fn(() => {});
+    const mockCallback = jest.fn(() => {
+      /* Do nothing */
+    });
     const dom = render(<MullButton onClick={mockCallback} />);
 
     const button = dom.getByTestId('mull-button');

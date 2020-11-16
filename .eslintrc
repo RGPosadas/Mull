@@ -26,7 +26,8 @@
         "allow": [],
         "depConstraints": [{ "sourceTag": "*", "onlyDependOnLibsWithTags": ["*"] }]
       }
-    ]
+    ],
+    "@typescript-eslint/interface-name-prefix": "off"
   },
   "overrides": [
     {

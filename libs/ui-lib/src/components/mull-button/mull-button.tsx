@@ -10,7 +10,9 @@ export interface MullButtonProps {
 
 export const MullButton = ({
   type = 'submit',
-  onClick = () => {},
+  onClick = () => {
+    /* Do nothing */
+  },
   className = '',
 }: MullButtonProps) => {
   return (

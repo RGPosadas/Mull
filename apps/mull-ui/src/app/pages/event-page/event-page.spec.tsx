@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 
 import EventPage from './event-page';
-import { dummyEvent } from 'apps/mull-ui/src/constants';
+import { dummyEvent } from '../../../constants';
 
 describe('EventPage', () => {
   it('should render successfully', () => {
