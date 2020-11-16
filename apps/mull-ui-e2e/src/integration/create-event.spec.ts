@@ -67,7 +67,7 @@ frameSizes.forEach((frame) => {
 
     it('should show errors when fields are not completed', () => {
       cy.get('.create-event-button').click();
-      cy.get(':nth-child(1) > .error-message').should('have.text', 'Image File is required.');
+      cy.get(':nth-child(1) > .error-message').should('have.text', 'Image is required.');
       cy.get(':nth-child(6) > .error-message').should('have.text', 'Start Time is required.');
       cy.get(':nth-child(7) > .error-message').should('have.text', 'End Time is required.');
       cy.get(':nth-child(8) > .error-message').should('have.text', 'Event Title is required.');

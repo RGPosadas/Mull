@@ -37,7 +37,7 @@ describe('CreateEvent', () => {
       fireEvent.click(submitButton);
     });
     const error = utils.container.querySelector('span[class="error-message"]');
-    expect(error).toHaveTextContent('Image File is required');
+    expect(error).toHaveTextContent('Image is required');
   });
 
   it('should submit a valid event', async () => {
