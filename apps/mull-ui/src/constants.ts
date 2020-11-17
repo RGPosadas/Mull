@@ -26,6 +26,14 @@ export const dummyEvent: IEvent = {
     point: '1260 Remembrance Road Montreal, Qc',
   },
   restriction: EventRestriction.NONE,
+  participants: [
+    {
+      name: 'User 1',
+    },
+    {
+      name: 'User 2',
+    },
+  ],
   host: {
     name: 'Test user',
   },

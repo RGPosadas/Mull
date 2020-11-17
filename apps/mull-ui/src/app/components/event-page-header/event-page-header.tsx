@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { ReactComponent as ClockIcon } from '../../../assets/icons/event-page-icons/clock.svg';
-import { ReactComponent as ToIcon } from '../../../assets/icons/event-page-icons/to.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
+
+import { faClock } from '@fortawesome/free-regular-svg-icons';
 
 import './event-page-header.scss';
 
@@ -36,11 +38,12 @@ export const EventPageHeader = ({ event }: EventPageHeaderProps) => {
       />
 
       <div className="event-datetime">
-        <ClockIcon className="clock-icon" />
+        <FontAwesomeIcon icon={faClock} className="clock-icon event-page-icon color-grey" />
+
         <div className="event-datetime-string" data-testid="start-date-div">
           {dateToString(event.startDate)}
         </div>
-        <ToIcon className="to-icon" />
+        <FontAwesomeIcon icon={faCaretRight} className="event-page-icon color-grey" />
         <div className="event-datetime-string" data-testid="end-date-div">
           <div>{dateToString(event.endDate)}</div>
         </div>

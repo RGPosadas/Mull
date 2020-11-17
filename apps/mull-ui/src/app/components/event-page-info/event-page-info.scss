@@ -11,17 +11,11 @@
 
 .event-page-info-container {
   div {
-    border-bottom: 1px solid $primary-color;
+    border-bottom: 1px solid rgba($color: $primary-color, $alpha: 0.5);
   }
   div:last-child {
     border: none;
   }
-}
-
-.row-icon {
-  box-sizing: border-box;
-  width: 1.7rem;
-  height: 1.7rem;
 }
 
 .row-text {

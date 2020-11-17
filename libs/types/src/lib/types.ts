@@ -24,6 +24,7 @@ export interface IEvent {
   description: string;
   image?: IMedia;
   restriction: EventRestriction;
+  participants?: IUser[];
   host?: IUser;
   location?: ILocation;
 }
