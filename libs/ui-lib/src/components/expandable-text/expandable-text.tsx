@@ -1,17 +1,17 @@
-import React, { ReactNode, useState } from 'react';
+import React, { useState } from 'react';
 
 import './expandable-text.scss';
 
 export interface ExpandableTextProps {
   children: string;
   cutoff?: number;
-  className: string;
+  className?: string;
 }
 
-export const ExpandableText = ({ children, cutoff = 150, className }: ExpandableTextProps) => {
-  let [expand, setExpand] = useState(false);
+export const ExpandableText = ({ children, cutoff = 150, className = '' }: ExpandableTextProps) => {
+  const [expand, setExpand] = useState(false);
 
-  const spanText = () => {
+  const getText = () => {
     if (expand) {
       return children;
     } else {
@@ -20,12 +20,16 @@ export const ExpandableText = ({ children, cutoff = 150, className }: Expandable
   };
 
   return (
-    <div className={className}>
-      {spanText()}
+    <div className={className} data-testid="expandable-text-div">
+      {getText()}
       {children.length > cutoff && (
         <>
           {expand ? ' ' : '... '}
-          <button className="expandable-span-button" onClick={() => setExpand(!expand)}>
+          <button
+            data-testid="expandable-text-button"
+            className="expandable-span-button"
+            onClick={() => setExpand(!expand)}
+          >
             {expand ? 'less' : 'more'}
           </button>
         </>
