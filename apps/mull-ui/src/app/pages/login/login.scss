@@ -3,10 +3,14 @@
 .login-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-column-gap: 1.5em;
   grid-row-gap: 1.5em;
-  margin: 0 auto;
-  width: 95%;
+  padding-top: 2.5em;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.facebook {
+  margin-bottom: 2em;
 }
 
 .custom-text-input-container,
@@ -103,6 +107,9 @@
 }
 
 @media (min-width: 600px) {
+  .login-container {
+    padding-top: 0;
+  }
   .login-mull-logo {
     padding-top: 8em;
   }
