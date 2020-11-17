@@ -13,6 +13,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import './event-page-info.scss';
+import { ExpandableText } from '@mull/ui-lib';
 
 export interface EventPageInfoProps {
   event: IEvent;
@@ -41,7 +42,7 @@ export const EventPageInfo = ({ event, className = '' }: EventPageInfoProps) => 
       </div>
       <div className="info-row">
         <FontAwesomeIcon icon={faAlignLeft} className="event-page-icon color-grey" />
-        <p className="row-text">{event.description}</p>
+        <ExpandableText className="row-text">{event.description}</ExpandableText>
       </div>
 
       <div className="info-row">
