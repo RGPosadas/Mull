@@ -25,11 +25,11 @@ describe('CustomTextInput', () => {
   it('should have the correct text input', () => {
     const props = mockCustomTextInputProps();
     const inputText = 'Denial anger bartering depression acceptance';
-    const utils = render(<CustomTextInput {...props} />);
-    const input = utils.getByTestId('custom-text-input');
-    fireEvent.change(input, { target: { value: inputText } });
     props.value = inputText;
-    utils.rerender(<CustomTextInput {...props} />);
+
+    const utils = render(<CustomTextInput {...props} />);
+
+    const input = utils.getByTestId('custom-text-input') as HTMLInputElement;
     expect(input.value).toBe(inputText);
   });
 
