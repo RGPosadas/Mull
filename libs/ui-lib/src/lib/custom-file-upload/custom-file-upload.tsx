@@ -21,20 +21,22 @@ export const CustomFileUpload = ({
 }: CustomFileUploadProps) => {
   return (
     <div>
-      <label htmlFor="imageFile" style={{ boxSizing: 'border-box' }} className="custom-file-upload">
+      <label htmlFor={fieldName} className="custom-file-upload">
         {imageURL ? (
           <img
+            className="custom-file-upload-image"
             src={imageURL}
-            style={{ width: '100%', display: 'block', borderRadius: '6.5px' }}
             alt="Event"
           />
         ) : (
-          <FontAwesomeIcon className="event-image-icon" icon={faImages} />
+          <div className="custom-file-upload-icon-container">
+            <FontAwesomeIcon className="custom-file-upload-icon" icon={faImages} />
+          </div>
         )}
       </label>
       {hasErrors ? <span className="error-message">{errorMessage}</span> : null}
       <input
-        className="event-image-upload"
+        className="custom-file-upload-input"
         id={fieldName}
         type="file"
         onChange={handleFileUpload}

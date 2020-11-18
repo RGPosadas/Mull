@@ -1,3 +1,5 @@
+@import 'variables';
+
 .imageURL {
   margin: 1.8em 5em;
   box-sizing: border-box;
@@ -10,7 +12,39 @@
 }
 
 .custom-file-upload {
+  display: block;
   box-sizing: border-box;
-  width: 80%;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1.5px $primary-color solid;
+  text-align: center;
+  width: 15rem;
   margin: auto;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.custom-file-upload-image {
+  display: block;
+  width: 100%;
+  border-radius: 6.5px;
+}
+
+.custom-file-upload-icon-container {
+  box-sizing: border-box;
+  padding: 2rem;
+}
+
+.custom-file-upload-input {
+  display: none;
+}
+
+.custom-file-upload-icon {
+  color: $primary-color;
+}
+
+.error-message {
+  text-align: center;
 }
