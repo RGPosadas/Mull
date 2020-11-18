@@ -20,7 +20,7 @@ export class MediaResolver {
       })
       .then((media) => {
         this.mediaService.updateFilename(file.filename, media.id, media.mediaType);
-        let newMedia = new Media(media.mediaType);
+        const newMedia = new Media(media.mediaType);
         newMedia.id = media.id;
         return newMedia;
       })

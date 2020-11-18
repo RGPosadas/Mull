@@ -12,12 +12,7 @@ import { History as IHistory } from 'history';
 import { DAY_IN_MILLISECONDS } from '../../../constants';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faAlignLeft,
-  faPencilAlt,
-  faMapMarkerAlt,
-  faImages,
-} from '@fortawesome/free-solid-svg-icons';
+import { faAlignLeft, faPencilAlt, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 import './create-event.scss';
 
