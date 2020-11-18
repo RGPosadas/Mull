@@ -139,7 +139,13 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       if (!values.endDate) values.endDate = cloneDeep(values.startDate);
       addTimeToDate(values.startTime, values.startDate);
       addTimeToDate(values.endTime, values.endDate);
-      const media = await uploadFile({ variables: { file: file } });
+      try {
+        var media = await uploadFile({ variables: { file: file } });
+      } catch(err) {
+        updateSubmissionToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
+        console.error(err)
+        return;
+      }
       const imageMedia: IMedia = {
         id: media.data.uploadFile.id,
         mediaType: media.data.uploadFile.mediaType,
