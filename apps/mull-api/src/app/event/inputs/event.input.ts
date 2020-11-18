@@ -1,6 +1,7 @@
 import { EventRestriction } from '@mull/types';
 import { Field, ID, InputType, Int } from '@nestjs/graphql';
 import { Event, Media } from '../../entities';
+import { MediaInput } from '../../media/inputs/media.input';
 
 @InputType()
 export class CreateEventInput implements Partial<Event> {
