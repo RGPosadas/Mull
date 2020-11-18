@@ -14,7 +14,7 @@ frameSizes.forEach((frame) => {
     });
 
     it('should preview the file', () => {
-      cy.get('[data-testid="file"]').attachFile('../fixtures/zoro.jpg');
+      cy.get('#imageFile').attachFile('../fixtures/zoro.jpg');
       cy.get('.custom-file-upload').find('img').should('have.attr', 'src');
     });
 
@@ -23,21 +23,15 @@ frameSizes.forEach((frame) => {
     });
 
     it('should enter the start time', () => {
-      cy.get(':nth-child(5) > [data-testid=custom-time-input]')
-        .type('11:20')
-        .should('have.value', '11:20');
+      cy.get('#startTime').type('11:20').should('have.value', '11:20');
     });
 
     it('should enter the end time', () => {
-      cy.get(':nth-child(6) > [data-testid=custom-time-input]')
-        .type('15:20')
-        .should('have.value', '15:20');
+      cy.get('#endTime').type('15:20').should('have.value', '15:20');
     });
 
     it('should type into the event title input', () => {
-      cy.get(':nth-child(7) > [data-testid=custom-text-input]')
-        .type('test title')
-        .should('have.value', 'test title');
+      cy.get('#eventTitle').type('test title').should('have.value', 'test title');
     });
 
     it('should select today as the start and end date', () => {
@@ -46,14 +40,10 @@ frameSizes.forEach((frame) => {
     });
 
     it('should type into the event description input', () => {
-      cy.get(':nth-child(8) > [data-testid=custom-text-input]')
-        .type('test description')
-        .should('have.value', 'test description');
+      cy.get('#description').type('test description').should('have.value', 'test description');
     });
     it('should type into the event location input', () => {
-      cy.get(':nth-child(9) > [data-testid=custom-text-input]')
-        .type('test location')
-        .should('have.value', 'test location');
+      cy.get('#location').type('test location').should('have.value', 'test location');
     });
 
     it('should change restriction open', () => {
@@ -67,37 +57,37 @@ frameSizes.forEach((frame) => {
 
     it('should show errors when fields are not completed', () => {
       cy.get('.create-event-button').click();
-      cy.get(':nth-child(1) > .error-message').should('have.text', 'Image is required.');
-      cy.get(':nth-child(6) > .error-message').should('have.text', 'Start Time is required.');
-      cy.get(':nth-child(7) > .error-message').should('have.text', 'End Time is required.');
-      cy.get(':nth-child(8) > .error-message').should('have.text', 'Event Title is required.');
-      cy.get(':nth-child(9) > .error-message').should(
+      cy.get('.custom-file-upload-container > .error-message').should(
         'have.text',
-        'Event Description is required.'
+        'Image is required.'
       );
-      cy.get(':nth-child(10) > .error-message').should('have.text', 'Event Location is required.');
+      cy.get('#startTime ~ .error-message').should('have.text', 'Start Time is required.');
+      cy.get('#endTime ~ .error-message').should('have.text', 'End Time is required.');
+      cy.get('#eventTitle ~ .error-message').should('have.text', 'Event Title is required.');
+      cy.get('#description ~ .error-message').should('have.text', 'Event Description is required.');
+      cy.get('#location ~ .error-message').should('have.text', 'Event Location is required.');
     });
 
     it('should show a successful submission message', () => {
-      cy.get('[data-testid="file"]').attachFile('../fixtures/zoro.jpg');
+      cy.get('#imageFile').attachFile('../fixtures/zoro.jpg');
 
-      cy.get(':nth-child(5) > [data-testid=custom-time-input]').type('11:20');
+      cy.get('#startTime').type('11:20');
 
-      cy.get(':nth-child(6) > [data-testid=custom-time-input]').type('15:20');
+      cy.get('#endTime').type('15:20');
 
-      cy.get(':nth-child(7) > [data-testid=custom-text-input]').type('test title');
+      cy.get('#eventTitle').type('test title');
 
       cy.get('.-today').click();
       cy.get('.-today').click();
 
-      cy.get(':nth-child(8) > [data-testid=custom-text-input]').type('test description');
+      cy.get('#description').type('test description');
 
-      cy.get(':nth-child(9) > [data-testid=custom-text-input]').type('test location');
+      cy.get('#location').type('test location');
 
       cy.get('[data-testid=pill-id-1]').click();
       cy.get('.create-event-button').click();
 
-      cy.get('.Toastify__toast.Toastify__toast--success', { timeout: 1000 }).should(
+      cy.get('.Toastify__toast.Toastify__toast--success', { timeout: 5000 }).should(
         'have.css',
         'background-color',
         'rgb(39, 176, 154)'

@@ -141,9 +141,9 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       addTimeToDate(values.endTime, values.endDate);
       try {
         var media = await uploadFile({ variables: { file: file } });
-      } catch(err) {
+      } catch (err) {
         updateSubmissionToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
-        console.error(err)
+        console.error(err);
         return;
       }
       const imageMedia: IMedia = {
