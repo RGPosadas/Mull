@@ -1,7 +1,10 @@
 import React from 'react';
 import { CustomTextInput } from '@mull/ui-lib';
+import { Link } from 'react-router-dom';
+import { History } from 'history';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+
 import logo from '../../../assets/mull-logo.png';
 import { ReactComponent as TwitterIcon } from '../../../assets/icons/login-icons/twitter.svg';
 import { ReactComponent as GoogleIcon } from '../../../assets/icons/login-icons/google.svg';
@@ -13,7 +16,7 @@ export interface LoginProps {
   history: History;
 }
 
-export const Login = ({ history }) => {
+export const Login = ({ history }: LoginProps) => {
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -21,7 +24,7 @@ export const Login = ({ history }) => {
     },
 
     validationSchema: Yup.object({
-      email: Yup.string().required('Email is required.'),
+      email: Yup.string().required('Email is required.').email('Email format is incorrect'),
       password: Yup.string().required('Password is required.'),
     }),
 
@@ -49,7 +52,7 @@ export const Login = ({ history }) => {
           onChange={formik.handleChange}
           hasErrors={formik.touched.password && !!formik.errors.password}
           errorMessage={formik.errors.password}
-          isPassword={true}
+          password
         />
 
         <button type="submit" className="login">
@@ -58,10 +61,10 @@ export const Login = ({ history }) => {
 
         <div className="sign-up">
           Don't have an account?{' '}
-          <a href="/register" className="register-login-page">
+          <Link to="/register" className="register-login-page">
             {' '}
             Sign up here!
-          </a>
+          </Link>
         </div>
 
         <div className="separator">or</div>

@@ -10,7 +10,13 @@ import { ROUTES } from '../../../constants';
 describe('Login', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
-    const { baseElement } = render(<Login history={history} />);
+    const { baseElement } = render(
+      <MockedProvider>
+        <Router history={history}>
+          <Login history={history} />
+        </Router>
+      </MockedProvider>
+    );
     expect(baseElement).toBeTruthy();
   });
 

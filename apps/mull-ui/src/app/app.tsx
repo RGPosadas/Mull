@@ -17,9 +17,9 @@ import { dummyEvent } from '../constants';
 /**
  * Main component of the application
  */
-const showHeader = () => {
+const showNavigation = () => {
   const location = useLocation();
-  if (['/login', '/register'].includes(location.pathname)) {
+  if ([ROUTES.LOGIN, ROUTES.REGISTER].includes(location.pathname)) {
     return false;
   }
   return true;
@@ -54,7 +54,7 @@ export const App = () => {
         pauseOnHover
       />
 
-      {showHeader() ? (
+      {showNavigation() ? (
         <>
           <Header />
           <NavigationBar />

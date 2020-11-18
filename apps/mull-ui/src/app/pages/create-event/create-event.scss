@@ -8,6 +8,38 @@
   align-items: center;
   width: 95%;
   margin: auto;
+<<<<<<< HEAD
+=======
+  .custom-text-input-container {
+    width: 100%;
+    margin-bottom: 1.875rem;
+  }
+
+  .custom-time-picker-container {
+    margin: 0 0 1.25rem;
+  }
+
+  .date-calendar-container {
+    width: 100%;
+  }
+}
+
+.event-image-upload {
+  display: none;
+}
+
+.custom-file-upload {
+  display: block;
+  padding: 1.8em 5em;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1.5px $primary-color solid;
+  margin-bottom: 20px;
+
+  &:hover {
+    background: #0ba024;
+  }
+>>>>>>> 818b42b... Address pr changes #72
 }
 
 .create-event-text {

@@ -40,12 +40,19 @@ describe('NavigationBar', () => {
       </Router>
     );
 
-    for (const key in ROUTES) {
-      if (!['LOGIN', 'REGISTER'].includes(key)) {
-        history.push(ROUTES[key]);
-        const element = dom.getByTestId(testIds[ROUTES[key]]);
-        expect(element.classList.contains('active')).toBeTruthy();
-      }
+    const routes = [
+      ROUTES.HOME,
+      ROUTES.MAP,
+      ROUTES.CREATE_EVENT,
+      ROUTES.TOOLS,
+      ROUTES.PROFILE,
+      ROUTES.MESSAGES,
+    ];
+
+    for (const key in routes) {
+      history.push(routes[key]);
+      const element = dom.getByTestId(testIds[routes[key]]);
+      expect(element.classList.contains('active')).toBeTruthy();
     }
   });
 

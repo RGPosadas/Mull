@@ -9,7 +9,7 @@ export interface CustomTextInputProps {
   errorMessage: string;
   hasErrors: boolean;
   svgIcon?: ReactNode;
-  isPassword?: boolean;
+  password?: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -32,36 +32,22 @@ export const CustomTextInput = ({
   hasErrors,
   errorMessage,
   svgIcon,
-  isPassword,
+  password,
 }: CustomTextInputProps) => {
   return (
     <div className={`custom-text-input-container ${hasErrors ? 'error' : ''}`}>
       <label className="custom-text-input-label" htmlFor={fieldName}>
         {title}
       </label>
-
-      {isPassword ? (
-        <input
-          className={`custom-text-input input-border ${hasErrors ? 'error' : ''}`}
-          id={fieldName}
-          name={fieldName}
-          data-testid="custom-text-input"
-          type="password"
-          value={value}
-          onChange={onChange}
-        />
-      ) : (
-        <input
-          className={`custom-text-input input-border ${hasErrors ? 'error' : ''}`}
-          id={fieldName}
-          name={fieldName}
-          data-testid="custom-text-input"
-          type="text"
-          value={value}
-          onChange={onChange}
-        />
-      )}
-
+      <input
+        className={`custom-text-input input-border ${hasErrors ? 'error' : ''}`}
+        id={fieldName}
+        name={fieldName}
+        data-testid="custom-text-input"
+        type={password ? 'password' : 'text'}
+        value={value}
+        onChange={onChange}
+      />
       {svgIcon ? svgIcon : null}
       {hasErrors ? <span className="error-message">{errorMessage}</span> : null}
     </div>

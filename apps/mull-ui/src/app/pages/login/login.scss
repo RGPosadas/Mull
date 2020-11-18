@@ -26,7 +26,7 @@
 .separator {
   display: flex;
   align-items: center;
-  color: #27b09a;
+  color: $primary-color;
   width: 100%;
 }
 
@@ -34,7 +34,7 @@
 .separator::after {
   content: '';
   flex: 1;
-  border-bottom: 1px solid #27b09a;
+  border-bottom: 1px solid $primary-color;
 }
 
 .separator::before {
@@ -74,15 +74,15 @@
 }
 
 .twitter {
-  background-color: #1da1f2;
+  background-color: $twitter;
 }
 
 .google {
-  background-color: #4285f4;
+  background-color: $google;
 }
 
 .facebook {
-  background-color: #4267b2;
+  background-color: $facebook;
   padding-left: 1.2em;
 }
 
@@ -111,7 +111,7 @@
     padding-top: 0;
   }
   .login-mull-logo {
-    padding-top: 8em;
+    padding-top: 5em;
   }
   .login,
   .twitter,
