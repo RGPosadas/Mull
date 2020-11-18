@@ -15,38 +15,7 @@ exports[`CustomTextInput should match snapshot 1`] = `
     data-testid="custom-text-input"
     id="text"
     name="text"
-    onChange={
-      [MockFunction] {
-        "calls": Array [
-          Array [
-            SyntheticEvent {
-              "_dispatchInstances": null,
-              "_dispatchListeners": null,
-              "_targetInst": null,
-              "bubbles": null,
-              "cancelable": null,
-              "currentTarget": [Function],
-              "defaultPrevented": null,
-              "dispatchConfig": null,
-              "eventPhase": null,
-              "isDefaultPrevented": [Function],
-              "isPropagationStopped": [Function],
-              "isTrusted": null,
-              "nativeEvent": null,
-              "target": null,
-              "timeStamp": [Function],
-              "type": null,
-            },
-          ],
-        ],
-        "results": Array [
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
-        ],
-      }
-    }
+    onChange={[MockFunction]}
     type="text"
     value=""
   />
