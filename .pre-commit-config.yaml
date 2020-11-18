@@ -10,3 +10,4 @@ repos:
     rev: 2.1.1
     hooks:
       - id: prettier
+        exclude: 'package-lock.json'
