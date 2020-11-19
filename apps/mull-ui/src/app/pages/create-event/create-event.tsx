@@ -18,6 +18,8 @@ import {
   faImages,
 } from '@fortawesome/free-solid-svg-icons';
 
+import { History } from 'history';
+
 import './create-event.scss';
 
 export interface CreateEventProps {
@@ -37,7 +39,7 @@ const CREATE_EVENT = gql`
  * This component renders the create event page
  * @param {History} history
  */
-const CreateEventPage = ({ history }) => {
+const CreateEventPage = ({ history }: CreateEventProps) => {
   // Reference Id for the toast
   const toastId = useRef(null);
   // GraphQL mutation hook to create events
