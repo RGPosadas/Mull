@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MockedProvider } from '@apollo/client/testing';
 import CreateEventPage from './create-event';
@@ -20,6 +20,28 @@ describe('CreateEvent', () => {
       </MockedProvider>
     );
     expect(baseElement).toBeTruthy();
+  });
+
+  it('should upload an image', async () => {
+    let container = document.createElement('div');
+    document.body.appendChild(container);
+    const history = createMemoryHistory();
+    history.push(ROUTES.CREATE_EVENT);
+    act(() => {
+      render(
+        <MockedProvider>
+          <Router history={history}>
+            <CreateEventPage history={history} />
+          </Router>
+        </MockedProvider>
+      );
+    });
+    window.URL.createObjectURL = jest.fn();
+    const file = new File(['hello'], 'hello.png', { type: 'image/png' });
+    const imageInput = container.querySelector('#imageFile');
+    console.log(imageInput);
+    fireEvent.change(imageInput, { target: { files: [file] } });
+    expect(window.URL.createObjectURL).toBeCalledTimes[1];
   });
 
   it('should have validation errors', async () => {

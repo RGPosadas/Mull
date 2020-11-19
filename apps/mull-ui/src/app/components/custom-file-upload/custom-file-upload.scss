@@ -24,6 +24,10 @@
   &:hover {
     cursor: pointer;
   }
+
+  &.image-uploaded {
+    border: none;
+  }
 }
 
 .custom-file-upload-image {

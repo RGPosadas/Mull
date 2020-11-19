@@ -37,6 +37,11 @@ type Media {
   mediaType: String!
 }
 
+input MediaInput {
+  id: Float!
+  mediaType: String!
+}
+
 type Mutation {
   createEvent(createEventInput: CreateEventInput!): Event!
   createUser(createUserInput: CreateUserInput!): User!

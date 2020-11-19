@@ -21,7 +21,10 @@ export const CustomFileUpload = ({
 }: CustomFileUploadProps) => {
   return (
     <div className="custom-file-upload-container">
-      <label htmlFor={fieldName} className="custom-file-upload">
+      <label
+        htmlFor={fieldName}
+        className={`custom-file-upload ${imageURL ? 'image-uploaded' : ''}`}
+      >
         {imageURL ? (
           <img className="custom-file-upload-image" src={imageURL} alt="Event" />
         ) : (

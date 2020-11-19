@@ -12,7 +12,7 @@ export class MediaResolver {
   async uploadFile(
     @Args({ name: 'file', type: /* istanbul ignore next */ () => GraphQLUpload })
     file: FileUpload
-  ): Promise<Media> {
+  ): Promise<Media | Error> {
     return this.mediaService
       .saveFile(file)
       .then(() => {
@@ -25,8 +25,8 @@ export class MediaResolver {
         return newMedia;
       })
       .catch((e) => {
-        console.log(e);
-        return null;
+        console.error(e);
+        return new Error(e);
       });
   }
 }

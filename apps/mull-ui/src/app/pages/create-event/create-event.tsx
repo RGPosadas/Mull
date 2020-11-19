@@ -4,11 +4,10 @@ import { useFormik } from 'formik';
 import { toast, TypeOptions } from 'react-toastify';
 import * as Yup from 'yup';
 import { cloneDeep } from 'lodash';
-import { EventRestriction, EventRestrictionMap, IMedia } from '@mull/types';
-import { PillOptions, CustomTextInput, CustomTimePicker, CustomFileUpload } from '@mull/ui-lib';
-import { MullButton } from './../../components';
+import { EventRestriction, EventRestrictionMap, IEvent, IMedia } from '@mull/types';
+import { PillOptions, CustomTextInput, CustomTimePicker } from '@mull/ui-lib';
+import { MullButton, CustomFileUpload } from './../../components';
 import DateCalendar from '../create-event/date-calendar/date-calendar';
-import { History as IHistory } from 'history';
 
 import { DAY_IN_MILLISECONDS } from '../../../constants';
 
@@ -20,7 +19,7 @@ import { History } from 'history';
 import './create-event.scss';
 
 export interface CreateEventProps {
-  history: IHistory;
+  history: History;
 }
 
 // Mutation to create events
@@ -136,6 +135,9 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       addTimeToDate(values.endTime, values.endDate);
       try {
         var media = await uploadFile({ variables: { file: file } });
+        if (media instanceof Error) {
+          throw media;
+        }
       } catch (err) {
         updateSubmissionToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
         console.error(err);
@@ -145,7 +147,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         id: media.data.uploadFile.id,
         mediaType: media.data.uploadFile.mediaType,
       };
-      const payload = {
+      const payload: Partial<IEvent> = {
         startDate: values.startDate,
         endDate: values.endDate,
         description: values.description,

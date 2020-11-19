@@ -11,3 +11,6 @@ repos:
     hooks:
       - id: prettier
         exclude: 'package-lock.json'
+default_language_version:
+  python: python3
+  node: '12.8.0'

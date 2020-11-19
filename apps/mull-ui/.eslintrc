@@ -140,7 +140,6 @@
     ],
     "no-with": "warn",
     "no-whitespace-before-property": "warn",
-    "no-var": "off",
     "react-hooks/exhaustive-deps": "warn",
     "require-yield": "warn",
     "rest-spread-spacing": ["warn", "never"],
