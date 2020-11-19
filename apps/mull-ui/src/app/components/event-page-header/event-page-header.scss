@@ -6,9 +6,7 @@
 }
 
 .title {
-  font-size: 1.5em;
-  font-weight: bold;
-  width: 100%;
+  font-size: 1.5rem;
   text-align: center;
   overflow-y: auto;
   max-height: 3em;
@@ -17,9 +15,7 @@
 }
 
 .event-image {
-  max-width: 100%;
   border-radius: 8px;
-  box-sizing: border-box;
   display: block;
   max-height: 10rem;
   margin: 0 auto;
