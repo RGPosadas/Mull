@@ -8,4 +8,10 @@ export const environment = {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
   },
+  auth: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+    },
+  },
 };
