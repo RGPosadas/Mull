@@ -5,7 +5,8 @@ import { toast, TypeOptions } from 'react-toastify';
 import * as Yup from 'yup';
 import { cloneDeep } from 'lodash';
 import { EventRestriction, EventRestrictionMap } from '@mull/types';
-import { PillOptions, CustomTextInput, CustomTimePicker, MullButton } from '@mull/ui-lib';
+import { PillOptions, CustomTextInput, CustomTimePicker } from '@mull/ui-lib';
+import { MullButton } from './../../components';
 import DateCalendar from '../create-event/date-calendar/date-calendar';
 
 import { DAY_IN_MILLISECONDS } from '../../../constants';

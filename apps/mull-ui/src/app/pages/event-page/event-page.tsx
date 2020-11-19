@@ -1,7 +1,6 @@
 import { IEvent } from '@mull/types';
-import { MullButton } from '@mull/ui-lib';
 import React from 'react';
-import { EventPageHeader, EventPageInfo } from '../../components';
+import { EventPageHeader, EventPageInfo, MullButton } from '../../components';
 
 import './event-page.scss';
 

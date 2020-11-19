@@ -13,7 +13,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import './event-page-info.scss';
-import { ExpandableText } from '@mull/ui-lib';
+import { ExpandableText } from './../expandable-text/expandable-text';
 
 export interface EventPageInfoProps {
   event: IEvent;
