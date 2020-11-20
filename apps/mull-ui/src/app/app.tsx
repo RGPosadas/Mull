@@ -3,8 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import CreateEventPage from './pages/create-event/create-event';
-import NavigationBar from './components/navigation-bar/navigation-bar';
-import Header from './components/header/header';
+import { NavigationBar, Header } from './components';
 import { ROUTES } from '../constants';
 
 import 'react-toastify/dist/ReactToastify.min.css';

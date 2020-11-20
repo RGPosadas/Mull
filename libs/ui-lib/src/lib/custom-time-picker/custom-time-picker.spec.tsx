@@ -20,13 +20,6 @@ describe('CustomTimePicker', () => {
     expect(baseElement).toBeTruthy();
   });
 
-  it('should render successfully', () => {
-    const props = mockCustomTimePickerProps();
-    props.hasErrors = false;
-    const { baseElement } = render(<CustomTimePicker {...props} />);
-    expect(baseElement).toBeTruthy();
-  });
-
   it('should match snapshot', () => {
     const props = mockCustomTimePickerProps();
     const tree = renderer.create(<CustomTimePicker {...props} />).toJSON();

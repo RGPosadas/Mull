@@ -25,3 +25,15 @@
     margin: 0 1em;
   }
 }
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(110%);
+}
+
+button:active {
+  filter: brightness(125%);
+}

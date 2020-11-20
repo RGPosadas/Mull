@@ -1,0 +1,20 @@
+@import 'variables';
+
+.mull-back-button {
+  outline: none;
+  background-color: transparent;
+
+  .mull-back-button-icon {
+    display: inline;
+    vertical-align: middle;
+    color: $primary-color;
+    height: 1.5rem !important;
+    width: 1.5rem !important;
+    font-weight: lighter;
+  }
+  .mull-back-button-text {
+    display: inline;
+    vertical-align: middle;
+    color: $primary-color;
+  }
+}
