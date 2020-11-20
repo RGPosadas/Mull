@@ -6,7 +6,7 @@ import { Request } from 'express';
 export class AuthService {
   constructor(private userService: UserService) {}
 
-  googleLogin(req: Request) {
+  authLogin(req: Request) {
     if (!req.user) return null;
     return { user: req.user };
   }
