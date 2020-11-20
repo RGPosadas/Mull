@@ -3,12 +3,11 @@ import { CustomTextInput } from '@mull/ui-lib';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
-
+import { History } from 'history';
 import logo from '../../../assets/mull-logo.png';
 
 import './register.scss';
 
-/* eslint-disable-next-line */
 export interface RegisterProps {
   history: History;
 }

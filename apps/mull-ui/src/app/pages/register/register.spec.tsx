@@ -10,7 +10,13 @@ import { ROUTES } from '../../../constants';
 describe('Register', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
-    const { baseElement } = render(<Register history={history} />);
+    const { baseElement } = render(
+      <MockedProvider>
+        <Router history={history}>
+          <Register history={history} />
+        </Router>
+      </MockedProvider>
+    );
     expect(baseElement).toBeTruthy();
   });
 
