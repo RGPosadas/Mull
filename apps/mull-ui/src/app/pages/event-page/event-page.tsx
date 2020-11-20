@@ -6,13 +6,13 @@ import './event-page.scss';
 
 export interface EventPageProps {
   event: IEvent;
-  lastPage: string;
+  prevPage: string;
 }
 
-export const EventPage = ({ event, lastPage }: EventPageProps) => {
+export const EventPage = ({ event, prevPage }: EventPageProps) => {
   return (
     <div className="event-page-container">
-      <EventPageHeader event={event} lastPage={lastPage} />
+      <EventPageHeader event={event} prevPage={prevPage} />
       <div className="event-page-info">
         <EventPageInfo event={event} />
       </div>

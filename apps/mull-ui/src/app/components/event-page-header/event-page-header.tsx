@@ -2,7 +2,6 @@ import React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
-
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 
 import './event-page-header.scss';
@@ -13,10 +12,10 @@ import MullBackButton from '../mull-back-button/mull-back-button';
 
 export interface EventPageHeaderProps {
   event: IEvent;
-  lastPage: string;
+  prevPage: string;
 }
 
-export const EventPageHeader = ({ event, lastPage }: EventPageHeaderProps) => {
+export const EventPageHeader = ({ event, prevPage }: EventPageHeaderProps) => {
   const dateToString = (date: Date): string => {
     const dateString = Intl.DateTimeFormat('en-us', {
       month: 'short',
@@ -32,7 +31,7 @@ export const EventPageHeader = ({ event, lastPage }: EventPageHeaderProps) => {
 
   return (
     <div className="event-page-header">
-      <MullBackButton>{lastPage}</MullBackButton>
+      <MullBackButton>{prevPage}</MullBackButton>
       <div className="title">{event.title}</div>
       {/* TODO: Currently using placeholder. The US will need to actually fetch image from media server */}
       <img

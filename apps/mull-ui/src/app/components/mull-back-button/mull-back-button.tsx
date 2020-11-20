@@ -29,7 +29,7 @@ export const MullBackButton = ({
     <button
       data-testid="mull-back-button"
       className={`mull-back-button ${className}`}
-      onClick={onClick ? onClick : defaultOnClick}
+      onClick={onClick || defaultOnClick}
       style={style}
     >
       <FontAwesomeIcon icon={faChevronLeft} className="mull-back-button-icon" />
