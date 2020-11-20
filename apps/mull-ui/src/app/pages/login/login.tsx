@@ -6,9 +6,9 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
 import logo from '../../../assets/mull-logo.png';
-import { ReactComponent as TwitterIcon } from '../../../assets/icons/login-icons/twitter.svg';
-import { ReactComponent as GoogleIcon } from '../../../assets/icons/login-icons/google.svg';
-import { ReactComponent as FacebookIcon } from '../../../assets/icons/login-icons/facebook.svg';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebookSquare, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 import './login.scss';
 
@@ -70,17 +70,17 @@ export const Login = ({ history }: LoginProps) => {
         <div className="separator">or</div>
 
         <button className="twitter">
-          <TwitterIcon />
+          <FontAwesomeIcon icon={faTwitter} size="2x" />
           &nbsp; Continue with Twitter
         </button>
 
         <button className="google">
-          <GoogleIcon />
+          <FontAwesomeIcon icon={faGoogle} size="2x" />
           &nbsp; Continue with Google
         </button>
 
         <button className="facebook">
-          <FacebookIcon />
+          <FontAwesomeIcon icon={faFacebookSquare} size="2x" />
           &nbsp; Continue with Facebook
         </button>
       </div>

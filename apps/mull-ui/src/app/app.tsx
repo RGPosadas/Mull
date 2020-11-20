@@ -17,6 +17,8 @@ import { dummyEvent } from '../constants';
 /**
  * Main component of the application
  */
+
+/* Temporary, to be removed */
 const showNavigation = () => {
   const location = useLocation();
   if ([ROUTES.LOGIN, ROUTES.REGISTER].includes(location.pathname)) {
