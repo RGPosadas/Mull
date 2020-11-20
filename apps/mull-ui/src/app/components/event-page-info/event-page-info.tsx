@@ -14,6 +14,7 @@ import {
 
 import './event-page-info.scss';
 import { ExpandableText } from './../expandable-text/expandable-text';
+import MullButton from '../mull-button/mull-button';
 
 export interface EventPageInfoProps {
   event: IEvent;
@@ -56,6 +57,7 @@ export const EventPageInfo = ({ event, className = '' }: EventPageInfoProps) => 
         <p className="row-text">{event.participants.map((p) => p.name).join(', ')}</p>
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
       </div>
+      <MullButton className="event-page-button" />
     </div>
   );
 };

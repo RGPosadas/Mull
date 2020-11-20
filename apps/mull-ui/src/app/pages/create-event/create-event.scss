@@ -60,6 +60,11 @@
   margin-bottom: 15px;
 }
 
+.date-calendar-container,
+.custom-text-input-container {
+  width: 100%;
+}
+
 @media (min-width: $breakpoint-mobile) {
   .create-event {
     padding: 1rem 0 0;

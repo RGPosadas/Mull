@@ -1,16 +1,11 @@
 .event-page-header {
-  width: 100%;
   padding: 0 0.5rem;
-  box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .title {
   font-size: 1.5rem;
   text-align: center;
-  overflow-y: auto;
-  max-height: 3em;
-  box-sizing: border-box;
   margin: 0.5rem 0;
 }
 
@@ -22,11 +17,9 @@
 }
 
 .event-datetime {
-  width: 100%;
   display: flex;
   flex-direction: row;
   padding: 0.7rem 0rem;
-  box-sizing: border-box;
   justify-content: center;
   align-items: center;
   position: relative;

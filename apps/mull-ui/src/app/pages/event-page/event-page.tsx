@@ -12,8 +12,9 @@ export const EventPage = ({ event }: EventPageProps) => {
   return (
     <div className="event-page-container">
       <EventPageHeader event={event} />
-      <EventPageInfo event={event} className="event-page-info" />
-      <MullButton className="event-page-button" />
+      <div className="event-page-info">
+        <EventPageInfo event={event} />
+      </div>
     </div>
   );
 };
