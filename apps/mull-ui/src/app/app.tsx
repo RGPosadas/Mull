@@ -25,7 +25,7 @@ export const App = () => {
         {/* Temporary, to be removed */}
         <Route exact path={'/test-event-page'}>
           <div className="page-container">
-            <EventPage event={dummyEvent} />
+            <EventPage event={dummyEvent} lastPage={'Review'} />
           </div>
         </Route>
       </Switch>

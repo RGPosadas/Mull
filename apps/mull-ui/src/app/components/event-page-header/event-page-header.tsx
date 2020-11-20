@@ -9,11 +9,14 @@ import './event-page-header.scss';
 
 import { IEvent } from '@mull/types';
 
+import MullBackButton from '../mull-back-button/mull-back-button';
+
 export interface EventPageHeaderProps {
   event: IEvent;
+  lastPage: string;
 }
 
-export const EventPageHeader = ({ event }: EventPageHeaderProps) => {
+export const EventPageHeader = ({ event, lastPage }: EventPageHeaderProps) => {
   const dateToString = (date: Date): string => {
     const dateString = Intl.DateTimeFormat('en-us', {
       month: 'short',
@@ -29,6 +32,7 @@ export const EventPageHeader = ({ event }: EventPageHeaderProps) => {
 
   return (
     <div className="event-page-header">
+      <MullBackButton>{lastPage}</MullBackButton>
       <div className="title">{event.title}</div>
       {/* TODO: Currently using placeholder. The US will need to actually fetch image from media server */}
       <img
