@@ -56,15 +56,13 @@
 }
 
 .create-event-button {
-  color: white;
-  font-weight: bold;
-  padding: 15px 55px;
-  background: $primary-color;
-  border: 1px solid $primary-color;
-  border-radius: 9px;
-  outline: none;
   margin-top: 20px;
   margin-bottom: 15px;
+}
+
+.date-calendar-container,
+.custom-text-input-container {
+  width: 100%;
 }
 
 @media (min-width: $breakpoint-mobile) {

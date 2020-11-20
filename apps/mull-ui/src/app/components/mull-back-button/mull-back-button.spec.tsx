@@ -3,54 +3,49 @@ import { render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 import ReactTestUtils from 'react-dom/test-utils';
 import { createMemoryHistory } from 'history';
-import { Router } from 'react-router-dom';
 
 import MullBackButton from './mull-back-button';
 
+let mockHistory;
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useHistory: () => mockHistory,
+}));
+
 describe('MullBackButton', () => {
+  beforeEach(() => {
+    mockHistory = createMemoryHistory();
+  });
+
   it('should render successfully', () => {
-    const history = createMemoryHistory();
-    const { baseElement } = render(
-      <Router history={history}>
-        <MullBackButton history={history} />
-      </Router>
-    );
+    const { baseElement } = render(<MullBackButton />);
     expect(baseElement).toBeTruthy();
   });
 
   it('should match snapshot', () => {
-    const history = createMemoryHistory();
-    const tree = renderer
-      .create(
-        <Router history={history}>
-          {' '}
-          <MullBackButton history={history}>Back Button</MullBackButton>{' '}
-        </Router>
-      )
-      .toJSON();
+    const tree = renderer.create(<MullBackButton>Back Button</MullBackButton>).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('should go to the previous page on click', () => {
-    const history = createMemoryHistory();
-    const dom = render(<MullBackButton history={history} />);
+    const dom = render(<MullBackButton />);
 
-    history.push('/path1');
-    history.push('/path2');
+    mockHistory.push('/path1');
+    mockHistory.push('/path2');
 
     const button = dom.getByTestId('mull-back-button');
 
     ReactTestUtils.Simulate.click(button);
 
-    expect(history.location.pathname).toBe('/path1');
+    expect(mockHistory.location.pathname).toBe('/path1');
   });
 
   it('should run the provided function on click', () => {
     const mockCallback = jest.fn(() => {
       /* Do nothing */
     });
-    const history = createMemoryHistory();
-    const dom = render(<MullBackButton onClick={mockCallback} history={history} />);
+    const dom = render(<MullBackButton onClick={mockCallback} />);
     const button = dom.getByTestId('mull-back-button');
 
     ReactTestUtils.Simulate.click(button);

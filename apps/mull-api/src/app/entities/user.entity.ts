@@ -12,10 +12,11 @@ import { Media } from './media.entity';
 import { Event } from './event.entity';
 import { PostReaction } from './post-reaction.entity';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { IUser } from '@mull/types';
 
 @Entity()
 @ObjectType()
-export class User {
+export class User implements IUser {
   @Field(/* istanbul ignore next */ () => ID)
   @PrimaryGeneratedColumn()
   id: number;

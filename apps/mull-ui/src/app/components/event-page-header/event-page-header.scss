@@ -1,0 +1,37 @@
+.event-page-header {
+  padding: 0.5rem 0.5rem 0;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.event-image {
+  border-radius: 8px;
+  display: block;
+  max-height: 10rem;
+  margin: 0 auto;
+}
+
+.event-datetime {
+  display: flex;
+  padding: 0.7rem 0rem;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.event-datetime-string {
+  width: fit-content;
+  white-space: pre-wrap;
+  text-align: center;
+  margin: 0 0.8rem;
+}
+
+.clock-icon {
+  position: absolute;
+  left: 0.5rem;
+}

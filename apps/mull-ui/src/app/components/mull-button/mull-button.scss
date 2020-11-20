@@ -1,0 +1,10 @@
+@import '../../lib/styles/variables.scss';
+
+.mull-button {
+  color: white;
+  font-weight: bold;
+  padding: 1rem 3rem;
+  background: $primary-color;
+  border-radius: 9px;
+  outline: none;
+}

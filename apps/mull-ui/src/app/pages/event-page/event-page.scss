@@ -1,0 +1,32 @@
+@import 'variables';
+
+.event-page-container {
+  display: flex;
+  height: calc(100vh - #{$nav-bar-height-mobile + $header-height-mobile});
+  flex-direction: column;
+}
+
+.event-page-info {
+  overflow-y: auto;
+  display: block;
+}
+
+.event-page-icon {
+  box-sizing: border-box;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+}
+
+.color-grey {
+  color: rgba($color: #000000, $alpha: 0.5);
+}
+
+.color-green {
+  color: rgba($color: $primary-color, $alpha: 0.5);
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .event-page-container {
+    height: calc(100vh - #{$nav-bar-height-desktop});
+  }
+}

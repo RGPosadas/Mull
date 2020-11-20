@@ -1,15 +1,20 @@
+import { IMedia } from '@mull/types';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Post } from './post.entity';
 
 @Entity()
-export class Media {
+@ObjectType()
+export class Media implements IMedia {
   constructor(mediaType: string) {
     this.mediaType = mediaType;
   }
   @PrimaryGeneratedColumn()
+  @Field()
   id: number;
 
   @Column()
+  @Field()
   mediaType: string;
 
   @ManyToOne(() => Post, (post) => post.medias)

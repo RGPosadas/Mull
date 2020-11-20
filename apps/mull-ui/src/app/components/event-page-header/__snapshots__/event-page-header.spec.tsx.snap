@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventPageHeader should match snapshot 1`] = `
+<div
+  className="event-page-header"
+>
+  <button
+    className="mull-back-button undefined"
+    data-testid="mull-back-button"
+    onClick={[Function]}
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-chevron-left fa-w-10 mull-back-button-icon"
+      data-icon="chevron-left"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 320 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+    <div
+      className="mull-back-button-text"
+    >
+      Back
+    </div>
+  </button>
+  <div
+    className="title"
+  >
+    Test title
+  </div>
+  <img
+    alt="Event Page"
+    className="event-image"
+    src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png"
+  />
+  <div
+    className="event-datetime"
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-clock fa-w-16 clock-icon event-page-icon color-grey"
+      data-icon="clock"
+      data-prefix="far"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+    <div
+      className="event-datetime-string"
+      data-testid="start-date-div"
+    >
+      Jan 1
+12:00 AM
+    </div>
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-caret-right fa-w-6 event-page-icon color-grey"
+      data-icon="caret-right"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 192 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+    <div
+      className="event-datetime-string"
+      data-testid="end-date-div"
+    >
+      <div>
+        Jan 2
+12:00 AM
+      </div>
+    </div>
+  </div>
+</div>
+`;

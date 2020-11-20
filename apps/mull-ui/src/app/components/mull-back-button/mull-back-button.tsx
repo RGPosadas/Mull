@@ -1,33 +1,35 @@
 import React, { ReactNode } from 'react';
-import { History } from 'history';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 import './mull-back-button.scss';
+import { useHistory } from 'react-router-dom';
 
 export interface MullBackButtonProps {
   children?: ReactNode;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   className?: string;
   style?: React.CSSProperties;
-  history: History;
 }
 
 export const MullBackButton = ({
-  history,
-  children = null,
-  onClick = () => {
-    history.goBack();
-  },
+  children = 'Back',
+  onClick = null,
   className,
   style,
 }: MullBackButtonProps) => {
+  const history = useHistory();
+
+  const defaultOnClick = () => {
+    history.goBack();
+  };
+
   return (
     <button
       data-testid="mull-back-button"
       className={`mull-back-button ${className}`}
-      onClick={onClick}
+      onClick={onClick || defaultOnClick}
       style={style}
     >
       <FontAwesomeIcon icon={faChevronLeft} className="mull-back-button-icon" />
