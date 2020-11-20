@@ -10,6 +10,7 @@ export interface CustomTextInputProps {
   svgIcon?: ReactNode;
   password?: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
 }
 
 /**
@@ -32,6 +33,7 @@ export const CustomTextInput = ({
   errorMessage,
   svgIcon,
   password,
+  onClick,
 }: CustomTextInputProps) => {
   return (
     <div className={`custom-text-input-container ${hasErrors ? 'error' : ''}`}>
@@ -46,6 +48,7 @@ export const CustomTextInput = ({
         type={password ? 'password' : 'text'}
         value={value}
         onChange={onChange}
+        onClick={onClick}
       />
       {svgIcon ? svgIcon : null}
       {hasErrors ? <span className="error-message">{errorMessage}</span> : null}
