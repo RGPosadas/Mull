@@ -19,10 +19,9 @@ export const ExpandableText = ({ children, cutoff = 150, className = '' }: Expan
     }
   };
 
-  return (
-    <div className={className} data-testid="expandable-text-div">
-      {getText()}
-      {children.length > cutoff && (
+  const getButton = () => {
+    if (children.length > cutoff) {
+      return (
         <>
           {expand ? ' ' : '... '}
           <button
@@ -33,7 +32,14 @@ export const ExpandableText = ({ children, cutoff = 150, className = '' }: Expan
             {expand ? 'less' : 'more'}
           </button>
         </>
-      )}
+      );
+    }
+  };
+
+  return (
+    <div className={className} data-testid="expandable-text-div">
+      {getText()}
+      {getButton()}
     </div>
   );
 };
