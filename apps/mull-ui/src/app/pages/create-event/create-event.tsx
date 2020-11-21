@@ -31,7 +31,7 @@ const CREATE_EVENT = gql`
   }
 `;
 
-const UPLOAD_PHOTO = gql`
+export const UPLOAD_PHOTO = gql`
   mutation UploadFile($file: Upload!) {
     uploadFile(file: $file) {
       id
@@ -48,11 +48,11 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
   // Reference Id for the toast
   const toastId = useRef(null);
   // GraphQL mutation hook to create events
-  const [createEvent] = useMutation(CREATE_EVENT);
-  const [uploadFile] = useMutation(UPLOAD_PHOTO);
-  // Image of Event
-  const [imageURLFile, setImageURLFile] = useState(null);
-  const [file, setFile] = useState<File>(null);
+  const [createEvent] = useMutation<IEvent>(CREATE_EVENT);
+  const [uploadFile] = useMutation<{ uploadFile: IMedia }>(UPLOAD_PHOTO);
+  // Uploaded Image File
+  const [imageURLFile, setImageURLFile] = useState<string>(null); // Path of uploaded image on client, to be used in image previews
+  const [file, setFile] = useState<File>(null); // Uploaded image file blob
   /**
    * Handles image file uploads
    * @param {ChangeEvent<HTMLInputElement>} event
@@ -134,18 +134,19 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       addTimeToDate(values.startTime, values.startDate);
       addTimeToDate(values.endTime, values.endDate);
       try {
-        var media = await uploadFile({ variables: { file: file } });
-        if (media instanceof Error) {
-          throw media;
+        var uploadedFile = await uploadFile({ variables: { file: file } });
+        if (uploadedFile instanceof Error) {
+          throw uploadedFile;
         }
       } catch (err) {
+        console.log('still failing');
         updateSubmissionToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
         console.error(err);
         return;
       }
       const imageMedia: IMedia = {
-        id: media.data.uploadFile.id,
-        mediaType: media.data.uploadFile.mediaType,
+        id: uploadedFile.data.uploadFile.id,
+        mediaType: uploadedFile.data.uploadFile.mediaType,
       };
       const payload: Partial<IEvent> = {
         startDate: values.startDate,

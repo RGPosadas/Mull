@@ -66,7 +66,8 @@ describe('MediaResolver', () => {
   });
 
   it('should not upload an invalid file', async () => {
-    const mockUploadedFile = await resolver.uploadFile(mockInvalidFile);
-    expect(mockUploadedFile).toEqual(null);
+    const expectedError = new Error('Internal Server Error');
+    const errorMedia = await resolver.uploadFile(mockInvalidFile);
+    expect(errorMedia).toEqual(expectedError);
   });
 });

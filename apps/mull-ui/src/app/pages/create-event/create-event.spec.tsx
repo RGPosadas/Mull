@@ -1,8 +1,9 @@
 import React from 'react';
-import { fireEvent, render, waitFor, act } from '@testing-library/react';
+import user from '@testing-library/user-event';
+import { fireEvent, getByText, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MockedProvider } from '@apollo/client/testing';
-import CreateEventPage from './create-event';
+import CreateEventPage, { UPLOAD_PHOTO } from './create-event';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { ROUTES } from '../../../constants';
@@ -23,25 +24,23 @@ describe('CreateEvent', () => {
   });
 
   it('should upload an image', async () => {
-    let container = document.createElement('div');
-    document.body.appendChild(container);
+    window.URL.createObjectURL = jest.fn();
     const history = createMemoryHistory();
     history.push(ROUTES.CREATE_EVENT);
-    act(() => {
-      render(
-        <MockedProvider>
-          <Router history={history}>
-            <CreateEventPage history={history} />
-          </Router>
-        </MockedProvider>
-      );
-    });
-    window.URL.createObjectURL = jest.fn();
+    const utils = render(
+      <MockedProvider>
+        <Router history={history}>
+          <CreateEventPage history={history} />
+        </Router>
+      </MockedProvider>
+    );
     const file = new File(['hello'], 'hello.png', { type: 'image/png' });
-    const imageInput = container.querySelector('#imageFile');
-    console.log(imageInput);
-    fireEvent.change(imageInput, { target: { files: [file] } });
-    expect(window.URL.createObjectURL).toBeCalledTimes[1];
+    const imageInput = utils.getByTestId('file');
+    await waitFor(() => {
+      user.upload(imageInput, file);
+    });
+    // @ts-ignore
+    expect(imageInput.files[0]).toStrictEqual(file);
   });
 
   it('should have validation errors', async () => {
@@ -63,15 +62,40 @@ describe('CreateEvent', () => {
   });
 
   it('should submit a valid event', async () => {
+    let file = new File(['hello'], 'hello.png', { type: 'image/png' });
+    const mocks = [
+      {
+        request: {
+          query: UPLOAD_PHOTO,
+          variables: {
+            file: file,
+          },
+        },
+        result: {
+          data: {
+            uploadFile: {
+              id: '1',
+              mediaType: 'jpg',
+            },
+          },
+        },
+      },
+    ];
+
     const history = createMemoryHistory();
     history.push(ROUTES.CREATE_EVENT);
     const utils = render(
-      <MockedProvider>
+      <MockedProvider mocks={mocks} addTypename={false}>
         <Router history={history}>
           <CreateEventPage history={history} />
         </Router>
       </MockedProvider>
     );
+
+    const imageInput = utils.getByTestId('file');
+    await waitFor(() => {
+      user.upload(imageInput, file);
+    });
 
     let calendarDate = utils.container.querySelector('span[class="nice-dates-day -today"]');
     fireEvent.click(calendarDate);
@@ -87,9 +111,7 @@ describe('CreateEvent', () => {
     fireEvent.change(input, { target: { value: 'Cleanup :)' } });
     input = utils.getByLabelText('Location');
     fireEvent.change(input, { target: { value: 'Rogers Park' } });
-    const activeRestriction = utils.container.querySelector(
-      'form > div > div > div.pill-options > div:nth-child(2)'
-    );
+    const activeRestriction = utils.container.querySelector('.pill-options > div:nth-child(2)');
     fireEvent.click(activeRestriction);
 
     const submitButton = utils.container.querySelector('button[type="submit"]');
