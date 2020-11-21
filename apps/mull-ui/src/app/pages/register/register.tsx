@@ -63,9 +63,8 @@ const Register = ({ history }: RegisterProps) => {
         </button>
 
         <div className="login-link">
-          Already have an acccount?{' '}
+          Already have an acccount?{'  '}
           <Link to="/login" className="login-here">
-            {' '}
             Login here!
           </Link>
         </div>

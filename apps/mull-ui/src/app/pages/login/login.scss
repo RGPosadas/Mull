@@ -3,14 +3,14 @@
 .login-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-row-gap: 1.5em;
-  padding-top: 2.5em;
-  padding-left: 2em;
-  padding-right: 2em;
+  grid-row-gap: 1.5rem;
+  padding-top: 2.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .facebook {
-  margin-bottom: 2em;
+  margin-bottom: 2rem;
 }
 
 .custom-text-input-container,
@@ -38,10 +38,10 @@
 }
 
 .separator::before {
-  margin-right: 0.25em;
+  margin-right: 0.25rem;
 }
 .separator::after {
-  margin-left: 0.25em;
+  margin-left: 0.25rem;
 }
 
 .login,
@@ -61,15 +61,14 @@
 .twitter,
 .google,
 .facebook {
-  color: #ffffff;
+  color: white;
   font-weight: bold;
 }
 
 .login {
   font-weight: bold;
-  color: #000000;
-  background-color: rgba(39, 176, 154, 0.6);
-  border: none;
+  color: black;
+  background-color: rgba($color: $primary-color, $alpha: 0.6);
   outline: none;
 }
 
@@ -83,15 +82,15 @@
 
 .facebook {
   background-color: $facebook;
-  padding-left: 1.2em;
+  padding-left: 1.2rem;
 }
 
 .login-mull-logo {
-  padding-top: 2em;
+  padding-top: 2rem;
   display: block;
   margin: 0 auto;
   width: 30%;
-  padding-bottom: 3em;
+  padding-bottom: 3rem;
 }
 
 .sign-up {
@@ -111,7 +110,7 @@
     padding-top: 0;
   }
   .login-mull-logo {
-    padding-top: 5em;
+    padding-top: 5rem;
   }
   .login,
   .twitter,

@@ -11,7 +11,6 @@
 <<<<<<< HEAD
 =======
   .custom-text-input-container {
-    width: 100%;
     margin-bottom: 1.875rem;
   }
 
@@ -19,7 +18,8 @@
     margin: 0 0 1.25rem;
   }
 
-  .date-calendar-container {
+  .date-calendar-container,
+  .custom-text-input-container {
     width: 100%;
   }
 }

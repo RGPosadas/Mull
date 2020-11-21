@@ -60,9 +60,8 @@ export const Login = ({ history }: LoginProps) => {
         </button>
 
         <div className="sign-up">
-          Don't have an account?{' '}
+          Don't have an account?{'  '}
           <Link to="/register" className="register-login-page">
-            {' '}
             Sign up here!
           </Link>
         </div>
