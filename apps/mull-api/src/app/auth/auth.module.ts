@@ -2,13 +2,15 @@ import { Module } from '@nestjs/common';
 import { UserModule } from '../user';
 import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
-import { LocalStrategy } from './local.strategy';
 import { AuthController } from './auth.controller';
+
+import { LocalStrategy } from './local.strategy';
 import { GoogleStrategy } from './google.strategy';
+import { FacebookStrategy } from './facebook.strategy';
 
 @Module({
   imports: [UserModule, PassportModule],
-  providers: [AuthService, LocalStrategy, GoogleStrategy],
+  providers: [AuthService, LocalStrategy, GoogleStrategy, FacebookStrategy],
   exports: [AuthService],
   controllers: [AuthController],
 })
