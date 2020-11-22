@@ -33,57 +33,55 @@ export const Login = ({ history }: LoginProps) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <div className="page-container-no-nav">
-        <div className="login-container">
-          <img src={logo} className="login-mull-logo" alt="Mull logo" />
+      <div className="page-container-no-nav login-container">
+        <img src={logo} className="login-mull-logo" alt="Mull logo" />
 
-          <CustomTextInput
-            title="Email"
-            fieldName="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.email && !!formik.errors.email}
-            errorMessage={formik.errors.email}
-          />
+        <CustomTextInput
+          title="Email"
+          fieldName="email"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          hasErrors={formik.touched.email && !!formik.errors.email}
+          errorMessage={formik.errors.email}
+        />
 
-          <CustomTextInput
-            title="Password"
-            fieldName="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.password && !!formik.errors.password}
-            errorMessage={formik.errors.password}
-            password
-          />
+        <CustomTextInput
+          title="Password"
+          fieldName="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          hasErrors={formik.touched.password && !!formik.errors.password}
+          errorMessage={formik.errors.password}
+          password
+        />
 
-          <button type="submit" className="login">
-            Login
-          </button>
+        <button type="submit" className="login">
+          Login
+        </button>
 
-          <div className="sign-up">
-            Don't have an account?{'  '}
-            <Link to="/register" className="register-login-page">
-              Sign up here!
-            </Link>
-          </div>
-
-          <div className="separator">or</div>
-
-          <button className="twitter">
-            <FontAwesomeIcon icon={faTwitter} size="2x" />
-            &nbsp; Continue with Twitter
-          </button>
-
-          <button className="google">
-            <FontAwesomeIcon icon={faGoogle} size="2x" />
-            &nbsp; Continue with Google
-          </button>
-
-          <button className="facebook">
-            <FontAwesomeIcon icon={faFacebookSquare} size="2x" />
-            &nbsp; Continue with Facebook
-          </button>
+        <div className="sign-up">
+          Don't have an account?{'  '}
+          <Link to="/register" className="register-login-page">
+            Sign up here!
+          </Link>
         </div>
+
+        <div className="separator">or</div>
+
+        <button className="twitter">
+          <FontAwesomeIcon icon={faTwitter} size="2x" />
+          &nbsp; Continue with Twitter
+        </button>
+
+        <button className="google">
+          <FontAwesomeIcon icon={faGoogle} size="2x" />
+          &nbsp; Continue with Google
+        </button>
+
+        <button className="facebook">
+          <FontAwesomeIcon icon={faFacebookSquare} size="2x" />
+          &nbsp; Continue with Facebook
+        </button>
       </div>
     </form>
   );

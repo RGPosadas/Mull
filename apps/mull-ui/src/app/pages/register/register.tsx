@@ -31,44 +31,42 @@ const Register = ({ history }: RegisterProps) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <div className="page-container-no-nav">
-        <div className="register-container">
-          <img src={logo} className="register-mull-logo" alt="Mull logo" />
-          <CustomTextInput
-            title="Name"
-            fieldName="name"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.email && !!formik.errors.email}
-            errorMessage={formik.errors.name}
-          />
-          <CustomTextInput
-            title="Email"
-            fieldName="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.email && !!formik.errors.email}
-            errorMessage={formik.errors.email}
-          />
-          <CustomTextInput
-            title="Password"
-            fieldName="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.email && !!formik.errors.password}
-            errorMessage={formik.errors.password}
-            password
-          />
-          <button type="submit" className="register-button">
-            Create Account
-          </button>
+      <div className="page-container-no-nav register-container">
+        <img src={logo} className="register-mull-logo" alt="Mull logo" />
+        <CustomTextInput
+          title="Name"
+          fieldName="name"
+          value={formik.values.name}
+          onChange={formik.handleChange}
+          hasErrors={formik.touched.email && !!formik.errors.email}
+          errorMessage={formik.errors.name}
+        />
+        <CustomTextInput
+          title="Email"
+          fieldName="email"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          hasErrors={formik.touched.email && !!formik.errors.email}
+          errorMessage={formik.errors.email}
+        />
+        <CustomTextInput
+          title="Password"
+          fieldName="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          hasErrors={formik.touched.email && !!formik.errors.password}
+          errorMessage={formik.errors.password}
+          password
+        />
+        <button type="submit" className="register-button">
+          Create Account
+        </button>
 
-          <div className="login-link">
-            Already have an acccount?{'  '}
-            <Link to="/login" className="login-here">
-              Login here!
-            </Link>
-          </div>
+        <div className="login-link">
+          Already have an acccount?{'  '}
+          <Link to="/login" className="login-here">
+            Login here!
+          </Link>
         </div>
       </div>
     </form>
