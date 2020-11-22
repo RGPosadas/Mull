@@ -1,4 +1,5 @@
-import { Field, ID, InputType } from '@nestjs/graphql';
+import { UserType } from '@mull/types';
+import { Field, ID, InputType, Int } from '@nestjs/graphql';
 import { User } from '../../entities';
 
 @InputType()
@@ -6,14 +7,17 @@ export class CreateUserInput implements Partial<User> {
   @Field()
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   password: string;
 
   @Field()
   email: string;
 
-  @Field()
+  @Field({ nullable: true })
   dob: Date;
+
+  @Field(() => Int)
+  type: UserType;
 }
 
 @InputType()

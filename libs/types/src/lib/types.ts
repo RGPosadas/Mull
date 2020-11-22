@@ -19,6 +19,13 @@ export enum EventRestriction {
   INVITE_ONLY,
 }
 
+export enum UserType {
+  LOCAL,
+  GOOGLE,
+  FACEBOOK,
+  TWITTER,
+}
+
 export const EventRestrictionMap = ['Everyone', 'Friends', 'Invite Only'];
 
 export interface IEvent {

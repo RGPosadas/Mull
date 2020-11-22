@@ -11,8 +11,8 @@ import {
 import { Media } from './media.entity';
 import { Event } from './event.entity';
 import { PostReaction } from './post-reaction.entity';
-import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { IUser } from '@mull/types';
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
+import { IUser, UserType } from '@mull/types';
 
 @Entity()
 @ObjectType()
@@ -22,7 +22,7 @@ export class User implements IUser {
   id: number;
 
   @Field()
-  @Column()
+  @Column({ nullable: true })
   password: string;
 
   @Field()
@@ -44,8 +44,15 @@ export class User implements IUser {
   name: string;
 
   @Field()
-  @Column()
+  @Column({ nullable: true })
   dob: Date;
+
+  @Field(() => Int)
+  @Column({
+    type: 'enum',
+    enum: UserType,
+  })
+  type: UserType;
 
   @Field()
   @Column({

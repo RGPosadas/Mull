@@ -12,10 +12,11 @@ input CreateEventInput {
 }
 
 input CreateUserInput {
-  dob: DateTime!
+  dob: DateTime
   email: String!
   name: String!
-  password: String!
+  password: String
+  type: Int!
 }
 
 """
@@ -87,4 +88,5 @@ type User {
   name: String!
   password: String!
   timezone: String!
+  type: Int!
 }
