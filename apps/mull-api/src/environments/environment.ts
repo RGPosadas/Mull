@@ -17,5 +17,9 @@ export const environment = {
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_SECRET,
     },
+    twitter: {
+      consumerId: process.env.TWITTER_CONSUMER_ID,
+      consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+    },
   },
 };
