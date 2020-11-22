@@ -40,11 +40,9 @@ describe('NavigationBar', () => {
       </Router>
     );
 
-    for (const key in ROUTES) {
-      history.push(ROUTES[key]);
-
-      const element = dom.getByTestId(testIds[ROUTES[key]]);
-
+    for (const [key, value] of Object.entries(testIds)) {
+      history.push(key);
+      const element = dom.getByTestId(value);
       expect(element.classList.contains('active')).toBeTruthy();
     }
   });

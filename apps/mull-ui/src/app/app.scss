@@ -12,9 +12,13 @@
   .Toastify__toast-container {
     top: 7.5rem;
   }
-  .page-container {
+  .page-container,
+  .page-container-no-nav {
     width: 35%;
     margin: auto;
+  }
+
+  .page-container {
     padding: $nav-bar-height-desktop 0 0;
   }
 }

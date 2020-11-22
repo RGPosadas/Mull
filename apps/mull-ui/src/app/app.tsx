@@ -1,9 +1,12 @@
 import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 import CreateEventPage from './pages/create-event/create-event';
 import { NavigationBar, Header } from './components';
+import LoginPage from './pages/login/login';
+import RegisterPage from './pages/register/register';
+
 import { ROUTES } from '../constants';
 
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -14,6 +17,16 @@ import { dummyEvent } from '../constants';
 /**
  * Main component of the application
  */
+
+/* Temporary, to be removed */
+const showNavigation = () => {
+  const location = useLocation();
+  if ([ROUTES.LOGIN, ROUTES.REGISTER].includes(location.pathname)) {
+    return false;
+  }
+  return true;
+};
+
 export const App = () => {
   return (
     <div>
@@ -28,6 +41,8 @@ export const App = () => {
             <EventPage event={dummyEvent} prevPage={'Review'} />
           </div>
         </Route>
+        <Route exact path={ROUTES.LOGIN} component={LoginPage} />
+        <Route exact path={ROUTES.REGISTER} component={RegisterPage} />
       </Switch>
       <ToastContainer
         position={toast.POSITION.TOP_RIGHT}
@@ -40,8 +55,13 @@ export const App = () => {
         draggable
         pauseOnHover
       />
-      <Header />
-      <NavigationBar />
+
+      {showNavigation() ? (
+        <>
+          <Header />
+          <NavigationBar />
+        </>
+      ) : null}
     </div>
   );
 };

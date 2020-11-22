@@ -9,6 +9,7 @@ export interface CustomTextInputProps {
   errorMessage: string;
   hasErrors: boolean;
   svgIcon?: ReactNode;
+  password?: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -31,6 +32,7 @@ export const CustomTextInput = ({
   hasErrors,
   errorMessage,
   svgIcon,
+  password,
 }: CustomTextInputProps) => {
   return (
     <div className={`custom-text-input-container ${hasErrors ? 'error' : ''}`}>
@@ -42,7 +44,7 @@ export const CustomTextInput = ({
         id={fieldName}
         name={fieldName}
         data-testid="custom-text-input"
-        type="text"
+        type={password ? 'password' : 'text'}
         value={value}
         onChange={onChange}
       />

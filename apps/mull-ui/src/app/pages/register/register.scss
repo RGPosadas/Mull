@@ -1,0 +1,47 @@
+@import 'variables';
+
+.register-mull-logo {
+  padding-top: 5rem;
+  display: block;
+  margin: 0 auto;
+  width: 30%;
+  padding-bottom: 3rem;
+}
+
+.register-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 1.5rem;
+  padding-top: 2.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.register-button {
+  font-weight: bold;
+  color: white;
+  background-color: rgba($color: $primary-color, $alpha: 0.6);
+  border: none;
+  height: 2.8rem;
+  cursor: pointer;
+  border-radius: 16px;
+  outline: none;
+}
+
+.custom-text-input-container,
+.register {
+  align-self: center;
+  justify-self: center;
+  width: 100%;
+}
+
+.login-here {
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: $primary-color;
+  font-weight: bold;
+}
+
+.login-link {
+  text-align: center;
+}
