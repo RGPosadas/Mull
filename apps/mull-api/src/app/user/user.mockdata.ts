@@ -1,17 +1,19 @@
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 import { User } from '../entities';
+import { UserType } from '@mull/types';
 
 export const mockPartialUser: CreateUserInput | UpdateUserInput = {
   password: 'password',
   email: 'mock@mock.com',
   dob: new Date(),
   name: 'Mock McMockson',
+  type: UserType.LOCAL,
 };
 
 export const mockAllUsers: User[] = [
   {
     id: 1,
-    password: 'abc123',
+    password: '$2b$10$Wo/ClOmaI/qItblWM1saEeWgqv9S9nt6QO4KW1kBXdzPT1.q8XuuG',
     email: 'gr@ph.ql',
     timezone: '',
     name: 'Bob',
@@ -27,6 +29,7 @@ export const mockAllUsers: User[] = [
         dob: new Date(),
         description: "There's a first for everything",
         friends: [],
+        type: UserType.LOCAL,
       },
       {
         id: 12,
@@ -37,8 +40,10 @@ export const mockAllUsers: User[] = [
         dob: new Date(),
         description: '',
         friends: [],
+        type: UserType.LOCAL,
       },
     ],
+    type: UserType.LOCAL,
   },
   {
     id: 7,
@@ -58,6 +63,7 @@ export const mockAllUsers: User[] = [
         dob: new Date(),
         description: 'I am very good programmer',
         friends: [],
+        type: UserType.LOCAL,
       },
       {
         id: 12,
@@ -68,7 +74,9 @@ export const mockAllUsers: User[] = [
         dob: new Date(),
         description: '',
         friends: [],
+        type: UserType.LOCAL,
       },
     ],
+    type: UserType.GOOGLE,
   },
 ];
