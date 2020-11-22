@@ -4,20 +4,15 @@ import { useFormik } from 'formik';
 import { toast, TypeOptions } from 'react-toastify';
 import * as Yup from 'yup';
 import { cloneDeep } from 'lodash';
-import { EventRestriction, EventRestrictionMap } from '@mull/types';
+import { EventRestriction, EventRestrictionMap, IEvent, IMedia } from '@mull/types';
 import { PillOptions, CustomTextInput, CustomTimePicker } from '@mull/ui-lib';
-import { MullButton } from './../../components';
+import { MullButton, CustomFileUpload } from './../../components';
 import DateCalendar from '../create-event/date-calendar/date-calendar';
 
 import { DAY_IN_MILLISECONDS } from '../../../constants';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faAlignLeft,
-  faPencilAlt,
-  faMapMarkerAlt,
-  faImages,
-} from '@fortawesome/free-solid-svg-icons';
+import { faAlignLeft, faPencilAlt, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { History } from 'history';
 
@@ -36,6 +31,15 @@ const CREATE_EVENT = gql`
   }
 `;
 
+export const UPLOAD_PHOTO = gql`
+  mutation UploadFile($file: Upload!) {
+    uploadFile(file: $file) {
+      id
+      mediaType
+    }
+  }
+`;
+
 /**
  * This component renders the create event page
  * @param {History} history
@@ -44,16 +48,19 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
   // Reference Id for the toast
   const toastId = useRef(null);
   // GraphQL mutation hook to create events
-  const [createEvent] = useMutation(CREATE_EVENT);
-  // Image of Event
-  const [imageFile, setImageFile] = useState(null);
-
+  const [createEvent] = useMutation<IEvent>(CREATE_EVENT);
+  const [uploadFile] = useMutation<{ uploadFile: IMedia }>(UPLOAD_PHOTO);
+  // Uploaded Image File
+  const [imageURLFile, setImageURLFile] = useState<string>(null); // Path of uploaded image on client, to be used in image previews
+  const [file, setFile] = useState<File>(null); // Uploaded image file blob
   /**
    * Handles image file uploads
    * @param {ChangeEvent<HTMLInputElement>} event
    */
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    setImageFile(URL.createObjectURL(event.target.files[0]));
+    setImageURLFile(URL.createObjectURL(event.target.files[0]));
+    setFile(event.target.files[0]);
+    formik.setFieldValue('imageFile', event.target.files[0]);
   };
 
   /**
@@ -96,6 +103,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       eventTitle: '',
       description: '',
       location: '',
+      imageFile: '',
     },
 
     validationSchema: Yup.object({
@@ -117,19 +125,36 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         .required('Event Description is required.')
         .max(5000, 'Event Description must be under 5000 characters.'),
       location: Yup.string().required('Event Location is required.'),
+      imageFile: Yup.mixed().required('Image is required.'),
     }),
 
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       notifySubmissionToast();
       if (!values.endDate) values.endDate = cloneDeep(values.startDate);
       addTimeToDate(values.startTime, values.startDate);
       addTimeToDate(values.endTime, values.endDate);
-      const payload = {
+      try {
+        var uploadedFile = await uploadFile({ variables: { file: file } });
+        if (uploadedFile instanceof Error) {
+          throw uploadedFile;
+        }
+      } catch (err) {
+        console.log('still failing');
+        updateSubmissionToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
+        console.error(err);
+        return;
+      }
+      const imageMedia: IMedia = {
+        id: uploadedFile.data.uploadFile.id,
+        mediaType: uploadedFile.data.uploadFile.mediaType,
+      };
+      const payload: Partial<IEvent> = {
         startDate: values.startDate,
         endDate: values.endDate,
         description: values.description,
         title: values.eventTitle,
         restriction: values.activeRestriction,
+        image: imageMedia,
       };
       createEvent({ variables: { createEventInput: payload } })
         .then(({ errors }) => {
@@ -155,22 +180,16 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
   };
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form className="container" onSubmit={formik.handleSubmit}>
       <div className="page-container">
         <div className="create-event">
           <p className="create-event-text">Create Event</p>
-          <label htmlFor="imageFile" className="custom-file-upload event-input-border">
-            {imageFile ? (
-              <img src={imageFile} style={{ width: '50%', height: '50%' }} alt="Event" />
-            ) : (
-              <FontAwesomeIcon className="event-image-icon" icon={faImages} />
-            )}
-          </label>
-          <input
-            className="event-image-upload"
-            id="imageFile"
-            type="file"
-            onChange={handleFileUpload}
+          <CustomFileUpload
+            imageURL={imageURLFile}
+            hasErrors={formik.touched.imageFile && !!formik.errors.imageFile}
+            errorMessage={formik.errors.imageFile}
+            handleFileUpload={handleFileUpload}
+            fieldName="imageFile"
           />
           <DateCalendar
             startDate={formik.values.startDate}

@@ -5,3 +5,4 @@ export * from './header/header';
 export * from './mull-back-button/mull-back-button';
 export * from './mull-button/mull-button';
 export * from './navigation-bar/navigation-bar';
+export * from './custom-file-upload/custom-file-upload';

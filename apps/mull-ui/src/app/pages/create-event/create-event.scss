@@ -8,42 +8,27 @@
   align-items: center;
   width: 95%;
   margin: auto;
-  .custom-text-input-container {
-    margin-bottom: 1.875rem;
-  }
-
-  .custom-time-picker-container {
-    margin: 0 0 1.25rem;
-  }
-}
-
-.event-image-upload {
-  display: none;
-}
-
-.custom-file-upload {
-  display: block;
-  padding: 1.8em 5em;
-  cursor: pointer;
-  border-radius: 8px;
-  border: 1.5px $primary-color solid;
-  margin-bottom: 20px;
-
-  &:hover {
-    background: #0ba024;
-  }
 }
 
 .create-event-text {
   color: $primary-color;
   font-size: 16px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.custom-time-picker-container {
+  margin: 0 0 1.25rem;
 }
 
 .create-event-label {
   color: black;
   align-items: flex-start;
   font-weight: 600;
+}
+
+.custom-text-input-container {
+  margin-bottom: 1.875rem;
+  width: 100%;
 }
 
 .create-event-input {
@@ -60,11 +45,6 @@
   margin-bottom: 15px;
 }
 
-.date-calendar-container,
-.custom-text-input-container {
-  width: 100%;
-}
-
 @media (min-width: $breakpoint-mobile) {
   .create-event {
     padding: 1rem 0 0;
@@ -73,8 +53,4 @@
   .create-event-text {
     font-size: 1.5rem;
   }
-}
-
-.event-image-icon {
-  color: $primary-color;
 }

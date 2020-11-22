@@ -5,7 +5,12 @@ repos:
       - id: detect-private-key
       - id: check-yaml
       - id: end-of-file-fixer
+        exclude: 'package-lock.json'
   - repo: https://github.com/prettier/prettier
     rev: 2.1.1
     hooks:
       - id: prettier
+        exclude: 'package-lock.json'
+default_language_version:
+  python: python3
+  node: '12.8.0'

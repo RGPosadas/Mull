@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Media } from '../entities';
-import { mockFile, mockInvalidFile } from './media.mockdata';
+import { mockFile, mockInvalidFile, mockMedia } from './media.mockdata';
 import { MediaResolver } from './media.resolver';
 import { MediaService } from './media.service';
 import { FileUpload } from 'graphql-upload';
@@ -62,11 +62,12 @@ describe('MediaResolver', () => {
 
   it('should upload a file', async () => {
     const mockUploadedFile = await resolver.uploadFile(mockFile);
-    expect(mockUploadedFile).toEqual(true);
+    expect(mockUploadedFile).toEqual(mockMedia);
   });
 
   it('should not upload an invalid file', async () => {
-    const mockUploadedFile = await resolver.uploadFile(mockInvalidFile);
-    expect(mockUploadedFile).toEqual(false);
+    const expectedError = new Error('Internal Server Error');
+    const errorMedia = await resolver.uploadFile(mockInvalidFile);
+    expect(errorMedia).toEqual(expectedError);
   });
 });
