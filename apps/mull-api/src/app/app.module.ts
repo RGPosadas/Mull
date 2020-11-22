@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
+import { SessionModule } from 'nestjs-session';
 import { Connection } from 'typeorm';
 import { join } from 'path';
 
@@ -24,6 +25,7 @@ import { AuthModule } from './auth/auth.module';
     EventModule,
     EntitiesModule,
     MediaModule,
+    AuthModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: environment.db.host,
@@ -48,7 +50,14 @@ import { AuthModule } from './auth/auth.module';
         maxFileSize: 10000000000000,
       },
     }),
-    AuthModule,
+    SessionModule.forRoot({
+      session: {
+        name: 'mull-app-session',
+        secret: environment.session.secret,
+        resave: false,
+        saveUninitialized: false,
+      },
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

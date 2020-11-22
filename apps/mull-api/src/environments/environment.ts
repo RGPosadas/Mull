@@ -22,4 +22,7 @@ export const environment = {
       consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
     },
   },
+  session: {
+    secret: process.env.SESSION_SECRET,
+  },
 };
