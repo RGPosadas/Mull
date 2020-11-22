@@ -30,4 +30,16 @@ export class AuthController {
   facebookAuthRedirect(@Req() req: Request) {
     return this.authService.authLogin(req);
   }
+
+  @Get('twitter')
+  @UseGuards(AuthGuard('twitter'))
+  async twitterAuth() {
+    // noop
+  }
+
+  @Get('twitter/redirect')
+  @UseGuards(AuthGuard('twitter'))
+  twitterAuthRedirect(@Req() req: Request) {
+    return this.authService.authLogin(req);
+  }
 }

@@ -7,10 +7,11 @@ import { AuthController } from './auth.controller';
 import { LocalStrategy } from './local.strategy';
 import { GoogleStrategy } from './google.strategy';
 import { FacebookStrategy } from './facebook.strategy';
+import { TwitterStrategy } from './twitter.strategy';
 
 @Module({
   imports: [UserModule, PassportModule],
-  providers: [AuthService, LocalStrategy, GoogleStrategy, FacebookStrategy],
+  providers: [AuthService, LocalStrategy, GoogleStrategy, FacebookStrategy, TwitterStrategy],
   exports: [AuthService],
   controllers: [AuthController],
 })
