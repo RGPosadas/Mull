@@ -12,19 +12,19 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-row-gap: 1.5rem;
-  margin: 0 auto;
-  width: 95%;
+  padding-top: 2.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
-.register {
+.register-button {
   font-weight: bold;
-  color: #000000;
-  background-color: rgba(39, 176, 154, 0.6);
+  color: white;
+  background-color: rgba($color: $primary-color, $alpha: 0.6);
   border: none;
-  height: 45px;
+  height: 2.8rem;
   cursor: pointer;
   border-radius: 16px;
-  font-size: 16px;
   outline: none;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .login-here {
-  font-size: 14px;
+  font-size: 0.85rem;
   text-decoration: none;
   color: $primary-color;
   font-weight: bold;
@@ -44,24 +44,4 @@
 
 .login-link {
   text-align: center;
-}
-
-@media (min-width: 600px) {
-  .register,
-  .custom-text-input-container {
-    width: 45%;
-  }
-  .register-mull-logo {
-    width: 15%;
-  }
-}
-
-@media (min-width: 1200px) {
-  .register,
-  .custom-text-input-container {
-    width: 22%;
-  }
-  .register-mull-logo {
-    width: 10%;
-  }
 }

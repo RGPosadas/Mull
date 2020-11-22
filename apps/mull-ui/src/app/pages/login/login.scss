@@ -49,7 +49,7 @@
 .google,
 .facebook {
   width: 100%;
-  height: 45px;
+  height: 2.8rem;
   cursor: pointer;
   border-radius: 16px;
   display: flex;
@@ -95,48 +95,12 @@
 
 .sign-up {
   text-align: center;
-  font-size: 14px;
+  font-size: 0.85rem;
 }
 
 .register-login-page {
-  font-size: 14px;
+  font-size: 0.85rem;
   text-decoration: none;
   color: $primary-color;
   font-weight: bold;
-}
-
-@media (min-width: 600px) {
-  .login-container {
-    padding-top: 0;
-  }
-  .login-mull-logo {
-    padding-top: 5rem;
-  }
-  .login,
-  .twitter,
-  .google,
-  .facebook,
-  .separator,
-  .custom-text-input-container {
-    width: 45%;
-  }
-
-  .login-mull-logo {
-    width: 12%;
-  }
-}
-
-@media (min-width: 1200px) {
-  .login,
-  .twitter,
-  .google,
-  .facebook,
-  .custom-text-input-container,
-  .separator {
-    width: 22%;
-  }
-
-  .login-mull-logo {
-    width: 10%;
-  }
 }
