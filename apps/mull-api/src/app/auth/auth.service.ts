@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../entities';
-import { UserService } from '../user/user.service';
+import { compare } from 'bcrypt';
 import { Request } from 'express';
+
+import { User } from '../entities';
+import { CreateUserInput } from '../user/inputs/user.input';
+import { UserService } from '../user/user.service';
+
 @Injectable()
 export class AuthService {
   constructor(private userService: UserService) {}
@@ -11,11 +15,27 @@ export class AuthService {
     return { user: req.user };
   }
 
+  async validateOAuthUser(
+    user: Partial<User>,
+    callback: (error: string, user?: Partial<User>, info?: string) => void
+  ) {
+    const users: User[] = await this.userService.findByEmail(user.email);
+    if (users && users.length === 1 && user.type === users[0].type) {
+      callback(null, users[0]);
+    } else {
+      const newUser = await this.userService.create(user as CreateUserInput);
+      callback(null, newUser);
+    }
+  }
+
   async validateUser(email: string, pass: string): Promise<Partial<User>> {
-    const user = await this.userService.findByEmail(email)[0];
-    if (user && user.password === pass) {
-      delete user.password;
-      return user;
+    const users: User[] = await this.userService.findByEmail(email);
+    if (users && users.length === 1) {
+      const same = await compare(pass, users[0].password);
+      if (same) {
+        delete users[0].password;
+        return users[0];
+      }
     }
     return null;
   }

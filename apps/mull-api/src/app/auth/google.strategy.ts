@@ -1,17 +1,20 @@
 import { PassportStrategy } from '@nestjs/passport';
-import { Profile, Strategy, VerifyCallback } from 'passport-google-oauth20';
+import { Profile, Strategy, StrategyOptions, VerifyCallback } from 'passport-google-oauth20';
 import { environment } from '../../environments/environment';
 import { Injectable } from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { User } from '../entities';
+import { UserType } from '@mull/types';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
-  constructor() {
+  constructor(private authService: AuthService) {
     super({
       clientID: environment.auth.google.clientId,
       clientSecret: environment.auth.google.clientSecret,
       callbackURL: 'http://localhost:3333/api/auth/google/redirect',
       scope: ['email', 'profile'],
-    });
+    } as StrategyOptions);
   }
 
   async validate(
@@ -21,12 +24,11 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     done: VerifyCallback
   ): Promise<void> {
     const { name, emails } = profile;
-    const user = {
+    const user: Partial<User> = {
       email: emails[0].value,
-      firstName: name.givenName,
-      lastName: name.familyName,
-      accessToken,
+      name: `${name.givenName} ${name.familyName}`,
+      type: UserType.GOOGLE,
     };
-    done(null, user);
+    await this.authService.validateOAuthUser(user, done);
   }
 }
