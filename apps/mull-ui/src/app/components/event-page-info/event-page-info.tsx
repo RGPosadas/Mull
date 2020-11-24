@@ -17,7 +17,7 @@ import { ExpandableText } from './../expandable-text/expandable-text';
 import MullButton from '../mull-button/mull-button';
 
 export interface EventPageInfoProps {
-  event: IEvent;
+  event: Partial<IEvent>;
   className?: string;
   onButtonClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
@@ -33,13 +33,17 @@ export const EventPageInfo = ({ event, className = '', onButtonClick }: EventPag
           alt="Event"
         ></img>
 
-        <p className="row-text">{event.host.name}</p>
+        {/* TODO: Remove placeholder text once users are implemented */}
+        <p className="row-text">Placeholder Host</p>
+        {/* <p className="row-text">{event.host?.name}</p> */}
 
         <FontAwesomeIcon icon={faComments} className="event-page-icon color-green" />
       </div>
       <div className="info-row">
         <FontAwesomeIcon icon={faMapMarkerAlt} className="event-page-icon color-grey" />
-        <p className="row-text">{event.location.point}</p>
+        {/* TODO: Remove placeholder text once location is implemented */}
+        <p className="row-text">18 Mull Ave, Pointe-Claire, Montreal</p>
+        {/* <p className="row-text">{event.location.point}</p> */}
         <FontAwesomeIcon icon={faMap} className="event-page-icon color-green" />
       </div>
       <div className="info-row">
@@ -55,7 +59,7 @@ export const EventPageInfo = ({ event, className = '', onButtonClick }: EventPag
       <div className="info-row">
         {/* TODO: Placeholder. Implement friend invitation and image fetching before doing this*/}
         <FontAwesomeIcon icon={faUserFriends} className="event-page-icon color-grey" />
-        <p className="row-text">{event.participants.map((p) => p.name).join(', ')}</p>
+        <p className="row-text">{event.participants?.map((p) => p.name).join(', ')}</p>
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
       </div>
       <MullButton className="event-page-button" onClick={onButtonClick}>
