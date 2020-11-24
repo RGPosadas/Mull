@@ -13,10 +13,14 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import './app.scss';
 import EventPage from './pages/event-page/event-page';
 import { dummyEvent } from '../constants';
+import { hotjar } from 'react-hotjar';
 
 /**
  * Main component of the application
  */
+
+/* Gather usability testing data */
+hotjar.initialize(2113433, 6);
 
 /* Temporary, to be removed */
 const showNavigation = () => {
