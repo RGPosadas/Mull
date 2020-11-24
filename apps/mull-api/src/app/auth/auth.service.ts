@@ -31,8 +31,8 @@ export class AuthService {
   async validateUser(email: string, pass: string): Promise<Partial<User>> {
     const users: User[] = await this.userService.findByEmail(email);
     if (users && users.length === 1) {
-      const same = await compare(pass, users[0].password);
-      if (same) {
+      const validPassword = await compare(pass, users[0].password);
+      if (validPassword) {
         delete users[0].password;
         return users[0];
       }
