@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from '../entities';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 import { genSalt, hash } from 'bcrypt';
-import { UserType } from '@mull/types';
+import { RegistrationMethod } from '@mull/types';
 
 @Injectable()
 export class UserService {
@@ -31,7 +31,7 @@ export class UserService {
   }
 
   async create(userInput: CreateUserInput): Promise<User> {
-    if (userInput.type === UserType.LOCAL) {
+    if (userInput.registrationMethod === RegistrationMethod.LOCAL) {
       const salt = await genSalt(10);
       const hashed = await hash(userInput.password, salt);
       userInput.password = hashed;

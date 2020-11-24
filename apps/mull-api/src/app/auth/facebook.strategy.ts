@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { Injectable } from '@nestjs/common';
 import { User } from '../entities';
 import { AuthService } from './auth.service';
-import { UserType } from '@mull/types';
+import { RegistrationMethod } from '@mull/types';
 
 @Injectable()
 export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
@@ -30,7 +30,7 @@ export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
     const user: Partial<User> = {
       name: `${first_name} ${last_name}`,
       email: email,
-      type: UserType.FACEBOOK,
+      registrationMethod: RegistrationMethod.FACEBOOK,
     };
     await this.authService.validateOAuthUser(user, done);
   }

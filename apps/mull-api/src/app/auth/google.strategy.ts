@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { Injectable } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { User } from '../entities';
-import { UserType } from '@mull/types';
+import { RegistrationMethod } from '@mull/types';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
@@ -27,7 +27,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     const user: Partial<User> = {
       email: emails[0].value,
       name: `${name.givenName} ${name.familyName}`,
-      type: UserType.GOOGLE,
+      registrationMethod: RegistrationMethod.GOOGLE,
     };
     await this.authService.validateOAuthUser(user, done);
   }

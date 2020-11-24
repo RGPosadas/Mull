@@ -19,7 +19,7 @@ export enum EventRestriction {
   INVITE_ONLY,
 }
 
-export enum UserType {
+export enum RegistrationMethod {
   LOCAL,
   GOOGLE,
   FACEBOOK,

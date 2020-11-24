@@ -1,13 +1,13 @@
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 import { User } from '../entities';
-import { UserType } from '@mull/types';
+import { RegistrationMethod } from '@mull/types';
 
 export const mockPartialUser: CreateUserInput | UpdateUserInput = {
   password: 'password',
   email: 'mock@mock.com',
   dob: new Date(),
   name: 'Mock McMockson',
-  type: UserType.LOCAL,
+  registrationMethod: RegistrationMethod.LOCAL,
 };
 
 export const mockAllUsers: User[] = [
@@ -29,7 +29,7 @@ export const mockAllUsers: User[] = [
         dob: new Date(),
         description: "There's a first for everything",
         friends: [],
-        type: UserType.LOCAL,
+        registrationMethod: RegistrationMethod.LOCAL,
       },
       {
         id: 12,
@@ -40,10 +40,10 @@ export const mockAllUsers: User[] = [
         dob: new Date(),
         description: '',
         friends: [],
-        type: UserType.LOCAL,
+        registrationMethod: RegistrationMethod.LOCAL,
       },
     ],
-    type: UserType.LOCAL,
+    registrationMethod: RegistrationMethod.LOCAL,
   },
   {
     id: 7,
@@ -63,7 +63,7 @@ export const mockAllUsers: User[] = [
         dob: new Date(),
         description: 'I am very good programmer',
         friends: [],
-        type: UserType.LOCAL,
+        registrationMethod: RegistrationMethod.LOCAL,
       },
       {
         id: 12,
@@ -74,9 +74,9 @@ export const mockAllUsers: User[] = [
         dob: new Date(),
         description: '',
         friends: [],
-        type: UserType.LOCAL,
+        registrationMethod: RegistrationMethod.LOCAL,
       },
     ],
-    type: UserType.GOOGLE,
+    registrationMethod: RegistrationMethod.GOOGLE,
   },
 ];

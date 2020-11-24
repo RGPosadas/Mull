@@ -1,4 +1,4 @@
-import { UserType } from '@mull/types';
+import { RegistrationMethod } from '@mull/types';
 import { Field, ID, InputType, Int } from '@nestjs/graphql';
 import { User } from '../../entities';
 
@@ -17,7 +17,7 @@ export class CreateUserInput implements Partial<User> {
   dob: Date;
 
   @Field(() => Int)
-  type: UserType;
+  registrationMethod: RegistrationMethod;
 }
 
 @InputType()

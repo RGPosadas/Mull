@@ -16,7 +16,7 @@ input CreateUserInput {
   email: String!
   name: String!
   password: String
-  type: Int!
+  registrationMethod: Int!
 }
 
 """
@@ -87,6 +87,6 @@ type User {
   id: ID!
   name: String!
   password: String!
+  registrationMethod: Int!
   timezone: String!
-  type: Int!
 }

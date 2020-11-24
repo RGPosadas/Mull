@@ -20,7 +20,7 @@ export class AuthService {
     callback: (error: string, user?: Partial<User>, info?: string) => void
   ) {
     const users: User[] = await this.userService.findByEmail(user.email);
-    if (users && users.length === 1 && user.type === users[0].type) {
+    if (users && users.length === 1 && user.registrationMethod === users[0].registrationMethod) {
       callback(null, users[0]);
     } else {
       const newUser = await this.userService.create(user as CreateUserInput);

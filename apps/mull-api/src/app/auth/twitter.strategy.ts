@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { Injectable } from '@nestjs/common';
 import { User } from '../entities';
 import { AuthService } from './auth.service';
-import { UserType } from '@mull/types';
+import { RegistrationMethod } from '@mull/types';
 
 @Injectable()
 export class TwitterStrategy extends PassportStrategy(Strategy, 'twitter') {
@@ -27,7 +27,7 @@ export class TwitterStrategy extends PassportStrategy(Strategy, 'twitter') {
     const user: Partial<User> = {
       name: username,
       email: emails[0].value,
-      type: UserType.TWITTER,
+      registrationMethod: RegistrationMethod.TWITTER,
     };
     await this.authService.validateOAuthUser(user, done);
   }
