@@ -3,6 +3,34 @@
 exports[`App should match snapshot 1`] = `
 <div>
   <div
+    className="subnavigation-container"
+  >
+    <a
+      aria-current={null}
+      className="subnavigation-link"
+      href="/home/discover"
+      onClick={[Function]}
+    >
+      Discover
+    </a>
+    <a
+      aria-current={null}
+      className="subnavigation-link"
+      href="/home/upcoming"
+      onClick={[Function]}
+    >
+      Upcoming
+    </a>
+    <a
+      aria-current={null}
+      className="subnavigation-link"
+      href="/home/myevents"
+      onClick={[Function]}
+    >
+      My Events
+    </a>
+  </div>
+  <div
     className="Toastify"
   />
   <div

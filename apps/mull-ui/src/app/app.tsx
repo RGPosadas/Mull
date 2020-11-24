@@ -2,6 +2,7 @@ import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
+import SubNavigationBar from './components/subnavigation-bar/subnavigation-bar';
 import CreateEventPage from './pages/create-event/create-event';
 import { NavigationBar, Header, EventCard } from './components';
 import LoginPage from './pages/login/login';
@@ -44,6 +45,12 @@ export const App = () => {
           <div className="page-container">
             <EventCard event={dummyEvent} style={{ marginBottom: '1rem' }} />
             <EventCard event={dummyEvent} style={{ marginBottom: '1rem' }} />
+          </div>
+        </Route>
+        <Route exact path={['/home', `${ROUTES.HOME}/:id`]}>
+          {/* Temporary, to be moved into the page using this component */}
+          <div className="page-container">
+            <SubNavigationBar />
           </div>
         </Route>
         <Route exact path={ROUTES.LOGIN} component={LoginPage} />

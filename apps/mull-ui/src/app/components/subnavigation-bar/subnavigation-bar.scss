@@ -1,0 +1,23 @@
+@import 'variables';
+@import 'styles';
+
+.subnavigation-container {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.subnavigation-link {
+  color: $inactive-button-color;
+}
+
+.active {
+  color: $primary-color;
+  font-weight: 600;
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .subnavigation-container {
+    margin-top: 2.5rem;
+  }
+}
