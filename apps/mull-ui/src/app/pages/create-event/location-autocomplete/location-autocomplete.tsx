@@ -22,7 +22,7 @@ export default function FullScreenDialog() {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <CustomTextInput
         title="Location"
         fieldName="location"
@@ -41,6 +41,6 @@ export default function FullScreenDialog() {
 
         <Search handleClose={handleClose} />
       </Dialog>
-    </div>
+    </React.Fragment>
   );
 }
