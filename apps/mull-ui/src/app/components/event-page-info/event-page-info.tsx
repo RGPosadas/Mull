@@ -57,7 +57,7 @@ export const EventPageInfo = ({ event, className = '' }: EventPageInfoProps) => 
         <p className="row-text">{event.participants.map((p) => p.name).join(', ')}</p>
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
       </div>
-      <MullButton className="event-page-button" />
+      <MullButton className="event-page-button">Done</MullButton>
     </div>
   );
 };

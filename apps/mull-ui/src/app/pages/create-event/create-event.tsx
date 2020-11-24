@@ -252,7 +252,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
             onChange={handleRestrictions}
             active={formik.values.activeRestriction}
           />
-          <MullButton className="create-event-button" />
+          <MullButton className="create-event-button">Submit</MullButton>
         </div>
       </div>
     </form>

@@ -6,6 +6,7 @@ export interface MullButtonProps {
   type?: 'submit' | 'reset' | 'button';
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   className?: string;
+  children?: string;
 }
 
 export const MullButton = ({
@@ -14,6 +15,7 @@ export const MullButton = ({
     /* Do nothing */
   },
   className = '',
+  children = '',
 }: MullButtonProps) => {
   return (
     <button
@@ -22,7 +24,7 @@ export const MullButton = ({
       onClick={onClick}
       data-testid="mull-button"
     >
-      Done
+      {children}
     </button>
   );
 };
