@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { faMapMarkerAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faLocationArrow } from '@fortawesome/free-solid-svg-icons';
 
 import './search.scss';
 import { gql, useLazyQuery, useQuery } from '@apollo/client';
@@ -25,12 +25,13 @@ export default function Asynchronous({ handleClose }) {
       variables: { userInput: userInput },
     }
   );
+  console.log('LOCATIONS = ' + AUTOCOMPLETED_LOCATIONS);
 
   const getCurrentPosition = async () => {
     let pos = 'location is not available';
     if (navigator.geolocation) {
       await navigator.geolocation.getCurrentPosition((position) => {
-        pos = `longitude: ${position.coords.longitude}, latitude: ${position.coords.latitude}`;
+        pos = `latitude: ${position.coords.latitude}, longitude: ${position.coords.longitude}}`;
         handleClose(pos);
       });
     }
@@ -42,7 +43,7 @@ export default function Asynchronous({ handleClose }) {
       style={{ width: '100%' }}
       open={open}
       onFocus={() => {
-        setOptions(['test']);
+        setOptions(['Current Location', `${options}`]);
         setOpen(true);
         console.log(options);
       }}
@@ -55,26 +56,27 @@ export default function Asynchronous({ handleClose }) {
         setOpen(false);
       }}
       onInputChange={async (event, value) => {
+        getAutoCompletedLocations();
         // if (value.length > 5) { setUserInput(value);
-        // setOptions(options.concat([ "dgfdg", "dfjasdgjdlg", "dsgjsakga"]))
+        // setOptions(options.concat([ "Canada", "Cucumber", "Money"]))
         // const pos = await loadAddressOptions();
         // await getAutoCompletedLocations();
         // console.log("addresses: " + data);
         // setOptions([pos].concat(data));}
       }}
       onChange={async (event, value) => {
-        if (value === 'test') {
+        if (value === 'Current Location') {
           await getCurrentPosition();
         }
-        // handleClose(value);
+        handleClose(data);
       }}
       getOptionSelected={(option, value) => option === value}
       renderOption={(option) => {
         let con;
-        if (option == 'test') {
-          con = faMapMarkerAlt;
+        if (option == 'Current Location') {
+          con = faLocationArrow;
         } else {
-          con = faPencilAlt;
+          con = faMapMarkerAlt;
         }
         return (
           <React.Fragment>
