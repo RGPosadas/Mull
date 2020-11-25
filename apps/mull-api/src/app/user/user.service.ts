@@ -36,8 +36,7 @@ export class UserService {
       const hashed = await hash(userInput.password, salt);
       userInput.password = hashed;
     }
-    const newUser = this.userRepository.create(userInput);
-    return await this.userRepository.save(newUser);
+    return await this.userRepository.save({ ...userInput });
   }
 
   async updateUser(userInput: UpdateUserInput): Promise<User> {
