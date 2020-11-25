@@ -86,7 +86,7 @@ type User {
   friends: [User!]!
   id: ID!
   name: String!
-  password: String!
+  password: String
   registrationMethod: Int!
   timezone: String!
 }

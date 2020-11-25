@@ -21,7 +21,7 @@ export class User implements IUser {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ nullable: true })
   password: string;
 
