@@ -12,10 +12,11 @@ input CreateEventInput {
 }
 
 input CreateUserInput {
-  dob: DateTime!
+  dob: DateTime
   email: String!
   name: String!
-  password: String!
+  password: String
+  registrationMethod: Int!
 }
 
 """
@@ -85,6 +86,7 @@ type User {
   friends: [User!]!
   id: ID!
   name: String!
-  password: String!
+  password: String
+  registrationMethod: Int!
   timezone: String!
 }
