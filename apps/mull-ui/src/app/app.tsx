@@ -1,4 +1,6 @@
 import React from 'react';
+import SwipeableRoutes from 'react-swipeable-routes';
+
 import { ToastContainer, toast } from 'react-toastify';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
@@ -47,12 +49,11 @@ export const App = () => {
             <EventCard event={dummyEvent} style={{ marginBottom: '1rem' }} />
           </div>
         </Route>
-        <Route exact path={['/home', `${ROUTES.HOME}/:id`]}>
-          {/* Temporary, to be moved into the page using this component */}
-          <div className="page-container">
-            <SubNavigationBar />
-          </div>
-        </Route>
+        <SwipeableRoutes>
+          <Route exact path="/discover" component={SubNavigationBar} />
+          <Route exact path="/upcoming" component={SubNavigationBar} />
+          <Route exact path="/myevents" component={SubNavigationBar} />
+        </SwipeableRoutes>
         <Route exact path={ROUTES.LOGIN} component={LoginPage} />
         <Route exact path={ROUTES.REGISTER} component={RegisterPage} />
       </Switch>
