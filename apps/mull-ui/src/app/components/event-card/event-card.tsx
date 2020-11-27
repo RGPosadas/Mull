@@ -15,6 +15,7 @@ export interface EventCardProps {
 }
 
 export const EventCard = ({ event, style = {} }: EventCardProps) => {
+  // TODO; set joined based on if current user is part of event
   const [joined, setJoined] = useState<boolean>(false);
 
   let { day, month, time } = formatDate(event.startDate);
@@ -29,6 +30,7 @@ export const EventCard = ({ event, style = {} }: EventCardProps) => {
         <div>{`${month} ${day}`}</div>
         <div>{time}</div>
       </div>
+      {/* TODO: Add/remove user to event on press */}
       <button
         onClick={() => setJoined(!joined)}
         className={`event-card-join ${joined ? 'joined' : ''}`}
@@ -38,11 +40,12 @@ export const EventCard = ({ event, style = {} }: EventCardProps) => {
       <div className="event-card-description">
         <div className="event-card-text">
           <div className="event-card-title">{event.title}</div>
-          {/* TODO: Replace placeholder */}
+          {/* TODO: Replace placeholder distance*/}
           <div className="event-card-location">14km • {event.location.point}</div>
         </div>
         {/* TODO: Replace placeholder */}
         <div className="event-card-friends">friends</div>
+        {/* TODO: Implement share */}
         <button className="event-card-share">
           <FontAwesomeIcon icon={faShareAlt} />
         </button>
