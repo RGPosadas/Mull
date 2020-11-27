@@ -141,7 +141,6 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           throw uploadedFile;
         }
       } catch (err) {
-        console.log('still failing');
         updateSubmissionToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
         console.error(err);
         return;
