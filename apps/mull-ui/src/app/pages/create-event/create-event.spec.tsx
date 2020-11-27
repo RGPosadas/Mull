@@ -1,6 +1,6 @@
 import React from 'react';
 import user from '@testing-library/user-event';
-import { fireEvent, getByText, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MockedProvider } from '@apollo/client/testing';
 import CreateEventPage, { UPLOAD_PHOTO } from './create-event';
@@ -35,11 +35,11 @@ describe('CreateEvent', () => {
       </MockedProvider>
     );
     const file = new File(['hello'], 'hello.png', { type: 'image/png' });
-    const imageInput = utils.getByTestId('file');
+    const imageInput = utils.getByTestId('file') as HTMLInputElement;
     await waitFor(() => {
       user.upload(imageInput, file);
     });
-    // @ts-ignore
+
     expect(imageInput.files[0]).toStrictEqual(file);
   });
 
@@ -62,7 +62,7 @@ describe('CreateEvent', () => {
   });
 
   it('should submit a valid event', async () => {
-    let file = new File(['hello'], 'hello.png', { type: 'image/png' });
+    const file = new File(['hello'], 'hello.png', { type: 'image/png' });
     const mocks = [
       {
         request: {

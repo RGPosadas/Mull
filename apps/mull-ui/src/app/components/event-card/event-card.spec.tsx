@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 
 import EventCard from './event-card';
-import { dummyEvent } from 'apps/mull-ui/src/constants';
+import { dummyEvent } from '../../../constants';
 
 describe('EventCard', () => {
   it('should render successfully', () => {

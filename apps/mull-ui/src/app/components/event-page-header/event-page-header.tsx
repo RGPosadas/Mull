@@ -9,7 +9,7 @@ import './event-page-header.scss';
 import { IEvent } from '@mull/types';
 
 import MullBackButton from '../mull-back-button/mull-back-button';
-import { formatDate } from 'apps/mull-ui/src/utilities';
+import { formatDate } from '../../../utilities';
 
 export interface EventPageHeaderProps {
   event: IEvent;
@@ -17,8 +17,8 @@ export interface EventPageHeaderProps {
 }
 
 export const EventPageHeader = ({ event, prevPage }: EventPageHeaderProps) => {
-  let { day: startDay, month: startMonth, time: startTime } = formatDate(event.startDate);
-  let { day: endDay, month: endMonth, time: endTime } = formatDate(event.endDate);
+  const { day: startDay, month: startMonth, time: startTime } = formatDate(event.startDate);
+  const { day: endDay, month: endMonth, time: endTime } = formatDate(event.endDate);
   return (
     <div className="event-page-header">
       <MullBackButton>{prevPage}</MullBackButton>

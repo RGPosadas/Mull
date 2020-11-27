@@ -2,7 +2,7 @@ import { IEvent } from '@mull/types';
 import React, { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle, faShareAlt, faCheck, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faShareAlt, faCheck, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { formatDate } from '../../../utilities';
 
@@ -18,13 +18,14 @@ export const EventCard = ({ event, style = {} }: EventCardProps) => {
   // TODO; set joined based on if current user is part of event
   const [joined, setJoined] = useState<boolean>(false);
 
-  let { day, month, time } = formatDate(event.startDate);
+  const { day, month, time } = formatDate(event.startDate);
   return (
     <div className="event-card-container" style={style}>
       <img
         className="event-card-image"
         // TODO: Replace placeholder
         src="https://www.citywindsor.ca/residents/parksandforestry/City-Parks/PublishingImages/Assumption%20Park%20Street%20View.JPG"
+        alt="Event"
       />
       <div className="event-card-datetime" data-testid="event-card-datetime">
         <div>{`${month} ${day}`}</div>

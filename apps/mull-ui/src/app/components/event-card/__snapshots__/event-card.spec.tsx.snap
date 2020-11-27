@@ -6,6 +6,7 @@ exports[`EventCard should match snapshot 1`] = `
   style={Object {}}
 >
   <img
+    alt="Event"
     className="event-card-image"
     src="https://www.citywindsor.ca/residents/parksandforestry/City-Parks/PublishingImages/Assumption%20Park%20Street%20View.JPG"
   />
