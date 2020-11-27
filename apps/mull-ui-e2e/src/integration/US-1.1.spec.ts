@@ -82,6 +82,7 @@ frameSizes.forEach((frame) => {
 
       cy.get('[data-testid=pill-id-1]').click();
       cy.get('.create-event-button').click();
+      cy.get('.event-page-button').click();
 
       cy.get('.Toastify__toast.Toastify__toast--success', { timeout: 5000 }).should(
         'have.css',

@@ -34,7 +34,9 @@ export const EventPageInfo = ({ event, className = '', onButtonClick }: EventPag
         ></img>
 
         {/* TODO: Remove placeholder text once users are implemented */}
-        <p className="row-text">Placeholder Host</p>
+        <p className="row-text" data-testid="event-host">
+          Placeholder Host
+        </p>
         {/* <p className="row-text">{event.host?.name}</p> */}
 
         <FontAwesomeIcon icon={faComments} className="event-page-icon color-green" />
@@ -42,7 +44,9 @@ export const EventPageInfo = ({ event, className = '', onButtonClick }: EventPag
       <div className="info-row">
         <FontAwesomeIcon icon={faMapMarkerAlt} className="event-page-icon color-grey" />
         {/* TODO: Remove placeholder text once location is implemented */}
-        <p className="row-text">18 Mull Ave, Pointe-Claire, Montreal</p>
+        <p className="row-text" data-testid="event-location">
+          18 Mull Ave, Pointe-Claire, Montreal
+        </p>
         {/* <p className="row-text">{event.location.point}</p> */}
         <FontAwesomeIcon icon={faMap} className="event-page-icon color-green" />
       </div>
@@ -53,7 +57,9 @@ export const EventPageInfo = ({ event, className = '', onButtonClick }: EventPag
 
       <div className="info-row">
         <FontAwesomeIcon icon={faLock} className="event-page-icon color-grey" />
-        <p className="row-text">{EventRestrictionMap[event.restriction]}</p>
+        <p className="row-text" data-testid="event-restriction">
+          {EventRestrictionMap[event.restriction]}
+        </p>
       </div>
 
       <div className="info-row">
