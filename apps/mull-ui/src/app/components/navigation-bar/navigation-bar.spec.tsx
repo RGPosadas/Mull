@@ -12,7 +12,6 @@ import renderer from 'react-test-renderer';
 describe('NavigationBar', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
-    history.push(ROUTES.DISCOVER);
 
     const { baseElement } = render(
       <Router history={history}>
