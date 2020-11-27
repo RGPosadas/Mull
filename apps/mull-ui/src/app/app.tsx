@@ -49,11 +49,13 @@ export const App = () => {
             <EventCard event={dummyEvent} style={{ marginBottom: '1rem' }} />
           </div>
         </Route>
-        <SwipeableRoutes>
-          <Route exact path="/discover" component={SubNavigationBar} />
-          <Route exact path="/upcoming" component={SubNavigationBar} />
-          <Route exact path="/myevents" component={SubNavigationBar} />
-        </SwipeableRoutes>
+        <Route exact path={['/home', `${ROUTES.HOME}/:id`]}>
+          <SwipeableRoutes>
+            <Route path="/home" component={SubNavigationBar} />
+            <Route path="/home/upcoming" component={SubNavigationBar} />
+            <Route path="/home/myevents" component={SubNavigationBar} />
+          </SwipeableRoutes>
+        </Route>
         <Route exact path={ROUTES.LOGIN} component={LoginPage} />
         <Route exact path={ROUTES.REGISTER} component={RegisterPage} />
       </Switch>

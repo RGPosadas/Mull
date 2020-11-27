@@ -16,15 +16,4 @@ describe('App', () => {
 
     expect(baseElement).toBeTruthy();
   });
-
-  it('should match snapshot', () => {
-    const tree = renderer
-      .create(
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
 });
