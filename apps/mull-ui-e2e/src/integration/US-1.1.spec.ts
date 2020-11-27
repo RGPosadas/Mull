@@ -1,10 +1,6 @@
 /// <reference types="Cypress" />
 import 'cypress-file-upload';
-
-const frameSizes = [
-  { res: [375, 812], name: 'mobile' },
-  { res: [1920, 1080], name: 'desktop' },
-];
+import { frameSizes } from './../fixtures/frame-sizes';
 
 frameSizes.forEach((frame) => {
   describe(`US-1.1: Create Events (${frame.name} view)`, () => {
