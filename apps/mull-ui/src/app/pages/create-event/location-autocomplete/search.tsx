@@ -15,23 +15,18 @@ const AUTOCOMPLETED_LOCATIONS = gql`
   }
 `;
 
-export default function Asynchronous({ handleClose }) {
+export default function Asynchronous({ handleClose, input }) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<string[]>([]);
-  const [userInput, setUserInput] = useState('');
-  const [getAutoCompletedLocations, { loading, data, error }] = useLazyQuery(
-    AUTOCOMPLETED_LOCATIONS,
-    {
-      variables: { userInput: userInput },
-    }
+  const [getAutocompletedLocations, { loading, data, error }] = useLazyQuery(
+    AUTOCOMPLETED_LOCATIONS
   );
-  console.log('LOCATIONS = ' + AUTOCOMPLETED_LOCATIONS);
 
   const getCurrentPosition = async () => {
     let pos = 'location is not available';
     if (navigator.geolocation) {
       await navigator.geolocation.getCurrentPosition((position) => {
-        pos = `latitude: ${position.coords.latitude}, longitude: ${position.coords.longitude}}`;
+        pos = `latitude: ${position.coords.latitude}, longitude: ${position.coords.longitude}`;
         handleClose(pos);
       });
     }
@@ -39,36 +34,36 @@ export default function Asynchronous({ handleClose }) {
 
   return (
     <Autocomplete
-      id="asynchronous-demo"
+      id="location-input-field"
       style={{ width: '100%' }}
       open={open}
       onFocus={() => {
-        setOptions(['Current Location', `${options}`]);
+        setOptions(['Current Location']);
         setOpen(true);
-        console.log(options);
       }}
       onOpen={() => {
         setOpen(true);
-
-        console.log(options);
       }}
       onClose={() => {
         setOpen(false);
       }}
-      onInputChange={async (event, value) => {
-        getAutoCompletedLocations();
-        // if (value.length > 5) { setUserInput(value);
-        // setOptions(options.concat([ "Canada", "Cucumber", "Money"]))
-        // const pos = await loadAddressOptions();
-        // await getAutoCompletedLocations();
-        // console.log("addresses: " + data);
-        // setOptions([pos].concat(data));}
+      defaultValue={input}
+      onInputChange={(event, value) => {
+        if (value.length) {
+          getAutocompletedLocations({
+            variables: { userInput: value },
+          });
+          if (!loading && data) {
+            setOptions(data.getAutocompletedLocations);
+          }
+        }
       }}
       onChange={async (event, value) => {
         if (value === 'Current Location') {
           await getCurrentPosition();
+        } else {
+          handleClose(value);
         }
-        handleClose(data);
       }}
       getOptionSelected={(option, value) => option === value}
       renderOption={(option) => {
@@ -80,7 +75,7 @@ export default function Asynchronous({ handleClose }) {
         }
         return (
           <React.Fragment>
-            <FontAwesomeIcon icon={con} />
+            <FontAwesomeIcon icon={con} style={{ marginRight: '0.8rem' }} />
             {option}
           </React.Fragment>
         );
@@ -89,9 +84,9 @@ export default function Asynchronous({ handleClose }) {
       loading={loading}
       renderInput={(params) => (
         <TextField
+          placeholder={'Search Address'}
           autoFocus
           {...params}
-          label="Search Address"
           InputProps={{
             ...params.InputProps,
             endAdornment: (

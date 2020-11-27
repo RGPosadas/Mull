@@ -1,13 +1,13 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Search from './search';
 import { CustomTextInput } from '@mull/ui-lib';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { MullBackButton } from '../../../components';
 
 export default function FullScreenDialog() {
-  const [input_value, setInputValue] = React.useState('');
+  const [inputValue, setInputValue] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -26,8 +26,8 @@ export default function FullScreenDialog() {
       <CustomTextInput
         title="Location"
         fieldName="location"
-        value={input_value}
-        onChange={null}
+        value={inputValue}
+        readOnly
         onClick={handleClickOpen}
         hasErrors={null}
         errorMessage={null}
@@ -35,11 +35,19 @@ export default function FullScreenDialog() {
       />
 
       <Dialog fullScreen open={open}>
-        <Button autoFocus color="inherit" onClick={handleClose}>
-          save
-        </Button>
-
-        <Search handleClose={handleClose} />
+        <div style={{ display: 'flex' }}>
+          <MullBackButton
+            style={{
+              marginRight: 'auto',
+              marginLeft: '0.2rem',
+              marginTop: '0.8rem',
+              marginBottom: '2rem',
+            }}
+            children={'Edit'}
+            onClick={handleClose}
+          />
+        </div>
+        <Search handleClose={handleClose} input={inputValue} />
       </Dialog>
     </React.Fragment>
   );
