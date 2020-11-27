@@ -10,6 +10,7 @@ exports[`SubNavigationBar should match snapshot 1`] = `
     <a
       aria-current={null}
       className="subnavigation-link"
+      data-testid="subnavigation-discover-button"
       href="/home"
       onClick={[Function]}
     >
@@ -18,6 +19,7 @@ exports[`SubNavigationBar should match snapshot 1`] = `
     <a
       aria-current={null}
       className="subnavigation-link"
+      data-testid="subnavigation-upcoming-button"
       href="/home/upcoming"
       onClick={[Function]}
     >
@@ -26,6 +28,7 @@ exports[`SubNavigationBar should match snapshot 1`] = `
     <a
       aria-current={null}
       className="subnavigation-link"
+      data-testid="subnavigation-myEvents-button"
       href="/home/myevents"
       onClick={[Function]}
     >

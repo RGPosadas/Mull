@@ -21,6 +21,28 @@ describe('SubNavigationBar', () => {
     expect(baseElement).toBeTruthy();
   });
 
+  it('should have the correct button active based on the url', () => {
+    const testIds = {
+      [ROUTES.HOME]: 'subnavigation-discover-button',
+      [`${ROUTES.HOME}/upcoming`]: 'subnavigation-upcoming-button',
+      [`${ROUTES.HOME}/myevents`]: 'subnavigation-myEvents-button',
+    };
+    const history = createMemoryHistory();
+    history.push(ROUTES.HOME);
+
+    const utils = render(
+      <Router history={history}>
+        <SubNavigationBar />
+      </Router>
+    );
+
+    for (const [key, value] of Object.entries(testIds)) {
+      history.push(key);
+      const button = utils.getByTestId(value);
+      expect(button.classList.contains('active'));
+    }
+  });
+
   it('should match snapshot', () => {
     const history = createMemoryHistory();
     const tree = renderer
