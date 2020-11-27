@@ -31,7 +31,6 @@ export const EventPageHeader = ({
     <div className="event-page-header">
       <MullBackButton onClick={onBackButtonClick}>{prevPage}</MullBackButton>
       <div className="title">{event.title}</div>
-      {/* TODO: Currently using placeholder. The US will need to actually fetch image from media server */}
       <img className="event-image" src={eventImageURL} alt="Event Page" />
 
       <div className="event-datetime">
