@@ -2,7 +2,7 @@
 
 exports[`EventPage should match snapshot 1`] = `
 <div
-  className="page-container no-padding event-page-container "
+  className="page-container no-padding event-page-container"
 >
   <div
     className="event-page-header"
@@ -43,7 +43,7 @@ exports[`EventPage should match snapshot 1`] = `
     <img
       alt="Event Page"
       className="event-image"
-      src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png"
+      src=""
     />
     <div
       className="event-datetime"
@@ -122,8 +122,9 @@ exports[`EventPage should match snapshot 1`] = `
         />
         <p
           className="row-text"
+          data-testid="event-host"
         >
-          Test user
+          Placeholder Host
         </p>
         <svg
           aria-hidden="true"
@@ -165,8 +166,9 @@ exports[`EventPage should match snapshot 1`] = `
         </svg>
         <p
           className="row-text"
+          data-testid="event-location"
         >
-          1260 Remembrance Road Montreal, Qc
+          18 Mull Ave, Pointe-Claire, Montreal
         </p>
         <svg
           aria-hidden="true"
@@ -243,6 +245,7 @@ exports[`EventPage should match snapshot 1`] = `
         </svg>
         <p
           className="row-text"
+          data-testid="event-restriction"
         >
           Everyone
         </p>

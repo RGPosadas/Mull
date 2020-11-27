@@ -40,7 +40,7 @@ exports[`EventPageHeader should match snapshot 1`] = `
   <img
     alt="Event Page"
     className="event-image"
-    src="https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png"
+    src=""
   />
   <div
     className="event-datetime"
