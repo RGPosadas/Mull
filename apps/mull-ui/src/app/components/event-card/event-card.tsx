@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faShareAlt, faCheck, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 
+import { formatDate } from '../../../utilities';
+
 import './event-card.scss';
 
 /* eslint-disable-next-line */
@@ -15,19 +17,7 @@ export interface EventCardProps {
 export const EventCard = ({ event, style = {} }: EventCardProps) => {
   const [joined, setJoined] = useState<boolean>(false);
 
-  const dateToString = (date: Date): string => {
-    const dateString = Intl.DateTimeFormat('en-us', {
-      month: 'short',
-      day: 'numeric',
-    }).format(date);
-    const timeString = Intl.DateTimeFormat('en-us', {
-      hour: '2-digit',
-      minute: '2-digit',
-    }).format(date);
-
-    return `${dateString}\n${timeString}`;
-  };
-
+  let { day, month, time } = formatDate(event.startDate);
   return (
     <div className="event-card-container" style={style}>
       <img
@@ -35,7 +25,10 @@ export const EventCard = ({ event, style = {} }: EventCardProps) => {
         // TODO: Replace placeholder
         src="https://www.citywindsor.ca/residents/parksandforestry/City-Parks/PublishingImages/Assumption%20Park%20Street%20View.JPG"
       />
-      <div className="event-card-datetime">{dateToString(event.startDate)}</div>
+      <div className="event-card-datetime">
+        <div>{`${month} ${day}`}</div>
+        <div>{time}</div>
+      </div>
       <button
         onClick={() => setJoined(!joined)}
         className={`event-card-join ${joined ? 'joined' : ''}`}

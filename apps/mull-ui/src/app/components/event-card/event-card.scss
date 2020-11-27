@@ -24,10 +24,12 @@
   border-radius: 0.5rem;
   padding: 0.2rem;
   text-align: center;
-  font-size: 0.7rem;
+
   border: 1px black solid;
 
-  white-space: pre;
+  div {
+    font-size: 0.7rem;
+  }
 }
 
 .event-card-join {
