@@ -8,7 +8,6 @@ import { formatDate } from '../../../utilities';
 
 import './event-card.scss';
 
-/* eslint-disable-next-line */
 export interface EventCardProps {
   event: Partial<IEvent>;
   style?: React.CSSProperties;
@@ -17,6 +16,9 @@ export interface EventCardProps {
 export const EventCard = ({ event, style = {} }: EventCardProps) => {
   // TODO; set joined based on if current user is part of event
   const [joined, setJoined] = useState<boolean>(false);
+
+  // TODO: Implement distance calculation
+  const distance = 15;
 
   const { day, month, time } = formatDate(event.startDate);
   return (
@@ -41,8 +43,10 @@ export const EventCard = ({ event, style = {} }: EventCardProps) => {
       <div className="event-card-description">
         <div className="event-card-text">
           <div className="event-card-title">{event.title}</div>
-          {/* TODO: Replace placeholder distance*/}
-          <div className="event-card-location">14km • {event.location.point}</div>
+
+          <div className="event-card-location">
+            {distance}km • {event.location.point}
+          </div>
         </div>
         {/* TODO: Replace placeholder */}
         <div className="event-card-friends">friends</div>
