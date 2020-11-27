@@ -7,21 +7,21 @@ import { dummyEvent } from '../../../constants';
 
 describe('EventPageHeader', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<EventPageHeader event={dummyEvent} />);
+    const { baseElement } = render(<EventPageHeader event={dummyEvent} prevPage="" />);
     expect(baseElement).toBeTruthy();
   });
 
   it('should match snapshot', () => {
-    const tree = renderer.create(<EventPageHeader event={dummyEvent} />).toJSON();
+    const tree = renderer.create(<EventPageHeader event={dummyEvent} prevPage="" />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('should render dates correctly', () => {
-    const dom = render(<EventPageHeader event={dummyEvent} />);
+    const dom = render(<EventPageHeader event={dummyEvent} prevPage="" />);
 
     const startDateDiv = dom.getByTestId('start-date-div');
     const endDateDiv = dom.getByTestId('end-date-div');
-    expect(startDateDiv.textContent).toBe('Jan 1\n12:00 AM');
-    expect(endDateDiv.textContent).toBe('Jan 2\n12:00 AM');
+    expect(startDateDiv.textContent).toBe('Jan 112:00 AM');
+    expect(endDateDiv.textContent).toBe('Jan 212:00 AM');
   });
 });

@@ -7,12 +7,12 @@ import { dummyEvent } from '../../../constants';
 
 describe('EventPage', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<EventPage event={dummyEvent} />);
+    const { baseElement } = render(<EventPage event={dummyEvent} prevPage="" />);
     expect(baseElement).toBeTruthy();
   });
 
   it('should match snapshot', () => {
-    const tree = renderer.create(<EventPage event={dummyEvent} />).toJSON();
+    const tree = renderer.create(<EventPage event={dummyEvent} prevPage="" />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

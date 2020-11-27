@@ -26,7 +26,7 @@ export const EventCard = ({ event, style = {} }: EventCardProps) => {
         // TODO: Replace placeholder
         src="https://www.citywindsor.ca/residents/parksandforestry/City-Parks/PublishingImages/Assumption%20Park%20Street%20View.JPG"
       />
-      <div className="event-card-datetime">
+      <div className="event-card-datetime" data-testid="event-card-datetime">
         <div>{`${month} ${day}`}</div>
         <div>{time}</div>
       </div>
