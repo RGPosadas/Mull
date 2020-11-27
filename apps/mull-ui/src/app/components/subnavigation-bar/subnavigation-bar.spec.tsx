@@ -10,7 +10,6 @@ import { ROUTES } from 'apps/mull-ui/src/constants';
 describe('SubNavigationBar', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
-    history.push(ROUTES.HOME);
 
     const { baseElement } = render(
       <Router history={history}>
@@ -23,12 +22,11 @@ describe('SubNavigationBar', () => {
 
   it('should have the correct button active based on the url', () => {
     const testIds = {
-      [ROUTES.HOME]: 'subnavigation-discover-button',
-      [`${ROUTES.HOME}/upcoming`]: 'subnavigation-upcoming-button',
-      [`${ROUTES.HOME}/myevents`]: 'subnavigation-myEvents-button',
+      [ROUTES.DISCOVER]: 'subnavigation-discover-button',
+      [`${ROUTES.UPCOMING}`]: 'subnavigation-upcoming-button',
+      [`${ROUTES.MYEVENTS}`]: 'subnavigation-myEvents-button',
     };
     const history = createMemoryHistory();
-    history.push(ROUTES.HOME);
 
     const utils = render(
       <Router history={history}>

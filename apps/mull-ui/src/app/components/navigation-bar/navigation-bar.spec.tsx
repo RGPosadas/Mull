@@ -12,7 +12,7 @@ import renderer from 'react-test-renderer';
 describe('NavigationBar', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
-    history.push(ROUTES.HOME);
+    history.push(ROUTES.DISCOVER);
 
     const { baseElement } = render(
       <Router history={history}>
@@ -25,7 +25,7 @@ describe('NavigationBar', () => {
 
   it('button associated with current should be active ', () => {
     const testIds = {
-      [ROUTES.HOME]: 'home-navlink',
+      [ROUTES.DISCOVER]: 'home-navlink',
       [ROUTES.MAP]: 'map-navlink',
       [ROUTES.CREATE_EVENT]: 'create-event-navlink',
       [ROUTES.TOOLS]: 'tools-navlink',

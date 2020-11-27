@@ -12,7 +12,7 @@ import renderer from 'react-test-renderer';
 describe('Header', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
-    history.push(ROUTES.HOME);
+    history.push(ROUTES.DISCOVER);
 
     const { baseElement } = render(
       <Router history={history}>

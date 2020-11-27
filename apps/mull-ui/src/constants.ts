@@ -4,7 +4,6 @@ import { EventRestriction, IEvent } from '@mull/types';
  * enum of the current routes for the application
  */
 export const ROUTES = {
-  HOME: '/home',
   MAP: '/map',
   CREATE_EVENT: '/create-event',
   TOOLS: '/tools',
@@ -12,6 +11,9 @@ export const ROUTES = {
   PROFILE: '/profile',
   LOGIN: '/login',
   REGISTER: '/register',
+  DISCOVER: '/discover',
+  UPCOMING: '/upcoming',
+  MYEVENTS: '/myevents',
 };
 
 export const DAY_IN_MILLISECONDS = 86400000;

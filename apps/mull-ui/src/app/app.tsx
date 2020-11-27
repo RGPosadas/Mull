@@ -35,7 +35,7 @@ export const App = () => {
     <div>
       <Switch>
         <Route exact path="/">
-          {<Redirect to={ROUTES.HOME} />}
+          {<Redirect to={ROUTES.DISCOVER} />}
         </Route>
         <Route exact path={ROUTES.CREATE_EVENT} component={CreateEventPage} />
         {/* Temporary, to be removed */}
@@ -49,11 +49,12 @@ export const App = () => {
             <EventCard event={dummyEvent} style={{ marginBottom: '1rem' }} />
           </div>
         </Route>
-        <Route exact path={['/home', `${ROUTES.HOME}/:id`]}>
+        {/* Without this outter Route component, the inner components would show on all routes that are not matched */}
+        <Route exact path={[`${ROUTES.DISCOVER}`, `${ROUTES.UPCOMING}`, `${ROUTES.MYEVENTS}`]}>
           <SwipeableRoutes>
-            <Route path="/home" component={SubNavigationBar} />
-            <Route path="/home/upcoming" component={SubNavigationBar} />
-            <Route path="/home/myevents" component={SubNavigationBar} />
+            <Route path={ROUTES.DISCOVER} component={SubNavigationBar} />
+            <Route path={ROUTES.UPCOMING} component={SubNavigationBar} />
+            <Route path={ROUTES.MYEVENTS} component={SubNavigationBar} />
           </SwipeableRoutes>
         </Route>
         <Route exact path={ROUTES.LOGIN} component={LoginPage} />

@@ -10,7 +10,7 @@ import { ReactComponent as MessagesIcon } from '../../../assets/icons/nav-bar-ic
 import { ReactComponent as MachineLearningIcon } from '../../../assets/icons/nav-bar-icons/MachineLearningIcon.svg';
 import logo from '../../../assets/mull-logo.png';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
 
 /**
@@ -19,10 +19,16 @@ import { ROUTES } from '../../../constants';
  * @see ROUTES
  */
 export const NavigationBar = () => {
+  let { pathname } = useLocation<{}>();
   return (
     <div className="nav-container">
       <img src={logo} className="logo nav-element" alt="Mull logo" />
-      <NavLink to={ROUTES.HOME} activeClassName="active" data-testid="home-navlink">
+      <NavLink
+        to={ROUTES.DISCOVER}
+        isActive={() => [ROUTES.DISCOVER, ROUTES.UPCOMING, ROUTES.MYEVENTS].includes(pathname)}
+        activeClassName="active"
+        data-testid="home-navlink"
+      >
         <HomeIcon className="nav-button" />
       </NavLink>
       <NavLink to={ROUTES.MAP} activeClassName="active" data-testid="map-navlink">

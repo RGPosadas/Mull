@@ -12,7 +12,7 @@ exports[`NavigationBar should match snapshot 1`] = `
   <a
     aria-current={null}
     data-testid="home-navlink"
-    href="/home"
+    href="/discover"
     onClick={[Function]}
   >
     <svg
