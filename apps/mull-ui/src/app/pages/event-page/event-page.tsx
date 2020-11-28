@@ -11,7 +11,7 @@ export interface EventPageProps {
 
 export const EventPage = ({ event, prevPage }: EventPageProps) => {
   return (
-    <div className="event-page-container">
+    <div className="page-container no-padding event-page-container ">
       <EventPageHeader event={event} prevPage={prevPage} />
       <div className="event-page-info">
         <EventPageInfo event={event} />

@@ -37,9 +37,7 @@ export const App = () => {
         <Route exact path={ROUTES.CREATE_EVENT} component={CreateEventPage} />
         {/* Temporary, to be removed */}
         <Route exact path={'/test-event-page'}>
-          <div className="page-container no-padding">
-            <EventPage event={dummyEvent} prevPage={'Review'} />
-          </div>
+          <EventPage event={dummyEvent} prevPage={'Review'} />
         </Route>
         {/* Temporary, to be removed */}
         <Route exact path={'/test-event-card'}>
