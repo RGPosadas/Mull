@@ -4,9 +4,14 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-row-gap: 1.5rem;
-  padding-top: 2.5rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+}
+
+.login-mull-logo {
+  padding-top: 4rem;
+  display: block;
+  margin: 0 auto;
+  width: 30%;
+  padding-bottom: 3rem;
 }
 
 .facebook {
@@ -83,14 +88,6 @@
 .facebook {
   background-color: $facebook;
   padding-left: 1.2rem;
-}
-
-.login-mull-logo {
-  padding-top: 2rem;
-  display: block;
-  margin: 0 auto;
-  width: 30%;
-  padding-bottom: 3rem;
 }
 
 .sign-up {

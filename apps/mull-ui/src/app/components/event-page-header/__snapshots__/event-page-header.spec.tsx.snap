@@ -29,7 +29,7 @@ exports[`EventPageHeader should match snapshot 1`] = `
     <div
       className="mull-back-button-text"
     >
-      Back
+      
     </div>
   </button>
   <div
@@ -66,8 +66,12 @@ exports[`EventPageHeader should match snapshot 1`] = `
       className="event-datetime-string"
       data-testid="start-date-div"
     >
-      Jan 1
-12:00 AM
+      <div>
+        Jan 1
+      </div>
+      <div>
+        12:00 AM
+      </div>
     </div>
     <svg
       aria-hidden="true"
@@ -92,7 +96,9 @@ exports[`EventPageHeader should match snapshot 1`] = `
     >
       <div>
         Jan 2
-12:00 AM
+      </div>
+      <div>
+        12:00 AM
       </div>
     </div>
   </div>

@@ -1,0 +1,90 @@
+@import 'variables';
+
+.event-card-container {
+  position: relative;
+  box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+}
+
+.event-card-container,
+.event-card-image {
+  width: 100%;
+  height: 13rem;
+  border-radius: 0.5rem;
+}
+
+.event-card-image {
+  object-fit: cover;
+}
+
+.event-card-datetime {
+  background-color: white;
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.2rem;
+  text-align: center;
+
+  border: 1px black solid;
+
+  div {
+    font-size: 0.8rem;
+  }
+}
+
+.event-card-join {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  border-radius: 20rem;
+  padding: 0.35rem;
+
+  border: 1px $primary-color solid;
+  color: $primary-color;
+  background-color: white;
+
+  &.joined {
+    color: white;
+    background-color: $primary-color;
+  }
+
+  svg {
+    width: 1.2rem !important;
+    height: 1.2rem !important;
+    display: block;
+  }
+}
+
+.event-card-description {
+  background-color: white;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  border-radius: 0 0 0.5rem 0.5rem;
+  padding: 0.5rem 0.8rem;
+
+  .event-card-friends {
+    margin: 0 0.8rem 0 0.8rem;
+  }
+
+  .event-card-share {
+    font-size: 1.5rem;
+    color: $primary-color;
+  }
+
+  .event-card-text {
+    flex: 1;
+  }
+}
+
+.event-card-title {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.event-card-location {
+  font-size: 0.7rem;
+}

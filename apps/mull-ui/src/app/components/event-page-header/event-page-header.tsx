@@ -9,6 +9,7 @@ import './event-page-header.scss';
 import { IEvent } from '@mull/types';
 
 import MullBackButton from '../mull-back-button/mull-back-button';
+import { formatDate } from '../../../utilities';
 
 export interface EventPageHeaderProps {
   event: IEvent;
@@ -16,19 +17,8 @@ export interface EventPageHeaderProps {
 }
 
 export const EventPageHeader = ({ event, prevPage }: EventPageHeaderProps) => {
-  const dateToString = (date: Date): string => {
-    const dateString = Intl.DateTimeFormat('en-us', {
-      month: 'short',
-      day: 'numeric',
-    }).format(date);
-    const timeString = Intl.DateTimeFormat('en-us', {
-      hour: '2-digit',
-      minute: '2-digit',
-    }).format(date);
-
-    return `${dateString}\n${timeString}`;
-  };
-
+  const { day: startDay, month: startMonth, time: startTime } = formatDate(event.startDate);
+  const { day: endDay, month: endMonth, time: endTime } = formatDate(event.endDate);
   return (
     <div className="event-page-header">
       <MullBackButton>{prevPage}</MullBackButton>
@@ -44,11 +34,13 @@ export const EventPageHeader = ({ event, prevPage }: EventPageHeaderProps) => {
         <FontAwesomeIcon icon={faClock} className="clock-icon event-page-icon color-grey" />
 
         <div className="event-datetime-string" data-testid="start-date-div">
-          {dateToString(event.startDate)}
+          <div>{`${startMonth} ${startDay}`}</div>
+          <div>{startTime}</div>
         </div>
         <FontAwesomeIcon icon={faCaretRight} className="event-page-icon color-grey" />
         <div className="event-datetime-string" data-testid="end-date-div">
-          <div>{dateToString(event.endDate)}</div>
+          <div>{`${endMonth} ${endDay}`}</div>
+          <div>{endTime}</div>
         </div>
       </div>
     </div>

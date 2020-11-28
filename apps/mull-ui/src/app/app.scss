@@ -1,7 +1,20 @@
 @import 'variables';
 
 .page-container {
-  padding: $header-height-mobile 0 $nav-bar-height-mobile;
+  margin: $header-height-mobile 0 $nav-bar-height-mobile;
+  padding: 1rem;
+
+  &.no-navigation {
+    margin: 0;
+  }
+
+  &.full-width {
+    padding: 1rem 0;
+  }
+
+  &.no-padding {
+    padding: 0;
+  }
 }
 
 .Toastify__toast--success {
@@ -12,13 +25,18 @@
   .Toastify__toast-container {
     top: 7.5rem;
   }
-  .page-container,
-  .page-container-no-nav {
-    width: 35%;
-    margin: auto;
-  }
 
   .page-container {
-    padding: $nav-bar-height-desktop 0 0;
+    width: 35%;
+    margin: $nav-bar-height-desktop auto 0;
+    padding: 1rem 0;
+
+    &.no-navigation {
+      margin: 0 auto;
+    }
+
+    &.no-padding {
+      padding: 0;
+    }
   }
 }
