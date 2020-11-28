@@ -1,13 +1,11 @@
-import fetch from 'cross-fetch';
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { faMapMarkerAlt, faLocationArrow } from '@fortawesome/free-solid-svg-icons';
-
-import './search.scss';
-import { gql, useLazyQuery, useQuery } from '@apollo/client';
+import { gql, useLazyQuery } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './location-autocomplete-textbox.scss';
+import { faMapMarkerAlt, faLocationArrow } from '@fortawesome/free-solid-svg-icons';
 
 const AUTOCOMPLETED_LOCATIONS = gql`
   query Query($userInput: String!) {
@@ -15,18 +13,16 @@ const AUTOCOMPLETED_LOCATIONS = gql`
   }
 `;
 
-export default function Asynchronous({ handleClose, input }) {
+export default function LocationAutocompleteTextbox({ handleClose, input }) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<string[]>([]);
-  const [getAutocompletedLocations, { loading, data, error }] = useLazyQuery(
-    AUTOCOMPLETED_LOCATIONS
-  );
+  const [getAutocompletedLocations, { loading, data }] = useLazyQuery(AUTOCOMPLETED_LOCATIONS);
+  const [keyStrokeCount, setKeyStrokeCount] = useState(0);
 
   const getCurrentPosition = async () => {
-    let pos = 'location is not available';
     if (navigator.geolocation) {
       await navigator.geolocation.getCurrentPosition((position) => {
-        pos = `latitude: ${position.coords.latitude}, longitude: ${position.coords.longitude}`;
+        let pos = `latitude: ${position.coords.latitude}, longitude: ${position.coords.longitude}`;
         handleClose(pos);
       });
     }
@@ -49,7 +45,9 @@ export default function Asynchronous({ handleClose, input }) {
       }}
       defaultValue={input}
       onInputChange={(event, value) => {
-        if (value.length) {
+        setKeyStrokeCount(keyStrokeCount + 1);
+        if (keyStrokeCount === 3) {
+          setKeyStrokeCount(0);
           getAutocompletedLocations({
             variables: { userInput: value },
           });
@@ -67,15 +65,10 @@ export default function Asynchronous({ handleClose, input }) {
       }}
       getOptionSelected={(option, value) => option === value}
       renderOption={(option) => {
-        let con;
-        if (option == 'Current Location') {
-          con = faLocationArrow;
-        } else {
-          con = faMapMarkerAlt;
-        }
+        let icon = option == 'Current Location' ? faLocationArrow : faMapMarkerAlt;
         return (
           <React.Fragment>
-            <FontAwesomeIcon icon={con} style={{ marginRight: '0.8rem' }} />
+            <FontAwesomeIcon icon={icon} style={{ marginRight: '0.8rem' }} />
             {option}
           </React.Fragment>
         );

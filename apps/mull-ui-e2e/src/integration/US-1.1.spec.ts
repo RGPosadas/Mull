@@ -38,8 +38,17 @@ frameSizes.forEach((frame) => {
     it('should type into the event description input', () => {
       cy.get('#description').type('test description').should('have.value', 'test description');
     });
+
     it('should type into the event location input', () => {
-      cy.get('#location').type('test location').should('have.value', 'test location');
+      cy.get('#location').click();
+      cy.get('#location-input-field').should('be.visible');
+      const res = 'skffsdkfdf';
+      cy.get('#location-input-field').type(res);
+      cy.intercept(
+        { method: 'POST', url: '/graphql' },
+        { data: { getAutocompletedLocations: ['skffsdkfdf'] } }
+      );
+      cy.get('#location-input-field-option-0').click();
     });
 
     it('should change restriction open', () => {
@@ -78,7 +87,15 @@ frameSizes.forEach((frame) => {
 
       cy.get('#description').type('test description');
 
-      cy.get('#location').type('test location');
+      cy.get('#location').click();
+      cy.get('#location-input-field').should('be.visible');
+      const res = 'skffsdkfdf';
+      cy.get('#location-input-field').type(res);
+      cy.intercept(
+        { method: 'POST', url: '/graphql' },
+        { data: { getAutocompletedLocations: ['skffsdkfdf'] } }
+      );
+      cy.get('#location-input-field-option-0').click();
 
       cy.get('[data-testid=pill-id-1]').click();
       cy.get('.create-event-button').click();

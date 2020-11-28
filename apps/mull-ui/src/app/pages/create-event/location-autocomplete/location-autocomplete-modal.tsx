@@ -1,12 +1,12 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import Search from './search';
+import Search from './location-autocomplete-textbox';
 import { CustomTextInput } from '@mull/ui-lib';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { MullBackButton } from '../../../components';
 
-export default function FullScreenDialog() {
+export default function LocationAutocompleteModal({ formik }) {
   const [inputValue, setInputValue] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
@@ -26,27 +26,25 @@ export default function FullScreenDialog() {
       <CustomTextInput
         title="Location"
         fieldName="location"
-        value={inputValue}
+        value={(formik.values.location = inputValue)}
         readOnly
         onClick={handleClickOpen}
-        hasErrors={null}
-        errorMessage={null}
+        hasErrors={formik.touched.location && !!formik.errors.location}
+        errorMessage={formik.errors.location}
         svgIcon={<FontAwesomeIcon icon={faMapMarkerAlt} />}
       />
 
       <Dialog fullScreen open={open}>
-        <div style={{ display: 'flex' }}>
-          <MullBackButton
-            style={{
-              marginRight: 'auto',
-              marginLeft: '0.2rem',
-              marginTop: '0.8rem',
-              marginBottom: '2rem',
-            }}
-            children={'Edit'}
-            onClick={handleClose}
-          />
-        </div>
+        <MullBackButton
+          style={{
+            marginRight: 'auto',
+            marginLeft: '0.2rem',
+            marginTop: '0.8rem',
+            marginBottom: '2rem',
+          }}
+          children={'Edit'}
+          onClick={handleClose}
+        />
         <Search handleClose={handleClose} input={inputValue} />
       </Dialog>
     </React.Fragment>
