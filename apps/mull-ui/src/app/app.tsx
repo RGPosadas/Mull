@@ -55,6 +55,7 @@ export const App = () => {
               <Route path={ROUTES.DISCOVER} component={() => <div>DISCOVER!</div>} />
               <Route path={ROUTES.UPCOMING} component={() => <div>UPCOMING!</div>} />
               <Route path={ROUTES.MY_EVENTS} component={() => <div>MY_EVENTS!</div>} />
+              <Route path={ROUTES.HOME} render={() => <Redirect to={ROUTES.DISCOVER} />} />
             </SwipeableRoutes>
           </div>
         </Route>
