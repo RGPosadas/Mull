@@ -24,7 +24,7 @@ describe('NavigationBar', () => {
 
   it('button associated with current should be active ', () => {
     const testIds = {
-      [ROUTES.DISCOVER]: 'home-navlink',
+      [ROUTES.HOME]: 'home-navlink',
       [ROUTES.MAP]: 'map-navlink',
       [ROUTES.CREATE_EVENT]: 'create-event-navlink',
       [ROUTES.TOOLS]: 'tools-navlink',

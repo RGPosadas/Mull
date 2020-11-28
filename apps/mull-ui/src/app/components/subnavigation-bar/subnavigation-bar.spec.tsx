@@ -1,10 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
-import { createMemoryHistory } from 'history';
-
 import SubNavigationBar from './subnavigation-bar';
+
+import { render } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
+
 import { ROUTES } from '../../../constants';
 
 describe('SubNavigationBar', () => {
@@ -23,8 +24,8 @@ describe('SubNavigationBar', () => {
   it('should have the correct button active based on the url', () => {
     const testIds = {
       [ROUTES.DISCOVER]: 'subnavigation-discover-button',
-      [`${ROUTES.UPCOMING}`]: 'subnavigation-upcoming-button',
-      [`${ROUTES.MYEVENTS}`]: 'subnavigation-myEvents-button',
+      [ROUTES.UPCOMING]: 'subnavigation-upcoming-button',
+      [ROUTES.MY_EVENTS]: 'subnavigation-myEvents-button',
     };
     const history = createMemoryHistory();
 

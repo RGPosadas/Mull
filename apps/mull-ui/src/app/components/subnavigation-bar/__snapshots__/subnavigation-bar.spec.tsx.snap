@@ -2,38 +2,34 @@
 
 exports[`SubNavigationBar should match snapshot 1`] = `
 <div
-  className="page-container"
+  className="subnavigation-container"
 >
-  <div
-    className="subnavigation-container"
+  <a
+    aria-current={null}
+    className="subnavigation-link"
+    data-testid="subnavigation-discover-button"
+    href="/home/discover"
+    onClick={[Function]}
   >
-    <a
-      aria-current={null}
-      className="subnavigation-link"
-      data-testid="subnavigation-discover-button"
-      href="/discover"
-      onClick={[Function]}
-    >
-      Discover
-    </a>
-    <a
-      aria-current={null}
-      className="subnavigation-link"
-      data-testid="subnavigation-upcoming-button"
-      href="/upcoming"
-      onClick={[Function]}
-    >
-      Upcoming
-    </a>
-    <a
-      aria-current={null}
-      className="subnavigation-link"
-      data-testid="subnavigation-myEvents-button"
-      href="/myevents"
-      onClick={[Function]}
-    >
-      My Events
-    </a>
-  </div>
+    Discover
+  </a>
+  <a
+    aria-current={null}
+    className="subnavigation-link"
+    data-testid="subnavigation-upcoming-button"
+    href="/home/upcoming"
+    onClick={[Function]}
+  >
+    Upcoming
+  </a>
+  <a
+    aria-current={null}
+    className="subnavigation-link"
+    data-testid="subnavigation-myEvents-button"
+    href="/home/myevents"
+    onClick={[Function]}
+  >
+    My Events
+  </a>
 </div>
 `;
