@@ -33,7 +33,7 @@ export const Login = ({ history }: LoginProps) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <div className="page-container-no-nav login-container">
+      <div className="page-container no-navigation login-container">
         <img src={logo} className="login-mull-logo" alt="Mull logo" />
 
         <CustomTextInput

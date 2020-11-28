@@ -31,7 +31,7 @@ const Register = ({ history }: RegisterProps) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <div className="page-container-no-nav register-container">
+      <div className="page-container no-navigation register-container">
         <img src={logo} className="register-mull-logo" alt="Mull logo" />
         <CustomTextInput
           title="Name"

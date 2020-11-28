@@ -37,17 +37,15 @@ export const App = () => {
         <Route exact path={ROUTES.CREATE_EVENT} component={CreateEventPage} />
         {/* Temporary, to be removed */}
         <Route exact path={'/test-event-page'}>
-          <div className="page-container">
+          <div className="page-container no-padding">
             <EventPage event={dummyEvent} prevPage={'Review'} />
           </div>
         </Route>
         {/* Temporary, to be removed */}
         <Route exact path={'/test-event-card'}>
           <div className="page-container">
-            <div style={{ padding: '1rem' }}>
-              <EventCard event={dummyEvent} style={{ marginBottom: '1rem' }} />
-              <EventCard event={dummyEvent} style={{ marginBottom: '1rem' }} />
-            </div>
+            <EventCard event={dummyEvent} style={{ marginBottom: '1rem' }} />
+            <EventCard event={dummyEvent} style={{ marginBottom: '1rem' }} />
           </div>
         </Route>
         <Route exact path={ROUTES.LOGIN} component={LoginPage} />
