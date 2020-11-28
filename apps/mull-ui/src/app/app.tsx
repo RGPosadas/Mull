@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 import CreateEventPage from './pages/create-event/create-event';
-import { NavigationBar, Header, SubNavigationBar,  EventCard } from './components';
+import { NavigationBar, Header, SubNavigationBar, EventCard } from './components';
 import LoginPage from './pages/login/login';
 import RegisterPage from './pages/register/register';
 
