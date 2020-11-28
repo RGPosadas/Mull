@@ -5,6 +5,9 @@ import { EventRestriction, IEvent } from '@mull/types';
  */
 export const ROUTES = {
   HOME: '/home',
+  DISCOVER: '/home/discover',
+  UPCOMING: '/home/upcoming',
+  MY_EVENTS: '/home/myevents',
   MAP: '/map',
   CREATE_EVENT: '/create-event',
   TOOLS: '/tools',

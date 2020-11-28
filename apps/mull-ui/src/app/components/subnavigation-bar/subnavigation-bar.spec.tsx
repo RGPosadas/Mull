@@ -1,58 +1,53 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import renderer from 'react-test-renderer';
+import SubNavigationBar from './subnavigation-bar';
 
-import NavigationBar from './navigation-bar';
+import { render } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 
-import { createMemoryHistory } from 'history';
 import { ROUTES } from '../../../constants';
 
-import renderer from 'react-test-renderer';
-
-describe('NavigationBar', () => {
+describe('SubNavigationBar', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
 
     const { baseElement } = render(
       <Router history={history}>
-        <NavigationBar />
+        <SubNavigationBar />
       </Router>
     );
 
     expect(baseElement).toBeTruthy();
   });
 
-  it('button associated with current should be active ', () => {
+  it('should have the correct button active based on the url', () => {
     const testIds = {
-      [ROUTES.HOME]: 'home-navlink',
-      [ROUTES.MAP]: 'map-navlink',
-      [ROUTES.CREATE_EVENT]: 'create-event-navlink',
-      [ROUTES.TOOLS]: 'tools-navlink',
-      [ROUTES.PROFILE]: 'profile-desktop-navlink',
-      [ROUTES.MESSAGES]: 'messages-navlink',
+      [ROUTES.DISCOVER]: 'subnavigation-discover-button',
+      [ROUTES.UPCOMING]: 'subnavigation-upcoming-button',
+      [ROUTES.MY_EVENTS]: 'subnavigation-myEvents-button',
     };
-
     const history = createMemoryHistory();
-    const dom = render(
+
+    const utils = render(
       <Router history={history}>
-        <NavigationBar />
+        <SubNavigationBar />
       </Router>
     );
 
     for (const [key, value] of Object.entries(testIds)) {
       history.push(key);
-      const element = dom.getByTestId(value);
-      expect(element.classList.contains('active')).toBeTruthy();
+      const button = utils.getByTestId(value);
+      expect(button.classList.contains('active'));
     }
   });
 
   it('should match snapshot', () => {
     const history = createMemoryHistory();
-
     const tree = renderer
       .create(
         <Router history={history}>
-          <NavigationBar />
+          <SubNavigationBar />
         </Router>
       )
       .toJSON();
