@@ -2,7 +2,7 @@
 
 exports[`EventPage should match snapshot 1`] = `
 <div
-  className="event-page-container"
+  className="page-container no-padding event-page-container "
 >
   <div
     className="event-page-header"
