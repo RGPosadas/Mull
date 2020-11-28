@@ -5,7 +5,7 @@ import { createMemoryHistory } from 'history';
 
 import SubNavigationBar from './subnavigation-bar';
 import { Router } from 'react-router-dom';
-import { ROUTES } from 'apps/mull-ui/src/constants';
+import { ROUTES } from '../../../constants';
 
 describe('SubNavigationBar', () => {
   it('should render successfully', () => {

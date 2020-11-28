@@ -1,6 +1,6 @@
-import { ROUTES } from 'apps/mull-ui/src/constants';
+import { ROUTES } from '../../../constants';
 import React from 'react';
-import { NavLink, useRouteMatch } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import './subnavigation-bar.scss';
 

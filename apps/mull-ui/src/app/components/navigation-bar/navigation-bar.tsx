@@ -19,7 +19,7 @@ import { ROUTES } from '../../../constants';
  * @see ROUTES
  */
 export const NavigationBar = () => {
-  let { pathname } = useLocation<{}>();
+  const { pathname } = useLocation<{}>();
   return (
     <div className="nav-container">
       <img src={logo} className="logo nav-element" alt="Mull logo" />

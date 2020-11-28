@@ -51,10 +51,11 @@ export const App = () => {
         </Route>
         {/* Without this outter Route component, the inner components would show on all routes that are not matched */}
         <Route exact path={[`${ROUTES.DISCOVER}`, `${ROUTES.UPCOMING}`, `${ROUTES.MYEVENTS}`]}>
+          <SubNavigationBar />
           <SwipeableRoutes>
-            <Route path={ROUTES.DISCOVER} component={SubNavigationBar} />
-            <Route path={ROUTES.UPCOMING} component={SubNavigationBar} />
-            <Route path={ROUTES.MYEVENTS} component={SubNavigationBar} />
+            <Route path={ROUTES.DISCOVER} component={() => <div>DISCOVER!</div>} />
+            <Route path={ROUTES.UPCOMING} component={() => <div>UPCOMING!</div>} />
+            <Route path={ROUTES.MYEVENTS} component={() => <div>MYEVENTS!</div>} />
           </SwipeableRoutes>
         </Route>
         <Route exact path={ROUTES.LOGIN} component={LoginPage} />
