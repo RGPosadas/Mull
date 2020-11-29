@@ -7,7 +7,8 @@ import { cloneDeep } from 'lodash';
 import { EventRestriction, EventRestrictionMap, IEvent, IMedia } from '@mull/types';
 import { PillOptions, CustomTextInput, CustomTimePicker } from '@mull/ui-lib';
 import { MullButton, CustomFileUpload } from './../../components';
-import DateCalendar from '../create-event/date-calendar/date-calendar';
+import { EventPage } from './../event-page/event-page';
+import DateCalendar from './date-calendar/date-calendar';
 
 import { DAY_IN_MILLISECONDS } from '../../../constants';
 
@@ -53,6 +54,8 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
   // Uploaded Image File
   const [imageURLFile, setImageURLFile] = useState<string>(null); // Path of uploaded image on client, to be used in image previews
   const [file, setFile] = useState<File>(null); // Uploaded image file blob
+  const [isInReview, setIsInReview] = useState<boolean>(false); // Show either form or review page
+  const [payload, setPayload] = useState<Partial<IEvent>>(null);
   /**
    * Handles image file uploads
    * @param {ChangeEvent<HTMLInputElement>} event
@@ -129,7 +132,6 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
     }),
 
     onSubmit: async (values) => {
-      notifySubmissionToast();
       if (!values.endDate) values.endDate = cloneDeep(values.startDate);
       addTimeToDate(values.startTime, values.startDate);
       addTimeToDate(values.endTime, values.endDate);
@@ -139,7 +141,6 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           throw uploadedFile;
         }
       } catch (err) {
-        console.log('still failing');
         updateSubmissionToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
         console.error(err);
         return;
@@ -148,26 +149,15 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         id: uploadedFile.data.uploadFile.id,
         mediaType: uploadedFile.data.uploadFile.mediaType,
       };
-      const payload: Partial<IEvent> = {
+      setPayload({
         startDate: values.startDate,
         endDate: values.endDate,
         description: values.description,
         title: values.eventTitle,
         restriction: values.activeRestriction,
         image: imageMedia,
-      };
-      createEvent({ variables: { createEventInput: payload } })
-        .then(({ errors }) => {
-          if (errors) {
-            updateSubmissionToast(toast.TYPE.ERROR, 'Event Not Created');
-          } else {
-            updateSubmissionToast(toast.TYPE.SUCCESS, 'Event Created');
-            history.push('/home');
-          }
-        })
-        .catch(() => {
-          updateSubmissionToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
-        });
+      });
+      setIsInReview(true);
     },
   });
 
@@ -179,7 +169,32 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
     formik.setFieldValue('activeRestriction', idx);
   };
 
-  return (
+  const createMullEvent = () => {
+    notifySubmissionToast();
+    createEvent({ variables: { createEventInput: payload } })
+      .then(({ errors }) => {
+        if (errors) {
+          console.log(errors);
+          updateSubmissionToast(toast.TYPE.ERROR, 'Event Not Created');
+        } else {
+          updateSubmissionToast(toast.TYPE.SUCCESS, 'Event Created');
+          history.push('/home');
+        }
+      })
+      .catch(() => {
+        updateSubmissionToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
+      });
+  };
+
+  return isInReview ? (
+    <EventPage
+      event={payload}
+      prevPage={'Edit'}
+      onBackButtonClick={() => setIsInReview(false)}
+      onButtonClick={createMullEvent}
+      eventImageURL={imageURLFile}
+    ></EventPage>
+  ) : (
     <form className="container" onSubmit={formik.handleSubmit}>
       <div className="page-container">
         <div className="create-event">
@@ -252,7 +267,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
             onChange={handleRestrictions}
             active={formik.values.activeRestriction}
           />
-          <MullButton className="create-event-button" />
+          <MullButton className="create-event-button">Submit</MullButton>
         </div>
       </div>
     </form>

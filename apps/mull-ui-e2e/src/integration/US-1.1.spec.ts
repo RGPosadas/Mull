@@ -1,10 +1,6 @@
 /// <reference types="Cypress" />
 import 'cypress-file-upload';
-
-const frameSizes = [
-  { res: [375, 812], name: 'mobile' },
-  { res: [1920, 1080], name: 'desktop' },
-];
+import { frameSizes } from './../fixtures/frame-sizes';
 
 frameSizes.forEach((frame) => {
   describe(`US-1.1: Create Events (${frame.name} view)`, () => {
@@ -86,6 +82,7 @@ frameSizes.forEach((frame) => {
 
       cy.get('[data-testid=pill-id-1]').click();
       cy.get('.create-event-button').click();
+      cy.get('.event-page-button').click();
 
       cy.get('.Toastify__toast.Toastify__toast--success', { timeout: 5000 }).should(
         'have.css',

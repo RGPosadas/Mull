@@ -13,7 +13,6 @@ import { ROUTES } from '../constants';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 import './app.scss';
-import EventPage from './pages/event-page/event-page';
 import { dummyEvent } from '../constants';
 
 /**
@@ -37,10 +36,6 @@ export const App = () => {
           {<Redirect to={ROUTES.DISCOVER} />}
         </Route>
         <Route exact path={ROUTES.CREATE_EVENT} component={CreateEventPage} />
-        {/* Temporary, to be removed */}
-        <Route exact path={'/test-event-page'}>
-          <EventPage event={dummyEvent} prevPage={'Review'} />
-        </Route>
         {/* Temporary, to be removed */}
         <Route exact path={'/test-event-card'}>
           <div className="page-container">

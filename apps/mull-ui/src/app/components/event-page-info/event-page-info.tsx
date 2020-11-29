@@ -17,11 +17,15 @@ import { ExpandableText } from './../expandable-text/expandable-text';
 import MullButton from '../mull-button/mull-button';
 
 export interface EventPageInfoProps {
-  event: IEvent;
+  event: Partial<IEvent>;
   className?: string;
+  handleMullButton?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-export const EventPageInfo = ({ event, className = '' }: EventPageInfoProps) => {
+/**
+ * @param handleMullButton Function called when button at bottom of event-page-info is pressed
+ */
+export const EventPageInfo = ({ event, className = '', handleMullButton }: EventPageInfoProps) => {
   return (
     <div className={`event-page-info-container ${className}`}>
       <div className="info-row">
@@ -32,13 +36,21 @@ export const EventPageInfo = ({ event, className = '' }: EventPageInfoProps) => 
           alt="Event"
         ></img>
 
-        <p className="row-text">{event.host.name}</p>
+        {/* TODO: Remove placeholder text once users are implemented */}
+        <p className="row-text" data-testid="event-host">
+          Placeholder Host
+        </p>
+        {/* <p className="row-text">{event.host?.name}</p> */}
 
         <FontAwesomeIcon icon={faComments} className="event-page-icon color-green" />
       </div>
       <div className="info-row">
         <FontAwesomeIcon icon={faMapMarkerAlt} className="event-page-icon color-grey" />
-        <p className="row-text">{event.location.point}</p>
+        {/* TODO: Remove placeholder text once location is implemented */}
+        <p className="row-text" data-testid="event-location">
+          18 Mull Ave, Pointe-Claire, Montreal
+        </p>
+        {/* <p className="row-text">{event.location.point}</p> */}
         <FontAwesomeIcon icon={faMap} className="event-page-icon color-green" />
       </div>
       <div className="info-row">
@@ -48,16 +60,20 @@ export const EventPageInfo = ({ event, className = '' }: EventPageInfoProps) => 
 
       <div className="info-row">
         <FontAwesomeIcon icon={faLock} className="event-page-icon color-grey" />
-        <p className="row-text">{EventRestrictionMap[event.restriction]}</p>
+        <p className="row-text" data-testid="event-restriction">
+          {EventRestrictionMap[event.restriction]}
+        </p>
       </div>
 
       <div className="info-row">
         {/* TODO: Placeholder. Implement friend invitation and image fetching before doing this*/}
         <FontAwesomeIcon icon={faUserFriends} className="event-page-icon color-grey" />
-        <p className="row-text">{event.participants.map((p) => p.name).join(', ')}</p>
+        <p className="row-text">{event.participants?.map((p) => p.name).join(', ')}</p>
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
       </div>
-      <MullButton className="event-page-button" />
+      <MullButton className="event-page-button" onClick={handleMullButton}>
+        Done
+      </MullButton>
     </div>
   );
 };
