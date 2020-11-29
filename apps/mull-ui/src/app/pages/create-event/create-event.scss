@@ -5,6 +5,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  .custom-text-input-container {
+    margin-bottom: 1.875rem;
+    width: 100%;
+  }
 }
 
 .create-event-text {
@@ -21,13 +25,6 @@
   color: black;
   align-items: flex-start;
   font-weight: 600;
-}
-
-.create-event {
-  .custom-text-input-container {
-    margin-bottom: 1.875rem;
-    width: 100%;
-  }
 }
 
 .create-event-input {

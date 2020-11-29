@@ -16,6 +16,8 @@
 
 .facebook {
   margin-bottom: 2rem;
+  background-color: $facebook;
+  padding-left: 1.2rem;
 }
 
 .custom-text-input-container,
@@ -83,11 +85,6 @@
 
 .google {
   background-color: $google;
-}
-
-.facebook {
-  background-color: $facebook;
-  padding-left: 1.2rem;
 }
 
 .sign-up {
