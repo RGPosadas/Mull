@@ -24,11 +24,11 @@ export const EventPage = ({
       <EventPageHeader
         event={event}
         prevPage={prevPage}
-        onBackButtonClick={onBackButtonClick}
+        handleBackButton={onBackButtonClick}
         eventImageURL={eventImageURL}
       />
       <div className="event-page-info">
-        <EventPageInfo event={event} onButtonClick={onButtonClick} />
+        <EventPageInfo event={event} handleMullButton={onButtonClick} />
       </div>
     </div>
   );

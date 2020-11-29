@@ -54,7 +54,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
   // Uploaded Image File
   const [imageURLFile, setImageURLFile] = useState<string>(null); // Path of uploaded image on client, to be used in image previews
   const [file, setFile] = useState<File>(null); // Uploaded image file blob
-  const [review, setReview] = useState<boolean>(false); // Show either form or review page
+  const [isInReview, setIsInReview] = useState<boolean>(false); // Show either form or review page
   const [payload, setPayload] = useState<Partial<IEvent>>(null);
   /**
    * Handles image file uploads
@@ -157,7 +157,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         restriction: values.activeRestriction,
         image: imageMedia,
       });
-      setReview(true);
+      setIsInReview(true);
     },
   });
 
@@ -186,11 +186,11 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       });
   };
 
-  return review ? (
+  return isInReview ? (
     <EventPage
       event={payload}
       prevPage={'Edit'}
-      onBackButtonClick={() => setReview(false)}
+      onBackButtonClick={() => setIsInReview(false)}
       onButtonClick={createMullEvent}
       eventImageURL={imageURLFile}
     ></EventPage>

@@ -14,14 +14,14 @@ import { formatDate } from '../../../utilities';
 export interface EventPageHeaderProps {
   event: Partial<IEvent>;
   prevPage: string;
-  onBackButtonClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleBackButton?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   eventImageURL: string;
 }
 
 export const EventPageHeader = ({
   event,
   prevPage,
-  onBackButtonClick,
+  handleBackButton,
   eventImageURL,
 }: EventPageHeaderProps) => {
   const { day: startDay, month: startMonth, time: startTime } = formatDate(event.startDate);
@@ -29,7 +29,7 @@ export const EventPageHeader = ({
 
   return (
     <div className="event-page-header">
-      <MullBackButton onClick={onBackButtonClick}>{prevPage}</MullBackButton>
+      <MullBackButton onClick={handleBackButton}>{prevPage}</MullBackButton>
       <div className="title">{event.title}</div>
       <img className="event-image" src={eventImageURL} alt="Event Page" />
 

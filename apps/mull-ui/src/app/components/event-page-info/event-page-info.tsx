@@ -19,10 +19,13 @@ import MullButton from '../mull-button/mull-button';
 export interface EventPageInfoProps {
   event: Partial<IEvent>;
   className?: string;
-  onButtonClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleMullButton?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-export const EventPageInfo = ({ event, className = '', onButtonClick }: EventPageInfoProps) => {
+/**
+ * @param handleMullButton Function called when button at bottom of event-page-info is pressed
+ */
+export const EventPageInfo = ({ event, className = '', handleMullButton }: EventPageInfoProps) => {
   return (
     <div className={`event-page-info-container ${className}`}>
       <div className="info-row">
@@ -68,7 +71,7 @@ export const EventPageInfo = ({ event, className = '', onButtonClick }: EventPag
         <p className="row-text">{event.participants?.map((p) => p.name).join(', ')}</p>
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
       </div>
-      <MullButton className="event-page-button" onClick={onButtonClick}>
+      <MullButton className="event-page-button" onClick={handleMullButton}>
         Done
       </MullButton>
     </div>

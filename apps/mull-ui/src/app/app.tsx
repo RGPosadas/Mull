@@ -13,7 +13,6 @@ import { ROUTES } from '../constants';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 import './app.scss';
-import EventPage from './pages/event-page/event-page';
 import { dummyEvent } from '../constants';
 
 /**
