@@ -1,7 +1,6 @@
 import { createReadStream, ReadStream } from 'fs';
 import { FileUpload } from 'graphql-upload';
 import { join } from 'path';
-import { Media } from '../entities';
 
 export const mockFile: FileUpload = {
   filename: 'zoro',
