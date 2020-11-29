@@ -26,7 +26,9 @@ const Register = ({ history }: RegisterProps) => {
       password: Yup.string().required('Password is required.'),
     }),
 
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      // noop
+    },
   });
 
   return (

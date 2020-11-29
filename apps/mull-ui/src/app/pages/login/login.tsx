@@ -28,7 +28,9 @@ export const Login = ({ history }: LoginProps) => {
       password: Yup.string().required('Password is required.'),
     }),
 
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      // noop
+    },
   });
 
   return (

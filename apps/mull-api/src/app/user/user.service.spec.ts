@@ -5,7 +5,6 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { CreateUserInput } from './inputs/user.input';
 import { mockAllUsers, mockPartialUser } from './user.mockdata';
 import { FindOneOptions } from 'typeorm';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 const mockUserRepositoy = () => ({
   create: jest.fn((mockUserData: CreateUserInput) => ({ ...mockUserData })),
@@ -17,9 +16,7 @@ const mockUserRepositoy = () => ({
     return foundUser;
   }),
   find: jest.fn(() => mockAllUsers),
-  update: jest.fn((id: number, partialEntitiy: QueryDeepPartialEntity<User>) =>
-    mockAllUsers.find((user) => user.id === id)
-  ),
+  update: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
   delete: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
   save: jest.fn((user: User) => user),
 });
