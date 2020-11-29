@@ -5,8 +5,13 @@ import { toast, TypeOptions } from 'react-toastify';
 import * as Yup from 'yup';
 import { cloneDeep } from 'lodash';
 import { EventRestriction, EventRestrictionMap, IEvent, IMedia } from '@mull/types';
-import { PillOptions, CustomTextInput, CustomTimePicker } from '@mull/ui-lib';
-import { MullButton, CustomFileUpload } from './../../components';
+import {
+  MullButton,
+  CustomFileUpload,
+  PillOptions,
+  CustomTextInput,
+  CustomTimePicker,
+} from './../../components';
 import { EventPage } from './../event-page/event-page';
 import DateCalendar from './date-calendar/date-calendar';
 

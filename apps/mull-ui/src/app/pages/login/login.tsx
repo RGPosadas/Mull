@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomTextInput } from '@mull/ui-lib';
+import { CustomTextInput } from '../../components';
 import { Link } from 'react-router-dom';
 import { History } from 'history';
 import * as Yup from 'yup';
