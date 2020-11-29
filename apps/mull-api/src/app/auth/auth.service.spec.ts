@@ -14,7 +14,7 @@ const mockUserService = () => ({
         return [cloneDeep(mUser)];
       }
     }
-    return null;
+    return [];
   }),
   create: jest.fn((user: CreateUserInput) => user),
 });
