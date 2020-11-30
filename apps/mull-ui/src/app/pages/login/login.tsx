@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomTextInput } from '@mull/ui-lib';
+import { CustomTextInput } from '../../components';
 import { Link } from 'react-router-dom';
 import { History } from 'history';
 import * as Yup from 'yup';
@@ -28,7 +28,9 @@ export const Login = ({ history }: LoginProps) => {
       password: Yup.string().required('Password is required.'),
     }),
 
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      // noop
+    },
   });
 
   return (

@@ -16,8 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@mull/types": ["libs/types/src/index.ts"],
-      "@mull/ui-lib": ["libs/ui-lib/src/index.ts"]
+      "@mull/types": ["libs/types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

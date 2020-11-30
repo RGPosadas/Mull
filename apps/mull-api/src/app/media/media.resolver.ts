@@ -24,7 +24,7 @@ export class MediaResolver {
         newMedia.id = media.id;
         return newMedia;
       })
-      .catch((e) => {
+      .catch(() => {
         return new Error('Internal Server Error');
       });
   }

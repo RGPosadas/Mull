@@ -18,6 +18,8 @@
   - [Building and Running The Application with Docker](#building-and-running-the-application-with-docker)
     - [Front-end](#front-end)
     - [Back-end](#back-end)
+  - [Travis CI](#travis-ci)
+    - [Scripts](#scripts)
   - [Troubleshooting](#troubleshooting)
     - [Inconsistent/Failing Travis Builds](#inconsistent-failing-travis-builds)
 

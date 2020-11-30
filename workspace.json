@@ -10,9 +10,6 @@
         "build": {
           "builder": "@nrwl/web:build",
           "options": {
-            "stylePreprocessorOptions": {
-              "includePaths": ["libs/ui-lib/src/lib/styles"]
-            },
             "extractCss": true,
             "outputPath": "dist/apps/mull-ui",
             "index": "apps/mull-ui/src/index.html",
@@ -24,7 +21,7 @@
               "apps/mull-ui/src/manifest.json",
               "apps/mull-ui/src/assets"
             ],
-            "styles": ["libs/ui-lib/src/lib/styles/styles.scss"],
+            "styles": ["apps/mull-ui/src/styles.scss"],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -183,30 +180,6 @@
           "options": {
             "jestConfig": "libs/types/jest.config.js",
             "tsConfig": "libs/types/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "ui-lib": {
-      "root": "libs/ui-lib",
-      "sourceRoot": "libs/ui-lib/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "tsConfig": ["libs/ui-lib/tsconfig.lib.json", "libs/ui-lib/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/ui-lib/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/ui-lib/jest.config.js",
-            "tsConfig": "libs/ui-lib/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }

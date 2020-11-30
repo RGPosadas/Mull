@@ -3,7 +3,6 @@ import { EventService } from './event.service';
 import { Event } from '../entities';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { CreateEventInput } from './inputs/event.input';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { mockAllEvents, mockPartialEvent } from './event.mockdata';
 
 const mockEventRepositoy = () => ({
@@ -12,9 +11,7 @@ const mockEventRepositoy = () => ({
     return mockAllEvents.find((event) => event.id === id);
   }),
   find: jest.fn(() => mockAllEvents),
-  update: jest.fn((id: number, partialEntitiy: QueryDeepPartialEntity<Event>) =>
-    mockAllEvents.find((user) => user.id === id)
-  ),
+  update: jest.fn((id: number) => mockAllEvents.find((user) => user.id === id)),
   delete: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
   save: jest.fn((event: Event) => event),
 });

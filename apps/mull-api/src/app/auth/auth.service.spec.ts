@@ -14,7 +14,7 @@ const mockUserService = () => ({
         return [cloneDeep(mUser)];
       }
     }
-    return null;
+    return [];
   }),
   create: jest.fn((user: CreateUserInput) => user),
 });
@@ -50,8 +50,9 @@ describe('AuthService', () => {
 
   it('should validate a user', async () => {
     const returnedUser: Partial<User> = await service.validateUser(mockAllUsers[0].email, 'abc123');
-    const { password, ...rest } = mockAllUsers[0];
-    expect(returnedUser).toEqual(rest);
+    const mockedUser = cloneDeep(mockAllUsers[0]);
+    delete mockedUser.password;
+    expect(returnedUser).toEqual(mockedUser);
   });
 
   it('should invalidate a password', async () => {

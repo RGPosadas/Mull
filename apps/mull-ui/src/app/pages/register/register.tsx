@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomTextInput } from '@mull/ui-lib';
+import { CustomTextInput } from '../../components';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
@@ -26,7 +26,9 @@ const Register = ({ history }: RegisterProps) => {
       password: Yup.string().required('Password is required.'),
     }),
 
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      // noop
+    },
   });
 
   return (
