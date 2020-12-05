@@ -16,7 +16,7 @@ input CreateUserInput {
   email: String!
   name: String!
   password: String
-  registrationMethod: Int!
+  registrationMethod: RegistrationMethod!
 }
 
 """
@@ -60,6 +60,13 @@ type Query {
   users: [User!]!
 }
 
+enum RegistrationMethod {
+  FACEBOOK
+  GOOGLE
+  LOCAL
+  TWITTER
+}
+
 input UpdateEventInput {
   description: String
   endDate: DateTime
@@ -87,6 +94,6 @@ type User {
   id: ID!
   name: String!
   password: String
-  registrationMethod: Int!
+  registrationMethod: RegistrationMethod!
   timezone: String!
 }

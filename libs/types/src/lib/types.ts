@@ -20,10 +20,10 @@ export enum EventRestriction {
 }
 
 export enum RegistrationMethod {
-  LOCAL,
-  GOOGLE,
-  FACEBOOK,
-  TWITTER,
+  LOCAL = 'LOCAL',
+  GOOGLE = 'GOOGLE',
+  FACEBOOK = 'FACEBOOK',
+  TWITTER = 'TWITTER',
 }
 
 export const EventRestrictionMap = ['Everyone', 'Friends', 'Invite Only'];

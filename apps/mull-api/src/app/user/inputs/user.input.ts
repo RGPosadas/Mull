@@ -21,7 +21,7 @@ export class CreateUserInput implements Partial<User> {
   @IsOptional()
   dob: Date;
 
-  @Field(() => Int)
+  @Field(() => RegistrationMethod)
   registrationMethod: RegistrationMethod;
 }
 

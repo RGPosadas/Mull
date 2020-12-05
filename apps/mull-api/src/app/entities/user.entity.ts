@@ -11,8 +11,12 @@ import {
 import { Media } from './media.entity';
 import { Event } from './event.entity';
 import { PostReaction } from './post-reaction.entity';
-import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ID, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { IUser, RegistrationMethod } from '@mull/types';
+
+registerEnumType(RegistrationMethod, {
+  name: 'RegistrationMethod',
+});
 
 @Entity()
 @ObjectType()
@@ -47,7 +51,7 @@ export class User implements IUser {
   @Column({ nullable: true })
   dob: Date;
 
-  @Field(() => Int)
+  @Field(() => RegistrationMethod)
   @Column({
     type: 'enum',
     enum: RegistrationMethod,
