@@ -1,12 +1,13 @@
 import React from 'react';
-import { CustomTextInput } from '../../components';
 import { Link } from 'react-router-dom';
 import { History } from 'history';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
-import logo from '../../../assets/mull-logo.png';
+import { CustomTextInput } from '../../components';
+import { environment } from '../../../environments/environment';
 
+import logo from '../../../assets/mull-logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookSquare, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
@@ -17,6 +18,9 @@ export interface LoginProps {
 }
 
 export const Login = ({ history }: LoginProps) => {
+  const handleOAuthButtonClick = (oAuthProvider: string) => {
+    window.location.assign(`${environment.backendUrl}/api/auth/${oAuthProvider}`);
+  };
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -34,8 +38,8 @@ export const Login = ({ history }: LoginProps) => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <div className="page-container no-navigation login-container">
+    <div className="page-container no-navigation login-container">
+      <form onSubmit={formik.handleSubmit}>
         <img src={logo} className="login-mull-logo" alt="Mull logo" />
 
         <CustomTextInput
@@ -60,32 +64,49 @@ export const Login = ({ history }: LoginProps) => {
         <button type="submit" className="login">
           Login
         </button>
-
-        <div className="sign-up">
-          Don't have an account?{'  '}
-          <Link to="/register" className="register-login-page">
-            Sign up here!
-          </Link>
-        </div>
-
-        <div className="separator">or</div>
-
-        <button className="twitter">
-          <FontAwesomeIcon icon={faTwitter} size="2x" />
-          &nbsp; Continue with Twitter
-        </button>
-
-        <button className="google">
-          <FontAwesomeIcon icon={faGoogle} size="2x" />
-          &nbsp; Continue with Google
-        </button>
-
-        <button className="facebook">
-          <FontAwesomeIcon icon={faFacebookSquare} size="2x" />
-          &nbsp; Continue with Facebook
-        </button>
+      </form>
+      <div className="sign-up">
+        Don't have an account?{'  '}
+        <Link to="/register" className="register-login-page">
+          Sign up here!
+        </Link>
       </div>
-    </form>
+
+      <div className="separator">or</div>
+
+      <button
+        className="twitter"
+        type="button"
+        onClick={() => {
+          handleOAuthButtonClick('twitter');
+        }}
+      >
+        <FontAwesomeIcon icon={faTwitter} size="2x" />
+        &nbsp; Continue with Twitter
+      </button>
+
+      <button
+        className="google"
+        type="button"
+        onClick={() => {
+          handleOAuthButtonClick('google');
+        }}
+      >
+        <FontAwesomeIcon icon={faGoogle} size="2x" />
+        &nbsp; Continue with Google
+      </button>
+
+      <button
+        className="facebook"
+        type="button"
+        onClick={() => {
+          handleOAuthButtonClick('facebook');
+        }}
+      >
+        <FontAwesomeIcon icon={faFacebookSquare} size="2x" />
+        &nbsp; Continue with Facebook
+      </button>
+    </div>
   );
 };
 

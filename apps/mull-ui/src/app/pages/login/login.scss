@@ -4,97 +4,101 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-row-gap: 1.5rem;
-}
 
-.login-mull-logo {
-  padding-top: 4rem;
-  display: block;
-  margin: 0 auto;
-  width: 30%;
-  padding-bottom: 3rem;
-}
+  .login-mull-logo {
+    padding-top: 4rem;
+    display: block;
+    margin: 0 auto;
+    width: 30%;
+    padding-bottom: 3rem;
+  }
 
-.facebook {
-  margin-bottom: 2rem;
-  background-color: $facebook;
-  padding-left: 1.2rem;
-}
+  .facebook {
+    margin-bottom: 2rem;
+    background-color: $facebook;
+    padding-left: 1.2rem;
+  }
 
-.custom-text-input-container,
-.facebook,
-.google,
-.login,
-.separator,
-.twitter {
-  align-self: center;
-  justify-self: center;
-}
+  .custom-text-input-container,
+  .facebook,
+  .google,
+  .login,
+  .separator,
+  .twitter {
+    align-self: center;
+    justify-self: center;
+  }
 
-.separator {
-  display: flex;
-  align-items: center;
-  color: $primary-color;
-  width: 100%;
-}
+  .custom-text-input-container {
+    margin-bottom: 1.5rem;
+  }
 
-.separator::before,
-.separator::after {
-  content: '';
-  flex: 1;
-  border-bottom: 1px solid $primary-color;
-}
+  .separator {
+    display: flex;
+    align-items: center;
+    color: $primary-color;
+    width: 100%;
+  }
 
-.separator::before {
-  margin-right: 0.25rem;
-}
-.separator::after {
-  margin-left: 0.25rem;
-}
+  .separator::before,
+  .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid $primary-color;
+  }
 
-.login,
-.twitter,
-.google,
-.facebook {
-  width: 100%;
-  height: 2.8rem;
-  cursor: pointer;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-}
+  .separator::before {
+    margin-right: 0.25rem;
+  }
+  .separator::after {
+    margin-left: 0.25rem;
+  }
 
-.twitter,
-.google,
-.facebook {
-  color: white;
-  font-weight: bold;
-}
+  .login,
+  .twitter,
+  .google,
+  .facebook {
+    width: 100%;
+    height: 2.8rem;
+    cursor: pointer;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+  }
 
-.login {
-  font-weight: bold;
-  color: black;
-  background-color: rgba($color: $primary-color, $alpha: 0.6);
-  outline: none;
-}
+  .twitter,
+  .google,
+  .facebook {
+    color: white;
+    font-weight: bold;
+  }
 
-.twitter {
-  background-color: $twitter;
-}
+  .login {
+    font-weight: bold;
+    color: black;
+    background-color: rgba($color: $primary-color, $alpha: 0.6);
+    outline: none;
+  }
 
-.google {
-  background-color: $google;
-}
+  .twitter {
+    background-color: $twitter;
+  }
 
-.sign-up {
-  text-align: center;
-  font-size: 0.85rem;
-}
+  .google {
+    background-color: $google;
+  }
 
-.register-login-page {
-  font-size: 0.85rem;
-  text-decoration: none;
-  color: $primary-color;
-  font-weight: bold;
+  .sign-up {
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  .register-login-page {
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: $primary-color;
+    font-weight: bold;
+  }
 }
