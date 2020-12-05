@@ -18,7 +18,7 @@ export interface RegisterProps {
   history: History;
 }
 
-const CREATE_USER = gql`
+export const CREATE_USER = gql`
   mutation CreateUser($createUserInput: CreateUserInput!) {
     createUser(createUserInput: $createUserInput) {
       id

@@ -57,4 +57,21 @@ describe('Login', () => {
       fireEvent.click(submitButton);
     });
   });
+
+  it('should redirect to OAuth providers', async () => {
+    const history = createMemoryHistory();
+    const oAuthProviders = ['Google', 'Facebook', 'Twitter'];
+    history.push(ROUTES.LOGIN);
+    const utils = render(
+      <MockedProvider>
+        <Router history={history}>
+          <Login history={history} />
+        </Router>
+      </MockedProvider>
+    );
+    for (const provider of oAuthProviders) {
+      const oAuthButton = utils.getByText(`Continue with ${provider}`);
+      fireEvent.click(oAuthButton);
+    }
+  });
 });
