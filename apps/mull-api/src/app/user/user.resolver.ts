@@ -5,6 +5,7 @@ import { User } from '../entities';
 import { RegistrationMethod } from '@mull/types';
 import { UserService } from './user.service';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
+import { UnauthorizedException } from '@nestjs/common';
 
 @Resolver(/* istanbul ignore next */ () => User)
 export class UserResolver {
@@ -33,6 +34,12 @@ export class UserResolver {
       const hashed = await hash(createUserInput.password, salt);
       createUserInput.password = hashed;
     }
+    const existingUser = await this.userService.findUnique(
+      createUserInput.email,
+      createUserInput.registrationMethod
+    );
+    if (existingUser.length > 0)
+      throw new UnauthorizedException('User with this email already exists.');
     return this.userService.create(createUserInput);
   }
 

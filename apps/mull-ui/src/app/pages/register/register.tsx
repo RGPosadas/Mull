@@ -1,5 +1,5 @@
 import React from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { ApolloError, gql, useMutation } from '@apollo/client';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
@@ -56,8 +56,8 @@ const Register = ({ history }: RegisterProps) => {
             history.push('/home');
           }
         })
-        .catch(() => {
-          updateToast(toast.TYPE.ERROR, 'Fatal Error: User Not Created');
+        .catch((err: ApolloError) => {
+          updateToast(toast.TYPE.ERROR, err.message);
         });
     },
   });

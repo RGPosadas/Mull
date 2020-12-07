@@ -1,3 +1,4 @@
+import { RegistrationMethod } from '@mull/types';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -21,6 +22,10 @@ export class UserService {
 
   findByEmail(email: string): Promise<User[]> {
     return this.userRepository.find({ where: { email } });
+  }
+
+  findUnique(email: string, registrationMethod: RegistrationMethod): Promise<User[]> {
+    return this.userRepository.find({ where: { email, registrationMethod } });
   }
 
   async findAllFriends(id: number): Promise<User[]> {
