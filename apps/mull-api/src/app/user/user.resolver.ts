@@ -1,7 +1,10 @@
 import { Resolver, Query, Mutation, Args, ResolveField, Parent, Int } from '@nestjs/graphql';
+import { genSalt, hash } from 'bcrypt';
+
 import { User } from '../entities';
-import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
+import { RegistrationMethod } from '@mull/types';
 import { UserService } from './user.service';
+import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 
 @Resolver(/* istanbul ignore next */ () => User)
 export class UserResolver {
@@ -25,6 +28,11 @@ export class UserResolver {
 
   @Mutation(/* istanbul ignore next */ () => User)
   async createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
+    if (createUserInput.registrationMethod === RegistrationMethod.LOCAL) {
+      const salt = await genSalt(10);
+      const hashed = await hash(createUserInput.password, salt);
+      createUserInput.password = hashed;
+    }
     return this.userService.create(createUserInput);
   }
 
