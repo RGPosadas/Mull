@@ -2,12 +2,19 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
-import { mockPartialUser, mockAllUsers } from './user.mockdata';
+import { mockPartialUser, mockAllUsers, mockNewPartialUser } from './user.mockdata';
+import { RegistrationMethod } from '@mull/types';
+import { UnauthorizedException } from '@nestjs/common';
 
 const mockUserService = () => ({
   create: jest.fn((mockUserData: CreateUserInput) => ({ ...mockUserData })),
   findOne: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
   findAll: jest.fn(() => mockAllUsers),
+  findUnique: jest.fn((email: string, registrationMethod: RegistrationMethod) => {
+    return Promise.resolve(
+      mockAllUsers.filter((u) => u.email === email && u.registrationMethod === registrationMethod)
+    );
+  }),
   findAllFriends: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id).friends),
   updateUser: jest.fn((mockUserData: UpdateUserInput) => ({ ...mockUserData })),
   delete: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
@@ -29,9 +36,31 @@ describe('UserResolver', () => {
     resolver = module.get<UserResolver>(UserResolver);
   });
 
-  it('should create user', async () => {
-    const returnedUser = await resolver.createUser(mockPartialUser as CreateUserInput);
-    expect(returnedUser).toEqual(mockPartialUser);
+  it('should create a local user', async () => {
+    const returnedUser = await resolver.createUser({ ...mockNewPartialUser });
+    expect(returnedUser.name).toEqual(mockNewPartialUser.name);
+    expect(returnedUser.email).toEqual(mockNewPartialUser.email);
+    expect(returnedUser.password).not.toEqual(mockNewPartialUser.password);
+  });
+
+  it('should not create a local user', async () => {
+    try {
+      await resolver.createUser({ ...mockPartialUser } as CreateUserInput);
+    } catch (err) {
+      if (err instanceof UnauthorizedException) {
+        expect(err.message).toBe('User with this email already exists.');
+      }
+    }
+  });
+
+  it('should create an OAuth user', async () => {
+    const returnedUser = await resolver.createUser({
+      ...mockNewPartialUser,
+      registrationMethod: RegistrationMethod.GOOGLE,
+    });
+    expect(returnedUser.name).toEqual(mockNewPartialUser.name);
+    expect(returnedUser.email).toEqual(mockNewPartialUser.email);
+    expect(returnedUser.password).toEqual(mockNewPartialUser.password);
   });
 
   it('should fetch all users', async () => {

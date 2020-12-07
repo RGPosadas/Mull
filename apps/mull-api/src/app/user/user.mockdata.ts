@@ -10,11 +10,19 @@ export const mockPartialUser: CreateUserInput | UpdateUserInput = {
   registrationMethod: RegistrationMethod.LOCAL,
 };
 
+export const mockNewPartialUser: CreateUserInput = {
+  password: 'password',
+  email: 'mock2@mock.com',
+  dob: new Date(),
+  name: 'Mock McMockson Jr.',
+  registrationMethod: RegistrationMethod.LOCAL,
+};
+
 export const mockAllUsers: User[] = [
   {
     id: 1,
     password: '$2b$10$Wo/ClOmaI/qItblWM1saEeWgqv9S9nt6QO4KW1kBXdzPT1.q8XuuG',
-    email: 'gr@ph.ql',
+    email: 'mock@mock.com',
     timezone: '',
     name: 'Bob',
     dob: new Date(),

@@ -4,9 +4,13 @@ import { User } from '../entities';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { CreateUserInput } from './inputs/user.input';
 import { mockAllUsers, mockPartialUser } from './user.mockdata';
-import { FindOneOptions } from 'typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
 
-const mockUserRepositoy = () => ({
+export type MockType<T> = {
+  [P in keyof T]: jest.Mock<{}>;
+};
+
+const mockUserRepository = () => ({
   create: jest.fn((mockUserData: CreateUserInput) => ({ ...mockUserData })),
   findOne: jest.fn((id: number, options?: FindOneOptions<User>) => {
     const foundUser = mockAllUsers.find((user) => user.id === id);
@@ -23,19 +27,20 @@ const mockUserRepositoy = () => ({
 
 describe('UserService', () => {
   let service: UserService;
-
+  let repository: MockType<Repository<User>>;
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UserService,
         {
           provide: getRepositoryToken(User),
-          useFactory: mockUserRepositoy,
+          useFactory: mockUserRepository,
         },
       ],
     }).compile();
 
     service = module.get<UserService>(UserService);
+    repository = module.get(getRepositoryToken(User));
   });
 
   it('should be defined', () => {
@@ -50,6 +55,21 @@ describe('UserService', () => {
   it('should fetch all users', async () => {
     const returnedUsers = await service.findAll();
     expect(returnedUsers).toEqual(mockAllUsers);
+  });
+
+  it('should fetch a user by email', async () => {
+    repository.find.mockReturnValue(mockAllUsers[0]);
+    const returnedUsers = await service.findByEmail(mockAllUsers[0].email);
+    expect(returnedUsers).toEqual(mockAllUsers[0]);
+  });
+
+  it('should fetch a unique user', async () => {
+    repository.find.mockReturnValue(mockAllUsers[0]);
+    const returnedUsers = await service.findUnique(
+      mockAllUsers[0].email,
+      mockAllUsers[0].registrationMethod
+    );
+    expect(returnedUsers).toEqual(mockAllUsers[0]);
   });
 
   it('should fetch all friends of mockUser 1', async () => {
