@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
