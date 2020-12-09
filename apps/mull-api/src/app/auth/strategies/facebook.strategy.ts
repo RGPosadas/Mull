@@ -1,9 +1,9 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Profile, Strategy, StrategyOption } from 'passport-facebook';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Injectable } from '@nestjs/common';
-import { User } from '../entities';
-import { AuthService } from './auth.service';
+import { User } from '../../entities';
+import { AuthService } from './../auth.service';
 import { RegistrationMethod } from '@mull/types';
 
 @Injectable()

@@ -1,9 +1,9 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Profile, Strategy, StrategyOptions, VerifyCallback } from 'passport-google-oauth20';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Injectable } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { User } from '../entities';
+import { AuthService } from './../auth.service';
+import { User } from '../../entities';
 import { RegistrationMethod } from '@mull/types';
 
 @Injectable()
