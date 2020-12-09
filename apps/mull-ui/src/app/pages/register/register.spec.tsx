@@ -1,11 +1,12 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { MockedProvider } from '@apollo/client/testing';
-import Register from './register';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import Register, { CREATE_USER } from './register';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { ROUTES } from '../../../constants';
+import { RegistrationMethod } from '@mull/types';
 
 describe('Register', () => {
   it('should render successfully', () => {
@@ -41,8 +42,27 @@ describe('Register', () => {
   it('should submit a users login credentials', async () => {
     const history = createMemoryHistory();
     history.push(ROUTES.REGISTER);
+    const mocks: MockedResponse[] = [
+      {
+        request: {
+          query: CREATE_USER,
+          variables: {
+            createUserInput: {
+              name: 'John Doe',
+              email: 'abc@def.com',
+              password: 'abc123',
+              registrationMethod: RegistrationMethod.LOCAL,
+            },
+          },
+        },
+        result: {
+          data: { createUser: { id: 10 } },
+        },
+      },
+    ];
+
     const utils = render(
-      <MockedProvider>
+      <MockedProvider mocks={mocks}>
         <Router history={history}>
           <Register history={history} />
         </Router>

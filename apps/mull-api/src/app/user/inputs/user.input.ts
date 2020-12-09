@@ -1,5 +1,5 @@
 import { RegistrationMethod } from '@mull/types';
-import { Field, ID, InputType, Int } from '@nestjs/graphql';
+import { Field, ID, InputType } from '@nestjs/graphql';
 import { IsDate, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
 import { User } from '../../entities';
 
@@ -21,7 +21,7 @@ export class CreateUserInput implements Partial<User> {
   @IsOptional()
   dob: Date;
 
-  @Field(() => Int)
+  @Field(() => RegistrationMethod)
   registrationMethod: RegistrationMethod;
 }
 

@@ -1,10 +1,11 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { useFormik } from 'formik';
-import { toast, TypeOptions } from 'react-toastify';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { cloneDeep } from 'lodash';
-import { EventRestriction, EventRestrictionMap, IEvent, IMedia } from '@mull/types';
+import { History } from 'history';
+
 import {
   MullButton,
   CustomFileUpload,
@@ -12,15 +13,15 @@ import {
   CustomTextInput,
   CustomTimePicker,
 } from './../../components';
-import { EventPage } from './../event-page/event-page';
 import DateCalendar from './date-calendar/date-calendar';
+import { EventPage } from './../event-page/event-page';
+import { useToast } from '../../hooks/useToast';
 
+import { EventRestriction, EventRestrictionMap, IEvent, IMedia } from '@mull/types';
 import { DAY_IN_MILLISECONDS } from '../../../constants';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAlignLeft, faPencilAlt, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
-
-import { History } from 'history';
 
 import './create-event.scss';
 
@@ -51,8 +52,6 @@ export const UPLOAD_PHOTO = gql`
  * @param {History} history
  */
 const CreateEventPage = ({ history }: CreateEventProps) => {
-  // Reference Id for the toast
-  const toastId = useRef(null);
   // GraphQL mutation hook to create events
   const [createEvent] = useMutation<IEvent>(CREATE_EVENT);
   const [uploadFile] = useMutation<{ uploadFile: IMedia }>(UPLOAD_PHOTO);
@@ -61,6 +60,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
   const [file, setFile] = useState<File>(null); // Uploaded image file blob
   const [isInReview, setIsInReview] = useState<boolean>(false); // Show either form or review page
   const [payload, setPayload] = useState<Partial<IEvent>>(null);
+  const { notifyToast, updateToast } = useToast();
   /**
    * Handles image file uploads
    * @param {ChangeEvent<HTMLInputElement>} event
@@ -80,25 +80,6 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
     const [hour, minute] = time.split(':');
     date.setHours(parseInt(hour));
     date.setMinutes(parseInt(minute));
-  };
-
-  /**
-   * Notifies the user of a event submission
-   */
-  const notifySubmissionToast = () => {
-    toastId.current = toast('Submitting Event...', { autoClose: false });
-  };
-  /**
-   * Updates existing toast.
-   * @param {TypeOptions} type Type of the toast
-   * @param {string} message Message to display
-   */
-  const updateSubmissionToast = (type: TypeOptions, message: string) => {
-    toast.update(toastId.current, {
-      type,
-      render: message,
-      autoClose: 3000,
-    });
   };
 
   const formik = useFormik({
@@ -146,7 +127,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           throw uploadedFile;
         }
       } catch (err) {
-        updateSubmissionToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
+        updateToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
         console.error(err);
         return;
       }
@@ -175,19 +156,19 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
   };
 
   const createMullEvent = () => {
-    notifySubmissionToast();
+    notifyToast('Submitting Event...');
     createEvent({ variables: { createEventInput: payload } })
       .then(({ errors }) => {
         if (errors) {
           console.log(errors);
-          updateSubmissionToast(toast.TYPE.ERROR, 'Event Not Created');
+          updateToast(toast.TYPE.ERROR, 'Event Not Created');
         } else {
-          updateSubmissionToast(toast.TYPE.SUCCESS, 'Event Created');
+          updateToast(toast.TYPE.SUCCESS, 'Event Created');
           history.push('/home');
         }
       })
       .catch(() => {
-        updateSubmissionToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
+        updateToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
       });
   };
 

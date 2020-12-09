@@ -26,7 +26,7 @@ if ('serviceWorker' in navigator) {
 
 const client = new ApolloClient({
   link: createUploadLink({
-    uri: environment.backendUrl,
+    uri: `${environment.backendUrl}/graphql`,
   }),
   cache: new InMemoryCache(),
 });

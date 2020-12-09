@@ -1,9 +1,15 @@
 import React from 'react';
-import { CustomTextInput } from '../../components';
+import { ApolloError, gql, useMutation } from '@apollo/client';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import { History } from 'history';
+
+import { CustomTextInput } from '../../components';
+import { RegistrationMethod } from '@mull/types';
+import { useToast } from '../../hooks/useToast';
+
 import logo from '../../../assets/mull-logo.png';
 
 import './register.scss';
@@ -12,7 +18,19 @@ export interface RegisterProps {
   history: History;
 }
 
+export const CREATE_USER = gql`
+  mutation CreateUser($createUserInput: CreateUserInput!) {
+    createUser(createUserInput: $createUserInput) {
+      id
+    }
+  }
+`;
+
 const Register = ({ history }: RegisterProps) => {
+  // GraphQL mutation hook to create user
+  const [createUser] = useMutation(CREATE_USER);
+  const { notifyToast, updateToast } = useToast();
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -26,8 +44,21 @@ const Register = ({ history }: RegisterProps) => {
       password: Yup.string().required('Password is required.'),
     }),
 
-    onSubmit: (values) => {
-      // noop
+    onSubmit: async (values) => {
+      notifyToast('Registering...');
+      const payload = { ...values, registrationMethod: RegistrationMethod.LOCAL };
+      createUser({ variables: { createUserInput: payload } })
+        .then(({ errors }) => {
+          if (errors) {
+            updateToast(toast.TYPE.ERROR, 'User Not Created');
+          } else {
+            updateToast(toast.TYPE.SUCCESS, 'Registration Successful');
+            history.push('/home');
+          }
+        })
+        .catch((err: ApolloError) => {
+          updateToast(toast.TYPE.ERROR, err.message);
+        });
     },
   });
 
