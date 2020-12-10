@@ -25,4 +25,8 @@ export const environment = {
   session: {
     secret: process.env.SESSION_SECRET,
   },
+  jwt: {
+    accessSecret: process.env.ACCESS_TOKEN_SECRET,
+    refreshSecret: process.env.REFRESH_TOKEN_SECRET,
+  },
 };
