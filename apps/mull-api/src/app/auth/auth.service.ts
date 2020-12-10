@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 import { Request } from 'express';
+import { environment } from '../../environments/environment';
 
 import { User } from '../entities';
 import { CreateUserInput } from '../user/inputs/user.input';
@@ -8,7 +10,7 @@ import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private jwtService: JwtService) {}
 
   authLogin(req: Request) {
     if (!req.user) return null;
@@ -33,6 +35,20 @@ export class AuthService {
       const newUser = await this.userService.create(user as CreateUserInput);
       callback(null, newUser);
     }
+  }
+
+  createAccessToken(user: Partial<User>) {
+    return this.jwtService.sign(
+      { id: user.id },
+      { expiresIn: '15m', secret: environment.jwt.accessSecret }
+    );
+  }
+
+  createRefreshToken(user: Partial<User>) {
+    return this.jwtService.sign(
+      { id: user.id },
+      { expiresIn: '7d', secret: environment.jwt.refreshSecret }
+    );
   }
 
   async validateUser(email: string, pass: string): Promise<Partial<User>> {
