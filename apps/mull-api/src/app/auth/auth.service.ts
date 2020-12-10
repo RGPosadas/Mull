@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 import { Request } from 'express';
-import { environment } from '../../environments/environment';
 
+import { environment } from '../../environments/environment';
+import { RegistrationMethod } from '@mull/types';
 import { User } from '../entities';
 import { CreateUserInput } from '../user/inputs/user.input';
 import { UserService } from '../user/user.service';
@@ -52,14 +53,10 @@ export class AuthService {
   }
 
   async validateUser(email: string, pass: string): Promise<Partial<User>> {
-    const users: User[] = await this.userService.findByEmail(email);
-    if (users && users.length === 1) {
-      const validPassword = await compare(pass, users[0].password);
-      if (validPassword) {
-        delete users[0].password;
-        return users[0];
-      }
-    }
-    return null;
+    const user = await this.userService.findUnique(email, RegistrationMethod.LOCAL);
+    if (user.length < 1) throw new NotFoundException('Invalid username or password');
+    const validPassword = await compare(pass, user[0].password);
+    if (validPassword) return user[0];
+    throw new UnauthorizedException('Invalid username or password');
   }
 }
