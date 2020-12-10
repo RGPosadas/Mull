@@ -17,6 +17,28 @@ export class EventResolver {
     return this.eventService.findOne(id);
   }
 
+  @Query(/* istanbul ignore next */ () => [Event])
+  async hostEvents(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+    return this.eventService.findHostEvents(id);
+  }
+
+  @Query(/* istanbul ignore next */ () => [Event])
+  async coHostsEvents(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+    return this.eventService.findCoHostEvents(id);
+  }
+
+  @Query(/* istanbul ignore next */ () => [Event])
+  async participatingEvents(
+    @Args('id', { type: /* istanbul ignore next */ () => Int }) id: number
+  ) {
+    return this.eventService.findParticipantingEvents(id);
+  }
+
+  @Query(/* istanbul ignore next */ () => [Event])
+  async discoverEvents(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+    return this.eventService.findDiscoverEvent(id);
+  }
+
   @Mutation(/* istanbul ignore next */ () => Event)
   async createEvent(@Args('createEventInput') createEventInput: CreateEventInput) {
     return this.eventService.create(createEventInput);

@@ -38,6 +38,7 @@ import { AuthModule } from './auth/auth.module';
        * Allows entities to be loaded by a sub module.
        */
       autoLoadEntities: true,
+      logging: true,
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'apps/mull-api/src/schema.gql'),
