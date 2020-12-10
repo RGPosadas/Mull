@@ -1,7 +1,7 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import Search from './location-autocomplete-textbox';
-import { CustomTextInput } from '@mull/ui-lib';
+import { CustomTextInput } from '../../../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { MullBackButton } from '../../../components';

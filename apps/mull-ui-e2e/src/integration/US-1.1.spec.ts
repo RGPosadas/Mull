@@ -39,16 +39,26 @@ frameSizes.forEach((frame) => {
       cy.get('#description').type('test description').should('have.value', 'test description');
     });
 
-    it('should type into the event location input', () => {
+    it('should type into the event location modal and return autocompleted address', () => {
       cy.get('#location').click();
       cy.get('#location-input-field').should('be.visible');
-      const res = 'skffsdkfdf';
-      cy.get('#location-input-field').type(res);
-      cy.intercept(
-        { method: 'POST', url: '/graphql' },
-        { data: { getAutocompletedLocations: ['skffsdkfdf'] } }
+      const res = '845 Rue Sherbrooke';
+      cy.get('#location-input-field').type('845 Rue Sherbrooke', { delay: 300 });
+      cy.get('#location-input-field-option-0', { timeout: 1000 }).should(
+        'have.text',
+        '845 Rue Sherbrooke, Montreal, QC, Canada'
       );
       cy.get('#location-input-field-option-0').click();
+    });
+
+    it.only('should click current location on event location modal', () => {
+      cy.get('#location').click();
+      cy.get('#location-input-field').should('be.visible');
+      cy.get('#location-input-field-option-0').click();
+      cy.get('#location')
+        .invoke('val')
+        .should('contain', 'longitude')
+        .should('contain', 'latitude');
     });
 
     it('should change restriction open', () => {
@@ -89,14 +99,14 @@ frameSizes.forEach((frame) => {
 
       cy.get('#location').click();
       cy.get('#location-input-field').should('be.visible');
-      const res = 'skffsdkfdf';
-      cy.get('#location-input-field').type(res);
-      cy.intercept(
-        { method: 'POST', url: '/graphql' },
-        { data: { getAutocompletedLocations: ['skffsdkfdf'] } }
-      );
-      cy.get('#location-input-field-option-0').click();
 
+      cy.get('#location-input-field').type('845 Rue Sherbrooke', { delay: 300 });
+      cy.get('#location-input-field-option-0', { timeout: 1000 }).should(
+        'have.text',
+        '845 Rue Sherbrooke, Montreal, QC, Canada'
+      );
+
+      cy.get('#location-input-field-option-0', { timeout: 5000 }).click();
       cy.get('[data-testid=pill-id-1]').click();
       cy.get('.create-event-button').click();
       cy.get('.event-page-button').click();
