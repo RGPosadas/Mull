@@ -49,6 +49,11 @@ import { AuthModule } from './auth/auth.module';
       uploads: {
         maxFileSize: 10000000000000,
       },
+      cors: {
+        origin: environment.client.baseUrl,
+        credentials: true,
+      },
+      context: ({ req, res }) => ({ req, res }),
     }),
     SessionModule.forRoot({
       session: {
