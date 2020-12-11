@@ -51,7 +51,7 @@ frameSizes.forEach((frame) => {
       cy.get('#location-input-field-option-0').click();
     });
 
-    it.only('should click current location on event location modal', () => {
+    it('should click current location on event location modal', () => {
       cy.get('#location').click();
       cy.get('#location-input-field').should('be.visible');
       cy.get('#location-input-field-option-0').click();
@@ -59,6 +59,12 @@ frameSizes.forEach((frame) => {
         .invoke('val')
         .should('contain', 'longitude')
         .should('contain', 'latitude');
+    });
+
+    it('should click the event location modal and exit with edit button', () => {
+      cy.get('#location').click();
+      cy.get('#location-input-field').should('be.visible');
+      cy.get('mull-back-button edit').click();
     });
 
     it('should change restriction open', () => {
