@@ -24,6 +24,8 @@ export interface CustomTextInputProps {
  * @param {string} errorMessage
  * @param {ReactNode} svgIcon The svg in the text input
  * @param {(event: ChangeEvent<HTMLInputElement>) => void} onChange Handler for when text is changed
+ * @param {(event: ChangeEvent<MouseEventHandler>) => void} onClick Handler for when input is clicked
+ * @param {boolean} readOnly Text inside input cannot be editted
  */
 export const CustomTextInput = ({
   title,
