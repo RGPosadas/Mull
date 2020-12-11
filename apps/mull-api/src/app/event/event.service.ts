@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Event, User } from '../entities';
@@ -28,8 +28,8 @@ export class EventService {
   }
 
   async addParticipant(eventId: number, userId: number) {
-    let user = new User(userId);
-    let event = await this.eventRepository.findOne(eventId, { relations: ['participants'] });
+    const user = new User(userId);
+    const event = await this.eventRepository.findOne(eventId, { relations: ['participants'] });
     event.participants.push(user);
     return await this.eventRepository.save(event);
   }

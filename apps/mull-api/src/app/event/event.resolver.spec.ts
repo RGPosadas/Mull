@@ -12,7 +12,7 @@ const mockEventService = () => ({
   update: jest.fn((mockEventData: UpdateEventInput) => ({ ...mockEventData })),
   delete: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
   addParticipant: jest.fn((eventId: number, userId: number) => {
-    let event = mockAllEvents.find((event) => (event.id = eventId));
+    const event = mockAllEvents.find((event) => (event.id = eventId));
     event.participants.push(new User(userId));
     return event;
   }),
