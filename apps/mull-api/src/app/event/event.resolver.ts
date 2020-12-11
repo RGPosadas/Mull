@@ -31,4 +31,9 @@ export class EventResolver {
   async deleteEvent(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
     return this.eventService.delete(id);
   }
+
+  @Mutation(() => Event)
+  async addParticipantToEvent(@Args('eventId') eventId: number, @Args('userId') userId: number) {
+    return this.eventService.addParticipant(eventId, userId);
+  }
 }

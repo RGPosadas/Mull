@@ -44,6 +44,7 @@ input MediaInput {
 }
 
 type Mutation {
+  addParticipantToEvent(eventId: Float!, userId: Float!): Event!
   createEvent(createEventInput: CreateEventInput!): Event!
   createUser(createUserInput: CreateUserInput!): User!
   deleteEvent(id: Int!): Event!
