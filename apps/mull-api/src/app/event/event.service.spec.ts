@@ -57,6 +57,11 @@ describe('EventService', () => {
     expect(deletedEvent).toEqual(mockAllEvents.find((event) => event.id === 35));
   });
 
+  it('should add the participant to the event', async () => {
+    const event = await service.addParticipant(35, 1);
+    expect(event.participants[0].id).toEqual(1);
+  });
+
   it('should return the event with given id', async () => {
     const foundEvent = await service.findOne(35);
     expect(foundEvent).toEqual(mockAllEvents.find((event) => event.id === 35));
