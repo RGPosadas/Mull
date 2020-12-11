@@ -28,9 +28,8 @@ export class EventService {
   }
 
   async addParticipant(eventId: number, userId: number) {
-    let user = new User();
+    let user = new User(userId);
     let event = await this.eventRepository.findOne(eventId, { relations: ['participants'] });
-    user.id = userId;
     event.participants.push(user);
     return await this.eventRepository.save(event);
   }
