@@ -44,6 +44,7 @@ export default function LocationAutocompleteModal({ formik }) {
           }}
           children={'Edit'}
           onClick={handleClose}
+          className={'edit'}
         />
         <Search handleClose={handleClose} input={inputValue} />
       </Dialog>
