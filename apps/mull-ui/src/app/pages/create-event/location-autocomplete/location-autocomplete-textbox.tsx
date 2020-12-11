@@ -19,9 +19,9 @@ export default function LocationAutocompleteTextbox({ handleClose, input }) {
   const [getAutocompletedLocations, { loading, data }] = useLazyQuery(AUTOCOMPLETED_LOCATIONS);
   const [keyStrokeCount, setKeyStrokeCount] = useState(0);
 
-  const getCurrentPosition = async () => {
+  const getCurrentPosition = () => {
     if (navigator.geolocation) {
-      await navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition((position) => {
         let pos = `latitude: ${position.coords.latitude}, longitude: ${position.coords.longitude}`;
         handleClose(pos);
       });
@@ -56,9 +56,9 @@ export default function LocationAutocompleteTextbox({ handleClose, input }) {
           }
         }
       }}
-      onChange={async (event, value) => {
+      onChange={(_event, value) => {
         if (value === 'Current Location') {
-          await getCurrentPosition();
+          getCurrentPosition();
         } else {
           handleClose(value);
         }

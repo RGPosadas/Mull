@@ -5,8 +5,24 @@ import { CustomTextInput } from '../../../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { MullBackButton } from '../../../components';
+import { EventRestriction } from '@mull/types';
+import { FormikConfig } from 'formik';
 
-export default function LocationAutocompleteModal({ formik }) {
+export interface LocationAutocompleteModalProps {
+  formik: FormikConfig<{
+    activeRestriction: EventRestriction;
+    startDate: any;
+    endDate: any;
+    startTime: string;
+    endTime: string;
+    eventTitle: string;
+    description: string;
+    location: string;
+    imageFile: string;
+  }>;
+}
+
+export default function LocationAutocompleteModal({ formik: { touched, setFieldValue, errors } }) {
   const [inputValue, setInputValue] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
@@ -18,6 +34,7 @@ export default function LocationAutocompleteModal({ formik }) {
     setOpen(false);
     if (typeof value == 'string') {
       setInputValue(value);
+      setFieldValue('location', value);
     }
   };
 
@@ -26,11 +43,11 @@ export default function LocationAutocompleteModal({ formik }) {
       <CustomTextInput
         title="Location"
         fieldName="location"
-        value={(formik.values.location = inputValue)}
+        value={inputValue}
         readOnly
         onClick={handleClickOpen}
-        hasErrors={formik.touched.location && !!formik.errors.location}
-        errorMessage={formik.errors.location}
+        hasErrors={touched.location && !!errors.location}
+        errorMessage={errors.location}
         svgIcon={<FontAwesomeIcon icon={faMapMarkerAlt} />}
       />
 
