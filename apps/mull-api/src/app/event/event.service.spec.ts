@@ -66,4 +66,35 @@ describe('EventService', () => {
     const foundEvent = await service.findOne(35);
     expect(foundEvent).toEqual(mockAllEvents.find((event) => event.id === 35));
   });
+
+  describe('InnerEventService', () => {
+    let innerService: EventService;
+
+    const notAnonymousFunction = () => ({
+      find: jest.fn((userId) =>
+        mockAllEvents.find((event) => {
+          return event.host.id === userId.where.host.id;
+        })
+      ),
+    });
+
+    beforeEach(async () => {
+      const module: TestingModule = await Test.createTestingModule({
+        providers: [
+          EventService,
+          {
+            provide: getRepositoryToken(Event),
+            useFactory: notAnonymousFunction,
+          },
+        ],
+      }).compile();
+
+      innerService = module.get<EventService>(EventService);
+    });
+
+    it('should return a list of events that belongs to a host given an id', async () => {
+      const foundEvent = await innerService.findHostEvents(7);
+      expect(foundEvent).toEqual(mockAllEvents.find((event) => event.host.id === 7));
+    });
+  });
 });
