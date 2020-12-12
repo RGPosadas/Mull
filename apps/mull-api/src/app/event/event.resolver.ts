@@ -23,7 +23,7 @@ export class EventResolver {
   }
 
   @Query(/* istanbul ignore next */ () => [Event])
-  async coHostsEvents(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+  async coHostEvents(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
     return this.eventService.findCoHostEvents(id);
   }
 
@@ -31,7 +31,7 @@ export class EventResolver {
   async participatingEvents(
     @Args('id', { type: /* istanbul ignore next */ () => Int }) id: number
   ) {
-    return this.eventService.findParticipantingEvents(id);
+    return this.eventService.findJoinedEvents(id);
   }
 
   @Query(/* istanbul ignore next */ () => [Event])

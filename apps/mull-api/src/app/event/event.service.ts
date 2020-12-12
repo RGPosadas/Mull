@@ -39,7 +39,7 @@ export class EventService {
       .getMany();
   }
 
-  findParticipantingEvents(userId: number): Promise<Event[]> {
+  findJoinedEvents(userId: number): Promise<Event[]> {
     return this.eventRepository
       .createQueryBuilder('event')
       .leftJoin('event.participants', 'user')

@@ -81,7 +81,7 @@ describe('EventService', () => {
     expect(foundEvent).toEqual(mockAllEvents.find((event) => event.id === 35));
   });
 
-  it('should return a list of events that belongs to a host given an id', async () => {
+  it('should return a list of events that belongs to a host', async () => {
     const hostId = mockAllUsers[1].id;
     repository.find.mockReturnValue(mockAllEvents.find((event) => event.host.id === hostId));
     const foundEvent = await service.findHostEvents(hostId);
@@ -89,43 +89,42 @@ describe('EventService', () => {
     expect(repository.find).toBeCalledTimes(1);
   });
 
-  it('should return a list of events that belongs to a coHost given an id', async () => {
+  it('should return a list of events that belongs to a co-host', async () => {
     const coHostId = mockAllUsers[1].id;
     repository.createQueryBuilder.mockImplementation(() => ({
       leftJoin: jest.fn().mockReturnThis(),
       where: jest.fn().mockReturnThis(),
-      getMany: jest.fn().mockReturnValue(
-        mockAllEvents.find((event) => {
-          if (event.coHosts.some((cohost) => cohost.id === coHostId)) return true;
-        })
-      ),
+      getMany: jest
+        .fn()
+        .mockReturnValue(
+          mockAllEvents.find((event) => event.coHosts.some((cohost) => cohost.id === coHostId))
+        ),
     }));
     const foundEvent = await service.findCoHostEvents(coHostId);
     expect(foundEvent).toEqual(
-      mockAllEvents.find((event) => {
-        if (event.coHosts.some((cohost) => cohost.id === coHostId)) return true;
-      })
+      mockAllEvents.find((event) => event.coHosts.some((cohost) => cohost.id === coHostId))
     );
     expect(repository.createQueryBuilder).toHaveBeenCalledTimes(1);
   });
 
-  it('should return a list of events that a user is participating in', async () => {
-    const participantId = mockAllUsers[2].id;
+  it('should return a list of events that a user has joined', async () => {
+    const userId = mockAllUsers[2].id;
     repository.createQueryBuilder.mockImplementation(() => ({
       leftJoin: jest.fn().mockReturnThis(),
       where: jest.fn().mockReturnThis(),
-      getMany: jest.fn().mockReturnValue(
-        mockAllEvents.find((event) => {
-          if (event.participants.some((participant) => participant.id === participantId))
-            return true;
-        })
-      ),
+      getMany: jest
+        .fn()
+        .mockReturnValue(
+          mockAllEvents.find((event) =>
+            event.participants.some((participant) => participant.id === userId)
+          )
+        ),
     }));
-    const foundEvents = await service.findParticipantingEvents(participantId);
+    const foundEvents = await service.findJoinedEvents(userId);
     expect(foundEvents).toEqual(
-      mockAllEvents.find((event) => {
-        if (event.participants.some((participant) => participant.id === participantId)) return true;
-      })
+      mockAllEvents.find((event) =>
+        event.participants.some((participant) => participant.id === userId)
+      )
     );
     expect(repository.createQueryBuilder).toHaveBeenCalledTimes(1);
   });

@@ -21,7 +21,7 @@ const mockEventService = () => ({
   findCoHostEvents: jest.fn((coHostId: number) =>
     mockAllEvents.find((event) => event.coHosts.some((cohost) => cohost.id === coHostId))
   ),
-  findParticipantingEvents: jest.fn((participantId: number) =>
+  findJoinedEvents: jest.fn((participantId: number) =>
     mockAllEvents.find((event) =>
       event.participants.some((participant) => participant.id === participantId)
     )
@@ -79,7 +79,7 @@ describe('UserResolver', () => {
 
   it('should return a list of events that belongs to a co-host', async () => {
     const coHostId = mockAllUsers[0].id;
-    const foundEvents = await resolver.coHostsEvents(coHostId);
+    const foundEvents = await resolver.coHostEvents(coHostId);
     expect(foundEvents).toEqual(
       mockAllEvents.find((event) => event.coHosts.some((cohost) => cohost.id === coHostId))
     );
@@ -93,7 +93,7 @@ describe('UserResolver', () => {
     expect(service.findHostEvents).toBeCalledTimes(1);
   });
 
-  it('should return a list of joined events for a user', async () => {
+  it('should return a list of events that a user has joined', async () => {
     const participantId = mockAllUsers[2].id;
     const foundEvents = await resolver.participatingEvents(participantId);
     expect(foundEvents).toEqual(
@@ -101,7 +101,7 @@ describe('UserResolver', () => {
         event.participants.some((participant) => participant.id === participantId)
       )
     );
-    expect(service.findParticipantingEvents).toBeCalledTimes(1);
+    expect(service.findJoinedEvents).toBeCalledTimes(1);
   });
 
   it('should return a list of events that the user is not involved with', async () => {
