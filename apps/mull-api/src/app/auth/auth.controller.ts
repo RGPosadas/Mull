@@ -1,11 +1,18 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { AuthGuard } from '@nestjs/passport';
+import { JwtService } from '@nestjs/jwt';
+import { environment } from '../../environments/environment';
+import { UserService } from '../user';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private jwtService: JwtService,
+    private userService: UserService
+  ) {}
 
   @Get('google')
   @UseGuards(AuthGuard('google'))
@@ -41,5 +48,22 @@ export class AuthController {
   @UseGuards(AuthGuard('twitter'))
   twitterAuthRedirect(@Req() req: Request) {
     return this.authService.authLogin(req);
+  }
+
+  @Post('refresh')
+  async refreshToken(@Req() req: Request, @Res() res: Response) {
+    const token = req.cookies['mullToken'];
+    if (!token) return res.send({ ok: false, accessToken: '' });
+    try {
+      var { id } = this.jwtService.verify(token, {
+        secret: environment.jwt.refreshSecret,
+      });
+    } catch (err) {
+      console.log(err);
+      return res.send({ ok: false, accessToken: '' });
+    }
+    const user = await this.userService.findOne(id);
+    if (!user) return res.send({ ok: false, accessToken: '' });
+    return res.send({ ok: true, accessToken: this.authService.createAccessToken(user) });
   }
 }
