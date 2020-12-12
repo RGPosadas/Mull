@@ -11,7 +11,7 @@ const mockEventRepositoy = () => ({
     return mockAllEvents.find((event) => event.id === id);
   }),
   find: jest.fn(() => mockAllEvents),
-  update: jest.fn((id: number) => mockAllEvents.find((user) => user.id === id)),
+  update: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
   delete: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
   save: jest.fn((event: Event) => event),
 });
