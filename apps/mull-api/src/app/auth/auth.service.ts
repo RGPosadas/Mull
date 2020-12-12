@@ -47,7 +47,7 @@ export class AuthService {
 
   createRefreshToken(user: Partial<User>) {
     return this.jwtService.sign(
-      { id: user.id },
+      { id: user.id, tokenVersion: user.tokenVersion },
       { expiresIn: '7d', secret: environment.jwt.refreshSecret }
     );
   }
@@ -57,6 +57,10 @@ export class AuthService {
       maxAge: 7 * 24 * 3600 * 1000,
       secure: environment.production,
     });
+  }
+
+  revokeRefreshTokensForUser(userId: number) {
+    this.userService.incrementTokenVersion(userId);
   }
 
   async validateUser(email: string, pass: string): Promise<Partial<User>> {

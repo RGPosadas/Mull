@@ -55,7 +55,7 @@ export class AuthController {
     const token = req.cookies['mullToken'];
     if (!token) return res.send({ ok: false, accessToken: '' });
     try {
-      var { id } = this.jwtService.verify(token, {
+      var { id, tokenVersion } = this.jwtService.verify(token, {
         secret: environment.jwt.refreshSecret,
       });
     } catch (err) {
@@ -63,7 +63,12 @@ export class AuthController {
       return res.send({ ok: false, accessToken: '' });
     }
     const user = await this.userService.findOne(id);
+
     if (!user) return res.send({ ok: false, accessToken: '' });
+    if (user.tokenVersion !== tokenVersion) return res.send({ ok: false, accessToken: '' });
+
+    this.authService.sendRefreshToken(res, this.authService.createRefreshToken(user));
+
     return res.send({ ok: true, accessToken: this.authService.createAccessToken(user) });
   }
 }
