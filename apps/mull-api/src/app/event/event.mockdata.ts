@@ -2,9 +2,9 @@ import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 import { Event, User } from '../entities';
 import { mockAllUsers } from '../user/user.mockdata';
 
-const userA = mockAllUsers[0];
-const userB = mockAllUsers[1];
-const userC = mockAllUsers[2];
+const userA = mockAllUsers[0]; // id: 1
+const userB = mockAllUsers[1]; // id: 7
+const userC = mockAllUsers[2]; // id: 3
 
 export const mockPartialEvent: CreateEventInput | UpdateEventInput = {
   id: 35,
