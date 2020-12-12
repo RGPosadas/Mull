@@ -68,6 +68,9 @@ export class User implements IUser {
   })
   description: string;
 
+  @Column('int', { default: 0 })
+  tokenVersion: number;
+
   /**
    * The friends of this user. People this person is following.
    * e.g: I am friends with you. Your ID would go in this list.
