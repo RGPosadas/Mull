@@ -55,8 +55,8 @@ describe('UserResolver', () => {
   });
 
   it('should add the participant to the event', async () => {
-    const event = await resolver.addParticipantToEvent(35, 1);
-    expect(event.participants[0].id).toEqual(1);
+    const success = await resolver.addParticipantToEvent(35, 1);
+    expect(success).toEqual(true);
   });
 
   it('should return the event with given id', async () => {

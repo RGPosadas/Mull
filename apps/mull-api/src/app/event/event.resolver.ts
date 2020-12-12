@@ -32,8 +32,9 @@ export class EventResolver {
     return this.eventService.delete(id);
   }
 
-  @Mutation(() => Event)
+  @Mutation(() => Boolean)
   async addParticipantToEvent(@Args('eventId') eventId: number, @Args('userId') userId: number) {
-    return this.eventService.addParticipant(eventId, userId);
+    this.eventService.addParticipant(eventId, userId);
+    return true;
   }
 }
