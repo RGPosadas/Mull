@@ -1,13 +1,10 @@
-import { NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { Args, Context, Field, Mutation, ObjectType, Resolver } from '@nestjs/graphql';
-import { compare } from 'bcrypt';
 
 import { UserService } from '../user';
 import { AuthService } from './auth.service';
 
 import { LoginInput } from './inputs/auth.input';
 import { GqlContext } from '@mull/types';
-import { environment } from '../../environments/environment';
 
 @ObjectType()
 export class LoginResult {
@@ -22,13 +19,10 @@ export class AuthResolver {
   @Mutation(() => LoginResult)
   async login(
     @Args('loginInput') { email, password }: LoginInput,
-    @Context() ctx: GqlContext
+    @Context() { res }: GqlContext
   ): Promise<LoginResult> {
     const existingUser = await this.authService.validateUser(email, password);
-    ctx.res.cookie('mullToken', this.authService.createRefreshToken(existingUser), {
-      maxAge: 7 * 24 * 3600 * 1000,
-      secure: environment.production,
-    });
+    this.authService.sendRefreshToken(res, this.authService.createRefreshToken(existingUser));
     return { accessToken: this.authService.createAccessToken(existingUser) };
   }
 }

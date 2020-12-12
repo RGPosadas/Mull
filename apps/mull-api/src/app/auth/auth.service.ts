@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 
 import { environment } from '../../environments/environment';
 import { RegistrationMethod } from '@mull/types';
@@ -50,6 +50,13 @@ export class AuthService {
       { id: user.id },
       { expiresIn: '7d', secret: environment.jwt.refreshSecret }
     );
+  }
+
+  sendRefreshToken(res: Response, refreshToken: string) {
+    res.cookie('mullToken', refreshToken, {
+      maxAge: 7 * 24 * 3600 * 1000,
+      secure: environment.production,
+    });
   }
 
   async validateUser(email: string, pass: string): Promise<Partial<User>> {
