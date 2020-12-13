@@ -7,10 +7,8 @@ import './discover.scss';
 
 export const DiscoverPage = () => {
   const events: [IEvent] = Array(5).fill(dummyEvent) as [IEvent]; // will be replaced with a query call
-  const mapped = events.map((event, index) => (
-    <EventCard key={index} event={event} />
-  ));
-  return <div className="discover-page-container">{mapped}</div>;
+  const eventCards = events.map((event, index) => <EventCard key={index} event={event} />);
+  return <div className="discover-page-container">{eventCards}</div>;
 };
 
 export default DiscoverPage;
