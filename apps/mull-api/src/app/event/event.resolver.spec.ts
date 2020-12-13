@@ -3,6 +3,7 @@ import { EventResolver } from './event.resolver';
 import { EventService } from './event.service';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 import { mockPartialEvent, mockAllEvents } from './event.mockdata';
+import { User } from '../entities';
 
 const mockEventService = () => ({
   create: jest.fn((mockEventData: CreateEventInput) => ({ ...mockEventData })),
@@ -10,6 +11,11 @@ const mockEventService = () => ({
   findAll: jest.fn(() => mockAllEvents),
   update: jest.fn((mockEventData: UpdateEventInput) => ({ ...mockEventData })),
   delete: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
+  addParticipant: jest.fn((eventId: number, userId: number) => {
+    const event = mockAllEvents.find((event) => (event.id = eventId));
+    event.participants.push(new User(userId));
+    return event;
+  }),
 });
 
 describe('UserResolver', () => {
@@ -46,6 +52,11 @@ describe('UserResolver', () => {
   it('should return the deleted event', async () => {
     const deletedEvent = await resolver.deleteEvent(35);
     expect(deletedEvent).toEqual(mockAllEvents.find((event) => event.id === 35));
+  });
+
+  it('should add the participant to the event', async () => {
+    const success = await resolver.addParticipantToEvent(35, 1);
+    expect(success).toEqual(true);
   });
 
   it('should return the event with given id', async () => {

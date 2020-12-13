@@ -21,6 +21,10 @@ registerEnumType(RegistrationMethod, {
 @Entity()
 @ObjectType()
 export class User implements IUser {
+  constructor(id?: number) {
+    this.id = id;
+  }
+
   @Field(/* istanbul ignore next */ () => ID)
   @PrimaryGeneratedColumn()
   id: number;
