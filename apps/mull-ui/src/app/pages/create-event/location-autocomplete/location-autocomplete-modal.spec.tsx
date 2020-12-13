@@ -7,6 +7,7 @@ import LocationAutocompleteModal from './location-autocomplete-modal';
 
 const mockFormik = {
   values: { location: 'test string' },
+  setFieldValue: { location: 'value' },
   touched: { location: false },
   errors: { location: false },
 };
