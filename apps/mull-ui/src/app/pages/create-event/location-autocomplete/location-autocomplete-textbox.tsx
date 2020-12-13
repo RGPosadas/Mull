@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, useEffect, useMemo } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -6,18 +6,42 @@ import { gql, useLazyQuery } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './location-autocomplete-textbox.scss';
 import { faMapMarkerAlt, faLocationArrow } from '@fortawesome/free-solid-svg-icons';
+import { debounce } from 'lodash';
 
-const AUTOCOMPLETED_LOCATIONS = gql`
+export const AUTOCOMPLETED_LOCATIONS = gql`
   query Query($userInput: String!) {
     getAutocompletedLocations(userInput: $userInput)
   }
 `;
 
+export interface LocationAutocompleteTextboxProps {
+  handleClose: (value: string) => void;
+  input: string;
+}
+
 export default function LocationAutocompleteTextbox({ handleClose, input }) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<string[]>([]);
   const [getAutocompletedLocations, { loading, data }] = useLazyQuery(AUTOCOMPLETED_LOCATIONS);
-  const [keyStrokeCount, setKeyStrokeCount] = useState(0);
+
+  const debounceGetLocation = useMemo(
+    () =>
+      debounce(
+        (values: string) =>
+          getAutocompletedLocations({
+            variables: { userInput: values },
+          }),
+        350
+      ),
+    []
+  );
+
+  useEffect(() => {
+    console.log(data);
+    if (!loading && data) {
+      setOptions(data.getAutocompletedLocations);
+    }
+  }, [loading, data, setOptions]);
 
   const getCurrentPosition = () => {
     if (navigator.geolocation) {
@@ -31,6 +55,7 @@ export default function LocationAutocompleteTextbox({ handleClose, input }) {
   return (
     <Autocomplete
       id="location-input-field"
+      data-testid="location-autocomplete-textbox"
       style={{ width: '100%' }}
       open={open}
       onFocus={() => {
@@ -44,17 +69,8 @@ export default function LocationAutocompleteTextbox({ handleClose, input }) {
         setOpen(false);
       }}
       defaultValue={input}
-      onInputChange={(event, value) => {
-        setKeyStrokeCount(keyStrokeCount + 1);
-        if (keyStrokeCount === 3) {
-          setKeyStrokeCount(0);
-          getAutocompletedLocations({
-            variables: { userInput: value },
-          });
-          if (!loading && data) {
-            setOptions(data.getAutocompletedLocations);
-          }
-        }
+      onInputChange={(_event, value) => {
+        debounceGetLocation(value);
       }}
       onChange={(_event, value) => {
         if (value === 'Current Location') {
