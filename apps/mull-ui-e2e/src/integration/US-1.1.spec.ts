@@ -43,8 +43,8 @@ frameSizes.forEach((frame) => {
       cy.get('#location').click();
       cy.get('#location-input-field').should('be.visible');
       const res = '845 Rue Sherbrooke';
-      cy.get('#location-input-field').type('845 Rue Sherbrooke', { delay: 300 });
-      cy.get('#location-input-field-option-0', { timeout: 1000 }).should(
+      cy.get('#location-input-field').type('845 Rue Sherbrooke');
+      cy.get('#location-input-field-option-0', { timeout: 3500 }).should(
         'have.text',
         '845 Rue Sherbrooke, Montreal, QC, Canada'
       );
@@ -64,7 +64,7 @@ frameSizes.forEach((frame) => {
     it('should click the event location modal and exit with edit button', () => {
       cy.get('#location').click();
       cy.get('#location-input-field').should('be.visible');
-      cy.get('mull-back-button edit').click();
+      cy.get('.mull-back-button').click();
     });
 
     it('should change restriction open', () => {
@@ -106,8 +106,8 @@ frameSizes.forEach((frame) => {
       cy.get('#location').click();
       cy.get('#location-input-field').should('be.visible');
 
-      cy.get('#location-input-field').type('845 Rue Sherbrooke', { delay: 300 });
-      cy.get('#location-input-field-option-0', { timeout: 1000 }).should(
+      cy.get('#location-input-field').type('845 Rue Sherbrooke');
+      cy.get('#location-input-field-option-0', { timeout: 3500 }).should(
         'have.text',
         '845 Rue Sherbrooke, Montreal, QC, Canada'
       );
