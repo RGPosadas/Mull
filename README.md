@@ -11,13 +11,11 @@
   - [Running Tests](#running-tests)
     - [Unit and UI Snapshot Tests](#unit-and-ui-snapshot-tests)
     - [E2E Tests](#e2e-tests)
-  - [Running The Application](#running-the-application)
-    - [Serving the application locally for development:](#serving-the-application-locally-for-development-)
-    - [Building the application for production:](#building-the-application-for-production-)
-    - [Serving the production built stack locally:](#serving-the-production-built-stack-locally-)
-  - [Building and Running The Application with Docker](#building-and-running-the-application-with-docker)
-    - [Front-end](#front-end)
-    - [Back-end](#back-end)
+  - [Running The Full Stack Application](#running-the-full-stack-application)
+    - [Serving the application locally for development](#serving-the-application-locally-for-development)
+    - [Running a local database for development](#running-a-local-database-for-development)
+    - [Building and Serving the application for production](#building-and-serving-the-application-for-production)
+    - [Containerizing the Application with Docker](#containerizing-the-application-with-docker)
   - [Travis CI](#travis-ci)
     - [Scripts](#scripts)
   - [Troubleshooting](#troubleshooting)
@@ -69,12 +67,15 @@ This project uses pre-commit to enforce formatting and standards. To make sure s
 
 Some secrets and sensitive configuration files are needed to properly operate certains parts of the stack.
 
-1. Add an .env file with the required credentials in the root of the project:
-   ```
+1. Add an .env file with the required credentials in the root of the project (see `docs-and-resources` channel on slack for credentials):
+
+   ```properties
    DB_HOST=<host>
    DB_USERNAME=<username>
    DB_PASSWORD=<password>
+   ...
    ```
+
 1. Start the server and client dev server in another terminal to test that everything is working correctly.
    - `nx serve mull-api`
    - `nx serve mull`
@@ -159,46 +160,66 @@ To run e2e tests on projects affected by your changes:
 nx affected:e2e --base=origin/<base-branch>
 ```
 
-## Running The Application
+## Running The Full Stack Application
 
-### Serving the application locally for development:
+Our project is a full stack application which need multiple parts to run properly. This section will detail how to run the project for different usecases.
+
+### Serving the application locally for development
 
 1. Serve the front-end application:
    - `npm start mull-ui`
-2. Serve the back-end application (in a different tab):
+1. Serve the back-end application (in a different tab):
    - `npm start mull-api`
 
-### Building the application for production:
+### Running a local database for development
 
-- `npm run build-ui && npm run build-api`
+You can serve the database locally for testing, and to avoid interfering with the dev/prod databases.
 
-### Serving the production built stack locally:
+1. Install [docker](https://docs.docker.com/get-docker/) and [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) (or any similar SQL clients)
+1. Start docker
+1. Pull a `mysql` image. This image contains the information needed to spin up an instance of a mysql database using docker
+   - `docker pull mysql:5:7:32`
+1. Create and run a MySQL container, which will run an instance of MySQL
+   - `docker run --name mull-db -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 -d mysql:5.7.32`
+1. Start MySQL Workbench and test the connection with your database on `localhost:3306`. If the test was successful, connect to it
+1. Update the following fields in your `.env`:
+   - `root=localhost`
+   - `password=password`, or whatever password you put for `MYSQL_ROOT_PASSWORD`
+1. Using MySQL Workbench, create a new schema in your database called `mull` (case sensitive)
 
+You now should have a functioning mysql database running locally, usable for the project!
+
+To stop the container whilst keeping the database changes, run `docker stop mull-db`
+
+### Building and Serving the application for production
+
+1. Build the application for production:
+   - `npm run build-ui && npm run build-api`
 1. Serve the production frontend:
    1. Install `http-server` (or some other web server)
       - `npm i -g http-server`
-   2. (Optional) Generate local SSL certificates for HTTPS
+   1. (Optional) Generate local SSL certificates for HTTPS
       - `openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem`
-   3. Run a server locally:
+   1. Run a server locally:
       - `http-server dist/apps/mull-ui -p 8080 -c-1`
       - Add the `-S` option if using HTTPS
-2. Serve the production backend:
+1. Serve the production backend:
    - `node dist/apps/mull-api/main.js`
 
-## Building and Running The Application with Docker
+### Containerizing the Application with Docker
 
-### Front-end
+Front-end:
 
 1. Build
    - `docker build -t mull-ui:dev -f apps/mull-ui/Dockerfile .`
-2. Run
+1. Run
    - `docker run -p 8080:80 mull-ui:dev`
 
-### Back-end
+Back-end:
 
 1. Build
    - `docker build -t mull-api:dev -f apps/mull-api/Dockerfile .`
-2. Run
+1. Run
    - `docker run -p 3333:3333 mull-api:dev`
 
 ## Travis CI
