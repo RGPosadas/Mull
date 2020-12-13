@@ -1,8 +1,6 @@
-@import '../../../variables.scss';
-
 .discover-page-container {
   margin-top: 1.5rem;
   .event-card-container:last-child {
-    margin-bottom: 1rem !important;
+    margin-bottom: 1rem;
   }
 }
