@@ -23,6 +23,7 @@ const mockUserRepository = () => ({
   update: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
   delete: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
   save: jest.fn((user: User) => user),
+  increment: jest.fn(),
 });
 
 describe('UserService', () => {
@@ -90,5 +91,14 @@ describe('UserService', () => {
   it('should return the user with given id', async () => {
     const foundUser = await service.findOne(1);
     expect(foundUser).toEqual(mockAllUsers.find((user) => user.id === 1));
+  });
+
+  it('should increment the token version', async () => {
+    repository.increment.mockImplementation(() => {
+      mockAllUsers[0].tokenVersion++;
+      return true;
+    });
+    await service.incrementTokenVersion(1);
+    expect(mockAllUsers[0].tokenVersion).toBe(1);
   });
 });
