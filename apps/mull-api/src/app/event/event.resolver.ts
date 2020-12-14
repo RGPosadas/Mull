@@ -18,24 +18,24 @@ export class EventResolver {
   }
 
   @Query(/* istanbul ignore next */ () => [Event])
-  async hostEvents(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+  async hostEvents(@Args('userId', { type: /* istanbul ignore next */ () => Int }) id: number) {
     return this.eventService.findHostEvents(id);
   }
 
   @Query(/* istanbul ignore next */ () => [Event])
-  async coHostEvents(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+  async coHostEvents(@Args('userId', { type: /* istanbul ignore next */ () => Int }) id: number) {
     return this.eventService.findCoHostEvents(id);
   }
 
   @Query(/* istanbul ignore next */ () => [Event])
   async participatingEvents(
-    @Args('id', { type: /* istanbul ignore next */ () => Int }) id: number
+    @Args('userId', { type: /* istanbul ignore next */ () => Int }) id: number
   ) {
     return this.eventService.findJoinedEvents(id);
   }
 
   @Query(/* istanbul ignore next */ () => [Event])
-  async discoverEvents(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+  async discoverEvents(@Args('userId', { type: /* istanbul ignore next */ () => Int }) id: number) {
     return this.eventService.findDiscoverEvent(id);
   }
 

@@ -72,8 +72,14 @@ describe('EventService', () => {
   });
 
   it('should add the participant to the event', async () => {
-    const event = await service.addParticipant(35, 1);
-    expect(event.participants[0].id).toEqual(1);
+    const eventId = 35;
+    const userId = 1;
+    const event = await service.findOne(eventId);
+    const oldSize = event.participants.length;
+
+    const updatedEvent = await service.addParticipant(eventId, userId);
+    expect(updatedEvent.participants.length).toBeGreaterThan(oldSize);
+    expect(updatedEvent.participants.pop().id).toEqual(userId);
   });
 
   it('should return the event with given id', async () => {

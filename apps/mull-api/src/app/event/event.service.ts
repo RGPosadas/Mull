@@ -47,6 +47,10 @@ export class EventService {
       .getMany();
   }
 
+  /**
+   * Find all the events that the user has not joined, created or is not co-hosting
+   * @param userId
+   */
   findDiscoverEvent(userId: number): Promise<Event[]> {
     return this.eventRepository
       .createQueryBuilder('event')
