@@ -14,6 +14,7 @@ import { ROUTES } from '../constants';
 import 'react-toastify/dist/ReactToastify.min.css';
 import './app.scss';
 import { dummyEvent } from '../constants';
+import DiscoverPage from './pages/discover/discover';
 
 /**
  * Main component of the application
@@ -47,7 +48,7 @@ export const App = () => {
           <div className="page-container">
             <SubNavigationBar />
             <SwipeableRoutes>
-              <Route path={ROUTES.DISCOVER} component={() => <div>DISCOVER!</div>} />
+              <Route path={ROUTES.DISCOVER} component={DiscoverPage} />
               <Route path={ROUTES.UPCOMING} component={() => <div>UPCOMING!</div>} />
               <Route path={ROUTES.MY_EVENTS} component={() => <div>MY_EVENTS!</div>} />
               <Route exact path={ROUTES.HOME} render={() => <Redirect to={ROUTES.DISCOVER} />} />
