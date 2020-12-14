@@ -1,6 +1,5 @@
 import { Args, Context, Field, Mutation, ObjectType, Resolver } from '@nestjs/graphql';
 
-import { UserService } from '../user';
 import { AuthService } from './auth.service';
 
 import { LoginInput } from './inputs/auth.input';
@@ -14,7 +13,7 @@ export class LoginResult {
 
 @Resolver('Auth')
 export class AuthResolver {
-  constructor(private authService: AuthService, private userService: UserService) {}
+  constructor(private authService: AuthService) {}
 
   @Mutation(() => LoginResult)
   async login(
