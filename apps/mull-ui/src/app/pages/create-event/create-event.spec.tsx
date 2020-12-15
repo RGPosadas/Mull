@@ -99,7 +99,7 @@ describe('CreateEvent', () => {
 
     let calendarDate = utils.container.querySelector('span[class="nice-dates-day -today"]');
     fireEvent.click(calendarDate);
-    calendarDate = utils.container.querySelector('span[class="nice-dates-day"]');
+    calendarDate = utils.container.querySelector('span[class="nice-dates-day -outside"]');
     fireEvent.click(calendarDate);
     let input = utils.getByLabelText('Start Time');
     fireEvent.change(input, { target: { value: '04:20' } });
