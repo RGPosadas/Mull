@@ -53,8 +53,8 @@ export class AuthService {
     });
   }
 
-  revokeRefreshTokensForUser(userId: number) {
-    this.userService.incrementTokenVersion(userId);
+  async revokeRefreshTokensForUser(userId: number): Promise<boolean> {
+    return this.userService.incrementTokenVersion(userId);
   }
 
   async validateUser(email: string, pass: string): Promise<Partial<User>> {
