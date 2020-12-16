@@ -22,8 +22,8 @@ export class AuthController {
 
   @Get('google/redirect')
   @UseGuards(AuthGuard('google'))
-  googleAuthRedirect(@Req() req: Request) {
-    return this.authService.authLogin(req);
+  googleAuthRedirect(@Req() req: Request, @Res() res: Response) {
+    return this.authService.authLogin(req, res);
   }
 
   @Get('facebook')
@@ -34,8 +34,8 @@ export class AuthController {
 
   @Get('facebook/redirect')
   @UseGuards(AuthGuard('facebook'))
-  facebookAuthRedirect(@Req() req: Request) {
-    return this.authService.authLogin(req);
+  facebookAuthRedirect(@Req() req: Request, @Res() res: Response) {
+    return this.authService.authLogin(req, res);
   }
 
   @Get('twitter')
@@ -46,8 +46,8 @@ export class AuthController {
 
   @Get('twitter/redirect')
   @UseGuards(AuthGuard('twitter'))
-  twitterAuthRedirect(@Req() req: Request) {
-    return this.authService.authLogin(req);
+  twitterAuthRedirect(@Req() req: Request, @Res() res: Response) {
+    return this.authService.authLogin(req, res);
   }
 
   @Post('refresh')

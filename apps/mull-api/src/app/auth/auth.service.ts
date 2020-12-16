@@ -13,9 +13,11 @@ import { UserService } from '../user/user.service';
 export class AuthService {
   constructor(private userService: UserService, private jwtService: JwtService) {}
 
-  authLogin(req: Request) {
-    if (!req.user) return null;
-    return { user: req.user };
+  authLogin({ user }: Request, res: Response) {
+    if (!user) return null;
+    const accessToken = this.createAccessToken(user);
+    this.sendRefreshToken(res, this.createRefreshToken(user));
+    res.redirect(`${environment.client.baseUrl}/token-redirect/${accessToken}`);
   }
 
   async validateOAuthUser(
