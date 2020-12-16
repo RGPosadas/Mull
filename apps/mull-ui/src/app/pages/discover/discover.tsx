@@ -1,7 +1,7 @@
 import { IEvent } from '@mull/types';
 import React from 'react';
 import { EventCard } from '../../components';
-import { dummyEvent } from 'apps/mull-ui/src/constants';
+import { dummyEvent } from '../../../constants';
 
 import './discover.scss';
 
