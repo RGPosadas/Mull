@@ -24,17 +24,9 @@ export class AuthService {
     user: Partial<User>,
     callback: (error: string, user?: Partial<User>, info?: string) => void
   ) {
-    const users: User[] = await this.userService.findByEmail(user.email);
-    let hasSameRegistrationMethod = false;
-    if (users.length >= 1) {
-      users.forEach(({ registrationMethod }: Partial<User>, idx) => {
-        if (user.registrationMethod === registrationMethod) {
-          hasSameRegistrationMethod = true;
-          callback(null, users[idx]);
-        }
-      });
-    }
-    if (!hasSameRegistrationMethod) {
+    const users: User[] = await this.userService.findUnique(user.email, user.registrationMethod);
+    if (users.length == 1) callback(null, users[0]);
+    else {
       const newUser = await this.userService.create(user as CreateUserInput);
       callback(null, newUser);
     }
