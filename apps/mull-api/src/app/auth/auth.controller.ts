@@ -59,7 +59,6 @@ export class AuthController {
         secret: environment.jwt.refreshSecret,
       });
     } catch (err) {
-      console.log(err);
       return res.send({ ok: false, accessToken: '' });
     }
     const user = await this.userService.findOne(id);
