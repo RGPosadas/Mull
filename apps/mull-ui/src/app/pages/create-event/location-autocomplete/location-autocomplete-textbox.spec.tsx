@@ -65,6 +65,6 @@ describe('location autocomplete textbox', () => {
     );
 
     const autocompleteTextbox = utils.container.querySelector('#location-input-field') as any;
-    expect(autocompleteTextbox.value).toBe('8485 rue Sherbrooke');
+    expect(autocompleteTextbox.value).toBe('845 rue Sherbrooke');
   });
 });
