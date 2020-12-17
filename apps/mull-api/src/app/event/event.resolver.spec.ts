@@ -4,6 +4,7 @@ import { EventService } from './event.service';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 import { mockPartialEvent, mockAllEvents } from './event.mockdata';
 import { User } from '../entities';
+import { mockAllUsers } from '../user/user.mockdata';
 
 const mockEventService = () => ({
   create: jest.fn((mockEventData: CreateEventInput) => ({ ...mockEventData })),
@@ -16,10 +17,21 @@ const mockEventService = () => ({
     event.participants.push(new User(userId));
     return event;
   }),
+  findHostEvents: jest.fn((id: number) => mockAllEvents.find((event) => event.host.id === id)),
+  findCoHostEvents: jest.fn((coHostId: number) =>
+    mockAllEvents.find((event) => event.coHosts.some((cohost) => cohost.id === coHostId))
+  ),
+  findJoinedEvents: jest.fn((participantId: number) =>
+    mockAllEvents.find((event) =>
+      event.participants.some((participant) => participant.id === participantId)
+    )
+  ),
+  findDiscoverEvent: jest.fn().mockReturnValue(mockAllEvents[2]),
 });
 
 describe('UserResolver', () => {
   let resolver: EventResolver;
+  let service: EventService;
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -32,6 +44,7 @@ describe('UserResolver', () => {
     }).compile();
 
     resolver = module.get<EventResolver>(EventResolver);
+    service = module.get<EventService>(EventService);
   });
 
   it('should create event', async () => {
@@ -62,5 +75,39 @@ describe('UserResolver', () => {
   it('should return the event with given id', async () => {
     const foundEvent = await resolver.event(35);
     expect(foundEvent).toEqual(mockAllEvents.find((event) => event.id === 35));
+  });
+
+  it('should return a list of events that belongs to a co-host', async () => {
+    const coHostId = mockAllUsers[0].id;
+    const foundEvents = await resolver.coHostEvents(coHostId);
+    expect(foundEvents).toEqual(
+      mockAllEvents.find((event) => event.coHosts.some((cohost) => cohost.id === coHostId))
+    );
+    expect(service.findCoHostEvents).toBeCalledTimes(1);
+  });
+
+  it('should return a list of events that belongs to a host', async () => {
+    const hostId = mockAllUsers[0].id;
+    const foundEvents = await resolver.hostEvents(hostId);
+    expect(foundEvents).toEqual(mockAllEvents.find((event) => event.host.id === hostId));
+    expect(service.findHostEvents).toBeCalledTimes(1);
+  });
+
+  it('should return a list of events that a user has joined', async () => {
+    const participantId = mockAllUsers[2].id;
+    const foundEvents = await resolver.participatingEvents(participantId);
+    expect(foundEvents).toEqual(
+      mockAllEvents.find((event) =>
+        event.participants.some((participant) => participant.id === participantId)
+      )
+    );
+    expect(service.findJoinedEvents).toBeCalledTimes(1);
+  });
+
+  it('should return a list of events that the user is not involved with', async () => {
+    const id = mockAllUsers[2].id;
+    const foundEvents = await resolver.discoverEvents(id);
+    expect(foundEvents).toEqual(mockAllEvents[2]);
+    expect(service.findDiscoverEvent).toBeCalledTimes(1);
   });
 });

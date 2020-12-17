@@ -55,8 +55,12 @@ type Mutation {
 }
 
 type Query {
+  coHostsEvents(id: Int!): [Event!]!
+  discoverEvents(id: Int!): [Event!]!
   event(id: Int!): Event!
   events: [Event!]!
+  hostEvents(id: Int!): [Event!]!
+  participatingEvents(id: Int!): [Event!]!
   user(id: Int!): User!
   users: [User!]!
 }

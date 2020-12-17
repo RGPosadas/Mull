@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Brackets, Repository } from 'typeorm';
 import { Event, User } from '../entities';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
+import { EventRestriction } from '@mull/types';
+
 @Injectable()
 export class EventService {
   constructor(
@@ -16,6 +18,62 @@ export class EventService {
 
   findOne(id: number): Promise<Event> {
     return this.eventRepository.findOne(id);
+  }
+
+  findHostEvents(userId: number): Promise<Event[]> {
+    return this.eventRepository.find({
+      relations: ['host'],
+      where: {
+        host: {
+          id: userId,
+        },
+      },
+    });
+  }
+
+  findCoHostEvents(userId: number): Promise<Event[]> {
+    return this.eventRepository
+      .createQueryBuilder('event')
+      .leftJoin('event.coHosts', 'user')
+      .where('user.id = :userId', { userId })
+      .getMany();
+  }
+
+  findJoinedEvents(userId: number): Promise<Event[]> {
+    return this.eventRepository
+      .createQueryBuilder('event')
+      .leftJoin('event.participants', 'user')
+      .where('user.id = :userId', { userId })
+      .getMany();
+  }
+
+  /**
+   * Find all the events that the user has not joined, created or is not co-hosting
+   * @param userId
+   */
+  findDiscoverEvent(userId: number): Promise<Event[]> {
+    return this.eventRepository
+      .createQueryBuilder('event')
+      .leftJoin('event.coHosts', 'coHost')
+      .leftJoin('event.participants', 'participant')
+      .leftJoin('event.host', 'host')
+      .where(
+        new Brackets((qb) => {
+          qb.where('coHost.id != :userId', { userId }).orWhere('coHost.id IS NULL');
+        })
+      )
+      .andWhere(
+        new Brackets((qb) => {
+          qb.where('participant.id != :userId', { userId }).orWhere('participant.id IS NULL');
+        })
+      )
+      .andWhere(
+        new Brackets((qb) => {
+          qb.where('host.id != :userId', { userId }).orWhere('host.id IS NULL');
+        })
+      )
+      .andWhere('event.restriction = :restriction', { restriction: String(EventRestriction.NONE) })
+      .getMany();
   }
 
   async create(eventInput: CreateEventInput): Promise<Event> {
