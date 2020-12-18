@@ -23,7 +23,7 @@ export default function LocationAutocompleteTextbox({ handleClose, input }) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<string[]>([]);
   const [getAutocompletedLocations, { loading, data }] = useLazyQuery(AUTOCOMPLETED_LOCATIONS);
-
+  const CURRENT_LOCATION = 'Current Location';
   const debounceGetLocation = useMemo(
     () =>
       debounce(
@@ -59,7 +59,7 @@ export default function LocationAutocompleteTextbox({ handleClose, input }) {
       style={{ width: '100%' }}
       open={open}
       onFocus={() => {
-        setOptions(['Current Location']);
+        setOptions([CURRENT_LOCATION]);
         setOpen(true);
       }}
       onOpen={() => {
@@ -73,15 +73,15 @@ export default function LocationAutocompleteTextbox({ handleClose, input }) {
         debounceGetLocation(value);
       }}
       onChange={(_event, value) => {
-        if (value === 'Current Location') {
+        if (value === CURRENT_LOCATION) {
           getCurrentPosition();
-        } else {
+        } else if (value) {
           handleClose(value);
         }
       }}
       getOptionSelected={(option, value) => option === value}
       renderOption={(option) => {
-        let icon = option == 'Current Location' ? faLocationArrow : faMapMarkerAlt;
+        let icon = option == CURRENT_LOCATION ? faLocationArrow : faMapMarkerAlt;
         return (
           <React.Fragment>
             <FontAwesomeIcon icon={icon} style={{ marginRight: '0.8rem' }} />
