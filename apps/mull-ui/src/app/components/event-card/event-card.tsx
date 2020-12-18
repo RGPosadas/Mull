@@ -7,6 +7,8 @@ import { faShareAlt, faCheck, faSignInAlt } from '@fortawesome/free-solid-svg-ic
 import { formatDate } from '../../../utilities';
 
 import './event-card.scss';
+import { dummyProfilePictures } from '../../../constants'; // TODO query the participants profile pictures
+import EventMembers from '../event-members/event-members';
 
 export interface EventCardProps {
   event: Partial<IEvent>;
@@ -48,8 +50,7 @@ export const EventCard = ({ event, style = {} }: EventCardProps) => {
             {distance}km • {event.location.point}
           </div>
         </div>
-        {/* TODO: Replace placeholder */}
-        <div className="event-card-friends">friends</div>
+        <EventMembers profilePictures={dummyProfilePictures} />
         {/* TODO: Implement share */}
         <button className="event-card-share">
           <FontAwesomeIcon icon={faShareAlt} />
