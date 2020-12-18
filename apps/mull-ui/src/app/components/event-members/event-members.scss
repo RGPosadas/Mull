@@ -1,27 +1,26 @@
 .event-members-div {
-    position: relative;
-    margin: 0 0.8rem 0 0.8rem;
-    width: 3rem;
+  position: relative;
+  margin: 0 0.8rem;
+  width: 2.5rem;
+  height: 1.2rem;
+
+  .profile-picture {
+    position: absolute;
+    width: 1.2rem;
     height: 1.2rem;
+    object-fit: cover;
+    border-radius: 50%;
 
-    .profile-picture{
-        position: absolute;
-        width: 1.2rem;
-        height: 1.2rem;
-        object-fit: cover;
-        border-radius: 50%;
-
-        &:nth-child(1) {
-            left: 1.8rem;
-        }
-
-        &:nth-child(2) {
-            left: 0.9rem;
-        }
-        
-        &:nth-child(3) {
-            left: 0rem;
-        }
+    &:nth-child(1) {
+      left: 1.6rem;
     }
-} 
 
+    &:nth-child(2) {
+      left: 0.8rem;
+    }
+
+    &:nth-child(3) {
+      left: 0rem;
+    }
+  }
+}

@@ -11,3 +11,4 @@ export * from './mull-button/mull-button';
 export * from './navigation-bar/navigation-bar';
 export * from './pill-options/pill-options';
 export * from './subnavigation-bar/subnavigation-bar';
+export * from './event-members/event-members';
