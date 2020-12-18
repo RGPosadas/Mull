@@ -48,8 +48,8 @@ export class AuthService {
 
   sendRefreshToken(res: Response, refreshToken: string) {
     res.cookie('mullToken', refreshToken, {
-      maxAge: 7 * 24 * 3600 * 1000,
-      secure: environment.production,
+      maxAge: 7 * 24 * 3600 * 1000, // 7 days in ms
+      secure: environment.production, // Determines if cookie is to be used with HTTPS only
     });
   }
 
