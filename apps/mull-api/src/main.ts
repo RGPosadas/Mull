@@ -15,7 +15,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.enableCors({
-    origin: environment.client.baseUrl,
+    origin: environment.production
+      ? environment.client.baseUrl
+      : [environment.client.baseUrl, 'https://studio.apollographql.com'],
     credentials: true,
   });
   app.setGlobalPrefix(globalPrefix);

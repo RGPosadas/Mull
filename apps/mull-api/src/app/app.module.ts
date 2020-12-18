@@ -50,7 +50,9 @@ import { AuthModule } from './auth/auth.module';
         maxFileSize: 10000000000000,
       },
       cors: {
-        origin: environment.client.baseUrl,
+        origin: environment.production
+          ? environment.client.baseUrl
+          : [environment.client.baseUrl, 'https://studio.apollographql.com'],
         credentials: true,
       },
       context: ({ req, res }) => ({ req, res }),
