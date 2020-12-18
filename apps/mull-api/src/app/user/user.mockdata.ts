@@ -112,6 +112,7 @@ export const mockAllUsers: User[] = [
         description: 'I am very good programmer',
         friends: [],
         registrationMethod: RegistrationMethod.LOCAL,
+        tokenVersion: 0,
       },
       {
         id: 12,
@@ -123,8 +124,10 @@ export const mockAllUsers: User[] = [
         description: '',
         friends: [],
         registrationMethod: RegistrationMethod.LOCAL,
+        tokenVersion: 0,
       },
     ],
     registrationMethod: RegistrationMethod.GOOGLE,
+    tokenVersion: 0,
   },
 ];
