@@ -7,3 +7,7 @@
     }
   }
 }
+
+.react-swipeable-view-container > div[aria-hidden='true'] {
+  max-height: calc(100vh - 11.5rem);
+}
