@@ -24,8 +24,8 @@ export const EventPageHeader = ({
   handleBackButton,
   eventImageURL,
 }: EventPageHeaderProps) => {
-  const { day: startDay, month: startMonth, time: startTime } = formatDate(event.startDate);
-  const { day: endDay, month: endMonth, time: endTime } = formatDate(event.endDate);
+  const { day: startDay, month: startMonth, time: startTime, merīdiem: startMerīdiem } = formatDate(event.startDate);
+  const { day: endDay, month: endMonth, time: endTime, merīdiem: endMerīdiem} = formatDate(event.endDate);
 
   return (
     <div className="event-page-header">
@@ -37,13 +37,13 @@ export const EventPageHeader = ({
         <FontAwesomeIcon icon={faClock} className="clock-icon event-page-icon color-grey" />
 
         <div className="event-datetime-string" data-testid="start-date-div">
-          <div>{`${startMonth} ${startDay}`}</div>
-          <div>{startTime}</div>
+          <div>{`${startDay} ${startMonth}`}</div>
+          <div>{`${startTime} ${startMerīdiem}`}</div>
         </div>
         <FontAwesomeIcon icon={faCaretRight} className="event-page-icon color-grey" />
         <div className="event-datetime-string" data-testid="end-date-div">
-          <div>{`${endMonth} ${endDay}`}</div>
-          <div>{endTime}</div>
+          <div>{`${endDay} ${endMonth}`}</div>
+          <div>{`${endTime} ${endMerīdiem}`}</div>
         </div>
       </div>
     </div>
