@@ -37,7 +37,7 @@ export const dummyEvent: ISerializedEvent = {
   endDate: '2009-06-15T13:45:30',
   location: {
     id: 1,
-    point: '1260 Remembrance Road Montreal, Qc',
+    title: '1260 Remembrance Road Montreal, Qc',
   },
   restriction: EventRestriction.NONE,
   participants: [

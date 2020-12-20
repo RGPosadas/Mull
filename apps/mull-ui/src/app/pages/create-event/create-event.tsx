@@ -73,7 +73,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       endTime: '',
       eventTitle: '',
       description: '',
-      location: '',
+      location: { title: '' } as ILocation,
       imageFile: '',
     },
 
@@ -95,7 +95,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       description: Yup.string()
         .required('Event Description is required.')
         .max(5000, 'Event Description must be under 5000 characters.'),
-      location: Yup.string().required('Event Location is required.'),
+      location: Yup.mixed().required('Event Location is required.'),
       imageFile: Yup.mixed().required('Image is required.'),
     }),
 

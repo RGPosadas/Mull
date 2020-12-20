@@ -8,7 +8,7 @@ export class Location implements ILocation {
   id: number;
 
   @Column('point')
-  point: string;
+  title: string;
 
   @OneToMany(() => Event, (event) => event.location)
   events: Event[];
