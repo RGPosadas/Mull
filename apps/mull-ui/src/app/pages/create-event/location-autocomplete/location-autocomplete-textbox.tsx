@@ -37,7 +37,6 @@ export default function LocationAutocompleteTextbox({ handleClose, input }) {
   );
 
   useEffect(() => {
-    console.log(data);
     if (!loading && data) {
       setOptions(data.getAutocompletedLocations);
     }
@@ -70,7 +69,9 @@ export default function LocationAutocompleteTextbox({ handleClose, input }) {
       }}
       defaultValue={input}
       onInputChange={(_event, value) => {
-        debounceGetLocation(value);
+        if (value) {
+          debounceGetLocation(value);
+        }
       }}
       onChange={(_event, value) => {
         if (value === CURRENT_LOCATION) {

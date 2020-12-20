@@ -6,9 +6,9 @@ export class LocationAutocompleteResolver {
   async getAutocompletedLocations(@Args('userInput') userInput: String) {
     const response = await axiosInstance.request({
       method: 'get',
-      url: `https://app.geocodeapi.io/api/v1/autocomplete?apikey=${process.env.GEOCODE_KEY}&text=${userInput}&size=5`,
+      url: `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${userInput}&key=${process.env.GOOGLE_KEY}`,
     });
-    const { data } = response;
-    return response.data.features.map(({ properties: { label } }) => label);
+    const autocompleteLocations = response.data.predictions.map((field) => field.description);
+    return autocompleteLocations;
   }
 }
