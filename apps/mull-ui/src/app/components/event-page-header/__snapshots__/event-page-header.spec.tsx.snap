@@ -67,7 +67,7 @@ exports[`EventPageHeader should match snapshot 1`] = `
       data-testid="start-date-div"
     >
       <div>
-        Jan 1
+        1 Jan
       </div>
       <div>
         12:00 AM
@@ -95,7 +95,7 @@ exports[`EventPageHeader should match snapshot 1`] = `
       data-testid="end-date-div"
     >
       <div>
-        Jan 2
+        2 Jan
       </div>
       <div>
         12:00 AM

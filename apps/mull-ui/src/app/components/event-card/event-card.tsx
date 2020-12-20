@@ -33,7 +33,7 @@ export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
         alt="Event"
       />
       <div className="event-card-datetime" data-testid="event-card-datetime">
-        <div style={{fontWeight: "bolder"}}>{day} </div>
+        <div style={{ fontWeight: 'bolder' }}>{day} </div>
         <div>{month}</div>
         <div>{time}</div>
         <div>{merīdiem}</div>

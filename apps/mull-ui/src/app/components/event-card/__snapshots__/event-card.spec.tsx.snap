@@ -14,11 +14,24 @@ exports[`EventCard should match snapshot 1`] = `
     className="event-card-datetime"
     data-testid="event-card-datetime"
   >
-    <div>
-      Jan 1
+    <div
+      style={
+        Object {
+          "fontWeight": "bolder",
+        }
+      }
+    >
+      1
+       
     </div>
     <div>
-      12:00 AM
+      Jan
+    </div>
+    <div>
+      12:00
+    </div>
+    <div>
+      AM
     </div>
   </div>
   <button
