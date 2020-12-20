@@ -2,13 +2,13 @@ import { LocationAutocompleteResolver } from './location-autocomplete.resolver';
 import { Test, TestingModule } from '@nestjs/testing';
 import axiosInstance from '../../../../axiosConfig';
 
-const userInput = '845 rue Sherbrooke';
+const userInput = 'mockInput';
 
 jest.mock('../../../../axiosConfig', () => {
   return {
-    baseURL: `https://app.geocodeapi.io/api/v1/autocomplete?apikey=${process.env.GEOCODE_KEY}&text=test_location&size=5`,
+    baseURL: `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=mockInput&key=${process.env.GOOGLE_KEY}`,
     request: jest.fn().mockResolvedValue({
-      data: { features: [{ properties: { label: 'mockedLocation' } }] },
+      data: { predictions: [{ description: 'mockedLocation' }] },
     }),
   };
 });
@@ -30,7 +30,7 @@ describe('autocomplete resolver', () => {
     expect(axiosInstance.request).toHaveBeenCalled();
     expect(axiosInstance.request).toHaveBeenCalledWith({
       method: 'get',
-      url: `https://app.geocodeapi.io/api/v1/autocomplete?apikey=${process.env.GEOCODE_KEY}&text=${userInput}&size=5`,
+      url: `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${userInput}&key=${process.env.GOOGLE_KEY}`,
     });
 
     expect(res).toEqual(['mockedLocation']);
