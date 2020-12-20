@@ -14,10 +14,10 @@ import { ROUTES } from '../constants';
 import 'react-toastify/dist/ReactToastify.min.css';
 import './app.scss';
 import { dummyEvent } from '../constants';
-import DiscoverPage from './pages/discover/discover';
+import DiscoverPage from './pages/home/discover/discover';
+import UpcomingPage from './pages/home/upcoming/upcoming';
+import MyEventsPage from './pages/home/my-events/my-events';
 import EventPage from './pages/event-page/event-page';
-import UpcomingPage from './pages/upcoming/upcoming';
-import MyEventsPage from './pages/my-events/my-events';
 
 /**
  * Main component of the application

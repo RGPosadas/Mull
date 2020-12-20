@@ -1,9 +1,9 @@
 import React from 'react';
 import { IEvent } from '@mull/types';
-import { EventCard } from '../../components';
+import { EventCard } from '../../../components';
 import { gql, useQuery } from '@apollo/client';
 
-import './my-events.scss';
+import '../home-discover.scss';
 
 export const MyEventsPage = () => {
   const GET_PARTICIPATING_EVENTS = gql`
