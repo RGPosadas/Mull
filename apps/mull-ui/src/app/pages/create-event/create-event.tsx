@@ -95,7 +95,16 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       description: Yup.string()
         .required('Event Description is required.')
         .max(5000, 'Event Description must be under 5000 characters.'),
-      location: Yup.mixed().required('Event Location is required.'),
+      location: Yup.mixed()
+        .required('Event Location is required.')
+        .test(
+          'values.location.title cannot be empty string',
+          'Event Location is required.',
+          function (location) {
+            if (location.title && location.title === '') return true;
+            return location.title;
+          }
+        ),
       imageFile: Yup.mixed().required('Image is required.'),
     }),
 
@@ -241,6 +250,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               Done
             </MullButton>
           </div>
+          <LocationInput formik={formik} />
         </div>
       )}
     </form>
