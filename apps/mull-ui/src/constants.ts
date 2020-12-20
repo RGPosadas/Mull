@@ -31,8 +31,8 @@ export const dummyEvent: IEvent = {
   title: 'Test title',
   description:
     'Lorem ipsum dolor sit amet, regione invidunt democritum vim in, movet antiopam gubergren ne per. Est nibh magna scribentur ea, vel te munere deseruisse disputationi, eros meis ludus ne sea. Odio prompta legendos in sea, ut mei scripta labores theophrastus, id molestie probatus periculis mea. Noluisse invenire splendide sed ne, at erat quando laudem nec, possim apeirian vix at. At eam animal efficiendi interpretaris, eirmod offendit adversarium per et, summo qualisque efficiendi in has. Vel detraxit accusata ea.',
-  startDate: new Date(2000, 0, 1, 0, 0, 0, 0),
-  endDate: new Date(2000, 0, 2, 0, 0, 0, 0),
+  startDate: '2009-06-15T13:45:30',
+  endDate: '2009-06-15T13:45:30',
   location: {
     id: 1,
     point: '1260 Remembrance Road Montreal, Qc',

@@ -1,19 +1,19 @@
 /**
  * Converts date to a list of tokens for displaying
  *
- * @param date the date to convert
+ * @param date the date as a string to convert
  */
 export const formatDate = (
-  date: Date | string
+  dateString: string
 ): { year: number; month: string; day: number; time: string } => {
-  const realDate = new Date(date);
+  const date = new Date(dateString);
   const month = Intl.DateTimeFormat('en-us', {
     month: 'short',
-  }).format(realDate);
+  }).format(date);
   const timeString = Intl.DateTimeFormat('en-us', {
     hour: '2-digit',
     minute: '2-digit',
-  }).format(realDate);
+  }).format(date);
 
-  return { year: realDate.getFullYear(), month, day: realDate.getDate(), time: timeString };
+  return { year: date.getFullYear(), month, day: date.getDate(), time: timeString };
 };

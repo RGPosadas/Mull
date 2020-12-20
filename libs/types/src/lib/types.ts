@@ -31,8 +31,8 @@ export const EventRestrictionMap = ['Everyone', 'Friends', 'Invite Only'];
 export interface IEvent {
   id: number;
   title: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | string;
+  endDate: Date | string;
   description: string;
   image?: IMedia;
   restriction: EventRestriction;
