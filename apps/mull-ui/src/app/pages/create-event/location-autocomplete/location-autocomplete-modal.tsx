@@ -1,11 +1,11 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import Search from './location-autocomplete-textbox';
+import LocationAutoCompleteTextbox from './location-autocomplete-textbox';
 import { CustomTextInput } from '../../../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { MullBackButton } from '../../../components';
-import { EventRestriction } from '@mull/types';
+import { EventRestriction, ILocation } from '@mull/types';
 import { FormikConfig } from 'formik';
 
 export interface LocationAutocompleteModalProps {
@@ -17,12 +17,14 @@ export interface LocationAutocompleteModalProps {
     endTime: string;
     eventTitle: string;
     description: string;
-    location: string;
+    location: ILocation;
     imageFile: string;
   }>;
 }
 
-export default function LocationAutocompleteModal({ formik: { touched, setFieldValue, errors } }) {
+export default function LocationAutocompleteModal({
+  formik: { touched, setFieldValue, errors, values },
+}) {
   const [inputValue, setInputValue] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
@@ -30,12 +32,14 @@ export default function LocationAutocompleteModal({ formik: { touched, setFieldV
     setOpen(true);
   };
 
-  const handleClose = (value) => {
+  const handleClose = () => {
     setOpen(false);
-    if (typeof value == 'string') {
-      setInputValue(value);
-      setFieldValue('location', value);
-    }
+  };
+
+  const handleSetValue = (location: ILocation) => {
+    setInputValue(location.title);
+    setFieldValue('location', location);
+    handleClose();
   };
 
   return (
@@ -43,7 +47,7 @@ export default function LocationAutocompleteModal({ formik: { touched, setFieldV
       <CustomTextInput
         title="Location"
         fieldName="location"
-        value={inputValue}
+        value={inputValue || values.location.title}
         readOnly
         onClick={handleClickOpen}
         hasErrors={touched.location && !!errors.location}
@@ -63,7 +67,7 @@ export default function LocationAutocompleteModal({ formik: { touched, setFieldV
           onClick={handleClose}
           className={'edit'}
         />
-        <Search handleClose={handleClose} input={inputValue} />
+        <LocationAutoCompleteTextbox handleSetValue={handleSetValue} input={inputValue} />
       </Dialog>
     </React.Fragment>
   );

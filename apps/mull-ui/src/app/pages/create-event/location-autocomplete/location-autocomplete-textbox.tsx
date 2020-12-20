@@ -19,7 +19,7 @@ export interface LocationAutocompleteTextboxProps {
   input: string;
 }
 
-export default function LocationAutocompleteTextbox({ handleClose, input }) {
+export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<string[]>([]);
   const [getAutocompletedLocations, { loading, data }] = useLazyQuery(AUTOCOMPLETED_LOCATIONS);
@@ -46,7 +46,7 @@ export default function LocationAutocompleteTextbox({ handleClose, input }) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         let pos = `latitude: ${position.coords.latitude}, longitude: ${position.coords.longitude}`;
-        handleClose(pos);
+        handleSetValue({ title: 'Current Location', coords: pos });
       });
     }
   };
@@ -77,7 +77,7 @@ export default function LocationAutocompleteTextbox({ handleClose, input }) {
         if (value === CURRENT_LOCATION) {
           getCurrentPosition();
         } else if (value) {
-          handleClose(value);
+          handleSetValue({ title: value });
         }
       }}
       getOptionSelected={(option, value) => option === value}
