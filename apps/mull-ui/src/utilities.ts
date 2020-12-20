@@ -4,7 +4,7 @@
  * @param date the date as a string to convert
  */
 export const formatDate = (
-  dateString: string
+  dateString: string | Date
 ): { year: number; month: string; day: number; time: string } => {
   const date = new Date(dateString);
   const month = Intl.DateTimeFormat('en-us', {

@@ -51,7 +51,9 @@ export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
           <div className="event-card-title">{event.title}</div>
 
           <div className="event-card-location">
-            {distance}km • {event.location.point}
+            {/* TODO: Dynamically add address. Currently not available in the data from the query*/}
+            15km • 1455 Boulevard de Maisonneuve O, Montréal, QC H3G 1M8
+            {/* {distance}km • {event.location.point}  */}
           </div>
         </div>
         <EventMembers profilePictures={dummyProfilePictures} />

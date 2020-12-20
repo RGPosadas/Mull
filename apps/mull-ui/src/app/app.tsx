@@ -16,6 +16,8 @@ import './app.scss';
 import { dummyEvent } from '../constants';
 import DiscoverPage from './pages/discover/discover';
 import EventPage from './pages/event-page/event-page';
+import UpcomingPage from './pages/upcoming/upcoming';
+import MyEventsPage from './pages/my-events/my-events';
 
 /**
  * Main component of the application
@@ -76,8 +78,8 @@ export const App = () => {
           <div className="page-container with-sub-nav-bar">
             <SwipeableRoutes>
               <Route path={ROUTES.DISCOVER} component={DiscoverPage} />
-              <Route path={ROUTES.UPCOMING} component={() => <div>UPCOMING!</div>} />
-              <Route path={ROUTES.MY_EVENTS} component={() => <div>MY_EVENTS!</div>} />
+              <Route path={ROUTES.UPCOMING} component={UpcomingPage} />
+              <Route path={ROUTES.MY_EVENTS} component={MyEventsPage} />
               <Route exact path={ROUTES.HOME} render={() => <Redirect to={ROUTES.DISCOVER} />} />
             </SwipeableRoutes>
           </div>
