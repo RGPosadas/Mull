@@ -23,7 +23,7 @@ export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
   // TODO: Implement distance calculation
   const distance = 15;
 
-  const { day, month, time } = formatDate(event.startDate);
+  const { day, month, time, merīdiem } = formatDate(event.startDate);
   return (
     <div className="event-card-container button" onClick={onClick} style={style}>
       <img
@@ -33,8 +33,10 @@ export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
         alt="Event"
       />
       <div className="event-card-datetime" data-testid="event-card-datetime">
-        <div>{`${month} ${day}`}</div>
+        <div style={{fontWeight: "bolder"}}>{day} </div>
+        <div>{month}</div>
         <div>{time}</div>
+        <div>{merīdiem}</div>
       </div>
       {/* TODO: Add/remove user to event on press */}
       <button
