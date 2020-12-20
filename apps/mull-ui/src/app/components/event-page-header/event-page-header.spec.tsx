@@ -25,7 +25,7 @@ describe('EventPageHeader', () => {
 
     const startDateDiv = dom.getByTestId('start-date-div');
     const endDateDiv = dom.getByTestId('end-date-div');
-    expect(startDateDiv.textContent).toBe('Jan 112:00 AM');
-    expect(endDateDiv.textContent).toBe('Jan 212:00 AM');
+    expect(startDateDiv.textContent).toBe('1 Jan12:00 AM');
+    expect(endDateDiv.textContent).toBe('2 Jan12:00 AM');
   });
 });

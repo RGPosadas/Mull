@@ -20,6 +20,6 @@ describe('EventCard', () => {
     const dom = render(<EventCard event={dummyEvent} />);
 
     const dateDiv = dom.getByTestId('event-card-datetime');
-    expect(dateDiv.textContent).toBe('Jan 112:00 AM');
+    expect(dateDiv.textContent).toBe('1 Jan12:00AM');
   });
 });
