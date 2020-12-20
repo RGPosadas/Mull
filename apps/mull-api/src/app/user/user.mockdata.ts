@@ -37,6 +37,7 @@ export const mockAllUsers: User[] = [
         dob: new Date(),
         description: "There's a first for everything",
         friends: [],
+        tokenVersion: 0,
         registrationMethod: RegistrationMethod.LOCAL,
       },
       {
@@ -48,9 +49,11 @@ export const mockAllUsers: User[] = [
         dob: new Date(),
         description: '',
         friends: [],
+        tokenVersion: 0,
         registrationMethod: RegistrationMethod.LOCAL,
       },
     ],
+    tokenVersion: 0,
     registrationMethod: RegistrationMethod.LOCAL,
   },
   {
@@ -71,6 +74,7 @@ export const mockAllUsers: User[] = [
         dob: new Date(),
         description: 'I am very good programmer',
         friends: [],
+        tokenVersion: 0,
         registrationMethod: RegistrationMethod.LOCAL,
       },
       {
@@ -82,9 +86,11 @@ export const mockAllUsers: User[] = [
         dob: new Date(),
         description: '',
         friends: [],
+        tokenVersion: 0,
         registrationMethod: RegistrationMethod.LOCAL,
       },
     ],
+    tokenVersion: 0,
     registrationMethod: RegistrationMethod.GOOGLE,
   },
   {
@@ -106,6 +112,7 @@ export const mockAllUsers: User[] = [
         description: 'I am very good programmer',
         friends: [],
         registrationMethod: RegistrationMethod.LOCAL,
+        tokenVersion: 0,
       },
       {
         id: 12,
@@ -117,8 +124,10 @@ export const mockAllUsers: User[] = [
         description: '',
         friends: [],
         registrationMethod: RegistrationMethod.LOCAL,
+        tokenVersion: 0,
       },
     ],
     registrationMethod: RegistrationMethod.GOOGLE,
+    tokenVersion: 0,
   },
 ];

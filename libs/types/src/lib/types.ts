@@ -1,5 +1,5 @@
 // Types go here
-
+import { Response, Request } from 'express';
 export interface Message {
   message: string;
   info: { production: boolean };
@@ -55,3 +55,8 @@ export interface IMedia {
   id: number;
   mediaType: string;
 }
+
+export type GqlContext = {
+  req: Request;
+  res: Response;
+};
