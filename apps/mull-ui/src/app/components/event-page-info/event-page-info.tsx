@@ -52,11 +52,11 @@ export const EventPageInfo = ({
       </div>
       <div className="info-row">
         <FontAwesomeIcon icon={faMapMarkerAlt} className="event-page-icon color-grey" />
-        {/* TODO: Remove placeholder text once location is implemented */}
         <p className="row-text" data-testid="event-location">
           18 Mull Ave, Pointe-Claire, Montreal
         </p>
-        {/* <p className="row-text">{event.location.point}</p> */}
+        {/* TODO: placeholder till TASK-33 is done uncomment the line below to see on preview page*/}
+        {/* <p className="row-text">{event.location.title}</p> */}
         <FontAwesomeIcon icon={faMap} className="event-page-icon color-green" />
       </div>
       <div className="info-row">
