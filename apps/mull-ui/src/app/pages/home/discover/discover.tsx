@@ -18,11 +18,11 @@ export const GET_DISCOVER_EVENTS = gql`
 `;
 
 export const DiscoverPage = ({ history }) => {
-  const { loading, error, data } = useQuery(GET_DISCOVER_EVENTS, {
+  const { data } = useQuery(GET_DISCOVER_EVENTS, {
     variables: { discoverEventsUserId: 11 },
   });
 
-  if (!loading) {
+  if (data) {
     const events: [Partial<IEvent>] = data.discoverEvents as [Partial<IEvent>];
     var eventCards = events.map((event, index) => <EventCard key={index} event={event} onClick={() => history.push(`/events/${event.id}`)}/>);
   }

@@ -25,11 +25,11 @@ export const GET_PARTICIPATING_EVENTS = gql`
 `;
 
 export const MyEventsPage = () => {
-  const { loading, data } = useQuery(GET_PARTICIPATING_EVENTS, {
+  const { data } = useQuery(GET_PARTICIPATING_EVENTS, {
     variables: { UserId: 1 },
   });
 
-  if (!loading) {
+  if (data) {
     const events: [Partial<IEvent>] = data.coHostEvents.concat(data.hostEvents) as [
       Partial<IEvent>
     ];

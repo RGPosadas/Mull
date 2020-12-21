@@ -18,11 +18,11 @@ export const GET_PARTICIPATING_EVENTS = gql`
 `;
 
 export const UpcomingPage = () => {
-  const { loading, data } = useQuery(GET_PARTICIPATING_EVENTS, {
+  const { data } = useQuery(GET_PARTICIPATING_EVENTS, {
     variables: { participatingEventsUserId: 3 },
   });
 
-  if (!loading) {
+  if (data) {
     const events: [Partial<IEvent>] = data.participatingEvents as [Partial<IEvent>];
     var eventCards = events.map((event, index) => <EventCard key={index} event={event} />);
   }
