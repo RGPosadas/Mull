@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 import CreateEventPage from './pages/create-event/create-event';
-import { NavigationBar, Header, SubNavigationBar, EventCard } from './components';
+import { TopNavBar, BottomNavBar, EventCard, SubNavBar } from './components';
 import LoginPage from './pages/login/login';
 import RegisterPage from './pages/register/register';
 
@@ -57,15 +57,24 @@ export const App = () => {
             />
           }
         />
+        <Route exact path={'/test-event-page'}>
+          <EventPage
+            event={dummyEvent}
+            eventImageURL="https://www.citywindsor.ca/residents/parksandforestry/City-Parks/PublishingImages/Assumption%20Park%20Street%20View.JPG"
+            prevPage="home"
+          />
+        </Route>
         <Route path={ROUTES.HOME}>
-          <div className="page-container">
-            <SubNavigationBar />
-            <SwipeableRoutes>
-              <Route path={ROUTES.DISCOVER} component={DiscoverPage} />
-              <Route path={ROUTES.UPCOMING} component={() => <div>UPCOMING!</div>} />
-              <Route path={ROUTES.MY_EVENTS} component={() => <div>MY_EVENTS!</div>} />
-              <Route exact path={ROUTES.HOME} render={() => <Redirect to={ROUTES.DISCOVER} />} />
-            </SwipeableRoutes>
+          <div className="page-container discover-page">
+            <SubNavBar />
+            <div style={{ overflowY: 'auto', display: 'block' }}>
+              <SwipeableRoutes>
+                <Route path={ROUTES.DISCOVER} component={DiscoverPage} />
+                <Route path={ROUTES.UPCOMING} component={() => <div>UPCOMING!</div>} />
+                <Route path={ROUTES.MY_EVENTS} component={() => <div>MY_EVENTS!</div>} />
+                <Route exact path={ROUTES.HOME} render={() => <Redirect to={ROUTES.DISCOVER} />} />
+              </SwipeableRoutes>
+            </div>
           </div>
         </Route>
         <Route exact path={ROUTES.LOGIN} component={LoginPage} />
@@ -85,8 +94,8 @@ export const App = () => {
 
       {showNavigation(location) ? (
         <>
-          <Header />
-          <NavigationBar />
+          <TopNavBar />
+          <BottomNavBar />
         </>
       ) : null}
     </div>

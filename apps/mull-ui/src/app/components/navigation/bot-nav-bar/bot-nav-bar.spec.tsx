@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import Header from './header';
+import BottomNavBar from './header';
 import { Router } from 'react-router-dom';
 
 import { createMemoryHistory } from 'history';
@@ -15,7 +15,7 @@ describe('Header', () => {
 
     const { baseElement } = render(
       <Router history={history}>
-        <Header />
+        <BottomNavBar />
       </Router>
     );
 
@@ -28,7 +28,7 @@ describe('Header', () => {
     const history = createMemoryHistory();
     const dom = render(
       <Router history={history}>
-        <Header />
+        <BottomNavBar />
       </Router>
     );
 
@@ -43,7 +43,7 @@ describe('Header', () => {
     const tree = renderer
       .create(
         <Router history={history}>
-          <Header />
+          <BottomNavBar />
         </Router>
       )
       .toJSON();

@@ -1,0 +1,15 @@
+@import '../../../../variables.scss';
+.sub-nav-bar-container {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.subnavigation-link {
+  color: $inactive-button-color;
+}
+
+.active {
+  color: $primary-color;
+  font-weight: 600;
+}

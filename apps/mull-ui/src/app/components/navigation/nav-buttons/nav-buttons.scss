@@ -1,0 +1,25 @@
+@import '../../../../variables.scss';
+
+.nav-buttons-container {
+  background: $background-color;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+
+  a {
+    margin: 0 1rem;
+  }
+}
+
+.active {
+  svg {
+    fill: $primary-color;
+  }
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .header-container {
+    display: none;
+  }
+}
