@@ -43,7 +43,7 @@ export default function LocationAutocompleteModal({
   };
 
   return (
-    <React.Fragment>
+    <>
       <CustomTextInput
         title="Location"
         fieldName="location"
@@ -69,6 +69,6 @@ export default function LocationAutocompleteModal({
         />
         <LocationAutoCompleteTextbox handleSetValue={handleSetValue} input={inputValue} />
       </Dialog>
-    </React.Fragment>
+    </>
   );
 }
