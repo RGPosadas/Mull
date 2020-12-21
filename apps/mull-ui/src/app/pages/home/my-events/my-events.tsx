@@ -5,25 +5,26 @@ import { gql, useQuery } from '@apollo/client';
 
 import '../home-discover.scss';
 
-export const MyEventsPage = () => {
-  const GET_PARTICIPATING_EVENTS = gql`
-    query getUsersEvents($UserId: Int!) {
-      coHostEvents(userId: $UserId) {
-        id
-        title
-        description
-        startDate
-        endDate
-      }
-      hostEvents(userId: $UserId) {
-        id
-        title
-        description
-        startDate
-        endDate
-      }
+export const GET_PARTICIPATING_EVENTS = gql`
+  query getUsersEvents($UserId: Int!) {
+    coHostEvents(userId: $UserId) {
+      id
+      title
+      description
+      startDate
+      endDate
     }
-  `;
+    hostEvents(userId: $UserId) {
+      id
+      title
+      description
+      startDate
+      endDate
+    }
+  }
+`;
+
+export const MyEventsPage = () => {
   const { loading, data } = useQuery(GET_PARTICIPATING_EVENTS, {
     variables: { UserId: 1 },
   });
