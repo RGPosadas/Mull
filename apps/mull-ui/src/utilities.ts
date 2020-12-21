@@ -1,12 +1,11 @@
 /**
  * Converts date to a list of tokens for displaying
  *
- * @param date the date as a string to convert
+ * @param date date the date to convert
  */
 export const formatDate = (
-  dateString: string | Date
+  date: Date
 ): { year: number; month: string; day: number; time: string } => {
-  const date = new Date(dateString);
   const month = Intl.DateTimeFormat('en-us', {
     month: 'short',
   }).format(date);
