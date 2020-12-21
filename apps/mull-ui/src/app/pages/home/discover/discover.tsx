@@ -1,9 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { IEvent } from '@mull/types';
 import { EventCard } from '../../../components';
 import { gql, useQuery } from '@apollo/client';
 
 import '../home-discover.scss';
+
+interface DiscoverData {
+  discoverEvents: IEvent[];
+}
 
 export const GET_DISCOVER_EVENTS = gql`
   query DiscoverEvents($discoverEventsUserId: Int!) {
@@ -18,7 +22,7 @@ export const GET_DISCOVER_EVENTS = gql`
 `;
 
 export const DiscoverPage = ({ history }) => {
-  const { data } = useQuery(GET_DISCOVER_EVENTS, {
+  const { data } = useQuery<DiscoverData>(GET_DISCOVER_EVENTS, {
     variables: { discoverEventsUserId: 11 },
   });
 

@@ -5,6 +5,11 @@ import { gql, useQuery } from '@apollo/client';
 
 import '../home-discover.scss';
 
+interface MyEventData {
+  coHostEvents: IEvent[];
+  hostEvents: IEvent[];
+}
+
 export const GET_PARTICIPATING_EVENTS = gql`
   query getUsersEvents($UserId: Int!) {
     coHostEvents(userId: $UserId) {
@@ -25,7 +30,7 @@ export const GET_PARTICIPATING_EVENTS = gql`
 `;
 
 export const MyEventsPage = () => {
-  const { data } = useQuery(GET_PARTICIPATING_EVENTS, {
+  const { data } = useQuery<MyEventData>(GET_PARTICIPATING_EVENTS, {
     variables: { UserId: 1 },
   });
 
