@@ -10,4 +10,5 @@
 
 .react-swipeable-view-container > div[aria-hidden='true'] {
   max-height: calc(100vh - 11.5rem);
+  overflow-y: hidden !important; // hides scroll bar when changing routes. !important needed to overwrite the element style set by react swipeable views package.
 }
