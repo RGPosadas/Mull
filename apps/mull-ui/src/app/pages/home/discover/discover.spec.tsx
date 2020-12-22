@@ -28,7 +28,7 @@ describe('discoverPage', () => {
         {
           request: {
             query: GET_DISCOVER_EVENTS,
-            variables: { discoverEventsUserId: 11 },
+            variables: { discoverEventsUserId: 1 },
           },
           result: {
             data: {

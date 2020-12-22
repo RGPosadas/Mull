@@ -24,8 +24,10 @@ export const EventPageHeader = ({
   handleBackButton,
   eventImageURL,
 }: EventPageHeaderProps) => {
-  const { day: startDay, month: startMonth, time: startTime } = formatDate(event.startDate);
-  const { day: endDay, month: endMonth, time: endTime } = formatDate(event.endDate);
+  const { day: startDay, month: startMonth, time: startTime } = formatDate(
+    new Date(event.startDate)
+  );
+  const { day: endDay, month: endMonth, time: endTime } = formatDate(new Date(event.endDate));
 
   return (
     <div className="event-page-header">

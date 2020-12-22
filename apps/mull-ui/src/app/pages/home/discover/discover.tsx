@@ -23,7 +23,7 @@ export const GET_DISCOVER_EVENTS = gql`
 
 export const DiscoverPage = ({ history }) => {
   const { data } = useQuery<DiscoverData>(GET_DISCOVER_EVENTS, {
-    variables: { discoverEventsUserId: 11 },
+    variables: { discoverEventsUserId: 1 },
   });
 
   if (data) {

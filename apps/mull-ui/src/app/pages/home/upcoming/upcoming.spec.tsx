@@ -28,7 +28,7 @@ describe('myEventsPage', () => {
         {
           request: {
             query: GET_PARTICIPATING_EVENTS,
-            variables: { participatingEventsUserId: 3 },
+            variables: { participatingEventsUserId: 1 },
           },
           result: {
             data: {
