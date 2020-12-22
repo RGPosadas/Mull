@@ -4,7 +4,7 @@ import { EventCard } from '../../components';
 import { dummyEvent } from '../../../constants';
 
 import './discover.scss';
-import { Link, BrowserRouter as Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const DiscoverPage = () => {
   const events: [IEvent] = Array(5).fill(dummyEvent) as [IEvent]; // will be replaced with a query call
