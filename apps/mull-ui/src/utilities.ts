@@ -1,7 +1,7 @@
 /**
  * Converts date to a list of tokens for displaying
  *
- * @param date date the date to convert
+ * @param date the date to convert
  */
 export const formatDate = (
   date: Date
