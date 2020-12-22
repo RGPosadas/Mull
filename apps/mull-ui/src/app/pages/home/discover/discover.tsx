@@ -6,7 +6,7 @@ import { gql, useQuery } from '@apollo/client';
 import '../home-discover.scss';
 
 interface DiscoverData {
-  discoverEvents: IEvent[];
+  discoverEvents: Partial<IEvent>[];
 }
 
 export const GET_DISCOVER_EVENTS = gql`
@@ -27,8 +27,8 @@ export const DiscoverPage = ({ history }) => {
   });
 
   if (data) {
-    const events: [Partial<IEvent>] = data.discoverEvents as [Partial<IEvent>];
-    var eventCards = events.map((event, index) => <EventCard key={index} event={event} onClick={() => history.push(`/events/${event.id}`)}/>);
+    const events: Partial<IEvent>[] = data.discoverEvents;
+    var eventCards = events.map((event, index) => <EventCard key={index} event={event} />);
   }
   return <div className="discover-page-tabs-container">{eventCards}</div>;
 };

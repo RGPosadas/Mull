@@ -6,8 +6,8 @@ import { gql, useQuery } from '@apollo/client';
 import '../home-discover.scss';
 
 interface MyEventData {
-  coHostEvents: IEvent[];
-  hostEvents: IEvent[];
+  coHostEvents: Partial<IEvent>[];
+  hostEvents: Partial<IEvent>[];
 }
 
 export const GET_PARTICIPATING_EVENTS = gql`
@@ -35,9 +35,7 @@ export const MyEventsPage = () => {
   });
 
   if (data) {
-    const events: [Partial<IEvent>] = data.coHostEvents.concat(data.hostEvents) as [
-      Partial<IEvent>
-    ];
+    const events: Partial<IEvent>[] = data.coHostEvents.concat(data.hostEvents);
     var eventCards = events.map((event, index) => <EventCard key={index} event={event} />);
   }
   return <div className="discover-page-tabs-container">{eventCards}</div>;

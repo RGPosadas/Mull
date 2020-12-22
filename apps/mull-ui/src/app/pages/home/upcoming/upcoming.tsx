@@ -6,7 +6,7 @@ import { gql, useQuery } from '@apollo/client';
 import '../home-discover.scss';
 
 interface UpcomingEventData {
-  participatingEvents: IEvent[];
+  participatingEvents: Partial<IEvent>[];
 }
 
 export const GET_PARTICIPATING_EVENTS = gql`
@@ -27,7 +27,7 @@ export const UpcomingPage = () => {
   });
 
   if (data) {
-    const events: [Partial<IEvent>] = data.participatingEvents as [Partial<IEvent>];
+    const events: Partial<IEvent>[] = data.participatingEvents;
     var eventCards = events.map((event, index) => <EventCard key={index} event={event} />);
   }
   return <div className="discover-page-tabs-container">{eventCards}</div>;
