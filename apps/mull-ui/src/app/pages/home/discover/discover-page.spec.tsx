@@ -4,7 +4,7 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import '@testing-library/jest-dom';
-import DiscoverPage, { GET_DISCOVER_EVENTS } from './discover';
+import DiscoverPage, { GET_DISCOVER_EVENTS } from './discover-page';
 import { ROUTES } from '../../../../constants';
 
 describe('discoverPage', () => {
