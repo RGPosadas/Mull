@@ -24,6 +24,7 @@ export const GET_PARTICIPATING_EVENTS = gql`
 export const UpcomingPage = () => {
   const { data } = useQuery<UpcomingEventData>(GET_PARTICIPATING_EVENTS, {
     fetchPolicy: 'network-only',
+    // TODO: dynamically pass current UserId
     variables: { participatingEventsUserId: 1 },
   });
 

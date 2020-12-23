@@ -24,6 +24,7 @@ export const GET_DISCOVER_EVENTS = gql`
 export const DiscoverPage = ({ history }) => {
   const { data } = useQuery<DiscoverData>(GET_DISCOVER_EVENTS, {
     fetchPolicy: 'network-only',
+    // TODO: dynamically pass current UserId
     variables: { discoverEventsUserId: 1 },
   });
 
