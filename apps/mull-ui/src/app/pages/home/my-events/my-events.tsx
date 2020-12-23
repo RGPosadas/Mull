@@ -31,6 +31,7 @@ export const GET_PARTICIPATING_EVENTS = gql`
 
 export const MyEventsPage = () => {
   const { data } = useQuery<MyEventData>(GET_PARTICIPATING_EVENTS, {
+    fetchPolicy: 'network-only',
     variables: { UserId: 1 },
   });
 
