@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import SwipeableRoutes from 'react-swipeable-routes';
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -31,6 +31,13 @@ const showNavigation = (location) => {
 
 export const App = () => {
   const location = useLocation();
+
+  const getTopBarStyle = (): CSSProperties => {
+    if (location.pathname.includes(ROUTES.HOME)) {
+      return { boxShadow: 'none' };
+    }
+    return {};
+  };
 
   return (
     <div>
@@ -65,15 +72,21 @@ export const App = () => {
           />
         </Route>
         <Route path={ROUTES.HOME}>
-          <div className="page-container discover-page">
-            <SubNavBar />
-            <div style={{ overflowY: 'auto', display: 'block' }}>
-              <SwipeableRoutes>
-                <Route path={ROUTES.DISCOVER} component={DiscoverPage} />
-                <Route path={ROUTES.UPCOMING} component={() => <div>UPCOMING!</div>} />
-                <Route path={ROUTES.MY_EVENTS} component={() => <div>MY_EVENTS!</div>} />
-                <Route exact path={ROUTES.HOME} render={() => <Redirect to={ROUTES.DISCOVER} />} />
-              </SwipeableRoutes>
+          <div className="discover-page page-container full-width no-padding">
+            <SubNavBar className="top-nav-bar-shadow" style={{ paddingBottom: '0.5rem' }} />
+            <div style={{ overflowY: 'auto' }}>
+              <div className="discover-cards">
+                <SwipeableRoutes>
+                  <Route path={ROUTES.DISCOVER} component={DiscoverPage} />
+                  <Route path={ROUTES.UPCOMING} component={() => <div>UPCOMING!</div>} />
+                  <Route path={ROUTES.MY_EVENTS} component={() => <div>MY_EVENTS!</div>} />
+                  <Route
+                    exact
+                    path={ROUTES.HOME}
+                    render={() => <Redirect to={ROUTES.DISCOVER} />}
+                  />
+                </SwipeableRoutes>
+              </div>
             </div>
           </div>
         </Route>
@@ -94,7 +107,7 @@ export const App = () => {
 
       {showNavigation(location) ? (
         <>
-          <TopNavBar />
+          <TopNavBar style={getTopBarStyle()} />
           <BottomNavBar />
         </>
       ) : null}

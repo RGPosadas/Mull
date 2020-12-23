@@ -28,15 +28,29 @@
   background: $primary_color;
 }
 
+.discover-cards {
+  padding: 1rem;
+}
+
 @media (min-width: $breakpoint-mobile) {
   .Toastify__toast-container {
     top: 7.5rem;
+  }
+
+  .discover-cards {
+    width: 35%;
+    padding: 1rem 0;
+    margin: auto;
   }
 
   .page-container {
     width: 35%;
     margin: $top-nav-bar-height-desktop auto 0;
     padding: 1rem 0;
+
+    &.full-width {
+      width: auto;
+    }
 
     &.no-navigation {
       margin: 0 auto;

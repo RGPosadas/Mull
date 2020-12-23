@@ -1,12 +1,17 @@
 import { ROUTES } from '../../../../constants';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import './sub-nav-bar.scss';
 
-export const SubNavBar = () => {
+export interface SubNavBarProps {
+  style?: CSSProperties;
+  className?: string;
+}
+
+export const SubNavBar = ({ style, className }: SubNavBarProps) => {
   return (
-    <div className="sub-nav-bar-container">
+    <div className={`sub-nav-bar-container ${className}`} style={style}>
       <NavLink
         to={ROUTES.DISCOVER}
         className="subnavigation-link"

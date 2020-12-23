@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
 import './top-nav-bar.scss';
 
@@ -7,16 +7,19 @@ import logo from '../../../../assets/mull-logo.png';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
 import NavButtons from '../nav-buttons/nav-buttons';
-import SubNavBar from '../sub-nav-bar/sub-nav-bar';
+
+export interface TopNavBarProps {
+  style?: CSSProperties;
+}
 
 /**
  * Component for navigation across the different routes of the application.
  *
  * @see ROUTES
  */
-export const TopNavBar = () => {
+export const TopNavBar = ({ style }: TopNavBarProps) => {
   return (
-    <div className="top-nav-container">
+    <div className="top-nav-container top-nav-bar-shadow" style={style}>
       <img src={logo} className="logo nav-element" alt="Mull logo" />
       <div className="extra-buttons">
         <NavButtons />
