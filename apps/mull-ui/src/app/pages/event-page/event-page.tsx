@@ -1,6 +1,9 @@
 import { IEvent } from '@mull/types';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { EventPageHeader, EventPageInfo } from '../../components';
+
+import { gql, useQuery } from '@apollo/client';
 
 import './event-page.scss';
 
@@ -19,6 +22,24 @@ export const EventPage = ({
   onButtonClick,
   eventImageURL,
 }: EventPageProps) => {
+  let { id }: any = useParams();
+  const eventId = parseInt(id);
+
+  const GET_SPECFICIC_EVENT = gql`
+    query findSpecificEvent($eventId: Int!) {
+      event(id: $eventId) {
+        id
+        title
+        description
+        startDate
+        endDate
+      }
+    }
+  `;
+  const { loading, error, data } = useQuery(GET_SPECFICIC_EVENT, {
+    variables: { eventId },
+  });
+
   return (
     <div className="page-container no-padding event-page-container">
       <EventPageHeader
