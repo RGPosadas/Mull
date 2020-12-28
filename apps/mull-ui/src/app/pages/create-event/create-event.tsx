@@ -179,8 +179,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       onBackButtonClick={() => setIsInReview(false)}
       onButtonClick={createMullEvent}
       eventImageURL={imageURLFile}
-      isReview={true}
-    ></EventPage>
+    />
   ) : (
     <form className="container" onSubmit={formik.handleSubmit}>
       <div className="page-container">
