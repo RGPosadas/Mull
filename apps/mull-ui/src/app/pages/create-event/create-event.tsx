@@ -172,16 +172,17 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       });
   };
 
-  return isInReview ? (
-    <EventPage
-      event={payload}
-      prevPage={'Edit'}
-      onBackButtonClick={() => setIsInReview(false)}
-      onButtonClick={createMullEvent}
-      eventImageURL={imageURLFile}
-    />
-  ) : (
+  return (
     <form className="container" onSubmit={formik.handleSubmit}>
+      {isInReview ? (
+        <EventPage
+          event={payload}
+          prevPage={'Edit'}
+          onBackButtonClick={() => setIsInReview(false)}
+          onButtonClick={createMullEvent}
+          eventImageURL={imageURLFile}
+        />
+      ) : null}
       <div className="page-container">
         <div className="create-event">
           <p className="create-event-text">Create Event</p>
