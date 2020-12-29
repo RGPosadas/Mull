@@ -182,84 +182,87 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           event={payload}
           prevPage={'Edit'}
           onBackButtonClick={() => setIsInReview(false)}
-          onButtonClick={createMullEvent}
+          buttonType={'submit'}
           eventImageURL={imageURLFile}
         />
-      ) : null}
-      <div className="page-container">
-        <div className="create-event">
-          <p className="create-event-text">Create Event</p>
-          <CustomFileUpload
-            imageURL={imageURLFile}
-            hasErrors={formik.touched.imageFile && !!formik.errors.imageFile}
-            errorMessage={formik.errors.imageFile}
-            handleFileUpload={handleFileUpload}
-            fieldName="imageFile"
-          />
-          <DateCalendar
-            startDate={formik.values.startDate}
-            endDate={formik.values.endDate}
-            hasErrors={formik.touched.endDate && !!formik.errors.endDate}
-            errorMessage={formik.errors.endDate as string}
-            onStartDateChange={(date) => {
-              formik.setFieldValue('startDate', date);
-              formik.setFieldValue('endDate', null);
-            }}
-            onEndDateChange={(date) => {
-              formik.setFieldValue('endDate', date);
-            }}
-          />
-          <CustomTimePicker
-            label="Start Time"
-            fieldName="startTime"
-            value={formik.values.startTime}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.startTime && !!formik.errors.startTime}
-            errorMessage={formik.errors.startTime}
-          />
-          <CustomTimePicker
-            label="End Time"
-            fieldName="endTime"
-            value={formik.values.endTime}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.endTime && !!formik.errors.endTime}
-            errorMessage={formik.errors.endTime}
-          />
-          <CustomTextInput
-            title="Event Title"
-            fieldName="eventTitle"
-            value={formik.values.eventTitle}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.eventTitle && !!formik.errors.eventTitle}
-            errorMessage={formik.errors.eventTitle}
-            svgIcon={<FontAwesomeIcon icon={faPencilAlt} />}
-          />
-          <CustomTextInput
-            title="Description"
-            fieldName="description"
-            value={formik.values.description}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.description && !!formik.errors.description}
-            errorMessage={formik.errors.description}
-            svgIcon={<FontAwesomeIcon icon={faAlignLeft} />}
-          />
-          <CustomTextInput
-            title="Location"
-            fieldName="location"
-            value={formik.values.location}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.location && !!formik.errors.location}
-            errorMessage={formik.errors.location}
-            svgIcon={<FontAwesomeIcon icon={faMapMarkerAlt} />}
-          />
-          <PillOptions
-            options={EventRestrictionMap}
-            onChange={handleRestrictions}
-            active={formik.values.activeRestriction}
-          />
-          <MullButton className="create-event-button">Submit</MullButton>
+      ) : (
+        <div className="page-container">
+          <div className="create-event">
+            <p className="create-event-text">Create Event</p>
+            <CustomFileUpload
+              imageURL={imageURLFile}
+              hasErrors={formik.touched.imageFile && !!formik.errors.imageFile}
+              errorMessage={formik.errors.imageFile}
+              handleFileUpload={handleFileUpload}
+              fieldName="imageFile"
+            />
+            <DateCalendar
+              startDate={formik.values.startDate}
+              endDate={formik.values.endDate}
+              hasErrors={formik.touched.endDate && !!formik.errors.endDate}
+              errorMessage={formik.errors.endDate as string}
+              onStartDateChange={(date) => {
+                formik.setFieldValue('startDate', date);
+                formik.setFieldValue('endDate', null);
+              }}
+              onEndDateChange={(date) => {
+                formik.setFieldValue('endDate', date);
+              }}
+            />
+            <CustomTimePicker
+              label="Start Time"
+              fieldName="startTime"
+              value={formik.values.startTime}
+              onChange={formik.handleChange}
+              hasErrors={formik.touched.startTime && !!formik.errors.startTime}
+              errorMessage={formik.errors.startTime}
+            />
+            <CustomTimePicker
+              label="End Time"
+              fieldName="endTime"
+              value={formik.values.endTime}
+              onChange={formik.handleChange}
+              hasErrors={formik.touched.endTime && !!formik.errors.endTime}
+              errorMessage={formik.errors.endTime}
+            />
+            <CustomTextInput
+              title="Event Title"
+              fieldName="eventTitle"
+              value={formik.values.eventTitle}
+              onChange={formik.handleChange}
+              hasErrors={formik.touched.eventTitle && !!formik.errors.eventTitle}
+              errorMessage={formik.errors.eventTitle}
+              svgIcon={<FontAwesomeIcon icon={faPencilAlt} />}
+            />
+            <CustomTextInput
+              title="Description"
+              fieldName="description"
+              value={formik.values.description}
+              onChange={formik.handleChange}
+              hasErrors={formik.touched.description && !!formik.errors.description}
+              errorMessage={formik.errors.description}
+              svgIcon={<FontAwesomeIcon icon={faAlignLeft} />}
+            />
+            <CustomTextInput
+              title="Location"
+              fieldName="location"
+              value={formik.values.location}
+              onChange={formik.handleChange}
+              hasErrors={formik.touched.location && !!formik.errors.location}
+              errorMessage={formik.errors.location}
+              svgIcon={<FontAwesomeIcon icon={faMapMarkerAlt} />}
+            />
+            <PillOptions
+              options={EventRestrictionMap}
+              onChange={handleRestrictions}
+              active={formik.values.activeRestriction}
+            />
+            <MullButton className="create-event-button" type="button" onClick={handleReviewButton}>
+              Done
+            </MullButton>
+          </div>
         </div>
-      </div>
+      )}
     </form>
   );
 };
