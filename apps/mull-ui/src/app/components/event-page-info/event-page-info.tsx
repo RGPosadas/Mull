@@ -20,6 +20,7 @@ export interface EventPageInfoProps {
   event: Partial<IEvent>;
   className?: string;
   isReview: boolean;
+  buttonType?: 'submit' | 'button' | 'reset';
   handleMullButton?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
@@ -31,6 +32,7 @@ export const EventPageInfo = ({
   className = '',
   handleMullButton,
   isReview,
+  buttonType,
 }: EventPageInfoProps) => {
   return (
     <div className={`event-page-info-container ${className}`}>
@@ -77,7 +79,7 @@ export const EventPageInfo = ({
         <p className="row-text">{event.participants?.map((p) => p.name).join(', ')}</p>
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
       </div>
-      <MullButton className="event-page-button" onClick={handleMullButton}>
+      <MullButton className="event-page-button" onClick={handleMullButton} type={buttonType}>
         {isReview ? 'Done' : 'Join'}
       </MullButton>
     </div>

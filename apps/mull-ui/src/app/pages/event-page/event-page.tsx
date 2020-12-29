@@ -10,9 +10,10 @@ import './event-page.scss';
 export interface EventPageProps {
   event?: Partial<IEvent>;
   prevPage: string;
+  eventImageURL: string;
+  buttonType?: 'submit' | 'button' | 'reset';
   onBackButtonClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onButtonClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  eventImageURL: string;
   isReview?: boolean;
 }
 
@@ -23,6 +24,7 @@ export const EventPage = ({
   onButtonClick,
   eventImageURL,
   isReview = false,
+  buttonType,
 }: EventPageProps) => {
   let { id }: any = useParams();
   const eventId = parseInt(id);
@@ -61,7 +63,12 @@ export const EventPage = ({
         eventImageURL={eventImageURL}
       />
       <div className="event-page-info">
-        <EventPageInfo event={event} handleMullButton={onButtonClick} isReview={isReview} />
+        <EventPageInfo
+          event={event}
+          handleMullButton={onButtonClick}
+          isReview={isReview}
+          buttonType={buttonType}
+        />
       </div>
     </div>
   ) : null;
