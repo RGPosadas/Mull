@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
-import { useFormik } from 'formik';
+import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, isEmpty } from 'lodash';
 import { History } from 'history';
 
 import {
@@ -118,32 +118,17 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
     }),
 
     onSubmit: async (values) => {
-      if (!values.endDate) values.endDate = cloneDeep(values.startDate);
-      addTimeToDate(values.startTime, values.startDate);
-      addTimeToDate(values.endTime, values.endDate);
+      notifyToast('Submitting Event...');
       try {
-        var uploadedFile = await uploadFile({ variables: { file: file } });
-        if (uploadedFile instanceof Error) {
-          throw uploadedFile;
-        }
+        const {
+          data: { uploadFile: uploadedFile },
+        } = await uploadFile({ variables: { file: file } });
+        await createEvent({ variables: { createEventInput: { ...payload, image: uploadedFile } } });
+        updateToast(toast.TYPE.SUCCESS, 'Event Created');
       } catch (err) {
         updateToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
         console.error(err);
-        return;
       }
-      const imageMedia: IMedia = {
-        id: uploadedFile.data.uploadFile.id,
-        mediaType: uploadedFile.data.uploadFile.mediaType,
-      };
-      setPayload({
-        startDate: values.startDate,
-        endDate: values.endDate,
-        description: values.description,
-        title: values.eventTitle,
-        restriction: values.activeRestriction,
-        image: imageMedia,
-      });
-      setIsInReview(true);
     },
   });
 
