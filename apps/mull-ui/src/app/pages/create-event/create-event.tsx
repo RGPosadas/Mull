@@ -155,21 +155,24 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
     formik.setFieldValue('activeRestriction', idx);
   };
 
-  const createMullEvent = () => {
-    notifyToast('Submitting Event...');
-    createEvent({ variables: { createEventInput: payload } })
-      .then(({ errors }) => {
-        if (errors) {
-          console.log(errors);
-          updateToast(toast.TYPE.ERROR, 'Event Not Created');
-        } else {
-          updateToast(toast.TYPE.SUCCESS, 'Event Created');
-          history.push('/home');
-        }
-      })
-      .catch(() => {
-        updateToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
+  const handleReviewButton = async () => {
+    const errors = await formik.validateForm();
+    if (isEmpty(errors)) {
+      if (!formik.values.endDate) formik.values.endDate = cloneDeep(formik.values.startDate);
+      addTimeToDate(formik.values.startTime, formik.values.startDate);
+      addTimeToDate(formik.values.endTime, formik.values.endDate);
+      setPayload({
+        startDate: formik.values.startDate,
+        endDate: formik.values.endDate,
+        description: formik.values.description,
+        title: formik.values.eventTitle,
+        restriction: formik.values.activeRestriction,
+        image: null,
       });
+      setIsInReview(true);
+    } else {
+      formik.setTouched(setNestedObjectValues<FormikTouched<FormikValues>>(errors, true));
+    }
   };
 
   return (
