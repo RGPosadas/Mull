@@ -13,8 +13,12 @@ import { Media } from './media.entity';
 import { Channel } from './channel.entity';
 import { User } from './user.entity';
 import { Location } from './location.entity';
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { EventRestriction, IEvent } from '@mull/types';
+
+registerEnumType(EventRestriction, {
+  name: 'EventRestriction',
+});
 
 @Entity()
 @ObjectType()
@@ -39,12 +43,12 @@ export class Event implements IEvent {
   @Column()
   description: string;
 
-  @Field(/* istanbul ignore next */ () => Media)
   @OneToOne(/* istanbul ignore next */ () => Media)
   @Field(() => Media, { nullable: true })
   @JoinColumn()
   image?: Media;
 
+  @Field(() => Number)
   @Column({
     type: 'enum',
     enum: EventRestriction,

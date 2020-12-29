@@ -29,6 +29,7 @@ type Event {
   endDate: DateTime!
   id: ID!
   image: Media
+  restriction: Float!
   startDate: DateTime!
   title: String!
 }
@@ -65,12 +66,12 @@ type Mutation {
 }
 
 type Query {
-  coHostsEvents(id: Int!): [Event!]!
-  discoverEvents(id: Int!): [Event!]!
+  coHostEvents(userId: Int!): [Event!]!
+  discoverEvents(userId: Int!): [Event!]!
   event(id: Int!): Event!
   events: [Event!]!
-  hostEvents(id: Int!): [Event!]!
-  participatingEvents(id: Int!): [Event!]!
+  hostEvents(userId: Int!): [Event!]!
+  participatingEvents(userId: Int!): [Event!]!
   user(id: Int!): User!
   users: [User!]!
 }

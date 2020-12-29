@@ -19,13 +19,19 @@ import MullButton from '../mull-button/mull-button';
 export interface EventPageInfoProps {
   event: Partial<IEvent>;
   className?: string;
+  isReview: boolean;
   handleMullButton?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 /**
  * @param handleMullButton Function called when button at bottom of event-page-info is pressed
  */
-export const EventPageInfo = ({ event, className = '', handleMullButton }: EventPageInfoProps) => {
+export const EventPageInfo = ({
+  event,
+  className = '',
+  handleMullButton,
+  isReview,
+}: EventPageInfoProps) => {
   return (
     <div className={`event-page-info-container ${className}`}>
       <div className="info-row">
@@ -72,7 +78,7 @@ export const EventPageInfo = ({ event, className = '', handleMullButton }: Event
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
       </div>
       <MullButton className="event-page-button" onClick={handleMullButton}>
-        Done
+        {isReview ? 'Done' : 'Join'}
       </MullButton>
     </div>
   );

@@ -13,9 +13,10 @@ import EventMembers from '../event-members/event-members';
 export interface EventCardProps {
   event: Partial<IEvent>;
   style?: React.CSSProperties;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-export const EventCard = ({ event, style = {} }: EventCardProps) => {
+export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
   // TODO; set joined based on if current user is part of event
   const [joined, setJoined] = useState<boolean>(false);
 
@@ -30,6 +31,7 @@ export const EventCard = ({ event, style = {} }: EventCardProps) => {
         // TODO: Replace placeholder
         src="https://www.citywindsor.ca/residents/parksandforestry/City-Parks/PublishingImages/Assumption%20Park%20Street%20View.JPG"
         alt="Event"
+        onClick={onClick}
       />
       <div className="event-card-datetime" data-testid="event-card-datetime">
         <div>{`${month} ${day}`}</div>
@@ -44,7 +46,9 @@ export const EventCard = ({ event, style = {} }: EventCardProps) => {
       </button>
       <div className="event-card-description">
         <div className="event-card-text">
-          <div className="event-card-title">{event.title}</div>
+          <div className="event-card-title" onClick={onClick}>
+            {event.title}
+          </div>
 
           <div className="event-card-location">
             {distance}km • {event.location.point}

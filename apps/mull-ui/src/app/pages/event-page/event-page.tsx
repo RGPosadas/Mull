@@ -8,11 +8,12 @@ import { gql, useQuery } from '@apollo/client';
 import './event-page.scss';
 
 export interface EventPageProps {
-  event: Partial<IEvent>;
+  event?: Partial<IEvent>;
   prevPage: string;
   onBackButtonClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onButtonClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   eventImageURL: string;
+  isReview?: boolean;
 }
 
 export const EventPage = ({
@@ -21,11 +22,12 @@ export const EventPage = ({
   onBackButtonClick,
   onButtonClick,
   eventImageURL,
+  isReview = false,
 }: EventPageProps) => {
   let { id }: any = useParams();
   const eventId = parseInt(id);
 
-  const GET_SPECFICIC_EVENT = gql`
+  const GET_SPECIFIC_EVENT = gql`
     query findSpecificEvent($eventId: Int!) {
       event(id: $eventId) {
         id
@@ -33,14 +35,20 @@ export const EventPage = ({
         description
         startDate
         endDate
+        restriction
       }
     }
   `;
-  const { loading, error, data } = useQuery(GET_SPECFICIC_EVENT, {
+  const { loading, error, data } = useQuery(GET_SPECIFIC_EVENT, {
     variables: { eventId },
+    skip: !!event,
   });
 
-  return (
+  if (!loading && data) {
+    event = data.event;
+  }
+
+  return event ? (
     <div className="page-container no-padding event-page-container">
       <EventPageHeader
         event={event}
@@ -49,10 +57,10 @@ export const EventPage = ({
         eventImageURL={eventImageURL}
       />
       <div className="event-page-info">
-        <EventPageInfo event={event} handleMullButton={onButtonClick} />
+        <EventPageInfo event={event} handleMullButton={onButtonClick} isReview={isReview} />
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default EventPage;

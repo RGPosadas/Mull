@@ -4,14 +4,13 @@ import { EventCard } from '../../components';
 import { dummyEvent } from '../../../constants';
 
 import './discover.scss';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
-export const DiscoverPage = () => {
+export const DiscoverPage = ({ history }) => {
   const events: [IEvent] = Array(5).fill(dummyEvent) as [IEvent]; // will be replaced with a query call
+
   const eventCards = events.map((event, index) => (
-    <Link to={`/events/${event.id}`} key={index}>
-      <EventCard key={index} event={event} />
-    </Link>
+    <EventCard key={index} event={event} onClick={() => history.push(`/events/${event.id}`)} />
   ));
   return <div className="discover-page-container">{eventCards}</div>;
 };

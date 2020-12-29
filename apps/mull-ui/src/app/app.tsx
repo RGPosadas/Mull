@@ -50,9 +50,8 @@ export const App = () => {
           path="/events/:id"
           children={
             <EventPage
-              event={dummyEvent}
               eventImageURL={'https://i.ytimg.com/vi/-Mb3FoIlTCY/maxresdefault.jpg'}
-              prevPage="home"
+              prevPage="Discover"
             />
           }
         />
