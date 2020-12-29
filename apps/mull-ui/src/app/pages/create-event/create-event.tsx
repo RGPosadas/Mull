@@ -147,6 +147,10 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
     formik.setFieldValue('activeRestriction', idx);
   };
 
+  /**
+   * Handles the 'Done' button press. It will run the validation on the form and
+   * make the payload ready for the review page.
+   */
   const handleReviewButton = async () => {
     const errors = await formik.validateForm();
     if (isEmpty(errors)) {
