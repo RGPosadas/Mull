@@ -123,7 +123,14 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         const {
           data: { uploadFile: uploadedFile },
         } = await uploadFile({ variables: { file: file } });
-        await createEvent({ variables: { createEventInput: { ...payload, image: uploadedFile } } });
+        await createEvent({
+          variables: {
+            createEventInput: {
+              ...payload,
+              image: { id: uploadedFile.id, mediaType: uploadedFile.mediaType },
+            },
+          },
+        });
         updateToast(toast.TYPE.SUCCESS, 'Event Created');
       } catch (err) {
         updateToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
