@@ -38,13 +38,13 @@
   }
 
   .discover-cards {
-    width: 35%;
+    width: $page-container-width;
     padding: 1rem 0;
     margin: auto;
   }
 
   .page-container {
-    width: 35%;
+    width: $page-container-width;
     margin: $top-nav-bar-height-desktop auto 0;
     padding: 1rem 0;
 

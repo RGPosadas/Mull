@@ -1,7 +1,14 @@
 @import '../../../../variables.scss';
 .sub-nav-bar-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+}
+
+.inner-cont {
+  max-width: $page-container-width;
+  width: $page-container-width;
+  justify-content: space-between;
+  display: flex;
 }
 
 .subnavigation-link {
