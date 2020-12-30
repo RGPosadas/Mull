@@ -1,4 +1,4 @@
-import { EventRestriction, IEvent } from '@mull/types';
+import { EventRestriction, ISerializedEvent } from '@mull/types';
 
 /**
  * enum of the current routes for the application
@@ -26,7 +26,7 @@ export const dummyProfilePictures: string[] = [
   'https://pbs.twimg.com/profile_images/748593045566853124/9DDVz0uT_400x400.jpg',
 ];
 
-export const dummyEvent: IEvent = {
+export const dummyEvent: ISerializedEvent = {
   id: 1,
   title: 'Test title',
   description:

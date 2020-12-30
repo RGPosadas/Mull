@@ -1,4 +1,4 @@
-import { IEvent } from '@mull/types';
+import { ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +11,7 @@ import { dummyProfilePictures } from '../../../constants'; // TODO query the par
 import EventMembers from '../event-members/event-members';
 
 export interface EventCardProps {
-  event: Partial<IEvent>;
+  event: Partial<ISerializedEvent>;
   style?: React.CSSProperties;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }

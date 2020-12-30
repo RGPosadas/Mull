@@ -1,12 +1,12 @@
 import React from 'react';
-import { IEvent } from '@mull/types';
+import { ISerializedEvent } from '@mull/types';
 import { EventCard } from '../../../components';
 import { gql, useQuery } from '@apollo/client';
 
 import '../home-discover.scss';
 
 interface DiscoverData {
-  discoverEvents: Partial<IEvent>[];
+  discoverEvents: Partial<ISerializedEvent>[];
 }
 
 export const GET_DISCOVER_EVENTS = gql`
@@ -29,7 +29,7 @@ export const DiscoverPage = ({ history }) => {
   });
 
   if (data) {
-    const events: Partial<IEvent>[] = data.discoverEvents;
+    const events: Partial<ISerializedEvent>[] = data.discoverEvents;
     var eventCards = events.map((event, index) => <EventCard key={index} event={event} />);
   }
   return <div className="discover-page-tabs-container">{eventCards}</div>;

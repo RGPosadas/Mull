@@ -31,14 +31,19 @@ export const EventRestrictionMap = ['Everyone', 'Friends', 'Invite Only'];
 export interface IEvent {
   id: number;
   title: string;
-  startDate: Date | string;
-  endDate: Date | string;
+  startDate: Date;
+  endDate: Date;
   description: string;
   image?: IMedia;
   restriction: EventRestriction;
   participants?: IUser[];
   host?: IUser;
   location?: ILocation;
+}
+
+export interface ISerializedEvent extends Omit<IEvent, 'startDate' | 'endDate'> {
+  startDate: string;
+  endDate: string;
 }
 
 export interface ILocation {

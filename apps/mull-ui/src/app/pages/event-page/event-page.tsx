@@ -1,4 +1,4 @@
-import { IEvent } from '@mull/types';
+import { ISerializedEvent } from '@mull/types';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { EventPageHeader, EventPageInfo } from '../../components';
@@ -8,7 +8,7 @@ import { gql, useQuery } from '@apollo/client';
 import './event-page.scss';
 
 export interface EventPageProps {
-  event?: Partial<IEvent>;
+  event: Partial<ISerializedEvent>;
   prevPage: string;
   eventImageURL: string;
   buttonType?: 'submit' | 'button' | 'reset';

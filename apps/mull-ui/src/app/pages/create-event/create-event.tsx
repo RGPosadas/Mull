@@ -17,7 +17,7 @@ import DateCalendar from './date-calendar/date-calendar';
 import { EventPage } from './../event-page/event-page';
 import { useToast } from '../../hooks/useToast';
 
-import { EventRestriction, EventRestrictionMap, IEvent, IMedia } from '@mull/types';
+import { EventRestriction, EventRestrictionMap, IMedia, ISerializedEvent } from '@mull/types';
 import { DAY_IN_MILLISECONDS, ROUTES } from '../../../constants';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -53,13 +53,13 @@ export const UPLOAD_PHOTO = gql`
  */
 const CreateEventPage = ({ history }: CreateEventProps) => {
   // GraphQL mutation hook to create events
-  const [createEvent] = useMutation<IEvent>(CREATE_EVENT);
+  const [createEvent] = useMutation<ISerializedEvent>(CREATE_EVENT);
   const [uploadFile] = useMutation<{ uploadFile: IMedia }>(UPLOAD_PHOTO);
   // Uploaded Image File
   const [imageURLFile, setImageURLFile] = useState<string>(null); // Path of uploaded image on client, to be used in image previews
   const [file, setFile] = useState<File>(null); // Uploaded image file blob
   const [isInReview, setIsInReview] = useState<boolean>(false); // Show either form or review page
-  const [payload, setPayload] = useState<Partial<IEvent>>(null);
+  const [payload, setPayload] = useState<Partial<ISerializedEvent>>(null);
   const { notifyToast, updateToast } = useToast();
   /**
    * Handles image file uploads
