@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import NavigationBar from './navigation-bar';
+import TopNavBar from './top-nav-bar';
 import { Router } from 'react-router-dom';
 
 import { createMemoryHistory } from 'history';
-import { ROUTES } from '../../../constants';
+import { ROUTES } from '../../../../constants';
 
 import renderer from 'react-test-renderer';
 
@@ -15,7 +15,7 @@ describe('NavigationBar', () => {
 
     const { baseElement } = render(
       <Router history={history}>
-        <NavigationBar />
+        <TopNavBar />
       </Router>
     );
 
@@ -35,7 +35,7 @@ describe('NavigationBar', () => {
     const history = createMemoryHistory();
     const dom = render(
       <Router history={history}>
-        <NavigationBar />
+        <TopNavBar />
       </Router>
     );
 
@@ -52,7 +52,7 @@ describe('NavigationBar', () => {
     const tree = renderer
       .create(
         <Router history={history}>
-          <NavigationBar />
+          <TopNavBar />
         </Router>
       )
       .toJSON();
