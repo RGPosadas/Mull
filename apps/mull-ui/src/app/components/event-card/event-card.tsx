@@ -19,10 +19,6 @@ export interface EventCardProps {
 export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
   // TODO; set joined based on if current user is part of event
   const [joined, setJoined] = useState<boolean>(false);
-
-  // TODO: Implement distance calculation
-  const distance = 15;
-
   const { day, month, time } = formatDate(new Date(event.startDate));
   return (
     <div className="event-card-container button" onClick={onClick} style={style}>
@@ -53,7 +49,6 @@ export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
           <div className="event-card-location">
             {/* TODO: Dynamically add address. Currently not available in the data from the query*/}
             15km • 1455 Boulevard de Maisonneuve O, Montréal, QC H3G 1M8
-            {/* {distance}km • {event.location.point}  */}
           </div>
         </div>
         <EventMembers profilePictures={dummyProfilePictures} />
