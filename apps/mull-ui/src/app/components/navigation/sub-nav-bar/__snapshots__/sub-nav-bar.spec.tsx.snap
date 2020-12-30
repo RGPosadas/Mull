@@ -2,10 +2,10 @@
 
 exports[`SubNavigationBar should match snapshot 1`] = `
 <div
-  className="subnavigation-header-container"
+  className="sub-nav-bar-container undefined"
 >
   <div
-    className="subnavigation-text-container"
+    className="inner-cont"
   >
     <a
       aria-current={null}
