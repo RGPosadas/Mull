@@ -33,8 +33,8 @@ export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
         alt="Event"
       />
       <div className="event-card-datetime" data-testid="event-card-datetime">
-        <div style={{ fontWeight: 'bolder' }}>{`${day} ${month.toUpperCase()}`}</div>
-        <div style={{ fontWeight: 'normal' }}>{time.replace(/\s/g, '')}</div>
+        <div className="date-style">{`${day} ${month.toUpperCase()}`}</div>
+        <div>{time.replace(/\s/g, '')}</div>
       </div>
       {/* TODO: Add/remove user to event on press */}
       <button

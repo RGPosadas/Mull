@@ -5,10 +5,13 @@
 }
 
 .inner-cont {
-  max-width: $page-container-width;
-  width: $page-container-width;
+  width: 100%;
   justify-content: space-between;
   display: flex;
+  padding: 0 2rem;
+  @media (min-width: $breakpoint-mobile) {
+    max-width: $page-container-width;
+  }
 }
 
 .subnavigation-link {
