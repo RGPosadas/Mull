@@ -6,14 +6,11 @@ import { ReactComponent as HomeIcon } from '../../../../assets/icons/nav-bar-ico
 import { ReactComponent as MapIcon } from '../../../../assets/icons/nav-bar-icons/MapIcon.svg';
 import { ReactComponent as MessagesIcon } from '../../../../assets/icons/nav-bar-icons/MessagesIcon.svg';
 import { ReactComponent as MachineLearningIcon } from '../../../../assets/icons/nav-bar-icons/MachineLearningIcon.svg';
-import { ROUTES } from 'apps/mull-ui/src/constants';
+import { ROUTES } from '../../../../constants';
 
 import './nav-buttons.scss';
 
-/* eslint-disable-next-line */
-export interface NavButtonsProps {}
-
-export const NavButtons = ({}: NavButtonsProps) => {
+export const NavButtons = () => {
   return (
     <div className="nav-buttons-container">
       <NavLink to={ROUTES.HOME} activeClassName="active" data-testid="home-navlink">
