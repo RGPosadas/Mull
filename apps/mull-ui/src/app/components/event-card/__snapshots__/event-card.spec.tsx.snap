@@ -2,7 +2,7 @@
 
 exports[`EventCard should match snapshot 1`] = `
 <div
-  className="event-card-container"
+  className="event-card-container button"
   style={Object {}}
 >
   <img
@@ -83,6 +83,7 @@ exports[`EventCard should match snapshot 1`] = `
     </div>
     <button
       className="event-card-share"
+      onClick={[Function]}
     >
       <svg
         aria-hidden="true"
