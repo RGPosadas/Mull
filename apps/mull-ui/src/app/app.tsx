@@ -50,6 +50,7 @@ export const App = () => {
           path="/events/:id"
           children={
             <EventPage
+              // TODO: Remove placeholder once file download is done
               eventImageURL={'https://i.ytimg.com/vi/-Mb3FoIlTCY/maxresdefault.jpg'}
               prevPage="Discover"
             />

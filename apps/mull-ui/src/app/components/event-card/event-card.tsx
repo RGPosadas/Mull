@@ -25,13 +25,12 @@ export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
 
   const { day, month, time } = formatDate(event.startDate);
   return (
-    <div className="event-card-container" style={style}>
+    <div className="event-card-container button" onClick={onClick} style={style}>
       <img
         className="event-card-image"
         // TODO: Replace placeholder
         src="https://www.citywindsor.ca/residents/parksandforestry/City-Parks/PublishingImages/Assumption%20Park%20Street%20View.JPG"
         alt="Event"
-        onClick={onClick}
       />
       <div className="event-card-datetime" data-testid="event-card-datetime">
         <div>{`${month} ${day}`}</div>
@@ -39,16 +38,17 @@ export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
       </div>
       {/* TODO: Add/remove user to event on press */}
       <button
-        onClick={() => setJoined(!joined)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setJoined(!joined);
+        }}
         className={`event-card-join ${joined ? 'joined' : ''}`}
       >
         <FontAwesomeIcon icon={joined ? faCheck : faSignInAlt} />
       </button>
-      <div className="event-card-description">
+      <div className="event-card-description" onClick={onClick}>
         <div className="event-card-text">
-          <div className="event-card-title" onClick={onClick}>
-            {event.title}
-          </div>
+          <div className="event-card-title">{event.title}</div>
 
           <div className="event-card-location">
             {distance}km • {event.location.point}
@@ -56,7 +56,12 @@ export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
         </div>
         <EventMembers profilePictures={dummyProfilePictures} />
         {/* TODO: Implement share */}
-        <button className="event-card-share">
+        <button
+          className="event-card-share"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <FontAwesomeIcon icon={faShareAlt} />
         </button>
       </div>

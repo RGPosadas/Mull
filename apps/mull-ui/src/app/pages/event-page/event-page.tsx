@@ -27,7 +27,7 @@ export const EventPage = ({
   let { id }: any = useParams();
   const eventId = parseInt(id);
 
-  const GET_SPECIFIC_EVENT = gql`
+  const GET_EVENT_BY_ID = gql`
     query findSpecificEvent($eventId: Int!) {
       event(id: $eventId) {
         id
@@ -39,13 +39,17 @@ export const EventPage = ({
       }
     }
   `;
-  const { loading, error, data } = useQuery(GET_SPECIFIC_EVENT, {
+  const { loading, error, data } = useQuery(GET_EVENT_BY_ID, {
     variables: { eventId },
     skip: !!event,
   });
 
   if (!loading && data) {
     event = data.event;
+  }
+
+  if (error) {
+    console.log(error);
   }
 
   return event ? (
