@@ -17,7 +17,7 @@
   }
 
   &.with-sub-nav-bar {
-    margin-top: calc(#{$top-nav-bar-height-mobile + $sub-nav-bar-height-mobile}) !important;
+    margin-top: $top-nav-bar-height-mobile + $sub-nav-bar-height-mobile !important;
   }
 }
 
@@ -48,7 +48,7 @@
     }
 
     &.with-sub-nav-bar {
-      margin-top: calc(#{$top-nav-bar-height-desktop + $sub-nav-bar-height-desktop}) !important;
+      margin-top: $top-nav-bar-height-desktop + $sub-nav-bar-height-desktop !important;
     }
   }
 }
