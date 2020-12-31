@@ -117,7 +117,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       imageFile: Yup.mixed().required('Image is required.'),
     }),
 
-    onSubmit: async (values) => {
+    onSubmit: async () => {
       notifyToast('Submitting Event...');
       try {
         const {
