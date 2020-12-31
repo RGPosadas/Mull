@@ -18,7 +18,7 @@ import { EventPage } from './../event-page/event-page';
 import { useToast } from '../../hooks/useToast';
 
 import { EventRestriction, EventRestrictionMap, IEvent, IMedia } from '@mull/types';
-import { DAY_IN_MILLISECONDS } from '../../../constants';
+import { DAY_IN_MILLISECONDS, ROUTES } from '../../../constants';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAlignLeft, faPencilAlt, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
@@ -132,6 +132,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           },
         });
         updateToast(toast.TYPE.SUCCESS, 'Event Created');
+        history.push(ROUTES.HOME);
       } catch (err) {
         updateToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
         console.error(err);
