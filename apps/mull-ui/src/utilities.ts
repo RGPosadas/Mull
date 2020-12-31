@@ -4,15 +4,16 @@
  * @param date the date to convert
  */
 export const formatDate = (
-  date: Date
+  date: Date | string
 ): { year: number; month: string; day: number; time: string } => {
+  const realDate = new Date(date);
   const month = Intl.DateTimeFormat('en-us', {
     month: 'short',
-  }).format(date);
+  }).format(realDate);
   const timeString = Intl.DateTimeFormat('en-us', {
     hour: '2-digit',
     minute: '2-digit',
-  }).format(date);
+  }).format(realDate);
 
-  return { year: date.getFullYear(), month, day: date.getDate(), time: timeString };
+  return { year: realDate.getFullYear(), month, day: realDate.getDate(), time: timeString };
 };

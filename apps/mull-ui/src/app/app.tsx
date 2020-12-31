@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import './app.scss';
 import { dummyEvent } from '../constants';
 import DiscoverPage from './pages/discover/discover';
+import EventPage from './pages/event-page/event-page';
 
 /**
  * Main component of the application
@@ -44,6 +45,17 @@ export const App = () => {
             <EventCard event={dummyEvent} style={{ marginBottom: '1rem' }} />
           </div>
         </Route>
+        <Route
+          exact
+          path="/events/:id"
+          children={
+            <EventPage
+              // TODO: Remove placeholder once file download is done
+              eventImageURL={'https://i.ytimg.com/vi/-Mb3FoIlTCY/maxresdefault.jpg'}
+              prevPage="Discover"
+            />
+          }
+        />
         <Route path={ROUTES.HOME}>
           <div className="page-container">
             <SubNavigationBar />

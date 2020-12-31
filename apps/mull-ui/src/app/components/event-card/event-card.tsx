@@ -13,9 +13,10 @@ import EventMembers from '../event-members/event-members';
 export interface EventCardProps {
   event: Partial<IEvent>;
   style?: React.CSSProperties;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-export const EventCard = ({ event, style = {} }: EventCardProps) => {
+export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
   // TODO; set joined based on if current user is part of event
   const [joined, setJoined] = useState<boolean>(false);
 
@@ -24,7 +25,7 @@ export const EventCard = ({ event, style = {} }: EventCardProps) => {
 
   const { day, month, time } = formatDate(event.startDate);
   return (
-    <div className="event-card-container" style={style}>
+    <div className="event-card-container button" onClick={onClick} style={style}>
       <img
         className="event-card-image"
         // TODO: Replace placeholder
@@ -37,12 +38,15 @@ export const EventCard = ({ event, style = {} }: EventCardProps) => {
       </div>
       {/* TODO: Add/remove user to event on press */}
       <button
-        onClick={() => setJoined(!joined)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setJoined(!joined);
+        }}
         className={`event-card-join ${joined ? 'joined' : ''}`}
       >
         <FontAwesomeIcon icon={joined ? faCheck : faSignInAlt} />
       </button>
-      <div className="event-card-description">
+      <div className="event-card-description" onClick={onClick}>
         <div className="event-card-text">
           <div className="event-card-title">{event.title}</div>
 
@@ -52,7 +56,12 @@ export const EventCard = ({ event, style = {} }: EventCardProps) => {
         </div>
         <EventMembers profilePictures={dummyProfilePictures} />
         {/* TODO: Implement share */}
-        <button className="event-card-share">
+        <button
+          className="event-card-share"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <FontAwesomeIcon icon={faShareAlt} />
         </button>
       </div>

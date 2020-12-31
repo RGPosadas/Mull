@@ -1,15 +1,19 @@
 import { IEvent } from '@mull/types';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { EventPageHeader, EventPageInfo } from '../../components';
+
+import { gql, useQuery } from '@apollo/client';
 
 import './event-page.scss';
 
 export interface EventPageProps {
-  event: Partial<IEvent>;
+  event?: Partial<IEvent>;
   prevPage: string;
   onBackButtonClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onButtonClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   eventImageURL: string;
+  isReview?: boolean;
 }
 
 export const EventPage = ({
@@ -18,8 +22,37 @@ export const EventPage = ({
   onBackButtonClick,
   onButtonClick,
   eventImageURL,
+  isReview = false,
 }: EventPageProps) => {
-  return (
+  let { id }: any = useParams();
+  const eventId = parseInt(id);
+
+  const GET_EVENT_BY_ID = gql`
+    query findSpecificEvent($eventId: Int!) {
+      event(id: $eventId) {
+        id
+        title
+        description
+        startDate
+        endDate
+        restriction
+      }
+    }
+  `;
+  const { loading, error, data } = useQuery(GET_EVENT_BY_ID, {
+    variables: { eventId },
+    skip: !!event,
+  });
+
+  if (!loading && data) {
+    event = data.event;
+  }
+
+  if (error) {
+    console.log(error);
+  }
+
+  return event ? (
     <div className="page-container no-padding event-page-container">
       <EventPageHeader
         event={event}
@@ -28,10 +61,10 @@ export const EventPage = ({
         eventImageURL={eventImageURL}
       />
       <div className="event-page-info">
-        <EventPageInfo event={event} handleMullButton={onButtonClick} />
+        <EventPageInfo event={event} handleMullButton={onButtonClick} isReview={isReview} />
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default EventPage;
