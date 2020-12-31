@@ -72,22 +72,14 @@ export const App = () => {
           />
         </Route>
         <Route path={ROUTES.HOME}>
-          <div className="discover-page page-container full-width no-padding">
-            <SubNavBar className="top-nav-bar-shadow" style={{ paddingBottom: '0.5rem' }} />
-            <div style={{ overflowY: 'auto' }}>
-              <div className="discover-cards">
-                <SwipeableRoutes>
-                  <Route path={ROUTES.DISCOVER} component={DiscoverPage} />
-                  <Route path={ROUTES.UPCOMING} component={() => <div>UPCOMING!</div>} />
-                  <Route path={ROUTES.MY_EVENTS} component={() => <div>MY_EVENTS!</div>} />
-                  <Route
-                    exact
-                    path={ROUTES.HOME}
-                    render={() => <Redirect to={ROUTES.DISCOVER} />}
-                  />
-                </SwipeableRoutes>
-              </div>
-            </div>
+          <SubNavBar className="top-nav-bar-shadow" />
+          <div className="page-container with-sub-nav-bar">
+            <SwipeableRoutes>
+              <Route path={ROUTES.DISCOVER} component={DiscoverPage} />
+              <Route path={ROUTES.UPCOMING} component={() => <div>UPCOMING!</div>} />
+              <Route path={ROUTES.MY_EVENTS} component={() => <div>MY_EVENTS!</div>} />
+              <Route exact path={ROUTES.HOME} render={() => <Redirect to={ROUTES.DISCOVER} />} />
+            </SwipeableRoutes>
           </div>
         </Route>
         <Route exact path={ROUTES.LOGIN} component={LoginPage} />

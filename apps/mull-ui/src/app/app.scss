@@ -15,32 +15,19 @@
   &.no-padding {
     padding: 0;
   }
-}
 
-.discover-page {
-  height: calc(100vh - #{$top-nav-bar-height-mobile + $bot-nav-bar-height-mobile});
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+  &.with-sub-nav-bar {
+    margin-top: calc(#{$top-nav-bar-height-mobile + $sub-nav-bar-height-mobile}) !important;
+  }
 }
 
 .Toastify__toast--success {
   background: $primary_color;
 }
 
-.discover-cards {
-  padding: 1rem;
-}
-
 @media (min-width: $breakpoint-mobile) {
   .Toastify__toast-container {
     top: 7.5rem;
-  }
-
-  .discover-cards {
-    width: $page-container-width;
-    padding: 1rem 0;
-    margin: auto;
   }
 
   .page-container {
@@ -59,9 +46,9 @@
     &.no-padding {
       padding: 0;
     }
-  }
 
-  .discover-page {
-    height: calc(100vh - #{$top-nav-bar-height-desktop});
+    &.with-sub-nav-bar {
+      margin-top: calc(#{$top-nav-bar-height-desktop + $sub-nav-bar-height-desktop}) !important;
+    }
   }
 }
