@@ -5,7 +5,6 @@ import renderer from 'react-test-renderer';
 import EventPage from './event-page';
 import { dummyEvent } from '../../../constants';
 import { MemoryRouter, Route } from 'react-router-dom';
-import { Router } from 'express';
 import { MockedProvider } from '@apollo/client/testing';
 
 describe('EventPage', () => {

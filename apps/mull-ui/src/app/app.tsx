@@ -22,8 +22,7 @@ import EventPage from './pages/event-page/event-page';
  */
 
 /* Temporary, to be removed */
-const showNavigation = () => {
-  const location = useLocation();
+const showNavigation = (location) => {
   if ([ROUTES.LOGIN, ROUTES.REGISTER].includes(location.pathname)) {
     return false;
   }
@@ -31,6 +30,8 @@ const showNavigation = () => {
 };
 
 export const App = () => {
+  const location = useLocation();
+
   return (
     <div>
       <Switch>
@@ -82,7 +83,7 @@ export const App = () => {
         pauseOnHover
       />
 
-      {showNavigation() ? (
+      {showNavigation(location) ? (
         <>
           <Header />
           <NavigationBar />

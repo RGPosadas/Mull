@@ -24,7 +24,7 @@ export const EventPage = ({
   eventImageURL,
   isReview = false,
 }: EventPageProps) => {
-  let { id }: any = useParams();
+  const { id } = useParams<{ id: string }>();
   const eventId = parseInt(id);
 
   const GET_EVENT_BY_ID = gql`
