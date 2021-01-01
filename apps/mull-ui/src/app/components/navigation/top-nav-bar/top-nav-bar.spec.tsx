@@ -9,7 +9,7 @@ import { ROUTES } from '../../../../constants';
 
 import renderer from 'react-test-renderer';
 
-describe('NavigationBar', () => {
+describe('TopNavBar', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
 
@@ -22,7 +22,7 @@ describe('NavigationBar', () => {
     expect(baseElement).toBeTruthy();
   });
 
-  it('button associated with current should be active ', () => {
+  it('button associated with current route should be active ', () => {
     const testIds = {
       [ROUTES.HOME]: 'home-navlink',
       [ROUTES.MAP]: 'map-navlink',

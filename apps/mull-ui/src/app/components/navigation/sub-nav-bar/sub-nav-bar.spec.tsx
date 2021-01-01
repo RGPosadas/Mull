@@ -8,7 +8,7 @@ import { Router } from 'react-router-dom';
 
 import { ROUTES } from '../../../../constants';
 
-describe('SubNavigationBar', () => {
+describe('SubNavBar', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
 

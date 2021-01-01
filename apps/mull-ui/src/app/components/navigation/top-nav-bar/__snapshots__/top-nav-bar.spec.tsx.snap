@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NavigationBar should match snapshot 1`] = `
+exports[`TopNavBar should match snapshot 1`] = `
 <div
   className="top-nav-container top-nav-bar-shadow"
 >

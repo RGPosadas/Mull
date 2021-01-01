@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 import CreateEventPage from './pages/create-event/create-event';
-import { TopNavBar, BottomNavBar, EventCard, SubNavBar } from './components';
+import { TopNavBar, BotNavBar, EventCard, SubNavBar } from './components';
 import LoginPage from './pages/login/login';
 import RegisterPage from './pages/register/register';
 
@@ -100,7 +100,7 @@ export const App = () => {
       {showNavigation(location) ? (
         <>
           <TopNavBar style={getTopBarStyle()} />
-          <BottomNavBar />
+          <BotNavBar />
         </>
       ) : null}
     </div>

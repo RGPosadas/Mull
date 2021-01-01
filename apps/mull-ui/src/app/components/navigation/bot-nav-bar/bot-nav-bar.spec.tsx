@@ -1,20 +1,20 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import BottomNavBar from './bot-nav-bar';
+import BotNavBar from './bot-nav-bar';
 import { Router } from 'react-router-dom';
 
 import { createMemoryHistory } from 'history';
 
 import renderer from 'react-test-renderer';
 
-describe('Header', () => {
+describe('BotNavBar', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
 
     const { baseElement } = render(
       <Router history={history}>
-        <BottomNavBar />
+        <BotNavBar />
       </Router>
     );
 
@@ -27,7 +27,7 @@ describe('Header', () => {
     const tree = renderer
       .create(
         <Router history={history}>
-          <BottomNavBar />
+          <BotNavBar />
         </Router>
       )
       .toJSON();

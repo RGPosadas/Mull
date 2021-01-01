@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header should match snapshot 1`] = `
+exports[`BotNavBar should match snapshot 1`] = `
 <div
-  className="header-container"
+  className="bot-nav-container"
 >
   <div
     className="nav-buttons-container"

@@ -9,12 +9,12 @@ import NavButtons from '../nav-buttons/nav-buttons';
  *
  * @see ROUTES
  */
-export const BottomNavBar = () => {
+export const BotNavBar = () => {
   return (
-    <div className="header-container">
-      <NavButtons data-testid="bot-mobile-navlink" />
+    <div className="bot-nav-container">
+      <NavButtons />
     </div>
   );
 };
 
-export default BottomNavBar;
+export default BotNavBar;

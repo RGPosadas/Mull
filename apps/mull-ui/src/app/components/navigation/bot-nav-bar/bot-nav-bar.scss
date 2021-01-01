@@ -1,6 +1,6 @@
 @import '../../../../variables.scss';
 
-.header-container {
+.bot-nav-container {
   background: $background-color;
   box-sizing: border-box;
   height: $bot-nav-bar-height-mobile;
@@ -14,7 +14,7 @@
 }
 
 @media (min-width: $breakpoint-mobile) {
-  .header-container {
+  .bot-nav-container {
     display: none;
   }
 }

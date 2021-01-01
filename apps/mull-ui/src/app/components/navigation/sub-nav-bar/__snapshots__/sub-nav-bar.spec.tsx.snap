@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SubNavigationBar should match snapshot 1`] = `
+exports[`SubNavBar should match snapshot 1`] = `
 <div
   className="sub-nav-bar-container undefined"
 >
