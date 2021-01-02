@@ -299,7 +299,7 @@ exports[`EventPage should match snapshot 1`] = `
         onClick={[Function]}
         type="submit"
       >
-        Done
+        Join
       </button>
     </div>
   </div>
