@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
-import { useFormik } from 'formik';
+import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, isEmpty } from 'lodash';
 import { History } from 'history';
 
 import {
@@ -18,7 +18,7 @@ import { EventPage } from './../event-page/event-page';
 import { useToast } from '../../hooks/useToast';
 
 import { EventRestriction, EventRestrictionMap, IEvent, IMedia } from '@mull/types';
-import { DAY_IN_MILLISECONDS } from '../../../constants';
+import { DAY_IN_MILLISECONDS, ROUTES } from '../../../constants';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAlignLeft, faPencilAlt, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
@@ -117,33 +117,26 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       imageFile: Yup.mixed().required('Image is required.'),
     }),
 
-    onSubmit: async (values) => {
-      if (!values.endDate) values.endDate = cloneDeep(values.startDate);
-      addTimeToDate(values.startTime, values.startDate);
-      addTimeToDate(values.endTime, values.endDate);
+    onSubmit: async () => {
+      notifyToast('Submitting Event...');
       try {
-        var uploadedFile = await uploadFile({ variables: { file: file } });
-        if (uploadedFile instanceof Error) {
-          throw uploadedFile;
-        }
+        const {
+          data: { uploadFile: uploadedFile },
+        } = await uploadFile({ variables: { file: file } });
+        await createEvent({
+          variables: {
+            createEventInput: {
+              ...payload,
+              image: { id: uploadedFile.id, mediaType: uploadedFile.mediaType },
+            },
+          },
+        });
+        updateToast(toast.TYPE.SUCCESS, 'Event Created');
+        history.push(ROUTES.HOME);
       } catch (err) {
         updateToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
         console.error(err);
-        return;
       }
-      const imageMedia: IMedia = {
-        id: uploadedFile.data.uploadFile.id,
-        mediaType: uploadedFile.data.uploadFile.mediaType,
-      };
-      setPayload({
-        startDate: values.startDate,
-        endDate: values.endDate,
-        description: values.description,
-        title: values.eventTitle,
-        restriction: values.activeRestriction,
-        image: imageMedia,
-      });
-      setIsInReview(true);
     },
   });
 
@@ -155,108 +148,118 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
     formik.setFieldValue('activeRestriction', idx);
   };
 
-  const createMullEvent = () => {
-    notifyToast('Submitting Event...');
-    createEvent({ variables: { createEventInput: payload } })
-      .then(({ errors }) => {
-        if (errors) {
-          console.log(errors);
-          updateToast(toast.TYPE.ERROR, 'Event Not Created');
-        } else {
-          updateToast(toast.TYPE.SUCCESS, 'Event Created');
-          history.push('/home');
-        }
-      })
-      .catch(() => {
-        updateToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
+  /**
+   * Handles the 'Done' button press. It will run the validation on the form and
+   * make the payload ready for the review page.
+   */
+  const handleReviewButton = async () => {
+    const errors = await formik.validateForm();
+    if (isEmpty(errors)) {
+      if (!formik.values.endDate) formik.values.endDate = cloneDeep(formik.values.startDate);
+      addTimeToDate(formik.values.startTime, formik.values.startDate);
+      addTimeToDate(formik.values.endTime, formik.values.endDate);
+      setPayload({
+        startDate: formik.values.startDate,
+        endDate: formik.values.endDate,
+        description: formik.values.description,
+        title: formik.values.eventTitle,
+        restriction: formik.values.activeRestriction,
+        image: null,
       });
+      setIsInReview(true);
+    } else {
+      formik.setTouched(setNestedObjectValues<FormikTouched<FormikValues>>(errors, true));
+    }
   };
 
-  return isInReview ? (
-    <EventPage
-      event={payload}
-      prevPage={'Edit'}
-      onBackButtonClick={() => setIsInReview(false)}
-      onButtonClick={createMullEvent}
-      eventImageURL={imageURLFile}
-      isReview={true}
-    ></EventPage>
-  ) : (
+  return (
     <form className="container" onSubmit={formik.handleSubmit}>
-      <div className="page-container">
-        <div className="create-event">
-          <p className="create-event-text">Create Event</p>
-          <CustomFileUpload
-            imageURL={imageURLFile}
-            hasErrors={formik.touched.imageFile && !!formik.errors.imageFile}
-            errorMessage={formik.errors.imageFile}
-            handleFileUpload={handleFileUpload}
-            fieldName="imageFile"
-          />
-          <DateCalendar
-            startDate={formik.values.startDate}
-            endDate={formik.values.endDate}
-            hasErrors={formik.touched.endDate && !!formik.errors.endDate}
-            errorMessage={formik.errors.endDate as string}
-            onStartDateChange={(date) => {
-              formik.setFieldValue('startDate', date);
-              formik.setFieldValue('endDate', null);
-            }}
-            onEndDateChange={(date) => {
-              formik.setFieldValue('endDate', date);
-            }}
-          />
-          <CustomTimePicker
-            label="Start Time"
-            fieldName="startTime"
-            value={formik.values.startTime}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.startTime && !!formik.errors.startTime}
-            errorMessage={formik.errors.startTime}
-          />
-          <CustomTimePicker
-            label="End Time"
-            fieldName="endTime"
-            value={formik.values.endTime}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.endTime && !!formik.errors.endTime}
-            errorMessage={formik.errors.endTime}
-          />
-          <CustomTextInput
-            title="Event Title"
-            fieldName="eventTitle"
-            value={formik.values.eventTitle}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.eventTitle && !!formik.errors.eventTitle}
-            errorMessage={formik.errors.eventTitle}
-            svgIcon={<FontAwesomeIcon icon={faPencilAlt} />}
-          />
-          <CustomTextInput
-            title="Description"
-            fieldName="description"
-            value={formik.values.description}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.description && !!formik.errors.description}
-            errorMessage={formik.errors.description}
-            svgIcon={<FontAwesomeIcon icon={faAlignLeft} />}
-          />
-          <CustomTextInput
-            title="Location"
-            fieldName="location"
-            value={formik.values.location}
-            onChange={formik.handleChange}
-            hasErrors={formik.touched.location && !!formik.errors.location}
-            errorMessage={formik.errors.location}
-            svgIcon={<FontAwesomeIcon icon={faMapMarkerAlt} />}
-          />
-          <PillOptions
-            options={EventRestrictionMap}
-            onChange={handleRestrictions}
-            active={formik.values.activeRestriction}
-          />
-          <MullButton className="create-event-button">Submit</MullButton>
+      {isInReview ? (
+        <EventPage
+          event={payload}
+          prevPage={'Edit'}
+          onBackButtonClick={() => setIsInReview(false)}
+          buttonType={'submit'}
+          eventImageURL={imageURLFile}
+        />
+      ) : (
+        <div className="page-container">
+          <div className="create-event">
+            <p className="create-event-text">Create Event</p>
+            <CustomFileUpload
+              imageURL={imageURLFile}
+              hasErrors={formik.touched.imageFile && !!formik.errors.imageFile}
+              errorMessage={formik.errors.imageFile}
+              handleFileUpload={handleFileUpload}
+              fieldName="imageFile"
+            />
+            <DateCalendar
+              startDate={formik.values.startDate}
+              endDate={formik.values.endDate}
+              hasErrors={formik.touched.endDate && !!formik.errors.endDate}
+              errorMessage={formik.errors.endDate as string}
+              onStartDateChange={(date) => {
+                formik.setFieldValue('startDate', date);
+                formik.setFieldValue('endDate', null);
+              }}
+              onEndDateChange={(date) => {
+                formik.setFieldValue('endDate', date);
+              }}
+            />
+            <CustomTimePicker
+              label="Start Time"
+              fieldName="startTime"
+              value={formik.values.startTime}
+              onChange={formik.handleChange}
+              hasErrors={formik.touched.startTime && !!formik.errors.startTime}
+              errorMessage={formik.errors.startTime}
+            />
+            <CustomTimePicker
+              label="End Time"
+              fieldName="endTime"
+              value={formik.values.endTime}
+              onChange={formik.handleChange}
+              hasErrors={formik.touched.endTime && !!formik.errors.endTime}
+              errorMessage={formik.errors.endTime}
+            />
+            <CustomTextInput
+              title="Event Title"
+              fieldName="eventTitle"
+              value={formik.values.eventTitle}
+              onChange={formik.handleChange}
+              hasErrors={formik.touched.eventTitle && !!formik.errors.eventTitle}
+              errorMessage={formik.errors.eventTitle}
+              svgIcon={<FontAwesomeIcon icon={faPencilAlt} />}
+            />
+            <CustomTextInput
+              title="Description"
+              fieldName="description"
+              value={formik.values.description}
+              onChange={formik.handleChange}
+              hasErrors={formik.touched.description && !!formik.errors.description}
+              errorMessage={formik.errors.description}
+              svgIcon={<FontAwesomeIcon icon={faAlignLeft} />}
+            />
+            <CustomTextInput
+              title="Location"
+              fieldName="location"
+              value={formik.values.location}
+              onChange={formik.handleChange}
+              hasErrors={formik.touched.location && !!formik.errors.location}
+              errorMessage={formik.errors.location}
+              svgIcon={<FontAwesomeIcon icon={faMapMarkerAlt} />}
+            />
+            <PillOptions
+              options={EventRestrictionMap}
+              onChange={handleRestrictions}
+              active={formik.values.activeRestriction}
+            />
+            <MullButton className="create-event-button" type="button" onClick={handleReviewButton}>
+              Done
+            </MullButton>
+          </div>
         </div>
-      </div>
+      )}
     </form>
   );
 };

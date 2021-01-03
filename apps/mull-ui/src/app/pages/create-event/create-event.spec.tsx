@@ -53,7 +53,9 @@ describe('CreateEvent', () => {
         </Router>
       </MockedProvider>
     );
-    const submitButton = utils.container.querySelector('button[type="submit"]');
+    const submitButton = utils.container.querySelector(
+      'button[class="mull-button create-event-button"]'
+    );
     await waitFor(() => {
       fireEvent.click(submitButton);
     });
@@ -114,7 +116,9 @@ describe('CreateEvent', () => {
     const activeRestriction = utils.container.querySelector('.pill-options > div:nth-child(2)');
     fireEvent.click(activeRestriction);
 
-    const submitButton = utils.container.querySelector('button[type="submit"]');
+    const submitButton = utils.container.querySelector(
+      'button[class="mull-button create-event-button"]'
+    );
     await waitFor(() => {
       fireEvent.click(submitButton);
     });
