@@ -17,6 +17,13 @@ const mockEventService = () => ({
     event.participants.push(new User(userId));
     return event;
   }),
+  removeParticipant: jest.fn((eventId: number, userId: number) => {
+    const event = mockAllEvents.find((event) => (event.id = eventId));
+    const user = event.participants.find((participant) => participant.id == userId);
+    const index = event.participants.indexOf(user);
+    event.participants.splice(index, 1);
+    return event;
+  }),
   findHostEvents: jest.fn((id: number) => mockAllEvents.find((event) => event.host.id === id)),
   findCoHostEvents: jest.fn((coHostId: number) =>
     mockAllEvents.find((event) => event.coHosts.some((cohost) => cohost.id === coHostId))
@@ -69,6 +76,11 @@ describe('UserResolver', () => {
 
   it('should add the participant to the event', async () => {
     const success = await resolver.addParticipantToEvent(35, 1);
+    expect(success).toEqual(true);
+  });
+
+  it('should remove the participant from the event', async () => {
+    const success = await resolver.removeParticipantToEvent(35, 1);
     expect(success).toEqual(true);
   });
 

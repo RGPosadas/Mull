@@ -82,6 +82,16 @@ describe('EventService', () => {
     expect(updatedEvent.participants.pop().id).toEqual(userId);
   });
 
+  it('should remove the participant from the event', async () => {
+    const eventId = 35;
+    const userId = 3;
+    const event = await service.findOne(eventId);
+    const oldSize = event.participants.length;
+
+    const updatedEvent = await service.removeParticipant(eventId, userId);
+    expect(updatedEvent.participants.length).toBeLessThan(oldSize);
+  });
+
   it('should return the event with given id', async () => {
     const foundEvent = await service.findOne(35);
     expect(foundEvent).toEqual(mockAllEvents.find((event) => event.id === 35));
