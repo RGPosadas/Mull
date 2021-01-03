@@ -92,6 +92,14 @@ export class EventService {
     return await this.eventRepository.save(event);
   }
 
+  async removeParticipant(eventId: number, userId: number) {
+    const event = await this.eventRepository.findOne(eventId, { relations: ['participants'] });
+    const user = event.participants.find((participant) => participant.id == userId);
+    const index = event.participants.indexOf(user);
+    event.participants.splice(index, 1);
+    return await this.eventRepository.save(event);
+  }
+
   async delete(id: number): Promise<Event> {
     const event = await this.findOne(id);
     await this.eventRepository.delete(event.id);
