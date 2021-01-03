@@ -21,7 +21,7 @@ export const GET_PARTICIPATING_EVENTS = gql`
   }
 `;
 
-export const UpcomingPage = () => {
+export const UpcomingPage = ({ history }) => {
   const { data } = useQuery<UpcomingEventData>(GET_PARTICIPATING_EVENTS, {
     fetchPolicy: 'network-only',
     // TODO: dynamically pass current UserId
@@ -30,7 +30,9 @@ export const UpcomingPage = () => {
 
   if (data) {
     const events: Partial<ISerializedEvent>[] = data.participatingEvents;
-    var eventCards = events.map((event, index) => <EventCard key={index} event={event} />);
+    var eventCards = events.map((event, index) => (
+      <EventCard key={index} event={event} onClick={() => history.push(`/events/${event.id}`)} />
+    ));
   }
   return <div className="discover-page-tabs-container">{eventCards}</div>;
 };

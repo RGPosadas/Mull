@@ -8,7 +8,7 @@ import { gql, useQuery } from '@apollo/client';
 import './event-page.scss';
 
 export interface EventPageProps {
-  event: Partial<ISerializedEvent>;
+  event?: Partial<ISerializedEvent>;
   prevPage: string;
   eventImageURL: string;
   buttonType?: 'submit' | 'button' | 'reset';

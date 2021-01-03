@@ -29,7 +29,7 @@ export const GET_PARTICIPATING_EVENTS = gql`
   }
 `;
 
-export const MyEventsPage = () => {
+export const MyEventsPage = ({ history }) => {
   const { data } = useQuery<MyEventData>(GET_PARTICIPATING_EVENTS, {
     fetchPolicy: 'network-only',
     // TODO: dynamically pass current UserId
@@ -38,7 +38,9 @@ export const MyEventsPage = () => {
 
   if (data) {
     const events: Partial<ISerializedEvent>[] = data.coHostEvents.concat(data.hostEvents);
-    var eventCards = events.map((event, index) => <EventCard key={index} event={event} />);
+    var eventCards = events.map((event, index) => (
+      <EventCard key={index} event={event} onClick={() => history.push(`/events/${event.id}`)} />
+    ));
   }
   return <div className="discover-page-tabs-container">{eventCards}</div>;
 };

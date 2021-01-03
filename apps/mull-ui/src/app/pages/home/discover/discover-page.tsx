@@ -30,7 +30,9 @@ export const DiscoverPage = ({ history }) => {
 
   if (data) {
     const events: Partial<ISerializedEvent>[] = data.discoverEvents;
-    var eventCards = events.map((event, index) => <EventCard key={index} event={event} />);
+    var eventCards = events.map((event, index) => (
+      <EventCard key={index} event={event} onClick={() => history.push(`/events/${event.id}`)} />
+    ));
   }
   return <div className="discover-page-tabs-container">{eventCards}</div>;
 };
