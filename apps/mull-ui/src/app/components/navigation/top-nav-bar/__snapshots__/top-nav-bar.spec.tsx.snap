@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopNavBar should match snapshot 1`] = `
+<div
+  className="top-nav-container top-nav-bar-shadow"
+>
+  <img
+    alt="Mull logo"
+    className="logo nav-element"
+    src="mull-logo.png"
+  />
+  <div
+    className="extra-buttons"
+  >
+    <div
+      className="nav-buttons-container"
+    >
+      <a
+        aria-current={null}
+        data-testid="home-navlink"
+        href="/home"
+        onClick={[Function]}
+      >
+        <svg
+          className="nav-button"
+        >
+          HomeIcon.svg
+        </svg>
+      </a>
+      <a
+        aria-current={null}
+        data-testid="map-navlink"
+        href="/map"
+        onClick={[Function]}
+      >
+        <svg
+          className="nav-button"
+        >
+          MapIcon.svg
+        </svg>
+      </a>
+      <a
+        aria-current={null}
+        data-testid="create-event-navlink"
+        href="/create-event"
+        onClick={[Function]}
+      >
+        <svg
+          className="nav-middle-button"
+        >
+          CreateEventIcon.svg
+        </svg>
+      </a>
+      <a
+        aria-current={null}
+        data-testid="tools-navlink"
+        href="/tools"
+        onClick={[Function]}
+      >
+        <svg
+          className="nav-button"
+        >
+          MachineLearningIcon.svg
+        </svg>
+      </a>
+      <a
+        aria-current={null}
+        data-testid="messages-navlink"
+        href="/messages"
+        onClick={[Function]}
+      >
+        <svg
+          className="nav-button"
+        >
+          MessagesIcon.svg
+        </svg>
+      </a>
+    </div>
+  </div>
+  <a
+    aria-current={null}
+    className="profile-button"
+    data-testid="profile-desktop-navlink"
+    href="/profile"
+    onClick={[Function]}
+  >
+    <svg
+      className="nav-button"
+    >
+      ProfileIcon.svg
+    </svg>
+  </a>
+</div>
+`;

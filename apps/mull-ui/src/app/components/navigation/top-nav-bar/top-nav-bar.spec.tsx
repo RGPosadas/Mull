@@ -1,28 +1,28 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import NavigationBar from './navigation-bar';
+import TopNavBar from './top-nav-bar';
 import { Router } from 'react-router-dom';
 
 import { createMemoryHistory } from 'history';
-import { ROUTES } from '../../../constants';
+import { ROUTES } from '../../../../constants';
 
 import renderer from 'react-test-renderer';
 
-describe('NavigationBar', () => {
+describe('TopNavBar', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
 
     const { baseElement } = render(
       <Router history={history}>
-        <NavigationBar />
+        <TopNavBar />
       </Router>
     );
 
     expect(baseElement).toBeTruthy();
   });
 
-  it('button associated with current should be active ', () => {
+  it('button associated with current route should be active ', () => {
     const testIds = {
       [ROUTES.HOME]: 'home-navlink',
       [ROUTES.MAP]: 'map-navlink',
@@ -35,7 +35,7 @@ describe('NavigationBar', () => {
     const history = createMemoryHistory();
     const dom = render(
       <Router history={history}>
-        <NavigationBar />
+        <TopNavBar />
       </Router>
     );
 
@@ -52,7 +52,7 @@ describe('NavigationBar', () => {
     const tree = renderer
       .create(
         <Router history={history}>
-          <NavigationBar />
+          <TopNavBar />
         </Router>
       )
       .toJSON();

@@ -37,12 +37,12 @@ export const EventPageHeader = ({
         <FontAwesomeIcon icon={faClock} className="clock-icon event-page-icon color-grey" />
 
         <div className="event-datetime-string" data-testid="start-date-div">
-          <div>{`${startMonth} ${startDay}`}</div>
+          <div>{`${startDay} ${startMonth}`}</div>
           <div>{startTime}</div>
         </div>
         <FontAwesomeIcon icon={faCaretRight} className="event-page-icon color-grey" />
         <div className="event-datetime-string" data-testid="end-date-div">
-          <div>{`${endMonth} ${endDay}`}</div>
+          <div>{`${endDay} ${endMonth}`}</div>
           <div>{endTime}</div>
         </div>
       </div>

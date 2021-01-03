@@ -22,14 +22,18 @@
   top: 0.5rem;
   left: 0.5rem;
   border-radius: 0.5rem;
-  padding: 0.2rem;
+  padding: 0.4rem;
   text-align: center;
 
-  border: 1px black solid;
+  border: 1px solid rgba(0, 0, 0, 0.55);
 
   div {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
+}
+
+.date-style {
+  font-weight: bolder;
 }
 
 .event-card-join {

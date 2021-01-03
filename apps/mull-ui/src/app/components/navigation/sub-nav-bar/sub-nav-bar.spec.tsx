@@ -1,20 +1,20 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import SubNavigationBar from './subnavigation-bar';
+import SubNavBar from './sub-nav-bar';
 
 import { render } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 
-import { ROUTES } from '../../../constants';
+import { ROUTES } from '../../../../constants';
 
-describe('SubNavigationBar', () => {
+describe('SubNavBar', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
 
     const { baseElement } = render(
       <Router history={history}>
-        <SubNavigationBar />
+        <SubNavBar />
       </Router>
     );
 
@@ -31,7 +31,7 @@ describe('SubNavigationBar', () => {
 
     const utils = render(
       <Router history={history}>
-        <SubNavigationBar />
+        <SubNavBar />
       </Router>
     );
 
@@ -47,7 +47,7 @@ describe('SubNavigationBar', () => {
     const tree = renderer
       .create(
         <Router history={history}>
-          <SubNavigationBar />
+          <SubNavBar />
         </Router>
       )
       .toJSON();

@@ -1,0 +1,50 @@
+@import '../../../../variables.scss';
+
+.top-nav-container {
+  background: $background-color;
+  box-sizing: border-box;
+  height: $top-nav-bar-height-mobile;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.7em 0;
+}
+
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 5.4rem;
+}
+
+.profile-button {
+  fill: $inactive-button-color;
+  position: absolute;
+  right: 1em;
+}
+
+.extra-buttons {
+  display: none;
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .top-nav-container {
+    padding: 1em 0;
+    height: $top-nav-bar-height-desktop;
+  }
+
+  .logo {
+    width: 11em;
+    position: absolute;
+    left: 1em;
+  }
+
+  .extra-buttons {
+    display: block;
+  }
+}

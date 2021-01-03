@@ -24,11 +24,11 @@ frameSizes.forEach((frame) => {
       cy.get('.event-image').should('have.attr', 'src');
       cy.get('[data-testid=start-date-div]').should(
         'have.text',
-        `${Cypress.moment().format('MMM D')}11:20 AM`
+        `${Cypress.moment().format('D MMM')}11:20 AM`
       );
       cy.get('[data-testid=end-date-div]').should(
         'have.text',
-        `${Cypress.moment().format('MMM D')}03:20 PM`
+        `${Cypress.moment().format('D MMM')}03:20 PM`
       );
       cy.get('[data-testid=event-host]').should('have.text', 'Placeholder Host');
       cy.get('[data-testid=event-location]').should(
@@ -62,11 +62,11 @@ frameSizes.forEach((frame) => {
       cy.get('.event-image').should('have.attr', 'src');
       cy.get('[data-testid=start-date-div]').should(
         'have.text',
-        `${Cypress.moment().format('MMM D')}11:20 AM`
+        `${Cypress.moment().format('D MMM')}11:20 AM`
       );
       cy.get('[data-testid=end-date-div]').should(
         'have.text',
-        `${Cypress.moment().format('MMM D')}03:20 PM`
+        `${Cypress.moment().format('D MMM')}03:20 PM`
       );
       cy.get('[data-testid=event-host]').should('have.text', 'Placeholder Host');
       cy.get('[data-testid=event-location]').should(

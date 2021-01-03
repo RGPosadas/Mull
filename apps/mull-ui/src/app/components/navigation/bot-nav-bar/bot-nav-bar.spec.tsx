@@ -1,40 +1,24 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import Header from './header';
+import BotNavBar from './bot-nav-bar';
 import { Router } from 'react-router-dom';
 
 import { createMemoryHistory } from 'history';
-import { ROUTES } from '../../../constants';
 
 import renderer from 'react-test-renderer';
 
-describe('Header', () => {
+describe('BotNavBar', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
 
     const { baseElement } = render(
       <Router history={history}>
-        <Header />
+        <BotNavBar />
       </Router>
     );
 
     expect(baseElement).toBeTruthy();
-  });
-
-  it('button associated with current should be active ', () => {
-    const testId = 'profile-mobile-navlink';
-
-    const history = createMemoryHistory();
-    const dom = render(
-      <Router history={history}>
-        <Header />
-      </Router>
-    );
-
-    history.push(ROUTES.PROFILE);
-    const element = dom.getByTestId(testId);
-    expect(element.classList.contains('active')).toBeTruthy();
   });
 
   it('should match snapshot', () => {
@@ -43,7 +27,7 @@ describe('Header', () => {
     const tree = renderer
       .create(
         <Router history={history}>
-          <Header />
+          <BotNavBar />
         </Router>
       )
       .toJSON();

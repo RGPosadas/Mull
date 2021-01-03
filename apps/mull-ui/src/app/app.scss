@@ -1,7 +1,7 @@
 @import '../variables.scss';
 
 .page-container {
-  margin: $header-height-mobile 0 $nav-bar-height-mobile;
+  margin: $top-nav-bar-height-mobile 0 $bot-nav-bar-height-mobile;
   padding: 1rem;
 
   &.no-navigation {
@@ -15,6 +15,10 @@
   &.no-padding {
     padding: 0;
   }
+
+  &.with-sub-nav-bar {
+    margin-top: $top-nav-bar-height-mobile + $sub-nav-bar-height-mobile !important;
+  }
 }
 
 .Toastify__toast--success {
@@ -27,9 +31,13 @@
   }
 
   .page-container {
-    width: 35%;
-    margin: $nav-bar-height-desktop auto 0;
+    width: $page-container-width;
+    margin: $top-nav-bar-height-desktop auto 0;
     padding: 1rem 0;
+
+    &.full-width {
+      width: auto;
+    }
 
     &.no-navigation {
       margin: 0 auto;
@@ -37,6 +45,10 @@
 
     &.no-padding {
       padding: 0;
+    }
+
+    &.with-sub-nav-bar {
+      margin-top: $top-nav-bar-height-desktop + $sub-nav-bar-height-desktop !important;
     }
   }
 }

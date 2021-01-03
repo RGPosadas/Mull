@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import SwipeableRoutes from 'react-swipeable-routes';
 
 import { ToastContainer, toast } from 'react-toastify';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 import CreateEventPage from './pages/create-event/create-event';
-import { NavigationBar, Header, SubNavigationBar, EventCard } from './components';
+import { TopNavBar, BotNavBar, EventCard, SubNavBar } from './components';
 import LoginPage from './pages/login/login';
 import RegisterPage from './pages/register/register';
 
@@ -32,6 +32,13 @@ const showNavigation = (location) => {
 export const App = () => {
   const location = useLocation();
 
+  const getTopBarStyle = (): CSSProperties => {
+    if (location.pathname.includes(ROUTES.HOME)) {
+      return { boxShadow: 'none' };
+    }
+    return {};
+  };
+
   return (
     <div>
       <Switch>
@@ -57,9 +64,16 @@ export const App = () => {
             />
           }
         />
+        <Route exact path={'/test-event-page'}>
+          <EventPage
+            event={dummyEvent}
+            eventImageURL="https://www.citywindsor.ca/residents/parksandforestry/City-Parks/PublishingImages/Assumption%20Park%20Street%20View.JPG"
+            prevPage="home"
+          />
+        </Route>
         <Route path={ROUTES.HOME}>
-          <div className="page-container">
-            <SubNavigationBar />
+          <SubNavBar className="top-nav-bar-shadow" />
+          <div className="page-container with-sub-nav-bar">
             <SwipeableRoutes>
               <Route path={ROUTES.DISCOVER} component={DiscoverPage} />
               <Route path={ROUTES.UPCOMING} component={() => <div>UPCOMING!</div>} />
@@ -85,8 +99,8 @@ export const App = () => {
 
       {showNavigation(location) ? (
         <>
-          <Header />
-          <NavigationBar />
+          <TopNavBar style={getTopBarStyle()} />
+          <BotNavBar />
         </>
       ) : null}
     </div>

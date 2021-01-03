@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BotNavBar should match snapshot 1`] = `
+<div
+  className="bot-nav-container"
+>
+  <div
+    className="nav-buttons-container"
+  >
+    <a
+      aria-current={null}
+      data-testid="home-navlink"
+      href="/home"
+      onClick={[Function]}
+    >
+      <svg
+        className="nav-button"
+      >
+        HomeIcon.svg
+      </svg>
+    </a>
+    <a
+      aria-current={null}
+      data-testid="map-navlink"
+      href="/map"
+      onClick={[Function]}
+    >
+      <svg
+        className="nav-button"
+      >
+        MapIcon.svg
+      </svg>
+    </a>
+    <a
+      aria-current={null}
+      data-testid="create-event-navlink"
+      href="/create-event"
+      onClick={[Function]}
+    >
+      <svg
+        className="nav-middle-button"
+      >
+        CreateEventIcon.svg
+      </svg>
+    </a>
+    <a
+      aria-current={null}
+      data-testid="tools-navlink"
+      href="/tools"
+      onClick={[Function]}
+    >
+      <svg
+        className="nav-button"
+      >
+        MachineLearningIcon.svg
+      </svg>
+    </a>
+    <a
+      aria-current={null}
+      data-testid="messages-navlink"
+      href="/messages"
+      onClick={[Function]}
+    >
+      <svg
+        className="nav-button"
+      >
+        MessagesIcon.svg
+      </svg>
+    </a>
+  </div>
+</div>
+`;

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubNavBar should match snapshot 1`] = `
+<div
+  className="sub-nav-bar-container undefined"
+>
+  <div
+    className="inner-cont"
+  >
+    <a
+      aria-current={null}
+      className="subnavigation-link"
+      data-testid="subnavigation-discover-button"
+      href="/home/discover"
+      onClick={[Function]}
+    >
+      Discover
+    </a>
+    <a
+      aria-current={null}
+      className="subnavigation-link"
+      data-testid="subnavigation-upcoming-button"
+      href="/home/upcoming"
+      onClick={[Function]}
+    >
+      Upcoming
+    </a>
+    <a
+      aria-current={null}
+      className="subnavigation-link"
+      data-testid="subnavigation-myEvents-button"
+      href="/home/myevents"
+      onClick={[Function]}
+    >
+      My Events
+    </a>
+  </div>
+</div>
+`;
