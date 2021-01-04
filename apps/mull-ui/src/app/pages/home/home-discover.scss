@@ -1,0 +1,14 @@
+.discover-page-tabs-container {
+  padding: 0 0.5rem;
+  .event-card-container {
+    margin-bottom: 2rem;
+    &:last-child {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.react-swipeable-view-container > div[aria-hidden='true'] {
+  max-height: calc(100vh - 11.5rem);
+  overflow-y: hidden !important; // hides scroll bar when changing routes. !important needed to overwrite the element style set by react swipeable views package.
+}

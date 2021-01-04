@@ -1,4 +1,4 @@
-import { EventRestrictionMap, IEvent } from '@mull/types';
+import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
 import React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,7 +17,7 @@ import { ExpandableText } from './../expandable-text/expandable-text';
 import MullButton from '../mull-button/mull-button';
 
 export interface EventPageInfoProps {
-  event: Partial<IEvent>;
+  event: Partial<ISerializedEvent>;
   className?: string;
   isReview: boolean;
   buttonType?: 'submit' | 'button' | 'reset';

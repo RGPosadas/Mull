@@ -34,7 +34,7 @@
     "preinstall": "npx npm-force-resolutions"
   },
   "dependencies": {
-    "@apollo/client": "^3.2.5",
+    "@apollo/client": "^3.3.6",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
     "@fortawesome/free-regular-svg-icons": "^5.15.1",

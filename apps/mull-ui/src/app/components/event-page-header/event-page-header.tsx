@@ -6,13 +6,13 @@ import { faClock } from '@fortawesome/free-regular-svg-icons';
 
 import './event-page-header.scss';
 
-import { IEvent } from '@mull/types';
+import { ISerializedEvent } from '@mull/types';
 
 import MullBackButton from '../mull-back-button/mull-back-button';
 import { formatDate } from '../../../utilities';
 
 export interface EventPageHeaderProps {
-  event: Partial<IEvent>;
+  event: Partial<ISerializedEvent>;
   prevPage: string;
   handleBackButton?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   eventImageURL: string;
@@ -24,8 +24,10 @@ export const EventPageHeader = ({
   handleBackButton,
   eventImageURL,
 }: EventPageHeaderProps) => {
-  const { day: startDay, month: startMonth, time: startTime } = formatDate(event.startDate);
-  const { day: endDay, month: endMonth, time: endTime } = formatDate(event.endDate);
+  const { day: startDay, month: startMonth, time: startTime } = formatDate(
+    new Date(event.startDate)
+  );
+  const { day: endDay, month: endMonth, time: endTime } = formatDate(new Date(event.endDate));
 
   return (
     <div className="event-page-header">

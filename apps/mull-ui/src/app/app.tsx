@@ -14,7 +14,9 @@ import { ROUTES } from '../constants';
 import 'react-toastify/dist/ReactToastify.min.css';
 import './app.scss';
 import { dummyEvent } from '../constants';
-import DiscoverPage from './pages/discover/discover';
+import DiscoverPage from './pages/home/discover/discover-page';
+import UpcomingPage from './pages/home/upcoming/upcoming';
+import MyEventsPage from './pages/home/my-events/my-events';
 import EventPage from './pages/event-page/event-page';
 
 /**
@@ -76,8 +78,8 @@ export const App = () => {
           <div className="page-container with-sub-nav-bar">
             <SwipeableRoutes>
               <Route path={ROUTES.DISCOVER} component={DiscoverPage} />
-              <Route path={ROUTES.UPCOMING} component={() => <div>UPCOMING!</div>} />
-              <Route path={ROUTES.MY_EVENTS} component={() => <div>MY_EVENTS!</div>} />
+              <Route path={ROUTES.UPCOMING} component={UpcomingPage} />
+              <Route path={ROUTES.MY_EVENTS} component={MyEventsPage} />
               <Route exact path={ROUTES.HOME} render={() => <Redirect to={ROUTES.DISCOVER} />} />
             </SwipeableRoutes>
           </div>

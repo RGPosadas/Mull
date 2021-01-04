@@ -1,4 +1,4 @@
-import { IEvent } from '@mull/types';
+import { ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +11,7 @@ import { dummyProfilePictures } from '../../../constants'; // TODO query the par
 import EventMembers from '../event-members/event-members';
 
 export interface EventCardProps {
-  event: Partial<IEvent>;
+  event: Partial<ISerializedEvent>;
   style?: React.CSSProperties;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
@@ -19,11 +19,7 @@ export interface EventCardProps {
 export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
   // TODO; set joined based on if current user is part of event
   const [joined, setJoined] = useState<boolean>(false);
-
-  // TODO: Implement distance calculation
-  const distance = 15;
-
-  const { day, month, time } = formatDate(event.startDate);
+  const { day, month, time } = formatDate(new Date(event.startDate));
   return (
     <div className="event-card-container button" onClick={onClick} style={style}>
       <img
@@ -51,7 +47,8 @@ export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
           <div className="event-card-title">{event.title}</div>
 
           <div className="event-card-location">
-            {distance}km • {event.location.point}
+            {/* TODO: Dynamically add address. Currently not available in the data from the query*/}
+            15km • 1455 Boulevard de Maisonneuve O, Montréal, QC H3G 1M8
           </div>
         </div>
         <EventMembers profilePictures={dummyProfilePictures} />
