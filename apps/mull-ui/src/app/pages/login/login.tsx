@@ -1,5 +1,6 @@
 import { faFacebookSquare, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ILoginForm } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
 import React from 'react';
@@ -18,7 +19,8 @@ export const Login = ({ history }: LoginProps) => {
   const handleOAuthButtonClick = (oAuthProvider: string) => {
     window.location.assign(`${environment.backendUrl}/api/auth/${oAuthProvider}`);
   };
-  const formik = useFormik({
+
+  const formik = useFormik<ILoginForm>({
     initialValues: {
       email: '',
       password: '',

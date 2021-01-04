@@ -1,5 +1,5 @@
 import { ApolloError, gql, useMutation } from '@apollo/client';
-import { RegistrationMethod } from '@mull/types';
+import { IRegisterForm, RegistrationMethod } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
 import React from 'react';
@@ -28,7 +28,7 @@ const Register = ({ history }: RegisterProps) => {
   const [createUser] = useMutation(CREATE_USER);
   const { notifyToast, updateToast } = useToast();
 
-  const formik = useFormik({
+  const formik = useFormik<IRegisterForm>({
     initialValues: {
       name: '',
       email: '',
