@@ -15,6 +15,7 @@ export const ROUTES = {
   PROFILE: '/profile',
   LOGIN: '/login',
   REGISTER: '/register',
+  EVENT_BY_ID: '/events/:id',
 };
 
 export const DAY_IN_MILLISECONDS = 86400000;

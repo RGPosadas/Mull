@@ -1,8 +1,7 @@
-import { useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { faFacebookSquare, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ILoginForm } from '@mull/types';
-import { loginUser } from 'apps/mull-ui/src/utilities';
 import { useFormik } from 'formik';
 import { History } from 'history';
 import React, { useContext } from 'react';
@@ -11,6 +10,7 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import logo from '../../../assets/mull-logo.png';
 import { environment } from '../../../environments/environment';
+import { loginUser } from '../../../utilities';
 import { CustomTextInput } from '../../components';
 import UserContext from '../../context/user.context';
 import { useToast } from '../../hooks/useToast';

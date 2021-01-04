@@ -3,9 +3,9 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import SwipeableRoutes from 'react-swipeable-routes';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-import { dummyEvent, ROUTES } from '../constants';
+import { ROUTES } from '../constants';
 import './app.scss';
-import { BotNavBar, EventCard, SubNavBar, TopNavBar } from './components';
+import { BotNavBar, SubNavBar, TopNavBar } from './components';
 import { UserProvider } from './context/user.context';
 import CreateEventPage from './pages/create-event/create-event';
 import EventPage from './pages/event-page/event-page';
@@ -55,16 +55,9 @@ export const App = () => {
           {!accessToken ? <Redirect to={ROUTES.LOGIN} /> : null}
 
           <Route exact path={ROUTES.CREATE_EVENT} component={CreateEventPage} />
-          {/* Temporary, to be removed */}
-          <Route exact path={'/test-event-card'}>
-            <div className="page-container">
-              <EventCard event={dummyEvent} style={{ marginBottom: '1rem' }} />
-              <EventCard event={dummyEvent} style={{ marginBottom: '1rem' }} />
-            </div>
-          </Route>
           <Route
             exact
-            path="/events/:id"
+            path={ROUTES.EVENT_BY_ID}
             children={
               <EventPage
                 // TODO: Remove placeholder once file download is done
@@ -73,13 +66,6 @@ export const App = () => {
               />
             }
           />
-          <Route exact path={'/test-event-page'}>
-            <EventPage
-              event={dummyEvent}
-              eventImageURL="https://www.citywindsor.ca/residents/parksandforestry/City-Parks/PublishingImages/Assumption%20Park%20Street%20View.JPG"
-              prevPage="home"
-            />
-          </Route>
           <Route path={ROUTES.HOME}>
             <SubNavBar className="top-nav-bar-shadow" />
             <div className="page-container with-sub-nav-bar">
