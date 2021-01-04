@@ -1,21 +1,38 @@
+import { useMutation } from '@apollo/client';
 import { faFacebookSquare, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ILoginForm } from '@mull/types';
+import { loginUser } from 'apps/mull-ui/src/utilities';
 import { useFormik } from 'formik';
 import { History } from 'history';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import logo from '../../../assets/mull-logo.png';
 import { environment } from '../../../environments/environment';
 import { CustomTextInput } from '../../components';
+import UserContext from '../../context/user.context';
+import { useToast } from '../../hooks/useToast';
 import './login.scss';
+
+export const LOGIN = gql`
+  mutation Login($loginInput: LoginInput!) {
+    login(loginInput: $loginInput) {
+      accessToken
+    }
+  }
+`;
 
 export interface LoginProps {
   history: History;
 }
 
 export const Login = ({ history }: LoginProps) => {
+  const [login] = useMutation(LOGIN);
+  const { setUserId, setAccessToken } = useContext(UserContext);
+  const { notifyToast, updateToast } = useToast();
+
   const handleOAuthButtonClick = (oAuthProvider: string) => {
     window.location.assign(`${environment.backendUrl}/api/auth/${oAuthProvider}`);
   };
@@ -31,8 +48,10 @@ export const Login = ({ history }: LoginProps) => {
       password: Yup.string().required('Password is required.'),
     }),
 
-    onSubmit: (values) => {
-      // noop
+    onSubmit: async (loginInput) => {
+      notifyToast('Logging in...');
+      loginUser(login, loginInput, updateToast, setAccessToken, setUserId, history);
+      updateToast(toast.TYPE.SUCCESS, 'Login Successful');
     },
   });
 
