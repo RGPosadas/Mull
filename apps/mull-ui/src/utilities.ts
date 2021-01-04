@@ -60,7 +60,7 @@ export const loginUser = async (
   const accessToken = data.login.accessToken;
   setAccessToken(accessToken);
 
-  const decodedToken = jwtDecode(accessToken) as any;
+  const decodedToken = jwtDecode(accessToken) as { id: number };
   setUserId(decodedToken.id);
 
   history.push(ROUTES.DISCOVER);

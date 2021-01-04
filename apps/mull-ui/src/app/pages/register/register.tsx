@@ -1,6 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
 import { IRegisterForm, RegistrationMethod } from '@mull/types';
-import { loginUser } from 'apps/mull-ui/src/utilities';
 import { useFormik } from 'formik';
 import { History } from 'history';
 import React, { useContext } from 'react';
@@ -8,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import logo from '../../../assets/mull-logo.png';
+import { loginUser } from '../../../utilities';
 import { CustomTextInput } from '../../components';
 import UserContext from '../../context/user.context';
 import { useToast } from '../../hooks/useToast';
@@ -52,7 +52,7 @@ const Register = ({ history }: RegisterProps) => {
       const createUserInput = { ...values, registrationMethod: RegistrationMethod.LOCAL };
 
       try {
-        var { data, errors } = await createUser({ variables: { createUserInput } });
+        var { errors } = await createUser({ variables: { createUserInput } });
       } catch (err) {
         updateToast(toast.TYPE.ERROR, err.message);
         return;

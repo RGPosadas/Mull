@@ -1,39 +1,49 @@
 import { MockedProvider } from '@apollo/client/testing';
 import '@testing-library/jest-dom';
 import { fireEvent, render, waitFor } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
+import { createMemoryHistory, History } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
+import { UserProvider } from '../../context/user.context';
 import Login from './login';
 
 describe('Login', () => {
+  const renderHelper = (history: History) => {
+    const setUserId = jest.fn();
+    const userId = null,
+      accessToken = null;
+    const setAccessToken = jest.fn();
+
+    return (
+      <UserProvider value={{ userId, setUserId, accessToken, setAccessToken }}>
+        <MockedProvider>
+          <Router history={history}>
+            <Login history={history} />
+          </Router>
+        </MockedProvider>
+      </UserProvider>
+    );
+  };
+
   it('should render successfully', () => {
     const history = createMemoryHistory();
-    const { baseElement } = render(
-      <MockedProvider>
-        <Router history={history}>
-          <Login history={history} />
-        </Router>
-      </MockedProvider>
-    );
+
+    const { baseElement } = render(renderHelper(history));
+
     expect(baseElement).toBeTruthy();
   });
 
   it('should have validation errors', async () => {
     const history = createMemoryHistory();
     history.push(ROUTES.LOGIN);
-    const utils = render(
-      <MockedProvider>
-        <Router history={history}>
-          <Login history={history} />
-        </Router>
-      </MockedProvider>
-    );
+
+    const utils = render(renderHelper(history));
     const submitButton = utils.container.querySelector('button.login');
     await waitFor(() => {
       fireEvent.click(submitButton);
     });
+
     const error = utils.container.querySelector('span[class="error-message"]');
     expect(error).toHaveTextContent('Email is required.');
   });
@@ -41,13 +51,7 @@ describe('Login', () => {
   it('should submit a users login credentials', async () => {
     const history = createMemoryHistory();
     history.push(ROUTES.LOGIN);
-    const utils = render(
-      <MockedProvider>
-        <Router history={history}>
-          <Login history={history} />
-        </Router>
-      </MockedProvider>
-    );
+    const utils = render(renderHelper(history));
     let input = utils.getByLabelText('Email');
     fireEvent.change(input, { target: { value: 'test.email@email.com' } });
     input = utils.getByLabelText('Password');
@@ -62,13 +66,8 @@ describe('Login', () => {
     const history = createMemoryHistory();
     const oAuthProviders = ['Google', 'Facebook', 'Twitter'];
     history.push(ROUTES.LOGIN);
-    const utils = render(
-      <MockedProvider>
-        <Router history={history}>
-          <Login history={history} />
-        </Router>
-      </MockedProvider>
-    );
+
+    const utils = render(renderHelper(history));
     for (const provider of oAuthProviders) {
       const oAuthButton = utils.getByText(`Continue with ${provider}`);
       fireEvent.click(oAuthButton);
