@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './event-members.scss';
 
 export interface EventMembersProps {

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
+import { EntitiesModule } from '../entities';
 import { MediaResolver } from './media.resolver';
 import { MediaService } from './media.service';
-import { EntitiesModule } from '../entities';
 
 @Module({
   imports: [EntitiesModule],

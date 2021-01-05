@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './pill-options.scss';
 
 export interface PillOptionsProps {

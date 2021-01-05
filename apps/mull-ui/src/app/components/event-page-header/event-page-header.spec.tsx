@@ -1,9 +1,8 @@
-import React from 'react';
 import { render } from '@testing-library/react';
+import React from 'react';
 import renderer from 'react-test-renderer';
-
-import EventPageHeader from './event-page-header';
 import { dummyEvent } from '../../../constants';
+import EventPageHeader from './event-page-header';
 
 describe('EventPageHeader', () => {
   it('should render successfully', () => {

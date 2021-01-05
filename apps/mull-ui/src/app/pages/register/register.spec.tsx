@@ -1,12 +1,12 @@
-import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import Register, { CREATE_USER } from './register';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
-import { ROUTES } from '../../../constants';
 import { RegistrationMethod } from '@mull/types';
+import '@testing-library/jest-dom';
+import { fireEvent, render, waitFor } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import React from 'react';
+import { Router } from 'react-router-dom';
+import { ROUTES } from '../../../constants';
+import Register, { CREATE_USER } from './register';
 
 describe('Register', () => {
   it('should render successfully', () => {

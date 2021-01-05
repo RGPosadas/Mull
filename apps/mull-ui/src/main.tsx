@@ -1,13 +1,10 @@
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import { environment } from './environments/environment';
-
-import { createUploadLink } from 'apollo-upload-client';
-
 import App from './app/app';
+import { environment } from './environments/environment';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {

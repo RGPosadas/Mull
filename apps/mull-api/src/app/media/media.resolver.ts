@@ -1,8 +1,8 @@
-import { Resolver, Mutation, Args } from '@nestjs/graphql';
-import { FileUpload } from 'graphql-upload';
+import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { GraphQLUpload } from 'apollo-server-express';
-import { MediaService } from './media.service';
+import { FileUpload } from 'graphql-upload';
 import { Media } from '../entities';
+import { MediaService } from './media.service';
 
 @Resolver('Media')
 export class MediaResolver {

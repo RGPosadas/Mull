@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { createWriteStream, renameSync, unlinkSync } from 'fs';
+import { FileUpload } from 'graphql-upload';
+import { join } from 'path';
 import { Media } from '../entities';
 import { mockFile, mockInvalidFile, mockMedia } from './media.mockdata';
 import { MediaResolver } from './media.resolver';
 import { MediaService } from './media.service';
-import { FileUpload } from 'graphql-upload';
-import { createWriteStream, renameSync, unlinkSync } from 'fs';
-import { join } from 'path';
 
 const mockMediaService = () => ({
   create: jest.fn((mockMimeType: string) => {

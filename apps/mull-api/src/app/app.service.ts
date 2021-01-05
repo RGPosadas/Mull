@@ -1,7 +1,6 @@
+import { Message } from '@mull/types';
 import { Injectable } from '@nestjs/common';
 import { environment } from '../environments/environment';
-
-import { Message } from '@mull/types';
 
 @Injectable()
 export class AppService {

@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from 'react';
-
 import './custom-time-picker.scss';
 
 export interface CustomTimePickerProps {

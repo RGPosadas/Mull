@@ -1,6 +1,5 @@
-import React, { ChangeEvent } from 'react';
 import { render } from '@testing-library/react';
-
+import React, { ChangeEvent } from 'react';
 import CustomFileUpload, { CustomFileUploadProps } from './custom-file-upload';
 
 const mockHandleChange: (e: ChangeEvent<HTMLInputElement>) => void = jest.fn();

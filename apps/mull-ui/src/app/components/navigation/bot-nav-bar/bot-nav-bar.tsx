@@ -1,7 +1,6 @@
 import React from 'react';
-
-import './bot-nav-bar.scss';
 import NavButtons from '../nav-buttons/nav-buttons';
+import './bot-nav-bar.scss';
 
 /**
  * Component for mobile header.

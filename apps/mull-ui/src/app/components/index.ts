@@ -13,4 +13,3 @@ export * from './navigation/nav-buttons/nav-buttons';
 export * from './navigation/sub-nav-bar/sub-nav-bar';
 export * from './navigation/top-nav-bar/top-nav-bar';
 export * from './pill-options/pill-options';
-export * from './event-members/event-members';

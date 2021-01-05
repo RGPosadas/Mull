@@ -1,10 +1,8 @@
-import React, { ReactNode } from 'react';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-
-import './mull-back-button.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { ReactNode } from 'react';
 import { useHistory } from 'react-router-dom';
+import './mull-back-button.scss';
 
 export interface MullBackButtonProps {
   children?: ReactNode;

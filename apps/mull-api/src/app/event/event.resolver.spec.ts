@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { User } from '../entities';
+import { mockAllUsers } from '../user/user.mockdata';
+import { mockAllEvents, mockPartialEvent } from './event.mockdata';
 import { EventResolver } from './event.resolver';
 import { EventService } from './event.service';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
-import { mockPartialEvent, mockAllEvents } from './event.mockdata';
-import { User } from '../entities';
-import { mockAllUsers } from '../user/user.mockdata';
 
 const mockEventService = () => ({
   create: jest.fn((mockEventData: CreateEventInput) => ({ ...mockEventData })),

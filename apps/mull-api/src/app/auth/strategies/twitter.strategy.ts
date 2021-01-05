@@ -1,10 +1,10 @@
+import { RegistrationMethod } from '@mull/types';
+import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { IStrategyOption, Profile, Strategy } from 'passport-twitter';
 import { environment } from '../../../environments/environment';
-import { Injectable } from '@nestjs/common';
 import { User } from '../../entities';
 import { AuthService } from './../auth.service';
-import { RegistrationMethod } from '@mull/types';
 
 @Injectable()
 export class TwitterStrategy extends PassportStrategy(Strategy, 'twitter') {

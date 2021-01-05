@@ -1,11 +1,11 @@
-import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { MockedProvider } from '@apollo/client/testing';
-import Login from './login';
-import { Router } from 'react-router-dom';
+import '@testing-library/jest-dom';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
+import React from 'react';
+import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
+import Login from './login';
 
 describe('Login', () => {
   it('should render successfully', () => {

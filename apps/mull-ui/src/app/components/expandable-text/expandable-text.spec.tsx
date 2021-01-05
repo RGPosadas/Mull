@@ -1,8 +1,7 @@
-import React from 'react';
 import { render } from '@testing-library/react';
-import renderer from 'react-test-renderer';
+import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
-
+import renderer from 'react-test-renderer';
 import ExpandableText from './expandable-text';
 
 describe('ExpandableText', () => {

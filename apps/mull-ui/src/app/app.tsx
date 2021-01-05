@@ -1,23 +1,18 @@
 import React, { CSSProperties } from 'react';
-import SwipeableRoutes from 'react-swipeable-routes';
-
-import { ToastContainer, toast } from 'react-toastify';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
-
+import SwipeableRoutes from 'react-swipeable-routes';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+import { dummyEvent, ROUTES } from '../constants';
+import './app.scss';
+import { BotNavBar, EventCard, SubNavBar, TopNavBar } from './components';
 import CreateEventPage from './pages/create-event/create-event';
-import { TopNavBar, BotNavBar, EventCard, SubNavBar } from './components';
+import EventPage from './pages/event-page/event-page';
+import DiscoverPage from './pages/home/discover/discover-page';
+import MyEventsPage from './pages/home/my-events/my-events';
+import UpcomingPage from './pages/home/upcoming/upcoming';
 import LoginPage from './pages/login/login';
 import RegisterPage from './pages/register/register';
-
-import { ROUTES } from '../constants';
-
-import 'react-toastify/dist/ReactToastify.min.css';
-import './app.scss';
-import { dummyEvent } from '../constants';
-import DiscoverPage from './pages/home/discover/discover-page';
-import UpcomingPage from './pages/home/upcoming/upcoming';
-import MyEventsPage from './pages/home/my-events/my-events';
-import EventPage from './pages/event-page/event-page';
 
 /**
  * Main component of the application

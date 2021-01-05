@@ -1,23 +1,20 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { SessionModule } from 'nestjs-session';
-import { Connection } from 'typeorm';
 import { join } from 'path';
-
+import { Connection } from 'typeorm';
+import { environment } from '../environments/environment';
 // Controllers
 import { AppController } from './app.controller';
-
 // Services
 import { AppService } from './app.service';
-
+import { AuthModule } from './auth/auth.module';
+import { EntitiesModule } from './entities';
+import { EventModule } from './event/event.module';
+import { MediaModule } from './media/media.module';
 // Modules
 import { UserModule } from './user';
-import { EventModule } from './event/event.module';
-import { EntitiesModule } from './entities';
-import { MediaModule } from './media/media.module';
-import { environment } from '../environments/environment';
-import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [

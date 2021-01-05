@@ -1,10 +1,9 @@
+import { RegistrationMethod } from '@mull/types';
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 import { Request, Response } from 'express';
-
 import { environment } from '../../environments/environment';
-import { RegistrationMethod } from '@mull/types';
 import { User } from '../entities';
 import { CreateUserInput } from '../user/inputs/user.input';
 import { UserService } from '../user/user.service';

@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserService } from './user.service';
-import { User } from '../entities';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
+import { User } from '../entities';
 import { CreateUserInput } from './inputs/user.input';
 import { mockAllUsers, mockPartialUser } from './user.mockdata';
-import { FindOneOptions, Repository } from 'typeorm';
+import { UserService } from './user.service';
 
 export type MockType<T> = {
   [P in keyof T]: jest.Mock<{}>;

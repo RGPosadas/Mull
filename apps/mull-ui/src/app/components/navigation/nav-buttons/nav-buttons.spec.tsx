@@ -1,11 +1,9 @@
-import React from 'react';
 import { render } from '@testing-library/react';
-
-import NavButtons from './nav-buttons';
-import { Router } from 'react-router-dom';
-
 import { createMemoryHistory } from 'history';
+import React from 'react';
+import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
+import NavButtons from './nav-buttons';
 
 describe('NavButtons', () => {
   it('should render successfully', () => {

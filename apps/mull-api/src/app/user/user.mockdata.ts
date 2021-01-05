@@ -1,6 +1,6 @@
-import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
-import { User } from '../entities';
 import { RegistrationMethod } from '@mull/types';
+import { User } from '../entities';
+import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 
 export const mockPartialUser: CreateUserInput | UpdateUserInput = {
   password: 'password',

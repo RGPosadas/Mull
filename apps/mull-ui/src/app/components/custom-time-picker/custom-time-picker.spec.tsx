@@ -1,5 +1,5 @@
-import React, { ChangeEvent } from 'react';
 import { fireEvent, render } from '@testing-library/react';
+import React, { ChangeEvent } from 'react';
 import renderer from 'react-test-renderer';
 import CustomTimePicker, { CustomTimePickerProps } from './custom-time-picker';
 

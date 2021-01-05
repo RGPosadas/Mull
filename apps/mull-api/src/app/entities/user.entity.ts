@@ -1,18 +1,18 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  ManyToMany,
-  JoinTable,
-  JoinColumn,
-  OneToMany,
-} from 'typeorm';
-import { Media } from './media.entity';
-import { Event } from './event.entity';
-import { PostReaction } from './post-reaction.entity';
-import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { IUser, RegistrationMethod } from '@mull/types';
+import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Event } from './event.entity';
+import { Media } from './media.entity';
+import { PostReaction } from './post-reaction.entity';
 
 registerEnumType(RegistrationMethod, {
   name: 'RegistrationMethod',
