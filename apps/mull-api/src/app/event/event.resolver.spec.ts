@@ -80,7 +80,7 @@ describe('UserResolver', () => {
   });
 
   it('should remove the participant from the event', async () => {
-    const success = await resolver.removeParticipantToEvent(35, 1);
+    const success = await resolver.removeParticipantFromEvent(35, 1);
     expect(success).toEqual(true);
   });
 
