@@ -61,7 +61,10 @@ export class EventResolver {
   }
 
   @Mutation(() => Boolean)
-  async removeParticipantToEvent(@Args('eventId') eventId: number, @Args('userId') userId: number) {
+  async removeParticipantFromEvent(
+    @Args('eventId') eventId: number,
+    @Args('userId') userId: number
+  ) {
     this.eventService.removeParticipant(eventId, userId);
     return true;
   }

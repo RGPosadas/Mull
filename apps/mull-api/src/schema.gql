@@ -60,7 +60,7 @@ type Mutation {
   deleteEvent(id: Int!): Event!
   deleteUser(id: Int!): User!
   login(loginInput: LoginInput!): LoginResult!
-  removeParticipantToEvent(eventId: Float!, userId: Float!): Boolean!
+  removeParticipantFromEvent(eventId: Float!, userId: Float!): Boolean!
   updateEvent(updateEventInput: UpdateEventInput!): Event!
   updateUser(updateUserInput: UpdateUserInput!): User!
   uploadFile(file: Upload!): Media!

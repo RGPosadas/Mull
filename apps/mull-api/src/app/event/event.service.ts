@@ -94,10 +94,18 @@ export class EventService {
 
   async removeParticipant(eventId: number, userId: number) {
     const event = await this.eventRepository.findOne(eventId, { relations: ['participants'] });
+    if (event == undefined) {
+      throw new Error('Event does not exist');
+    }
+
     const user = event.participants.find((participant) => participant.id == userId);
-    const index = event.participants.indexOf(user);
-    event.participants.splice(index, 1);
-    return await this.eventRepository.save(event);
+    if (user == undefined) {
+      throw new Error('User is not a participant of the event');
+    } else {
+      const index = event.participants.indexOf(user);
+      event.participants.splice(index, 1);
+      return await this.eventRepository.save(event);
+    }
   }
 
   async delete(id: number): Promise<Event> {
