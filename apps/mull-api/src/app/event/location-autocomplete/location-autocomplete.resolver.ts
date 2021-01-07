@@ -8,11 +8,11 @@ export class LocationAutocompleteResolver {
       method: 'get',
       url: `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${userInput}&key=sadas`,
     });
-    const autocompleteLocations = response.data.predictions.map((field) => field.description);
-
     if (response.data.error_message) {
       throw new Error(response.data.error_message);
     }
+    
+    const autocompleteLocations = response.data.predictions.map((field) => field.description);
     return autocompleteLocations;
   }
 }

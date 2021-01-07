@@ -45,8 +45,8 @@ frameSizes.forEach((frame) => {
       const res = '845 Rue Sherbrooke';
       cy.get('#location-input-field').type('845 Rue Sherbrooke');
       cy.get('#location-input-field-option-0', { timeout: 3500 }).should(
-        'have.text',
-        '845 Rue Sherbrooke, Montreal, QC, Canada'
+        'contain.text',
+        '845 Rue Sherbrooke'
       );
       cy.get('#location-input-field-option-0').click();
     });
@@ -108,8 +108,8 @@ frameSizes.forEach((frame) => {
 
       cy.get('#location-input-field').type('845 Rue Sherbrooke');
       cy.get('#location-input-field-option-0', { timeout: 3500 }).should(
-        'have.text',
-        '845 Rue Sherbrooke, Montreal, QC, Canada'
+        'contain.text',
+        '845 Rue Sherbrooke'
       );
 
       cy.get('#location-input-field-option-0', { timeout: 5000 }).click();

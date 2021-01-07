@@ -24,6 +24,7 @@ export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
   const [options, setOptions] = useState<string[]>([]);
   const [getAutocompletedLocations, { loading, data }] = useLazyQuery(AUTOCOMPLETED_LOCATIONS);
   const CURRENT_LOCATION = 'Current Location';
+
   const debounceGetLocation = useMemo(
     () =>
       debounce(

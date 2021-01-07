@@ -9,24 +9,26 @@ import { EventRestriction, ILocation } from '@mull/types';
 import { FormikConfig } from 'formik';
 
 export interface LocationAutocompleteModalProps {
-  formik: FormikConfig<{
-    activeRestriction: EventRestriction;
-    startDate: any;
-    endDate: any;
-    startTime: string;
-    endTime: string;
-    eventTitle: string;
-    description: string;
-    location: ILocation;
-    imageFile: string;
-  }>;
+  formik: FormikContextType<CreateEventForm>;
+}
+
+export interface CreateEventForm {
+  activeRestriction: EventRestriction;
+  startDate: Date;
+  endDate: Date;
+  startTime: string;
+  endTime: string;
+  eventTitle: string;
+  description: string;
+  location: ILocation;
+  imageFile: string;
 }
 
 export default function LocationAutocompleteModal({
   formik: { touched, setFieldValue, errors, values },
-}) {
-  const [inputValue, setInputValue] = React.useState('');
-  const [open, setOpen] = React.useState(false);
+}: LocationAutocompleteModalProps) {
+  const [inputValue, setInputValue] = useState('');
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
