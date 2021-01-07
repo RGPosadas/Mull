@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Mull-UI",
+      "request": "launch",
+      "type": "pwa-chrome",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}/apps/mull-ui/src/",
+      "skipFiles": ["${workspaceRoot}/node_modules/**/*.js", "<node_internals>/**/*.js"]
+    },
+    {
+      "name": "Debug Mull-API",
+      "type": "node",
+      "request": "launch",
+      "sourceMaps": true,
+      "program": "${workspaceFolder}/apps/mull-api/src/main.ts",
+      "port": 3333,
+      "console": "integratedTerminal",
+      "skipFiles": ["${workspaceRoot}/node_modules/**/*.js", "<node_internals>/**/*.js"]
+    }
+  ]
+}
