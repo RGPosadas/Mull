@@ -1,9 +1,7 @@
-import { Args, Context, Field, Mutation, ObjectType, Resolver } from '@nestjs/graphql';
-
-import { AuthService } from './auth.service';
-
-import { LoginInput } from './inputs/auth.input';
 import { GqlContext } from '@mull/types';
+import { Args, Context, Field, Mutation, ObjectType, Resolver } from '@nestjs/graphql';
+import { AuthService } from './auth.service';
+import { LoginInput } from './inputs/auth.input';
 
 @ObjectType()
 export class LoginResult {

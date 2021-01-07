@@ -1,7 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Event } from './event.entity';
-
 import { ILocation } from '@mull/types';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Event } from './event.entity';
 
 @Entity()
 export class Location implements ILocation {

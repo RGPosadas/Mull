@@ -1,12 +1,10 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import SubNavBar from './sub-nav-bar';
-
 import { render } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
+import React from 'react';
 import { Router } from 'react-router-dom';
-
+import renderer from 'react-test-renderer';
 import { ROUTES } from '../../../../constants';
+import SubNavBar from './sub-nav-bar';
 
 describe('SubNavBar', () => {
   it('should render successfully', () => {

@@ -1,20 +1,20 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
-  OneToMany,
-  ManyToOne,
-  ManyToMany,
-  JoinTable,
-} from 'typeorm';
-import { Media } from './media.entity';
-import { Channel } from './channel.entity';
-import { User } from './user.entity';
-import { Location } from './location.entity';
-import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { EventRestriction, IEvent } from '@mull/types';
+import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Channel } from './channel.entity';
+import { Location } from './location.entity';
+import { Media } from './media.entity';
+import { User } from './user.entity';
 
 registerEnumType(EventRestriction, {
   name: 'EventRestriction',

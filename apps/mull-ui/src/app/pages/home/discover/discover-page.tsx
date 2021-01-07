@@ -1,8 +1,7 @@
-import React from 'react';
-import { ISerializedEvent } from '@mull/types';
-import { EventCard } from '../../../components';
 import { gql, useQuery } from '@apollo/client';
-
+import { ISerializedEvent } from '@mull/types';
+import React from 'react';
+import { EventCard } from '../../../components';
 import '../home-discover.scss';
 
 interface DiscoverData {

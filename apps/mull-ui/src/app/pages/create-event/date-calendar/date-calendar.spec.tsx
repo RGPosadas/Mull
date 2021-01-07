@@ -1,5 +1,5 @@
-import React from 'react';
 import { render } from '@testing-library/react';
+import React from 'react';
 import DateCalendar, { DateCalendarProps } from './date-calendar';
 
 const mockOnStartDateChange: (date: Date) => void = jest.fn();

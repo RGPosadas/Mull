@@ -1,12 +1,10 @@
 import React, { CSSProperties } from 'react';
-
-import './top-nav-bar.scss';
-
+import { NavLink } from 'react-router-dom';
 import { ReactComponent as ProfileIcon } from '../../../../assets/icons/nav-bar-icons/ProfileIcon.svg';
 import logo from '../../../../assets/mull-logo.png';
-import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
 import NavButtons from '../nav-buttons/nav-buttons';
+import './top-nav-bar.scss';
 
 export interface TopNavBarProps {
   style?: CSSProperties;

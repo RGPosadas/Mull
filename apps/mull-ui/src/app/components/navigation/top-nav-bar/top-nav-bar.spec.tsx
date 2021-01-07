@@ -1,13 +1,10 @@
-import React from 'react';
 import { render } from '@testing-library/react';
-
-import TopNavBar from './top-nav-bar';
-import { Router } from 'react-router-dom';
-
 import { createMemoryHistory } from 'history';
-import { ROUTES } from '../../../../constants';
-
+import React from 'react';
+import { Router } from 'react-router-dom';
 import renderer from 'react-test-renderer';
+import { ROUTES } from '../../../../constants';
+import TopNavBar from './top-nav-bar';
 
 describe('TopNavBar', () => {
   it('should render successfully', () => {

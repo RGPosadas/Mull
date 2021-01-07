@@ -1,6 +1,6 @@
 import { GqlContext } from '@mull/types';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Response, Request } from 'express';
+import { Request, Response } from 'express';
 import { AuthResolver, LoginResult } from './auth.resolver';
 import { AuthService } from './auth.service';
 import { LoginInput } from './inputs/auth.input';

@@ -1,13 +1,13 @@
+import { UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import { mockAllUsers } from '../user/user.mockdata';
-import { UserService } from '../user/user.service';
-import { AuthService } from './auth.service';
 import { Request, Response } from 'express';
 import { User } from '../entities';
 import { CreateUserInput } from '../user/inputs/user.input';
-import { JwtService } from '@nestjs/jwt';
+import { mockAllUsers } from '../user/user.mockdata';
+import { UserService } from '../user/user.service';
 import { MockType } from '../user/user.service.spec';
-import { UnauthorizedException } from '@nestjs/common';
+import { AuthService } from './auth.service';
 
 const mockUserService = () => ({
   findUnique: jest.fn(),

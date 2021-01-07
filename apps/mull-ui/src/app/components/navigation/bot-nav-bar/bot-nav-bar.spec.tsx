@@ -1,12 +1,9 @@
-import React from 'react';
 import { render } from '@testing-library/react';
-
-import BotNavBar from './bot-nav-bar';
-import { Router } from 'react-router-dom';
-
 import { createMemoryHistory } from 'history';
-
+import React from 'react';
+import { Router } from 'react-router-dom';
 import renderer from 'react-test-renderer';
+import BotNavBar from './bot-nav-bar';
 
 describe('BotNavBar', () => {
   it('should render successfully', () => {

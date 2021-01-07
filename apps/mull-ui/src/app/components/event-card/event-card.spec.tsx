@@ -1,9 +1,8 @@
-import React from 'react';
 import { render } from '@testing-library/react';
+import React from 'react';
 import renderer from 'react-test-renderer';
-
-import EventCard from './event-card';
 import { dummyEvent } from '../../../constants';
+import EventCard from './event-card';
 
 describe('EventCard', () => {
   it('should render successfully', () => {

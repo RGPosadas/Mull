@@ -1,5 +1,4 @@
 import React, { ChangeEvent, ReactNode } from 'react';
-
 import './custom-text-input.scss';
 
 export interface CustomTextInputProps {

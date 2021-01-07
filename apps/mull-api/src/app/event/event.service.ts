@@ -1,9 +1,9 @@
+import { EventRestriction } from '@mull/types';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Brackets, Repository } from 'typeorm';
 import { Event, User } from '../entities';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
-import { EventRestriction } from '@mull/types';
 
 @Injectable()
 export class EventService {

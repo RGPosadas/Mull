@@ -1,7 +1,6 @@
-import { ROUTES } from '../../../../constants';
 import React, { CSSProperties } from 'react';
 import { NavLink } from 'react-router-dom';
-
+import { ROUTES } from '../../../../constants';
 import './sub-nav-bar.scss';
 
 export interface SubNavBarProps {

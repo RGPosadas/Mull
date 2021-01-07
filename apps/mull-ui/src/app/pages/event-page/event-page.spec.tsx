@@ -1,11 +1,10 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import renderer from 'react-test-renderer';
-
-import EventPage from './event-page';
-import { dummyEvent } from '../../../constants';
-import { MemoryRouter, Route } from 'react-router-dom';
 import { MockedProvider } from '@apollo/client/testing';
+import { render } from '@testing-library/react';
+import React from 'react';
+import { MemoryRouter, Route } from 'react-router-dom';
+import renderer from 'react-test-renderer';
+import { dummyEvent } from '../../../constants';
+import EventPage from './event-page';
 
 describe('EventPage', () => {
   it('should render successfully', () => {

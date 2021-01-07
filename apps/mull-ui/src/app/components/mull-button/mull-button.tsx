@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './mull-button.scss';
 
 export interface MullButtonProps {

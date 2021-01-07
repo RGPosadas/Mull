@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Media } from '../entities';
-import { MediaService } from './media.service';
-import { mockFile, mockInvalidFile } from './media.mockdata';
 import { unlinkSync } from 'fs';
+import { Media } from '../entities';
+import { mockFile, mockInvalidFile } from './media.mockdata';
+import { MediaService } from './media.service';
 
 const mockMediaRepository = () => ({
   create: jest.fn((mockMimeType: string) => {

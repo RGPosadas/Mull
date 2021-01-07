@@ -1,8 +1,7 @@
-import React, { ChangeEvent } from 'react';
-
-import './custom-file-upload.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImages } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { ChangeEvent } from 'react';
+import './custom-file-upload.scss';
 
 export interface CustomFileUploadProps {
   hasErrors: boolean;

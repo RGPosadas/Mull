@@ -1,11 +1,10 @@
-import { Resolver, Query, Mutation, Args, ResolveField, Parent, Int } from '@nestjs/graphql';
-import { genSalt, hash } from 'bcrypt';
-
-import { User } from '../entities';
 import { RegistrationMethod } from '@mull/types';
-import { UserService } from './user.service';
-import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 import { UnauthorizedException } from '@nestjs/common';
+import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { genSalt, hash } from 'bcrypt';
+import { User } from '../entities';
+import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
+import { UserService } from './user.service';
 
 @Resolver(/* istanbul ignore next */ () => User)
 export class UserResolver {

@@ -1,12 +1,12 @@
-import React from 'react';
-import user from '@testing-library/user-event';
-import { fireEvent, render, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { MockedProvider } from '@apollo/client/testing';
-import CreateEventPage, { UPLOAD_PHOTO } from './create-event';
-import { Router } from 'react-router-dom';
+import '@testing-library/jest-dom';
+import { fireEvent, render, waitFor } from '@testing-library/react';
+import user from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
+import React from 'react';
+import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
+import CreateEventPage, { UPLOAD_PHOTO } from './create-event';
 
 describe('CreateEvent', () => {
   it('should render successfully', () => {

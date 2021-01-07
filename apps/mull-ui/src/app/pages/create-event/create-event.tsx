@@ -1,29 +1,25 @@
-import React, { ChangeEvent, useState } from 'react';
-import { useMutation, gql } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
+import { faAlignLeft, faMapMarkerAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { EventRestriction, EventRestrictionMap, IMedia, ISerializedEvent } from '@mull/types';
 import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
+import { History } from 'history';
+import { cloneDeep, isEmpty } from 'lodash';
+import React, { ChangeEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-import { cloneDeep, isEmpty } from 'lodash';
-import { History } from 'history';
-
+import { DAY_IN_MILLISECONDS, ROUTES } from '../../../constants';
+import { useToast } from '../../hooks/useToast';
 import {
-  MullButton,
   CustomFileUpload,
-  PillOptions,
   CustomTextInput,
   CustomTimePicker,
+  MullButton,
+  PillOptions,
 } from './../../components';
-import DateCalendar from './date-calendar/date-calendar';
 import { EventPage } from './../event-page/event-page';
-import { useToast } from '../../hooks/useToast';
-
-import { EventRestriction, EventRestrictionMap, IMedia, ISerializedEvent } from '@mull/types';
-import { DAY_IN_MILLISECONDS, ROUTES } from '../../../constants';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAlignLeft, faPencilAlt, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
-
 import './create-event.scss';
+import DateCalendar from './date-calendar/date-calendar';
 
 export interface CreateEventProps {
   history: History;

@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
 // Entities
 import { Channel } from './channel.entity';
 import { Event } from './event.entity';

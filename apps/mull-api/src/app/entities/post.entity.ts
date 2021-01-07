@@ -1,16 +1,16 @@
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
+  Entity,
   JoinColumn,
-  OneToOne,
-  OneToMany,
   ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Channel } from './channel.entity';
-import { User } from './user.entity';
-import { PostReaction } from './post-reaction.entity';
 import { Media } from './media.entity';
+import { PostReaction } from './post-reaction.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class Post {

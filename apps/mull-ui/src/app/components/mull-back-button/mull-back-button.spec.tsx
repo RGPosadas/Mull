@@ -1,9 +1,8 @@
-import React from 'react';
 import { render } from '@testing-library/react';
-import renderer from 'react-test-renderer';
-import ReactTestUtils from 'react-dom/test-utils';
 import { createMemoryHistory } from 'history';
-
+import React from 'react';
+import ReactTestUtils from 'react-dom/test-utils';
+import renderer from 'react-test-renderer';
 import MullBackButton from './mull-back-button';
 
 let mockHistory;

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import './expandable-text.scss';
 
 export interface ExpandableTextProps {

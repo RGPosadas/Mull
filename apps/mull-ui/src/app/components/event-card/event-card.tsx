@@ -1,14 +1,11 @@
+import { faCheck, faShareAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShareAlt, faCheck, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
-
-import { formatDate } from '../../../utilities';
-
-import './event-card.scss';
 import { dummyProfilePictures } from '../../../constants'; // TODO query the participants profile pictures
+import { formatDate } from '../../../utilities';
 import EventMembers from '../event-members/event-members';
+import './event-card.scss';
 
 export interface EventCardProps {
   event: Partial<ISerializedEvent>;

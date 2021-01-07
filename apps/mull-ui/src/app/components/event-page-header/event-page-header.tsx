@@ -1,15 +1,11 @@
-import React from 'react';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
-
-import './event-page-header.scss';
-
+import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ISerializedEvent } from '@mull/types';
-
-import MullBackButton from '../mull-back-button/mull-back-button';
+import React from 'react';
 import { formatDate } from '../../../utilities';
+import MullBackButton from '../mull-back-button/mull-back-button';
+import './event-page-header.scss';
 
 export interface EventPageHeaderProps {
   event: Partial<ISerializedEvent>;

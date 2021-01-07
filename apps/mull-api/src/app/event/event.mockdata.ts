@@ -1,6 +1,6 @@
-import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 import { Event } from '../entities';
 import { mockAllUsers } from '../user/user.mockdata';
+import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 
 const userA = mockAllUsers[0]; // id: 1
 const userB = mockAllUsers[1]; // id: 7

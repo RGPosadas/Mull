@@ -1,20 +1,18 @@
-import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
-import React from 'react';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faComments,
-  faMapMarkerAlt,
   faAlignLeft,
-  faMap,
+  faComments,
   faLock,
+  faMap,
+  faMapMarkerAlt,
   faUserFriends,
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
-
-import './event-page-info.scss';
-import { ExpandableText } from './../expandable-text/expandable-text';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
+import React from 'react';
 import MullButton from '../mull-button/mull-button';
+import { ExpandableText } from './../expandable-text/expandable-text';
+import './event-page-info.scss';
 
 export interface EventPageInfoProps {
   event: Partial<ISerializedEvent>;

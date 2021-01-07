@@ -1,16 +1,13 @@
+import { faFacebookSquare, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useFormik } from 'formik';
+import { History } from 'history';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { History } from 'history';
 import * as Yup from 'yup';
-import { useFormik } from 'formik';
-
-import { CustomTextInput } from '../../components';
-import { environment } from '../../../environments/environment';
-
 import logo from '../../../assets/mull-logo.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebookSquare, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
-
+import { environment } from '../../../environments/environment';
+import { CustomTextInput } from '../../components';
 import './login.scss';
 
 export interface LoginProps {

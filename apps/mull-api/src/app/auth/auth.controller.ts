@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { Request, Response } from 'express';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtService } from '@nestjs/jwt';
+import { AuthGuard } from '@nestjs/passport';
+import { Request, Response } from 'express';
 import { environment } from '../../environments/environment';
 import { UserService } from '../user';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {

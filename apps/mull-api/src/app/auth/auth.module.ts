@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { UserModule } from '../user';
 import { PassportModule } from '@nestjs/passport';
-import { AuthService } from './auth.service';
+import { UserModule } from '../user';
 import { AuthController } from './auth.controller';
-
 import { AuthResolver } from './auth.resolver';
-
-import { GoogleStrategy } from './strategies/google.strategy';
+import { AuthService } from './auth.service';
 import { FacebookStrategy } from './strategies/facebook.strategy';
+import { GoogleStrategy } from './strategies/google.strategy';
 import { TwitterStrategy } from './strategies/twitter.strategy';
 
 @Module({

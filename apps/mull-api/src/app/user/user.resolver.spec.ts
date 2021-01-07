@@ -1,10 +1,10 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { UserResolver } from './user.resolver';
-import { UserService } from './user.service';
-import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
-import { mockPartialUser, mockAllUsers, mockNewPartialUser } from './user.mockdata';
 import { RegistrationMethod } from '@mull/types';
 import { UnauthorizedException } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
+import { mockAllUsers, mockNewPartialUser, mockPartialUser } from './user.mockdata';
+import { UserResolver } from './user.resolver';
+import { UserService } from './user.service';
 
 const mockUserService = () => ({
   create: jest.fn((mockUserData: CreateUserInput) => ({ ...mockUserData })),
