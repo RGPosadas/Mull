@@ -1,6 +1,6 @@
 import { faAlignLeft, faMapMarkerAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { EventRestriction, EventRestrictionMap, ISerializedEvent } from '@mull/types';
+import { EventRestriction, EventRestrictionMap } from '@mull/types';
 import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
 import { History } from 'history';
 import { cloneDeep, isEmpty } from 'lodash';
@@ -41,7 +41,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
   const [imageURLFile, setImageURLFile] = useState<string>(null); // Path of uploaded image on client, to be used in image previews
   const [file, setFile] = useState<File>(null); // Uploaded image file blob
   const [isInReview, setIsInReview] = useState<boolean>(false); // Show either form or review page
-  const [payload, setPayload] = useState<Partial<ISerializedEvent>>(null);
+  const [payload, setPayload] = useState<Partial<CreateEventInput>>(null);
   const { notifyToast, updateToast } = useToast();
   /**
    * Handles image file uploads
