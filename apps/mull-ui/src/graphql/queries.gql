@@ -18,3 +18,20 @@ query DiscoverEvents($discoverEventsUserId: Int!) {
     endDate
   }
 }
+
+query GetUsersEvents($UserId: Int!) {
+  coHostEvents(userId: $UserId) {
+    id
+    title
+    description
+    startDate
+    endDate
+  }
+  hostEvents(userId: $UserId) {
+    id
+    title
+    description
+    startDate
+    endDate
+  }
+}
