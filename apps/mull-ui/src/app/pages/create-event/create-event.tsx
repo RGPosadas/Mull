@@ -1,7 +1,6 @@
-import { gql, useMutation } from '@apollo/client';
 import { faAlignLeft, faMapMarkerAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { EventRestriction, EventRestrictionMap, IMedia, ISerializedEvent } from '@mull/types';
+import { EventRestriction, EventRestrictionMap, ISerializedEvent } from '@mull/types';
 import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
 import { History } from 'history';
 import { cloneDeep, isEmpty } from 'lodash';
@@ -9,6 +8,11 @@ import React, { ChangeEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { DAY_IN_MILLISECONDS, ROUTES } from '../../../constants';
+import {
+  CreateEventInput,
+  useCreateEventMutation,
+  useUploadFileMutation,
+} from '../../../generated/graphql';
 import { useToast } from '../../hooks/useToast';
 import {
   CustomFileUpload,
@@ -25,32 +29,14 @@ export interface CreateEventProps {
   history: History;
 }
 
-// Mutation to create events
-const CREATE_EVENT = gql`
-  mutation CreateEvent($createEventInput: CreateEventInput!) {
-    createEvent(createEventInput: $createEventInput) {
-      id
-    }
-  }
-`;
-
-export const UPLOAD_PHOTO = gql`
-  mutation UploadFile($file: Upload!) {
-    uploadFile(file: $file) {
-      id
-      mediaType
-    }
-  }
-`;
-
 /**
  * This component renders the create event page
  * @param {History} history
  */
 const CreateEventPage = ({ history }: CreateEventProps) => {
   // GraphQL mutation hook to create events
-  const [createEvent] = useMutation<ISerializedEvent>(CREATE_EVENT);
-  const [uploadFile] = useMutation<{ uploadFile: IMedia }>(UPLOAD_PHOTO);
+  const [createEvent] = useCreateEventMutation();
+  const [uploadFile] = useUploadFileMutation();
   // Uploaded Image File
   const [imageURLFile, setImageURLFile] = useState<string>(null); // Path of uploaded image on client, to be used in image previews
   const [file, setFile] = useState<File>(null); // Uploaded image file blob
@@ -124,7 +110,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
             createEventInput: {
               ...payload,
               image: { id: uploadedFile.id, mediaType: uploadedFile.mediaType },
-            },
+            } as CreateEventInput,
           },
         });
         updateToast(toast.TYPE.SUCCESS, 'Event Created');
