@@ -221,6 +221,16 @@ export type FindSpecificEventQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type DiscoverEventsQueryVariables = Exact<{
+  discoverEventsUserId: Scalars['Int'];
+}>;
+
+export type DiscoverEventsQuery = { __typename?: 'Query' } & {
+  discoverEvents: Array<
+    { __typename?: 'Event' } & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate'>
+  >;
+};
+
 export const CreateEventDocument = gql`
   mutation CreateEvent($createEventInput: CreateEventInput!) {
     createEvent(createEventInput: $createEventInput) {
@@ -358,4 +368,54 @@ export type FindSpecificEventLazyQueryHookResult = ReturnType<typeof useFindSpec
 export type FindSpecificEventQueryResult = Apollo.QueryResult<
   FindSpecificEventQuery,
   FindSpecificEventQueryVariables
+>;
+export const DiscoverEventsDocument = gql`
+  query DiscoverEvents($discoverEventsUserId: Int!) {
+    discoverEvents(userId: $discoverEventsUserId) {
+      id
+      title
+      description
+      startDate
+      endDate
+    }
+  }
+`;
+
+/**
+ * __useDiscoverEventsQuery__
+ *
+ * To run a query within a React component, call `useDiscoverEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDiscoverEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDiscoverEventsQuery({
+ *   variables: {
+ *      discoverEventsUserId: // value for 'discoverEventsUserId'
+ *   },
+ * });
+ */
+export function useDiscoverEventsQuery(
+  baseOptions: Apollo.QueryHookOptions<DiscoverEventsQuery, DiscoverEventsQueryVariables>
+) {
+  return Apollo.useQuery<DiscoverEventsQuery, DiscoverEventsQueryVariables>(
+    DiscoverEventsDocument,
+    baseOptions
+  );
+}
+export function useDiscoverEventsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<DiscoverEventsQuery, DiscoverEventsQueryVariables>
+) {
+  return Apollo.useLazyQuery<DiscoverEventsQuery, DiscoverEventsQueryVariables>(
+    DiscoverEventsDocument,
+    baseOptions
+  );
+}
+export type DiscoverEventsQueryHookResult = ReturnType<typeof useDiscoverEventsQuery>;
+export type DiscoverEventsLazyQueryHookResult = ReturnType<typeof useDiscoverEventsLazyQuery>;
+export type DiscoverEventsQueryResult = Apollo.QueryResult<
+  DiscoverEventsQuery,
+  DiscoverEventsQueryVariables
 >;

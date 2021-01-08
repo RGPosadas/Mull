@@ -8,3 +8,13 @@ query FindSpecificEvent($eventId: Int!) {
     restriction
   }
 }
+
+query DiscoverEvents($discoverEventsUserId: Int!) {
+  discoverEvents(userId: $discoverEventsUserId) {
+    id
+    title
+    description
+    startDate
+    endDate
+  }
+}
