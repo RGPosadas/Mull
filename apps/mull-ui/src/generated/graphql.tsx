@@ -210,6 +210,17 @@ export type UploadFileMutation = { __typename?: 'Mutation' } & {
   uploadFile: { __typename?: 'Media' } & Pick<Media, 'id' | 'mediaType'>;
 };
 
+export type FindSpecificEventQueryVariables = Exact<{
+  eventId: Scalars['Int'];
+}>;
+
+export type FindSpecificEventQuery = { __typename?: 'Query' } & {
+  event: { __typename?: 'Event' } & Pick<
+    Event,
+    'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'
+  >;
+};
+
 export const CreateEventDocument = gql`
   mutation CreateEvent($createEventInput: CreateEventInput!) {
     createEvent(createEventInput: $createEventInput) {
@@ -296,4 +307,55 @@ export type UploadFileMutationResult = Apollo.MutationResult<UploadFileMutation>
 export type UploadFileMutationOptions = Apollo.BaseMutationOptions<
   UploadFileMutation,
   UploadFileMutationVariables
+>;
+export const FindSpecificEventDocument = gql`
+  query FindSpecificEvent($eventId: Int!) {
+    event(id: $eventId) {
+      id
+      title
+      description
+      startDate
+      endDate
+      restriction
+    }
+  }
+`;
+
+/**
+ * __useFindSpecificEventQuery__
+ *
+ * To run a query within a React component, call `useFindSpecificEventQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindSpecificEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindSpecificEventQuery({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *   },
+ * });
+ */
+export function useFindSpecificEventQuery(
+  baseOptions: Apollo.QueryHookOptions<FindSpecificEventQuery, FindSpecificEventQueryVariables>
+) {
+  return Apollo.useQuery<FindSpecificEventQuery, FindSpecificEventQueryVariables>(
+    FindSpecificEventDocument,
+    baseOptions
+  );
+}
+export function useFindSpecificEventLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<FindSpecificEventQuery, FindSpecificEventQueryVariables>
+) {
+  return Apollo.useLazyQuery<FindSpecificEventQuery, FindSpecificEventQueryVariables>(
+    FindSpecificEventDocument,
+    baseOptions
+  );
+}
+export type FindSpecificEventQueryHookResult = ReturnType<typeof useFindSpecificEventQuery>;
+export type FindSpecificEventLazyQueryHookResult = ReturnType<typeof useFindSpecificEventLazyQuery>;
+export type FindSpecificEventQueryResult = Apollo.QueryResult<
+  FindSpecificEventQuery,
+  FindSpecificEventQueryVariables
 >;

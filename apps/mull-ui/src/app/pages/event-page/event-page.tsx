@@ -1,12 +1,11 @@
-import { gql, useQuery } from '@apollo/client';
-import { ISerializedEvent } from '@mull/types';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { CreateEventInput, useFindSpecificEventQuery } from '../../../generated/graphql';
 import { EventPageHeader, EventPageInfo } from '../../components';
 import './event-page.scss';
 
 export interface EventPageProps {
-  event?: Partial<ISerializedEvent>;
+  event?: Partial<CreateEventInput>;
   prevPage: string;
   eventImageURL: string;
   buttonType?: 'submit' | 'button' | 'reset';
@@ -27,19 +26,7 @@ export const EventPage = ({
   const { id } = useParams<{ id: string }>();
   const eventId = parseInt(id);
 
-  const GET_EVENT_BY_ID = gql`
-    query findSpecificEvent($eventId: Int!) {
-      event(id: $eventId) {
-        id
-        title
-        description
-        startDate
-        endDate
-        restriction
-      }
-    }
-  `;
-  const { loading, error, data } = useQuery(GET_EVENT_BY_ID, {
+  const { loading, error, data } = useFindSpecificEventQuery({
     variables: { eventId },
     skip: !!event,
   });

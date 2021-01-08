@@ -1,0 +1,10 @@
+query FindSpecificEvent($eventId: Int!) {
+  event(id: $eventId) {
+    id
+    title
+    description
+    startDate
+    endDate
+    restriction
+  }
+}
