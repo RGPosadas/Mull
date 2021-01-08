@@ -244,6 +244,16 @@ export type GetUsersEventsQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type GetParticipatingEventsQueryVariables = Exact<{
+  participatingEventsUserId: Scalars['Int'];
+}>;
+
+export type GetParticipatingEventsQuery = { __typename?: 'Query' } & {
+  participatingEvents: Array<
+    { __typename?: 'Event' } & Pick<Event, 'id' | 'endDate' | 'description' | 'startDate' | 'title'>
+  >;
+};
+
 export const CreateEventDocument = gql`
   mutation CreateEvent($createEventInput: CreateEventInput!) {
     createEvent(createEventInput: $createEventInput) {
@@ -488,4 +498,64 @@ export type GetUsersEventsLazyQueryHookResult = ReturnType<typeof useGetUsersEve
 export type GetUsersEventsQueryResult = Apollo.QueryResult<
   GetUsersEventsQuery,
   GetUsersEventsQueryVariables
+>;
+export const GetParticipatingEventsDocument = gql`
+  query GetParticipatingEvents($participatingEventsUserId: Int!) {
+    participatingEvents(userId: $participatingEventsUserId) {
+      id
+      endDate
+      description
+      startDate
+      title
+    }
+  }
+`;
+
+/**
+ * __useGetParticipatingEventsQuery__
+ *
+ * To run a query within a React component, call `useGetParticipatingEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetParticipatingEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetParticipatingEventsQuery({
+ *   variables: {
+ *      participatingEventsUserId: // value for 'participatingEventsUserId'
+ *   },
+ * });
+ */
+export function useGetParticipatingEventsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetParticipatingEventsQuery,
+    GetParticipatingEventsQueryVariables
+  >
+) {
+  return Apollo.useQuery<GetParticipatingEventsQuery, GetParticipatingEventsQueryVariables>(
+    GetParticipatingEventsDocument,
+    baseOptions
+  );
+}
+export function useGetParticipatingEventsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetParticipatingEventsQuery,
+    GetParticipatingEventsQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<GetParticipatingEventsQuery, GetParticipatingEventsQueryVariables>(
+    GetParticipatingEventsDocument,
+    baseOptions
+  );
+}
+export type GetParticipatingEventsQueryHookResult = ReturnType<
+  typeof useGetParticipatingEventsQuery
+>;
+export type GetParticipatingEventsLazyQueryHookResult = ReturnType<
+  typeof useGetParticipatingEventsLazyQuery
+>;
+export type GetParticipatingEventsQueryResult = Apollo.QueryResult<
+  GetParticipatingEventsQuery,
+  GetParticipatingEventsQueryVariables
 >;

@@ -35,3 +35,13 @@ query GetUsersEvents($UserId: Int!) {
     endDate
   }
 }
+
+query GetParticipatingEvents($participatingEventsUserId: Int!) {
+  participatingEvents(userId: $participatingEventsUserId) {
+    id
+    endDate
+    description
+    startDate
+    title
+  }
+}
