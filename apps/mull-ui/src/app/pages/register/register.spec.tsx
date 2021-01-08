@@ -6,8 +6,9 @@ import { createMemoryHistory, History } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
+import { CreateUserDocument } from '../../../generated/graphql';
 import { UserProvider } from '../../context/user.context';
-import Register, { CREATE_USER } from './register';
+import Register from './register';
 
 describe('Register', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -56,7 +57,7 @@ describe('Register', () => {
     const mocks: MockedResponse[] = [
       {
         request: {
-          query: CREATE_USER,
+          query: CreateUserDocument,
           variables: {
             createUserInput: {
               name: 'John Doe',

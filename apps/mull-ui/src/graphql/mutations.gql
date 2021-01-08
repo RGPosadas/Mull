@@ -12,3 +12,10 @@ mutation UploadFile($file: Upload!) {
     mediaType
   }
 }
+
+# Register a user
+mutation CreateUser($createUserInput: CreateUserInput!) {
+  createUser(createUserInput: $createUserInput) {
+    id
+  }
+}

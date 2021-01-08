@@ -1,4 +1,3 @@
-import { gql, useMutation } from '@apollo/client';
 import { IRegisterForm, RegistrationMethod } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
@@ -8,6 +7,7 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import logo from '../../../assets/mull-logo.png';
 import { ROUTES } from '../../../constants';
+import { useCreateUserMutation } from '../../../generated/graphql';
 import { CustomTextInput } from '../../components';
 import { useToast } from '../../hooks/useToast';
 import './register.scss';
@@ -16,18 +16,9 @@ export interface RegisterProps {
   history: History;
 }
 
-export const CREATE_USER = gql`
-  mutation CreateUser($createUserInput: CreateUserInput!) {
-    createUser(createUserInput: $createUserInput) {
-      id
-    }
-  }
-`;
-
 const Register = ({ history }: RegisterProps) => {
   // GraphQL mutation hook to create user
-  const [createUser] = useMutation(CREATE_USER);
-
+  const [createUser] = useCreateUserMutation();
   const { notifyToast, updateToast } = useToast();
 
   const formik = useFormik<IRegisterForm>({
