@@ -7,6 +7,4 @@ COPY ./ ./
 RUN npm i
 RUN npm run build-api
 
-WORKDIR /usr/src/app/dist/apps/mull-api
-
-CMD ["node", "main.js"]
+CMD ["node", "/usr/src/app/dist/apps/mull-api/main.js"]
