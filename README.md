@@ -214,22 +214,6 @@ To stop the container whilst keeping the database changes, run `docker stop mull
 1. Serve the production backend:
    - `node dist/apps/mull-api/main.js`
 
-### Containerizing the Application with Docker
-
-Front-end:
-
-1. Build
-   - `docker build -t mull-ui:dev -f apps/mull-ui/Dockerfile .`
-1. Run
-   - `docker run -p 8080:80 mull-ui:dev`
-
-Back-end:
-
-1. Build
-   - `docker build -t mull-api:dev -f apps/mull-api/Dockerfile .`
-1. Run
-   - `docker run -p 3333:3333 mull-api:dev`
-
 ## Travis CI
 
 ### Scripts
