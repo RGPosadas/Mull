@@ -1,0 +1,24 @@
+# This manifest is reponsible for deploying our frontend.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mull-frontend
+  namespace: mull
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mull-frontend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mull-frontend
+    spec:
+      containers:
+        - name: mull-frontend
+          image: 'ritchellegmp/mull-frontend:latest'
+          imagePullPolicy: Always
+          ports:
+            - name: https
+              containerPort: 443
+              protocol: TCP

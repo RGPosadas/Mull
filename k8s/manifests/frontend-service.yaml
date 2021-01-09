@@ -1,0 +1,15 @@
+# This manifest is responsible for exposing the frontend's 443 (https) port to the rest of the cluster.
+apiVersion: v1
+kind: Service
+metadata:
+  name: mull-frontend-service
+  namespace: mull
+spec:
+  type: ClusterIP
+  ports:
+    - port: 443
+      targetPort: 443
+      protocol: TCP
+      name: https
+  selector:
+    app.kubernetes.io/name: mull-frontend
