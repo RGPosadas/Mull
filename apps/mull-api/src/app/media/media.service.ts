@@ -16,7 +16,7 @@ export class MediaService {
   saveFile({ createReadStream, filename }: FileUpload): Promise<boolean> {
     return new Promise((resolve, reject) => {
       createReadStream().pipe(
-        createWriteStream(join(process.cwd(), `apps/mull-api/uploads/${filename}`))
+        createWriteStream(join(process.cwd(), `/apps/mull-api/uploads/${filename}`))
           .on('finish', () => resolve(true))
           .on('error', () => {
             reject(false);
@@ -33,8 +33,8 @@ export class MediaService {
 
   updateFilename(prevFilename: string, nextFilename: number, fileType: string): boolean {
     renameSync(
-      join(process.cwd(), `apps/mull-api/uploads/${prevFilename}`),
-      join(process.cwd(), `apps/mull-api/uploads/${nextFilename}.${fileType}`)
+      join(process.cwd(), `/apps/mull-api/uploads/${prevFilename}`),
+      join(process.cwd(), `/apps/mull-api/uploads/${nextFilename}.${fileType}`)
     );
     return true;
   }
