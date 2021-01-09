@@ -29,5 +29,6 @@ describe('location autocomplete modal', () => {
     await waitFor(() => {
       fireEvent.click(autocompleteModal);
     });
+    expect(autocompleteModal).toBeVisible();
   });
 });

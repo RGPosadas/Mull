@@ -18,7 +18,6 @@ exports[`location autocomplete modal should match snapshot 1`] = `
     onClick={[Function]}
     readOnly={true}
     type="text"
-    value=""
   />
   <svg
     aria-hidden="true"
