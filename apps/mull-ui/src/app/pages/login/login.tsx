@@ -2,15 +2,16 @@ import { gql, useMutation } from '@apollo/client';
 import { faFacebookSquare, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ILoginForm } from '@mull/types';
+import { ROUTES } from 'apps/mull-ui/src/constants';
 import { useFormik } from 'formik';
 import { History } from 'history';
+import jwtDecode from 'jwt-decode';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import logo from '../../../assets/mull-logo.png';
 import { environment } from '../../../environments/environment';
-import { loginUser } from '../../../utilities';
 import { CustomTextInput } from '../../components';
 import UserContext from '../../context/user.context';
 import { useToast } from '../../hooks/useToast';
@@ -50,7 +51,28 @@ export const Login = ({ history }: LoginProps) => {
 
     onSubmit: async (loginInput) => {
       notifyToast('Logging in...');
-      loginUser(login, loginInput, updateToast, setAccessToken, setUserId, history);
+
+      try {
+        var { data, errors } = await login({ variables: { loginInput } });
+      } catch (err) {
+        updateToast(toast.TYPE.ERROR, err.message);
+        return;
+      }
+
+      if (errors) {
+        const messages = errors.map((err) => err.message).reduce((err1, err2) => err1 + err2);
+        updateToast(toast.TYPE.ERROR, `Error during login: ${messages}`);
+        return;
+      }
+
+      const accessToken = data.login.accessToken;
+      setAccessToken(accessToken);
+
+      const decodedToken = jwtDecode(accessToken) as { id: number };
+      setUserId(decodedToken.id);
+
+      history.push(ROUTES.DISCOVER);
+
       updateToast(toast.TYPE.SUCCESS, 'Login Successful');
     },
   });
