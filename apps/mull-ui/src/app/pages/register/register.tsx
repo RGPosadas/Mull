@@ -1,17 +1,15 @@
 import { gql, useMutation } from '@apollo/client';
 import { IRegisterForm, RegistrationMethod } from '@mull/types';
+import { ROUTES } from 'apps/mull-ui/src/constants';
 import { useFormik } from 'formik';
 import { History } from 'history';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import logo from '../../../assets/mull-logo.png';
-import { loginUser } from '../../../utilities';
 import { CustomTextInput } from '../../components';
-import UserContext from '../../context/user.context';
 import { useToast } from '../../hooks/useToast';
-import { LOGIN } from '../login/login';
 import './register.scss';
 
 export interface RegisterProps {
@@ -27,11 +25,9 @@ export const CREATE_USER = gql`
 `;
 
 const Register = ({ history }: RegisterProps) => {
-  const { setUserId, setAccessToken } = useContext(UserContext);
-
   // GraphQL mutation hook to create user
   const [createUser] = useMutation(CREATE_USER);
-  const [login] = useMutation(LOGIN);
+
   const { notifyToast, updateToast } = useToast();
 
   const formik = useFormik<IRegisterForm>({
@@ -64,16 +60,11 @@ const Register = ({ history }: RegisterProps) => {
         return;
       }
 
-      loginUser(
-        login,
-        { email: values.email, password: values.password },
-        updateToast,
-        setAccessToken,
-        setUserId,
-        history
+      updateToast(
+        toast.TYPE.SUCCESS,
+        'Account created successfully. Please login with your new credentials.'
       );
-
-      updateToast(toast.TYPE.SUCCESS, 'Registration Successful');
+      history.push(ROUTES.LOGIN);
     },
   });
 
