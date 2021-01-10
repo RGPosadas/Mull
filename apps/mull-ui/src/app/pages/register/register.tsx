@@ -1,6 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
 import { IRegisterForm, RegistrationMethod } from '@mull/types';
-import { ROUTES } from 'apps/mull-ui/src/constants';
 import { useFormik } from 'formik';
 import { History } from 'history';
 import React from 'react';
@@ -8,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import logo from '../../../assets/mull-logo.png';
+import { ROUTES } from '../../../constants';
 import { CustomTextInput } from '../../components';
 import { useToast } from '../../hooks/useToast';
 import './register.scss';
