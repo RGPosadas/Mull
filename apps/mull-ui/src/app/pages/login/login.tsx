@@ -60,17 +60,22 @@ export const Login = ({ history }: LoginProps) => {
       }
 
       if (errors) {
-        const messages = errors.map((err) => err.message).reduce((err1, err2) => err1 + err2);
-        updateToast(toast.TYPE.ERROR, `Error during login: ${messages}`);
+        console.error(errors);
         return;
       }
 
       const accessToken = data.login.accessToken;
       setAccessToken(accessToken);
 
-      const decodedToken = jwtDecode(accessToken) as { id: number };
-      setUserId(decodedToken.id);
+      try {
+        var decodedToken = jwtDecode(accessToken) as { id: number };
+      } catch (err) {
+        console.error(err);
+        updateToast(toast.TYPE.ERROR, `Received an invalid token`);
+        return;
+      }
 
+      setUserId(decodedToken.id);
       history.push(ROUTES.DISCOVER);
 
       updateToast(toast.TYPE.SUCCESS, 'Login Successful');
