@@ -1,5 +1,5 @@
-import { ApolloError, gql, useMutation } from '@apollo/client';
-import { RegistrationMethod } from '@mull/types';
+import { gql, useMutation } from '@apollo/client';
+import { IRegisterForm, RegistrationMethod } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
 import React from 'react';
@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import logo from '../../../assets/mull-logo.png';
+import { ROUTES } from '../../../constants';
 import { CustomTextInput } from '../../components';
 import { useToast } from '../../hooks/useToast';
 import './register.scss';
@@ -26,9 +27,10 @@ export const CREATE_USER = gql`
 const Register = ({ history }: RegisterProps) => {
   // GraphQL mutation hook to create user
   const [createUser] = useMutation(CREATE_USER);
+
   const { notifyToast, updateToast } = useToast();
 
-  const formik = useFormik({
+  const formik = useFormik<IRegisterForm>({
     initialValues: {
       name: '',
       email: '',
@@ -42,20 +44,27 @@ const Register = ({ history }: RegisterProps) => {
     }),
 
     onSubmit: async (values) => {
-      notifyToast('Registering...');
-      const payload = { ...values, registrationMethod: RegistrationMethod.LOCAL };
-      createUser({ variables: { createUserInput: payload } })
-        .then(({ errors }) => {
-          if (errors) {
-            updateToast(toast.TYPE.ERROR, 'User Not Created');
-          } else {
-            updateToast(toast.TYPE.SUCCESS, 'Registration Successful');
-            history.push('/home');
-          }
-        })
-        .catch((err: ApolloError) => {
-          updateToast(toast.TYPE.ERROR, err.message);
-        });
+      notifyToast('Registering new user...');
+      const createUserInput = { ...values, registrationMethod: RegistrationMethod.LOCAL };
+
+      try {
+        var { errors } = await createUser({ variables: { createUserInput } });
+      } catch (err) {
+        updateToast(toast.TYPE.ERROR, err.message);
+        return;
+      }
+
+      if (errors) {
+        const messages = errors.map((err) => err.message).reduce((err1, err2) => err1 + err2);
+        updateToast(toast.TYPE.ERROR, `Error, user not created: ${messages}`);
+        return;
+      }
+
+      updateToast(
+        toast.TYPE.SUCCESS,
+        'Account created successfully. Please login with your new credentials.'
+      );
+      history.push(ROUTES.LOGIN);
     },
   });
 

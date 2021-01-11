@@ -1,24 +1,44 @@
+import { gql, useMutation } from '@apollo/client';
 import { faFacebookSquare, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ILoginForm } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
-import React from 'react';
+import jwtDecode from 'jwt-decode';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import logo from '../../../assets/mull-logo.png';
+import { ROUTES } from '../../../constants';
 import { environment } from '../../../environments/environment';
 import { CustomTextInput } from '../../components';
+import UserContext from '../../context/user.context';
+import { useToast } from '../../hooks/useToast';
 import './login.scss';
+
+export const LOGIN = gql`
+  mutation Login($loginInput: LoginInput!) {
+    login(loginInput: $loginInput) {
+      accessToken
+    }
+  }
+`;
 
 export interface LoginProps {
   history: History;
 }
 
 export const Login = ({ history }: LoginProps) => {
+  const [login] = useMutation(LOGIN);
+  const { setUserId, setAccessToken } = useContext(UserContext);
+  const { notifyToast, updateToast } = useToast();
+
   const handleOAuthButtonClick = (oAuthProvider: string) => {
     window.location.assign(`${environment.backendUrl}/api/auth/${oAuthProvider}`);
   };
-  const formik = useFormik({
+
+  const formik = useFormik<ILoginForm>({
     initialValues: {
       email: '',
       password: '',
@@ -29,8 +49,36 @@ export const Login = ({ history }: LoginProps) => {
       password: Yup.string().required('Password is required.'),
     }),
 
-    onSubmit: (values) => {
-      // noop
+    onSubmit: async (loginInput) => {
+      notifyToast('Logging in...');
+
+      try {
+        var { data, errors } = await login({ variables: { loginInput } });
+      } catch (err) {
+        updateToast(toast.TYPE.ERROR, err.message);
+        return;
+      }
+
+      if (errors) {
+        console.error(errors);
+        return;
+      }
+
+      const accessToken = data.login.accessToken;
+      setAccessToken(accessToken);
+
+      try {
+        var decodedToken = jwtDecode(accessToken) as { id: number };
+      } catch (err) {
+        console.error(err);
+        updateToast(toast.TYPE.ERROR, `Received an invalid token`);
+        return;
+      }
+
+      setUserId(decodedToken.id);
+      history.push(ROUTES.DISCOVER);
+
+      updateToast(toast.TYPE.SUCCESS, 'Login Successful');
     },
   });
 
