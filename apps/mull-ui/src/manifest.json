@@ -1,10 +1,10 @@
 {
-  "name": "mull",
-  "short_name": "mull",
+  "name": "Müll",
+  "short_name": "Müll",
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#143055",
-  "background_color": "#143055",
+  "theme_color": "white",
+  "background_color": "white",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",
