@@ -1,19 +1,18 @@
-import React, { ChangeEvent } from 'react';
-import renderer from 'react-test-renderer';
+import { MockedProvider } from '@apollo/client/testing';
+import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
-import { MockedProvider } from '@apollo/client/testing';
-
+import React from 'react';
+import renderer from 'react-test-renderer';
 import LocationAutocompleteTextbox, {
-  LocationAutocompleteTextboxProps,
   AUTOCOMPLETED_LOCATIONS,
+  LocationAutocompleteTextboxProps,
 } from './location-autocomplete-textbox';
 
 const mockHandleClose: (e) => void = jest.fn();
 
 const mockLocationAutocompleteTextboxProps: () => LocationAutocompleteTextboxProps = () => ({
-  handleClose: mockHandleClose,
+  handleSetValue: mockHandleClose,
   input: '',
 });
 
@@ -35,7 +34,9 @@ describe('location autocomplete textbox', () => {
     const testInput = 'test string';
     props.input = testInput;
     const utils = render(<LocationAutocompleteTextbox {...props} />);
-    const autocompleteTextbox = utils.container.querySelector('#location-input-field') as any;
+    const autocompleteTextbox = utils.container.querySelector(
+      '#location-input-field'
+    ) as HTMLInputElement;
     expect(autocompleteTextbox.value).toBe(testInput);
   });
 
@@ -64,7 +65,9 @@ describe('location autocomplete textbox', () => {
       '845 rue Sherbrooke{enter}'
     );
 
-    const autocompleteTextbox = utils.container.querySelector('#location-input-field') as any;
+    const autocompleteTextbox = utils.container.querySelector(
+      '#location-input-field'
+    ) as HTMLInputElement;
     expect(autocompleteTextbox.value).toBe('845 rue Sherbrooke');
   });
 });

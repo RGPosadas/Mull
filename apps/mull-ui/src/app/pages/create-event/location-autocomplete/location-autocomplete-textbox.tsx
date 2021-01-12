@@ -1,12 +1,12 @@
-import React, { useState, ChangeEvent, useEffect, useMemo } from 'react';
+import { gql, useLazyQuery } from '@apollo/client';
+import { faLocationArrow, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { gql, useLazyQuery } from '@apollo/client';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './location-autocomplete-textbox.scss';
-import { faMapMarkerAlt, faLocationArrow } from '@fortawesome/free-solid-svg-icons';
 import { debounce } from 'lodash';
+import React, { useEffect, useMemo, useState } from 'react';
+import './location-autocomplete-textbox.scss';
 
 export const AUTOCOMPLETED_LOCATIONS = gql`
   query Query($userInput: String!) {
@@ -15,7 +15,7 @@ export const AUTOCOMPLETED_LOCATIONS = gql`
 `;
 
 export interface LocationAutocompleteTextboxProps {
-  handleClose: (value: string) => void;
+  handleSetValue: (value: string) => void;
   input: string;
 }
 
@@ -34,7 +34,7 @@ export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
           }),
         350
       ),
-    []
+    [getAutocompletedLocations]
   );
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
   const getCurrentPosition = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        let pos = `latitude: ${position.coords.latitude}, longitude: ${position.coords.longitude}`;
+        const pos = `latitude: ${position.coords.latitude}, longitude: ${position.coords.longitude}`;
         handleSetValue({ title: 'Current Location', coords: pos });
       });
     }
@@ -83,7 +83,7 @@ export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
       }}
       getOptionSelected={(option, value) => option === value}
       renderOption={(option) => {
-        let icon = option == CURRENT_LOCATION ? faLocationArrow : faMapMarkerAlt;
+        const icon = option === CURRENT_LOCATION ? faLocationArrow : faMapMarkerAlt;
         return (
           <React.Fragment>
             <FontAwesomeIcon icon={icon} style={{ marginRight: '0.8rem' }} />

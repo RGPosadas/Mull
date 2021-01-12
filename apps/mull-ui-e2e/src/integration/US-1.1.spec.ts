@@ -1,12 +1,13 @@
 /// <reference types="Cypress" />
 import 'cypress-file-upload';
+import { geolocationStub } from '../fixtures';
 import { frameSizes } from './../fixtures/frame-sizes';
 
 frameSizes.forEach((frame) => {
   describe(`US-1.1: Create Events (${frame.name} view)`, () => {
     beforeEach(() => {
       cy.viewport(frame.res[0], frame.res[1]);
-      cy.visit('http://localhost:4200/create-event');
+      cy.visit('http://localhost:4200/create-event', geolocationStub);
     });
 
     it('should preview the file', () => {
@@ -42,7 +43,6 @@ frameSizes.forEach((frame) => {
     it('should type into the event location modal and return autocompleted address', () => {
       cy.get('#location').click();
       cy.get('#location-input-field').should('be.visible');
-      const res = '845 Rue Sherbrooke';
       cy.get('#location-input-field').type('845 Rue Sherbrooke');
       cy.get('#location-input-field-option-0', { timeout: 3500 }).should(
         'contain.text',
@@ -55,10 +55,7 @@ frameSizes.forEach((frame) => {
       cy.get('#location').click();
       cy.get('#location-input-field').should('be.visible');
       cy.get('#location-input-field-option-0').click();
-      cy.get('#location')
-        .invoke('val')
-        .should('contain', 'longitude')
-        .should('contain', 'latitude');
+      cy.get('#location').invoke('val').should('contain', 'Current Location');
     });
 
     it('should click the event location modal and exit with edit button', () => {
