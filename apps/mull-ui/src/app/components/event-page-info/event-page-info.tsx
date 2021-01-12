@@ -78,7 +78,7 @@ export const EventPageInfo = ({
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
       </div>
       <MullButton className="event-page-button" onClick={handleMullButton} type={buttonType}>
-        {isReview ? 'Done' : 'Join'}
+        {isReview ? 'Create' : 'Join'}
       </MullButton>
     </div>
   );

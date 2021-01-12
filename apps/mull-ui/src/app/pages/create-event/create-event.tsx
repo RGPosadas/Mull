@@ -163,6 +163,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           onBackButtonClick={() => setIsInReview(false)}
           buttonType={'submit'}
           eventImageURL={imageURLFile}
+          isReview={true}
         />
       ) : (
         <div className="page-container">
