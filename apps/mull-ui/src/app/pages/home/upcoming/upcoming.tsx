@@ -12,9 +12,7 @@ export const UpcomingPage = ({ history }) => {
   });
 
   if (data) {
-    const events: Partial<ISerializedEvent>[] = (data.participatingEvents as unknown) as Partial<
-      ISerializedEvent
-    >[];
+    const events = (data.participatingEvents as unknown) as Partial<ISerializedEvent>[];
     var eventCards = events.map((event, index) => (
       <EventCard key={index} event={event} onClick={() => history.push(`/events/${event.id}`)} />
     ));

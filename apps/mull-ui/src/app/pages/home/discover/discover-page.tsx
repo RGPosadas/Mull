@@ -12,9 +12,7 @@ export const DiscoverPage = ({ history }) => {
   });
 
   if (data) {
-    const events: Partial<ISerializedEvent>[] = (data.discoverEvents as unknown) as Partial<
-      ISerializedEvent
-    >[];
+    const events = (data.discoverEvents as unknown) as Partial<ISerializedEvent>[];
     var eventCards = events.map((event, index) => (
       <EventCard key={index} event={event} onClick={() => history.push(`/events/${event.id}`)} />
     ));
