@@ -73,7 +73,7 @@ exports[`EventPage should match snapshot 1`] = `
           15 Jun
         </div>
         <div>
-          01:45 PM
+          1:45 PM
         </div>
       </div>
       <svg
@@ -101,7 +101,7 @@ exports[`EventPage should match snapshot 1`] = `
           15 Jun
         </div>
         <div>
-          01:45 PM
+          1:45 PM
         </div>
       </div>
     </div>

@@ -20,7 +20,7 @@ exports[`EventCard should match snapshot 1`] = `
       15 JUN
     </div>
     <div>
-      01:45PM
+      1:45PM
     </div>
   </div>
   <button
@@ -59,8 +59,7 @@ exports[`EventCard should match snapshot 1`] = `
       <div
         className="event-card-location"
       >
-        15
-        km • 
+        15km • 1455 Boulevard de Maisonneuve O, Montréal, QC H3G 1M8
       </div>
     </div>
     <div

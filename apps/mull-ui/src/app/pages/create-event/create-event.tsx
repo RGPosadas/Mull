@@ -1,6 +1,6 @@
 import { faAlignLeft, faMapMarkerAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { EventRestriction, EventRestrictionMap } from '@mull/types';
+import { EventRestriction, EventRestrictionMap, ILocation } from '@mull/types';
 import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
 import { History } from 'history';
 import { cloneDeep, isEmpty } from 'lodash';
@@ -24,6 +24,7 @@ import {
 import { EventPage } from './../event-page/event-page';
 import './create-event.scss';
 import DateCalendar from './date-calendar/date-calendar';
+import LocationAutocompleteModal from './location-autocomplete/location-autocomplete-modal';
 
 export interface CreateEventProps {
   history: History;
@@ -250,7 +251,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               Done
             </MullButton>
           </div>
-          <LocationInput formik={formik} />
+          <LocationAutocompleteModal formik={formik} />
         </div>
       )}
     </form>
