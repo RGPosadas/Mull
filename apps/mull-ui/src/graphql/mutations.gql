@@ -1,0 +1,21 @@
+# Creating Events
+mutation CreateEvent($createEventInput: CreateEventInput!) {
+  createEvent(createEventInput: $createEventInput) {
+    id
+  }
+}
+
+# Uploading media files
+mutation UploadFile($file: Upload!) {
+  uploadFile(file: $file) {
+    id
+    mediaType
+  }
+}
+
+# Register a user
+mutation CreateUser($createUserInput: CreateUserInput!) {
+  createUser(createUserInput: $createUserInput) {
+    id
+  }
+}

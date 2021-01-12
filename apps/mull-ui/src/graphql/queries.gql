@@ -1,0 +1,50 @@
+# Find events by Id
+query FindSpecificEvent($eventId: Int!) {
+  event(id: $eventId) {
+    id
+    title
+    description
+    startDate
+    endDate
+    restriction
+  }
+}
+
+query DiscoverEvents($discoverEventsUserId: Int!) {
+  discoverEvents(userId: $discoverEventsUserId) {
+    id
+    title
+    description
+    startDate
+    endDate
+  }
+}
+
+# Gets all related events to a user
+query GetUsersEvents($UserId: Int!) {
+  coHostEvents(userId: $UserId) {
+    id
+    title
+    description
+    startDate
+    endDate
+  }
+  hostEvents(userId: $UserId) {
+    id
+    title
+    description
+    startDate
+    endDate
+  }
+}
+
+# Get all the events that a user is participating in
+query GetParticipatingEvents($participatingEventsUserId: Int!) {
+  participatingEvents(userId: $participatingEventsUserId) {
+    id
+    endDate
+    description
+    startDate
+    title
+  }
+}

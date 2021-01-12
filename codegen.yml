@@ -1,0 +1,9 @@
+overwrite: true
+schema: 'apps/mull-api/src/schema.gql'
+documents: 'apps/mull-ui/src/graphql/**/*.gql'
+generates:
+  apps/mull-ui/src/generated/graphql.tsx:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'

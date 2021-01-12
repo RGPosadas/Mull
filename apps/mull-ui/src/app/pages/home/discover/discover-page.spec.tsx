@@ -1,11 +1,12 @@
-import React from 'react';
-import { act, render } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
 import '@testing-library/jest-dom';
-import DiscoverPage, { GET_DISCOVER_EVENTS } from './discover-page';
+import { act, render } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import React from 'react';
+import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
+import { DiscoverEventsDocument } from '../../../../generated/graphql';
+import DiscoverPage from './discover-page';
 
 describe('discoverPage', () => {
   it('should render successfully', () => {
@@ -27,7 +28,7 @@ describe('discoverPage', () => {
       const mocks: MockedResponse[] = [
         {
           request: {
-            query: GET_DISCOVER_EVENTS,
+            query: DiscoverEventsDocument,
             variables: { discoverEventsUserId: 1 },
           },
           result: {

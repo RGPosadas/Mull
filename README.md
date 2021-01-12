@@ -1,6 +1,6 @@
 # Müll
 
-- [Müll](#m-ll)
+- [Müll](#müll)
   - [Team Members](#team-members)
   - [Development Guidelines](#development-guidelines)
   - [Setting Up your Development Environment](#setting-up-your-development-environment)
@@ -14,12 +14,13 @@
   - [Running The Full Stack Application](#running-the-full-stack-application)
     - [Serving the application locally for development](#serving-the-application-locally-for-development)
     - [Running a local database for development](#running-a-local-database-for-development)
+    - [Working with GraphQL on the Frontend](#working-with-graphql-on-the-frontend)
     - [Building and Serving the application for production](#building-and-serving-the-application-for-production)
     - [Containerizing the Application with Docker](#containerizing-the-application-with-docker)
   - [Travis CI](#travis-ci)
     - [Scripts](#scripts)
   - [Troubleshooting](#troubleshooting)
-    - [Inconsistent/Failing Travis Builds](#inconsistent-failing-travis-builds)
+    - [Inconsistent/Failing Travis Builds](#inconsistentfailing-travis-builds)
 
 ## Team Members
 
@@ -190,6 +191,13 @@ You can serve the database locally for testing, and to avoid interfering with th
 You now should have a functioning mysql database running locally, usable for the project!
 
 To stop the container whilst keeping the database changes, run `docker stop mull-db`
+
+### Working with GraphQL on the Frontend
+
+1. Write your query/mutation into the respective `.gql` files located in `apps/mull-ui/src/graphql`
+2. Run GraphQL Codegen:
+   - `npm run gen-graphql`
+3. Import hooks from `apps/mull-ui/src/generated/graphql.tsx`
 
 ### Building and Serving the application for production
 

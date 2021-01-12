@@ -6,7 +6,8 @@ import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
-import CreateEventPage, { UPLOAD_PHOTO } from './create-event';
+import { UploadFileDocument } from '../../../generated/graphql';
+import CreateEventPage from './create-event';
 
 describe('CreateEvent', () => {
   it('should render successfully', () => {
@@ -68,7 +69,7 @@ describe('CreateEvent', () => {
     const mocks = [
       {
         request: {
-          query: UPLOAD_PHOTO,
+          query: UploadFileDocument,
           variables: {
             file: file,
           },

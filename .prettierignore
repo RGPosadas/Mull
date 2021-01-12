@@ -4,3 +4,4 @@
 /coverage
 /.github
 schema.gql
+apps/mull-ui/src/generated/graphql.tsx

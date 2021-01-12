@@ -1,11 +1,12 @@
-import React from 'react';
-import { act, render } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
 import '@testing-library/jest-dom';
-import MyEventsPage, { GET_PARTICIPATING_EVENTS } from './my-events';
+import { act, render } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import React from 'react';
+import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
+import { GetUsersEventsDocument } from '../../../../generated/graphql';
+import MyEventsPage from './my-events';
 
 describe('myEventsPage', () => {
   it('should render successfully', () => {
@@ -26,7 +27,7 @@ describe('myEventsPage', () => {
       const mocks: MockedResponse[] = [
         {
           request: {
-            query: GET_PARTICIPATING_EVENTS,
+            query: GetUsersEventsDocument,
             variables: { UserId: 1 },
           },
           result: {

@@ -5,7 +5,7 @@ repos:
       - id: detect-private-key
       - id: check-yaml
       - id: end-of-file-fixer
-        exclude: 'package-lock.json'
+        exclude: 'package-lock.json|apps/mull-ui/src/generated/graphql.tsx'
   - repo: https://github.com/prettier/prettier
     rev: 2.1.1
     hooks:

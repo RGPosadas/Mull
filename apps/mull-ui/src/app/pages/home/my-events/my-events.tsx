@@ -1,43 +1,20 @@
-import React from 'react';
 import { ISerializedEvent } from '@mull/types';
+import React from 'react';
+import { useGetUsersEventsQuery } from '../../../../generated/graphql';
 import { EventCard } from '../../../components';
-import { gql, useQuery } from '@apollo/client';
-
 import '../home-discover.scss';
 
-interface MyEventData {
-  coHostEvents: Partial<ISerializedEvent>[];
-  hostEvents: Partial<ISerializedEvent>[];
-}
-
-export const GET_PARTICIPATING_EVENTS = gql`
-  query getUsersEvents($UserId: Int!) {
-    coHostEvents(userId: $UserId) {
-      id
-      title
-      description
-      startDate
-      endDate
-    }
-    hostEvents(userId: $UserId) {
-      id
-      title
-      description
-      startDate
-      endDate
-    }
-  }
-`;
-
 export const MyEventsPage = ({ history }) => {
-  const { data } = useQuery<MyEventData>(GET_PARTICIPATING_EVENTS, {
+  const { data } = useGetUsersEventsQuery({
     fetchPolicy: 'network-only',
     // TODO: dynamically pass current UserId
     variables: { UserId: 1 },
   });
 
   if (data) {
-    const events: Partial<ISerializedEvent>[] = data.coHostEvents.concat(data.hostEvents);
+    const events = (data.coHostEvents.concat(data.hostEvents) as unknown) as Partial<
+      ISerializedEvent
+    >[];
     var eventCards = events.map((event, index) => (
       <EventCard key={index} event={event} onClick={() => history.push(`/events/${event.id}`)} />
     ));
