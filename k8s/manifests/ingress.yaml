@@ -24,7 +24,7 @@ spec:
           - path: /
             backend:
               serviceName: mull-frontend-service
-              servicePort: 443
+              servicePort: 4200
           - path: /api
             backend:
               serviceName: mull-backend-service

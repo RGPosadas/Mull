@@ -19,6 +19,6 @@ spec:
           image: 'ritchellegmp/mull-frontend:latest'
           imagePullPolicy: Always
           ports:
-            - name: https
-              containerPort: 443
+            - name: frontend
+              containerPort: 4200
               protocol: TCP
