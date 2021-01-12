@@ -53,7 +53,7 @@ export const EventPageInfo = ({
       <div className="info-row">
         <FontAwesomeIcon icon={faMapMarkerAlt} className="event-page-icon color-grey" />
         <p className="row-text" data-testid="event-location">
-          18 Mull Ave, Pointe-Claire, Montreal
+          {event.location.title}
         </p>
         {/* TODO: placeholder till TASK-33 is done uncomment the line below to see on preview page*/}
         {/* <p className="row-text">{event.location.title}</p> */}

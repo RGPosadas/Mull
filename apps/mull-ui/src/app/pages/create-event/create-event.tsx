@@ -1,4 +1,4 @@
-import { faAlignLeft, faMapMarkerAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faAlignLeft, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EventRestriction, EventRestrictionMap, ILocation } from '@mull/types';
 import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
@@ -115,6 +115,11 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         const {
           data: { uploadFile: uploadedFile },
         } = await uploadFile({ variables: { file: file } });
+
+        // TODO Temporary workaround. Backend currently doesn't expect a location field. See TASK-33 #124
+        // let temp = cloneDeep(payload);
+        // delete temp.location;
+
         await createEvent({
           variables: {
             event: {
@@ -233,15 +238,9 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               errorMessage={formik.errors.description}
               svgIcon={<FontAwesomeIcon icon={faAlignLeft} />}
             />
-            <CustomTextInput
-              title="Location"
-              fieldName="location"
-              value={formik.values.location}
-              onChange={formik.handleChange}
-              hasErrors={formik.touched.location && !!formik.errors.location}
-              errorMessage={formik.errors.location}
-              svgIcon={<FontAwesomeIcon icon={faMapMarkerAlt} />}
-            />
+
+            <LocationAutocompleteModal formik={formik} />
+
             <PillOptions
               options={EventRestrictionMap}
               onChange={handleRestrictions}
@@ -251,7 +250,6 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               Done
             </MullButton>
           </div>
-          <LocationAutocompleteModal formik={formik} />
         </div>
       )}
     </form>

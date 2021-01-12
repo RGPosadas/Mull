@@ -4,9 +4,8 @@
  */
 
 import { Logger, ValidationPipe } from '@nestjs/common';
-import cookieParser from 'cookie-parser';
 import { NestFactory } from '@nestjs/core';
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 

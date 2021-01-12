@@ -20,7 +20,7 @@ exports[`EventCard should match snapshot 1`] = `
       15 JUN
     </div>
     <div>
-      1:45PM
+      01:45PM
     </div>
   </div>
   <button
