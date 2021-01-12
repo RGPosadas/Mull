@@ -34,6 +34,7 @@ export type CreateUserInput = {
   registrationMethod: RegistrationMethod;
 };
 
+
 export type Event = {
   __typename?: 'Event';
   description: Scalars['String'];
@@ -80,43 +81,53 @@ export type Mutation = {
   uploadFile: Media;
 };
 
+
 export type MutationAddParticipantToEventArgs = {
   eventId: Scalars['Float'];
   userId: Scalars['Float'];
 };
 
+
 export type MutationCreateEventArgs = {
   createEventInput: CreateEventInput;
 };
+
 
 export type MutationCreateUserArgs = {
   createUserInput: CreateUserInput;
 };
 
+
 export type MutationDeleteEventArgs = {
   id: Scalars['Int'];
 };
+
 
 export type MutationDeleteUserArgs = {
   id: Scalars['Int'];
 };
 
+
 export type MutationLoginArgs = {
   loginInput: LoginInput;
 };
+
 
 export type MutationRemoveParticipantFromEventArgs = {
   eventId: Scalars['Float'];
   userId: Scalars['Float'];
 };
 
+
 export type MutationUpdateEventArgs = {
   updateEventInput: UpdateEventInput;
 };
 
+
 export type MutationUpdateUserArgs = {
   updateUserInput: UpdateUserInput;
 };
+
 
 export type MutationUploadFileArgs = {
   file: Scalars['Upload'];
@@ -134,25 +145,31 @@ export type Query = {
   users: Array<User>;
 };
 
+
 export type QueryCoHostEventsArgs = {
   userId: Scalars['Int'];
 };
+
 
 export type QueryDiscoverEventsArgs = {
   userId: Scalars['Int'];
 };
 
+
 export type QueryEventArgs = {
   id: Scalars['Int'];
 };
+
 
 export type QueryHostEventsArgs = {
   userId: Scalars['Int'];
 };
 
+
 export type QueryParticipatingEventsArgs = {
   userId: Scalars['Int'];
 };
+
 
 export type QueryUserArgs = {
   id: Scalars['Int'];
@@ -162,7 +179,7 @@ export enum RegistrationMethod {
   Facebook = 'FACEBOOK',
   Google = 'GOOGLE',
   Local = 'LOCAL',
-  Twitter = 'TWITTER',
+  Twitter = 'TWITTER'
 }
 
 export type UpdateEventInput = {
@@ -181,6 +198,7 @@ export type UpdateUserInput = {
   name?: Maybe<Scalars['String']>;
 };
 
+
 export type User = {
   __typename?: 'User';
   description: Scalars['String'];
@@ -198,81 +216,105 @@ export type CreateEventMutationVariables = Exact<{
   createEventInput: CreateEventInput;
 }>;
 
-export type CreateEventMutation = { __typename?: 'Mutation' } & {
-  createEvent: { __typename?: 'Event' } & Pick<Event, 'id'>;
-};
+
+export type CreateEventMutation = (
+  { __typename?: 'Mutation' }
+  & { createEvent: (
+    { __typename?: 'Event' }
+    & Pick<Event, 'id'>
+  ) }
+);
 
 export type UploadFileMutationVariables = Exact<{
   file: Scalars['Upload'];
 }>;
 
-export type UploadFileMutation = { __typename?: 'Mutation' } & {
-  uploadFile: { __typename?: 'Media' } & Pick<Media, 'id' | 'mediaType'>;
-};
+
+export type UploadFileMutation = (
+  { __typename?: 'Mutation' }
+  & { uploadFile: (
+    { __typename?: 'Media' }
+    & Pick<Media, 'id' | 'mediaType'>
+  ) }
+);
 
 export type CreateUserMutationVariables = Exact<{
   createUserInput: CreateUserInput;
 }>;
 
-export type CreateUserMutation = { __typename?: 'Mutation' } & {
-  createUser: { __typename?: 'User' } & Pick<User, 'id'>;
-};
+
+export type CreateUserMutation = (
+  { __typename?: 'Mutation' }
+  & { createUser: (
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  ) }
+);
 
 export type FindSpecificEventQueryVariables = Exact<{
   eventId: Scalars['Int'];
 }>;
 
-export type FindSpecificEventQuery = { __typename?: 'Query' } & {
-  event: { __typename?: 'Event' } & Pick<
-    Event,
-    'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'
-  >;
-};
+
+export type FindSpecificEventQuery = (
+  { __typename?: 'Query' }
+  & { event: (
+    { __typename?: 'Event' }
+    & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
+  ) }
+);
 
 export type DiscoverEventsQueryVariables = Exact<{
   discoverEventsUserId: Scalars['Int'];
 }>;
 
-export type DiscoverEventsQuery = { __typename?: 'Query' } & {
-  discoverEvents: Array<
-    { __typename?: 'Event' } & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate'>
-  >;
-};
+
+export type DiscoverEventsQuery = (
+  { __typename?: 'Query' }
+  & { discoverEvents: Array<(
+    { __typename?: 'Event' }
+    & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate'>
+  )> }
+);
 
 export type GetUsersEventsQueryVariables = Exact<{
   UserId: Scalars['Int'];
 }>;
 
-export type GetUsersEventsQuery = { __typename?: 'Query' } & {
-  coHostEvents: Array<
-    { __typename?: 'Event' } & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate'>
-  >;
-  hostEvents: Array<
-    { __typename?: 'Event' } & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate'>
-  >;
-};
+
+export type GetUsersEventsQuery = (
+  { __typename?: 'Query' }
+  & { coHostEvents: Array<(
+    { __typename?: 'Event' }
+    & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate'>
+  )>, hostEvents: Array<(
+    { __typename?: 'Event' }
+    & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate'>
+  )> }
+);
 
 export type GetParticipatingEventsQueryVariables = Exact<{
   participatingEventsUserId: Scalars['Int'];
 }>;
 
-export type GetParticipatingEventsQuery = { __typename?: 'Query' } & {
-  participatingEvents: Array<
-    { __typename?: 'Event' } & Pick<Event, 'id' | 'endDate' | 'description' | 'startDate' | 'title'>
-  >;
-};
+
+export type GetParticipatingEventsQuery = (
+  { __typename?: 'Query' }
+  & { participatingEvents: Array<(
+    { __typename?: 'Event' }
+    & Pick<Event, 'id' | 'endDate' | 'description' | 'startDate' | 'title'>
+  )> }
+);
+
 
 export const CreateEventDocument = gql`
-  mutation CreateEvent($createEventInput: CreateEventInput!) {
-    createEvent(createEventInput: $createEventInput) {
-      id
-    }
+    mutation CreateEvent($createEventInput: CreateEventInput!) {
+  createEvent(createEventInput: $createEventInput) {
+    id
   }
-`;
-export type CreateEventMutationFn = Apollo.MutationFunction<
-  CreateEventMutation,
-  CreateEventMutationVariables
->;
+}
+    `;
+export type CreateEventMutationFn = Apollo.MutationFunction<CreateEventMutation, CreateEventMutationVariables>;
 
 /**
  * __useCreateEventMutation__
@@ -291,32 +333,21 @@ export type CreateEventMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateEventMutation(
-  baseOptions?: Apollo.MutationHookOptions<CreateEventMutation, CreateEventMutationVariables>
-) {
-  return Apollo.useMutation<CreateEventMutation, CreateEventMutationVariables>(
-    CreateEventDocument,
-    baseOptions
-  );
-}
+export function useCreateEventMutation(baseOptions?: Apollo.MutationHookOptions<CreateEventMutation, CreateEventMutationVariables>) {
+        return Apollo.useMutation<CreateEventMutation, CreateEventMutationVariables>(CreateEventDocument, baseOptions);
+      }
 export type CreateEventMutationHookResult = ReturnType<typeof useCreateEventMutation>;
 export type CreateEventMutationResult = Apollo.MutationResult<CreateEventMutation>;
-export type CreateEventMutationOptions = Apollo.BaseMutationOptions<
-  CreateEventMutation,
-  CreateEventMutationVariables
->;
+export type CreateEventMutationOptions = Apollo.BaseMutationOptions<CreateEventMutation, CreateEventMutationVariables>;
 export const UploadFileDocument = gql`
-  mutation UploadFile($file: Upload!) {
-    uploadFile(file: $file) {
-      id
-      mediaType
-    }
+    mutation UploadFile($file: Upload!) {
+  uploadFile(file: $file) {
+    id
+    mediaType
   }
-`;
-export type UploadFileMutationFn = Apollo.MutationFunction<
-  UploadFileMutation,
-  UploadFileMutationVariables
->;
+}
+    `;
+export type UploadFileMutationFn = Apollo.MutationFunction<UploadFileMutation, UploadFileMutationVariables>;
 
 /**
  * __useUploadFileMutation__
@@ -335,31 +366,20 @@ export type UploadFileMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useUploadFileMutation(
-  baseOptions?: Apollo.MutationHookOptions<UploadFileMutation, UploadFileMutationVariables>
-) {
-  return Apollo.useMutation<UploadFileMutation, UploadFileMutationVariables>(
-    UploadFileDocument,
-    baseOptions
-  );
-}
+export function useUploadFileMutation(baseOptions?: Apollo.MutationHookOptions<UploadFileMutation, UploadFileMutationVariables>) {
+        return Apollo.useMutation<UploadFileMutation, UploadFileMutationVariables>(UploadFileDocument, baseOptions);
+      }
 export type UploadFileMutationHookResult = ReturnType<typeof useUploadFileMutation>;
 export type UploadFileMutationResult = Apollo.MutationResult<UploadFileMutation>;
-export type UploadFileMutationOptions = Apollo.BaseMutationOptions<
-  UploadFileMutation,
-  UploadFileMutationVariables
->;
+export type UploadFileMutationOptions = Apollo.BaseMutationOptions<UploadFileMutation, UploadFileMutationVariables>;
 export const CreateUserDocument = gql`
-  mutation CreateUser($createUserInput: CreateUserInput!) {
-    createUser(createUserInput: $createUserInput) {
-      id
-    }
+    mutation CreateUser($createUserInput: CreateUserInput!) {
+  createUser(createUserInput: $createUserInput) {
+    id
   }
-`;
-export type CreateUserMutationFn = Apollo.MutationFunction<
-  CreateUserMutation,
-  CreateUserMutationVariables
->;
+}
+    `;
+export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
 
 /**
  * __useCreateUserMutation__
@@ -378,32 +398,24 @@ export type CreateUserMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useCreateUserMutation(
-  baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>
-) {
-  return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(
-    CreateUserDocument,
-    baseOptions
-  );
-}
+export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
+        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, baseOptions);
+      }
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
-export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
-  CreateUserMutation,
-  CreateUserMutationVariables
->;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
 export const FindSpecificEventDocument = gql`
-  query FindSpecificEvent($eventId: Int!) {
-    event(id: $eventId) {
-      id
-      title
-      description
-      startDate
-      endDate
-      restriction
-    }
+    query FindSpecificEvent($eventId: Int!) {
+  event(id: $eventId) {
+    id
+    title
+    description
+    startDate
+    endDate
+    restriction
   }
-`;
+}
+    `;
 
 /**
  * __useFindSpecificEventQuery__
@@ -421,39 +433,26 @@ export const FindSpecificEventDocument = gql`
  *   },
  * });
  */
-export function useFindSpecificEventQuery(
-  baseOptions: Apollo.QueryHookOptions<FindSpecificEventQuery, FindSpecificEventQueryVariables>
-) {
-  return Apollo.useQuery<FindSpecificEventQuery, FindSpecificEventQueryVariables>(
-    FindSpecificEventDocument,
-    baseOptions
-  );
-}
-export function useFindSpecificEventLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<FindSpecificEventQuery, FindSpecificEventQueryVariables>
-) {
-  return Apollo.useLazyQuery<FindSpecificEventQuery, FindSpecificEventQueryVariables>(
-    FindSpecificEventDocument,
-    baseOptions
-  );
-}
+export function useFindSpecificEventQuery(baseOptions: Apollo.QueryHookOptions<FindSpecificEventQuery, FindSpecificEventQueryVariables>) {
+        return Apollo.useQuery<FindSpecificEventQuery, FindSpecificEventQueryVariables>(FindSpecificEventDocument, baseOptions);
+      }
+export function useFindSpecificEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindSpecificEventQuery, FindSpecificEventQueryVariables>) {
+          return Apollo.useLazyQuery<FindSpecificEventQuery, FindSpecificEventQueryVariables>(FindSpecificEventDocument, baseOptions);
+        }
 export type FindSpecificEventQueryHookResult = ReturnType<typeof useFindSpecificEventQuery>;
 export type FindSpecificEventLazyQueryHookResult = ReturnType<typeof useFindSpecificEventLazyQuery>;
-export type FindSpecificEventQueryResult = Apollo.QueryResult<
-  FindSpecificEventQuery,
-  FindSpecificEventQueryVariables
->;
+export type FindSpecificEventQueryResult = Apollo.QueryResult<FindSpecificEventQuery, FindSpecificEventQueryVariables>;
 export const DiscoverEventsDocument = gql`
-  query DiscoverEvents($discoverEventsUserId: Int!) {
-    discoverEvents(userId: $discoverEventsUserId) {
-      id
-      title
-      description
-      startDate
-      endDate
-    }
+    query DiscoverEvents($discoverEventsUserId: Int!) {
+  discoverEvents(userId: $discoverEventsUserId) {
+    id
+    title
+    description
+    startDate
+    endDate
   }
-`;
+}
+    `;
 
 /**
  * __useDiscoverEventsQuery__
@@ -471,46 +470,33 @@ export const DiscoverEventsDocument = gql`
  *   },
  * });
  */
-export function useDiscoverEventsQuery(
-  baseOptions: Apollo.QueryHookOptions<DiscoverEventsQuery, DiscoverEventsQueryVariables>
-) {
-  return Apollo.useQuery<DiscoverEventsQuery, DiscoverEventsQueryVariables>(
-    DiscoverEventsDocument,
-    baseOptions
-  );
-}
-export function useDiscoverEventsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<DiscoverEventsQuery, DiscoverEventsQueryVariables>
-) {
-  return Apollo.useLazyQuery<DiscoverEventsQuery, DiscoverEventsQueryVariables>(
-    DiscoverEventsDocument,
-    baseOptions
-  );
-}
+export function useDiscoverEventsQuery(baseOptions: Apollo.QueryHookOptions<DiscoverEventsQuery, DiscoverEventsQueryVariables>) {
+        return Apollo.useQuery<DiscoverEventsQuery, DiscoverEventsQueryVariables>(DiscoverEventsDocument, baseOptions);
+      }
+export function useDiscoverEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DiscoverEventsQuery, DiscoverEventsQueryVariables>) {
+          return Apollo.useLazyQuery<DiscoverEventsQuery, DiscoverEventsQueryVariables>(DiscoverEventsDocument, baseOptions);
+        }
 export type DiscoverEventsQueryHookResult = ReturnType<typeof useDiscoverEventsQuery>;
 export type DiscoverEventsLazyQueryHookResult = ReturnType<typeof useDiscoverEventsLazyQuery>;
-export type DiscoverEventsQueryResult = Apollo.QueryResult<
-  DiscoverEventsQuery,
-  DiscoverEventsQueryVariables
->;
+export type DiscoverEventsQueryResult = Apollo.QueryResult<DiscoverEventsQuery, DiscoverEventsQueryVariables>;
 export const GetUsersEventsDocument = gql`
-  query GetUsersEvents($UserId: Int!) {
-    coHostEvents(userId: $UserId) {
-      id
-      title
-      description
-      startDate
-      endDate
-    }
-    hostEvents(userId: $UserId) {
-      id
-      title
-      description
-      startDate
-      endDate
-    }
+    query GetUsersEvents($UserId: Int!) {
+  coHostEvents(userId: $UserId) {
+    id
+    title
+    description
+    startDate
+    endDate
   }
-`;
+  hostEvents(userId: $UserId) {
+    id
+    title
+    description
+    startDate
+    endDate
+  }
+}
+    `;
 
 /**
  * __useGetUsersEventsQuery__
@@ -528,39 +514,26 @@ export const GetUsersEventsDocument = gql`
  *   },
  * });
  */
-export function useGetUsersEventsQuery(
-  baseOptions: Apollo.QueryHookOptions<GetUsersEventsQuery, GetUsersEventsQueryVariables>
-) {
-  return Apollo.useQuery<GetUsersEventsQuery, GetUsersEventsQueryVariables>(
-    GetUsersEventsDocument,
-    baseOptions
-  );
-}
-export function useGetUsersEventsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetUsersEventsQuery, GetUsersEventsQueryVariables>
-) {
-  return Apollo.useLazyQuery<GetUsersEventsQuery, GetUsersEventsQueryVariables>(
-    GetUsersEventsDocument,
-    baseOptions
-  );
-}
+export function useGetUsersEventsQuery(baseOptions: Apollo.QueryHookOptions<GetUsersEventsQuery, GetUsersEventsQueryVariables>) {
+        return Apollo.useQuery<GetUsersEventsQuery, GetUsersEventsQueryVariables>(GetUsersEventsDocument, baseOptions);
+      }
+export function useGetUsersEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUsersEventsQuery, GetUsersEventsQueryVariables>) {
+          return Apollo.useLazyQuery<GetUsersEventsQuery, GetUsersEventsQueryVariables>(GetUsersEventsDocument, baseOptions);
+        }
 export type GetUsersEventsQueryHookResult = ReturnType<typeof useGetUsersEventsQuery>;
 export type GetUsersEventsLazyQueryHookResult = ReturnType<typeof useGetUsersEventsLazyQuery>;
-export type GetUsersEventsQueryResult = Apollo.QueryResult<
-  GetUsersEventsQuery,
-  GetUsersEventsQueryVariables
->;
+export type GetUsersEventsQueryResult = Apollo.QueryResult<GetUsersEventsQuery, GetUsersEventsQueryVariables>;
 export const GetParticipatingEventsDocument = gql`
-  query GetParticipatingEvents($participatingEventsUserId: Int!) {
-    participatingEvents(userId: $participatingEventsUserId) {
-      id
-      endDate
-      description
-      startDate
-      title
-    }
+    query GetParticipatingEvents($participatingEventsUserId: Int!) {
+  participatingEvents(userId: $participatingEventsUserId) {
+    id
+    endDate
+    description
+    startDate
+    title
   }
-`;
+}
+    `;
 
 /**
  * __useGetParticipatingEventsQuery__
@@ -578,35 +551,12 @@ export const GetParticipatingEventsDocument = gql`
  *   },
  * });
  */
-export function useGetParticipatingEventsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetParticipatingEventsQuery,
-    GetParticipatingEventsQueryVariables
-  >
-) {
-  return Apollo.useQuery<GetParticipatingEventsQuery, GetParticipatingEventsQueryVariables>(
-    GetParticipatingEventsDocument,
-    baseOptions
-  );
-}
-export function useGetParticipatingEventsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetParticipatingEventsQuery,
-    GetParticipatingEventsQueryVariables
-  >
-) {
-  return Apollo.useLazyQuery<GetParticipatingEventsQuery, GetParticipatingEventsQueryVariables>(
-    GetParticipatingEventsDocument,
-    baseOptions
-  );
-}
-export type GetParticipatingEventsQueryHookResult = ReturnType<
-  typeof useGetParticipatingEventsQuery
->;
-export type GetParticipatingEventsLazyQueryHookResult = ReturnType<
-  typeof useGetParticipatingEventsLazyQuery
->;
-export type GetParticipatingEventsQueryResult = Apollo.QueryResult<
-  GetParticipatingEventsQuery,
-  GetParticipatingEventsQueryVariables
->;
+export function useGetParticipatingEventsQuery(baseOptions: Apollo.QueryHookOptions<GetParticipatingEventsQuery, GetParticipatingEventsQueryVariables>) {
+        return Apollo.useQuery<GetParticipatingEventsQuery, GetParticipatingEventsQueryVariables>(GetParticipatingEventsDocument, baseOptions);
+      }
+export function useGetParticipatingEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetParticipatingEventsQuery, GetParticipatingEventsQueryVariables>) {
+          return Apollo.useLazyQuery<GetParticipatingEventsQuery, GetParticipatingEventsQueryVariables>(GetParticipatingEventsDocument, baseOptions);
+        }
+export type GetParticipatingEventsQueryHookResult = ReturnType<typeof useGetParticipatingEventsQuery>;
+export type GetParticipatingEventsLazyQueryHookResult = ReturnType<typeof useGetParticipatingEventsLazyQuery>;
+export type GetParticipatingEventsQueryResult = Apollo.QueryResult<GetParticipatingEventsQuery, GetParticipatingEventsQueryVariables>;
