@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { cloneDeep } from 'lodash';
 import { FindOneOptions, Repository } from 'typeorm';
 import { User } from '../entities';
 import { CreateUserInput } from './inputs/user.input';
@@ -19,7 +20,12 @@ const mockUserRepository = () => ({
     }
     return foundUser;
   }),
-  find: jest.fn(() => mockAllUsers),
+  find: jest.fn((options?: FindOneOptions<User>) => {
+    if (options && options.where) {
+      return [];
+    }
+    return mockAllUsers;
+  }),
   update: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
   delete: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
   save: jest.fn((user: User) => user),
@@ -49,8 +55,11 @@ describe('UserService', () => {
   });
 
   it('should create user', async () => {
+    const originalUser = cloneDeep(mockPartialUser);
     const returnedUser = await service.createUser(mockPartialUser as CreateUserInput);
-    expect(returnedUser).toEqual(mockPartialUser);
+    expect(returnedUser.name).toEqual(originalUser.name);
+    expect(returnedUser.email).toEqual(originalUser.email);
+    expect(returnedUser.password).not.toEqual(originalUser.password);
   });
 
   it('should fetch all users', async () => {

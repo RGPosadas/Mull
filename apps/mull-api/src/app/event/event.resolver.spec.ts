@@ -7,33 +7,33 @@ import { EventService } from './event.service';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 
 const mockEventService = () => ({
-  create: jest.fn((mockEventData: CreateEventInput) => ({ ...mockEventData })),
-  findOne: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
-  findAll: jest.fn(() => mockAllEvents),
-  update: jest.fn((mockEventData: UpdateEventInput) => ({ ...mockEventData })),
-  delete: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
-  addParticipant: jest.fn((eventId: number, userId: number) => {
+  createEvent: jest.fn((mockEventData: CreateEventInput) => ({ ...mockEventData })),
+  event: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
+  events: jest.fn(() => mockAllEvents),
+  updateEvent: jest.fn((mockEventData: UpdateEventInput) => ({ ...mockEventData })),
+  deleteEvent: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
+  joinEvent: jest.fn((eventId: number, userId: number) => {
     const event = mockAllEvents.find((event) => (event.id = eventId));
     event.participants.push(new User(userId));
     return event;
   }),
-  removeParticipant: jest.fn((eventId: number, userId: number) => {
+  leaveEvent: jest.fn((eventId: number, userId: number) => {
     const event = mockAllEvents.find((event) => (event.id = eventId));
     const user = event.participants.find((participant) => participant.id == userId);
     const index = event.participants.indexOf(user);
     event.participants.splice(index, 1);
     return event;
   }),
-  findHostEvents: jest.fn((id: number) => mockAllEvents.find((event) => event.host.id === id)),
-  findCoHostEvents: jest.fn((coHostId: number) =>
+  hostEvents: jest.fn((id: number) => mockAllEvents.find((event) => event.host.id === id)),
+  coHostEvents: jest.fn((coHostId: number) =>
     mockAllEvents.find((event) => event.coHosts.some((cohost) => cohost.id === coHostId))
   ),
-  findJoinedEvents: jest.fn((participantId: number) =>
+  participantEvents: jest.fn((participantId: number) =>
     mockAllEvents.find((event) =>
       event.participants.some((participant) => participant.id === participantId)
     )
   ),
-  findDiscoverEvent: jest.fn().mockReturnValue(mockAllEvents[2]),
+  discoverEvents: jest.fn().mockReturnValue(mockAllEvents[2]),
 });
 
 describe('UserResolver', () => {

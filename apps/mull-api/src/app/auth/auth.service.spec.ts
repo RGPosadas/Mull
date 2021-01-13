@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 
 const mockUserService = () => ({
   findUnique: jest.fn(),
-  create: jest.fn((user: CreateUserInput) => user),
+  createUser: jest.fn((user: CreateUserInput) => user),
   incrementTokenVersion: jest.fn(),
 });
 

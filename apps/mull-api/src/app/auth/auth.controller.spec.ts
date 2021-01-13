@@ -18,7 +18,7 @@ const mockAuthService = () => ({
 });
 
 const mockUserService = () => ({
-  findOne: jest.fn(),
+  user: jest.fn(),
 });
 
 const mockJwtService = () => ({

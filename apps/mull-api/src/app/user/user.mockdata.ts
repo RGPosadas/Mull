@@ -1,8 +1,8 @@
 import { RegistrationMethod } from '@mull/types';
 import { User } from '../entities';
-import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
+import { CreateUserInput } from './inputs/user.input';
 
-export const mockPartialUser: CreateUserInput | UpdateUserInput = {
+export const mockPartialUser: Partial<User> = {
   password: 'password',
   email: 'mock@mock.com',
   dob: new Date(),
