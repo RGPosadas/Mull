@@ -12,11 +12,11 @@ export class UserService {
     private userRepository: Repository<User>
   ) {}
 
-  findAll(): Promise<User[]> {
+  users(): Promise<User[]> {
     return this.userRepository.find();
   }
 
-  findOne(id: number): Promise<User> {
+  user(id: number): Promise<User> {
     return this.userRepository.findOne(id);
   }
 
@@ -28,22 +28,22 @@ export class UserService {
     return this.userRepository.find({ where: { email, registrationMethod } });
   }
 
-  async findAllFriends(id: number): Promise<User[]> {
-    const { friends } = await this.userRepository.findOne(id, { relations: ['friends'] });
+  async friends(userId: number): Promise<User[]> {
+    const { friends } = await this.userRepository.findOne(userId, { relations: ['friends'] });
     return friends;
   }
 
-  async create(userInput: CreateUserInput): Promise<User> {
+  async createUser(userInput: CreateUserInput): Promise<User> {
     return await this.userRepository.save({ ...userInput });
   }
 
   async updateUser(userInput: UpdateUserInput): Promise<User> {
     await this.userRepository.update(userInput.id, { ...userInput });
-    return this.findOne(userInput.id);
+    return this.user(userInput.id);
   }
 
-  async delete(id: number): Promise<User> {
-    const user = await this.findOne(id);
+  async deleteUser(id: number): Promise<User> {
+    const user = await this.user(id);
     await this.userRepository.delete(user.id);
     return user;
   }

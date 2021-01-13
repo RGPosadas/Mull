@@ -61,7 +61,7 @@ export class AuthController {
     } catch (err) {
       return res.send({ ok: false, accessToken: '' });
     }
-    const user = await this.userService.findOne(id);
+    const user = await this.userService.user(id);
 
     if (!user) return res.send({ ok: false, accessToken: '' });
     if (user.tokenVersion !== tokenVersion) return res.send({ ok: false, accessToken: '' });

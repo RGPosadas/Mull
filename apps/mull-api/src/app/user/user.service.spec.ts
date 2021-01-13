@@ -49,12 +49,12 @@ describe('UserService', () => {
   });
 
   it('should create user', async () => {
-    const returnedUser = await service.create(mockPartialUser as CreateUserInput);
+    const returnedUser = await service.createUser(mockPartialUser as CreateUserInput);
     expect(returnedUser).toEqual(mockPartialUser);
   });
 
   it('should fetch all users', async () => {
-    const returnedUsers = await service.findAll();
+    const returnedUsers = await service.users();
     expect(returnedUsers).toEqual(mockAllUsers);
   });
 
@@ -74,7 +74,7 @@ describe('UserService', () => {
   });
 
   it('should fetch all friends of mockUser 1', async () => {
-    const returnedUserFriends = await service.findAllFriends(1);
+    const returnedUserFriends = await service.friends(1);
     expect(returnedUserFriends).toEqual(mockAllUsers.find((user) => user.id === 1).friends);
   });
 
@@ -84,12 +84,12 @@ describe('UserService', () => {
   });
 
   it('should return the deleted user', async () => {
-    const deletedUser = await service.delete(1);
+    const deletedUser = await service.deleteUser(1);
     expect(deletedUser).toEqual(mockAllUsers.find((user) => user.id === 1));
   });
 
   it('should return the user with given id', async () => {
-    const foundUser = await service.findOne(1);
+    const foundUser = await service.user(1);
     expect(foundUser).toEqual(mockAllUsers.find((user) => user.id === 1));
   });
 

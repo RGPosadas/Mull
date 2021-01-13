@@ -25,7 +25,7 @@ export class MediaService {
     });
   }
 
-  async create(mediaType: string): Promise<Media> {
+  async createMedia(mediaType: string): Promise<Media> {
     const fileType = mediaType.split('/')[1];
     const newMedia = new Media(fileType);
     return await this.mediaRepository.save(newMedia);

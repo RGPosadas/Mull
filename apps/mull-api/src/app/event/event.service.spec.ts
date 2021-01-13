@@ -52,32 +52,32 @@ describe('EventService', () => {
   });
 
   it('should create the event', async () => {
-    const returnedEvent = await service.create(mockPartialEvent as CreateEventInput);
+    const returnedEvent = await service.createEvent(mockPartialEvent as CreateEventInput);
     expect(returnedEvent).toEqual(mockPartialEvent);
   });
 
   it('should fetch all events', async () => {
-    const returnedEvents = await service.findAll();
+    const returnedEvents = await service.events();
     expect(returnedEvents).toEqual(mockAllEvents);
   });
 
   it('should update the event', async () => {
-    const updatedEvent = await service.update(mockAllEvents[0]);
+    const updatedEvent = await service.updateEvent(mockAllEvents[0]);
     expect(updatedEvent).toEqual(mockAllEvents[0]);
   });
 
   it('should return the deleted event', async () => {
-    const deletedEvent = await service.delete(35);
+    const deletedEvent = await service.deleteEvent(35);
     expect(deletedEvent).toEqual(mockAllEvents.find((event) => event.id === 35));
   });
 
   it('should add the participant to the event', async () => {
     const eventId = 35;
     const userId = 1;
-    const event = await service.findOne(eventId);
+    const event = await service.event(eventId);
     const oldSize = event.participants.length;
 
-    const updatedEvent = await service.addParticipant(eventId, userId);
+    const updatedEvent = await service.joinEvent(eventId, userId);
     expect(updatedEvent.participants.length).toBeGreaterThan(oldSize);
     expect(updatedEvent.participants.pop().id).toEqual(userId);
   });
@@ -85,10 +85,10 @@ describe('EventService', () => {
   it('should remove the participant from the event', async () => {
     const eventId = 35;
     const userId = 3;
-    const event = await service.findOne(eventId);
+    const event = await service.event(eventId);
     const oldSize = event.participants.length;
 
-    const updatedEvent = await service.removeParticipant(eventId, userId);
+    const updatedEvent = await service.leaveEvent(eventId, userId);
     expect(updatedEvent.participants.length).toBeLessThan(oldSize);
   });
 
@@ -96,21 +96,21 @@ describe('EventService', () => {
     const eventId = 35;
     const userId = 150;
     try {
-      await service.removeParticipant(eventId, userId);
+      await service.leaveEvent(eventId, userId);
     } catch (error) {
       expect(error).toEqual(new Error('User is not a participant of the event'));
     }
   });
 
   it('should return the event with given id', async () => {
-    const foundEvent = await service.findOne(35);
+    const foundEvent = await service.event(35);
     expect(foundEvent).toEqual(mockAllEvents.find((event) => event.id === 35));
   });
 
   it('should return a list of events that belongs to a host', async () => {
     const hostId = mockAllUsers[1].id;
     repository.find.mockReturnValue(mockAllEvents.find((event) => event.host.id === hostId));
-    const foundEvent = await service.findHostEvents(hostId);
+    const foundEvent = await service.hostEvents(hostId);
     expect(foundEvent).toEqual(mockAllEvents.find((event) => event.host.id === hostId));
     expect(repository.find).toBeCalledTimes(1);
   });
@@ -126,7 +126,7 @@ describe('EventService', () => {
           mockAllEvents.find((event) => event.coHosts.some((cohost) => cohost.id === coHostId))
         ),
     }));
-    const foundEvent = await service.findCoHostEvents(coHostId);
+    const foundEvent = await service.coHostEvents(coHostId);
     expect(foundEvent).toEqual(
       mockAllEvents.find((event) => event.coHosts.some((cohost) => cohost.id === coHostId))
     );
@@ -146,7 +146,7 @@ describe('EventService', () => {
           )
         ),
     }));
-    const foundEvents = await service.findJoinedEvents(userId);
+    const foundEvents = await service.participantEvents(userId);
     expect(foundEvents).toEqual(
       mockAllEvents.find((event) =>
         event.participants.some((participant) => participant.id === userId)
@@ -163,7 +163,7 @@ describe('EventService', () => {
       andWhere: jest.fn().mockReturnThis(),
       getMany: jest.fn().mockReturnValue(mockAllEvents[2]),
     }));
-    const foundEvents = await service.findDiscoverEvent(userId);
+    const foundEvents = await service.discoverEvents(userId);
     expect(foundEvents).toEqual(mockAllEvents[2]);
     expect(repository.createQueryBuilder).toBeCalledTimes(1);
   });

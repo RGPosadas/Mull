@@ -9,63 +9,64 @@ export class EventResolver {
 
   @Query(/* istanbul ignore next */ () => [Event])
   async events() {
-    return this.eventService.findAll();
+    return this.eventService.events();
   }
 
   @Query(/* istanbul ignore next */ () => Event)
   async event(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
-    return this.eventService.findOne(id);
+    return this.eventService.event(id);
   }
 
   @Query(/* istanbul ignore next */ () => [Event])
-  async hostEvents(@Args('userId', { type: /* istanbul ignore next */ () => Int }) id: number) {
-    return this.eventService.findHostEvents(id);
+  async hostEvents(@Args('hostId', { type: /* istanbul ignore next */ () => Int }) hostId: number) {
+    return this.eventService.hostEvents(hostId);
   }
 
   @Query(/* istanbul ignore next */ () => [Event])
-  async coHostEvents(@Args('userId', { type: /* istanbul ignore next */ () => Int }) id: number) {
-    return this.eventService.findCoHostEvents(id);
-  }
-
-  @Query(/* istanbul ignore next */ () => [Event])
-  async participatingEvents(
-    @Args('userId', { type: /* istanbul ignore next */ () => Int }) id: number
+  async coHostEvents(
+    @Args('coHostId', { type: /* istanbul ignore next */ () => Int }) coHostId: number
   ) {
-    return this.eventService.findJoinedEvents(id);
+    return this.eventService.coHostEvents(coHostId);
   }
 
   @Query(/* istanbul ignore next */ () => [Event])
-  async discoverEvents(@Args('userId', { type: /* istanbul ignore next */ () => Int }) id: number) {
-    return this.eventService.findDiscoverEvent(id);
+  async participantEvents(
+    @Args('userId', { type: /* istanbul ignore next */ () => Int }) userId: number
+  ) {
+    return this.eventService.participantEvents(userId);
+  }
+
+  @Query(/* istanbul ignore next */ () => [Event])
+  async discoverEvents(
+    @Args('userId', { type: /* istanbul ignore next */ () => Int }) userId: number
+  ) {
+    return this.eventService.discoverEvents(userId);
   }
 
   @Mutation(/* istanbul ignore next */ () => Event)
-  async createEvent(@Args('createEventInput') createEventInput: CreateEventInput) {
-    return this.eventService.create(createEventInput);
+  async createEvent(@Args('input') input: CreateEventInput) {
+    return this.eventService.createEvent(input);
   }
 
   @Mutation(/* istanbul ignore next */ () => Event)
-  async updateEvent(@Args('updateEventInput') updateEventInput: UpdateEventInput) {
-    return this.eventService.update(updateEventInput);
+  async updateEvent(@Args('input') input: UpdateEventInput) {
+    return this.eventService.updateEvent(input);
   }
 
   @Mutation(/* istanbul ignore next */ () => Event)
   async deleteEvent(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
-    return this.eventService.delete(id);
+    return this.eventService.deleteEvent(id);
   }
 
   @Mutation(() => Boolean)
-  async addParticipantToEvent(@Args('eventId') eventId: number, @Args('userId') userId: number) {
-    this.eventService.addParticipant(eventId, userId);
+  async joinEvent(@Args('eventId') eventId: number, @Args('userId') userId: number) {
+    this.eventService.joinEvent(eventId, userId);
     return true;
   }
 
   @Mutation(() => Boolean)
-  async removeParticipantFromEvent(
-    @Args('eventId') eventId: number,
-    @Args('userId') userId: number
-  ) {
-    this.eventService.removeParticipant(eventId, userId);
+  async leaveEvent(@Args('eventId') eventId: number, @Args('userId') userId: number) {
+    this.eventService.leaveEvent(eventId, userId);
     return true;
   }
 }

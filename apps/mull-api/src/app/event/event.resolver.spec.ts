@@ -75,12 +75,12 @@ describe('UserResolver', () => {
   });
 
   it('should add the participant to the event', async () => {
-    const success = await resolver.addParticipantToEvent(35, 1);
+    const success = await resolver.joinEvent(35, 1);
     expect(success).toEqual(true);
   });
 
   it('should remove the participant from the event', async () => {
-    const success = await resolver.removeParticipantFromEvent(35, 1);
+    const success = await resolver.leaveEvent(35, 1);
     expect(success).toEqual(true);
   });
 
@@ -95,31 +95,31 @@ describe('UserResolver', () => {
     expect(foundEvents).toEqual(
       mockAllEvents.find((event) => event.coHosts.some((cohost) => cohost.id === coHostId))
     );
-    expect(service.findCoHostEvents).toBeCalledTimes(1);
+    expect(service.coHostEvents).toBeCalledTimes(1);
   });
 
   it('should return a list of events that belongs to a host', async () => {
     const hostId = mockAllUsers[0].id;
     const foundEvents = await resolver.hostEvents(hostId);
     expect(foundEvents).toEqual(mockAllEvents.find((event) => event.host.id === hostId));
-    expect(service.findHostEvents).toBeCalledTimes(1);
+    expect(service.hostEvents).toBeCalledTimes(1);
   });
 
   it('should return a list of events that a user has joined', async () => {
     const participantId = mockAllUsers[2].id;
-    const foundEvents = await resolver.participatingEvents(participantId);
+    const foundEvents = await resolver.participantEvents(participantId);
     expect(foundEvents).toEqual(
       mockAllEvents.find((event) =>
         event.participants.some((participant) => participant.id === participantId)
       )
     );
-    expect(service.findJoinedEvents).toBeCalledTimes(1);
+    expect(service.participantEvents).toBeCalledTimes(1);
   });
 
   it('should return a list of events that the user is not involved with', async () => {
     const id = mockAllUsers[2].id;
     const foundEvents = await resolver.discoverEvents(id);
     expect(foundEvents).toEqual(mockAllEvents[2]);
-    expect(service.findDiscoverEvent).toBeCalledTimes(1);
+    expect(service.discoverEvents).toBeCalledTimes(1);
   });
 });

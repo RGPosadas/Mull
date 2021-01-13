@@ -41,7 +41,7 @@ describe('MediaService', () => {
   });
 
   it('should create media', async () => {
-    const returnedMedia = await service.create(mockFile.mimetype);
+    const returnedMedia = await service.createMedia(mockFile.mimetype);
     expect(returnedMedia.mediaType).toEqual(mockFile.mimetype.split('/')[1]);
   });
 
