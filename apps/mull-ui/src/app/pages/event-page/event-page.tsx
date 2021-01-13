@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { CreateEventInput, useFindSpecificEventQuery } from '../../../generated/graphql';
+import { CreateEventInput, useEventQuery } from '../../../generated/graphql';
 import { EventPageHeader, EventPageInfo } from '../../components';
 import './event-page.scss';
 
@@ -26,8 +26,8 @@ export const EventPage = ({
   const { id } = useParams<{ id: string }>();
   const eventId = parseInt(id);
 
-  const { loading, error, data } = useFindSpecificEventQuery({
-    variables: { eventId },
+  const { loading, error, data } = useEventQuery({
+    variables: { id: eventId },
     skip: !!event,
   });
 

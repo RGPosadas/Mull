@@ -107,7 +107,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         } = await uploadFile({ variables: { file: file } });
         await createEvent({
           variables: {
-            createEventInput: {
+            input: {
               ...payload,
               image: { id: uploadedFile.id, mediaType: uploadedFile.mediaType },
             } as CreateEventInput,

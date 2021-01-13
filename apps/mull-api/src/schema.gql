@@ -54,25 +54,25 @@ input MediaInput {
 }
 
 type Mutation {
-  addParticipantToEvent(eventId: Float!, userId: Float!): Boolean!
-  createEvent(createEventInput: CreateEventInput!): Event!
-  createUser(createUserInput: CreateUserInput!): User!
+  createEvent(input: CreateEventInput!): Event!
+  createUser(input: CreateUserInput!): User!
   deleteEvent(id: Int!): Event!
   deleteUser(id: Int!): User!
+  joinEvent(eventId: Float!, userId: Float!): Boolean!
+  leaveEvent(eventId: Float!, userId: Float!): Boolean!
   login(loginInput: LoginInput!): LoginResult!
-  removeParticipantFromEvent(eventId: Float!, userId: Float!): Boolean!
-  updateEvent(updateEventInput: UpdateEventInput!): Event!
-  updateUser(updateUserInput: UpdateUserInput!): User!
+  updateEvent(input: UpdateEventInput!): Event!
+  updateUser(input: UpdateUserInput!): User!
   uploadFile(file: Upload!): Media!
 }
 
 type Query {
-  coHostEvents(userId: Int!): [Event!]!
+  coHostEvents(coHostId: Int!): [Event!]!
   discoverEvents(userId: Int!): [Event!]!
   event(id: Int!): Event!
   events: [Event!]!
-  hostEvents(userId: Int!): [Event!]!
-  participatingEvents(userId: Int!): [Event!]!
+  hostEvents(hostId: Int!): [Event!]!
+  participantEvents(userId: Int!): [Event!]!
   user(id: Int!): User!
   users: [User!]!
 }

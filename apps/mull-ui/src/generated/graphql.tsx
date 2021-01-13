@@ -69,32 +69,26 @@ export type MediaInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addParticipantToEvent: Scalars['Boolean'];
   createEvent: Event;
   createUser: User;
   deleteEvent: Event;
   deleteUser: User;
+  joinEvent: Scalars['Boolean'];
+  leaveEvent: Scalars['Boolean'];
   login: LoginResult;
-  removeParticipantFromEvent: Scalars['Boolean'];
   updateEvent: Event;
   updateUser: User;
   uploadFile: Media;
 };
 
 
-export type MutationAddParticipantToEventArgs = {
-  eventId: Scalars['Float'];
-  userId: Scalars['Float'];
-};
-
-
 export type MutationCreateEventArgs = {
-  createEventInput: CreateEventInput;
+  input: CreateEventInput;
 };
 
 
 export type MutationCreateUserArgs = {
-  createUserInput: CreateUserInput;
+  input: CreateUserInput;
 };
 
 
@@ -108,24 +102,30 @@ export type MutationDeleteUserArgs = {
 };
 
 
-export type MutationLoginArgs = {
-  loginInput: LoginInput;
-};
-
-
-export type MutationRemoveParticipantFromEventArgs = {
+export type MutationJoinEventArgs = {
   eventId: Scalars['Float'];
   userId: Scalars['Float'];
 };
 
 
+export type MutationLeaveEventArgs = {
+  eventId: Scalars['Float'];
+  userId: Scalars['Float'];
+};
+
+
+export type MutationLoginArgs = {
+  loginInput: LoginInput;
+};
+
+
 export type MutationUpdateEventArgs = {
-  updateEventInput: UpdateEventInput;
+  input: UpdateEventInput;
 };
 
 
 export type MutationUpdateUserArgs = {
-  updateUserInput: UpdateUserInput;
+  input: UpdateUserInput;
 };
 
 
@@ -140,14 +140,14 @@ export type Query = {
   event: Event;
   events: Array<Event>;
   hostEvents: Array<Event>;
-  participatingEvents: Array<Event>;
+  participantEvents: Array<Event>;
   user: User;
   users: Array<User>;
 };
 
 
 export type QueryCoHostEventsArgs = {
-  userId: Scalars['Int'];
+  coHostId: Scalars['Int'];
 };
 
 
@@ -162,11 +162,11 @@ export type QueryEventArgs = {
 
 
 export type QueryHostEventsArgs = {
-  userId: Scalars['Int'];
+  hostId: Scalars['Int'];
 };
 
 
-export type QueryParticipatingEventsArgs = {
+export type QueryParticipantEventsArgs = {
   userId: Scalars['Int'];
 };
 
@@ -213,7 +213,7 @@ export type User = {
 };
 
 export type CreateEventMutationVariables = Exact<{
-  createEventInput: CreateEventInput;
+  input: CreateEventInput;
 }>;
 
 
@@ -239,7 +239,7 @@ export type UploadFileMutation = (
 );
 
 export type CreateUserMutationVariables = Exact<{
-  createUserInput: CreateUserInput;
+  input: CreateUserInput;
 }>;
 
 
@@ -264,12 +264,12 @@ export type LoginMutation = (
   ) }
 );
 
-export type FindSpecificEventQueryVariables = Exact<{
-  eventId: Scalars['Int'];
+export type EventQueryVariables = Exact<{
+  id: Scalars['Int'];
 }>;
 
 
-export type FindSpecificEventQuery = (
+export type EventQuery = (
   { __typename?: 'Query' }
   & { event: (
     { __typename?: 'Event' }
@@ -278,7 +278,7 @@ export type FindSpecificEventQuery = (
 );
 
 export type DiscoverEventsQueryVariables = Exact<{
-  discoverEventsUserId: Scalars['Int'];
+  userId: Scalars['Int'];
 }>;
 
 
@@ -290,12 +290,12 @@ export type DiscoverEventsQuery = (
   )> }
 );
 
-export type GetUsersEventsQueryVariables = Exact<{
-  UserId: Scalars['Int'];
+export type OwnedEventsQueryVariables = Exact<{
+  userId: Scalars['Int'];
 }>;
 
 
-export type GetUsersEventsQuery = (
+export type OwnedEventsQuery = (
   { __typename?: 'Query' }
   & { coHostEvents: Array<(
     { __typename?: 'Event' }
@@ -306,14 +306,14 @@ export type GetUsersEventsQuery = (
   )> }
 );
 
-export type GetParticipatingEventsQueryVariables = Exact<{
-  participatingEventsUserId: Scalars['Int'];
+export type ParticipantEventsQueryVariables = Exact<{
+  userId: Scalars['Int'];
 }>;
 
 
-export type GetParticipatingEventsQuery = (
+export type ParticipantEventsQuery = (
   { __typename?: 'Query' }
-  & { participatingEvents: Array<(
+  & { participantEvents: Array<(
     { __typename?: 'Event' }
     & Pick<Event, 'id' | 'endDate' | 'description' | 'startDate' | 'title'>
   )> }
@@ -321,8 +321,8 @@ export type GetParticipatingEventsQuery = (
 
 
 export const CreateEventDocument = gql`
-    mutation CreateEvent($createEventInput: CreateEventInput!) {
-  createEvent(createEventInput: $createEventInput) {
+    mutation CreateEvent($input: CreateEventInput!) {
+  createEvent(input: $input) {
     id
   }
 }
@@ -342,7 +342,7 @@ export type CreateEventMutationFn = Apollo.MutationFunction<CreateEventMutation,
  * @example
  * const [createEventMutation, { data, loading, error }] = useCreateEventMutation({
  *   variables: {
- *      createEventInput: // value for 'createEventInput'
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -386,8 +386,8 @@ export type UploadFileMutationHookResult = ReturnType<typeof useUploadFileMutati
 export type UploadFileMutationResult = Apollo.MutationResult<UploadFileMutation>;
 export type UploadFileMutationOptions = Apollo.BaseMutationOptions<UploadFileMutation, UploadFileMutationVariables>;
 export const CreateUserDocument = gql`
-    mutation CreateUser($createUserInput: CreateUserInput!) {
-  createUser(createUserInput: $createUserInput) {
+    mutation CreateUser($input: CreateUserInput!) {
+  createUser(input: $input) {
     id
   }
 }
@@ -407,7 +407,7 @@ export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, C
  * @example
  * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
  *   variables: {
- *      createUserInput: // value for 'createUserInput'
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -449,9 +449,9 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
-export const FindSpecificEventDocument = gql`
-    query FindSpecificEvent($eventId: Int!) {
-  event(id: $eventId) {
+export const EventDocument = gql`
+    query Event($id: Int!) {
+  event(id: $id) {
     id
     title
     description
@@ -463,33 +463,33 @@ export const FindSpecificEventDocument = gql`
     `;
 
 /**
- * __useFindSpecificEventQuery__
+ * __useEventQuery__
  *
- * To run a query within a React component, call `useFindSpecificEventQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindSpecificEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useEventQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useFindSpecificEventQuery({
+ * const { data, loading, error } = useEventQuery({
  *   variables: {
- *      eventId: // value for 'eventId'
+ *      id: // value for 'id'
  *   },
  * });
  */
-export function useFindSpecificEventQuery(baseOptions: Apollo.QueryHookOptions<FindSpecificEventQuery, FindSpecificEventQueryVariables>) {
-        return Apollo.useQuery<FindSpecificEventQuery, FindSpecificEventQueryVariables>(FindSpecificEventDocument, baseOptions);
+export function useEventQuery(baseOptions: Apollo.QueryHookOptions<EventQuery, EventQueryVariables>) {
+        return Apollo.useQuery<EventQuery, EventQueryVariables>(EventDocument, baseOptions);
       }
-export function useFindSpecificEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindSpecificEventQuery, FindSpecificEventQueryVariables>) {
-          return Apollo.useLazyQuery<FindSpecificEventQuery, FindSpecificEventQueryVariables>(FindSpecificEventDocument, baseOptions);
+export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventQuery, EventQueryVariables>) {
+          return Apollo.useLazyQuery<EventQuery, EventQueryVariables>(EventDocument, baseOptions);
         }
-export type FindSpecificEventQueryHookResult = ReturnType<typeof useFindSpecificEventQuery>;
-export type FindSpecificEventLazyQueryHookResult = ReturnType<typeof useFindSpecificEventLazyQuery>;
-export type FindSpecificEventQueryResult = Apollo.QueryResult<FindSpecificEventQuery, FindSpecificEventQueryVariables>;
+export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
+export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
+export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
 export const DiscoverEventsDocument = gql`
-    query DiscoverEvents($discoverEventsUserId: Int!) {
-  discoverEvents(userId: $discoverEventsUserId) {
+    query DiscoverEvents($userId: Int!) {
+  discoverEvents(userId: $userId) {
     id
     title
     description
@@ -511,7 +511,7 @@ export const DiscoverEventsDocument = gql`
  * @example
  * const { data, loading, error } = useDiscoverEventsQuery({
  *   variables: {
- *      discoverEventsUserId: // value for 'discoverEventsUserId'
+ *      userId: // value for 'userId'
  *   },
  * });
  */
@@ -524,16 +524,16 @@ export function useDiscoverEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type DiscoverEventsQueryHookResult = ReturnType<typeof useDiscoverEventsQuery>;
 export type DiscoverEventsLazyQueryHookResult = ReturnType<typeof useDiscoverEventsLazyQuery>;
 export type DiscoverEventsQueryResult = Apollo.QueryResult<DiscoverEventsQuery, DiscoverEventsQueryVariables>;
-export const GetUsersEventsDocument = gql`
-    query GetUsersEvents($UserId: Int!) {
-  coHostEvents(userId: $UserId) {
+export const OwnedEventsDocument = gql`
+    query OwnedEvents($userId: Int!) {
+  coHostEvents(coHostId: $userId) {
     id
     title
     description
     startDate
     endDate
   }
-  hostEvents(userId: $UserId) {
+  hostEvents(hostId: $userId) {
     id
     title
     description
@@ -544,33 +544,33 @@ export const GetUsersEventsDocument = gql`
     `;
 
 /**
- * __useGetUsersEventsQuery__
+ * __useOwnedEventsQuery__
  *
- * To run a query within a React component, call `useGetUsersEventsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUsersEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useOwnedEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOwnedEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetUsersEventsQuery({
+ * const { data, loading, error } = useOwnedEventsQuery({
  *   variables: {
- *      UserId: // value for 'UserId'
+ *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useGetUsersEventsQuery(baseOptions: Apollo.QueryHookOptions<GetUsersEventsQuery, GetUsersEventsQueryVariables>) {
-        return Apollo.useQuery<GetUsersEventsQuery, GetUsersEventsQueryVariables>(GetUsersEventsDocument, baseOptions);
+export function useOwnedEventsQuery(baseOptions: Apollo.QueryHookOptions<OwnedEventsQuery, OwnedEventsQueryVariables>) {
+        return Apollo.useQuery<OwnedEventsQuery, OwnedEventsQueryVariables>(OwnedEventsDocument, baseOptions);
       }
-export function useGetUsersEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUsersEventsQuery, GetUsersEventsQueryVariables>) {
-          return Apollo.useLazyQuery<GetUsersEventsQuery, GetUsersEventsQueryVariables>(GetUsersEventsDocument, baseOptions);
+export function useOwnedEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OwnedEventsQuery, OwnedEventsQueryVariables>) {
+          return Apollo.useLazyQuery<OwnedEventsQuery, OwnedEventsQueryVariables>(OwnedEventsDocument, baseOptions);
         }
-export type GetUsersEventsQueryHookResult = ReturnType<typeof useGetUsersEventsQuery>;
-export type GetUsersEventsLazyQueryHookResult = ReturnType<typeof useGetUsersEventsLazyQuery>;
-export type GetUsersEventsQueryResult = Apollo.QueryResult<GetUsersEventsQuery, GetUsersEventsQueryVariables>;
-export const GetParticipatingEventsDocument = gql`
-    query GetParticipatingEvents($participatingEventsUserId: Int!) {
-  participatingEvents(userId: $participatingEventsUserId) {
+export type OwnedEventsQueryHookResult = ReturnType<typeof useOwnedEventsQuery>;
+export type OwnedEventsLazyQueryHookResult = ReturnType<typeof useOwnedEventsLazyQuery>;
+export type OwnedEventsQueryResult = Apollo.QueryResult<OwnedEventsQuery, OwnedEventsQueryVariables>;
+export const ParticipantEventsDocument = gql`
+    query ParticipantEvents($userId: Int!) {
+  participantEvents(userId: $userId) {
     id
     endDate
     description
@@ -581,27 +581,27 @@ export const GetParticipatingEventsDocument = gql`
     `;
 
 /**
- * __useGetParticipatingEventsQuery__
+ * __useParticipantEventsQuery__
  *
- * To run a query within a React component, call `useGetParticipatingEventsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetParticipatingEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useParticipantEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useParticipantEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetParticipatingEventsQuery({
+ * const { data, loading, error } = useParticipantEventsQuery({
  *   variables: {
- *      participatingEventsUserId: // value for 'participatingEventsUserId'
+ *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useGetParticipatingEventsQuery(baseOptions: Apollo.QueryHookOptions<GetParticipatingEventsQuery, GetParticipatingEventsQueryVariables>) {
-        return Apollo.useQuery<GetParticipatingEventsQuery, GetParticipatingEventsQueryVariables>(GetParticipatingEventsDocument, baseOptions);
+export function useParticipantEventsQuery(baseOptions: Apollo.QueryHookOptions<ParticipantEventsQuery, ParticipantEventsQueryVariables>) {
+        return Apollo.useQuery<ParticipantEventsQuery, ParticipantEventsQueryVariables>(ParticipantEventsDocument, baseOptions);
       }
-export function useGetParticipatingEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetParticipatingEventsQuery, GetParticipatingEventsQueryVariables>) {
-          return Apollo.useLazyQuery<GetParticipatingEventsQuery, GetParticipatingEventsQueryVariables>(GetParticipatingEventsDocument, baseOptions);
+export function useParticipantEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ParticipantEventsQuery, ParticipantEventsQueryVariables>) {
+          return Apollo.useLazyQuery<ParticipantEventsQuery, ParticipantEventsQueryVariables>(ParticipantEventsDocument, baseOptions);
         }
-export type GetParticipatingEventsQueryHookResult = ReturnType<typeof useGetParticipatingEventsQuery>;
-export type GetParticipatingEventsLazyQueryHookResult = ReturnType<typeof useGetParticipatingEventsLazyQuery>;
-export type GetParticipatingEventsQueryResult = Apollo.QueryResult<GetParticipatingEventsQuery, GetParticipatingEventsQueryVariables>;
+export type ParticipantEventsQueryHookResult = ReturnType<typeof useParticipantEventsQuery>;
+export type ParticipantEventsLazyQueryHookResult = ReturnType<typeof useParticipantEventsLazyQuery>;
+export type ParticipantEventsQueryResult = Apollo.QueryResult<ParticipantEventsQuery, ParticipantEventsQueryVariables>;

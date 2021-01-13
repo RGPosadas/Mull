@@ -36,10 +36,10 @@ const Register = ({ history }: RegisterProps) => {
 
     onSubmit: async (values) => {
       notifyToast('Registering new user...');
-      const createUserInput = { ...values, registrationMethod: RegistrationMethod.Local };
+      const input = { ...values, registrationMethod: RegistrationMethod.Local };
 
       try {
-        var { errors } = await createUser({ variables: { createUserInput } });
+        var { errors } = await createUser({ variables: { input } });
       } catch (err) {
         updateToast(toast.TYPE.ERROR, err.message);
         return;

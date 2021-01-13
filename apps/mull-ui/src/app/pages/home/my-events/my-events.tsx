@@ -1,14 +1,14 @@
 import { ISerializedEvent } from '@mull/types';
 import React from 'react';
-import { useGetUsersEventsQuery } from '../../../../generated/graphql';
+import { useOwnedEventsQuery } from '../../../../generated/graphql';
 import { EventCard } from '../../../components';
 import '../home-discover.scss';
 
 export const MyEventsPage = ({ history }) => {
-  const { data } = useGetUsersEventsQuery({
+  const { data } = useOwnedEventsQuery({
     fetchPolicy: 'network-only',
     // TODO: dynamically pass current UserId
-    variables: { UserId: 1 },
+    variables: { userId: 1 },
   });
 
   if (data) {
