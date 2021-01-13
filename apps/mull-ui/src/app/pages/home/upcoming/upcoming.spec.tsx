@@ -5,7 +5,7 @@ import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
-import { GetParticipatingEventsDocument } from '../../../../generated/graphql';
+import { ParticipantEventsDocument } from '../../../../generated/graphql';
 import UpcomingPage from './upcoming';
 
 describe('myEventsPage', () => {
@@ -16,7 +16,7 @@ describe('myEventsPage', () => {
     const { baseElement } = render(
       <MockedProvider>
         <Router history={history}>
-          <UpcomingPage />
+          <UpcomingPage history={history} />
         </Router>
       </MockedProvider>
     );
@@ -28,12 +28,12 @@ describe('myEventsPage', () => {
       const mocks: MockedResponse[] = [
         {
           request: {
-            query: GetParticipatingEventsDocument,
-            variables: { participatingEventsUserId: 1 },
+            query: ParticipantEventsDocument,
+            variables: { userId: 1 },
           },
           result: {
             data: {
-              participatingEvents: [
+              participantEvents: [
                 {
                   id: '1',
                   title: 'test',
@@ -54,7 +54,7 @@ describe('myEventsPage', () => {
       const utils = render(
         <MockedProvider mocks={mocks} addTypename={false}>
           <Router history={history}>
-            <UpcomingPage />
+            <UpcomingPage history={history} />
           </Router>
         </MockedProvider>
       );
