@@ -1,7 +1,4 @@
-import { RegistrationMethod } from '@mull/types';
-import { UnauthorizedException } from '@nestjs/common';
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
-import { genSalt, hash } from 'bcrypt';
 import { User } from '../entities';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 import { UserService } from './user.service';
@@ -28,14 +25,6 @@ export class UserResolver {
 
   @Mutation(/* istanbul ignore next */ () => User)
   async createUser(@Args('input') input: CreateUserInput) {
-    if (input.registrationMethod === RegistrationMethod.LOCAL) {
-      const salt = await genSalt(10);
-      const hashed = await hash(input.password, salt);
-      input.password = hashed;
-    }
-    const existingUser = await this.userService.findUnique(input.email, input.registrationMethod);
-    if (existingUser.length > 0)
-      throw new UnauthorizedException('User with this email already exists.');
     return this.userService.createUser(input);
   }
 

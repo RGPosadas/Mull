@@ -1,6 +1,7 @@
 import { RegistrationMethod } from '@mull/types';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { genSalt, hash } from 'bcrypt';
 import { Repository } from 'typeorm';
 import { User } from '../entities';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
@@ -33,8 +34,16 @@ export class UserService {
     return friends;
   }
 
-  async createUser(userInput: CreateUserInput): Promise<User> {
-    return await this.userRepository.save({ ...userInput });
+  async createUser(input: CreateUserInput): Promise<User> {
+    if (input.registrationMethod === RegistrationMethod.LOCAL) {
+      const salt = await genSalt(10);
+      const hashed = await hash(input.password, salt);
+      input.password = hashed;
+    }
+    const existingUser = await this.findUnique(input.email, input.registrationMethod);
+    if (existingUser.length > 0)
+      throw new UnauthorizedException('User with this email already exists.');
+    return await this.userRepository.save({ ...input });
   }
 
   async updateUser(userInput: UpdateUserInput): Promise<User> {
