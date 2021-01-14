@@ -1,7 +1,6 @@
-import { EventRestriction } from '@mull/types';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Brackets, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Event, User } from '../entities';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 
@@ -51,29 +50,15 @@ export class EventService {
    * Find all the events that the user has not joined, created or is not co-hosting
    * @param userId
    */
-  getEventsRecommendedToUser(userId: number): Promise<Event[]> {
-    return this.eventRepository
-      .createQueryBuilder('event')
-      .leftJoin('event.coHosts', 'coHost')
-      .leftJoin('event.participants', 'participant')
-      .leftJoin('event.host', 'host')
-      .where(
-        new Brackets((qb) => {
-          qb.where('coHost.id != :userId', { userId }).orWhere('coHost.id IS NULL');
-        })
-      )
-      .andWhere(
-        new Brackets((qb) => {
-          qb.where('participant.id != :userId', { userId }).orWhere('participant.id IS NULL');
-        })
-      )
-      .andWhere(
-        new Brackets((qb) => {
-          qb.where('host.id != :userId', { userId }).orWhere('host.id IS NULL');
-        })
-      )
-      .andWhere('event.restriction = :restriction', { restriction: String(EventRestriction.NONE) })
-      .getMany();
+  async getEventsRecommendedToUser(userId: number): Promise<Event[]> {
+    const discoverableEvents = await this.eventRepository.query(
+      `
+    SELECT DISTINCT id, title, startDate, endDate, description, imageId, hostId, locationId, restriction FROM mull.event LEFT JOIN mull.event_participants ON mull.event.id = mull.event_participants.eventId
+    WHERE id NOT IN (SELECT mull.event.id FROM mull.event WHERE mull.event.hostId = ${userId}) AND 
+    id NOT IN (SELECT mull.event_participants.eventId FROM mull.event_participants WHERE mull.event_participants.userId = ${userId}) AND 
+    id NOT IN (SELECT mull.event_cohosts.eventId FROM mull.event_cohosts WHERE mull.event_cohosts.userId = ${userId})`
+    );
+    return discoverableEvents;
   }
 
   async createEvent(input: CreateEventInput): Promise<Event> {
