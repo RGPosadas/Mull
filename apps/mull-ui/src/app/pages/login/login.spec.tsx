@@ -1,6 +1,6 @@
 import { MockedProvider } from '@apollo/client/testing';
 import '@testing-library/jest-dom';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import { createMemoryHistory, History } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
@@ -40,7 +40,7 @@ describe('Login', () => {
 
     const utils = render(renderHelper(history));
     const submitButton = utils.container.querySelector('button.login');
-    await waitFor(() => {
+    await act(async () => {
       fireEvent.click(submitButton);
     });
 
@@ -57,20 +57,22 @@ describe('Login', () => {
     input = utils.getByLabelText('Password');
     fireEvent.change(input, { target: { value: 'password123' } });
     const submitButton = utils.container.querySelector('button[type="submit"]');
-    await waitFor(() => {
+    await act(async () => {
       fireEvent.click(submitButton);
     });
   });
 
   it('should redirect to OAuth providers', async () => {
-    const history = createMemoryHistory();
-    const oAuthProviders = ['Google', 'Facebook', 'Twitter'];
-    history.push(ROUTES.LOGIN);
+    await act(async () => {
+      const history = createMemoryHistory();
+      const oAuthProviders = ['Google', 'Facebook', 'Twitter'];
+      history.push(ROUTES.LOGIN);
 
-    const utils = render(renderHelper(history));
-    for (const provider of oAuthProviders) {
-      const oAuthButton = utils.getByText(`Continue with ${provider}`);
-      fireEvent.click(oAuthButton);
-    }
+      const utils = render(renderHelper(history));
+      for (const provider of oAuthProviders) {
+        const oAuthButton = utils.getByText(`Continue with ${provider}`);
+        fireEvent.click(oAuthButton);
+      }
+    });
   });
 });
