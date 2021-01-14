@@ -1,4 +1,4 @@
-import { IRegisterForm, RegistrationMethod } from '@mull/types';
+import { IRegisterForm } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
 import React from 'react';
@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import logo from '../../../assets/mull-logo.png';
 import { ROUTES } from '../../../constants';
-import { useCreateUserMutation } from '../../../generated/graphql';
+import { RegistrationMethod, useCreateUserMutation } from '../../../generated/graphql';
 import { CustomTextInput } from '../../components';
 import { useToast } from '../../hooks/useToast';
 import './register.scss';
@@ -36,7 +36,7 @@ const Register = ({ history }: RegisterProps) => {
 
     onSubmit: async (values) => {
       notifyToast('Registering new user...');
-      const createUserInput = { ...values, registrationMethod: RegistrationMethod.LOCAL };
+      const createUserInput = { ...values, registrationMethod: RegistrationMethod.Local };
 
       try {
         var { errors } = await createUser({ variables: { createUserInput } });
