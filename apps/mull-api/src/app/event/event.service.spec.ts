@@ -156,6 +156,20 @@ describe('EventService', () => {
     expect(repository.createQueryBuilder).toHaveBeenCalledTimes(1);
   });
 
+  it('should return an event that a user has joined', async () => {
+    const participantId = mockAllUsers[2].id;
+    const eventId = mockAllEvents[0].id;
+    repository.createQueryBuilder.mockImplementation(() => ({
+      leftJoin: jest.fn().mockReturnThis(),
+      where: jest.fn().mockReturnThis(),
+      andWhere: jest.fn().mockReturnThis(),
+      getOne: jest.fn().mockReturnValue(mockAllEvents[0]),
+    }));
+    const foundEvent = await service.findJoinedEvent(eventId, participantId);
+    expect(foundEvent).toEqual(mockAllEvents[0]);
+    expect(repository.createQueryBuilder).toHaveBeenCalledTimes(1);
+  });
+
   it('should return all the events a user is not involved in', async () => {
     const userId = mockAllUsers[2].id;
     repository.createQueryBuilder.mockImplementation(() => ({
