@@ -12,7 +12,7 @@ export class TwitterStrategy extends PassportStrategy(Strategy, 'twitter') {
     super({
       consumerKey: environment.auth.twitter.consumerId,
       consumerSecret: environment.auth.twitter.consumerSecret,
-      callbackURL: 'http://localhost:3333/api/auth/twitter/redirect',
+      callbackURL: environment.backend.url + '/api/auth/twitter/redirect',
       includeEmail: true,
     } as IStrategyOption);
   }

@@ -30,6 +30,9 @@ export const environment = {
     refreshSecret: process.env.REFRESH_TOKEN_SECRET,
   },
   client: {
-    baseUrl: process.env.CLIENT_BASE_URL,
+    baseUrl: 'http://localhost:4200',
+  },
+  backend: {
+    url: 'http://localhost:3333',
   },
 };

@@ -16,11 +16,10 @@
     - [Running a local database for development](#running-a-local-database-for-development)
     - [Working with GraphQL on the Frontend](#working-with-graphql-on-the-frontend)
     - [Building and Serving the application for production](#building-and-serving-the-application-for-production)
-    - [Containerizing the Application with Docker](#containerizing-the-application-with-docker)
   - [Travis CI](#travis-ci)
     - [Scripts](#scripts)
   - [Troubleshooting](#troubleshooting)
-    - [Inconsistent/Failing Travis Builds](#inconsistentfailing-travis-builds)
+    - [Inconsistent/Failing Travis Builds](#inconsistent-failing-travis-builds)
 
 ## Team Members
 
@@ -213,22 +212,6 @@ To stop the container whilst keeping the database changes, run `docker stop mull
       - Add the `-S` option if using HTTPS
 1. Serve the production backend:
    - `node dist/apps/mull-api/main.js`
-
-### Containerizing the Application with Docker
-
-Front-end:
-
-1. Build
-   - `docker build -t mull-ui:dev -f apps/mull-ui/Dockerfile .`
-1. Run
-   - `docker run -p 8080:80 mull-ui:dev`
-
-Back-end:
-
-1. Build
-   - `docker build -t mull-api:dev -f apps/mull-api/Dockerfile .`
-1. Run
-   - `docker run -p 3333:3333 mull-api:dev`
 
 ## Travis CI
 

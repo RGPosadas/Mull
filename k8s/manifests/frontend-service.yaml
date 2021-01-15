@@ -1,0 +1,15 @@
+# This manifest is responsible for exposing the frontend's port to the rest of the cluster.
+apiVersion: v1
+kind: Service
+metadata:
+  name: mull-frontend-service
+  namespace: mull
+spec:
+  type: ClusterIP
+  ports:
+    - port: 4200
+      targetPort: 4200
+      protocol: TCP
+      name: frontend
+  selector:
+    app.kubernetes.io/name: mull-frontend

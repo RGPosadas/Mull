@@ -23,7 +23,7 @@ async function bootstrap() {
   app.use(cookieParser());
   const port = process.env.PORT || 3333;
   await app.listen(port, () => {
-    Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
+    Logger.log('Listening at ' + environment.backend.url + '/' + globalPrefix);
   });
 }
 

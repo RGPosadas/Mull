@@ -1,76 +1,85 @@
-# Kubernetes
+# Müll Deployment - Docker & Kubernetes
 
-This directory covers everything related to Kubernetes.
+This directory covers everything related to our prod application deployment on Kubernetes.
 
-- [Müll Deployment](#müll-deployment)
-  - [Deployment Steps](#deployment-steps)
+- [Müll Deployment - Docker & Kubernetes](#müll-deployment---docker---kubernetes)
+  - [Docker Images](#docker-images)
+    - [Automated Docker Builds](#automated-docker-builds)
+    - [Manual Builds](#manual-builds)
+  - [Müll Prod Deployment](#müll-prod-deployment)
+    - [Step 1: Deploying `ingress-nginx`](#step-1--deploying--ingress-nginx-)
+    - [Step 2: Deploying `cert-manager`](#step-2--deploying--cert-manager-)
+    - [Step 3: Deploying `Müll`](#step-3--deploying--m-ll-)
 
-# Müll Deployment
+## Docker Images
 
-The application in both dev and prod environments are deployed through ArgoCD.
+### Automated Docker Builds
+
+DockerHub AutoBuilds are currently set to build the [`mull-backend`](https://hub.docker.com/repository/docker/ritchellegmp/mull-backend) and [`mull-frontend`](https://hub.docker.com/repository/docker/ritchellegmp/mull-frontend) images tagged as `latest`. AutoBuilds will rebuild everytime a new commit has been pushed to develop.
+
+### Manual Builds
+
+You can also build these images on your own.
+
+```bash
+docker build -t ritchellegmp/mull-backend:<tag> -f apps/mull-api/Dockerfile .
+docker build -t ritchellegmp/mull-frontend:<tag> -f apps/mull-ui/Dockerfile .
+```
+
+Push to DockerHub (ensure you have push permissions to the repos)
+
+```bash
+docker push ritchellegmp/mull-backend:<tag>
+docker push ritchellegmp/mull-frontend:<tag>
+```
+
+## Müll Prod Deployment
+
+Deployment of our Müll application on a GCP Kubernetes cluster using:
+
+- [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) as the Ingress controller + reverse proxy and load balancer using NGINX
+- [cert-manager](https://cert-manager.io/) for SSL certification
 
 Pre-requisites:
 
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-- A kubernetes cluster (minikube, GKE, etc)
+- [Helm](https://helm.sh/) v3+
+- GCP Kubernetes cluster
+- Connectivity and authentication to your cluster using `gcloud auth login`
 
-## Deployment Steps
+### Step 1: Deploying `ingress-nginx`
 
-1. Deploy ArgoCD
+We must first set up the ingress-nginx controller that will be responsible for our Ingress rules, as well as to provide reverse proxy and load balancing services to our application.
 
-   ArgoCD will be the controller who will watch over our application environment states, and ensures that the live kubernetes resources are truly matched to the GitHub repository kubernetes manifests (GitOps).
+```bash
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
 
-   ```
-   $ kubectl create namespace argocd
-   $ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl create namespace ingress-nginx
+helm install -n ingress-nginx ingress-nginx ingress-nginx/ingress-nginx
+```
 
-   # If on GKE, give yourself permission to deploy cluster roles
-   $ gcloud auth login
-   $ kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user="$(gcloud config get-value account)"
-   ```
+Now you can run `kubectl get service -n ingress-nginx` and you will see a Service of type `LoadBalancer` with an external IP that GCP has allocated.
 
-2. Deploy Dev and Prod Environments
+### Step 2: Deploying `cert-manager`
 
-   Now that ArgoCD is deployed, we need to tell ArgoCD how exactly to control/watch these kubernetes manifests.
+Next, we will be deploying cert-manager and it is used to create our SSL certificate using LetsEncrypt as a CA.
 
-   ```
-   $ cd k8s/argocd-apps
-   $ kubectl apply -f .
-   ```
+```bash
+kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.16.1/cert-manager.yaml
+```
 
-3. Login to ArgoCD
+### Step 3: Deploying `Müll`
 
-   - On minikube/local cluster:
+Before deploying the application, our env vars must be created into a secret for our `mull-backend` pod to reference.
 
-     1. Get the password by getting the argocd-repo-server pod name
+```bash
+kubectl create namespace mull
+kubectl create secret generic mull-env-vars --from-env-file=<path-to-your-.env-file> -n mull
+```
 
-        `$ kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2`
+Lastly, we will deploy the Kubernetes manifests which will deploy the entire application stack.
 
-     2. Port-forward the argocd service
-
-        `$ kubectl port-forward svc/argocd-server -n argocd 8080:443`
-
-     3. Go to `localhost:8080` and set
-        ```
-        user: admin
-        password: The name of the Argo CD server pod
-        ```
-
-   - On GKE:
-
-     TODO: Create safe login workflow (for now, contact Ritchelle please)
-
-4. Sync Applications
-
-   Once logged in to ArgoCD, click `SYNC` on each application environment to sync the ArgoCD applications, which will finally deploy the Müll applications.
-
-5. Access the Applications
-
-   We currently don't have an ingress installed, so we have to port-forward the frontend and backend.
-
-   ```
-   $ export MULL_POD=$(kubectl get pods -n mull-[dev|prod] | awk '{print $1}' | sed -n '2 p')
-   $ kubectl -n mull-[dev|prod] port-forward $MULL_POD 9000:80 3333
-   ```
-
-   Access the frontend using `localhost:9000`, and access the backend using `localhost:3333/api`.
+```bash
+kubectl apply -f manifests/
+```
