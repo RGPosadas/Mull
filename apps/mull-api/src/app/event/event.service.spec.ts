@@ -26,6 +26,7 @@ const mockEventRepositoy = () => ({
     andWhere: jest.fn().mockReturnThis(),
     getMany: jest.fn().mockReturnValue(mockAllEvents[0]),
   })),
+  query: jest.fn().mockReturnThis(),
 });
 
 describe('EventService', () => {
@@ -164,7 +165,8 @@ describe('EventService', () => {
       getMany: jest.fn().mockReturnValue(mockAllEvents[2]),
     }));
     const foundEvents = await service.getEventsRecommendedToUser(userId);
+    repository.query.mockImplementation(() => mockAllEvents[2]);
     expect(foundEvents).toEqual(mockAllEvents[2]);
-    expect(repository.createQueryBuilder).toBeCalledTimes(1);
+    expect(repository.query).toBeCalledTimes(1);
   });
 });
