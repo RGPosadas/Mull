@@ -6,7 +6,6 @@ import '../home-discover.scss';
 
 export const MyEventsPage = ({ history }) => {
   const { data } = useOwnedEventsQuery({
-    fetchPolicy: 'network-only',
     // TODO: dynamically pass current UserId
     variables: { userId: 1 },
   });

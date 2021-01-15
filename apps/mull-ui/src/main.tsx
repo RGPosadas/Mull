@@ -26,6 +26,11 @@ const client = new ApolloClient({
     uri: `${environment.backendUrl}/graphql`,
   }),
   cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'network-only',
+    },
+  },
 });
 
 ReactDOM.render(
