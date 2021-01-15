@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Brackets, Repository } from 'typeorm';
 import { Event, User } from '../entities';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 
@@ -44,6 +44,27 @@ export class EventService {
       .leftJoin('event.participants', 'user')
       .where('user.id = :userId', { userId })
       .getMany();
+  }
+
+  findJoinedEvent(eventId: number, userId: number): Promise<Event> {
+    return this.eventRepository
+      .createQueryBuilder('event')
+      .leftJoin('event.participants', 'user')
+      .leftJoin('event.coHosts', 'coHost')
+      .leftJoin('event.host', 'host')
+      .where(
+        new Brackets((qb) => {
+          qb.where('coHost.id = :userId', { userId })
+            .orWhere('user.id = :userId', { userId })
+            .orWhere('host.id = :userId', { userId });
+        })
+      )
+      .andWhere(
+        new Brackets((qb) => {
+          qb.where('event.id = :eventId', { eventId });
+        })
+      )
+      .getOne();
   }
 
   /**
