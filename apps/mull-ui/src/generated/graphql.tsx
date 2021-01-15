@@ -139,6 +139,7 @@ export type Query = {
   discoverEvents: Array<Event>;
   event: Event;
   events: Array<Event>;
+  getAutocompletedLocations: Array<Scalars['String']>;
   hostEvents: Array<Event>;
   participantEvents: Array<Event>;
   user: User;
@@ -158,6 +159,11 @@ export type QueryDiscoverEventsArgs = {
 
 export type QueryEventArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryGetAutocompletedLocationsArgs = {
+  userInput: Scalars['String'];
 };
 
 
@@ -317,6 +323,16 @@ export type ParticipantEventsQuery = (
     { __typename?: 'Event' }
     & Pick<Event, 'id' | 'endDate' | 'description' | 'startDate' | 'title'>
   )> }
+);
+
+export type AutocompletedLocationsQueryVariables = Exact<{
+  userInput: Scalars['String'];
+}>;
+
+
+export type AutocompletedLocationsQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'getAutocompletedLocations'>
 );
 
 
@@ -605,3 +621,34 @@ export function useParticipantEventsLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type ParticipantEventsQueryHookResult = ReturnType<typeof useParticipantEventsQuery>;
 export type ParticipantEventsLazyQueryHookResult = ReturnType<typeof useParticipantEventsLazyQuery>;
 export type ParticipantEventsQueryResult = Apollo.QueryResult<ParticipantEventsQuery, ParticipantEventsQueryVariables>;
+export const AutocompletedLocationsDocument = gql`
+    query AutocompletedLocations($userInput: String!) {
+  getAutocompletedLocations(userInput: $userInput)
+}
+    `;
+
+/**
+ * __useAutocompletedLocationsQuery__
+ *
+ * To run a query within a React component, call `useAutocompletedLocationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAutocompletedLocationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAutocompletedLocationsQuery({
+ *   variables: {
+ *      userInput: // value for 'userInput'
+ *   },
+ * });
+ */
+export function useAutocompletedLocationsQuery(baseOptions: Apollo.QueryHookOptions<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>) {
+        return Apollo.useQuery<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>(AutocompletedLocationsDocument, baseOptions);
+      }
+export function useAutocompletedLocationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>) {
+          return Apollo.useLazyQuery<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>(AutocompletedLocationsDocument, baseOptions);
+        }
+export type AutocompletedLocationsQueryHookResult = ReturnType<typeof useAutocompletedLocationsQuery>;
+export type AutocompletedLocationsLazyQueryHookResult = ReturnType<typeof useAutocompletedLocationsLazyQuery>;
+export type AutocompletedLocationsQueryResult = Apollo.QueryResult<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>;

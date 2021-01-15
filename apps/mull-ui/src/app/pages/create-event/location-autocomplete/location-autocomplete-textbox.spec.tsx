@@ -4,8 +4,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { AutocompletedLocationsDocument } from '../../../../generated/graphql';
 import LocationAutocompleteTextbox, {
-  AUTOCOMPLETED_LOCATIONS,
   LocationAutocompleteTextboxProps,
 } from './location-autocomplete-textbox';
 
@@ -46,7 +46,7 @@ describe('location autocomplete textbox', () => {
     const mocks = [
       {
         request: {
-          query: AUTOCOMPLETED_LOCATIONS,
+          query: AutocompletedLocationsDocument,
           variables: { userInput: '' },
         },
         result: { data: ['845 rue Sherbrooke'] },

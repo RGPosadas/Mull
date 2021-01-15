@@ -1,4 +1,3 @@
-import { gql, useLazyQuery } from '@apollo/client';
 import { faLocationArrow, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -6,13 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { debounce } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
+import { useAutocompletedLocationsLazyQuery } from '../../../../generated/graphql';
 import './location-autocomplete-textbox.scss';
-
-export const AUTOCOMPLETED_LOCATIONS = gql`
-  query Query($userInput: String!) {
-    getAutocompletedLocations(userInput: $userInput)
-  }
-`;
 
 export interface LocationAutocompleteTextboxProps {
   handleSetValue: (value: string) => void;
@@ -22,7 +16,7 @@ export interface LocationAutocompleteTextboxProps {
 export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<string[]>([]);
-  const [getAutocompletedLocations, { loading, data }] = useLazyQuery(AUTOCOMPLETED_LOCATIONS);
+  const [getAutocompletedLocations, { loading, data }] = useAutocompletedLocationsLazyQuery();
   const CURRENT_LOCATION = 'Current Location';
 
   const debounceGetLocation = useMemo(

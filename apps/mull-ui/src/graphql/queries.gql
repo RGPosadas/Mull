@@ -48,3 +48,8 @@ query ParticipantEvents($userId: Int!) {
     title
   }
 }
+
+# Get an array of autocompleted locations as the user types into the text input
+query AutocompletedLocations($userInput: String!) {
+  getAutocompletedLocations(userInput: $userInput)
+}
