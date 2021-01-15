@@ -11,7 +11,7 @@ export type MockType<T> = {
   [P in keyof T]: jest.Mock<{}>;
 };
 
-const mockEventRepositoy = () => ({
+const mockEventRepository = () => ({
   create: jest.fn((mockUserData: CreateEventInput) => ({ ...mockUserData })),
   findOne: jest.fn((id: number) => {
     return mockAllEvents.find((event) => event.id === id);
@@ -39,7 +39,7 @@ describe('EventService', () => {
         EventService,
         {
           provide: getRepositoryToken(Event),
-          useFactory: mockEventRepositoy,
+          useFactory: mockEventRepository,
         },
       ],
     }).compile();
