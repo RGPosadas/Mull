@@ -53,62 +53,64 @@ export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
   };
 
   return (
-    <Autocomplete
-      id="location-input-field"
-      data-testid="location-autocomplete-textbox"
-      style={{ width: '100%' }}
-      open={open}
-      onFocus={() => {
-        setOptions([CURRENT_LOCATION]);
-        setOpen(true);
-      }}
-      onOpen={() => {
-        setOpen(true);
-      }}
-      onClose={() => {
-        setOpen(false);
-      }}
-      defaultValue={input}
-      onInputChange={(_event, value) => {
-        if (value) {
-          debounceGetLocation(value);
-        }
-      }}
-      onChange={(_event, value) => {
-        if (value === CURRENT_LOCATION) {
-          getCurrentPosition();
-        } else if (value) {
-          handleSetValue({ title: value });
-        }
-      }}
-      getOptionSelected={(option, value) => option === value}
-      renderOption={(option) => {
-        const icon = option === CURRENT_LOCATION ? faLocationArrow : faMapMarkerAlt;
-        return (
-          <React.Fragment>
-            <FontAwesomeIcon icon={icon} style={{ marginRight: '0.8rem' }} />
-            {option}
-          </React.Fragment>
-        );
-      }}
-      options={options}
-      loading={loading}
-      renderInput={(params) => (
-        <TextField
-          placeholder={'Search Address'}
-          autoFocus
-          {...params}
-          InputProps={{
-            ...params.InputProps,
-            endAdornment: (
-              <React.Fragment>
-                {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                {params.InputProps.endAdornment}
-              </React.Fragment>
-            ),
-          }}
-        />
-      )}
-    />
+    <div className="location-textbox-container">
+      <Autocomplete
+        id="location-input-field"
+        data-testid="location-autocomplete-textbox"
+        style={{ padding: '6px 20px' }}
+        open={open}
+        onFocus={() => {
+          setOptions([CURRENT_LOCATION]);
+          setOpen(true);
+        }}
+        onOpen={() => {
+          setOpen(true);
+        }}
+        onClose={() => {
+          setOpen(false);
+        }}
+        defaultValue={input}
+        onInputChange={(_event, value) => {
+          if (value) {
+            debounceGetLocation(value);
+          }
+        }}
+        onChange={(_event, value) => {
+          if (value === CURRENT_LOCATION) {
+            getCurrentPosition();
+          } else if (value) {
+            handleSetValue({ title: value });
+          }
+        }}
+        getOptionSelected={(option, value) => option === value}
+        renderOption={(option) => {
+          const icon = option === CURRENT_LOCATION ? faLocationArrow : faMapMarkerAlt;
+          return (
+            <React.Fragment>
+              <FontAwesomeIcon icon={icon} style={{ marginRight: '0.8rem' }} />
+              {option}
+            </React.Fragment>
+          );
+        }}
+        options={options}
+        loading={loading}
+        renderInput={(params) => (
+          <TextField
+            placeholder={'Search Address'}
+            autoFocus
+            {...params}
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <React.Fragment>
+                  {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                  {params.InputProps.endAdornment}
+                </React.Fragment>
+              ),
+            }}
+          />
+        )}
+      />
+    </div>
   );
 }
