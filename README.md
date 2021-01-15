@@ -16,11 +16,10 @@
     - [Running a local database for development](#running-a-local-database-for-development)
     - [Working with GraphQL on the Frontend](#working-with-graphql-on-the-frontend)
     - [Building and Serving the application for production](#building-and-serving-the-application-for-production)
-    - [Containerizing the Application with Docker](#containerizing-the-application-with-docker)
   - [Travis CI](#travis-ci)
     - [Scripts](#scripts)
   - [Troubleshooting](#troubleshooting)
-    - [Inconsistent/Failing Travis Builds](#inconsistentfailing-travis-builds)
+    - [Inconsistent/Failing Travis Builds](#inconsistent-failing-travis-builds)
 
 ## Team Members
 
