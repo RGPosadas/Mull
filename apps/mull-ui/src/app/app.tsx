@@ -14,6 +14,7 @@ import MyEventsPage from './pages/home/my-events/my-events';
 import UpcomingPage from './pages/home/upcoming/upcoming';
 import LoginPage from './pages/login/login';
 import RegisterPage from './pages/register/register';
+import TokenRedirectPage from './pages/token-redirect/token-redirect';
 
 /**
  * Main component of the application
@@ -50,6 +51,7 @@ export const App = () => {
         <Switch>
           <Route exact path={ROUTES.LOGIN} component={LoginPage} />
           <Route exact path={ROUTES.REGISTER} component={RegisterPage} />
+          <Route exact path={ROUTES.TOKEN_REDIRECT} component={TokenRedirectPage} />
 
           {/* If accessToken isn't set, redirect user to login page. Disabled for now as it will break e2e tests, will be implemented properly in US-7.6 */}
           {/* {!accessToken ? <Redirect to={ROUTES.LOGIN} /> : null} */}
