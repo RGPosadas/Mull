@@ -59,12 +59,7 @@ query EventPage($eventId: Int!, $participatingEventUserId: Int!) {
   participatingEvent(eventId: $eventId, userId: $participatingEventUserId)
 
   event(id: $eventId) {
-    id
-    title
-    description
-    startDate
-    endDate
-    restriction
+    ...EventContent
   }
 }
 

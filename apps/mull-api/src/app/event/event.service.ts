@@ -74,10 +74,10 @@ export class EventService {
   async getEventsRecommendedToUser(userId: number): Promise<Event[]> {
     const discoverableEvents = await this.eventRepository.query(
       `
-    SELECT DISTINCT id, title, startDate, endDate, description, imageId, hostId, locationId, restriction FROM mull.event LEFT JOIN mull.event_participants ON mull.event.id = mull.event_participants.eventId
-    WHERE id NOT IN (SELECT mull.event.id FROM mull.event WHERE mull.event.hostId = ${userId}) AND 
-    id NOT IN (SELECT mull.event_participants.eventId FROM mull.event_participants WHERE mull.event_participants.userId = ${userId}) AND 
-    id NOT IN (SELECT mull.event_cohosts.eventId FROM mull.event_cohosts WHERE mull.event_cohosts.userId = ${userId})`
+    SELECT DISTINCT id, title, startDate, endDate, description, imageId, hostId, locationId, restriction FROM event LEFT JOIN event_participants ON event.id = event_participants.eventId
+    WHERE id NOT IN (SELECT event.id FROM event WHERE event.hostId = ${userId}) AND 
+    id NOT IN (SELECT event_participants.eventId FROM event_participants WHERE event_participants.userId = ${userId}) AND 
+    id NOT IN (SELECT event_cohosts.eventId FROM event_cohosts WHERE event_cohosts.userId = ${userId})`
     );
     return discoverableEvents;
   }
