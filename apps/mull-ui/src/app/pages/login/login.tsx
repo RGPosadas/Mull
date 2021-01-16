@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { faFacebookSquare, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ILoginForm } from '@mull/types';
+import { IAuthToken, ILoginForm } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
 import jwtDecode from 'jwt-decode';
@@ -68,7 +68,7 @@ export const Login = ({ history }: LoginProps) => {
       setAccessToken(accessToken);
 
       try {
-        var decodedToken = jwtDecode(accessToken) as { id: number };
+        var decodedToken: IAuthToken = jwtDecode(accessToken);
       } catch (err) {
         console.error(err);
         updateToast(toast.TYPE.ERROR, `Received an invalid token`);
