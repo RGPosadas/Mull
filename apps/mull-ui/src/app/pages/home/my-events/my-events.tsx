@@ -17,6 +17,7 @@ export const MyEventsPage = ({ history }) => {
     var eventCards = events.map((event, index) => (
       <EventCard
         key={`myEvents-${index}`}
+        isJoined={true}
         event={event}
         onClick={() => history.push(`/events/${event.id}`)}
       />

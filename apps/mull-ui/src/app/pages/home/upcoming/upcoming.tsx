@@ -15,6 +15,7 @@ export const UpcomingPage = ({ history }) => {
     var eventCards = events.map((event, index) => (
       <EventCard
         key={`upcoming-${index}`}
+        isJoined={true}
         event={event}
         onClick={() => history.push(`/events/${event.id}`)}
       />
