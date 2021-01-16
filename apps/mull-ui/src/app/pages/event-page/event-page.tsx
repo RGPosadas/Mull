@@ -12,6 +12,7 @@ export interface EventPageProps {
   onBackButtonClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onButtonClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   isReview?: boolean;
+  isJoined?: boolean;
 }
 
 export const EventPage = ({
@@ -21,18 +22,21 @@ export const EventPage = ({
   onButtonClick,
   eventImageURL,
   isReview = false,
+  isJoined = false,
   buttonType,
 }: EventPageProps) => {
   const { id } = useParams<{ id: string }>();
   const eventId = parseInt(id);
 
   const { loading, error, data } = useEventQuery({
-    variables: { id: eventId },
+    // TODO: dynamically pass current UserId
+    variables: { eventId, participatingEventUserId: 1 },
     skip: !!event,
   });
 
   if (!loading && data) {
     event = data.event;
+    isJoined = data.participatingEvent;
   }
 
   if (error) {
@@ -52,6 +56,7 @@ export const EventPage = ({
           event={event}
           handleMullButton={onButtonClick}
           isReview={isReview}
+          isJoined={isJoined}
           buttonType={buttonType}
         />
       </div>

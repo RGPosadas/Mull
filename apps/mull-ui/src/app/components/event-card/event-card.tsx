@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
 import { dummyProfilePictures } from '../../../constants'; // TODO query the participants profile pictures
+import { useJoinEventMutation, useRemoveJoinedEventMutation } from '../../../generated/graphql';
 import { formatDate } from '../../../utilities';
 import EventMembers from '../event-members/event-members';
 import './event-card.scss';
@@ -10,13 +11,21 @@ import './event-card.scss';
 export interface EventCardProps {
   event: Partial<ISerializedEvent>;
   style?: React.CSSProperties;
+  isJoined?: boolean;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
-  // TODO; set joined based on if current user is part of event
-  const [joined, setJoined] = useState<boolean>(false);
+export const EventCard = ({ event, style = {}, onClick, isJoined = false }: EventCardProps) => {
   const { day, month, time } = formatDate(new Date(event.startDate));
+
+  const [joined, setJoined] = useState<boolean>(isJoined);
+  const eventId = Number(event.id);
+  // TODO: Have a user object when logged in to access userId
+  const userId = 1;
+
+  const [joinEvent] = useJoinEventMutation();
+  const [removeJoinedEvent] = useRemoveJoinedEventMutation();
+
   return (
     <div className="event-card-container button" onClick={onClick} style={style}>
       <img
@@ -34,8 +43,14 @@ export const EventCard = ({ event, style = {}, onClick }: EventCardProps) => {
         onClick={(e) => {
           e.stopPropagation();
           setJoined(!joined);
+          if (joined == false) {
+            joinEvent({ variables: { eventId, userId } });
+          } else {
+            removeJoinedEvent({ variables: { eventId, userId } });
+          }
         }}
         className={`event-card-join ${joined ? 'joined' : ''}`}
+        id={'event-card-join'}
       >
         <FontAwesomeIcon icon={joined ? faCheck : faSignInAlt} />
       </button>

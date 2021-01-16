@@ -9,7 +9,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
-import React from 'react';
+import React, { useState } from 'react';
+import { useJoinEventMutation, useRemoveJoinedEventMutation } from '../../../generated/graphql';
 import MullButton from '../mull-button/mull-button';
 import { ExpandableText } from './../expandable-text/expandable-text';
 import './event-page-info.scss';
@@ -18,6 +19,7 @@ export interface EventPageInfoProps {
   event: Partial<ISerializedEvent>;
   className?: string;
   isReview: boolean;
+  isJoined: boolean;
   buttonType?: 'submit' | 'button' | 'reset';
   handleMullButton?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
@@ -28,10 +30,19 @@ export interface EventPageInfoProps {
 export const EventPageInfo = ({
   event,
   className = '',
-  handleMullButton,
   isReview,
+  isJoined,
   buttonType,
 }: EventPageInfoProps) => {
+  const [joinEvent] = useJoinEventMutation();
+  const [removeJoinedEvent] = useRemoveJoinedEventMutation();
+
+  const eventId = Number(event.id);
+  // TODO: Have a user object when logged in to access userId
+  const userId = 1;
+
+  const [joined, setJoined] = useState<boolean>(isJoined);
+
   return (
     <div className={`event-page-info-container ${className}`}>
       <div className="info-row">
@@ -77,9 +88,31 @@ export const EventPageInfo = ({
         <p className="row-text">{event.participants?.map((p) => p.name).join(', ')}</p>
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
       </div>
-      <MullButton className="event-page-button" onClick={handleMullButton} type={buttonType}>
-        {isReview ? 'Create' : 'Join'}
-      </MullButton>
+      {joined ? (
+        <MullButton
+          className="event-page-button event-page-joined-button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setJoined(!joined);
+            removeJoinedEvent({ variables: { eventId, userId } });
+          }}
+          type={buttonType}
+        >
+          {'Leave'}
+        </MullButton>
+      ) : (
+        <MullButton
+          className="event-page-button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setJoined(!joined);
+            joinEvent({ variables: { eventId, userId } });
+          }}
+          type={buttonType}
+        >
+          {isReview ? 'Create' : 'Join'}
+        </MullButton>
+      )}
     </div>
   );
 };
