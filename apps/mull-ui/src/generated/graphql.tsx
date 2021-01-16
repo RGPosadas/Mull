@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+import { gql } from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -108,9 +108,9 @@ export type MutationJoinEventArgs = {
 };
 
 
-export type MutationLeaveEventArgs = {
-  eventId: Scalars['Float'];
-  userId: Scalars['Float'];
+export type MutationRemoveParticipantFromEventArgs = {
+  eventId: Scalars['Int'];
+  userId: Scalars['Int'];
 };
 
 
@@ -141,7 +141,8 @@ export type Query = {
   events: Array<Event>;
   getAutocompletedLocations: Array<Scalars['String']>;
   hostEvents: Array<Event>;
-  participantEvents: Array<Event>;
+  participatingEvent: Scalars['Boolean'];
+  participatingEvents: Array<Event>;
   user: User;
   users: Array<User>;
 };
@@ -172,7 +173,13 @@ export type QueryHostEventsArgs = {
 };
 
 
-export type QueryParticipantEventsArgs = {
+export type QueryParticipatingEventArgs = {
+  eventId: Scalars['Int'];
+  userId: Scalars['Int'];
+};
+
+
+export type QueryParticipatingEventsArgs = {
   userId: Scalars['Int'];
 };
 
@@ -270,8 +277,29 @@ export type LoginMutation = (
   ) }
 );
 
-export type EventQueryVariables = Exact<{
-  id: Scalars['Int'];
+export type JoinEventMutationVariables = Exact<{
+  eventId: Scalars['Int'];
+  userId: Scalars['Int'];
+}>;
+
+export type JoinEventMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'addParticipantToEvent'>
+);
+
+export type RemoveJoinedEventMutationVariables = Exact<{
+  eventId: Scalars['Int'];
+  userId: Scalars['Int'];
+}>;
+
+
+export type RemoveJoinedEventMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'removeParticipantFromEvent'>
+);
+
+export type FindSpecificEventQueryVariables = Exact<{
+  eventId: Scalars['Int'];
 }>;
 
 
@@ -335,7 +363,36 @@ export type AutocompletedLocationsQuery = (
   & Pick<Query, 'getAutocompletedLocations'>
 );
 
+export type EventPageQueryVariables = Exact<{
+  eventId: Scalars['Int'];
+  participatingEventUserId: Scalars['Int'];
+}>;
 
+
+export type EventPageQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'participatingEvent'>
+  & { event: (
+    { __typename?: 'Event' }
+    & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
+  ) }
+);
+
+export type EventContentFragment = (
+  { __typename?: 'Event' }
+  & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
+);
+
+export const EventContentFragmentDoc = gql`
+    fragment EventContent on Event {
+  id
+  title
+  description
+  startDate
+  endDate
+  restriction
+}
+    `;
 export const CreateEventDocument = gql`
     mutation CreateEvent($event: CreateEventInput!) {
   createEvent(event: $event) {
@@ -447,6 +504,18 @@ export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutati
  *
  * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
  * When your component renders, `useLoginMutation` returns a tuple that includes:
+export const JoinEventDocument = gql`
+    mutation JoinEvent($eventId: Int!, $userId: Int!) {
+  addParticipantToEvent(eventId: $eventId, userId: $userId)
+}
+    `;
+export type JoinEventMutationFn = Apollo.MutationFunction<JoinEventMutation, JoinEventMutationVariables>;
+
+/**
+ * __useJoinEventMutation__
+ *
+ * To run a mutation, you first call `useJoinEventMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useJoinEventMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
