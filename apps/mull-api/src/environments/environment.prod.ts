@@ -29,6 +29,9 @@ export const environment = {
     accessSecret: process.env.ACCESS_TOKEN_SECRET,
     refreshSecret: process.env.REFRESH_TOKEN_SECRET,
   },
+  googleApi: {
+    placesApi: process.env.GOOGLE_KEY,
+  },
   client: {
     baseUrl: 'https://www.mullapp.com',
   },
