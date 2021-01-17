@@ -51,12 +51,9 @@ export class EventService {
       .createQueryBuilder('event')
       .leftJoin('event.participants', 'user')
       .leftJoin('event.coHosts', 'coHost')
-      .leftJoin('event.host', 'host')
       .where(
         new Brackets((qb) => {
-          qb.where('coHost.id = :userId', { userId })
-            .orWhere('user.id = :userId', { userId })
-            .orWhere('host.id = :userId', { userId });
+          qb.where('coHost.id = :userId', { userId }).orWhere('user.id = :userId', { userId });
         })
       )
       .andWhere(
