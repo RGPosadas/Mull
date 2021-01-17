@@ -39,8 +39,6 @@ export const EventPage = ({
     console.error(error);
   }
 
-  console.log(event);
-
   return event ? (
     <div className="page-container no-padding event-page-container">
       <EventPageHeader

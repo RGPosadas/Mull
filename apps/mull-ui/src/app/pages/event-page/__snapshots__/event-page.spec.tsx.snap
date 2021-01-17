@@ -168,7 +168,7 @@ exports[`EventPage should match snapshot 1`] = `
           className="row-text"
           data-testid="event-location"
         >
-          1260 Remembrance Road Montreal, Qc
+          Test Location
         </p>
         <svg
           aria-hidden="true"
