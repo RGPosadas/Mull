@@ -36,7 +36,7 @@ frameSizes.forEach((frame) => {
         `${Cypress.moment().format('D MMM')}03:20 PM`
       );
       cy.get('[data-testid=event-host]').should('have.text', 'Placeholder Host');
-      cy.get('[data-testid=event-location]').should('have.text', 'Current Location');
+      cy.get('[data-testid=event-location]').should('have.text', 'Test Location');
       cy.get('[data-testid=expandable-text-div]').should('have.text', 'test description');
       cy.get('[data-testid=event-restriction]').should('have.text', 'Friends');
     });
@@ -75,7 +75,7 @@ frameSizes.forEach((frame) => {
         `${Cypress.moment().format('D MMM')}03:20 PM`
       );
       cy.get('[data-testid=event-host]').should('have.text', 'Placeholder Host');
-      cy.get('[data-testid=event-location]').should('have.text', 'Current Location');
+      cy.get('[data-testid=event-location]').should('have.text', 'Test Location');
       cy.get('[data-testid=expandable-text-div]').should('have.text', 'new test description');
       cy.get('[data-testid=event-restriction]').should('have.text', 'Everyone');
     });
