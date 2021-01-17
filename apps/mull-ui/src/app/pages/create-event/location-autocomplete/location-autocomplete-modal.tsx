@@ -55,17 +55,7 @@ export default function LocationAutocompleteModal({
       />
 
       <Dialog fullScreen open={open}>
-        <MullBackButton
-          style={{
-            marginRight: 'auto',
-            marginLeft: '0.2rem',
-            marginTop: '0.8rem',
-            marginBottom: '2rem',
-          }}
-          children={'Edit'}
-          onClick={handleClose}
-          className={'edit'}
-        />
+        <MullBackButton children={'Edit'} onClick={handleClose} className={'edit'} />
         <LocationAutoCompleteTextbox handleSetValue={handleSetValue} input={inputValue} />
       </Dialog>
     </>
