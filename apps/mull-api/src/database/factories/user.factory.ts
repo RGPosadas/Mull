@@ -6,7 +6,6 @@ import { Media, User } from '../../app/entities';
 define(User, (faker: typeof Faker) => {
   const user = new User();
 
-  // user.id = faker.random.number();
   user.password = faker.internet.password();
   user.email = faker.internet.email();
   user.name = faker.name.firstName() + ' ' + faker.name.lastName();

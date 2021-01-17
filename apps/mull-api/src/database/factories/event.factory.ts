@@ -5,7 +5,6 @@ import { Event, Media, User } from '../../app/entities';
 define(Event, (faker: typeof Faker) => {
   const event = new Event();
 
-  // event.id = faker.random.number();
   event.title = faker.lorem.lines();
   event.description = faker.lorem.paragraph();
   event.startDate = faker.date.future();
