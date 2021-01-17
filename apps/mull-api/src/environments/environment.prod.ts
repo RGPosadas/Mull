@@ -4,9 +4,9 @@ export const environment = {
   production: true,
 
   db: {
-    host: process.env.DB_HOST,
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
+    host: process.env.TYPEORM_HOST,
+    username: process.env.TYPEORM_USERNAME,
+    password: process.env.TYPEORM_PASSWORD,
   },
   auth: {
     google: {
