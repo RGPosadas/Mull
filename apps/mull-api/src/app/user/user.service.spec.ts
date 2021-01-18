@@ -63,7 +63,7 @@ describe('UserService', () => {
   });
 
   it('should fetch all users', async () => {
-    const returnedUsers = await service.users();
+    const returnedUsers = await service.getAllUsers();
     expect(returnedUsers).toEqual(mockAllUsers);
   });
 
@@ -83,7 +83,7 @@ describe('UserService', () => {
   });
 
   it('should fetch all friends of mockUser 1', async () => {
-    const returnedUserFriends = await service.friends(1);
+    const returnedUserFriends = await service.getFriends(1);
     expect(returnedUserFriends).toEqual(mockAllUsers.find((user) => user.id === 1).friends);
   });
 
@@ -98,7 +98,7 @@ describe('UserService', () => {
   });
 
   it('should return the user with given id', async () => {
-    const foundUser = await service.user(1);
+    const foundUser = await service.getUser(1);
     expect(foundUser).toEqual(mockAllUsers.find((user) => user.id === 1));
   });
 

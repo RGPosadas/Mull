@@ -59,7 +59,7 @@ describe('Register', () => {
         request: {
           query: CreateUserDocument,
           variables: {
-            createUserInput: {
+            user: {
               name: 'John Doe',
               email: 'abc@def.com',
               password: 'abc123',

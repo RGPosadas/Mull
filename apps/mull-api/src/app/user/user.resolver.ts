@@ -9,28 +9,28 @@ export class UserResolver {
 
   @Query(/* istanbul ignore next */ () => [User])
   async users() {
-    return this.userService.users();
+    return this.userService.getAllUsers();
   }
 
   @Query(/* istanbul ignore next */ () => User)
   async user(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
-    return this.userService.user(id);
+    return this.userService.getUser(id);
   }
 
   @ResolveField(/* istanbul ignore next */ () => [User])
   async friends(@Parent() user: User) {
     const { id } = user;
-    return this.userService.friends(id);
+    return this.userService.getFriends(id);
   }
 
   @Mutation(/* istanbul ignore next */ () => User)
-  async createUser(@Args('input') input: CreateUserInput) {
-    return this.userService.createUser(input);
+  async createUser(@Args('user') user: CreateUserInput) {
+    return this.userService.createUser(user);
   }
 
   @Mutation(/* istanbul ignore next */ () => User)
-  async updateUser(@Args('input') input: UpdateUserInput) {
-    return this.userService.updateUser(input);
+  async updateUser(@Args('user') user: UpdateUserInput) {
+    return this.userService.updateUser(user);
   }
 
   @Mutation(/* istanbul ignore next */ () => User)

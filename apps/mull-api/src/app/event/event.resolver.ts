@@ -9,48 +9,48 @@ export class EventResolver {
 
   @Query(/* istanbul ignore next */ () => [Event])
   async events() {
-    return this.eventService.events();
+    return this.eventService.getAllEvents();
   }
 
   @Query(/* istanbul ignore next */ () => Event)
   async event(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
-    return this.eventService.event(id);
+    return this.eventService.getEvent(id);
   }
 
   @Query(/* istanbul ignore next */ () => [Event])
   async hostEvents(@Args('hostId', { type: /* istanbul ignore next */ () => Int }) hostId: number) {
-    return this.eventService.hostEvents(hostId);
+    return this.eventService.getEventsHostedByUser(hostId);
   }
 
   @Query(/* istanbul ignore next */ () => [Event])
   async coHostEvents(
     @Args('coHostId', { type: /* istanbul ignore next */ () => Int }) coHostId: number
   ) {
-    return this.eventService.coHostEvents(coHostId);
+    return this.eventService.getEventsCoHostedByUser(coHostId);
   }
 
   @Query(/* istanbul ignore next */ () => [Event])
   async participantEvents(
     @Args('userId', { type: /* istanbul ignore next */ () => Int }) userId: number
   ) {
-    return this.eventService.participantEvents(userId);
+    return this.eventService.getEventsAttendedByUser(userId);
   }
 
   @Query(/* istanbul ignore next */ () => [Event])
   async discoverEvents(
     @Args('userId', { type: /* istanbul ignore next */ () => Int }) userId: number
   ) {
-    return this.eventService.discoverEvents(userId);
+    return this.eventService.getEventsRecommendedToUser(userId);
   }
 
   @Mutation(/* istanbul ignore next */ () => Event)
-  async createEvent(@Args('input') input: CreateEventInput) {
-    return this.eventService.createEvent(input);
+  async createEvent(@Args('event') event: CreateEventInput) {
+    return this.eventService.createEvent(event);
   }
 
   @Mutation(/* istanbul ignore next */ () => Event)
-  async updateEvent(@Args('input') input: UpdateEventInput) {
-    return this.eventService.updateEvent(input);
+  async updateEvent(@Args('event') event: UpdateEventInput) {
+    return this.eventService.updateEvent(event);
   }
 
   @Mutation(/* istanbul ignore next */ () => Event)
@@ -60,13 +60,13 @@ export class EventResolver {
 
   @Mutation(() => Boolean)
   async joinEvent(@Args('eventId') eventId: number, @Args('userId') userId: number) {
-    this.eventService.joinEvent(eventId, userId);
+    this.eventService.addEventParticipant(eventId, userId);
     return true;
   }
 
   @Mutation(() => Boolean)
   async leaveEvent(@Args('eventId') eventId: number, @Args('userId') userId: number) {
-    this.eventService.leaveEvent(eventId, userId);
+    this.eventService.removeEventParticipant(eventId, userId);
     return true;
   }
 }

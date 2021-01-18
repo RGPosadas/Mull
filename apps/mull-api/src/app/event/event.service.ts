@@ -12,15 +12,15 @@ export class EventService {
     private eventRepository: Repository<Event>
   ) {}
 
-  events(): Promise<Event[]> {
+  getAllEvents(): Promise<Event[]> {
     return this.eventRepository.find();
   }
 
-  event(id: number): Promise<Event> {
+  getEvent(id: number): Promise<Event> {
     return this.eventRepository.findOne(id);
   }
 
-  hostEvents(hostId: number): Promise<Event[]> {
+  getEventsHostedByUser(hostId: number): Promise<Event[]> {
     return this.eventRepository.find({
       relations: ['host'],
       where: {
@@ -31,7 +31,7 @@ export class EventService {
     });
   }
 
-  coHostEvents(coHostId: number): Promise<Event[]> {
+  getEventsCoHostedByUser(coHostId: number): Promise<Event[]> {
     return this.eventRepository
       .createQueryBuilder('event')
       .leftJoin('event.coHosts', 'user')
@@ -39,7 +39,7 @@ export class EventService {
       .getMany();
   }
 
-  participantEvents(userId: number): Promise<Event[]> {
+  getEventsAttendedByUser(userId: number): Promise<Event[]> {
     return this.eventRepository
       .createQueryBuilder('event')
       .leftJoin('event.participants', 'user')
@@ -51,7 +51,7 @@ export class EventService {
    * Find all the events that the user has not joined, created or is not co-hosting
    * @param userId
    */
-  discoverEvents(userId: number): Promise<Event[]> {
+  getEventsRecommendedToUser(userId: number): Promise<Event[]> {
     return this.eventRepository
       .createQueryBuilder('event')
       .leftJoin('event.coHosts', 'coHost')
@@ -82,23 +82,23 @@ export class EventService {
 
   async updateEvent(input: UpdateEventInput): Promise<Event> {
     await this.eventRepository.update(input.id, { ...input });
-    return this.event(input.id);
+    return this.getEvent(input.id);
   }
 
   async deleteEvent(id: number): Promise<Event> {
-    const event = await this.event(id);
+    const event = await this.getEvent(id);
     await this.eventRepository.delete(event.id);
     return event;
   }
 
-  async joinEvent(eventId: number, userId: number) {
+  async addEventParticipant(eventId: number, userId: number) {
     const user = new User(userId);
     const event = await this.eventRepository.findOne(eventId, { relations: ['participants'] });
     event.participants.push(user);
     return await this.eventRepository.save(event);
   }
 
-  async leaveEvent(eventId: number, userId: number) {
+  async removeEventParticipant(eventId: number, userId: number) {
     const event = await this.eventRepository.findOne(eventId, { relations: ['participants'] });
     if (event == undefined) {
       throw new Error('Event does not exist');

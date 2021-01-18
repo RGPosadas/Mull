@@ -8,14 +8,14 @@ import { UserService } from './user.service';
 
 const mockUserService = () => ({
   createUser: jest.fn((mockUserData: CreateUserInput) => ({ ...mockUserData })),
-  user: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
-  users: jest.fn(() => mockAllUsers),
+  getUser: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
+  getAllUsers: jest.fn(() => mockAllUsers),
   findUnique: jest.fn((email: string, registrationMethod: RegistrationMethod) => {
     return Promise.resolve(
       mockAllUsers.filter((u) => u.email === email && u.registrationMethod === registrationMethod)
     );
   }),
-  friends: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id).friends),
+  getFriends: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id).friends),
   updateUser: jest.fn((mockUserData: UpdateUserInput) => ({ ...mockUserData })),
   deleteUser: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
 });

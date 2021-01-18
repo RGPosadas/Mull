@@ -54,15 +54,15 @@ input MediaInput {
 }
 
 type Mutation {
-  createEvent(input: CreateEventInput!): Event!
-  createUser(input: CreateUserInput!): User!
+  createEvent(event: CreateEventInput!): Event!
+  createUser(user: CreateUserInput!): User!
   deleteEvent(id: Int!): Event!
   deleteUser(id: Int!): User!
   joinEvent(eventId: Float!, userId: Float!): Boolean!
   leaveEvent(eventId: Float!, userId: Float!): Boolean!
   login(loginInput: LoginInput!): LoginResult!
-  updateEvent(input: UpdateEventInput!): Event!
-  updateUser(input: UpdateUserInput!): User!
+  updateEvent(event: UpdateEventInput!): Event!
+  updateUser(user: UpdateUserInput!): User!
   uploadFile(file: Upload!): Media!
 }
 

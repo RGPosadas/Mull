@@ -83,12 +83,12 @@ export type Mutation = {
 
 
 export type MutationCreateEventArgs = {
-  input: CreateEventInput;
+  event: CreateEventInput;
 };
 
 
 export type MutationCreateUserArgs = {
-  input: CreateUserInput;
+  user: CreateUserInput;
 };
 
 
@@ -120,12 +120,12 @@ export type MutationLoginArgs = {
 
 
 export type MutationUpdateEventArgs = {
-  input: UpdateEventInput;
+  event: UpdateEventInput;
 };
 
 
 export type MutationUpdateUserArgs = {
-  input: UpdateUserInput;
+  user: UpdateUserInput;
 };
 
 
@@ -213,7 +213,7 @@ export type User = {
 };
 
 export type CreateEventMutationVariables = Exact<{
-  input: CreateEventInput;
+  event: CreateEventInput;
 }>;
 
 
@@ -239,7 +239,7 @@ export type UploadFileMutation = (
 );
 
 export type CreateUserMutationVariables = Exact<{
-  input: CreateUserInput;
+  user: CreateUserInput;
 }>;
 
 
@@ -321,8 +321,8 @@ export type ParticipantEventsQuery = (
 
 
 export const CreateEventDocument = gql`
-    mutation CreateEvent($input: CreateEventInput!) {
-  createEvent(input: $input) {
+    mutation CreateEvent($event: CreateEventInput!) {
+  createEvent(event: $event) {
     id
   }
 }
@@ -342,7 +342,7 @@ export type CreateEventMutationFn = Apollo.MutationFunction<CreateEventMutation,
  * @example
  * const [createEventMutation, { data, loading, error }] = useCreateEventMutation({
  *   variables: {
- *      input: // value for 'input'
+ *      event: // value for 'event'
  *   },
  * });
  */
@@ -386,8 +386,8 @@ export type UploadFileMutationHookResult = ReturnType<typeof useUploadFileMutati
 export type UploadFileMutationResult = Apollo.MutationResult<UploadFileMutation>;
 export type UploadFileMutationOptions = Apollo.BaseMutationOptions<UploadFileMutation, UploadFileMutationVariables>;
 export const CreateUserDocument = gql`
-    mutation CreateUser($input: CreateUserInput!) {
-  createUser(input: $input) {
+    mutation CreateUser($user: CreateUserInput!) {
+  createUser(user: $user) {
     id
   }
 }
@@ -407,7 +407,7 @@ export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, C
  * @example
  * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
  *   variables: {
- *      input: // value for 'input'
+ *      user: // value for 'user'
  *   },
  * });
  */

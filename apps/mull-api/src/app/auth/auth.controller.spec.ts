@@ -18,7 +18,7 @@ const mockAuthService = () => ({
 });
 
 const mockUserService = () => ({
-  user: jest.fn(),
+  getUser: jest.fn(),
 });
 
 const mockJwtService = () => ({
@@ -93,7 +93,7 @@ describe('Auth Controller', () => {
       id: mockAllUsers[0].id,
       tokenVersion: mockAllUsers[0].tokenVersion,
     });
-    userService.user.mockReturnValue({ ...mockAllUsers[0] });
+    userService.getUser.mockReturnValue({ ...mockAllUsers[0] });
     authService.createAccessToken.mockReturnValue('accessToken');
     await controller.refreshToken(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledWith({ ok: true, accessToken: 'accessToken' });
@@ -123,7 +123,7 @@ describe('Auth Controller', () => {
       id: mockAllUsers[0].id,
       tokenVersion: mockAllUsers[0].tokenVersion,
     });
-    userService.user.mockReturnValue(null);
+    userService.getUser.mockReturnValue(null);
     authService.createAccessToken.mockReturnValue('accessToken');
     await controller.refreshToken(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledWith({ ok: false, accessToken: '' });
@@ -136,7 +136,7 @@ describe('Auth Controller', () => {
       id: mockAllUsers[0].id,
       tokenVersion: 1,
     });
-    userService.user.mockReturnValue({ ...mockAllUsers[0] });
+    userService.getUser.mockReturnValue({ ...mockAllUsers[0] });
     authService.createAccessToken.mockReturnValue('accessToken');
     await controller.refreshToken(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledWith({ ok: false, accessToken: '' });

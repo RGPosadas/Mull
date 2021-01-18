@@ -8,32 +8,34 @@ import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 
 const mockEventService = () => ({
   createEvent: jest.fn((mockEventData: CreateEventInput) => ({ ...mockEventData })),
-  event: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
-  events: jest.fn(() => mockAllEvents),
+  getEvent: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
+  getAllEvents: jest.fn(() => mockAllEvents),
   updateEvent: jest.fn((mockEventData: UpdateEventInput) => ({ ...mockEventData })),
   deleteEvent: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
-  joinEvent: jest.fn((eventId: number, userId: number) => {
+  addEventParticipant: jest.fn((eventId: number, userId: number) => {
     const event = mockAllEvents.find((event) => (event.id = eventId));
     event.participants.push(new User(userId));
     return event;
   }),
-  leaveEvent: jest.fn((eventId: number, userId: number) => {
+  removeEventParticipant: jest.fn((eventId: number, userId: number) => {
     const event = mockAllEvents.find((event) => (event.id = eventId));
     const user = event.participants.find((participant) => participant.id == userId);
     const index = event.participants.indexOf(user);
     event.participants.splice(index, 1);
     return event;
   }),
-  hostEvents: jest.fn((id: number) => mockAllEvents.find((event) => event.host.id === id)),
-  coHostEvents: jest.fn((coHostId: number) =>
+  getEventsHostedByUser: jest.fn((id: number) =>
+    mockAllEvents.find((event) => event.host.id === id)
+  ),
+  getEventsCoHostedByUser: jest.fn((coHostId: number) =>
     mockAllEvents.find((event) => event.coHosts.some((cohost) => cohost.id === coHostId))
   ),
-  participantEvents: jest.fn((participantId: number) =>
+  getEventsAttendedByUser: jest.fn((participantId: number) =>
     mockAllEvents.find((event) =>
       event.participants.some((participant) => participant.id === participantId)
     )
   ),
-  discoverEvents: jest.fn().mockReturnValue(mockAllEvents[2]),
+  getEventsRecommendedToUser: jest.fn().mockReturnValue(mockAllEvents[2]),
 });
 
 describe('UserResolver', () => {
@@ -95,14 +97,14 @@ describe('UserResolver', () => {
     expect(foundEvents).toEqual(
       mockAllEvents.find((event) => event.coHosts.some((cohost) => cohost.id === coHostId))
     );
-    expect(service.coHostEvents).toBeCalledTimes(1);
+    expect(service.getEventsCoHostedByUser).toBeCalledTimes(1);
   });
 
   it('should return a list of events that belongs to a host', async () => {
     const hostId = mockAllUsers[0].id;
     const foundEvents = await resolver.hostEvents(hostId);
     expect(foundEvents).toEqual(mockAllEvents.find((event) => event.host.id === hostId));
-    expect(service.hostEvents).toBeCalledTimes(1);
+    expect(service.getEventsHostedByUser).toBeCalledTimes(1);
   });
 
   it('should return a list of events that a user has joined', async () => {
@@ -113,13 +115,13 @@ describe('UserResolver', () => {
         event.participants.some((participant) => participant.id === participantId)
       )
     );
-    expect(service.participantEvents).toBeCalledTimes(1);
+    expect(service.getEventsAttendedByUser).toBeCalledTimes(1);
   });
 
   it('should return a list of events that the user is not involved with', async () => {
     const id = mockAllUsers[2].id;
     const foundEvents = await resolver.discoverEvents(id);
     expect(foundEvents).toEqual(mockAllEvents[2]);
-    expect(service.discoverEvents).toBeCalledTimes(1);
+    expect(service.getEventsRecommendedToUser).toBeCalledTimes(1);
   });
 });
