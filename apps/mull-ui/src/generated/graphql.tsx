@@ -374,7 +374,7 @@ export type EventPageQuery = (
   & Pick<Query, 'participatingEvent'>
   & { event: (
     { __typename?: 'Event' }
-    & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
+    & EventContentFragment
   ) }
 );
 
