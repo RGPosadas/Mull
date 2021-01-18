@@ -14,6 +14,11 @@ describe('Login', () => {
     const userId = null,
       accessToken = null;
     const setAccessToken = jest.fn();
+    // Stops tests from being redirected to OAuth Provider websites
+    delete window.location;
+    window.location = {
+      assign: jest.fn(),
+    } as any;
 
     return (
       <UserProvider value={{ userId, setUserId, accessToken, setAccessToken }}>
@@ -49,15 +54,15 @@ describe('Login', () => {
   });
 
   it('should submit a users login credentials', async () => {
-    const history = createMemoryHistory();
-    history.push(ROUTES.LOGIN);
-    const utils = render(renderHelper(history));
-    let input = utils.getByLabelText('Email');
-    fireEvent.change(input, { target: { value: 'test.email@email.com' } });
-    input = utils.getByLabelText('Password');
-    fireEvent.change(input, { target: { value: 'password123' } });
-    const submitButton = utils.container.querySelector('button[type="submit"]');
     await act(async () => {
+      const history = createMemoryHistory();
+      history.push(ROUTES.LOGIN);
+      const utils = render(renderHelper(history));
+      let input = utils.getByLabelText('Email');
+      fireEvent.change(input, { target: { value: 'test.email@email.com' } });
+      input = utils.getByLabelText('Password');
+      fireEvent.change(input, { target: { value: 'password123' } });
+      const submitButton = utils.container.querySelector('button[type="submit"]');
       fireEvent.click(submitButton);
     });
   });
