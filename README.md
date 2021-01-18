@@ -19,7 +19,8 @@
   - [Travis CI](#travis-ci)
     - [Scripts](#scripts)
   - [Troubleshooting](#troubleshooting)
-    - [Inconsistent/Failing Travis Builds](#inconsistent-failing-travis-builds)
+    - [Failing Travis Builds](#failing-travis-builds)
+    - [Package lock merge conflicts](#package-lock-merge-conflicts)
 
 ## Team Members
 
@@ -228,8 +229,17 @@ Scripts used for running checks on Travis CI can be found under the `scripts/` f
 
 ## Troubleshooting
 
-### Inconsistent/Failing Travis Builds
+### Failing Travis Builds
 
 We are now caching `npm` and `pre-commit` for faster build times. However, it is possible for the cache to be spoiled with bad data, or can simply become invalid/obsolete. This would result in inconsistent, or even failed, Travis builds compared to local builds.
 
 As a fix, try [clearing the Travis cache](https://docs.travis-ci.com/user/caching/#clearing-caches). Once cleared, re-run the builds.
+
+### Package lock merge conflicts
+
+When there are merge conflicts in the `package-lock.json` file, here are the general steps to take to fix them:
+
+1. Delete the `package-lock.json` file
+2. Temporarily remove the `preinstall` script in `package.json`. Installing packages with that script without the lock file won't work.
+3. Run `npm i` to install the packages again and regenerate the `package-lock.json` file.
+4. Put back the `preinstall` script you removed in step 2
