@@ -25,6 +25,7 @@ exports[`EventCard should match snapshot 1`] = `
   </div>
   <button
     className="event-card-join "
+    id="event-card-join"
     onClick={[Function]}
   >
     <svg
