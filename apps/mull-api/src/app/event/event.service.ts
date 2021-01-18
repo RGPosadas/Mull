@@ -46,8 +46,8 @@ export class EventService {
       .getMany();
   }
 
-  findJoinedEvent(eventId: number, userId: number): Promise<Event> {
-    return this.eventRepository
+  async findJoinedEvent(eventId: number, userId: number): Promise<Boolean> {
+    const participantEventCheck = await this.eventRepository
       .createQueryBuilder('event')
       .leftJoin('event.participants', 'user')
       .leftJoin('event.coHosts', 'coHost')
@@ -62,6 +62,11 @@ export class EventService {
         })
       )
       .getOne();
+    if (participantEventCheck) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**

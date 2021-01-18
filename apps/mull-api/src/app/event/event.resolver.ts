@@ -41,7 +41,7 @@ export class EventResolver {
     @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId: number,
     @Args('userId', { type: /* istanbul ignore next */ () => Int }) userId: number
   ) {
-    return !!(await this.eventService.findJoinedEvent(eventId, userId));
+    return this.eventService.findJoinedEvent(eventId, userId);
   }
 
   @Query(/* istanbul ignore next */ () => [Event])
