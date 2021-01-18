@@ -72,8 +72,10 @@ type Query {
   event(id: Int!): Event!
   events: [Event!]!
   getAutocompletedLocations(userInput: String!): [String!]!
-  hostEvents(hostId: Int!): [Event!]!
   participantEvents(userId: Int!): [Event!]!
+  hostEvents(userId: Int!): [Event!]!
+  isParticipant(eventId: Int!, userId: Int!): Boolean!
+  participatingEvents(userId: Int!): [Event!]!
   user(id: Int!): User!
   users: [User!]!
 }

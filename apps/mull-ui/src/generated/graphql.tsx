@@ -141,7 +141,7 @@ export type Query = {
   events: Array<Event>;
   getAutocompletedLocations: Array<Scalars['String']>;
   hostEvents: Array<Event>;
-  participatingEvent: Scalars['Boolean'];
+  isParticipant: Scalars['Boolean'];
   participatingEvents: Array<Event>;
   user: User;
   users: Array<User>;
@@ -173,7 +173,7 @@ export type QueryHostEventsArgs = {
 };
 
 
-export type QueryParticipatingEventArgs = {
+export type QueryIsParticipantArgs = {
   eventId: Scalars['Int'];
   userId: Scalars['Int'];
 };
@@ -365,13 +365,13 @@ export type AutocompletedLocationsQuery = (
 
 export type EventPageQueryVariables = Exact<{
   eventId: Scalars['Int'];
-  participatingEventUserId: Scalars['Int'];
+  userId: Scalars['Int'];
 }>;
 
 
 export type EventPageQuery = (
   { __typename?: 'Query' }
-  & Pick<Query, 'participatingEvent'>
+  & Pick<Query, 'isParticipant'>
   & { event: (
     { __typename?: 'Event' }
     & EventContentFragment

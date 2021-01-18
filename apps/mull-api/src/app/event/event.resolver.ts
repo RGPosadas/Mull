@@ -37,11 +37,11 @@ export class EventResolver {
   }
 
   @Query(/* istanbul ignore next */ () => Boolean)
-  async participatingEvent(
+  async isParticipant(
     @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId: number,
     @Args('userId', { type: /* istanbul ignore next */ () => Int }) userId: number
   ) {
-    return this.eventService.findJoinedEvent(eventId, userId);
+    return this.eventService.isUserAttendingEvent(eventId, userId);
   }
 
   @Query(/* istanbul ignore next */ () => [Event])

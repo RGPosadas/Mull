@@ -30,13 +30,13 @@ export const EventPage = ({
 
   const { loading, error, data } = useEventQuery({
     // TODO: dynamically pass current UserId
-    variables: { eventId, participatingEventUserId: 1 },
+    variables: { eventId, userId: 1 },
     skip: !!event,
   });
 
   if (!loading && data) {
     event = data.event;
-    isJoined = data.participatingEvent;
+    isJoined = data.isParticipant;
   }
 
   if (error) {
