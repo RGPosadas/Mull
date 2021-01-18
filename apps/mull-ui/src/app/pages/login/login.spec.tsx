@@ -14,11 +14,18 @@ describe('Login', () => {
     const userId = null,
       accessToken = null;
     const setAccessToken = jest.fn();
+    const { location } = window;
     // Stops tests from being redirected to OAuth Provider websites
-    delete window.location;
-    window.location = {
-      assign: jest.fn(),
-    } as any;
+    beforeEach(() => {
+      delete window.location;
+      window.location = {
+        assign: jest.fn(),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any;
+    });
+    afterEach(() => {
+      window.location = location;
+    });
 
     return (
       <UserProvider value={{ userId, setUserId, accessToken, setAccessToken }}>
