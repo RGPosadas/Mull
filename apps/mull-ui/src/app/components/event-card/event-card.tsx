@@ -24,7 +24,7 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
   const userId = 1;
 
   const [joinEvent] = useJoinEventMutation();
-  const [removeJoinedEvent] = useLeaveEventMutation();
+  const [leaveEvent] = useLeaveEventMutation();
 
   return (
     <div className="event-card-container button" onClick={onClick} style={style}>
@@ -46,7 +46,7 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
           if (joined == false) {
             joinEvent({ variables: { eventId, userId } });
           } else {
-            removeJoinedEvent({ variables: { eventId, userId } });
+            leaveEvent({ variables: { eventId, userId } });
           }
         }}
         className={`event-card-join ${joined ? 'joined' : ''}`}

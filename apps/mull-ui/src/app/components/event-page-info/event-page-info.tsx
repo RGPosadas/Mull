@@ -35,7 +35,7 @@ export const EventPageInfo = ({
   buttonType,
 }: EventPageInfoProps) => {
   const [joinEvent] = useJoinEventMutation();
-  const [removeJoinedEvent] = useLeaveEventMutation();
+  const [leaveEvent] = useLeaveEventMutation();
 
   const eventId = Number(event.id);
   // TODO: Have a user object when logged in to access userId
@@ -88,31 +88,21 @@ export const EventPageInfo = ({
         <p className="row-text">{event.participants?.map((p) => p.name).join(', ')}</p>
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
       </div>
-      {joined ? (
-        <MullButton
-          className="event-page-button event-page-joined-button"
-          onClick={(e) => {
-            e.stopPropagation();
-            setJoined(!joined);
-            removeJoinedEvent({ variables: { eventId, userId } });
-          }}
-          type={buttonType}
-        >
-          {'Leave'}
-        </MullButton>
-      ) : (
-        <MullButton
-          className="event-page-button"
-          onClick={(e) => {
-            e.stopPropagation();
-            setJoined(!joined);
+      <MullButton
+        className={`event-page-button ${joined ? 'event-page-joined-button' : ''}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          setJoined(!joined);
+          if (joined) {
+            leaveEvent({ variables: { eventId, userId } });
+          } else {
             joinEvent({ variables: { eventId, userId } });
-          }}
-          type={buttonType}
-        >
-          {isReview ? 'Create' : 'Join'}
-        </MullButton>
-      )}
+          }
+        }}
+        type={buttonType}
+      >
+        {joined ? 'Leave' : isReview ? 'Create' : 'Join'}
+      </MullButton>
     </div>
   );
 };
