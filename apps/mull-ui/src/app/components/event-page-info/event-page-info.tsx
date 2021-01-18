@@ -10,7 +10,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
-import { useJoinEventMutation, useRemoveJoinedEventMutation } from '../../../generated/graphql';
+import { useJoinEventMutation, useLeaveEventMutation } from '../../../generated/graphql';
 import MullButton from '../mull-button/mull-button';
 import { ExpandableText } from './../expandable-text/expandable-text';
 import './event-page-info.scss';
@@ -35,7 +35,7 @@ export const EventPageInfo = ({
   buttonType,
 }: EventPageInfoProps) => {
   const [joinEvent] = useJoinEventMutation();
-  const [removeJoinedEvent] = useRemoveJoinedEventMutation();
+  const [removeJoinedEvent] = useLeaveEventMutation();
 
   const eventId = Number(event.id);
   // TODO: Have a user object when logged in to access userId

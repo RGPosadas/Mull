@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
 import { dummyProfilePictures } from '../../../constants'; // TODO query the participants profile pictures
-import { useJoinEventMutation, useRemoveJoinedEventMutation } from '../../../generated/graphql';
+import { useJoinEventMutation, useLeaveEventMutation } from '../../../generated/graphql';
 import { formatDate } from '../../../utilities';
 import EventMembers from '../event-members/event-members';
 import './event-card.scss';
@@ -24,7 +24,7 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
   const userId = 1;
 
   const [joinEvent] = useJoinEventMutation();
-  const [removeJoinedEvent] = useRemoveJoinedEventMutation();
+  const [removeJoinedEvent] = useLeaveEventMutation();
 
   return (
     <div className="event-card-container button" onClick={onClick} style={style}>

@@ -31,6 +31,6 @@ mutation JoinEvent($eventId: Int!, $userId: Int!) {
 }
 
 # User leaves an event
-mutation RemoveJoinedEvent($eventId: Int!, $userId: Int!) {
+mutation LeaveEvent($eventId: Int!, $userId: Int!) {
   removeParticipantFromEvent(eventId: $eventId, userId: $userId)
 }
