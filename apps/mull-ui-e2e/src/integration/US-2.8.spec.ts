@@ -17,5 +17,16 @@ frameSizes.forEach((frame) => {
       cy.get(':nth-child(1) > .event-card-image').click();
       cy.get('[data-testid=mull-button]').click();
     });
+
+    it('should leave an event on the upcoming event page', () => {
+      cy.visit('http://localhost:4200/home/upcoming');
+      cy.get('#event-card-join').click();
+    });
+
+    it('should leave an event on the preview event page', () => {
+      cy.visit('http://localhost:4200/home/upcoming');
+      cy.get('.discover-page-tabs-container > :nth-child(1) > .event-card-image').click();
+      cy.get('[data-testid=mull-button]').click();
+    });
   });
 });
