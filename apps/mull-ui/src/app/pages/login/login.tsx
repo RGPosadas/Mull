@@ -63,7 +63,7 @@ export const Login = ({ history }: LoginProps) => {
         var decodedToken: IAuthToken = jwtDecode(accessToken);
       } catch (err) {
         console.error(err);
-        updateToast(toast.TYPE.ERROR, `Received an invalid token`);
+        updateToast(toast.TYPE.ERROR, `Invalid Login Token`);
         return;
       }
 
