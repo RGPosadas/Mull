@@ -19,7 +19,7 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
   const { day, month, time } = formatDate(new Date(event.startDate));
 
   const [joined, setJoined] = useState<boolean>(isJoined);
-  const eventId = Number(event.id);
+  const eventId = parseInt(event.id);
   // TODO: Have a user object when logged in to access userId
   const userId = 1;
 

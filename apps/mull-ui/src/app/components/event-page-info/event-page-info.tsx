@@ -37,7 +37,7 @@ export const EventPageInfo = ({
   const [joinEvent] = useJoinEventMutation();
   const [leaveEvent] = useLeaveEventMutation();
 
-  const eventId = Number(event.id);
+  const eventId = parseInt(event.id);
   // TODO: Have a user object when logged in to access userId
   const userId = 1;
 

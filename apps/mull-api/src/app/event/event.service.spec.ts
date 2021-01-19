@@ -178,8 +178,8 @@ describe('EventService', () => {
       andWhere: jest.fn().mockReturnThis(),
       getMany: jest.fn().mockReturnValue(mockAllEvents[2]),
     }));
-    const foundEvents = await service.getEventsRecommendedToUser(userId);
     repository.query.mockImplementation(() => mockAllEvents[2]);
+    const foundEvents = await service.getEventsRecommendedToUser(userId);
     expect(foundEvents).toEqual(mockAllEvents[2]);
     expect(repository.query).toBeCalledTimes(1);
   });
