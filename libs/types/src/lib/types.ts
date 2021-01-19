@@ -61,6 +61,12 @@ export interface IMedia {
   mediaType: string;
 }
 
+export interface IAuthToken {
+  id: number;
+  iat: number;
+  exp: number;
+}
+
 export type GqlContext = {
   req: Request;
   res: Response;

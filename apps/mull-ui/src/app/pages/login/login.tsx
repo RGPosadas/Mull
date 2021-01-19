@@ -1,7 +1,6 @@
-import { gql, useMutation } from '@apollo/client';
 import { faFacebookSquare, faGoogle, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ILoginForm } from '@mull/types';
+import { IAuthToken, ILoginForm } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
 import jwtDecode from 'jwt-decode';
@@ -12,25 +11,18 @@ import * as Yup from 'yup';
 import logo from '../../../assets/mull-logo.png';
 import { ROUTES } from '../../../constants';
 import { environment } from '../../../environments/environment';
+import { useLoginMutation } from '../../../generated/graphql';
 import { CustomTextInput } from '../../components';
 import UserContext from '../../context/user.context';
 import { useToast } from '../../hooks/useToast';
 import './login.scss';
-
-export const LOGIN = gql`
-  mutation Login($loginInput: LoginInput!) {
-    login(loginInput: $loginInput) {
-      accessToken
-    }
-  }
-`;
 
 export interface LoginProps {
   history: History;
 }
 
 export const Login = ({ history }: LoginProps) => {
-  const [login] = useMutation(LOGIN);
+  const [login] = useLoginMutation();
   const { setUserId, setAccessToken } = useContext(UserContext);
   const { notifyToast, updateToast } = useToast();
 
@@ -68,10 +60,10 @@ export const Login = ({ history }: LoginProps) => {
       setAccessToken(accessToken);
 
       try {
-        var decodedToken = jwtDecode(accessToken) as { id: number };
+        var decodedToken: IAuthToken = jwtDecode(accessToken);
       } catch (err) {
         console.error(err);
-        updateToast(toast.TYPE.ERROR, `Received an invalid token`);
+        updateToast(toast.TYPE.ERROR, `Invalid Login Token`);
         return;
       }
 
