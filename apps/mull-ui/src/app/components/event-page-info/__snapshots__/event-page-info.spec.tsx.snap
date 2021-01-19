@@ -60,7 +60,7 @@ exports[`EventPageInfo should match snapshot 1`] = `
       className="row-text"
       data-testid="event-location"
     >
-      18 Mull Ave, Pointe-Claire, Montreal
+      Test Location
     </p>
     <svg
       aria-hidden="true"

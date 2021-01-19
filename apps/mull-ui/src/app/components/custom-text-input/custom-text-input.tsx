@@ -9,7 +9,9 @@ export interface CustomTextInputProps {
   hasErrors: boolean;
   svgIcon?: ReactNode;
   password?: boolean;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
+  readOnly?: boolean;
 }
 
 /**
@@ -22,6 +24,8 @@ export interface CustomTextInputProps {
  * @param {string} errorMessage
  * @param {ReactNode} svgIcon The svg in the text input
  * @param {(event: ChangeEvent<HTMLInputElement>) => void} onChange Handler for when text is changed
+ * @param {(event: ChangeEvent<MouseEventHandler>) => void} onClick Handler for when input is clicked
+ * @param {boolean} readOnly Text inside input cannot be editted
  */
 export const CustomTextInput = ({
   title,
@@ -32,6 +36,8 @@ export const CustomTextInput = ({
   errorMessage,
   svgIcon,
   password,
+  onClick,
+  readOnly,
 }: CustomTextInputProps) => {
   return (
     <div className={`custom-text-input-container ${hasErrors ? 'error' : ''}`}>
@@ -46,6 +52,8 @@ export const CustomTextInput = ({
         type={password ? 'password' : 'text'}
         value={value}
         onChange={onChange}
+        onClick={onClick}
+        readOnly={readOnly}
       />
       {svgIcon ? svgIcon : null}
       {hasErrors ? <span className="error-message">{errorMessage}</span> : null}

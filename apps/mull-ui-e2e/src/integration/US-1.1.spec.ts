@@ -1,12 +1,13 @@
 /// <reference types="Cypress" />
 import 'cypress-file-upload';
+import { geolocationStub } from '../fixtures';
 import { frameSizes } from './../fixtures/frame-sizes';
 
 frameSizes.forEach((frame) => {
   describe(`US-1.1: Create Events (${frame.name} view)`, () => {
     beforeEach(() => {
       cy.viewport(frame.res[0], frame.res[1]);
-      cy.visit('http://localhost:4200/create-event');
+      cy.visit('http://localhost:4200/create-event', geolocationStub);
     });
 
     it('should preview the file', () => {
@@ -38,8 +39,29 @@ frameSizes.forEach((frame) => {
     it('should type into the event description input', () => {
       cy.get('#description').type('test description').should('have.value', 'test description');
     });
-    it('should type into the event location input', () => {
-      cy.get('#location').type('test location').should('have.value', 'test location');
+
+    it('should type into the event location modal and return autocompleted address', () => {
+      cy.get('#location').click();
+      cy.get('#location-input-field').should('be.visible');
+      cy.get('#location-input-field').type('845 Rue Sherbrooke');
+      cy.get('#location-input-field-option-0', { timeout: 3500 }).should(
+        'contain.text',
+        '845 Rue Sherbrooke'
+      );
+      cy.get('#location-input-field-option-0').click();
+    });
+
+    it('should click current location on event location modal', () => {
+      cy.get('#location').click();
+      cy.get('#location-input-field').should('be.visible');
+      cy.get('#location-input-field-option-0').click();
+      cy.get('#location').invoke('val').should('contain', 'Current Location');
+    });
+
+    it('should click the event location modal and exit with edit button', () => {
+      cy.get('#location').click();
+      cy.get('#location-input-field').should('be.visible');
+      cy.get('.mull-back-button').click();
     });
 
     it('should change restriction open', () => {
@@ -78,8 +100,16 @@ frameSizes.forEach((frame) => {
 
       cy.get('#description').type('test description');
 
-      cy.get('#location').type('test location');
+      cy.get('#location').click();
+      cy.get('#location-input-field').should('be.visible');
 
+      cy.get('#location-input-field').type('845 Rue Sherbrooke');
+      cy.get('#location-input-field-option-0', { timeout: 3500 }).should(
+        'contain.text',
+        '845 Rue Sherbrooke'
+      );
+
+      cy.get('#location-input-field-option-0', { timeout: 5000 }).click();
       cy.get('[data-testid=pill-id-1]').click();
       cy.get('.create-event-button').click();
       cy.get('.event-page-button').click();

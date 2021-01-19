@@ -7,8 +7,8 @@ export class Location implements ILocation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('point')
-  point: string;
+  @Column()
+  title: string;
 
   @OneToMany(() => Event, (event) => event.location)
   events: Event[];

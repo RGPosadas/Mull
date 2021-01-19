@@ -1,6 +1,6 @@
-import { faAlignLeft, faMapMarkerAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faAlignLeft, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { EventRestriction, EventRestrictionMap } from '@mull/types';
+import { EventRestriction, EventRestrictionMap, ILocation } from '@mull/types';
 import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
 import { History } from 'history';
 import { cloneDeep, isEmpty } from 'lodash';
@@ -24,6 +24,7 @@ import {
 import { EventPage } from './../event-page/event-page';
 import './create-event.scss';
 import DateCalendar from './date-calendar/date-calendar';
+import LocationAutocompleteModal from './location-autocomplete/location-autocomplete-modal';
 
 export interface CreateEventProps {
   history: History;
@@ -73,7 +74,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       endTime: '',
       eventTitle: '',
       description: '',
-      location: '',
+      location: { title: '' } as ILocation,
       imageFile: '',
     },
 
@@ -95,16 +96,30 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       description: Yup.string()
         .required('Event Description is required.')
         .max(5000, 'Event Description must be under 5000 characters.'),
-      location: Yup.string().required('Event Location is required.'),
+      location: Yup.mixed()
+        .required('Event Location is required.')
+        .test(
+          'values.location.title cannot be empty string',
+          'Event Location is required.',
+          function (location) {
+            if (location.title && location.title === '') return true;
+            return location.title;
+          }
+        ),
       imageFile: Yup.mixed().required('Image is required.'),
     }),
 
-    onSubmit: async () => {
+    onSubmit: async (data) => {
       notifyToast('Submitting Event...');
       try {
         const {
           data: { uploadFile: uploadedFile },
         } = await uploadFile({ variables: { file: file } });
+
+        // TODO Temporary workaround. Backend currently doesn't expect a location field. See TASK-33 #124
+        // let temp = cloneDeep(payload);
+        // delete temp.location;
+
         await createEvent({
           variables: {
             event: {
@@ -146,6 +161,8 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         description: formik.values.description,
         title: formik.values.eventTitle,
         restriction: formik.values.activeRestriction,
+        // TODO: Add location to the graphql createEventInput type TASK-33
+        // location: formik.values.location,
         image: null,
       });
       setIsInReview(true);
@@ -223,15 +240,9 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               errorMessage={formik.errors.description}
               svgIcon={<FontAwesomeIcon icon={faAlignLeft} />}
             />
-            <CustomTextInput
-              title="Location"
-              fieldName="location"
-              value={formik.values.location}
-              onChange={formik.handleChange}
-              hasErrors={formik.touched.location && !!formik.errors.location}
-              errorMessage={formik.errors.location}
-              svgIcon={<FontAwesomeIcon icon={faMapMarkerAlt} />}
-            />
+
+            <LocationAutocompleteModal formik={formik} />
+
             <PillOptions
               options={EventRestrictionMap}
               onChange={handleRestrictions}

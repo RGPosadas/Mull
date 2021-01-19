@@ -17,4 +17,10 @@
     vertical-align: middle;
     color: $primary-color;
   }
+  &.edit {
+    margin-right: auto;
+    margin-left: 0.2rem;
+    margin-top: 0.8rem;
+    margin-bottom: 2rem;
+  }
 }
