@@ -26,3 +26,13 @@ mutation Login($loginInput: LoginInput!) {
     accessToken
   }
 }
+
+# User joins an event
+mutation JoinEvent($eventId: Int!, $userId: Int!) {
+  joinEvent(eventId: $eventId, userId: $userId)
+}
+
+# User leaves an event
+mutation LeaveEvent($eventId: Int!, $userId: Int!) {
+  leaveEvent(eventId: $eventId, userId: $userId)
+}

@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+import { gql } from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -103,14 +103,14 @@ export type MutationDeleteUserArgs = {
 
 
 export type MutationJoinEventArgs = {
-  eventId: Scalars['Float'];
-  userId: Scalars['Float'];
+  eventId: Scalars['Int'];
+  userId: Scalars['Int'];
 };
 
 
 export type MutationLeaveEventArgs = {
-  eventId: Scalars['Float'];
-  userId: Scalars['Float'];
+  eventId: Scalars['Int'];
+  userId: Scalars['Int'];
 };
 
 
@@ -141,6 +141,7 @@ export type Query = {
   events: Array<Event>;
   getAutocompletedLocations: Array<Scalars['String']>;
   hostEvents: Array<Event>;
+  isParticipant: Scalars['Boolean'];
   participantEvents: Array<Event>;
   user: User;
   users: Array<User>;
@@ -169,6 +170,12 @@ export type QueryGetAutocompletedLocationsArgs = {
 
 export type QueryHostEventsArgs = {
   hostId: Scalars['Int'];
+};
+
+
+export type QueryIsParticipantArgs = {
+  eventId: Scalars['Int'];
+  userId: Scalars['Int'];
 };
 
 
@@ -270,6 +277,28 @@ export type LoginMutation = (
   ) }
 );
 
+export type JoinEventMutationVariables = Exact<{
+  eventId: Scalars['Int'];
+  userId: Scalars['Int'];
+}>;
+
+
+export type JoinEventMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'joinEvent'>
+);
+
+export type LeaveEventMutationVariables = Exact<{
+  eventId: Scalars['Int'];
+  userId: Scalars['Int'];
+}>;
+
+
+export type LeaveEventMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'leaveEvent'>
+);
+
 export type EventQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -335,7 +364,36 @@ export type AutocompletedLocationsQuery = (
   & Pick<Query, 'getAutocompletedLocations'>
 );
 
+export type EventPageQueryVariables = Exact<{
+  eventId: Scalars['Int'];
+  userId: Scalars['Int'];
+}>;
 
+
+export type EventPageQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'isParticipant'>
+  & { event: (
+    { __typename?: 'Event' }
+    & EventContentFragment
+  ) }
+);
+
+export type EventContentFragment = (
+  { __typename?: 'Event' }
+  & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
+);
+
+export const EventContentFragmentDoc = gql`
+    fragment EventContent on Event {
+  id
+  title
+  description
+  startDate
+  endDate
+  restriction
+}
+    `;
 export const CreateEventDocument = gql`
     mutation CreateEvent($event: CreateEventInput!) {
   createEvent(event: $event) {
@@ -465,6 +523,68 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const JoinEventDocument = gql`
+    mutation JoinEvent($eventId: Int!, $userId: Int!) {
+  joinEvent(eventId: $eventId, userId: $userId)
+}
+    `;
+export type JoinEventMutationFn = Apollo.MutationFunction<JoinEventMutation, JoinEventMutationVariables>;
+
+/**
+ * __useJoinEventMutation__
+ *
+ * To run a mutation, you first call `useJoinEventMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useJoinEventMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [joinEventMutation, { data, loading, error }] = useJoinEventMutation({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useJoinEventMutation(baseOptions?: Apollo.MutationHookOptions<JoinEventMutation, JoinEventMutationVariables>) {
+        return Apollo.useMutation<JoinEventMutation, JoinEventMutationVariables>(JoinEventDocument, baseOptions);
+      }
+export type JoinEventMutationHookResult = ReturnType<typeof useJoinEventMutation>;
+export type JoinEventMutationResult = Apollo.MutationResult<JoinEventMutation>;
+export type JoinEventMutationOptions = Apollo.BaseMutationOptions<JoinEventMutation, JoinEventMutationVariables>;
+export const LeaveEventDocument = gql`
+    mutation LeaveEvent($eventId: Int!, $userId: Int!) {
+  leaveEvent(eventId: $eventId, userId: $userId)
+}
+    `;
+export type LeaveEventMutationFn = Apollo.MutationFunction<LeaveEventMutation, LeaveEventMutationVariables>;
+
+/**
+ * __useLeaveEventMutation__
+ *
+ * To run a mutation, you first call `useLeaveEventMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLeaveEventMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [leaveEventMutation, { data, loading, error }] = useLeaveEventMutation({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useLeaveEventMutation(baseOptions?: Apollo.MutationHookOptions<LeaveEventMutation, LeaveEventMutationVariables>) {
+        return Apollo.useMutation<LeaveEventMutation, LeaveEventMutationVariables>(LeaveEventDocument, baseOptions);
+      }
+export type LeaveEventMutationHookResult = ReturnType<typeof useLeaveEventMutation>;
+export type LeaveEventMutationResult = Apollo.MutationResult<LeaveEventMutation>;
+export type LeaveEventMutationOptions = Apollo.BaseMutationOptions<LeaveEventMutation, LeaveEventMutationVariables>;
 export const EventDocument = gql`
     query Event($id: Int!) {
   event(id: $id) {
@@ -652,3 +772,38 @@ export function useAutocompletedLocationsLazyQuery(baseOptions?: Apollo.LazyQuer
 export type AutocompletedLocationsQueryHookResult = ReturnType<typeof useAutocompletedLocationsQuery>;
 export type AutocompletedLocationsLazyQueryHookResult = ReturnType<typeof useAutocompletedLocationsLazyQuery>;
 export type AutocompletedLocationsQueryResult = Apollo.QueryResult<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>;
+export const EventPageDocument = gql`
+    query EventPage($eventId: Int!, $userId: Int!) {
+  isParticipant(eventId: $eventId, userId: $userId)
+  event(id: $eventId) {
+    ...EventContent
+  }
+}
+    ${EventContentFragmentDoc}`;
+
+/**
+ * __useEventPageQuery__
+ *
+ * To run a query within a React component, call `useEventPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventPageQuery({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useEventPageQuery(baseOptions: Apollo.QueryHookOptions<EventPageQuery, EventPageQueryVariables>) {
+        return Apollo.useQuery<EventPageQuery, EventPageQueryVariables>(EventPageDocument, baseOptions);
+      }
+export function useEventPageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventPageQuery, EventPageQueryVariables>) {
+          return Apollo.useLazyQuery<EventPageQuery, EventPageQueryVariables>(EventPageDocument, baseOptions);
+        }
+export type EventPageQueryHookResult = ReturnType<typeof useEventPageQuery>;
+export type EventPageLazyQueryHookResult = ReturnType<typeof useEventPageLazyQuery>;
+export type EventPageQueryResult = Apollo.QueryResult<EventPageQuery, EventPageQueryVariables>;

@@ -11,7 +11,7 @@ export type MockType<T> = {
   [P in keyof T]: jest.Mock<{}>;
 };
 
-const mockEventRepositoy = () => ({
+const mockEventRepository = () => ({
   create: jest.fn((mockUserData: CreateEventInput) => ({ ...mockUserData })),
   findOne: jest.fn((id: number) => {
     return mockAllEvents.find((event) => event.id === id);
@@ -26,6 +26,7 @@ const mockEventRepositoy = () => ({
     andWhere: jest.fn().mockReturnThis(),
     getMany: jest.fn().mockReturnValue(mockAllEvents[0]),
   })),
+  query: jest.fn().mockReturnThis(),
 });
 
 describe('EventService', () => {
@@ -38,7 +39,7 @@ describe('EventService', () => {
         EventService,
         {
           provide: getRepositoryToken(Event),
-          useFactory: mockEventRepositoy,
+          useFactory: mockEventRepository,
         },
       ],
     }).compile();
@@ -155,6 +156,20 @@ describe('EventService', () => {
     expect(repository.createQueryBuilder).toHaveBeenCalledTimes(1);
   });
 
+  it('should check if a user joined an event', async () => {
+    const participantId = mockAllUsers[2].id;
+    const eventId = mockAllEvents[0].id;
+    repository.createQueryBuilder.mockImplementation(() => ({
+      leftJoin: jest.fn().mockReturnThis(),
+      where: jest.fn().mockReturnThis(),
+      andWhere: jest.fn().mockReturnThis(),
+      getOne: jest.fn().mockReturnValue(mockAllEvents[0]),
+    }));
+    const foundEvent = await service.isUserAttendingEvent(eventId, participantId);
+    expect(foundEvent).toEqual(true);
+    expect(repository.createQueryBuilder).toHaveBeenCalledTimes(1);
+  });
+
   it('should return all the events a user is not involved in', async () => {
     const userId = mockAllUsers[2].id;
     repository.createQueryBuilder.mockImplementation(() => ({
@@ -163,8 +178,9 @@ describe('EventService', () => {
       andWhere: jest.fn().mockReturnThis(),
       getMany: jest.fn().mockReturnValue(mockAllEvents[2]),
     }));
+    repository.query.mockImplementation(() => mockAllEvents[2]);
     const foundEvents = await service.getEventsRecommendedToUser(userId);
     expect(foundEvents).toEqual(mockAllEvents[2]);
-    expect(repository.createQueryBuilder).toBeCalledTimes(1);
+    expect(repository.query).toBeCalledTimes(1);
   });
 });

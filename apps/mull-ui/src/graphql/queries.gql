@@ -53,3 +53,21 @@ query ParticipantEvents($userId: Int!) {
 query AutocompletedLocations($userInput: String!) {
   getAutocompletedLocations(userInput: $userInput)
 }
+
+# Find events by Id and finds participating events of user
+query EventPage($eventId: Int!, $userId: Int!) {
+  isParticipant(eventId: $eventId, userId: $userId)
+
+  event(id: $eventId) {
+    ...EventContent
+  }
+}
+
+fragment EventContent on Event {
+  id
+  title
+  description
+  startDate
+  endDate
+  restriction
+}

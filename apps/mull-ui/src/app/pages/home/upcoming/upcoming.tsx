@@ -6,7 +6,6 @@ import '../home-discover.scss';
 
 export const UpcomingPage = ({ history }) => {
   const { data } = useParticipantEventsQuery({
-    fetchPolicy: 'network-only',
     // TODO: dynamically pass current UserId
     variables: { userId: 1 },
   });
@@ -16,6 +15,7 @@ export const UpcomingPage = ({ history }) => {
     var eventCards = events.map((event, index) => (
       <EventCard
         key={`upcoming-${index}`}
+        isJoined={true}
         event={event}
         onClick={() => history.push(`/events/${event.id}`)}
       />

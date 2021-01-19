@@ -41,7 +41,8 @@ export interface IEvent {
   location?: ILocation;
 }
 
-export interface ISerializedEvent extends Omit<IEvent, 'startDate' | 'endDate'> {
+export interface ISerializedEvent extends Omit<IEvent, 'startDate' | 'endDate' | 'id'> {
+  id: string;
   startDate: string;
   endDate: string;
 }

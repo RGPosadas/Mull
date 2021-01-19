@@ -1,4 +1,3 @@
-import { EventRestriction } from '@mull/types';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Brackets, Repository } from 'typeorm';
@@ -47,33 +46,42 @@ export class EventService {
       .getMany();
   }
 
+  async isUserAttendingEvent(eventId: number, userId: number): Promise<boolean> {
+    const event = await this.eventRepository
+      .createQueryBuilder('event')
+      .leftJoin('event.participants', 'user')
+      .leftJoin('event.coHosts', 'coHost')
+      .where(
+        new Brackets((qb) => {
+          qb.where('coHost.id = :userId', { userId }).orWhere('user.id = :userId', { userId });
+        })
+      )
+      .andWhere(
+        new Brackets((qb) => {
+          qb.where('event.id = :eventId', { eventId });
+        })
+      )
+      .getOne();
+    if (event) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /**
    * Find all the events that the user has not joined, created or is not co-hosting
    * @param userId
    */
-  getEventsRecommendedToUser(userId: number): Promise<Event[]> {
-    return this.eventRepository
-      .createQueryBuilder('event')
-      .leftJoin('event.coHosts', 'coHost')
-      .leftJoin('event.participants', 'participant')
-      .leftJoin('event.host', 'host')
-      .where(
-        new Brackets((qb) => {
-          qb.where('coHost.id != :userId', { userId }).orWhere('coHost.id IS NULL');
-        })
-      )
-      .andWhere(
-        new Brackets((qb) => {
-          qb.where('participant.id != :userId', { userId }).orWhere('participant.id IS NULL');
-        })
-      )
-      .andWhere(
-        new Brackets((qb) => {
-          qb.where('host.id != :userId', { userId }).orWhere('host.id IS NULL');
-        })
-      )
-      .andWhere('event.restriction = :restriction', { restriction: String(EventRestriction.NONE) })
-      .getMany();
+  async getEventsRecommendedToUser(userId: number): Promise<Event[]> {
+    const discoverableEvents = await this.eventRepository.query(
+      `
+    SELECT DISTINCT id, title, startDate, endDate, description, imageId, hostId, locationId, restriction FROM event LEFT JOIN event_participants ON event.id = event_participants.eventId
+    WHERE id NOT IN (SELECT event.id FROM event WHERE event.hostId = ${userId}) AND 
+    id NOT IN (SELECT event_participants.eventId FROM event_participants WHERE event_participants.userId = ${userId}) AND 
+    id NOT IN (SELECT event_cohosts.eventId FROM event_cohosts WHERE event_cohosts.userId = ${userId})`
+    );
+    return discoverableEvents;
   }
 
   async createEvent(input: CreateEventInput): Promise<Event> {

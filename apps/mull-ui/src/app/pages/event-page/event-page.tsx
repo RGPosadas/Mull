@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { CreateEventInput, useEventQuery } from '../../../generated/graphql';
+import { CreateEventInput, useEventPageQuery } from '../../../generated/graphql';
 import { EventPageHeader, EventPageInfo } from '../../components';
 import './event-page.scss';
 
@@ -12,6 +12,7 @@ export interface EventPageProps {
   onBackButtonClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onButtonClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   isReview?: boolean;
+  isJoined?: boolean;
 }
 
 export const EventPage = ({
@@ -21,18 +22,21 @@ export const EventPage = ({
   onButtonClick,
   eventImageURL,
   isReview = false,
+  isJoined = false,
   buttonType,
 }: EventPageProps) => {
   const { id } = useParams<{ id: string }>();
   const eventId = parseInt(id);
 
-  const { loading, error, data } = useEventQuery({
-    variables: { id: eventId },
+  const { loading, error, data } = useEventPageQuery({
+    // TODO: dynamically pass current UserId
+    variables: { eventId, userId: 1 },
     skip: !!event,
   });
 
   if (!loading && data) {
     event = data.event;
+    isJoined = data.isParticipant;
   }
 
   if (error) {
@@ -52,6 +56,7 @@ export const EventPage = ({
           event={event}
           handleMullButton={onButtonClick}
           isReview={isReview}
+          isJoined={isJoined}
           buttonType={buttonType}
         />
       </div>

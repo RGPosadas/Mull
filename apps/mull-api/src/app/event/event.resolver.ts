@@ -36,6 +36,14 @@ export class EventResolver {
     return this.eventService.getEventsAttendedByUser(userId);
   }
 
+  @Query(/* istanbul ignore next */ () => Boolean)
+  async isParticipant(
+    @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId: number,
+    @Args('userId', { type: /* istanbul ignore next */ () => Int }) userId: number
+  ) {
+    return this.eventService.isUserAttendingEvent(eventId, userId);
+  }
+
   @Query(/* istanbul ignore next */ () => [Event])
   async discoverEvents(
     @Args('userId', { type: /* istanbul ignore next */ () => Int }) userId: number
@@ -59,13 +67,19 @@ export class EventResolver {
   }
 
   @Mutation(() => Boolean)
-  async joinEvent(@Args('eventId') eventId: number, @Args('userId') userId: number) {
+  async joinEvent(
+    @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId: number,
+    @Args('userId', { type: /* istanbul ignore next */ () => Int }) userId: number
+  ) {
     this.eventService.addEventParticipant(eventId, userId);
     return true;
   }
 
   @Mutation(() => Boolean)
-  async leaveEvent(@Args('eventId') eventId: number, @Args('userId') userId: number) {
+  async leaveEvent(
+    @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId: number,
+    @Args('userId', { type: /* istanbul ignore next */ () => Int }) userId: number
+  ) {
     this.eventService.removeEventParticipant(eventId, userId);
     return true;
   }

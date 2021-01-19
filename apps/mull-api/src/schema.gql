@@ -58,8 +58,8 @@ type Mutation {
   createUser(user: CreateUserInput!): User!
   deleteEvent(id: Int!): Event!
   deleteUser(id: Int!): User!
-  joinEvent(eventId: Float!, userId: Float!): Boolean!
-  leaveEvent(eventId: Float!, userId: Float!): Boolean!
+  joinEvent(eventId: Int!, userId: Int!): Boolean!
+  leaveEvent(eventId: Int!, userId: Int!): Boolean!
   login(loginInput: LoginInput!): LoginResult!
   updateEvent(event: UpdateEventInput!): Event!
   updateUser(user: UpdateUserInput!): User!
@@ -73,6 +73,7 @@ type Query {
   events: [Event!]!
   getAutocompletedLocations(userInput: String!): [String!]!
   hostEvents(hostId: Int!): [Event!]!
+  isParticipant(eventId: Int!, userId: Int!): Boolean!
   participantEvents(userId: Int!): [Event!]!
   user(id: Int!): User!
   users: [User!]!

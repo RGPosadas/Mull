@@ -6,7 +6,6 @@ import '../home-discover.scss';
 
 export const MyEventsPage = ({ history }) => {
   const { data } = useOwnedEventsQuery({
-    fetchPolicy: 'network-only',
     // TODO: dynamically pass current UserId
     variables: { userId: 1 },
   });
@@ -18,6 +17,7 @@ export const MyEventsPage = ({ history }) => {
     var eventCards = events.map((event, index) => (
       <EventCard
         key={`myEvents-${index}`}
+        isJoined={true}
         event={event}
         onClick={() => history.push(`/events/${event.id}`)}
       />
