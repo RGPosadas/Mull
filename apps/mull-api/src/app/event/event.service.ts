@@ -46,7 +46,7 @@ export class EventService {
       .getMany();
   }
 
-  async isUserAttendingEvent(eventId: number, userId: number): Promise<Boolean> {
+  async isUserAttendingEvent(eventId: number, userId: number): Promise<boolean> {
     const event = await this.eventRepository
       .createQueryBuilder('event')
       .leftJoin('event.participants', 'user')

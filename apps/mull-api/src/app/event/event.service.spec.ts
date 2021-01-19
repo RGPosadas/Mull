@@ -156,7 +156,7 @@ describe('EventService', () => {
     expect(repository.createQueryBuilder).toHaveBeenCalledTimes(1);
   });
 
-  it('should return an event that a user has joined', async () => {
+  it('should check if a user joined an event', async () => {
     const participantId = mockAllUsers[2].id;
     const eventId = mockAllEvents[0].id;
     repository.createQueryBuilder.mockImplementation(() => ({
@@ -165,8 +165,8 @@ describe('EventService', () => {
       andWhere: jest.fn().mockReturnThis(),
       getOne: jest.fn().mockReturnValue(mockAllEvents[0]),
     }));
-    const foundEvent = await service.findJoinedEvent(eventId, participantId);
-    expect(foundEvent).toEqual(mockAllEvents[0]);
+    const foundEvent = await service.isUserAttendingEvent(eventId, participantId);
+    expect(foundEvent).toEqual(true);
     expect(repository.createQueryBuilder).toHaveBeenCalledTimes(1);
   });
 
