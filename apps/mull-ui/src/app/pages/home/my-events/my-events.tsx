@@ -16,7 +16,11 @@ export const MyEventsPage = ({ history }) => {
       ISerializedEvent
     >[];
     var eventCards = events.map((event, index) => (
-      <EventCard key={index} event={event} onClick={() => history.push(`/events/${event.id}`)} />
+      <EventCard
+        key={`myEvents-${index}`}
+        event={event}
+        onClick={() => history.push(`/events/${event.id}`)}
+      />
     ));
   }
   return <div className="discover-page-tabs-container">{eventCards}</div>;

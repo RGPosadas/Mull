@@ -1,6 +1,6 @@
 import { MockedProvider } from '@apollo/client/testing';
 import '@testing-library/jest-dom';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import { createMemoryHistory, History } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
@@ -14,6 +14,18 @@ describe('Login', () => {
     const userId = null,
       accessToken = null;
     const setAccessToken = jest.fn();
+    const { location } = window;
+    // Stops tests from being redirected to OAuth Provider websites
+    beforeEach(() => {
+      delete window.location;
+      window.location = {
+        assign: jest.fn(),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any;
+    });
+    afterEach(() => {
+      window.location = location;
+    });
 
     return (
       <UserProvider value={{ userId, setUserId, accessToken, setAccessToken }}>
@@ -40,7 +52,7 @@ describe('Login', () => {
 
     const utils = render(renderHelper(history));
     const submitButton = utils.container.querySelector('button.login');
-    await waitFor(() => {
+    await act(async () => {
       fireEvent.click(submitButton);
     });
 
@@ -49,28 +61,30 @@ describe('Login', () => {
   });
 
   it('should submit a users login credentials', async () => {
-    const history = createMemoryHistory();
-    history.push(ROUTES.LOGIN);
-    const utils = render(renderHelper(history));
-    let input = utils.getByLabelText('Email');
-    fireEvent.change(input, { target: { value: 'test.email@email.com' } });
-    input = utils.getByLabelText('Password');
-    fireEvent.change(input, { target: { value: 'password123' } });
-    const submitButton = utils.container.querySelector('button[type="submit"]');
-    await waitFor(() => {
+    await act(async () => {
+      const history = createMemoryHistory();
+      history.push(ROUTES.LOGIN);
+      const utils = render(renderHelper(history));
+      let input = utils.getByLabelText('Email');
+      fireEvent.change(input, { target: { value: 'test.email@email.com' } });
+      input = utils.getByLabelText('Password');
+      fireEvent.change(input, { target: { value: 'password123' } });
+      const submitButton = utils.container.querySelector('button[type="submit"]');
       fireEvent.click(submitButton);
     });
   });
 
   it('should redirect to OAuth providers', async () => {
-    const history = createMemoryHistory();
-    const oAuthProviders = ['Google', 'Facebook', 'Twitter'];
-    history.push(ROUTES.LOGIN);
+    await act(async () => {
+      const history = createMemoryHistory();
+      const oAuthProviders = ['Google', 'Facebook', 'Twitter'];
+      history.push(ROUTES.LOGIN);
 
-    const utils = render(renderHelper(history));
-    for (const provider of oAuthProviders) {
-      const oAuthButton = utils.getByText(`Continue with ${provider}`);
-      fireEvent.click(oAuthButton);
-    }
+      const utils = render(renderHelper(history));
+      for (const provider of oAuthProviders) {
+        const oAuthButton = utils.getByText(`Continue with ${provider}`);
+        fireEvent.click(oAuthButton);
+      }
+    });
   });
 });

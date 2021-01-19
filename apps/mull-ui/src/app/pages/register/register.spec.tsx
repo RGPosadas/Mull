@@ -1,7 +1,7 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { RegistrationMethod } from '@mull/types';
 import '@testing-library/jest-dom';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { createMemoryHistory, History } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
@@ -43,47 +43,48 @@ describe('Register', () => {
 
     const utils = render(renderHelper(history));
     const submitButton = utils.container.querySelector('button[type="submit"]');
-    await waitFor(() => {
+    await act(async () => {
       fireEvent.click(submitButton);
     });
-
     const error = utils.container.querySelector('span[class="error-message"]');
     expect(error).toHaveTextContent('Name is required.');
   });
 
   it('should submit a users login credentials', async () => {
-    const history = createMemoryHistory();
-    history.push(ROUTES.REGISTER);
-    const mocks: MockedResponse[] = [
-      {
-        request: {
-          query: CreateUserDocument,
-          variables: {
-            user: {
-              name: 'John Doe',
-              email: 'abc@def.com',
-              password: 'abc123',
-              registrationMethod: RegistrationMethod.LOCAL,
+    await act(async () => {
+      const history = createMemoryHistory();
+      history.push(ROUTES.REGISTER);
+      const mocks: MockedResponse[] = [
+        {
+          request: {
+            query: CreateUserDocument,
+            variables: {
+              createUserInput: {
+                name: 'John Doe',
+                email: 'abc@def.com',
+                password: 'abc123',
+                registrationMethod: RegistrationMethod.LOCAL,
+              },
             },
           },
+          result: {
+            data: { createUser: { id: 10 } },
+          },
         },
-        result: {
-          data: { createUser: { id: 10 } },
-        },
-      },
-    ];
+      ];
 
-    const utils = render(renderHelper(history, mocks));
+      const utils = render(renderHelper(history, mocks));
 
-    let input = utils.getByLabelText('Name');
-    fireEvent.change(input, { target: { value: 'John' } });
-    input = utils.getByLabelText('Email');
-    fireEvent.change(input, { target: { value: 'test.email@email.com' } });
-    input = utils.getByLabelText('Password');
-    fireEvent.change(input, { target: { value: 'password123' } });
-    const submitButton = utils.container.querySelector('button[type="submit"]');
-    await waitFor(() => {
-      fireEvent.click(submitButton);
+      let input = utils.getByLabelText('Name');
+      fireEvent.change(input, { target: { value: 'John' } });
+      input = utils.getByLabelText('Email');
+      fireEvent.change(input, { target: { value: 'test.email@email.com' } });
+      input = utils.getByLabelText('Password');
+      fireEvent.change(input, { target: { value: 'password123' } });
+      const submitButton = utils.container.querySelector('button[type="submit"]');
+      await waitFor(() => {
+        fireEvent.click(submitButton);
+      });
     });
   });
 });

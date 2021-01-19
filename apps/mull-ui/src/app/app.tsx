@@ -75,7 +75,9 @@ export const App = () => {
                 <Route path={ROUTES.DISCOVER} component={DiscoverPage} />
                 <Route path={ROUTES.UPCOMING} component={UpcomingPage} />
                 <Route path={ROUTES.MY_EVENTS} component={MyEventsPage} />
-                <Route exact path={ROUTES.HOME} render={() => <Redirect to={ROUTES.DISCOVER} />} />
+                <Route exact path={ROUTES.HOME}>
+                  <Redirect to={ROUTES.DISCOVER} />
+                </Route>
               </SwipeableRoutes>
             </div>
           </Route>
