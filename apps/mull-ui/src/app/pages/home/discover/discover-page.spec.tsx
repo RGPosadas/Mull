@@ -16,7 +16,7 @@ describe('discoverPage', () => {
     const { baseElement } = render(
       <MockedProvider>
         <Router history={history}>
-          <DiscoverPage />
+          <DiscoverPage history={history} />
         </Router>
       </MockedProvider>
     );
@@ -29,7 +29,7 @@ describe('discoverPage', () => {
         {
           request: {
             query: DiscoverEventsDocument,
-            variables: { discoverEventsUserId: 1 },
+            variables: { userId: 1 },
           },
           result: {
             data: {
@@ -54,7 +54,7 @@ describe('discoverPage', () => {
       const utils = render(
         <MockedProvider mocks={mocks} addTypename={false}>
           <Router history={history}>
-            <DiscoverPage />
+            <DiscoverPage history={history} />
           </Router>
         </MockedProvider>
       );

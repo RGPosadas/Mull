@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { cloneDeep } from 'lodash';
 import { FindOneOptions, Repository } from 'typeorm';
 import { User } from '../entities';
 import { CreateUserInput } from './inputs/user.input';
@@ -19,7 +20,12 @@ const mockUserRepository = () => ({
     }
     return foundUser;
   }),
-  find: jest.fn(() => mockAllUsers),
+  find: jest.fn((options?: FindOneOptions<User>) => {
+    if (options && options.where) {
+      return [];
+    }
+    return mockAllUsers;
+  }),
   update: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
   delete: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
   save: jest.fn((user: User) => user),
@@ -49,12 +55,15 @@ describe('UserService', () => {
   });
 
   it('should create user', async () => {
-    const returnedUser = await service.create(mockPartialUser as CreateUserInput);
-    expect(returnedUser).toEqual(mockPartialUser);
+    const originalUser = cloneDeep(mockPartialUser);
+    const returnedUser = await service.createUser(mockPartialUser as CreateUserInput);
+    expect(returnedUser.name).toEqual(originalUser.name);
+    expect(returnedUser.email).toEqual(originalUser.email);
+    expect(returnedUser.password).not.toEqual(originalUser.password);
   });
 
   it('should fetch all users', async () => {
-    const returnedUsers = await service.findAll();
+    const returnedUsers = await service.getAllUsers();
     expect(returnedUsers).toEqual(mockAllUsers);
   });
 
@@ -74,7 +83,7 @@ describe('UserService', () => {
   });
 
   it('should fetch all friends of mockUser 1', async () => {
-    const returnedUserFriends = await service.findAllFriends(1);
+    const returnedUserFriends = await service.getFriends(1);
     expect(returnedUserFriends).toEqual(mockAllUsers.find((user) => user.id === 1).friends);
   });
 
@@ -84,12 +93,12 @@ describe('UserService', () => {
   });
 
   it('should return the deleted user', async () => {
-    const deletedUser = await service.delete(1);
+    const deletedUser = await service.deleteUser(1);
     expect(deletedUser).toEqual(mockAllUsers.find((user) => user.id === 1));
   });
 
   it('should return the user with given id', async () => {
-    const foundUser = await service.findOne(1);
+    const foundUser = await service.getUser(1);
     expect(foundUser).toEqual(mockAllUsers.find((user) => user.id === 1));
   });
 

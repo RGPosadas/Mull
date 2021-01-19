@@ -12,34 +12,34 @@ export class EventService {
     private eventRepository: Repository<Event>
   ) {}
 
-  findAll(): Promise<Event[]> {
+  getAllEvents(): Promise<Event[]> {
     return this.eventRepository.find();
   }
 
-  findOne(id: number): Promise<Event> {
+  getEvent(id: number): Promise<Event> {
     return this.eventRepository.findOne(id);
   }
 
-  findHostEvents(userId: number): Promise<Event[]> {
+  getEventsHostedByUser(hostId: number): Promise<Event[]> {
     return this.eventRepository.find({
       relations: ['host'],
       where: {
         host: {
-          id: userId,
+          id: hostId,
         },
       },
     });
   }
 
-  findCoHostEvents(userId: number): Promise<Event[]> {
+  getEventsCoHostedByUser(coHostId: number): Promise<Event[]> {
     return this.eventRepository
       .createQueryBuilder('event')
       .leftJoin('event.coHosts', 'user')
-      .where('user.id = :userId', { userId })
+      .where('user.id = :userId', { userId: coHostId })
       .getMany();
   }
 
-  findJoinedEvents(userId: number): Promise<Event[]> {
+  getEventsAttendedByUser(userId: number): Promise<Event[]> {
     return this.eventRepository
       .createQueryBuilder('event')
       .leftJoin('event.participants', 'user')
@@ -51,7 +51,7 @@ export class EventService {
    * Find all the events that the user has not joined, created or is not co-hosting
    * @param userId
    */
-  findDiscoverEvent(userId: number): Promise<Event[]> {
+  getEventsRecommendedToUser(userId: number): Promise<Event[]> {
     return this.eventRepository
       .createQueryBuilder('event')
       .leftJoin('event.coHosts', 'coHost')
@@ -76,23 +76,29 @@ export class EventService {
       .getMany();
   }
 
-  async create(eventInput: CreateEventInput): Promise<Event> {
-    return await this.eventRepository.save(eventInput);
+  async createEvent(input: CreateEventInput): Promise<Event> {
+    return await this.eventRepository.save(input);
   }
 
-  async update(eventInput: UpdateEventInput): Promise<Event> {
-    await this.eventRepository.update(eventInput.id, { ...eventInput });
-    return this.findOne(eventInput.id);
+  async updateEvent(input: UpdateEventInput): Promise<Event> {
+    await this.eventRepository.update(input.id, { ...input });
+    return this.getEvent(input.id);
   }
 
-  async addParticipant(eventId: number, userId: number) {
+  async deleteEvent(id: number): Promise<Event> {
+    const event = await this.getEvent(id);
+    await this.eventRepository.delete(event.id);
+    return event;
+  }
+
+  async addEventParticipant(eventId: number, userId: number) {
     const user = new User(userId);
     const event = await this.eventRepository.findOne(eventId, { relations: ['participants'] });
     event.participants.push(user);
     return await this.eventRepository.save(event);
   }
 
-  async removeParticipant(eventId: number, userId: number) {
+  async removeEventParticipant(eventId: number, userId: number) {
     const event = await this.eventRepository.findOne(eventId, { relations: ['participants'] });
     if (event == undefined) {
       throw new Error('Event does not exist');
@@ -106,11 +112,5 @@ export class EventService {
       event.participants.splice(index, 1);
       return await this.eventRepository.save(event);
     }
-  }
-
-  async delete(id: number): Promise<Event> {
-    const event = await this.findOne(id);
-    await this.eventRepository.delete(event.id);
-    return event;
   }
 }

@@ -3,7 +3,7 @@ import { createWriteStream, renameSync, unlinkSync } from 'fs';
 import { FileUpload } from 'graphql-upload';
 import { join } from 'path';
 import { Media } from '../entities';
-import { mockFile, mockInvalidFile, mockMedia } from './media.mockdata';
+import { mockFile, mockMedia } from './media.mockdata';
 import { MediaResolver } from './media.resolver';
 import { MediaService } from './media.service';
 
@@ -23,6 +23,12 @@ const mockMediaService = () => ({
           })
       );
     });
+  }),
+  uploadFile: jest.fn(() => {
+    return {
+      id: undefined,
+      mediaType: 'jpeg',
+    };
   }),
   updateFilename: jest.fn(
     (mockPrevFilename: string, mockNextFilename: number, mockFileType: string) => {
@@ -63,11 +69,5 @@ describe('MediaResolver', () => {
   it('should upload a file', async () => {
     const mockUploadedFile = await resolver.uploadFile(mockFile);
     expect(mockUploadedFile).toEqual(mockMedia);
-  });
-
-  it('should not upload an invalid file', async () => {
-    const expectedError = new Error('Internal Server Error');
-    const errorMedia = await resolver.uploadFile(mockInvalidFile);
-    expect(errorMedia).toEqual(expectedError);
   });
 });

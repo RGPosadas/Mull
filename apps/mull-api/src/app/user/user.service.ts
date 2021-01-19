@@ -1,6 +1,7 @@
 import { RegistrationMethod } from '@mull/types';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { genSalt, hash } from 'bcrypt';
 import { Repository } from 'typeorm';
 import { User } from '../entities';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
@@ -12,11 +13,11 @@ export class UserService {
     private userRepository: Repository<User>
   ) {}
 
-  findAll(): Promise<User[]> {
+  getAllUsers(): Promise<User[]> {
     return this.userRepository.find();
   }
 
-  findOne(id: number): Promise<User> {
+  getUser(id: number): Promise<User> {
     return this.userRepository.findOne(id);
   }
 
@@ -28,22 +29,30 @@ export class UserService {
     return this.userRepository.find({ where: { email, registrationMethod } });
   }
 
-  async findAllFriends(id: number): Promise<User[]> {
-    const { friends } = await this.userRepository.findOne(id, { relations: ['friends'] });
+  async getFriends(userId: number): Promise<User[]> {
+    const { friends } = await this.userRepository.findOne(userId, { relations: ['friends'] });
     return friends;
   }
 
-  async create(userInput: CreateUserInput): Promise<User> {
-    return await this.userRepository.save({ ...userInput });
+  async createUser(input: CreateUserInput): Promise<User> {
+    if (input.registrationMethod === RegistrationMethod.LOCAL) {
+      const salt = await genSalt(10);
+      const hashed = await hash(input.password, salt);
+      input.password = hashed;
+    }
+    const existingUser = await this.findUnique(input.email, input.registrationMethod);
+    if (existingUser.length > 0)
+      throw new UnauthorizedException('User with this email already exists.');
+    return await this.userRepository.save({ ...input });
   }
 
   async updateUser(userInput: UpdateUserInput): Promise<User> {
     await this.userRepository.update(userInput.id, { ...userInput });
-    return this.findOne(userInput.id);
+    return this.getUser(userInput.id);
   }
 
-  async delete(id: number): Promise<User> {
-    const user = await this.findOne(id);
+  async deleteUser(id: number): Promise<User> {
+    const user = await this.getUser(id);
     await this.userRepository.delete(user.id);
     return user;
   }

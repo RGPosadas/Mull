@@ -10,22 +10,9 @@ export class MediaResolver {
 
   @Mutation(/* istanbul ignore next */ () => Media)
   async uploadFile(
-    @Args({ name: 'file', type: /* istanbul ignore next */ () => GraphQLUpload })
+    @Args('file', { type: /* istanbul ignore next */ () => GraphQLUpload })
     file: FileUpload
   ): Promise<Media | Error> {
-    return this.mediaService
-      .saveFile(file)
-      .then(() => {
-        return this.mediaService.create(file.mimetype);
-      })
-      .then((media) => {
-        this.mediaService.updateFilename(file.filename, media.id, media.mediaType);
-        const newMedia = new Media(media.mediaType);
-        newMedia.id = media.id;
-        return newMedia;
-      })
-      .catch(() => {
-        return new Error('Internal Server Error');
-      });
+    return this.mediaService.uploadFile(file);
   }
 }

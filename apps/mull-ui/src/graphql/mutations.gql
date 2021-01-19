@@ -1,6 +1,6 @@
 # Creating Events
-mutation CreateEvent($createEventInput: CreateEventInput!) {
-  createEvent(createEventInput: $createEventInput) {
+mutation CreateEvent($event: CreateEventInput!) {
+  createEvent(event: $event) {
     id
   }
 }
@@ -14,8 +14,8 @@ mutation UploadFile($file: Upload!) {
 }
 
 # Register a user
-mutation CreateUser($createUserInput: CreateUserInput!) {
-  createUser(createUserInput: $createUserInput) {
+mutation CreateUser($user: CreateUserInput!) {
+  createUser(user: $user) {
     id
   }
 }

@@ -7,17 +7,17 @@ import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
 
 const mockUserService = () => ({
-  create: jest.fn((mockUserData: CreateUserInput) => ({ ...mockUserData })),
-  findOne: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
-  findAll: jest.fn(() => mockAllUsers),
+  createUser: jest.fn((mockUserData: CreateUserInput) => ({ ...mockUserData })),
+  getUser: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
+  getAllUsers: jest.fn(() => mockAllUsers),
   findUnique: jest.fn((email: string, registrationMethod: RegistrationMethod) => {
     return Promise.resolve(
       mockAllUsers.filter((u) => u.email === email && u.registrationMethod === registrationMethod)
     );
   }),
-  findAllFriends: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id).friends),
+  getFriends: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id).friends),
   updateUser: jest.fn((mockUserData: UpdateUserInput) => ({ ...mockUserData })),
-  delete: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
+  deleteUser: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
 });
 
 describe('UserResolver', () => {
@@ -38,9 +38,7 @@ describe('UserResolver', () => {
 
   it('should create a local user', async () => {
     const returnedUser = await resolver.createUser({ ...mockNewPartialUser });
-    expect(returnedUser.name).toEqual(mockNewPartialUser.name);
-    expect(returnedUser.email).toEqual(mockNewPartialUser.email);
-    expect(returnedUser.password).not.toEqual(mockNewPartialUser.password);
+    expect(returnedUser).toEqual(mockNewPartialUser);
   });
 
   it('should not create a local user', async () => {

@@ -13,6 +13,18 @@ export class MediaService {
     private mediaRepository: Repository<Media>
   ) {}
 
+  async uploadFile(file: FileUpload): Promise<Media | Error> {
+    try {
+      await this.saveFile(file);
+      var media = await this.createMedia(file.mimetype);
+      this.updateFilename(file.filename, media.id, media.mediaType);
+    } catch (err) {
+      return new Error('Internal Server Error');
+    }
+
+    return media;
+  }
+
   saveFile({ createReadStream, filename }: FileUpload): Promise<boolean> {
     return new Promise((resolve, reject) => {
       createReadStream().pipe(
@@ -25,7 +37,7 @@ export class MediaService {
     });
   }
 
-  async create(mediaType: string): Promise<Media> {
+  async createMedia(mediaType: string): Promise<Media> {
     const fileType = mediaType.split('/')[1];
     const newMedia = new Media(fileType);
     return await this.mediaRepository.save(newMedia);

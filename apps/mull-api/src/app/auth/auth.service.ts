@@ -26,7 +26,7 @@ export class AuthService {
     const users: User[] = await this.userService.findUnique(user.email, user.registrationMethod);
     if (users.length == 1) callback(null, users[0]);
     else {
-      const newUser = await this.userService.create(user as CreateUserInput);
+      const newUser = await this.userService.createUser(user as CreateUserInput);
       callback(null, newUser);
     }
   }

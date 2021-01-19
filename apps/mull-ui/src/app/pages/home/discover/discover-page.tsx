@@ -8,7 +8,7 @@ export const DiscoverPage = ({ history }) => {
   const { data } = useDiscoverEventsQuery({
     fetchPolicy: 'network-only',
     // TODO: dynamically pass current UserId
-    variables: { discoverEventsUserId: 1 },
+    variables: { userId: 1 },
   });
 
   if (data) {

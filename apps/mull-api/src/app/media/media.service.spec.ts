@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { unlinkSync } from 'fs';
 import { Media } from '../entities';
-import { mockFile, mockInvalidFile } from './media.mockdata';
+import { mockFile, mockInvalidFile, mockMedia } from './media.mockdata';
 import { MediaService } from './media.service';
 
 const mockMediaRepository = () => ({
@@ -40,8 +40,19 @@ describe('MediaService', () => {
     expect(service).toBeDefined();
   });
 
+  it('should upload a file', async () => {
+    const mockUploadedFile = await service.uploadFile(mockFile);
+    expect(mockUploadedFile).toEqual(mockMedia);
+  });
+
+  it('should not upload an invalid file', async () => {
+    const expectedError = new Error('Internal Server Error');
+    const errorMedia = await service.uploadFile(mockInvalidFile);
+    expect(errorMedia).toEqual(expectedError);
+  });
+
   it('should create media', async () => {
-    const returnedMedia = await service.create(mockFile.mimetype);
+    const returnedMedia = await service.createMedia(mockFile.mimetype);
     expect(returnedMedia.mediaType).toEqual(mockFile.mimetype.split('/')[1]);
   });
 
