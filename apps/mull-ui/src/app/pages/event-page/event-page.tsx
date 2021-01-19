@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { CreateEventInput, useEventQuery } from '../../../generated/graphql';
+import { CreateEventInput, useEventPageQuery } from '../../../generated/graphql';
 import { EventPageHeader, EventPageInfo } from '../../components';
 import './event-page.scss';
 
@@ -28,7 +28,7 @@ export const EventPage = ({
   const { id } = useParams<{ id: string }>();
   const eventId = parseInt(id);
 
-  const { loading, error, data } = useEventQuery({
+  const { loading, error, data } = useEventPageQuery({
     // TODO: dynamically pass current UserId
     variables: { eventId, userId: 1 },
     skip: !!event,

@@ -25,12 +25,14 @@ mutation Login($loginInput: LoginInput!) {
   login(loginInput: $loginInput) {
     accessToken
   }
+}
+
 # User joins an event
 mutation JoinEvent($eventId: Int!, $userId: Int!) {
-  addParticipantToEvent(eventId: $eventId, userId: $userId)
+  joinEvent(eventId: $eventId, userId: $userId)
 }
 
 # User leaves an event
 mutation LeaveEvent($eventId: Int!, $userId: Int!) {
-  removeParticipantFromEvent(eventId: $eventId, userId: $userId)
+  leaveEvent(eventId: $eventId, userId: $userId)
 }
