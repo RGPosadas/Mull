@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { setAccessToken } from './access-token';
 import './app.scss';
 import { BotNavBar, SubNavBar, TopNavBar } from './components';
+import { SubNavBarMsg } from './components/navigation/sub-nav-bar/sub-nav-bar-msg';
 import PrivateRoute from './components/private-route/private-route';
 import { UserProvider } from './context/user.context';
 import NotFoundPage from './pages/404/not-found-page';
@@ -109,6 +110,18 @@ export const App = () => {
               </SwipeableRoutes>
             </div>
           </PrivateRoute>
+          <Route path={ROUTES.MESSAGES}>
+            <SubNavBarMsg className="top-nav-bar-shadow" />
+            <div className="page-container with-sub-nav-bar">
+              <SwipeableRoutes>
+                {/* <Route path={ROUTES.GROUPCHAT} component={GroupChatPage} />
+                  <Route path={ROUTES.ANNOUNCEMENTS} component={AnnouncementsPage} /> */}
+                <Route exact path={ROUTES.MESSAGES}>
+                  <Redirect to={ROUTES.GROUPCHAT} />
+                </Route>
+              </SwipeableRoutes>
+            </div>
+          </Route>
           <PrivateRoute component={NotFoundPage} />
         </Switch>
 

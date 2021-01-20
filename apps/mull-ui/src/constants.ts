@@ -12,6 +12,8 @@ export const ROUTES = {
   CREATE_EVENT: '/create-event',
   TOOLS: '/tools',
   MESSAGES: '/messages',
+  GROUPCHAT: '/messages/group-chat',
+  ANNOUNCEMENTS: '/messages/announcements',
   PROFILE: '/profile',
   LOGIN: '/login',
   REGISTER: '/register',
