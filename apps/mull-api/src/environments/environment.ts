@@ -7,7 +7,7 @@ export const environment = {
     host: process.env.TYPEORM_HOST,
     username: process.env.TYPEORM_USERNAME,
     password: process.env.TYPEORM_PASSWORD,
-    port: 3306
+    port: 3306,
   },
   auth: {
     google: {
