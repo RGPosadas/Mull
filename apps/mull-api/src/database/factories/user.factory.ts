@@ -1,9 +1,9 @@
 import { RegistrationMethod } from '@mull/types';
-import * as Faker from 'faker';
 import { define, factory } from 'typeorm-seeding';
 import { Media, User } from '../../app/entities';
+import faker = require('faker');
 
-define(User, (faker: typeof Faker) => {
+define(User, () => {
   const user = new User();
 
   user.password = faker.internet.password();

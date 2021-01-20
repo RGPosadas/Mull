@@ -1,18 +1,19 @@
-import * as Faker from 'faker';
+import faker = require('faker');
 import { define, factory } from 'typeorm-seeding';
 import { Event, Media, User } from '../../app/entities';
 
-const maxNumberOfWords = 6;
-const maxCoHostNumber = 5;
-const maxParticipants = 30;
-
-define(Event, (faker: typeof Faker) => {
+define(Event, () => {
+  const maxNumberOfWords = 6;
+  const maxCoHostNumber = 5;
+  const maxParticipants = 30;
+  const startDate = faker.date.soon(faker.random.number(5));
+  const endDate = faker.date.soon(6 + faker.random.number(5));
   const event = new Event();
 
   event.title = faker.lorem.words(maxNumberOfWords);
   event.description = faker.lorem.paragraph();
-  event.startDate = faker.date.future();
-  event.endDate = faker.date.future();
+  event.startDate = startDate;
+  event.endDate = endDate;
   event.restriction = faker.random.number(3);
 
   event.host = factory(User)() as any;

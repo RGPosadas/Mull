@@ -1,6 +1,9 @@
 import { Connection } from 'typeorm';
 import { Factory, Seeder } from 'typeorm-seeding';
 import { Event } from '../../app/entities';
+import faker = require('faker');
+
+faker.seed(123);
 
 /**
  * For each user, add the next 3 users with greater id's as friends with the exception of the last 2 users
