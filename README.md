@@ -16,6 +16,7 @@
     - [Running a local database for development](#running-a-local-database-for-development)
     - [Working with GraphQL on the Frontend](#working-with-graphql-on-the-frontend)
     - [Building and Serving the application for production](#building-and-serving-the-application-for-production)
+  - [Populate database](#populate-database)
   - [Travis CI](#travis-ci)
     - [Scripts](#scripts)
   - [Troubleshooting](#troubleshooting)
@@ -71,9 +72,9 @@ Some secrets and sensitive configuration files are needed to properly operate ce
 1. Add an .env file with the required credentials in the root of the project (see `docs-and-resources` channel on slack for credentials):
 
    ```properties
-   DB_HOST=<host>
-   DB_USERNAME=<username>
-   DB_PASSWORD=<password>
+   TYPEORM_HOST=<host>
+   TYPEORM_USERNAME=<username>
+   TYPEORM_PASSWORD=<password>
    ...
    ```
 
@@ -213,6 +214,20 @@ To stop the container whilst keeping the database changes, run `docker stop mull
       - Add the `-S` option if using HTTPS
 1. Serve the production backend:
    - `node dist/apps/mull-api/main.js`
+
+### Populate database
+
+You can populate the database with random values:
+
+Prerequisite:
+
+- Update the .env with what's on drive
+
+seeding:
+
+1. Start the database, if running locally
+1. Run `npm run start mull-api` to update the columns (You don't have to have this running afte updating)
+1. Run `npm run seed:run`
 
 ## Travis CI
 

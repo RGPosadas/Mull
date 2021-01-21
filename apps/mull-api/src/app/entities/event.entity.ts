@@ -28,7 +28,7 @@ export class Event implements IEvent {
   id: number;
 
   @Field()
-  @Column()
+  @Column({ length: '64' })
   title: string;
 
   @Field()
@@ -40,7 +40,7 @@ export class Event implements IEvent {
   endDate: Date;
 
   @Field()
-  @Column()
+  @Column({ length: '2048' })
   description: string;
 
   @OneToOne(/* istanbul ignore next */ () => Media)
