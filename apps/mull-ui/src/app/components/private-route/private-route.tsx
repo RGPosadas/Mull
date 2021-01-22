@@ -7,9 +7,25 @@ export interface PrivateRouteProps extends RouteProps {
   children?: ReactNode;
 }
 
-const PrivateRoute = ({ children, ...rest }: PrivateRouteProps) => {
+const PrivateRoute = ({ component: Component, children, ...rest }: PrivateRouteProps) => {
   const { userId } = useContext(UserContext);
-  return <Route {...rest} render={() => (userId ? children : <Redirect to={ROUTES.LOGIN} />)} />;
+
+  return (
+    <Route
+      {...rest}
+      render={(props) => {
+        return userId ? (
+          children ? (
+            children
+          ) : (
+            <Component {...props} />
+          )
+        ) : (
+          <Redirect to={ROUTES.LOGIN} />
+        );
+      }}
+    />
+  );
 };
 
 export default PrivateRoute;
