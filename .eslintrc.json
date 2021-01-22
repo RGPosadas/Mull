@@ -22,8 +22,7 @@
             ]
           }
         ],
-        "@typescript-eslint/interface-name-prefix": "off",
-        "no-var": "off"
+        "@typescript-eslint/interface-name-prefix": "off"
       }
     },
     {
@@ -32,7 +31,9 @@
       "parserOptions": {
         "project": "./tsconfig.*?.json"
       },
-      "rules": {}
+      "rules": {
+        "no-var": "off"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

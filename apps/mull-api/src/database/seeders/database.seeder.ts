@@ -4,7 +4,6 @@ import { Event } from '../../app/entities';
 import faker = require('faker');
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/camelcase */
 
 faker.seed(123);
 

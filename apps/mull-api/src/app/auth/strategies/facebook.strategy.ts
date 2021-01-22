@@ -24,8 +24,6 @@ export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
     profile: Profile,
     done: (error: string, user?: Partial<User>, info?: unknown) => void
   ): Promise<void> {
-    // Facebook provides variables that are not camelcase
-    /* eslint-disable @typescript-eslint/camelcase */
     const { first_name, last_name, email } = profile._json;
     const user: Partial<User> = {
       name: `${first_name} ${last_name}`,
