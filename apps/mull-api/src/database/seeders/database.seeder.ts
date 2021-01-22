@@ -3,13 +3,16 @@ import { Factory, Seeder } from 'typeorm-seeding';
 import { Event } from '../../app/entities';
 import faker = require('faker');
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/camelcase */
+
 faker.seed(123);
 
 /**
  * For each user, add the next 3 users with greater id's as friends with the exception of the last 2 users
  * @param connection
  */
-/* eslint-disable @typescript-eslint/camelcase */
+
 const createFriends = async (connection: Connection) => {
   const a: any[] = await connection.query('SELECT id FROM `mull-dev`.user');
   for (let i = 0; i < a.length - 3; i++) {

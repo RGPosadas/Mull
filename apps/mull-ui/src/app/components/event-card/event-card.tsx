@@ -43,7 +43,7 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
         onClick={(e) => {
           e.stopPropagation();
           setJoined(!joined);
-          if (joined == false) {
+          if (joined === false) {
             joinEvent({ variables: { eventId, userId } });
           } else {
             leaveEvent({ variables: { eventId, userId } });

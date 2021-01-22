@@ -2,6 +2,8 @@ import faker = require('faker');
 import { define, factory } from 'typeorm-seeding';
 import { Event, Media, User } from '../../app/entities';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 define(Event, () => {
   const maxNumberOfWords = 6;
   const maxCoHostNumber = 5;

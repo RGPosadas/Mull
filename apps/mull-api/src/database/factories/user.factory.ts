@@ -3,6 +3,8 @@ import { define, factory } from 'typeorm-seeding';
 import { Media, User } from '../../app/entities';
 import faker = require('faker');
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 define(User, () => {
   const user = new User();
 
