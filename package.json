@@ -48,7 +48,7 @@
     "@fortawesome/react-fontawesome": "^0.1.12",
     "@material-ui/core": "^4.11.0",
     "@material-ui/lab": "^4.0.0-alpha.56",
-    "@nestjs/common": "^7.0.0",
+    "@nestjs/common": "^7.6.5",
     "@nestjs/core": "^7.0.0",
     "@nestjs/graphql": "^7.7.0",
     "@nestjs/jwt": "^7.2.0",
@@ -155,7 +155,7 @@
     "tsconfig-paths": "^3.9.0",
     "tslint": "6.1.3",
     "typescript": "4.0.5",
-    "wait-on": "^5.2.0",
-    "workbox-cli": "^5.1.3"
+    "wait-on": "^5.2.1",
+    "workbox-cli": "^6.0.2"
   }
 }
