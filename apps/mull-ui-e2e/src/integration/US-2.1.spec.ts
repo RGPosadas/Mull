@@ -4,6 +4,7 @@ import { frameSizes } from './../fixtures/frame-sizes';
 frameSizes.forEach((frame) => {
   describe(`US-2.1: Show events as a list discover page (${frame.name} view)`, () => {
     beforeEach(() => {
+      cy.mockRefreshRequest();
       cy.viewport(frame.res[0], frame.res[1]);
     });
 
