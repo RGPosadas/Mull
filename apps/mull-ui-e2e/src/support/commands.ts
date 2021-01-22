@@ -10,13 +10,20 @@
 // ***********************************************
 declare namespace Cypress {
   interface Chainable<Subject> {
-    login(email: string, password: string): void;
+    mockRefreshRequest(): void;
   }
 }
 //
 // -- This is a parent command --
-Cypress.Commands.add('login', (email, password) => {
-  console.log('Custom command example: Login', email, password);
+Cypress.Commands.add('mockRefreshRequest', () => {
+  cy.intercept('POST', 'http://localhost:3333/api/auth/refresh', {
+    statusCode: 201,
+    body: {
+      accessToken:
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTIsImlhdCI6MTYxMTI4OTc5MywiZXhwIjoxNjExMjkzNDM2LCJqdGkiOiJhMmU5NGRjNS03M2MzLTRmYjMtOGM4NS1lZGJiNDhiODlmY2IifQ.d8UHgMh8HglhAXtGj_Szkoctwa-SKBHFxFXQYn6FYHUs',
+      ok: true,
+    },
+  });
 });
 //
 // -- This is a child command --
