@@ -22,3 +22,35 @@
   position: relative;
   top: -1.2em;
 }
+
+.form-announcement {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 5em;
+}
+
+.announcement-send {
+  font-size: 14px;
+  height: 3em;
+  width: 91%;
+  border-radius: 2em;
+  border: 1.5px #27b09a solid;
+  margin: 0.5em;
+  padding: 0.5em;
+}
+
+.send-button {
+  border-radius: 100%;
+  border: 1px #27b09a solid;
+  background: #27b09a;
+  box-sizing: border-box;
+  padding: 0.5em;
+  position: relative;
+  bottom: 3.5em;
+  left: 86%;
+}
+
+.send-icon {
+  color: white;
+}
