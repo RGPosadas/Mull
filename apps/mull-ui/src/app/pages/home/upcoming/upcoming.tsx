@@ -21,7 +21,11 @@ export const UpcomingPage = ({ history }) => {
       />
     ));
   }
-  return <div className="discover-page-tabs-container">{eventCards}</div>;
+  return (
+    <div className="discover-page-tabs-container" data-testid="upcoming-tab">
+      {eventCards}
+    </div>
+  );
 };
 
 export default UpcomingPage;

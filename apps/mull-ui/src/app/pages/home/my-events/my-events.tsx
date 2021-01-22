@@ -23,7 +23,11 @@ export const MyEventsPage = ({ history }) => {
       />
     ));
   }
-  return <div className="discover-page-tabs-container">{eventCards}</div>;
+  return (
+    <div className="discover-page-tabs-container" data-testid="my-events-tab">
+      {eventCards}
+    </div>
+  );
 };
 
 export default MyEventsPage;
