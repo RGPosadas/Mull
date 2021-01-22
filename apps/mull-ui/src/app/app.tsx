@@ -8,6 +8,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ROUTES } from '../constants';
 import { environment } from '../environments/environment';
+import { setAccessToken } from './access-token';
 import './app.scss';
 import { BotNavBar, SubNavBar, TopNavBar } from './components';
 import PrivateRoute from './components/private-route/private-route';
@@ -28,7 +29,6 @@ export const App = () => {
   const location = useLocation();
   const [loading, setLoading] = useState<boolean>(true);
   const [userId, setUserId] = useState<number>(null);
-  const [accessToken, setAccessToken] = useState<string>(null);
 
   useEffect(() => {
     axios
@@ -66,7 +66,7 @@ export const App = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <UserProvider value={{ userId, setUserId, accessToken, setAccessToken }}>
+    <UserProvider value={{ userId, setUserId }}>
       <div>
         {/* Redirects to discover tab when user is home */}
         <PrivateRoute exact path={['/', ROUTES.HOME]}>
