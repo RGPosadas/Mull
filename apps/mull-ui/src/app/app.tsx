@@ -21,6 +21,7 @@ import DiscoverPage from './pages/home/discover/discover-page';
 import MyEventsPage from './pages/home/my-events/my-events';
 import UpcomingPage from './pages/home/upcoming/upcoming';
 import LoginPage from './pages/login/login';
+import AnnouncementsPage from './pages/messages/announcements/announcements';
 import RegisterPage from './pages/register/register';
 import TokenRedirectPage from './pages/token-redirect/token-redirect';
 
@@ -114,8 +115,8 @@ export const App = () => {
             <SubNavBarMsg className="top-nav-bar-shadow" />
             <div className="page-container with-sub-nav-bar">
               <SwipeableRoutes>
-                {/* <Route path={ROUTES.GROUPCHAT} component={GroupChatPage} />
-                  <Route path={ROUTES.ANNOUNCEMENTS} component={AnnouncementsPage} /> */}
+                {/* <Route path={ROUTES.GROUPCHAT} component={GroupChatPage} /> */}
+                <Route path={ROUTES.ANNOUNCEMENTS} component={AnnouncementsPage} />
                 <Route exact path={ROUTES.MESSAGES}>
                   <Redirect to={ROUTES.GROUPCHAT} />
                 </Route>

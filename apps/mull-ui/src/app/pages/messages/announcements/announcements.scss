@@ -1,0 +1,24 @@
+.announcement-time {
+  text-align: center;
+  position: relative;
+  top: 0.5em;
+  color: #bbbbbb;
+}
+
+.profile-picture {
+  width: 2.2em;
+  height: 2.2em;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0.5em;
+}
+
+.announcement-posted {
+  background-color: #eaeaea;
+  border-radius: 1em;
+  padding: 0.5em;
+  width: 75%;
+  display: inline-flex;
+  position: relative;
+  top: -1.2em;
+}
