@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { setAccessToken } from './access-token';
 import './app.scss';
 import { BotNavBar, SubNavBar, TopNavBar } from './components';
+import SubNavBarHeader from './components/navigation/sub-nav-bar/sub-nav-bar-header';
 import { SubNavBarMsg } from './components/navigation/sub-nav-bar/sub-nav-bar-msg';
 import PrivateRoute from './components/private-route/private-route';
 import { UserProvider } from './context/user.context';
@@ -52,7 +53,7 @@ export const App = () => {
   });
 
   const getTopBarStyle = (): CSSProperties => {
-    if (location.pathname.includes(ROUTES.HOME)) {
+    if (location.pathname.includes(ROUTES.HOME) || location.pathname.includes(ROUTES.MESSAGES)) {
       return { boxShadow: 'none' };
     }
     return {};
@@ -112,7 +113,8 @@ export const App = () => {
             </div>
           </PrivateRoute>
           <Route path={ROUTES.MESSAGES}>
-            <SubNavBarMsg className="top-nav-bar-shadow" />
+            <SubNavBarHeader eventTitle="Clean up Rogers Park" />
+            <SubNavBarMsg className="with-header top-nav-bar-shadow" />
             <div className="page-container with-sub-nav-bar">
               <SwipeableRoutes>
                 {/* <Route path={ROUTES.GROUPCHAT} component={GroupChatPage} /> */}

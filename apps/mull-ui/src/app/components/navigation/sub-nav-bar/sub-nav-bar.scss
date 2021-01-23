@@ -10,6 +10,11 @@
 
   // Needed since SubNavBar can't be positioned at the end of the page, since it must be part of the home route
   z-index: 2;
+
+  &.with-header {
+    top: 5.75rem;
+    padding: 0.7rem 0 0 0;
+  }
 }
 
 .inner-cont,
@@ -41,6 +46,10 @@
   .sub-nav-bar-container {
     top: $top-nav-bar-height-desktop;
     height: $sub-nav-bar-height-desktop;
+    &.with-header {
+      top: 8.25rem;
+      padding: 1rem 0 0 0 0;
+    }
   }
 
   .inner-cont {
