@@ -21,7 +21,11 @@ export const DiscoverPage = ({ history }) => {
       />
     ));
   }
-  return <div className="discover-page-tabs-container">{eventCards}</div>;
+  return (
+    <div className="discover-page-tabs-container" data-testid="discover-tab">
+      {eventCards}
+    </div>
+  );
 };
 
 export default DiscoverPage;
