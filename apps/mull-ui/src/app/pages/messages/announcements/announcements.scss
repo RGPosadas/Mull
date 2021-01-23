@@ -1,43 +1,57 @@
 .announcement-time {
+  font-size: 0.875rem;
   text-align: center;
   position: relative;
-  top: 0.5em;
+  top: 0.5rem;
   color: #bbbbbb;
 }
 
-.profile-picture {
-  width: 2.2em;
-  height: 2.2em;
+.host-picture {
+  left: 85%;
+}
+
+.host-picture,
+.participant-picture {
+  width: 2.2rem;
+  height: 2.2rem;
   object-fit: cover;
   border-radius: 50%;
-  margin: 0.5em;
+  margin: 0.5rem;
+  position: relative;
+  top: 0.2em;
 }
 
 .announcement-posted {
+  background-color: #a8dfd6 !important;
+  right: 8%;
+}
+
+.announcement-posted,
+.announcement-read {
   background-color: #eaeaea;
-  border-radius: 1em;
-  padding: 0.5em;
+  border-radius: 1rem;
+  padding: 0.5rem;
   width: 75%;
   display: inline-flex;
   position: relative;
-  top: -1.2em;
+  top: -1.2rem;
 }
 
 .form-announcement {
-  position: fixed;
+  position: relative;
   bottom: 0;
   width: 100%;
-  height: 5em;
+  height: 5rem;
 }
 
 .announcement-send {
   font-size: 14px;
-  height: 3em;
-  width: 91%;
-  border-radius: 2em;
+  height: 3rem;
+  width: 77%;
+  border-radius: 2rem;
   border: 1.5px #27b09a solid;
-  margin: 0.5em;
-  padding: 0.5em;
+  margin: 0.5rem;
+  padding: 0.5rem;
 }
 
 .send-button {
@@ -45,10 +59,9 @@
   border: 1px #27b09a solid;
   background: #27b09a;
   box-sizing: border-box;
-  padding: 0.5em;
-  position: relative;
-  bottom: 3.5em;
-  left: 86%;
+  padding: 0.5rem;
+  bottom: 3.8rem;
+  left: 85%;
 }
 
 .send-icon {
