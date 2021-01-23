@@ -1,4 +1,4 @@
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faImages, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import './announcements.scss';
@@ -81,6 +81,9 @@ export const AnnouncementsPage = ({ history }) => {
       </div>
       <div className="announcement-box">
         <form className="form-announcement">
+          <button className="add-picture-button">
+            {<FontAwesomeIcon icon={faImages} className="add-picture-icon" />}
+          </button>
           <input
             type="text"
             className="announcement-send"
@@ -94,5 +97,4 @@ export const AnnouncementsPage = ({ history }) => {
     </div>
   );
 };
-
 export default AnnouncementsPage;
