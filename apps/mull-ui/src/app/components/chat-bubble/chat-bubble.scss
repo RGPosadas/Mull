@@ -1,0 +1,41 @@
+.chat-container {
+  margin: 1rem 0;
+}
+
+.host-chat-container {
+  flex-direction: row-reverse !important;
+  .chat-bubble {
+    background-color: #a8dfd6 !important;
+  }
+}
+
+.participant-chat-container {
+  .chat-bubble {
+    background-color: #eaeaea;
+  }
+}
+
+.host-chat-container,
+.participant-chat-container {
+  display: flex;
+  .chat-bubble {
+    border-radius: 1rem;
+    padding: 0.75rem;
+    display: inline-flex;
+    align-self: center;
+  }
+}
+
+.announcement-time {
+  font-size: 0.875rem;
+  text-align: center;
+  color: #bbbbbb;
+}
+
+.user-picture {
+  width: 2.2rem;
+  height: 2.2rem;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0.5rem;
+}
