@@ -14,12 +14,10 @@ describe('Register', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderHelper = (history: History, mocks: MockedResponse<Record<string, any>>[] = []) => {
     const setUserId = jest.fn();
-    const userId = null,
-      accessToken = null;
-    const setAccessToken = jest.fn();
+    const userId = null;
 
     return (
-      <UserProvider value={{ userId, setUserId, accessToken, setAccessToken }}>
+      <UserProvider value={{ userId, setUserId }}>
         <MockedProvider mocks={mocks}>
           <Router history={history}>
             <Register history={history} />

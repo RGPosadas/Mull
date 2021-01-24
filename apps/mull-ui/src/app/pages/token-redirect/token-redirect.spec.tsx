@@ -3,14 +3,14 @@ import { render } from '@testing-library/react';
 import { createMemoryHistory, History } from 'history';
 import React from 'react';
 import { MemoryRouter, Route } from 'react-router-dom';
+import { setAccessToken } from '../../access-token';
 import { UserProvider } from '../../context/user.context';
 import TokenRedirectPage from './token-redirect';
+jest.mock('../../access-token');
 
 const mockUserProvider = () => ({
   setUserId: jest.fn(),
   userId: null,
-  accessToken: null,
-  setAccessToken: jest.fn(),
 });
 
 describe('TokenRedirectPage', () => {
@@ -36,7 +36,7 @@ describe('TokenRedirectPage', () => {
     const mockProvider = mockUserProvider();
     const history = createMemoryHistory();
     render(renderHelper(history, '123', mockProvider));
-    expect(mockProvider.setAccessToken).not.toBeCalled();
+    expect(setAccessToken).not.toBeCalled();
     expect(mockProvider.setUserId).not.toBeCalled();
   });
 
@@ -50,7 +50,7 @@ describe('TokenRedirectPage', () => {
         mockProvider
       )
     );
-    expect(mockProvider.setAccessToken).toBeCalled();
+    expect(setAccessToken).toBeCalled();
     expect(mockProvider.setUserId).toBeCalled();
   });
 });

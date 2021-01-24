@@ -11,9 +11,7 @@ import Login from './login';
 describe('Login', () => {
   const renderHelper = (history: History) => {
     const setUserId = jest.fn();
-    const userId = null,
-      accessToken = null;
-    const setAccessToken = jest.fn();
+    const userId = null;
     const { location } = window;
     // Stops tests from being redirected to OAuth Provider websites
     beforeEach(() => {
@@ -28,7 +26,7 @@ describe('Login', () => {
     });
 
     return (
-      <UserProvider value={{ userId, setUserId, accessToken, setAccessToken }}>
+      <UserProvider value={{ userId, setUserId }}>
         <MockedProvider>
           <Router history={history}>
             <Login history={history} />

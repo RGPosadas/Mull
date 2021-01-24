@@ -5,6 +5,7 @@ import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ROUTES } from '../../../constants';
+import { setAccessToken } from '../../access-token';
 import UserContext from '../../context/user.context';
 
 export interface TokenRedirectPageProps {
@@ -12,7 +13,7 @@ export interface TokenRedirectPageProps {
 }
 
 const TokenRedirectPage = ({ history }: TokenRedirectPageProps) => {
-  const { setAccessToken, setUserId } = useContext(UserContext);
+  const { setUserId } = useContext(UserContext);
   const { token } = useParams<{ token: string }>();
 
   useEffect(() => {

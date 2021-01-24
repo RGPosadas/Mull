@@ -73,3 +73,8 @@ export type GqlContext = {
   req: Request;
   res: Response;
 };
+
+export interface IRefreshResponse {
+  ok: boolean;
+  accessToken: string;
+}

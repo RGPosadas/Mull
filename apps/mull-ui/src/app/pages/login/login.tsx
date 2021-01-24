@@ -12,6 +12,7 @@ import logo from '../../../assets/mull-logo.png';
 import { ROUTES } from '../../../constants';
 import { environment } from '../../../environments/environment';
 import { useLoginMutation } from '../../../generated/graphql';
+import { setAccessToken } from '../../access-token';
 import { CustomTextInput } from '../../components';
 import UserContext from '../../context/user.context';
 import { useToast } from '../../hooks/useToast';
@@ -23,7 +24,7 @@ export interface LoginProps {
 
 export const Login = ({ history }: LoginProps) => {
   const [login] = useLoginMutation();
-  const { setUserId, setAccessToken } = useContext(UserContext);
+  const { setUserId } = useContext(UserContext);
   const { notifyToast, updateToast } = useToast();
 
   const handleOAuthButtonClick = (oAuthProvider: string) => {

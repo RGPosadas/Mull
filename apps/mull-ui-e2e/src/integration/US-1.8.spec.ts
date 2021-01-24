@@ -5,6 +5,7 @@ import { frameSizes } from './../fixtures/frame-sizes';
 frameSizes.forEach((frame) => {
   describe(`US-1.8: Review Event Creation (${frame.name} view)`, () => {
     beforeEach(() => {
+      cy.mockRefreshRequest();
       cy.viewport(frame.res[0], frame.res[1]);
       cy.visit('http://localhost:4200/create-event', geolocationStub);
     });

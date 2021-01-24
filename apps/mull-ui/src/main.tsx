@@ -1,8 +1,10 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import { createUploadLink } from 'apollo-upload-client';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { getAccessToken } from './app/access-token';
 import App from './app/app';
 import { environment } from './environments/environment';
 
@@ -21,11 +23,26 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+const uploadLink = createUploadLink({
+  uri: `${environment.backendUrl}/graphql`,
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = getAccessToken();
+  // return the headers to the context so httpLink can read them
+  return {
+    credentials: 'include',
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
 const client = new ApolloClient({
-  link: createUploadLink({
-    uri: `${environment.backendUrl}/graphql`,
-  }),
+  link: authLink.concat(uploadLink),
   cache: new InMemoryCache(),
+  credentials: 'include',
   defaultOptions: {
     watchQuery: {
       fetchPolicy: 'network-only',

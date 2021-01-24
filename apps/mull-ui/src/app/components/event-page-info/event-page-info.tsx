@@ -43,6 +43,16 @@ export const EventPageInfo = ({
 
   const [joined, setJoined] = useState<boolean>(isJoined);
 
+  const handleJoinEventButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    e.stopPropagation();
+    setJoined(!joined);
+    if (joined) {
+      leaveEvent({ variables: { eventId, userId } });
+    } else {
+      joinEvent({ variables: { eventId, userId } });
+    }
+  };
+
   return (
     <div className={`event-page-info-container ${className}`}>
       <div className="info-row">
@@ -90,15 +100,7 @@ export const EventPageInfo = ({
       </div>
       <MullButton
         className={`event-page-button ${joined ? 'event-page-joined-button' : ''}`}
-        onClick={(e) => {
-          e.stopPropagation();
-          setJoined(!joined);
-          if (joined) {
-            leaveEvent({ variables: { eventId, userId } });
-          } else {
-            joinEvent({ variables: { eventId, userId } });
-          }
-        }}
+        onClick={isReview ? null : handleJoinEventButton}
         type={buttonType}
       >
         {joined ? 'Leave' : isReview ? 'Create' : 'Join'}
