@@ -115,7 +115,7 @@ export const App = () => {
           <Route path={ROUTES.MESSAGES}>
             <SubNavBarHeader eventTitle="Clean up Rogers Park" />
             <SubNavBarMsg className="with-header top-nav-bar-shadow" />
-            <div className="page-container with-sub-nav-bar">
+            <div className="page-container with-sub-nav-and-header">
               <SwipeableRoutes>
                 {/* <Route path={ROUTES.GROUPCHAT} component={GroupChatPage} /> */}
                 <Route path={ROUTES.ANNOUNCEMENTS} component={AnnouncementsPage} />

@@ -19,6 +19,11 @@
   &.with-sub-nav-bar {
     margin-top: $top-nav-bar-height-mobile + $sub-nav-bar-height-mobile !important;
   }
+
+  &.with-sub-nav-and-header {
+    margin-top: $top-nav-bar-height-mobile + $sub-nav-bar-height-mobile +
+      $top-nav-header-height-mobile !important;
+  }
 }
 
 .Toastify__toast--success {
@@ -49,6 +54,11 @@
 
     &.with-sub-nav-bar {
       margin-top: $top-nav-bar-height-desktop + $sub-nav-bar-height-desktop !important;
+    }
+
+    &.with-sub-nav-and-header {
+      margin-top: $top-nav-bar-height-desktop + $sub-nav-bar-height-desktop +
+        $top-nav-header-height-desktop !important;
     }
   }
 }
