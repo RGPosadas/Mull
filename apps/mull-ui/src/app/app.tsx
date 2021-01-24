@@ -69,8 +69,18 @@ export const App = () => {
 
         {/* Switch for main page */}
         <Switch>
-          <Route exact path={ROUTES.LOGIN} component={LoginPage} />
-          <Route exact path={ROUTES.REGISTER} component={RegisterPage} />
+          <Route
+            exact
+            path={ROUTES.LOGIN}
+            render={(props) => (userId ? <Redirect to={ROUTES.HOME} /> : <LoginPage {...props} />)}
+          />
+          <Route
+            exact
+            path={ROUTES.REGISTER}
+            render={(props) =>
+              userId ? <Redirect to={ROUTES.HOME} /> : <RegisterPage {...props} />
+            }
+          />
           <Route exact path={ROUTES.TOKEN_REDIRECT} component={TokenRedirectPage} />
           <PrivateRoute exact path={ROUTES.CREATE_EVENT} component={CreateEventPage} />
           <Route
