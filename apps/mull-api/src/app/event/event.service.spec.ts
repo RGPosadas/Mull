@@ -3,13 +3,10 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Event } from '../entities';
 import { mockAllUsers } from '../user/user.mockdata';
+import { MockType } from '../user/user.service.spec';
 import { mockAllEvents, mockPartialEvent } from './event.mockdata';
 import { EventService } from './event.service';
 import { CreateEventInput } from './inputs/event.input';
-
-export type MockType<T> = {
-  [P in keyof T]: jest.Mock<{}>;
-};
 
 const mockEventRepository = () => ({
   create: jest.fn((mockUserData: CreateEventInput) => ({ ...mockUserData })),

@@ -2,6 +2,7 @@
   "recommendations": [
     "esbenp.prettier-vscode",
     "nrwl.angular-console",
-    "yzhang.markdown-all-in-one"
+    "yzhang.markdown-all-in-one",
+    "firsttris.vscode-jest-runner"
   ]
 }

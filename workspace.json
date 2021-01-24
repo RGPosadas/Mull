@@ -48,7 +48,8 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@nrwl/web:dev-server",
@@ -62,20 +63,28 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "tsConfig": ["apps/mull-ui/tsconfig.app.json", "apps/mull-ui/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!apps/mull-ui/**/*"]
+            "lintFilePatterns": [
+              "apps/mull-ui/**/*.js",
+              "apps/mull-ui/**/*.jsx",
+              "apps/mull-ui/**/*.ts",
+              "apps/mull-ui/**/*.tsx",
+              "apps/mull-ui/**/*.spec.ts",
+              "apps/mull-ui/**/*.spec.tsx",
+              "apps/mull-ui/**/*.spec.js",
+              "apps/mull-ui/**/*.spec.jsx",
+              "apps/mull-ui/**/*.d.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/mull-ui/jest.config.js",
-            "tsConfig": "apps/mull-ui/tsconfig.spec.json",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/mull-ui"]
         }
       }
     },
@@ -98,11 +107,9 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "tsConfig": ["apps/mull-ui-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/mull-ui-e2e/**/*"]
+            "lintFilePatterns": ["apps/mull-ui-e2e/src/**/*.ts", "apps/mull-ui-e2e/src/**/*.js"]
           }
         }
       }
@@ -135,7 +142,8 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@nrwl/node:execute",
@@ -144,20 +152,22 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "tsConfig": ["apps/mull-api/tsconfig.app.json", "apps/mull-api/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!apps/mull-api/**/*"]
+            "lintFilePatterns": [
+              "apps/mull-api/**/*.ts",
+              "apps/mull-api/**/*.spec.ts",
+              "apps/mull-api/**/*.d.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/mull-api/jest.config.js",
-            "tsConfig": "apps/mull-api/tsconfig.spec.json",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/mull-api"]
         }
       }
     },
@@ -168,20 +178,25 @@
       "schematics": {},
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "tsConfig": ["libs/types/tsconfig.lib.json", "libs/types/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/types/**/*"]
+            "lintFilePatterns": [
+              "libs/types/**/*.ts",
+              "libs/types/**/*.spec.ts",
+              "libs/types/**/*.spec.tsx",
+              "libs/types/**/*.spec.js",
+              "libs/types/**/*.spec.jsx",
+              "libs/types/**/*.d.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/types/jest.config.js",
-            "tsConfig": "libs/types/tsconfig.spec.json",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/types"]
         }
       }
     }

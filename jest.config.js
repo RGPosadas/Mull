@@ -1,10 +1,3 @@
 module.exports = {
-  testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
-  transform: {
-    '^.+\\.(ts|js|html)$': 'ts-jest',
-  },
-  resolver: '@nrwl/jest/plugins/resolver',
-  moduleFileExtensions: ['ts', 'js', 'html'],
-  collectCoverage: true,
-  coverageReporters: ['text', 'lcov'],
+  projects: ['<rootDir>/apps/mull-ui', '<rootDir>/apps/mull-api', '<rootDir>/libs/types'],
 };

@@ -8,7 +8,7 @@ import { mockAllUsers, mockPartialUser } from './user.mockdata';
 import { UserService } from './user.service';
 
 export type MockType<T> = {
-  [P in keyof T]: jest.Mock<{}>;
+  [P in keyof T]: jest.Mock<unknown>;
 };
 
 const mockUserRepository = () => ({

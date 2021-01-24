@@ -1,4 +1,5 @@
-require('dotenv').config();
+import dotenv = require('dotenv');
+dotenv.config();
 
 export const environment = {
   production: false,
