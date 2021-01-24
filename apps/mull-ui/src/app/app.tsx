@@ -47,14 +47,7 @@ export const App = () => {
         }
         setLoading(false);
       });
-  }, []);
-
-  const showNavigation = () => {
-    if ([ROUTES.LOGIN, ROUTES.REGISTER].includes(location.pathname)) {
-      return false;
-    }
-    return true;
-  };
+  });
 
   const getTopBarStyle = (): CSSProperties => {
     if (location.pathname.includes(ROUTES.HOME)) {
@@ -119,7 +112,7 @@ export const App = () => {
           pauseOnHover
         />
 
-        {showNavigation() ? (
+        {userId ? (
           <>
             <TopNavBar style={getTopBarStyle()} />
             <BotNavBar />
