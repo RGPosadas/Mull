@@ -13,7 +13,7 @@ import './app.scss';
 import { BotNavBar, SubNavBar, TopNavBar } from './components';
 import PrivateRoute from './components/private-route/private-route';
 import { UserProvider } from './context/user.context';
-import NotFoundPage from './pages/404/not-found';
+import NotFoundPage from './pages/404/not-found-page';
 import CreateEventPage from './pages/create-event/create-event';
 import EventPage from './pages/event-page/event-page';
 import DiscoverPage from './pages/home/discover/discover-page';
@@ -107,7 +107,7 @@ export const App = () => {
               </SwipeableRoutes>
             </div>
           </PrivateRoute>
-          <Route component={NotFoundPage} />
+          <PrivateRoute component={NotFoundPage} />
         </Switch>
 
         <ToastContainer
