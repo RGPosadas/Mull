@@ -12,6 +12,19 @@
   .custom-file-upload-container {
     margin-right: 1rem;
   }
+  .chat-input-button {
+    position: absolute;
+    bottom: 0.4rem;
+    right: 0.5rem;
+    border-radius: 100%;
+    border: 1px #27b09a solid;
+    background: #27b09a;
+    box-sizing: border-box;
+    padding: 0.3em;
+    svg {
+      color: white;
+    }
+  }
   svg {
     color: #27b09a;
     &.custom-file-upload-icon {
