@@ -2,6 +2,7 @@ import { IAuthToken, IRefreshResponse } from '@mull/types';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import React, { CSSProperties, useEffect, useState } from 'react';
+import { hotjar } from 'react-hotjar';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import SwipeableRoutes from 'react-swipeable-routes';
 import { toast, ToastContainer } from 'react-toastify';
@@ -30,6 +31,9 @@ export const App = () => {
   const location = useLocation();
   const [loading, setLoading] = useState<boolean>(true);
   const [userId, setUserId] = useState<number>(null);
+
+  /* Gather usability testing data */
+  hotjar.initialize(2213606, 6);
 
   useEffect(() => {
     axios

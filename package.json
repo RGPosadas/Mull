@@ -81,6 +81,7 @@
     "passport-twitter": "^1.0.4",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-hotjar": "^2.2.1",
     "react-nice-dates": "^3.0.7",
     "react-router-dom": "5.2.0",
     "react-swipeable-routes": "^0.8.0",

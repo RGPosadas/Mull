@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mull-backend
-          image: 'ritchellegmp/mull-backend:latest'
+          image: 'ritchellegmp/mull-backend:usability-testing-release-2'
           imagePullPolicy: Always
           ports:
             - name: backend
