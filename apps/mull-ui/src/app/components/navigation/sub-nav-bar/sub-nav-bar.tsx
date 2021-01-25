@@ -1,21 +1,29 @@
+import { IRoutes } from '@mull/types';
 import React, { CSSProperties } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ROUTES } from '../../../../constants';
 import './sub-nav-bar.scss';
 
 export interface SubNavBarProps {
   style?: CSSProperties;
   className?: string;
+  routes?: IRoutes[];
 }
 
-var homeTabs = [ROUTES.DISCOVER, ROUTES.UPCOMING, ROUTES.MY_EVENTS];
+// var homeTabs = [ROUTES.DISCOVER, ROUTES.UPCOMING, ROUTES.MY_EVENTS];
 
-var messagesTabs = [ROUTES.GROUPCHAT, ROUTES.ANNOUNCEMENTS];
+// var messagesTabs = [ROUTES.GROUPCHAT, ROUTES.ANNOUNCEMENTS];
 
-export const SubNavBar = ({ style, className }: SubNavBarProps) => {
-  var nbOfTabs = (location.pathname.includes('home') ? homeTabs : messagesTabs).map((page) => {
+export const SubNavBar = ({ style, className, routes }: SubNavBarProps) => {
+  var nbOfTabs = routes.map((page) => {
+    var testid = 'subnavigation-' + page.displayName.toLowerCase().replace(' ', '') + '-button';
     return (
-      <NavLink to={page.url} className="subnavigation-link" activeClassName="active">
+      <NavLink
+        key={page.url}
+        to={page.url}
+        className="subnavigation-link"
+        activeClassName="active"
+        data-testid={testid}
+      >
         {page.displayName}
       </NavLink>
     );
@@ -26,32 +34,5 @@ export const SubNavBar = ({ style, className }: SubNavBarProps) => {
     </div>
   );
 };
-
-{
-  /* 
-        <NavLink
-          to={ROUTES.DISCOVER}
-          className="subnavigation-link"
-          data-testid="subnavigation-discover-button"
-        >
-          Discover
-        </NavLink>
-        <NavLink
-          to={ROUTES.UPCOMING}
-          className="subnavigation-link"
-          activeClassName="active"
-          data-testid="subnavigation-upcoming-button"
-        >
-          Upcoming
-        </NavLink>
-        <NavLink
-          to={ROUTES.MY_EVENTS}
-          className="subnavigation-link"
-          activeClassName="active"
-          data-testid="subnavigation-myEvents-button"
-        >
-          My Events
-        </NavLink> */
-}
 
 export default SubNavBar;

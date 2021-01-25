@@ -104,7 +104,10 @@ export const App = () => {
             }
           />
           <PrivateRoute path={ROUTES.HOME}>
-            <SubNavBar className="top-nav-bar-shadow" />
+            <SubNavBar
+              routes={[ROUTES.DISCOVER, ROUTES.UPCOMING, ROUTES.MY_EVENTS]}
+              className="top-nav-bar-shadow"
+            />
             <div className="page-container with-sub-nav-bar">
               <SwipeableRoutes>
                 <PrivateRoute path={ROUTES.DISCOVER.url} component={DiscoverPage} />
@@ -118,7 +121,10 @@ export const App = () => {
           </PrivateRoute>
           <PrivateRoute path={ROUTES.MESSAGES}>
             <SubNavBarHeader eventTitle="Clean up Rogers Park" />
-            <SubNavBar className="with-header top-nav-bar-shadow" />
+            <SubNavBar
+              routes={[ROUTES.GROUPCHAT, ROUTES.ANNOUNCEMENTS]}
+              className="with-header top-nav-bar-shadow"
+            />
             <div className="page-container with-sub-nav-and-header">
               <SwipeableRoutes>
                 {/* <Route path={ROUTES.GROUPCHAT} component={GroupChatPage} /> */}

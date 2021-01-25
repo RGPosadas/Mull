@@ -12,7 +12,7 @@ describe('SubNavBar', () => {
 
     const { baseElement } = render(
       <Router history={history}>
-        <SubNavBar />
+        <SubNavBar routes={[ROUTES.DISCOVER, ROUTES.UPCOMING, ROUTES.MY_EVENTS]} />
       </Router>
     );
 
@@ -21,15 +21,15 @@ describe('SubNavBar', () => {
 
   it('should have the correct button active based on the url', () => {
     const testIds = {
-      [ROUTES.DISCOVER]: 'subnavigation-discover-button',
-      [ROUTES.UPCOMING]: 'subnavigation-upcoming-button',
-      [ROUTES.MY_EVENTS]: 'subnavigation-myEvents-button',
+      [ROUTES.DISCOVER.url]: 'subnavigation-discover-button',
+      [ROUTES.UPCOMING.url]: 'subnavigation-upcoming-button',
+      [ROUTES.MY_EVENTS.url]: 'subnavigation-myevents-button',
     };
     const history = createMemoryHistory();
 
     const utils = render(
       <Router history={history}>
-        <SubNavBar />
+        <SubNavBar routes={[ROUTES.DISCOVER, ROUTES.UPCOMING, ROUTES.MY_EVENTS]} />
       </Router>
     );
 
@@ -45,7 +45,7 @@ describe('SubNavBar', () => {
     const tree = renderer
       .create(
         <Router history={history}>
-          <SubNavBar />
+          <SubNavBar routes={[ROUTES.DISCOVER, ROUTES.UPCOMING, ROUTES.MY_EVENTS]} />
         </Router>
       )
       .toJSON();

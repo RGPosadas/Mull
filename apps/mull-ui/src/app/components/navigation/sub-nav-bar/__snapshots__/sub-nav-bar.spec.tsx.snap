@@ -28,7 +28,7 @@ exports[`SubNavBar should match snapshot 1`] = `
     <a
       aria-current={null}
       className="subnavigation-link"
-      data-testid="subnavigation-myEvents-button"
+      data-testid="subnavigation-myevents-button"
       href="/home/myevents"
       onClick={[Function]}
     >
