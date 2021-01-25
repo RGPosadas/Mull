@@ -31,7 +31,7 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
       <img
         className="event-card-image"
         // TODO: Replace placeholder
-        src="https://www.citywindsor.ca/residents/parksandforestry/City-Parks/PublishingImages/Assumption%20Park%20Street%20View.JPG"
+        src="https://uptownalmanac.com/sites/default/files/styles/full-post-width/public/images-on-cdn/dptrash.jpg?itok=N7RFjtgc"
         alt="Event"
       />
       <div className="event-card-datetime" data-testid="event-card-datetime">

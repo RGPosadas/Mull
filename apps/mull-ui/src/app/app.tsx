@@ -89,7 +89,9 @@ export const App = () => {
             children={
               <EventPage
                 // TODO: Remove placeholder once file download is done
-                eventImageURL={'https://i.ytimg.com/vi/-Mb3FoIlTCY/maxresdefault.jpg'}
+                eventImageURL={
+                  'https://uptownalmanac.com/sites/default/files/styles/full-post-width/public/images-on-cdn/dptrash.jpg?itok=N7RFjtgc'
+                }
                 prevPage="Discover"
               />
             }

@@ -11,7 +11,7 @@ frameSizes.forEach((frame) => {
     });
 
     it('should preview the event', () => {
-      cy.get('#imageFile').attachFile('../fixtures/zoro.jpg');
+      cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
       cy.get('#startTime').type('11:20');
       cy.get('#endTime').type('15:20');
       cy.get('#eventTitle').type('test title');
@@ -43,7 +43,7 @@ frameSizes.forEach((frame) => {
     });
 
     it('should preview the event, then allow the user to edit the form', () => {
-      cy.get('#imageFile').attachFile('../fixtures/zoro.jpg');
+      cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
       cy.get('#startTime').type('11:20');
       cy.get('#endTime').type('15:20');
       cy.get('#eventTitle').type('test title');
