@@ -12,5 +12,7 @@ export * from './mull-button/mull-button';
 export * from './navigation/bot-nav-bar/bot-nav-bar';
 export * from './navigation/nav-buttons/nav-buttons';
 export * from './navigation/sub-nav-bar/sub-nav-bar';
+export * from './navigation/sub-nav-bar/sub-nav-bar-header';
 export * from './navigation/top-nav-bar/top-nav-bar';
 export * from './pill-options/pill-options';
+export * from './private-route/private-route';

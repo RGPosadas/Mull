@@ -10,9 +10,14 @@ import { ROUTES } from '../constants';
 import { environment } from '../environments/environment';
 import { setAccessToken } from './access-token';
 import './app.scss';
-import { BotNavBar, ChatInput, SubNavBar, TopNavBar } from './components';
-import SubNavBarHeader from './components/navigation/sub-nav-bar/sub-nav-bar-header';
-import PrivateRoute from './components/private-route/private-route';
+import {
+  BotNavBar,
+  ChatInput,
+  PrivateRoute,
+  SubNavBar,
+  SubNavBarHeader,
+  TopNavBar,
+} from './components';
 import { UserProvider } from './context/user.context';
 import NotFoundPage from './pages/404/not-found-page';
 import CreateEventPage from './pages/create-event/create-event';
