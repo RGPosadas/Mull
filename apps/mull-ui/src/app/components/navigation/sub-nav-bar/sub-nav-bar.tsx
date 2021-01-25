@@ -8,10 +8,27 @@ export interface SubNavBarProps {
   className?: string;
 }
 
+var homeTabs = [ROUTES.DISCOVER, ROUTES.UPCOMING, ROUTES.MY_EVENTS];
+
+var messagesTabs = [ROUTES.GROUPCHAT, ROUTES.ANNOUNCEMENTS];
+
 export const SubNavBar = ({ style, className }: SubNavBarProps) => {
+  var nbOfTabs = (location.pathname.includes('home') ? homeTabs : messagesTabs).map((page) => {
+    return (
+      <NavLink to={page.url} className="subnavigation-link" activeClassName="active">
+        {page.displayName}
+      </NavLink>
+    );
+  });
   return (
     <div className={`sub-nav-bar-container ${className}`} style={style}>
-      <div className="inner-cont">
+      <div className="inner-cont">{nbOfTabs}</div>
+    </div>
+  );
+};
+
+{
+  /* 
         <NavLink
           to={ROUTES.DISCOVER}
           className="subnavigation-link"
@@ -34,10 +51,7 @@ export const SubNavBar = ({ style, className }: SubNavBarProps) => {
           data-testid="subnavigation-myEvents-button"
         >
           My Events
-        </NavLink>
-      </div>
-    </div>
-  );
-};
+        </NavLink> */
+}
 
 export default SubNavBar;

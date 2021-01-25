@@ -12,7 +12,6 @@ import { setAccessToken } from './access-token';
 import './app.scss';
 import { BotNavBar, SubNavBar, TopNavBar } from './components';
 import SubNavBarHeader from './components/navigation/sub-nav-bar/sub-nav-bar-header';
-import { SubNavBarMsg } from './components/navigation/sub-nav-bar/sub-nav-bar-msg';
 import PrivateRoute from './components/private-route/private-route';
 import { UserProvider } from './context/user.context';
 import NotFoundPage from './pages/404/not-found-page';
@@ -67,7 +66,7 @@ export const App = () => {
       <div>
         {/* Redirects to discover tab when user is home */}
         <PrivateRoute exact path={['/', ROUTES.HOME]}>
-          {<Redirect to={ROUTES.DISCOVER} />}
+          {<Redirect to={ROUTES.DISCOVER.url} />}
         </PrivateRoute>
 
         {/* Switch for main page */}
@@ -103,24 +102,24 @@ export const App = () => {
             <SubNavBar className="top-nav-bar-shadow" />
             <div className="page-container with-sub-nav-bar">
               <SwipeableRoutes>
-                <PrivateRoute path={ROUTES.DISCOVER} component={DiscoverPage} />
-                <PrivateRoute path={ROUTES.UPCOMING} component={UpcomingPage} />
-                <PrivateRoute path={ROUTES.MY_EVENTS} component={MyEventsPage} />
+                <PrivateRoute path={ROUTES.DISCOVER.url} component={DiscoverPage} />
+                <PrivateRoute path={ROUTES.UPCOMING.url} component={UpcomingPage} />
+                <PrivateRoute path={ROUTES.MY_EVENTS.url} component={MyEventsPage} />
                 <PrivateRoute exact path={ROUTES.HOME}>
-                  <Redirect to={ROUTES.DISCOVER} />
+                  <Redirect to={ROUTES.DISCOVER.url} />
                 </PrivateRoute>
               </SwipeableRoutes>
             </div>
           </PrivateRoute>
           <Route path={ROUTES.MESSAGES}>
             <SubNavBarHeader eventTitle="Clean up Rogers Park" />
-            <SubNavBarMsg className="with-header top-nav-bar-shadow" />
+            <SubNavBar className="with-header top-nav-bar-shadow" />
             <div className="page-container with-sub-nav-and-header">
               <SwipeableRoutes>
                 {/* <Route path={ROUTES.GROUPCHAT} component={GroupChatPage} /> */}
-                <Route path={ROUTES.ANNOUNCEMENTS} component={AnnouncementsPage} />
+                <Route path={ROUTES.ANNOUNCEMENTS.url} component={AnnouncementsPage} />
                 <Route exact path={ROUTES.MESSAGES}>
-                  <Redirect to={ROUTES.GROUPCHAT} />
+                  <Redirect to={ROUTES.GROUPCHAT.url} />
                 </Route>
               </SwipeableRoutes>
             </div>

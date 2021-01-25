@@ -69,7 +69,7 @@ export const Login = ({ history }: LoginProps) => {
       }
 
       setUserId(decodedToken.id);
-      history.push(ROUTES.DISCOVER);
+      history.push(ROUTES.DISCOVER.url);
 
       updateToast(toast.TYPE.SUCCESS, 'Login Successful');
     },
