@@ -1,0 +1,19 @@
+item {
+    id: 1
+    name: 'bottle'
+}
+
+item {
+    id: 2
+    name: 'box'
+}
+
+item {
+    id: 3
+    name: 'food'
+}
+
+item {
+    id: 3
+    name: 'tin can'
+}

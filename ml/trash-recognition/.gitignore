@@ -1,0 +1,31 @@
+# Large or generated files
+*.record
+*.bin
+model.json
+*.pb
+*.data-*-of-*
+ckpt-*.index
+variables.index
+exported-models/**/checkpoint
+models/**/checkpoint
+exported-models/**/checkpoint
+
+# Image Data
+images/**/*.xml
+*.jpg
+
+# Logs and events
+*tfevents*
+
+# External scripts (see https://github.com/tensorflow/models/tree/master/research/object_detection)
+exporter_main_v2.py
+model_main_tf2.py
+
+# Models
+converted-models/*
+exported-models/*
+models/*test*/*
+pre-trained-models/*
+
+# Misc
+.ipynb_checkpoints
