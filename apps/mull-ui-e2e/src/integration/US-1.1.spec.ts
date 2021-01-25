@@ -12,7 +12,7 @@ frameSizes.forEach((frame) => {
     });
 
     it('should preview the file', () => {
-      cy.get('#imageFile').attachFile('../fixtures/zoro.jpg');
+      cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
       cy.get('.custom-file-upload').find('img').should('have.attr', 'src');
     });
 
@@ -88,7 +88,7 @@ frameSizes.forEach((frame) => {
     });
 
     it('should show a successful submission message', () => {
-      cy.get('#imageFile').attachFile('../fixtures/zoro.jpg');
+      cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
 
       cy.get('#startTime').type('11:20');
 

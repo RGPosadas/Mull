@@ -8,7 +8,7 @@ exports[`EventCard should match snapshot 1`] = `
   <img
     alt="Event"
     className="event-card-image"
-    src="https://www.citywindsor.ca/residents/parksandforestry/City-Parks/PublishingImages/Assumption%20Park%20Street%20View.JPG"
+    src="https://uptownalmanac.com/sites/default/files/styles/full-post-width/public/images-on-cdn/dptrash.jpg?itok=N7RFjtgc"
   />
   <div
     className="event-card-datetime"
