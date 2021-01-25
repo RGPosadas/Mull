@@ -3,7 +3,7 @@ import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { UserProvider } from '../../context/user.context';
-import NotFoundPage from '../../pages/404/not-found';
+import NotFoundPage from '../../pages/404/not-found-page';
 import PrivateRoute from './private-route';
 
 describe('PrivateRoute', () => {
