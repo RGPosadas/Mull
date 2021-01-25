@@ -1,0 +1,32 @@
+@import '../../../variables.scss';
+
+.chat-input-container {
+  width: 100%;
+  position: fixed;
+  bottom: 4.75rem;
+  padding: 1rem;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  background-color: white;
+  .custom-file-upload-container {
+    margin-right: 1rem;
+  }
+  svg {
+    color: #27b09a;
+    &.custom-file-upload-icon {
+      font-size: 1.5em; //em used to follow fontawesome standards for sizing
+    }
+  }
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .chat-input-container {
+    width: $page-container-width;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}

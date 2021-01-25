@@ -187,6 +187,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           <div className="create-event">
             <p className="create-event-text">Create Event</p>
             <CustomFileUpload
+              className="custom-file-upload custom-file-upload-icon-container"
               imageURL={imageURLFile}
               hasErrors={formik.touched.imageFile && !!formik.errors.imageFile}
               errorMessage={formik.errors.imageFile}

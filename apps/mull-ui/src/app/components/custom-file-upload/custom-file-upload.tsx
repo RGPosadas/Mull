@@ -4,6 +4,7 @@ import React, { ChangeEvent } from 'react';
 import './custom-file-upload.scss';
 
 export interface CustomFileUploadProps {
+  className: string;
   hasErrors: boolean;
   errorMessage: string;
   imageURL: string;
@@ -12,6 +13,7 @@ export interface CustomFileUploadProps {
 }
 
 export const CustomFileUpload = ({
+  className,
   imageURL,
   hasErrors,
   errorMessage,
@@ -20,14 +22,11 @@ export const CustomFileUpload = ({
 }: CustomFileUploadProps) => {
   return (
     <div className="custom-file-upload-container">
-      <label
-        htmlFor={fieldName}
-        className={`custom-file-upload ${imageURL ? 'image-uploaded' : ''}`}
-      >
+      <label htmlFor={fieldName} className={`${imageURL ? 'image-uploaded' : ''}`}>
         {imageURL ? (
           <img className="custom-file-upload-image" src={imageURL} alt="Event" />
         ) : (
-          <div className="custom-file-upload-icon-container">
+          <div className={className}>
             <FontAwesomeIcon className="custom-file-upload-icon" icon={faImages} />
           </div>
         )}

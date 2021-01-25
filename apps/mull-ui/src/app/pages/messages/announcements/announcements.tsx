@@ -1,5 +1,3 @@
-import { faImages, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import ChatBubble from '../../../components/chat-bubble/chat-bubble';
 import './announcements.scss';
@@ -30,21 +28,48 @@ export const AnnouncementsPage = ({ history }) => {
         chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
         industries for previewing layouts and visual mockups."
       />
-      <div className="announcement-box">
-        <form className="form-announcement">
-          <button className="add-picture-button">
-            {<FontAwesomeIcon icon={faImages} className="add-picture-icon" />}
-          </button>
-          <input
-            type="text"
-            className="announcement-send"
-            placeholder="Write your announcement here"
-          ></input>
-          <button className="send-button">
-            {<FontAwesomeIcon icon={faPaperPlane} className="send-icon" />}
-          </button>
-        </form>
-      </div>
+      <ChatBubble
+        isHost={true}
+        chatDate="13:00 21/10/20"
+        userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+        chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
+        industries for previewing layouts and visual mockups."
+      />
+      <ChatBubble
+        isHost={true}
+        chatDate="13:00 21/10/20"
+        userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+        chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
+        industries for previewing layouts and visual mockups."
+      />
+      <ChatBubble
+        isHost={true}
+        chatDate="13:00 21/10/20"
+        userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+        chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
+        industries for previewing layouts and visual mockups."
+      />
+      <ChatBubble
+        isHost={true}
+        chatDate="13:00 21/10/20"
+        userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+        chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
+        industries for previewing layouts and visual mockups."
+      />
+      <ChatBubble
+        isHost={true}
+        chatDate="13:00 21/10/20"
+        userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+        chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
+        industries for previewing layouts and visual mockups."
+      />
+      <ChatBubble
+        isHost={true}
+        chatDate="13:00 21/10/20"
+        userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+        chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
+        industries for previewing layouts and visual mockups."
+      />
     </div>
   );
 };

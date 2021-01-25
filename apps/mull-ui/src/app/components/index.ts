@@ -1,3 +1,4 @@
+export * from './chat-input/chat-input';
 export * from './custom-file-upload/custom-file-upload';
 export * from './custom-text-input/custom-text-input';
 export * from './custom-time-picker/custom-time-picker';

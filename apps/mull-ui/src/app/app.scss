@@ -23,6 +23,7 @@
   &.with-sub-nav-and-header {
     margin-top: $top-nav-bar-height-mobile + $sub-nav-bar-height-mobile +
       $top-nav-header-height-mobile !important;
+    margin-bottom: $bot-nav-bar-height-mobile + $bot-chat-input-mobile;
   }
 }
 
@@ -59,6 +60,7 @@
     &.with-sub-nav-and-header {
       margin-top: $top-nav-bar-height-desktop + $sub-nav-bar-height-desktop +
         $top-nav-header-height-desktop !important;
+      margin-bottom: $bot-chat-input-desktop;
     }
   }
 }

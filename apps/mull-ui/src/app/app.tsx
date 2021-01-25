@@ -10,7 +10,7 @@ import { ROUTES } from '../constants';
 import { environment } from '../environments/environment';
 import { setAccessToken } from './access-token';
 import './app.scss';
-import { BotNavBar, SubNavBar, TopNavBar } from './components';
+import { BotNavBar, ChatInput, SubNavBar, TopNavBar } from './components';
 import SubNavBarHeader from './components/navigation/sub-nav-bar/sub-nav-bar-header';
 import PrivateRoute from './components/private-route/private-route';
 import { UserProvider } from './context/user.context';
@@ -123,6 +123,7 @@ export const App = () => {
                 </Route>
               </SwipeableRoutes>
             </div>
+            <ChatInput />
           </Route>
           <PrivateRoute component={NotFoundPage} />
         </Switch>
