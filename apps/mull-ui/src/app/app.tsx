@@ -116,20 +116,20 @@ export const App = () => {
               </SwipeableRoutes>
             </div>
           </PrivateRoute>
-          <Route path={ROUTES.MESSAGES}>
+          <PrivateRoute path={ROUTES.MESSAGES}>
             <SubNavBarHeader eventTitle="Clean up Rogers Park" />
             <SubNavBar className="with-header top-nav-bar-shadow" />
             <div className="page-container with-sub-nav-and-header">
               <SwipeableRoutes>
                 {/* <Route path={ROUTES.GROUPCHAT} component={GroupChatPage} /> */}
-                <Route path={ROUTES.ANNOUNCEMENTS.url} component={AnnouncementsPage} />
-                <Route exact path={ROUTES.MESSAGES}>
+                <PrivateRoute path={ROUTES.ANNOUNCEMENTS.url} component={AnnouncementsPage} />
+                <PrivateRoute exact path={ROUTES.MESSAGES}>
                   <Redirect to={ROUTES.GROUPCHAT.url} />
-                </Route>
+                </PrivateRoute>
               </SwipeableRoutes>
             </div>
             <ChatInput />
-          </Route>
+          </PrivateRoute>
           <PrivateRoute component={NotFoundPage} />
         </Switch>
 
