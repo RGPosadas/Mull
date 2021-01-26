@@ -120,7 +120,7 @@ export const App = () => {
                   {/* <Route path={ROUTES.GROUPCHAT} component={GroupChatPage} /> */}
                   <PrivateRoute path={ROUTES.ANNOUNCEMENTS.url} component={AnnouncementsPage} />
                   <PrivateRoute exact path={ROUTES.MESSAGES}>
-                    <Redirect to={ROUTES.GROUPCHAT.url} />
+                    <Redirect to={ROUTES.ANNOUNCEMENTS.url} />
                   </PrivateRoute>
                 </SwipeableRoutes>
               </div>
