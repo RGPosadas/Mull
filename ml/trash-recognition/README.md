@@ -4,7 +4,6 @@
   - [Folder structure](#folder-structure)
   - [Setup](#setup)
   - [Training and Validation](#training-and-validation)
-    - [Training Commands](#training-commands)
     - [Generate TF Records](#generate-tf-records)
     - [Train Model](#train-model)
     - [Validate Model](#validate-model)
@@ -38,7 +37,7 @@ This directory is split into the following files and folders:
 
 First follow the installation instructions at: <https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/install.html>
 
-Important Notes:
+Tutorial Notes:
 
 - For GPU support, if you are currently using an Ampere Nvidia GPU (RTX 3000 series), the version of dependencies in the guide won't work for you. Ampere cards require CUDA toolkit 11, which means you need to use Tensorflow 2.4 and above. The latest versions available were used successfully, as of 2021-01-24, so doing the same should work in your situation:
   - Latest Tensorflow (2.4.0)
@@ -49,13 +48,11 @@ Important Notes:
 
 Follow the instructions at: <https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html>
 
-Notes:
+Tutorial Notes:
 
 - Instead of manually labelling data, you can also download data using this tool: <https://pypi.org/project/openimages/>. You will then need to use the `fix-openimages-data.py` and `split-data.py` scripts to get the data in the right shape.
 
-### Training Commands
-
-Here are a list of commands to run during training, already modified to work correctly for our project's custom file structure. All these commands are meant to be run from this root directory (trash-recognition). For the scripts `model_main_tf2.py` and `exporter_main_v2.py`, download them from [here](https://github.com/tensorflow/models/tree/master/research/object_detection)
+The sections below give various commands to run during training, already modified to work correctly for our project's custom file structure. All these commands are meant to be run from this root directory (trash-recognition). For the scripts `model_main_tf2.py` and `exporter_main_v2.py`, download them from [here](https://github.com/tensorflow/models/tree/master/research/object_detection)
 
 ### Generate TF Records
 
