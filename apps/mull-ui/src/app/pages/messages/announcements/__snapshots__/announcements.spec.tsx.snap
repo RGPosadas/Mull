@@ -1,0 +1,215 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Announcements should match snapshot 1`] = `
+<div
+  className="background-announcement"
+>
+  <div
+    className="chat-container"
+  >
+    <p
+      className="announcement-time"
+    >
+      13:00 21/10/20
+    </p>
+    <div
+      className="participant-chat-container"
+    >
+      <img
+        alt="user picture"
+        className="user-picture"
+        src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+      />
+      <p
+        className="chat-bubble"
+      >
+        Hello, and welcome!
+      </p>
+    </div>
+  </div>
+  <div
+    className="chat-container"
+  >
+    <p
+      className="announcement-time"
+    >
+      13:00 21/10/20
+    </p>
+    <div
+      className="host-chat-container"
+    >
+      <img
+        alt="user picture"
+        className="user-picture"
+        src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+      />
+      <p
+        className="chat-bubble"
+      >
+        Filler text is text that shares some characteristics of a real written text, but is random or otherwise generated. It may be used to display a sample of fonts, generate text for testing, or to spoof an e-mail spam filter.
+      </p>
+    </div>
+  </div>
+  <div
+    className="chat-container"
+  >
+    <p
+      className="announcement-time"
+    >
+      13:00 21/10/20
+    </p>
+    <div
+      className="host-chat-container"
+    >
+      <img
+        alt="user picture"
+        className="user-picture"
+        src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+      />
+      <p
+        className="chat-bubble"
+      >
+        Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
+      </p>
+    </div>
+  </div>
+  <div
+    className="chat-container"
+  >
+    <p
+      className="announcement-time"
+    >
+      13:00 21/10/20
+    </p>
+    <div
+      className="host-chat-container"
+    >
+      <img
+        alt="user picture"
+        className="user-picture"
+        src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+      />
+      <p
+        className="chat-bubble"
+      >
+        Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
+      </p>
+    </div>
+  </div>
+  <div
+    className="chat-container"
+  >
+    <p
+      className="announcement-time"
+    >
+      13:00 21/10/20
+    </p>
+    <div
+      className="host-chat-container"
+    >
+      <img
+        alt="user picture"
+        className="user-picture"
+        src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+      />
+      <p
+        className="chat-bubble"
+      >
+        Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
+      </p>
+    </div>
+  </div>
+  <div
+    className="chat-container"
+  >
+    <p
+      className="announcement-time"
+    >
+      13:00 21/10/20
+    </p>
+    <div
+      className="host-chat-container"
+    >
+      <img
+        alt="user picture"
+        className="user-picture"
+        src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+      />
+      <p
+        className="chat-bubble"
+      >
+        Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
+      </p>
+    </div>
+  </div>
+  <div
+    className="chat-container"
+  >
+    <p
+      className="announcement-time"
+    >
+      13:00 21/10/20
+    </p>
+    <div
+      className="host-chat-container"
+    >
+      <img
+        alt="user picture"
+        className="user-picture"
+        src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+      />
+      <p
+        className="chat-bubble"
+      >
+        Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
+      </p>
+    </div>
+  </div>
+  <div
+    className="chat-container"
+  >
+    <p
+      className="announcement-time"
+    >
+      13:00 21/10/20
+    </p>
+    <div
+      className="host-chat-container"
+    >
+      <img
+        alt="user picture"
+        className="user-picture"
+        src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+      />
+      <p
+        className="chat-bubble"
+      >
+        Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
+      </p>
+    </div>
+  </div>
+  <div
+    className="chat-container"
+  >
+    <p
+      className="announcement-time"
+    >
+      13:00 21/10/20
+    </p>
+    <div
+      className="host-chat-container"
+    >
+      <img
+        alt="user picture"
+        className="user-picture"
+        src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
+      />
+      <p
+        className="chat-bubble"
+      >
+        Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
+      </p>
+    </div>
+  </div>
+</div>
+`;

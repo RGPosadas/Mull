@@ -2,7 +2,7 @@ import React from 'react';
 import ChatBubble from '../../../components/chat-bubble/chat-bubble';
 import './announcements.scss';
 
-export const AnnouncementsPage = ({ history }) => {
+export const AnnouncementsPage = () => {
   // TODO: Render chat messages from an array
 
   return (
