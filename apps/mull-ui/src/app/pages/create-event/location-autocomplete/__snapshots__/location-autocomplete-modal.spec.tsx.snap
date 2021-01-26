@@ -21,7 +21,7 @@ exports[`location autocomplete modal should match snapshot 1`] = `
   />
   <svg
     aria-hidden="true"
-    className="svg-inline--fa fa-map-marker-alt fa-w-12 "
+    className="svg-inline--fa fa-map-marker-alt fa-w-12 input-icon"
     data-icon="map-marker-alt"
     data-prefix="fas"
     focusable="false"
