@@ -115,7 +115,7 @@ export const App = () => {
           </PrivateRoute>
           <PrivateRoute path={ROUTES.MESSAGES}>
             <MessagesPage>
-              <div className="page-container with-sub-nav-and-header">
+              <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
                 <SwipeableRoutes>
                   {/* <Route path={ROUTES.GROUPCHAT} component={GroupChatPage} /> */}
                   <PrivateRoute path={ROUTES.ANNOUNCEMENTS.url} component={AnnouncementsPage} />
