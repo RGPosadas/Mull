@@ -1,5 +1,18 @@
 # Object Detection with Tensorflow
 
+- [Object Detection with Tensorflow](#object-detection-with-tensorflow)
+  - [Folder structure](#folder-structure)
+  - [Setup](#setup)
+  - [Training](#training)
+    - [Training Commands](#training-commands)
+    - [Generate TF Records](#generate-tf-records)
+    - [Train Model](#train-model)
+    - [Export Model as a SavelModel](#export-model-as-a-savelmodel)
+    - [Convert Model to TFJS Graph Model](#convert-model-to-tfjs-graph-model)
+  - [External Links](#external-links)
+  - [Troubleshooting](#troubleshooting)
+    - [Memory Issues during Training](#memory-issues-during-training)
+
 This README will walk you through how to train a model for the Mull project. The structure and instructions are based on the [Tensorflow Object Detection API Tutorial](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/index.html).
 
 Here are some notes about the guide:
@@ -91,7 +104,13 @@ tensorflowjs_converter \
  converted-models/$MODEL_NAME
 ```
 
-## Troubleshooting and Fixes
+## External Links
+
+I have made the models that I trained available at [TheGreatMarkus/mull-model](https://github.com/TheGreatMarkus/mull-model) if you're interested in playing around with them.
+
+Also, we have [a OneDrive folder](https://liveconcordia-my.sharepoint.com/:f:/g/personal/c_aldea_live_concordia_ca/Evd3mpAYFE1MjbhUcxKisUQBRz2IVUegTL8FdK0yFa3ztg?e=XB4G2V) used as the repository for all of our training data. Password is on Slack.
+
+## Troubleshooting
 
 ### Memory Issues during Training
 
