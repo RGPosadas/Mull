@@ -3,10 +3,11 @@
 - [Object Detection with Tensorflow](#object-detection-with-tensorflow)
   - [Folder structure](#folder-structure)
   - [Setup](#setup)
-  - [Training](#training)
+  - [Training and Validation](#training-and-validation)
     - [Training Commands](#training-commands)
     - [Generate TF Records](#generate-tf-records)
     - [Train Model](#train-model)
+    - [Validate Model](#validate-model)
     - [Export Model as a SavelModel](#export-model-as-a-savelmodel)
     - [Convert Model to TFJS Graph Model](#convert-model-to-tfjs-graph-model)
   - [External Links](#external-links)
@@ -44,7 +45,7 @@ Important Notes:
   - Latest CUDA Toolkit (11.2)
   - Latest CuDNN for CUDA 11.2 (8.0.5.39)
 
-## Training
+## Training and Validation
 
 Follow the instructions at: <https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html>
 
@@ -71,11 +72,16 @@ To make things simpler when dealing with multiple models, set the `MODEL_NAME` e
 # Run this to train the model, where
 python model_main_tf2.py --model_dir=models/$MODEL_NAME --pipeline_config_path=models/$MODEL_NAME/pipeline.config
 
-# Run this in parallel in another terminal, to get validation
-python model_main_tf2.py --model_dir=models/$MODEL_NAME --pipeline_config_path=models/$MODEL_NAME/pipeline.config --checkpoint_dir=models/$MODEL_NAME
-
 # Run this in parallel in another terminal, to get an interactive board to monitor training.
 tensorboard --logdir models/$MODEL_NAME
+```
+
+### Validate Model
+
+```bash
+# Run this in parallel in another terminal. It will run tests and evaluate the model every few minutes
+# Keep in mind that this process will also take up some GPU memory, so if you're having issues with that you can just run it after training is done
+python model_main_tf2.py --model_dir=models/$MODEL_NAME --pipeline_config_path=models/$MODEL_NAME/pipeline.config --checkpoint_dir=models/$MODEL_NAME
 ```
 
 ### Export Model as a SavelModel
