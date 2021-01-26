@@ -9,13 +9,9 @@ export interface SubNavBarProps {
   routes?: IRoutes[];
 }
 
-// var homeTabs = [ROUTES.DISCOVER, ROUTES.UPCOMING, ROUTES.MY_EVENTS];
-
-// var messagesTabs = [ROUTES.GROUPCHAT, ROUTES.ANNOUNCEMENTS];
-
 export const SubNavBar = ({ style, className, routes }: SubNavBarProps) => {
-  var navLinks = routes.map((route) => {
-    var testid = 'subnavigation-' + route.displayName.toLowerCase().replace(' ', '') + '-button';
+  let navLinks = routes.map((route) => {
+    let testid = 'subnavigation-' + route.displayName.toLowerCase().replace(' ', '') + '-button';
     return (
       <NavLink
         key={route.url}
