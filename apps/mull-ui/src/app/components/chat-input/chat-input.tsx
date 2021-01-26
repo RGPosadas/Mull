@@ -8,7 +8,7 @@ import './chat-input.scss';
 export const ChatInput = () => {
   const [chatText, setChatText] = useState<string>('');
   return (
-    <div className="chat-input-container">
+    <form className="chat-input-container">
       <CustomFileUpload
         className=""
         imageURL={null}
@@ -30,7 +30,7 @@ export const ChatInput = () => {
           </button>
         }
       />
-    </div>
+    </form>
   );
 };
 

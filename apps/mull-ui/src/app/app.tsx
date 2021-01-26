@@ -10,14 +10,7 @@ import { ROUTES } from '../constants';
 import { environment } from '../environments/environment';
 import { setAccessToken } from './access-token';
 import './app.scss';
-import {
-  BotNavBar,
-  ChatInput,
-  PrivateRoute,
-  SubNavBar,
-  SubNavBarHeader,
-  TopNavBar,
-} from './components';
+import { BotNavBar, PrivateRoute, SubNavBar, TopNavBar } from './components';
 import { UserProvider } from './context/user.context';
 import NotFoundPage from './pages/404/not-found-page';
 import CreateEventPage from './pages/create-event/create-event';
@@ -27,6 +20,7 @@ import MyEventsPage from './pages/home/my-events/my-events';
 import UpcomingPage from './pages/home/upcoming/upcoming';
 import LoginPage from './pages/login/login';
 import AnnouncementsPage from './pages/messages/announcements/announcements';
+import MessagesPage from './pages/messages/messages-page';
 import RegisterPage from './pages/register/register';
 import TokenRedirectPage from './pages/token-redirect/token-redirect';
 
@@ -120,21 +114,17 @@ export const App = () => {
             </div>
           </PrivateRoute>
           <PrivateRoute path={ROUTES.MESSAGES}>
-            <SubNavBarHeader eventTitle="Clean up Rogers Park" />
-            <SubNavBar
-              routes={[ROUTES.GROUPCHAT, ROUTES.ANNOUNCEMENTS]}
-              className="with-header top-nav-bar-shadow"
-            />
-            <div className="page-container with-sub-nav-and-header">
-              <SwipeableRoutes>
-                {/* <Route path={ROUTES.GROUPCHAT} component={GroupChatPage} /> */}
-                <PrivateRoute path={ROUTES.ANNOUNCEMENTS.url} component={AnnouncementsPage} />
-                <PrivateRoute exact path={ROUTES.MESSAGES}>
-                  <Redirect to={ROUTES.GROUPCHAT.url} />
-                </PrivateRoute>
-              </SwipeableRoutes>
-            </div>
-            <ChatInput />
+            <MessagesPage>
+              <div className="page-container with-sub-nav-and-header">
+                <SwipeableRoutes>
+                  {/* <Route path={ROUTES.GROUPCHAT} component={GroupChatPage} /> */}
+                  <PrivateRoute path={ROUTES.ANNOUNCEMENTS.url} component={AnnouncementsPage} />
+                  <PrivateRoute exact path={ROUTES.MESSAGES}>
+                    <Redirect to={ROUTES.GROUPCHAT.url} />
+                  </PrivateRoute>
+                </SwipeableRoutes>
+              </div>
+            </MessagesPage>
           </PrivateRoute>
           <PrivateRoute component={NotFoundPage} />
         </Switch>
