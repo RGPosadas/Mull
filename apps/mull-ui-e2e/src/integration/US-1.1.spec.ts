@@ -13,7 +13,7 @@ frameSizes.forEach((frame) => {
 
     it('should preview the file', () => {
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
-      cy.get('.custom-file-upload').find('img').should('have.attr', 'src');
+      cy.get('.image-uploaded').find('img').should('have.attr', 'src');
     });
 
     it('should have the correct page title', () => {
