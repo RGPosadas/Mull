@@ -8,7 +8,7 @@
   display: flex;
   box-sizing: border-box;
   align-items: center;
-  background-color: white;
+  background-color: $background-color;
   .custom-file-upload-container {
     margin-right: 1rem;
   }
@@ -17,16 +17,16 @@
     bottom: 0.4rem;
     right: 0.5rem;
     border-radius: 100%;
-    border: 1px #27b09a solid;
-    background: #27b09a;
+    border: 1px $primary-color solid;
+    background: $primary-color;
     box-sizing: border-box;
     padding: 0.3em;
     svg {
-      color: white;
+      color: $background-color;
     }
   }
   svg {
-    color: #27b09a;
+    color: $primary-color;
     &.custom-file-upload-icon {
       font-size: 1.5em; //em used to follow fontawesome standards for sizing
     }

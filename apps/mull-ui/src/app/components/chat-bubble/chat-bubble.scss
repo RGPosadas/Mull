@@ -1,17 +1,19 @@
+@import '../../../variables.scss';
+
 .chat-container {
   margin: 1rem 0;
 }
 
 .host-chat-container {
-  flex-direction: row-reverse !important;
+  flex-direction: row-reverse;
   .chat-bubble {
-    background-color: #a8dfd6 !important;
+    background-color: $sent-chat-color;
   }
 }
 
 .participant-chat-container {
   .chat-bubble {
-    background-color: #eaeaea;
+    background-color: $recieved-chat-color;
   }
 }
 
@@ -21,7 +23,6 @@
   .chat-bubble {
     border-radius: 1rem;
     padding: 0.75rem;
-    display: inline-flex;
     align-self: center;
   }
 }
@@ -29,7 +30,7 @@
 .announcement-time {
   font-size: 0.875rem;
   text-align: center;
-  color: #bbbbbb;
+  color: $inactive-button-color;
 }
 
 .user-picture {
