@@ -3,9 +3,9 @@ import './chat-bubble.scss';
 
 export interface chatBubbleProps {
   isHost?: boolean;
-  chatDate?: string;
-  userPicture?: string;
-  chatMessage?: string;
+  chatDate: string;
+  userPicture: string;
+  chatMessage: string;
 }
 
 export const ChatBubble = ({ isHost, chatDate, userPicture, chatMessage }: chatBubbleProps) => {

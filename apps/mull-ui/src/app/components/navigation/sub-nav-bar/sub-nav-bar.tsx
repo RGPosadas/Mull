@@ -6,7 +6,7 @@ import './sub-nav-bar.scss';
 export interface SubNavBarProps {
   style?: CSSProperties;
   className?: string;
-  routes?: IRoutes[];
+  routes: IRoutes[];
 }
 
 export const SubNavBar = ({ style, className, routes }: SubNavBarProps) => {
