@@ -9,6 +9,7 @@ export const ChatInput = () => {
   const [chatText, setChatText] = useState<string>('');
   return (
     <form className="chat-input-container">
+      {/* TODO: Handle form data as needed by back-end */}
       <CustomFileUpload
         className=""
         imageURL={null}

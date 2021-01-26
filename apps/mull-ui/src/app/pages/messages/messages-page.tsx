@@ -5,7 +5,10 @@ import { ChatInput, SubNavBar, SubNavBarHeader } from '../../components';
 export interface MessagePageProps {
   children: React.ReactNode;
 }
-
+/**
+ * Adds a sub-nav-header and sub-navigation to the top of the page, above the children
+ * Children are rendered in between and then adds a sticky chat-input at the bottom of the page.
+ */
 export const MessagesPage = ({ children }: MessagePageProps) => {
   return (
     <div>

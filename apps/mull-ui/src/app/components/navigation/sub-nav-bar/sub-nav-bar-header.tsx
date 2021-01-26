@@ -6,7 +6,7 @@ import './sub-nav-bar-header.scss';
 export interface SubNavBarHeaderProps {
   style?: CSSProperties;
   className?: string;
-  eventTitle?: string;
+  eventTitle: string;
 }
 
 export const SubNavBarHeader = ({ style, className, eventTitle }: SubNavBarHeaderProps) => {
