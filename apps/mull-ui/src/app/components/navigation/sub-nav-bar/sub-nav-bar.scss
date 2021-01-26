@@ -47,7 +47,7 @@
     top: $top-nav-bar-height-desktop;
     height: $sub-nav-bar-height-desktop;
     &.with-header {
-      top: 8.25rem;
+      top: $top-nav-header-height-desktop + $top-nav-bar-height-desktop;
       padding: 1rem 0 0 0 0;
     }
   }

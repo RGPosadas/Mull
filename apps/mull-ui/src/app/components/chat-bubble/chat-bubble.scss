@@ -6,6 +6,9 @@
 
 .host-chat-container {
   flex-direction: row-reverse;
+  img {
+    margin-right: 0;
+  }
   .chat-bubble {
     background-color: $sent-chat-color;
   }
