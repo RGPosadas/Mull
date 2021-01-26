@@ -48,10 +48,16 @@ export interface ISerializedEvent extends Omit<IEvent, 'startDate' | 'endDate' |
 }
 
 export interface ILocation {
-  id?: number;
+  id: number;
   title: string;
+  events?: IEvent[];
+  coordinates?: IPoint;
   placeId?: string;
-  coordinates?: [];
+}
+
+export interface IPoint {
+  lat: number;
+  long: number;
 }
 
 export interface IUser {

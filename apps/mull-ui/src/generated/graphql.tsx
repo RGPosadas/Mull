@@ -1,5 +1,5 @@
-import * as Apollo from '@apollo/client';
 import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -21,6 +21,7 @@ export type CreateEventInput = {
   description: Scalars['String'];
   endDate: Scalars['DateTime'];
   image: MediaInput;
+  location: LocationInput;
   restriction: Scalars['Int'];
   startDate: Scalars['DateTime'];
   title: Scalars['String'];
@@ -43,6 +44,20 @@ export type Event = {
   image?: Maybe<Media>;
   restriction: Scalars['Float'];
   startDate: Scalars['DateTime'];
+  title: Scalars['String'];
+};
+
+export type Location = {
+  __typename?: 'Location';
+  coordinates?: Maybe<Point>;
+  id: Scalars['ID'];
+  placeId?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+};
+
+export type LocationInput = {
+  coordinates?: Maybe<PointInput>;
+  placeId?: Maybe<Scalars['String']>;
   title: Scalars['String'];
 };
 
@@ -70,6 +85,7 @@ export type MediaInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createEvent: Event;
+  createLocation: Location;
   createUser: User;
   deleteEvent: Event;
   deleteUser: User;
@@ -84,6 +100,11 @@ export type Mutation = {
 
 export type MutationCreateEventArgs = {
   event: CreateEventInput;
+};
+
+
+export type MutationCreateLocationArgs = {
+  location: LocationInput;
 };
 
 
@@ -133,6 +154,18 @@ export type MutationUploadFileArgs = {
   file: Scalars['Upload'];
 };
 
+export type Point = {
+  __typename?: 'Point';
+  id: Scalars['ID'];
+  lat: Scalars['Float'];
+  long: Scalars['Float'];
+};
+
+export type PointInput = {
+  lat: Scalars['Float'];
+  long: Scalars['Float'];
+};
+
 export type Query = {
   __typename?: 'Query';
   coHostEvents: Array<Event>;
@@ -142,6 +175,7 @@ export type Query = {
   getAutocompletedLocations: Array<Scalars['String']>;
   hostEvents: Array<Event>;
   isParticipant: Scalars['Boolean'];
+  location: Location;
   participantEvents: Array<Event>;
   user: User;
   users: Array<User>;
@@ -176,6 +210,11 @@ export type QueryHostEventsArgs = {
 export type QueryIsParticipantArgs = {
   eventId: Scalars['Int'];
   userId: Scalars['Int'];
+};
+
+
+export type QueryLocationArgs = {
+  id: Scalars['Int'];
 };
 
 

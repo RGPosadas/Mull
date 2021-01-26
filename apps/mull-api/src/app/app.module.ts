@@ -12,6 +12,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { EntitiesModule } from './entities';
 import { EventModule } from './event/event.module';
+import { LocationModule } from './location/location.module';
 import { MediaModule } from './media/media.module';
 // Modules
 import { UserModule } from './user';
@@ -23,6 +24,7 @@ import { UserModule } from './user';
     EntitiesModule,
     MediaModule,
     AuthModule,
+    LocationModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: environment.db.host,
