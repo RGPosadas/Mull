@@ -116,10 +116,6 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           data: { uploadFile: uploadedFile },
         } = await uploadFile({ variables: { file: file } });
 
-        // TODO Temporary workaround. Backend currently doesn't expect a location field. See TASK-33 #124
-        // let temp = cloneDeep(payload);
-        // delete temp.location;
-
         await createEvent({
           variables: {
             event: {
