@@ -4,6 +4,10 @@
   margin: 1rem 0;
 }
 
+.chat-bubble {
+  max-width: 70%;
+}
+
 .host-chat-container {
   flex-direction: row-reverse;
   img {

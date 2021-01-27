@@ -5,7 +5,7 @@ export const AnnouncementsPage = () => {
   // TODO: Render chat messages from an array
 
   return (
-    <div className="background-announcement">
+    <div>
       <ChatBubble
         isHost={false}
         chatDate="13:00 21/10/20"
