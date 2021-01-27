@@ -73,7 +73,7 @@ export default function LocationAutocompleteTextbox({
       <Autocomplete
         id="location-input-field"
         data-testid="location-autocomplete-textbox"
-        style={{ padding: '6px 20px' }}
+        className="location-autocomplete-textbox"
         inputValue={input}
         defaultValue={input}
         open={open}
@@ -111,7 +111,7 @@ export default function LocationAutocompleteTextbox({
             option.description === CURRENT_LOCATION.description ? faLocationArrow : faMapMarkerAlt;
           return (
             <>
-              <FontAwesomeIcon icon={icon} style={{ marginRight: '0.8rem' }} />
+              <FontAwesomeIcon icon={icon} className="location-autocomplete-option" />
               {option.description}
             </>
           );

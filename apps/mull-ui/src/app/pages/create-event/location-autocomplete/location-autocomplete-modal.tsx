@@ -6,6 +6,7 @@ import { LocationInput } from 'apps/mull-ui/src/generated/graphql';
 import { FormikContextType } from 'formik';
 import React, { useState } from 'react';
 import { CustomTextInput, MullBackButton } from '../../../components';
+import './location-autocomplete-modal.scss';
 import LocationAutoCompleteTextbox from './location-autocomplete-textbox';
 
 export interface LocationAutocompleteModalProps {
@@ -46,7 +47,9 @@ export default function LocationAutocompleteModal({
       />
 
       <Dialog fullScreen open={open}>
-        <MullBackButton children={'Edit'} onClick={handleClose} className={'edit'} />
+        <MullBackButton onClick={handleClose} className="location-autocomplete-modal-back-button">
+          Edit
+        </MullBackButton>
         <LocationAutoCompleteTextbox
           handleSetValue={handleSetValue}
           input={inputValue}
