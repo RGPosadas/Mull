@@ -42,6 +42,7 @@ export type Event = {
   endDate: Scalars['DateTime'];
   id: Scalars['ID'];
   image?: Maybe<Media>;
+  location?: Maybe<Location>;
   restriction: Scalars['Float'];
   startDate: Scalars['DateTime'];
   title: Scalars['String'];
@@ -344,17 +345,22 @@ export type LeaveEventMutation = (
   & Pick<Mutation, 'leaveEvent'>
 );
 
-export type EventQueryVariables = Exact<{
-  id: Scalars['Int'];
-}>;
+export type EventPageContentFragment = (
+  { __typename?: 'Event' }
+  & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
+  & { location?: Maybe<(
+    { __typename?: 'Location' }
+    & Pick<Location, 'title'>
+  )> }
+);
 
-
-export type EventQuery = (
-  { __typename?: 'Query' }
-  & { event: (
-    { __typename?: 'Event' }
-    & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
-  ) }
+export type EventCardContentFragment = (
+  { __typename?: 'Event' }
+  & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate'>
+  & { location?: Maybe<(
+    { __typename?: 'Location' }
+    & Pick<Location, 'title'>
+  )> }
 );
 
 export type DiscoverEventsQueryVariables = Exact<{
@@ -366,7 +372,7 @@ export type DiscoverEventsQuery = (
   { __typename?: 'Query' }
   & { discoverEvents: Array<(
     { __typename?: 'Event' }
-    & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate'>
+    & EventCardContentFragment
   )> }
 );
 
@@ -379,10 +385,10 @@ export type OwnedEventsQuery = (
   { __typename?: 'Query' }
   & { coHostEvents: Array<(
     { __typename?: 'Event' }
-    & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate'>
+    & EventCardContentFragment
   )>, hostEvents: Array<(
     { __typename?: 'Event' }
-    & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate'>
+    & EventCardContentFragment
   )> }
 );
 
@@ -395,7 +401,7 @@ export type ParticipantEventsQuery = (
   { __typename?: 'Query' }
   & { participantEvents: Array<(
     { __typename?: 'Event' }
-    & Pick<Event, 'id' | 'endDate' | 'description' | 'startDate' | 'title'>
+    & EventCardContentFragment
   )> }
 );
 
@@ -423,23 +429,32 @@ export type EventPageQuery = (
   & Pick<Query, 'isParticipant'>
   & { event: (
     { __typename?: 'Event' }
-    & EventContentFragment
+    & EventPageContentFragment
   ) }
 );
 
-export type EventContentFragment = (
-  { __typename?: 'Event' }
-  & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
-);
-
-export const EventContentFragmentDoc = gql`
-    fragment EventContent on Event {
+export const EventPageContentFragmentDoc = gql`
+    fragment EventPageContent on Event {
   id
   title
   description
   startDate
   endDate
   restriction
+  location {
+    title
+  }
+}
+    `;
+export const EventCardContentFragmentDoc = gql`
+    fragment EventCardContent on Event {
+  id
+  title
+  restriction
+  startDate
+  location {
+    title
+  }
 }
     `;
 export const CreateEventDocument = gql`
@@ -633,55 +648,13 @@ export function useLeaveEventMutation(baseOptions?: Apollo.MutationHookOptions<L
 export type LeaveEventMutationHookResult = ReturnType<typeof useLeaveEventMutation>;
 export type LeaveEventMutationResult = Apollo.MutationResult<LeaveEventMutation>;
 export type LeaveEventMutationOptions = Apollo.BaseMutationOptions<LeaveEventMutation, LeaveEventMutationVariables>;
-export const EventDocument = gql`
-    query Event($id: Int!) {
-  event(id: $id) {
-    id
-    title
-    description
-    startDate
-    endDate
-    restriction
-  }
-}
-    `;
-
-/**
- * __useEventQuery__
- *
- * To run a query within a React component, call `useEventQuery` and pass it any options that fit your needs.
- * When your component renders, `useEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useEventQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useEventQuery(baseOptions: Apollo.QueryHookOptions<EventQuery, EventQueryVariables>) {
-        return Apollo.useQuery<EventQuery, EventQueryVariables>(EventDocument, baseOptions);
-      }
-export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventQuery, EventQueryVariables>) {
-          return Apollo.useLazyQuery<EventQuery, EventQueryVariables>(EventDocument, baseOptions);
-        }
-export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
-export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
-export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
 export const DiscoverEventsDocument = gql`
     query DiscoverEvents($userId: Int!) {
   discoverEvents(userId: $userId) {
-    id
-    title
-    description
-    startDate
-    endDate
+    ...EventCardContent
   }
 }
-    `;
+    ${EventCardContentFragmentDoc}`;
 
 /**
  * __useDiscoverEventsQuery__
@@ -711,21 +684,13 @@ export type DiscoverEventsQueryResult = Apollo.QueryResult<DiscoverEventsQuery, 
 export const OwnedEventsDocument = gql`
     query OwnedEvents($userId: Int!) {
   coHostEvents(coHostId: $userId) {
-    id
-    title
-    description
-    startDate
-    endDate
+    ...EventCardContent
   }
   hostEvents(hostId: $userId) {
-    id
-    title
-    description
-    startDate
-    endDate
+    ...EventCardContent
   }
 }
-    `;
+    ${EventCardContentFragmentDoc}`;
 
 /**
  * __useOwnedEventsQuery__
@@ -755,14 +720,10 @@ export type OwnedEventsQueryResult = Apollo.QueryResult<OwnedEventsQuery, OwnedE
 export const ParticipantEventsDocument = gql`
     query ParticipantEvents($userId: Int!) {
   participantEvents(userId: $userId) {
-    id
-    endDate
-    description
-    startDate
-    title
+    ...EventCardContent
   }
 }
-    `;
+    ${EventCardContentFragmentDoc}`;
 
 /**
  * __useParticipantEventsQuery__
@@ -827,10 +788,10 @@ export const EventPageDocument = gql`
     query EventPage($eventId: Int!, $userId: Int!) {
   isParticipant(eventId: $eventId, userId: $userId)
   event(id: $eventId) {
-    ...EventContent
+    ...EventPageContent
   }
 }
-    ${EventContentFragmentDoc}`;
+    ${EventPageContentFragmentDoc}`;
 
 /**
  * __useEventPageQuery__
