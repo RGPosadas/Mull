@@ -62,7 +62,8 @@ export default function LocationAutocompleteTextbox({
         () => {
           console.log('getcurrentpos error');
           notifyToast('Cannot get your current location coordinates.', { type: 'error' });
-        }
+        },
+        { enableHighAccuracy: true }
       );
     }
   };
@@ -87,7 +88,7 @@ export default function LocationAutocompleteTextbox({
         }}
         defaultValue={input}
         onInputChange={(_event, value) => {
-          if (value) {
+          if (value && value !== CURRENT_LOCATION) {
             debounceGetLocation(value);
           }
         }}
