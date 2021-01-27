@@ -17,7 +17,7 @@ This README will walk you through how to train a model for the Mull project. The
 
 Here are some notes about the guide:
 
-- It was successfully done on Linux, but with slight adjustments it might work with Windows or Mac too.
+- It was successfully done on Linux, but with slight adjustments, it might work with Windows or Mac too.
 - Note that there is limited support for Macs when it comes to training on a GPU, so training the model might be very slow on that platform
 
 ## Folder structure
@@ -25,17 +25,17 @@ Here are some notes about the guide:
 This directory is split into the following files and folders:
 
 - `images`: This folder contains our training and testing data.
-- `annotations`: This folders contains `label_map.pbtxt` which explain what categories, or "classes" of objects our model will be able to recognize. It will also contain TF Records, which are big binary files that contain processed training/testing data.
+- `annotations`: This folder contains `label_map.pbtxt` which explains what categories, or "classes" of objects our model will be able to recognize. It will also contain TF Records, which are big binary files that contain processed training/testing data.
 - `pre-trained-models`: This folder contains [preexisting models](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md) whose configuration is reused to train our custom models.
-- `models`: This folder contains the custom models we are training. These folders will contains a `pipeline.config` file, which contains all of the config related to how the model will be trained.
-- `exported-models`: This folder contains final, trained models which have been exported/saved in the [SavedModel](https://www.tensorflow.org/guide/saved_model) format.
-- `converted-models`: This folder contains final models which have been converted into a format that can run with [Tensorflow JS](https://www.tensorflow.org/js).
+- `models`: This folder contains the custom models we are training. These folders will contain a `pipeline.config` file, which contains all of the config related to how the model will be trained.
+- `exported-models`: This folder contains final, trained models that have been exported/saved in the [SavedModel](https://www.tensorflow.org/guide/saved_model) format.
+- `converted-models`: This folder contains final models that have been converted into a format that can run with [Tensorflow JS](https://www.tensorflow.org/js).
 - `test-model.ipynb`: This file is a [Jupyter Notebook](https://jupyter.org/) meant to allow you to test a model after it has been trained and exported
-- And then there are various python scripts which have documentation at the top of the file.
+- And then there are various python scripts that have documentation at the top of the file.
 
 ## Setup
 
-First follow the installation instructions at: <https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/install.html>
+First follow the installation instructions at <https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/install.html>
 
 Tutorial Notes:
 
@@ -46,11 +46,11 @@ Tutorial Notes:
 
 ## Training and Validation
 
-Follow the instructions at: <https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html>
+Follow the instructions at <https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html>
 
 Tutorial Notes:
 
-- Instead of manually labelling data, you can also download data using this tool: <https://pypi.org/project/openimages/>. You will then need to use the `fix-openimages-data.py` and `split-data.py` scripts to get the data in the right shape.
+- Instead of labelling data manually, you can also download data using this tool: <https://pypi.org/project/openimages/>. You will then need to use the `fix-openimages-data.py` and `split-data.py` scripts to get the data in the right shape.
 
 The sections below give various commands to run during training, already modified to work correctly for our project's custom file structure. All these commands are meant to be run from this root directory (trash-recognition). For the scripts `model_main_tf2.py` and `exporter_main_v2.py`, download them from [here](https://github.com/tensorflow/models/tree/master/research/object_detection)
 
@@ -66,7 +66,7 @@ python generate_tfrecord.py -i images -l annotations/label_map.pbtxt -o annotati
 To make things simpler when dealing with multiple models, set the `MODEL_NAME` env. variable, which is the name of the folder for your model, under the `models/` folder.
 
 ```bash
-# Run this to train the model, where
+# Run this to train the model
 python model_main_tf2.py --model_dir=models/$MODEL_NAME --pipeline_config_path=models/$MODEL_NAME/pipeline.config
 
 # Run this in parallel in another terminal, to get an interactive board to monitor training.
