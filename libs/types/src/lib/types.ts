@@ -89,3 +89,8 @@ export interface IRoute {
   url: string;
   displayName: string;
 }
+
+export class IGooglePlace {
+  description: string;
+  placeId: string;
+}

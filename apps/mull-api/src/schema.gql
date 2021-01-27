@@ -30,9 +30,15 @@ type Event {
   endDate: DateTime!
   id: ID!
   image: Media
+  location: Location
   restriction: Float!
   startDate: DateTime!
   title: String!
+}
+
+type GooglePlace {
+  description: String!
+  placeId: String!
 }
 
 type Location {
@@ -97,7 +103,7 @@ type Query {
   discoverEvents(userId: Int!): [Event!]!
   event(id: Int!): Event!
   events: [Event!]!
-  getAutocompletedLocations(userInput: String!): [String!]!
+  getAutocompletedLocations(userInput: String!): [GooglePlace!]!
   hostEvents(hostId: Int!): [Event!]!
   isParticipant(eventId: Int!, userId: Int!): Boolean!
   location(id: Int!): Location!

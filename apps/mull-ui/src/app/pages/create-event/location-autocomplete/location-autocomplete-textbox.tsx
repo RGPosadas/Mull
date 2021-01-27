@@ -3,46 +3,67 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { IGooglePlace } from '@mull/types';
+import { environment } from 'apps/mull-ui/src/environments/environment';
+import axios from 'axios';
 import { debounce } from 'lodash';
-import React, { useEffect, useMemo, useState } from 'react';
-import { useAutocompletedLocationsLazyQuery } from '../../../../generated/graphql';
+import React, { useMemo, useState } from 'react';
+import { LocationInput } from '../../../../generated/graphql';
+import { useToast } from '../../../hooks/useToast';
 import './location-autocomplete-textbox.scss';
 
 export interface LocationAutocompleteTextboxProps {
-  handleSetValue: (value: string) => void;
+  handleSetValue: (location: LocationInput) => void;
   input: string;
 }
 
-export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
+const CURRENT_LOCATION: IGooglePlace = { description: 'Current Location', placeId: null };
+
+export default function LocationAutocompleteTextbox({
+  handleSetValue,
+  input,
+}: LocationAutocompleteTextboxProps) {
   const [open, setOpen] = useState(false);
-  const [options, setOptions] = useState<string[]>([]);
-  const [getAutocompletedLocations, { loading, data }] = useAutocompletedLocationsLazyQuery();
+  const [options, setOptions] = useState<IGooglePlace[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const { notifyToast, updateToast } = useToast();
   const CURRENT_LOCATION = 'Current Location';
 
   const debounceGetLocation = useMemo(
     () =>
-      debounce(
-        (values: string) =>
-          getAutocompletedLocations({
-            variables: { userInput: values },
-          }),
-        350
-      ),
-    [getAutocompletedLocations]
+      debounce((search: string) => {
+        console.log('debounce called');
+        setLoading(true);
+        axios
+          .get(`${environment.backendUrl}/api/location-autocomplete?search=${search}`)
+          .then((data) => {
+            setOptions(data.data);
+            setLoading(false);
+          });
+      }, 350),
+    [axios.get]
   );
 
-  useEffect(() => {
-    if (!loading && data) {
-      setOptions(data.getAutocompletedLocations);
-    }
-  }, [loading, data, setOptions]);
-
   const getCurrentPosition = () => {
+    console.log('getCurrentPos');
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const pos = `latitude: ${position.coords.latitude}, longitude: ${position.coords.longitude}`;
-        handleSetValue({ title: 'Current Location', coords: pos });
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log('in geolocation getCurrentPos');
+          const location: LocationInput = {
+            title: 'Current Location',
+            coordinates: {
+              lat: position.coords.latitude,
+              long: position.coords.longitude,
+            },
+          };
+          handleSetValue(location);
+        },
+        () => {
+          console.log('getcurrentpos error');
+          notifyToast('Cannot get your current location coordinates.', { type: 'error' });
+        }
+      );
     }
   };
 
@@ -53,8 +74,9 @@ export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
         data-testid="location-autocomplete-textbox"
         style={{ padding: '6px 20px' }}
         open={open}
+        getOptionLabel={(option) => (option.description ? option.description : '')}
         onFocus={() => {
-          setOptions([CURRENT_LOCATION]);
+          setOptions([{ description: CURRENT_LOCATION, placeId: null }]);
           setOpen(true);
         }}
         onOpen={() => {
@@ -69,21 +91,25 @@ export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
             debounceGetLocation(value);
           }
         }}
-        onChange={(_event, value) => {
-          if (value === CURRENT_LOCATION) {
+        onChange={(_event, value: IGooglePlace) => {
+          console.log('onChange called');
+          if (value.description === CURRENT_LOCATION) {
             getCurrentPosition();
           } else if (value) {
-            handleSetValue({ title: value });
+            handleSetValue({ title: value.description, placeId: value.placeId });
           }
         }}
-        getOptionSelected={(option, value) => option === value}
-        renderOption={(option) => {
-          const icon = option === CURRENT_LOCATION ? faLocationArrow : faMapMarkerAlt;
+        getOptionSelected={(option: IGooglePlace, value: IGooglePlace) => {
+          // console.log({ option, value });
+          return option.description === value.description;
+        }}
+        renderOption={(option: IGooglePlace) => {
+          const icon = option.description === CURRENT_LOCATION ? faLocationArrow : faMapMarkerAlt;
           return (
-            <React.Fragment>
+            <>
               <FontAwesomeIcon icon={icon} style={{ marginRight: '0.8rem' }} />
-              {option}
-            </React.Fragment>
+              {option.description}
+            </>
           );
         }}
         options={options}
@@ -96,10 +122,10 @@ export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
             InputProps={{
               ...params.InputProps,
               endAdornment: (
-                <React.Fragment>
+                <>
                   {loading ? <CircularProgress color="inherit" size={20} /> : null}
                   {params.InputProps.endAdornment}
-                </React.Fragment>
+                </>
               ),
             }}
           />

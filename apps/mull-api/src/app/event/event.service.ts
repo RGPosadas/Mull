@@ -16,7 +16,7 @@ export class EventService {
   }
 
   getEvent(id: number): Promise<Event> {
-    return this.eventRepository.findOne(id);
+    return this.eventRepository.findOne(id, { relations: ['location'] });
   }
 
   getEventsHostedByUser(hostId: number): Promise<Event[]> {

@@ -47,6 +47,12 @@ export type Event = {
   title: Scalars['String'];
 };
 
+export type GooglePlace = {
+  __typename?: 'GooglePlace';
+  description: Scalars['String'];
+  placeId: Scalars['String'];
+};
+
 export type Location = {
   __typename?: 'Location';
   coordinates?: Maybe<Point>;
@@ -172,7 +178,7 @@ export type Query = {
   discoverEvents: Array<Event>;
   event: Event;
   events: Array<Event>;
-  getAutocompletedLocations: Array<Scalars['String']>;
+  getAutocompletedLocations: Array<GooglePlace>;
   hostEvents: Array<Event>;
   isParticipant: Scalars['Boolean'];
   location: Location;
@@ -400,7 +406,10 @@ export type AutocompletedLocationsQueryVariables = Exact<{
 
 export type AutocompletedLocationsQuery = (
   { __typename?: 'Query' }
-  & Pick<Query, 'getAutocompletedLocations'>
+  & { getAutocompletedLocations: Array<(
+    { __typename?: 'GooglePlace' }
+    & Pick<GooglePlace, 'description' | 'placeId'>
+  )> }
 );
 
 export type EventPageQueryVariables = Exact<{
@@ -782,7 +791,10 @@ export type ParticipantEventsLazyQueryHookResult = ReturnType<typeof useParticip
 export type ParticipantEventsQueryResult = Apollo.QueryResult<ParticipantEventsQuery, ParticipantEventsQueryVariables>;
 export const AutocompletedLocationsDocument = gql`
     query AutocompletedLocations($userInput: String!) {
-  getAutocompletedLocations(userInput: $userInput)
+  getAutocompletedLocations(userInput: $userInput) {
+    description
+    placeId
+  }
 }
     `;
 

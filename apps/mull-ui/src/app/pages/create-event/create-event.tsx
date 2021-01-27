@@ -161,8 +161,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         description: formik.values.description,
         title: formik.values.eventTitle,
         restriction: formik.values.activeRestriction,
-        // TODO: Add location to the graphql createEventInput type TASK-33
-        // location: formik.values.location,
+        location: formik.values.location,
         image: null,
       });
       setIsInReview(true);

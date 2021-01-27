@@ -76,9 +76,11 @@ export class Event implements IEvent {
   )
   host?: User;
 
+  @Field({ nullable: true })
   @ManyToOne(
     /* istanbul ignore next */ () => Location,
-    /* istanbul ignore next */ (location) => location.events
+    /* istanbul ignore next */ (location) => location.events,
+    { cascade: true }
   )
   location?: Location;
 }

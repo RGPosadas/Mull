@@ -2,6 +2,7 @@ import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Dialog from '@material-ui/core/Dialog';
 import { EventRestriction, ILocation } from '@mull/types';
+import { LocationInput } from 'apps/mull-ui/src/generated/graphql';
 import { FormikConfig } from 'formik';
 import React, { useState } from 'react';
 import { CustomTextInput, MullBackButton } from '../../../components';
@@ -35,7 +36,8 @@ export default function LocationAutocompleteModal({
     setOpen(false);
   };
 
-  const handleSetValue = (location: ILocation) => {
+  const handleSetValue = (location: LocationInput) => {
+    console.log('handleSetValue in modal');
     setInputValue(location.title);
     setFieldValue('location', location);
     handleClose();
