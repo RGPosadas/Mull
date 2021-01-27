@@ -15,6 +15,7 @@ import './location-autocomplete-textbox.scss';
 export interface LocationAutocompleteTextboxProps {
   handleSetValue: (location: LocationInput) => void;
   input: string;
+  setInputValue: (value: React.SetStateAction<string>) => void;
 }
 
 const CURRENT_LOCATION: IGooglePlace = { description: 'Current Location', placeId: null };
@@ -22,34 +23,34 @@ const CURRENT_LOCATION: IGooglePlace = { description: 'Current Location', placeI
 export default function LocationAutocompleteTextbox({
   handleSetValue,
   input,
+  setInputValue,
 }: LocationAutocompleteTextboxProps) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<IGooglePlace[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const { notifyToast, updateToast } = useToast();
-  const CURRENT_LOCATION = 'Current Location';
+  const { notifyToast } = useToast();
 
   const debounceGetLocation = useMemo(
     () =>
       debounce((search: string) => {
-        console.log('debounce called');
         setLoading(true);
         axios
-          .get(`${environment.backendUrl}/api/location-autocomplete?search=${search}`)
-          .then((data) => {
-            setOptions(data.data);
-            setLoading(false);
+          .get(encodeURI(`${environment.backendUrl}/api/location-autocomplete?search=${search}`))
+          .then((data) => data.data)
+          .then((data: IGooglePlace[]) => {
+            {
+              setOptions([CURRENT_LOCATION, ...data]);
+              setLoading(false);
+            }
           });
       }, 350),
     [axios.get]
   );
 
   const getCurrentPosition = () => {
-    console.log('getCurrentPos');
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          console.log('in geolocation getCurrentPos');
           const location: LocationInput = {
             title: 'Current Location',
             coordinates: {
@@ -60,7 +61,6 @@ export default function LocationAutocompleteTextbox({
           handleSetValue(location);
         },
         () => {
-          console.log('getcurrentpos error');
           notifyToast('Cannot get your current location coordinates.', { type: 'error' });
         },
         { enableHighAccuracy: true }
@@ -74,10 +74,12 @@ export default function LocationAutocompleteTextbox({
         id="location-input-field"
         data-testid="location-autocomplete-textbox"
         style={{ padding: '6px 20px' }}
+        inputValue={input}
+        defaultValue={input}
         open={open}
         getOptionLabel={(option) => (option.description ? option.description : '')}
         onFocus={() => {
-          setOptions([{ description: CURRENT_LOCATION, placeId: null }]);
+          setOptions([CURRENT_LOCATION]);
           setOpen(true);
         }}
         onOpen={() => {
@@ -86,26 +88,27 @@ export default function LocationAutocompleteTextbox({
         onClose={() => {
           setOpen(false);
         }}
-        defaultValue={input}
         onInputChange={(_event, value) => {
-          if (value && value !== CURRENT_LOCATION) {
+          setInputValue(value ? value : '');
+          if (value && value !== CURRENT_LOCATION.description) {
             debounceGetLocation(value);
           }
         }}
         onChange={(_event, value: IGooglePlace) => {
-          console.log('onChange called');
-          if (value.description === CURRENT_LOCATION) {
-            getCurrentPosition();
-          } else if (value) {
-            handleSetValue({ title: value.description, placeId: value.placeId });
+          if (value) {
+            if (value.description === CURRENT_LOCATION.description) {
+              getCurrentPosition();
+            } else if (value) {
+              handleSetValue({ title: value.description, placeId: value.placeId });
+            }
           }
         }}
-        getOptionSelected={(option: IGooglePlace, value: IGooglePlace) => {
-          // console.log({ option, value });
-          return option.description === value.description;
+        getOptionSelected={(option: IGooglePlace, value) => {
+          return option.description === ((value as unknown) as string);
         }}
         renderOption={(option: IGooglePlace) => {
-          const icon = option.description === CURRENT_LOCATION ? faLocationArrow : faMapMarkerAlt;
+          const icon =
+            option.description === CURRENT_LOCATION.description ? faLocationArrow : faMapMarkerAlt;
           return (
             <>
               <FontAwesomeIcon icon={icon} style={{ marginRight: '0.8rem' }} />

@@ -22,12 +22,10 @@ export class AppController {
       throw new Error(response.data.error_message);
     }
 
-    // console.log(response.data.predictions);
     const autocompleteLocations: IGooglePlace[] = response.data.predictions.map((field) => {
       const googlePlace: IGooglePlace = { description: field.description, placeId: field.place_id };
       return googlePlace;
     });
-    console.log(autocompleteLocations);
     return autocompleteLocations;
   }
 }

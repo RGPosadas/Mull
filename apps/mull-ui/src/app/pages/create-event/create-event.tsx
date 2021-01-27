@@ -1,6 +1,6 @@
 import { faAlignLeft, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { EventRestriction, EventRestrictionMap, ILocation } from '@mull/types';
+import { EventRestriction, EventRestrictionMap, ICreateEventForm } from '@mull/types';
 import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
 import { History } from 'history';
 import { cloneDeep, isEmpty } from 'lodash';
@@ -65,7 +65,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
     date.setMinutes(parseInt(minute));
   };
 
-  const formik = useFormik({
+  const formik = useFormik<ICreateEventForm>({
     initialValues: {
       activeRestriction: EventRestriction.NONE,
       startDate: null,
@@ -74,8 +74,8 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       endTime: '',
       eventTitle: '',
       description: '',
-      location: { title: '' } as ILocation,
-      imageFile: '',
+      location: { title: '' },
+      imageFile: null,
     },
 
     validationSchema: Yup.object({
