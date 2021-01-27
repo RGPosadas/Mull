@@ -13,7 +13,7 @@
 
   &.with-header {
     top: 5.75rem;
-    padding: 0.7rem 0 0 0;
+    padding: 0.9rem 0 0 0;
   }
 }
 
@@ -47,7 +47,7 @@
     top: $top-nav-bar-height-desktop;
     height: $sub-nav-bar-height-desktop;
     &.with-header {
-      top: $top-nav-header-height-desktop + $top-nav-bar-height-desktop;
+      top: $top-nav-header-height-desktop + $top-nav-bar-height-desktop * 0.968;
       padding: 1rem 0 0 0 0;
     }
   }

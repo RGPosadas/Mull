@@ -117,6 +117,7 @@ export const App = () => {
             <MessagesPage>
               <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
                 <SwipeableRoutes>
+                  {/* TODO: Create the Group Chat page and add in its component here */}
                   {/* <Route path={ROUTES.GROUPCHAT} component={GroupChatPage} /> */}
                   <PrivateRoute path={ROUTES.ANNOUNCEMENTS.url} component={AnnouncementsPage} />
                   <PrivateRoute exact path={ROUTES.MESSAGES}>
