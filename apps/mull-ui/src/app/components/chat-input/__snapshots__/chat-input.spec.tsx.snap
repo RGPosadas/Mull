@@ -12,7 +12,7 @@ exports[`ChatInput should match snapshot 1`] = `
       htmlFor="imageFile"
     >
       <div
-        className=""
+        className="file-upload-feedback"
       >
         <svg
           aria-hidden="true"

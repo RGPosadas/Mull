@@ -5,7 +5,7 @@
 }
 
 .chat-bubble {
-  max-width: 70%;
+  max-width: 65%;
 }
 
 .current-user-chat-container {
@@ -46,4 +46,10 @@
   object-fit: cover;
   border-radius: 50%;
   margin: 0.5rem;
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .chat-bubble {
+    max-width: 70%;
+  }
 }

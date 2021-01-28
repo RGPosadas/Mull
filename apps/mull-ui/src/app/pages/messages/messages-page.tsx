@@ -1,5 +1,5 @@
-import { ROUTES } from 'apps/mull-ui/src/constants';
 import React from 'react';
+import { ROUTES } from '../../../constants';
 import { ChatHeader, ChatInput, SubNavBar } from '../../components';
 
 export interface MessagePageProps {

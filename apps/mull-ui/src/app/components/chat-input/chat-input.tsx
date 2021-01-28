@@ -11,7 +11,7 @@ export const ChatInput = () => {
     <form className="chat-input-container">
       {/* TODO: Handle form data as needed by back-end */}
       <CustomFileUpload
-        className=""
+        className="file-upload-feedback"
         imageURL={null}
         hasErrors={null}
         errorMessage={null}

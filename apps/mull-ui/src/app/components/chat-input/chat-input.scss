@@ -10,7 +10,7 @@
   align-items: center;
   background-color: $background-color;
   .custom-file-upload-container {
-    margin-right: 1rem;
+    margin-right: 0.8rem;
   }
   .chat-input-button {
     position: absolute;
@@ -31,7 +31,14 @@
     color: $primary-color;
     &.custom-file-upload-icon {
       font-size: 1.5em; //em used to follow fontawesome standards for sizing
+      padding: 0.2rem;
     }
+  }
+}
+
+.file-upload-feedback {
+  :active {
+    background-color: #b3e6ff;
   }
 }
 

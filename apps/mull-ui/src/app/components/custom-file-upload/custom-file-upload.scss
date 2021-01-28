@@ -47,11 +47,6 @@
 
 .custom-file-upload-icon {
   color: $primary-color;
-  &:active {
-    border: 0.05rem solid;
-    background-color: $inactive-button-color;
-    border-radius: 100%;
-  }
 }
 
 .error-message {
