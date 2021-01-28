@@ -11,7 +11,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 describe('AppController', () => {
   let app: TestingModule;
 
-  const data: any[] = [
+  const data = [
     {
       description: 'mock',
       place_id: 'mock',

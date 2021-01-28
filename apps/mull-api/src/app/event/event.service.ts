@@ -76,7 +76,7 @@ export class EventService {
    * @param userId
    */
   async getEventsRecommendedToUser(userId: number): Promise<Event[]> {
-    const discoverableEvents: any[] = await this.eventRepository.query(
+    const discoverableEvents = await this.eventRepository.query(
       `
       SELECT DISTINCT event.id,
                       event.title,

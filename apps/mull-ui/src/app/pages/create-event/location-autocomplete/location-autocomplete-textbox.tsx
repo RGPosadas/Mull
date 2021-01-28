@@ -4,10 +4,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { IGooglePlace } from '@mull/types';
-import { environment } from 'apps/mull-ui/src/environments/environment';
 import axios from 'axios';
 import { debounce } from 'lodash';
 import React, { useMemo, useState } from 'react';
+import { environment } from '../../../../environments/environment';
 import { LocationInput } from '../../../../generated/graphql';
 import { useToast } from '../../../hooks/useToast';
 import './location-autocomplete-textbox.scss';
@@ -42,7 +42,7 @@ export default function LocationAutocompleteTextbox({
             setLoading(false);
           });
       }, 350),
-    [axios.get]
+    []
   );
 
   const getCurrentPosition = () => {
