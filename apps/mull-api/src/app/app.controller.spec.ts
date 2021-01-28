@@ -11,20 +11,6 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 describe('AppController', () => {
   let app: TestingModule;
 
-  const data = [
-    {
-      description: 'mock',
-      place_id: 'mock',
-    },
-  ];
-
-  const returnedData: IGooglePlace[] = [
-    {
-      description: 'mock',
-      placeId: 'mock',
-    },
-  ];
-
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [AppController],
@@ -42,6 +28,20 @@ describe('AppController', () => {
     });
   });
   describe('autocomplete resolver', () => {
+    const mockedGoogleApiData = [
+      {
+        description: 'mock',
+        place_id: 'mock',
+      },
+    ];
+
+    const expectedData: IGooglePlace[] = [
+      {
+        description: 'mock',
+        placeId: 'mock',
+      },
+    ];
+
     const userInput = 'mockInput';
 
     it('should return array of autocomplete locations', async () => {
@@ -50,7 +50,7 @@ describe('AppController', () => {
       const response = {
         data: {
           error_message: null,
-          predictions: data,
+          predictions: mockedGoogleApiData,
         },
       };
       mockedAxios.get.mockResolvedValue(response);
@@ -62,7 +62,7 @@ describe('AppController', () => {
         `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${userInput}&key=${environment.googleApi.placesApi}`
       );
 
-      expect(res).toEqual(returnedData);
+      expect(res).toEqual(expectedData);
     });
 
     it('should return error on error from google api', async () => {
@@ -71,7 +71,7 @@ describe('AppController', () => {
       const response = {
         data: {
           error_message: 'error',
-          predictions: data,
+          predictions: mockedGoogleApiData,
         },
       };
       mockedAxios.get.mockResolvedValue(response);

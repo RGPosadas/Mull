@@ -13,7 +13,7 @@ import LocationAutocompleteTextbox, {
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-const data: IGooglePlace[] = [
+const mockedApiData: IGooglePlace[] = [
   {
     description: '845 rue Sherbrooke',
     placeId: 'mock',
@@ -53,11 +53,11 @@ describe('location autocomplete textbox', () => {
     expect(autocompleteTextbox.value).toBe(testInput);
   });
 
-  it('should type in the autocomplete textbox', async () => {
+  it('should type in the autocomplete textbox and trigger the debounce', async () => {
     await act(async () => {
       const props = mockLocationAutocompleteTextboxProps();
 
-      mockedAxios.get.mockResolvedValue({ data: data });
+      mockedAxios.get.mockResolvedValue({ data: mockedApiData });
 
       const utils = render(<LocationAutocompleteTextbox {...props} />);
 
