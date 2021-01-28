@@ -4,16 +4,17 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { AutocompletedLocationsDocument } from '../../../../generated/graphql';
 import LocationAutocompleteTextbox, {
   LocationAutocompleteTextboxProps,
 } from './location-autocomplete-textbox';
 
 const mockHandleClose: (e) => void = jest.fn();
+const mockSetInputValue: (e) => void = jest.fn();
 
 const mockLocationAutocompleteTextboxProps: () => LocationAutocompleteTextboxProps = () => ({
   handleSetValue: mockHandleClose,
   input: '',
+  setInputValue: mockSetInputValue,
 });
 
 describe('location autocomplete textbox', () => {
