@@ -14,7 +14,7 @@ exports[`Announcements should match snapshot 1`] = `
       className="participant-chat-container"
     >
       <img
-        alt="user picture"
+        alt="user"
         className="user-picture"
         src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
       />
@@ -37,7 +37,7 @@ exports[`Announcements should match snapshot 1`] = `
       className="current-user-chat-container"
     >
       <img
-        alt="user picture"
+        alt="user"
         className="user-picture"
         src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
       />
@@ -60,7 +60,7 @@ exports[`Announcements should match snapshot 1`] = `
       className="current-user-chat-container"
     >
       <img
-        alt="user picture"
+        alt="user"
         className="user-picture"
         src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
       />
@@ -83,7 +83,7 @@ exports[`Announcements should match snapshot 1`] = `
       className="current-user-chat-container"
     >
       <img
-        alt="user picture"
+        alt="user"
         className="user-picture"
         src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
       />
@@ -106,7 +106,7 @@ exports[`Announcements should match snapshot 1`] = `
       className="current-user-chat-container"
     >
       <img
-        alt="user picture"
+        alt="user"
         className="user-picture"
         src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
       />
@@ -129,7 +129,7 @@ exports[`Announcements should match snapshot 1`] = `
       className="current-user-chat-container"
     >
       <img
-        alt="user picture"
+        alt="user"
         className="user-picture"
         src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
       />
@@ -152,7 +152,7 @@ exports[`Announcements should match snapshot 1`] = `
       className="current-user-chat-container"
     >
       <img
-        alt="user picture"
+        alt="user"
         className="user-picture"
         src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
       />
@@ -175,7 +175,7 @@ exports[`Announcements should match snapshot 1`] = `
       className="current-user-chat-container"
     >
       <img
-        alt="user picture"
+        alt="user"
         className="user-picture"
         src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
       />
@@ -198,7 +198,7 @@ exports[`Announcements should match snapshot 1`] = `
       className="current-user-chat-container"
     >
       <img
-        alt="user picture"
+        alt="user"
         className="user-picture"
         src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
       />
