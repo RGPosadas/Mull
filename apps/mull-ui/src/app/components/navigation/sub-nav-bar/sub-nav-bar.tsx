@@ -10,8 +10,8 @@ export interface SubNavBarProps {
 }
 
 export const SubNavBar = ({ style, className, routes }: SubNavBarProps) => {
-  let navLinks = routes.map((route) => {
-    let testid = 'subnavigation-' + route.displayName.toLowerCase().replace(' ', '') + '-button';
+  const navLinks = routes.map((route) => {
+    const testid = 'subnavigation-' + route.displayName.toLowerCase().replace(' ', '') + '-button';
     return (
       <NavLink
         key={route.url}
