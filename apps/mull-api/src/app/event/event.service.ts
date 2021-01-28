@@ -16,12 +16,12 @@ export class EventService {
   }
 
   getEvent(id: number): Promise<Event> {
-    return this.eventRepository.findOne(id, { relations: ['location'] });
+    return this.eventRepository.findOne(id, { relations: ['location', 'location.coordinates'] });
   }
 
   getEventsHostedByUser(hostId: number): Promise<Event[]> {
     return this.eventRepository.find({
-      relations: ['host'],
+      relations: ['host', 'location', 'location.coordinates'],
       where: {
         host: {
           id: hostId,
@@ -34,6 +34,7 @@ export class EventService {
     return this.eventRepository
       .createQueryBuilder('event')
       .leftJoin('event.coHosts', 'user')
+      .leftJoinAndSelect('event.location', 'location')
       .where('user.id = :userId', { userId: coHostId })
       .getMany();
   }
@@ -42,6 +43,7 @@ export class EventService {
     return this.eventRepository
       .createQueryBuilder('event')
       .leftJoin('event.participants', 'user')
+      .leftJoinAndSelect('event.location', 'location')
       .where('user.id = :userId', { userId })
       .getMany();
   }
@@ -74,14 +76,48 @@ export class EventService {
    * @param userId
    */
   async getEventsRecommendedToUser(userId: number): Promise<Event[]> {
-    const discoverableEvents = await this.eventRepository.query(
+    const discoverableEvents: any[] = await this.eventRepository.query(
       `
-    SELECT DISTINCT id, title, startDate, endDate, description, imageId, hostId, locationId, restriction FROM event LEFT JOIN event_participants ON event.id = event_participants.eventId
-    WHERE id NOT IN (SELECT event.id FROM event WHERE event.hostId = ${userId}) AND 
-    id NOT IN (SELECT event_participants.eventId FROM event_participants WHERE event_participants.userId = ${userId}) AND 
-    id NOT IN (SELECT event_cohosts.eventId FROM event_cohosts WHERE event_cohosts.userId = ${userId})`
+      SELECT DISTINCT event.id,
+                      event.title,
+                      event.startDate,
+                      event.endDate,
+                      event.description,
+                      event.imageid,
+                      event.hostid,
+                      event.locationid,
+                      event.restriction,
+                      location.id    AS location_id,
+                      location.title AS location_title
+        FROM event
+              LEFT JOIN event_participants
+                      ON event.id = event_participants.eventid
+              LEFT JOIN location
+                      ON event.locationid = location.id
+        WHERE event.id NOT IN (SELECT event.id
+                          FROM   event
+                          WHERE  event.hostid = ${userId})
+              AND event.id NOT IN (SELECT event_participants.eventid
+                              FROM   event_participants
+                              WHERE  event_participants.userid = ${userId})
+              AND event.id NOT IN (SELECT event_cohosts.eventid
+                              FROM   event_cohosts
+                              WHERE  event_cohosts.userid = ${userId}) 
+    `
     );
-    return discoverableEvents;
+
+    return discoverableEvents.map(
+      (event): Event => {
+        const { location_id, location_title, ...rest } = event;
+        return {
+          ...rest,
+          location: {
+            title: location_title,
+            id: location_id,
+          },
+        };
+      }
+    );
   }
 
   async createEvent(input: CreateEventInput): Promise<Event> {
