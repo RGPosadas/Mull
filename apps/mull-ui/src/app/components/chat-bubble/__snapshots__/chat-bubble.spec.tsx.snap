@@ -8,7 +8,7 @@ exports[`ChatBubble should match snapshot 1`] = `
     className="announcement-time"
   />
   <div
-    className="participant-chat-container"
+    className="other-user-chat-container"
   >
     <img
       alt="user"

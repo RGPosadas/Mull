@@ -1,15 +1,15 @@
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { CSSProperties } from 'react';
-import './sub-nav-bar-header.scss';
+import './chat-header.scss';
 
-export interface SubNavBarHeaderProps {
+export interface ChatHeaderProps {
   style?: CSSProperties;
   className?: string;
   eventTitle: string;
 }
 
-export const SubNavBarHeader = ({ style, className, eventTitle }: SubNavBarHeaderProps) => {
+export const ChatHeader = ({ style, className, eventTitle }: ChatHeaderProps) => {
   return (
     <div className={`header ${className}`} style={style}>
       <button className="hamburger-button">
@@ -20,4 +20,4 @@ export const SubNavBarHeader = ({ style, className, eventTitle }: SubNavBarHeade
   );
 };
 
-export default SubNavBarHeader;
+export default ChatHeader;

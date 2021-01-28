@@ -11,7 +11,7 @@ exports[`Announcements should match snapshot 1`] = `
       13:00 21/10/20
     </p>
     <div
-      className="participant-chat-container"
+      className="other-user-chat-container"
     >
       <img
         alt="user"

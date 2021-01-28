@@ -18,14 +18,14 @@
   }
 }
 
-.participant-chat-container {
+.other-user-chat-container {
   .chat-bubble {
-    background-color: $recieved-chat-color;
+    background-color: $received-chat-color;
   }
 }
 
 .current-user-chat-container,
-.participant-chat-container {
+.other-user-chat-container {
   display: flex;
   .chat-bubble {
     border-radius: 1rem;
