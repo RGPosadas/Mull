@@ -26,6 +26,13 @@ export const mockAllEvents: Event[] = [
     host: userA,
     coHosts: [userB],
     participants: [userC],
+    location: {
+      id: 1,
+      title: 'locationA',
+      coordinates: null,
+      placeId: 'googlePlaceIdA',
+      event: null,
+    },
   },
   {
     id: 36,
@@ -37,6 +44,13 @@ export const mockAllEvents: Event[] = [
     host: userB,
     coHosts: [userA],
     participants: [userC],
+    location: {
+      id: 2,
+      title: 'locationB',
+      coordinates: null,
+      placeId: 'googlePlaceIdB',
+      event: null,
+    },
   },
   {
     id: 37,
@@ -48,5 +62,46 @@ export const mockAllEvents: Event[] = [
     host: userB,
     coHosts: [userA],
     participants: [],
+    location: {
+      id: 3,
+      title: 'locationC',
+      coordinates: null,
+      placeId: 'googlePlaceIdC',
+      event: null,
+    },
+  },
+];
+
+export const mockQueryReturn = [
+  {
+    id: 37,
+    title: 'Clean up trash',
+    description: 'lots of trash',
+    startDate: new Date('2020-10-29T20:20:00.000Z'),
+    endDate: new Date('2020-10-31T22:09:00.000Z'),
+    restriction: 0,
+    host: userB,
+    coHosts: [userA],
+    participants: [],
+    location_id: 3,
+    location_title: 'locationC',
+  },
+];
+
+export const mockExpectedQueryReturn = [
+  {
+    id: 37,
+    title: 'Clean up trash',
+    description: 'lots of trash',
+    startDate: new Date('2020-10-29T20:20:00.000Z'),
+    endDate: new Date('2020-10-31T22:09:00.000Z'),
+    restriction: 0,
+    host: userB,
+    coHosts: [userA],
+    participants: [],
+    location: {
+      id: 3,
+      title: 'locationC',
+    },
   },
 ];
