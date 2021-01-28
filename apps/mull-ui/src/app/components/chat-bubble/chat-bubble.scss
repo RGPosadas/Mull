@@ -8,7 +8,7 @@
   max-width: 70%;
 }
 
-.host-chat-container {
+.current-user-chat-container {
   flex-direction: row-reverse;
   img {
     margin-right: 0;
@@ -24,7 +24,7 @@
   }
 }
 
-.host-chat-container,
+.current-user-chat-container,
 .participant-chat-container {
   display: flex;
   .chat-bubble {

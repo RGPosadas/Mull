@@ -1,4 +1,4 @@
-import { IRoutes } from '@mull/types';
+import { IRoute } from '@mull/types';
 import React, { CSSProperties } from 'react';
 import { NavLink } from 'react-router-dom';
 import './sub-nav-bar.scss';
@@ -6,7 +6,7 @@ import './sub-nav-bar.scss';
 export interface SubNavBarProps {
   style?: CSSProperties;
   className?: string;
-  routes: IRoutes[];
+  routes: IRoute[];
 }
 
 export const SubNavBar = ({ style, className, routes }: SubNavBarProps) => {

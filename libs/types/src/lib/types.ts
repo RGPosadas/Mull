@@ -79,7 +79,7 @@ export interface IRefreshResponse {
   accessToken: string;
 }
 
-export interface IRoutes {
+export interface IRoute {
   url: string;
   displayName: string;
 }
