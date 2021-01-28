@@ -1,6 +1,6 @@
 import { ILocation, IPoint } from '@mull/types';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Event } from '../entities';
 
 @Entity()
@@ -30,8 +30,8 @@ export class Location implements ILocation {
   @Column()
   title: string;
 
-  @OneToMany(() => Event, (event) => event.location)
-  events: Event[];
+  @OneToOne(() => Event, (event) => event.location)
+  event: Event;
 
   @Field({ nullable: true })
   @OneToOne(() => Point, { cascade: true })
