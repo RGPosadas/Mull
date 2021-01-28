@@ -4,7 +4,7 @@
   background-color: $background-color;
   padding: 0.5rem 0;
   position: fixed;
-  top: 3.5rem;
+  top: $top-nav-bar-height-mobile;
   display: flex;
   width: 100%;
   align-items: center;
@@ -24,6 +24,6 @@ h1 {
 
 @media (min-width: $breakpoint-mobile) {
   .header {
-    top: 6.25rem;
+    top: $top-nav-bar-height-desktop;
   }
 }

@@ -3,7 +3,7 @@
 .chat-input-container {
   width: 100%;
   position: fixed;
-  bottom: 4.75rem;
+  bottom: $bot-nav-bar-height-mobile;
   padding: 1rem;
   display: flex;
   box-sizing: border-box;
@@ -16,6 +16,8 @@
     position: absolute;
     bottom: 0.4rem;
     right: 0.5rem;
+    width: 2rem;
+    height: 2rem;
     border-radius: 100%;
     border: 1px $primary-color solid;
     background: $primary-color;

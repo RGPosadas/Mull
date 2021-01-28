@@ -7,13 +7,13 @@ export const AnnouncementsPage = () => {
   return (
     <div>
       <ChatBubble
-        isHost={false}
+        isCurrentUser={false}
         chatDate="13:00 21/10/20"
         userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
         chatMessage="Hello, and welcome!"
       />
       <ChatBubble
-        isHost={true}
+        isCurrentUser={true}
         chatDate="13:00 21/10/20"
         userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
         chatMessage="Filler text is text that shares some characteristics of a real written text, but is random
@@ -21,49 +21,49 @@ export const AnnouncementsPage = () => {
         testing, or to spoof an e-mail spam filter."
       />
       <ChatBubble
-        isHost={true}
+        isCurrentUser={true}
         chatDate="13:00 21/10/20"
         userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
         chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
         industries for previewing layouts and visual mockups."
       />
       <ChatBubble
-        isHost={true}
+        isCurrentUser={true}
         chatDate="13:00 21/10/20"
         userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
         chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
         industries for previewing layouts and visual mockups."
       />
       <ChatBubble
-        isHost={true}
+        isCurrentUser={true}
         chatDate="13:00 21/10/20"
         userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
         chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
         industries for previewing layouts and visual mockups."
       />
       <ChatBubble
-        isHost={true}
+        isCurrentUser={true}
         chatDate="13:00 21/10/20"
         userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
         chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
         industries for previewing layouts and visual mockups."
       />
       <ChatBubble
-        isHost={true}
+        isCurrentUser={true}
         chatDate="13:00 21/10/20"
         userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
         chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
         industries for previewing layouts and visual mockups."
       />
       <ChatBubble
-        isHost={true}
+        isCurrentUser={true}
         chatDate="13:00 21/10/20"
         userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
         chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
         industries for previewing layouts and visual mockups."
       />
       <ChatBubble
-        isHost={true}
+        isCurrentUser={true}
         chatDate="13:00 21/10/20"
         userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
         chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing

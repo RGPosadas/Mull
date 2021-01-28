@@ -12,7 +12,7 @@
   z-index: 2;
 
   &.with-header {
-    top: 5.75rem;
+    top: $top-nav-bar-height-mobile + $top-nav-header-height-mobile;
     padding: 0.9rem 0 0 0;
   }
 }
