@@ -67,6 +67,9 @@ export const App = () => {
         <PrivateRoute exact path={['/', ROUTES.HOME]}>
           {<Redirect to={ROUTES.DISCOVER.url} />}
         </PrivateRoute>
+        <PrivateRoute exact path={['/', ROUTES.MESSAGES]}>
+          <Redirect to={ROUTES.ANNOUNCEMENTS.url} />
+        </PrivateRoute>
 
         {/* Switch for main page */}
         <Switch>
@@ -118,11 +121,8 @@ export const App = () => {
               <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
                 <SwipeableRoutes>
                   {/* TODO: Create the Group Chat page and add in its component here */}
-                  {/* <Route path={ROUTES.GROUPCHAT} component={GroupChatPage} /> */}
+                  {/* <PrivateRoute path={ROUTES.GROUPCHAT.url} component={GroupChatPage} /> */}
                   <PrivateRoute path={ROUTES.ANNOUNCEMENTS.url} component={AnnouncementsPage} />
-                  <PrivateRoute exact path={ROUTES.MESSAGES}>
-                    <Redirect to={ROUTES.ANNOUNCEMENTS.url} />
-                  </PrivateRoute>
                 </SwipeableRoutes>
               </div>
             </MessagesPage>
