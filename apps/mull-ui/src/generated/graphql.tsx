@@ -48,12 +48,6 @@ export type Event = {
   title: Scalars['String'];
 };
 
-export type GooglePlace = {
-  __typename?: 'GooglePlace';
-  description: Scalars['String'];
-  placeId: Scalars['String'];
-};
-
 export type Location = {
   __typename?: 'Location';
   coordinates?: Maybe<Point>;
@@ -179,7 +173,6 @@ export type Query = {
   discoverEvents: Array<Event>;
   event: Event;
   events: Array<Event>;
-  getAutocompletedLocations: Array<GooglePlace>;
   hostEvents: Array<Event>;
   isParticipant: Scalars['Boolean'];
   location: Location;
@@ -201,11 +194,6 @@ export type QueryDiscoverEventsArgs = {
 
 export type QueryEventArgs = {
   id: Scalars['Int'];
-};
-
-
-export type QueryGetAutocompletedLocationsArgs = {
-  userInput: Scalars['String'];
 };
 
 
@@ -402,19 +390,6 @@ export type ParticipantEventsQuery = (
   & { participantEvents: Array<(
     { __typename?: 'Event' }
     & EventCardContentFragment
-  )> }
-);
-
-export type AutocompletedLocationsQueryVariables = Exact<{
-  userInput: Scalars['String'];
-}>;
-
-
-export type AutocompletedLocationsQuery = (
-  { __typename?: 'Query' }
-  & { getAutocompletedLocations: Array<(
-    { __typename?: 'GooglePlace' }
-    & Pick<GooglePlace, 'description' | 'placeId'>
   )> }
 );
 
@@ -750,40 +725,6 @@ export function useParticipantEventsLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type ParticipantEventsQueryHookResult = ReturnType<typeof useParticipantEventsQuery>;
 export type ParticipantEventsLazyQueryHookResult = ReturnType<typeof useParticipantEventsLazyQuery>;
 export type ParticipantEventsQueryResult = Apollo.QueryResult<ParticipantEventsQuery, ParticipantEventsQueryVariables>;
-export const AutocompletedLocationsDocument = gql`
-    query AutocompletedLocations($userInput: String!) {
-  getAutocompletedLocations(userInput: $userInput) {
-    description
-    placeId
-  }
-}
-    `;
-
-/**
- * __useAutocompletedLocationsQuery__
- *
- * To run a query within a React component, call `useAutocompletedLocationsQuery` and pass it any options that fit your needs.
- * When your component renders, `useAutocompletedLocationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAutocompletedLocationsQuery({
- *   variables: {
- *      userInput: // value for 'userInput'
- *   },
- * });
- */
-export function useAutocompletedLocationsQuery(baseOptions: Apollo.QueryHookOptions<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>) {
-        return Apollo.useQuery<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>(AutocompletedLocationsDocument, baseOptions);
-      }
-export function useAutocompletedLocationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>) {
-          return Apollo.useLazyQuery<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>(AutocompletedLocationsDocument, baseOptions);
-        }
-export type AutocompletedLocationsQueryHookResult = ReturnType<typeof useAutocompletedLocationsQuery>;
-export type AutocompletedLocationsLazyQueryHookResult = ReturnType<typeof useAutocompletedLocationsLazyQuery>;
-export type AutocompletedLocationsQueryResult = Apollo.QueryResult<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>;
 export const EventPageDocument = gql`
     query EventPage($eventId: Int!, $userId: Int!) {
   isParticipant(eventId: $eventId, userId: $userId)

@@ -43,14 +43,6 @@ query ParticipantEvents($userId: Int!) {
   }
 }
 
-# Get an array of autocompleted locations as the user types into the text input
-query AutocompletedLocations($userInput: String!) {
-  getAutocompletedLocations(userInput: $userInput) {
-    description
-    placeId
-  }
-}
-
 # Find events by Id and finds participating events of user
 query EventPage($eventId: Int!, $userId: Int!) {
   isParticipant(eventId: $eventId, userId: $userId)
