@@ -38,10 +38,8 @@ export default function LocationAutocompleteTextbox({
           .get(encodeURI(`${environment.backendUrl}/api/location-autocomplete?search=${search}`))
           .then((data) => data.data)
           .then((data: IGooglePlace[]) => {
-            {
-              setOptions([CURRENT_LOCATION, ...data]);
-              setLoading(false);
-            }
+            setOptions([CURRENT_LOCATION, ...data]);
+            setLoading(false);
           });
       }, 350),
     [axios.get]

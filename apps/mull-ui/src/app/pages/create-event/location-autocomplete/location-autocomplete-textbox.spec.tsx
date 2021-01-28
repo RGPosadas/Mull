@@ -1,19 +1,31 @@
-import { MockedProvider } from '@apollo/client/testing';
+import { IGooglePlace } from '@mull/types';
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import axios from 'axios';
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import LocationAutocompleteTextbox, {
   LocationAutocompleteTextboxProps,
 } from './location-autocomplete-textbox';
+
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+const data: IGooglePlace[] = [
+  {
+    description: '845 rue Sherbrooke',
+    placeId: 'mock',
+  },
+];
 
 const mockHandleClose: (e) => void = jest.fn();
 const mockSetInputValue: (e) => void = jest.fn();
 
 const mockLocationAutocompleteTextboxProps: () => LocationAutocompleteTextboxProps = () => ({
   handleSetValue: mockHandleClose,
-  input: '',
+  input: '845 rue Sherbrooke',
   setInputValue: mockSetInputValue,
 });
 
@@ -41,34 +53,27 @@ describe('location autocomplete textbox', () => {
     expect(autocompleteTextbox.value).toBe(testInput);
   });
 
-  it('should type in the autocomplete textbox', () => {
-    const props = mockLocationAutocompleteTextboxProps();
+  it('should type in the autocomplete textbox', async () => {
+    await act(async () => {
+      const props = mockLocationAutocompleteTextboxProps();
 
-    const mocks = [
-      {
-        request: {
-          query: AutocompletedLocationsDocument,
-          variables: { userInput: '' },
-        },
-        result: { data: ['845 rue Sherbrooke'] },
-      },
-    ];
-    const utils = render(
-      <MockedProvider mocks={mocks}>
-        <LocationAutocompleteTextbox {...props} />
-      </MockedProvider>
-    );
+      mockedAxios.get.mockResolvedValue({ data: data });
 
-    const textbox = utils.getByTestId('location-autocomplete-textbox');
-    fireEvent.change(textbox, { target: { defaultValue: '8485 rue Sherbrooke' } });
-    userEvent.type(
-      screen.getByTestId('location-autocomplete-textbox'),
-      '845 rue Sherbrooke{enter}'
-    );
+      const utils = render(<LocationAutocompleteTextbox {...props} />);
 
-    const autocompleteTextbox = utils.container.querySelector(
-      '#location-input-field'
-    ) as HTMLInputElement;
-    expect(autocompleteTextbox.value).toBe('845 rue Sherbrooke');
+      userEvent.type(
+        screen.getByTestId('location-autocomplete-textbox'),
+        '845 rue Sherbrooke{enter}'
+      );
+
+      expect(mockedAxios.get).toHaveBeenCalledTimes(0);
+      await new Promise((r) => setTimeout(r, 1000));
+      expect(mockedAxios.get).toHaveBeenCalledTimes(1);
+
+      const autocompleteTextbox = utils.container.querySelector(
+        '#location-input-field'
+      ) as HTMLInputElement;
+      expect(autocompleteTextbox.value).toBe('845 rue Sherbrooke');
+    });
   });
 });
