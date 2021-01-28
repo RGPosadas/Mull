@@ -93,12 +93,10 @@ export default function LocationAutocompleteTextbox({
           }
         }}
         onChange={(_event, value: IGooglePlace) => {
-          if (value) {
-            if (value.description === CURRENT_LOCATION.description) {
-              getCurrentPosition();
-            } else if (value) {
-              handleSetValue({ title: value.description, placeId: value.placeId });
-            }
+          if (value && value.description === CURRENT_LOCATION.description) {
+            getCurrentPosition();
+          } else if (value) {
+            handleSetValue({ title: value.description, placeId: value.placeId });
           }
         }}
         getOptionSelected={(option: IGooglePlace, value) => {
