@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Brackets, Repository } from 'typeorm';
-import { Event, User } from '../entities';
+import { Event, Media, User } from '../entities';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 
 @Injectable()
@@ -156,5 +156,10 @@ export class EventService {
       event.participants.splice(index, 1);
       return await this.eventRepository.save(event);
     }
+  }
+
+  async getEventImage(eventId: number): Promise<Media> {
+    const { image } = await this.eventRepository.findOne(eventId, { relations: ['image'] });
+    return image;
   }
 }

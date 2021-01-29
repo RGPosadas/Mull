@@ -50,4 +50,8 @@ export class MediaService {
     );
     return true;
   }
+
+  async getMedia(mediaId: number): Promise<Media> {
+    return await this.mediaRepository.findOne(mediaId);
+  }
 }
