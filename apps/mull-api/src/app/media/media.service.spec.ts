@@ -6,9 +6,11 @@ import { mockFile, mockInvalidFile, mockMedia } from './media.mockdata';
 import { MediaService } from './media.service';
 
 const mockMediaRepository = () => ({
+  findOne: jest.fn(() => mockMedia),
   create: jest.fn((mockMimeType: string) => {
     const mockFileType = mockMimeType.split('/')[1];
     const mockMedia = new Media(mockFileType);
+    mockMedia.id = 7;
     return mockMedia;
   }),
   save: jest.fn((file: Media) => file),
@@ -80,5 +82,10 @@ describe('MediaService', () => {
     } catch (err) {
       expect(err.syscall).toEqual('rename');
     }
+  });
+
+  it('should find an image', async () => {
+    const foundMedia = await service.getMedia(7);
+    expect(foundMedia).toEqual(mockMedia);
   });
 });

@@ -11,7 +11,7 @@ import DiscoverPage from './discover-page';
 describe('discoverPage', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
-    history.push(ROUTES.DISCOVER);
+    history.push(ROUTES.DISCOVER.url);
 
     const { baseElement } = render(
       <MockedProvider>
@@ -44,6 +44,10 @@ describe('discoverPage', () => {
                     title: 'mockTitle',
                   },
                   restriction: 1,
+                  image: {
+                    id: 1,
+                    mediaType: 'jpeg',
+                  },
                 },
               ],
             },
@@ -52,7 +56,7 @@ describe('discoverPage', () => {
       ];
 
       const history = createMemoryHistory();
-      history.push(ROUTES.DISCOVER);
+      history.push(ROUTES.DISCOVER.url);
 
       const utils = render(
         <MockedProvider mocks={mocks} addTypename={false}>

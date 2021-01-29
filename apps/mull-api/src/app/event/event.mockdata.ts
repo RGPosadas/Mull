@@ -1,4 +1,4 @@
-import { Event } from '../entities';
+import { Event, Media } from '../entities';
 import { mockAllUsers } from '../user/user.mockdata';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 
@@ -33,6 +33,11 @@ export const mockAllEvents: Event[] = [
       placeId: 'googlePlaceIdA',
       event: null,
     },
+    image: {
+      id: 1,
+      mediaType: 'jpeg',
+      post: null,
+    },
   },
   {
     id: 36,
@@ -51,6 +56,11 @@ export const mockAllEvents: Event[] = [
       placeId: 'googlePlaceIdB',
       event: null,
     },
+    image: {
+      id: 2,
+      mediaType: 'jpeg',
+      post: null,
+    },
   },
   {
     id: 37,
@@ -68,6 +78,11 @@ export const mockAllEvents: Event[] = [
       coordinates: null,
       placeId: 'googlePlaceIdC',
       event: null,
+    },
+    image: {
+      id: 3,
+      mediaType: 'jpeg',
+      post: null,
     },
   },
 ];
@@ -105,3 +120,9 @@ export const mockExpectedQueryReturn = [
     },
   },
 ];
+
+export const mockImage: Media = {
+  id: 1,
+  mediaType: 'jpeg',
+  post: null,
+};

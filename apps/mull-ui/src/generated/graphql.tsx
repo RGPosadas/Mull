@@ -340,6 +340,9 @@ export type EventPageContentFragment = (
   & { location?: Maybe<(
     { __typename?: 'Location' }
     & Pick<Location, 'title'>
+  )>, image?: Maybe<(
+    { __typename?: 'Media' }
+    & Pick<Media, 'id' | 'mediaType'>
   )> }
 );
 
@@ -349,6 +352,9 @@ export type EventCardContentFragment = (
   & { location?: Maybe<(
     { __typename?: 'Location' }
     & Pick<Location, 'title'>
+  )>, image?: Maybe<(
+    { __typename?: 'Media' }
+    & Pick<Media, 'id' | 'mediaType'>
   )> }
 );
 
@@ -420,6 +426,10 @@ export const EventPageContentFragmentDoc = gql`
   location {
     title
   }
+  image {
+    id
+    mediaType
+  }
 }
     `;
 export const EventCardContentFragmentDoc = gql`
@@ -430,6 +440,10 @@ export const EventCardContentFragmentDoc = gql`
   startDate
   location {
     title
+  }
+  image {
+    id
+    mediaType
   }
 }
     `;

@@ -182,4 +182,9 @@ describe('EventService', () => {
     expect(foundEvents).toEqual(mockExpectedQueryReturn);
     expect(repository.query).toBeCalledTimes(1);
   });
+
+  it('should get an image', async () => {
+    const image = await service.getEventImage(36);
+    expect(image).toEqual(mockAllEvents[1].image);
+  });
 });

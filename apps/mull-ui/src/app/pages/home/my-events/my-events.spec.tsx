@@ -11,7 +11,7 @@ import MyEventsPage from './my-events';
 describe('myEventsPage', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
-    history.push(ROUTES.MY_EVENTS);
+    history.push(ROUTES.MY_EVENTS.url);
 
     const { baseElement } = render(
       <MockedProvider>
@@ -43,6 +43,10 @@ describe('myEventsPage', () => {
                     title: 'mockTitle',
                   },
                   restriction: 0,
+                  image: {
+                    id: 1,
+                    mediaType: 'jpeg',
+                  },
                   __typename: 'Event',
                 },
               ],
@@ -56,6 +60,10 @@ describe('myEventsPage', () => {
                     title: 'mockTitle',
                   },
                   restriction: 1,
+                  image: {
+                    id: 1,
+                    mediaType: 'jpeg',
+                  },
                   __typename: 'Event',
                 },
               ],
@@ -65,7 +73,7 @@ describe('myEventsPage', () => {
       ];
 
       const history = createMemoryHistory();
-      history.push(ROUTES.MY_EVENTS);
+      history.push(ROUTES.MY_EVENTS.url);
 
       const utils = render(
         <MockedProvider mocks={mocks} addTypename={false}>

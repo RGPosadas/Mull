@@ -8,6 +8,10 @@ fragment EventPageContent on Event {
   location {
     title
   }
+  image {
+    id
+    mediaType
+  }
 }
 
 fragment EventCardContent on Event {
@@ -17,6 +21,10 @@ fragment EventCardContent on Event {
   startDate
   location {
     title
+  }
+  image {
+    id
+    mediaType
   }
 }
 

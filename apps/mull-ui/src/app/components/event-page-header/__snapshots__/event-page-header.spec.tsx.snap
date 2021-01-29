@@ -40,7 +40,7 @@ exports[`EventPageHeader should match snapshot 1`] = `
   <img
     alt="Event Page"
     className="event-image"
-    src=""
+    src="http://localhost:3333/api/media/1"
   />
   <div
     className="event-datetime"

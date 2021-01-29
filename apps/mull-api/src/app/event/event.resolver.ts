@@ -1,5 +1,5 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { Event } from '../entities';
+import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Event, Media } from '../entities';
 import { EventService } from './event.service';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 
@@ -82,5 +82,10 @@ export class EventResolver {
   ) {
     this.eventService.removeEventParticipant(eventId, userId);
     return true;
+  }
+
+  @ResolveField(/* istanbul ignore next */ () => Media)
+  async image(@Parent() event: Event) {
+    return await this.eventService.getEventImage(event.id);
   }
 }
