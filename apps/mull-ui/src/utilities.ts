@@ -1,3 +1,6 @@
+import { ISerializedEvent } from '@mull/types';
+import { environment } from './environments/environment';
+
 /**
  * Converts date to a list of tokens for displaying
  *
@@ -16,3 +19,6 @@ export const formatDate = (
 
   return { year: date.getFullYear(), month, day: date.getDate(), time: timeString };
 };
+
+export const mediaUrl = (event: Partial<ISerializedEvent>) =>
+  `${environment.backendUrl}/api/media/${event.image.id}`;
