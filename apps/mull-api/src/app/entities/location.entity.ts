@@ -11,11 +11,11 @@ export class Point implements IPoint {
   id: number;
 
   @Field()
-  @Column('double')
+  @Column('decimal', { precision: 10, scale: 7 })
   lat: number;
 
   @Field()
-  @Column('double')
+  @Column('decimal', { precision: 10, scale: 7 })
   long: number;
 }
 

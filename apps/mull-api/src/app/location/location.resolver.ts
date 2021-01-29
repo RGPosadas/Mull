@@ -3,7 +3,7 @@ import { Location } from '../entities';
 import { LocationInput } from './inputs/location.input';
 import { LocationService } from './location.service';
 
-@Resolver('Location')
+@Resolver(/* istanbul ignore next */ () => Location)
 export class LocationResolver {
   constructor(private readonly locationService: LocationService) {}
 
@@ -12,7 +12,7 @@ export class LocationResolver {
     return this.locationService.getLocation(id);
   }
 
-  @Mutation(() => Location)
+  @Mutation(/* istanbul ignore next */ () => Location)
   async createLocation(@Args('location') location: LocationInput) {
     return this.locationService.createLocation(location);
   }
