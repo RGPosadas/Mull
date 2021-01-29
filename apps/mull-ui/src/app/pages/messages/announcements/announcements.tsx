@@ -55,20 +55,6 @@ export const AnnouncementsPage = () => {
         chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
         industries for previewing layouts and visual mockups."
       />
-      <ChatBubble
-        isCurrentUser={true}
-        chatDate="13:00 21/10/20"
-        userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
-        chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
-        industries for previewing layouts and visual mockups."
-      />
-      <ChatBubble
-        isCurrentUser={true}
-        chatDate="13:00 21/10/20"
-        userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
-        chatMessage="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing
-        industries for previewing layouts and visual mockups."
-      />
     </div>
   );
 };
