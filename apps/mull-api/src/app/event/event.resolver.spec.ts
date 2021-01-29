@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { User } from '../entities';
 import { mockAllUsers } from '../user/user.mockdata';
-import { mockAllEvents, mockPartialEvent } from './event.mockdata';
+import { mockAllEvents, mockImage, mockPartialEvent } from './event.mockdata';
 import { EventResolver } from './event.resolver';
 import { EventService } from './event.service';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
@@ -36,6 +36,7 @@ const mockEventService = () => ({
     )
   ),
   getEventsRecommendedToUser: jest.fn().mockReturnValue(mockAllEvents[2]),
+  getEventImage: jest.fn().mockReturnValue(mockImage),
 });
 
 describe('UserResolver', () => {
@@ -123,5 +124,10 @@ describe('UserResolver', () => {
     const foundEvents = await resolver.discoverEvents(id);
     expect(foundEvents).toEqual(mockAllEvents[2]);
     expect(service.getEventsRecommendedToUser).toBeCalledTimes(1);
+  });
+
+  it('shoud return an image', async () => {
+    const image = await resolver.image(mockAllEvents[0]);
+    expect(image).toEqual(mockImage);
   });
 });
