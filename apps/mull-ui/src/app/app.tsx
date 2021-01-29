@@ -84,19 +84,7 @@ export const App = () => {
           />
           <Route exact path={ROUTES.TOKEN_REDIRECT} component={TokenRedirectPage} />
           <PrivateRoute exact path={ROUTES.CREATE_EVENT} component={CreateEventPage} />
-          <Route
-            exact
-            path={ROUTES.EVENT_BY_ID}
-            children={
-              <EventPage
-                // TODO: Remove placeholder once file download is done
-                eventImageURL={
-                  'https://uptownalmanac.com/sites/default/files/styles/full-post-width/public/images-on-cdn/dptrash.jpg?itok=N7RFjtgc'
-                }
-                prevPage="Discover"
-              />
-            }
-          />
+          <Route exact path={ROUTES.EVENT_BY_ID} children={<EventPage prevPage="Discover" />} />
           <PrivateRoute path={ROUTES.HOME}>
             <SubNavBar
               routes={[ROUTES.DISCOVER, ROUTES.UPCOMING, ROUTES.MY_EVENTS]}

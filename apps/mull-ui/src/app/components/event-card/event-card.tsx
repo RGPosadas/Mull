@@ -4,7 +4,7 @@ import { ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
 import { dummyProfilePictures } from '../../../constants'; // TODO query the participants profile pictures
 import { useJoinEventMutation, useLeaveEventMutation } from '../../../generated/graphql';
-import { formatDate } from '../../../utilities';
+import { formatDate, mediaUrl } from '../../../utilities';
 import EventMembers from '../event-members/event-members';
 import './event-card.scss';
 
@@ -31,12 +31,7 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
 
   return (
     <div className="event-card-container button" onClick={onClick} style={style}>
-      <img
-        className="event-card-image"
-        // TODO: Replace placeholder
-        src="https://uptownalmanac.com/sites/default/files/styles/full-post-width/public/images-on-cdn/dptrash.jpg?itok=N7RFjtgc"
-        alt="Event"
-      />
+      <img className="event-card-image" src={mediaUrl(event)} alt="Event" />
       <div className="event-card-datetime" data-testid="event-card-datetime">
         <div className="date-style">{`${day} ${month.toUpperCase()}`}</div>
         <div>{time.replace(/\s/g, '')}</div>
