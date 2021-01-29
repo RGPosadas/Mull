@@ -11,7 +11,7 @@ import UpcomingPage from './upcoming';
 describe('myEventsPage', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
-    history.push(ROUTES.UPCOMING);
+    history.push(ROUTES.UPCOMING.url);
 
     const { baseElement } = render(
       <MockedProvider>
@@ -44,6 +44,10 @@ describe('myEventsPage', () => {
                   location: {
                     title: 'mockTitle',
                   },
+                  image: {
+                    id: 1,
+                    mediaType: 'jpeg',
+                  },
                 },
               ],
             },
@@ -52,7 +56,7 @@ describe('myEventsPage', () => {
       ];
 
       const history = createMemoryHistory();
-      history.push(ROUTES.UPCOMING);
+      history.push(ROUTES.UPCOMING.url);
 
       const utils = render(
         <MockedProvider mocks={mocks} addTypename={false}>

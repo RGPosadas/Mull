@@ -53,4 +53,8 @@ export const dummyEvent: ISerializedEvent = {
   host: {
     name: 'Test user',
   },
+  image: {
+    id: 1,
+    mediaType: 'jpeg',
+  },
 };
