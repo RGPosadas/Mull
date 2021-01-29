@@ -60,7 +60,7 @@ exports[`EventCard should match snapshot 1`] = `
       <div
         className="event-card-location"
       >
-        15km • 1455 Boulevard de Maisonneuve O, Montréal, QC H3G 1M8
+        15km • 1260 Remembrance Road Montreal, Qc
       </div>
     </div>
     <div

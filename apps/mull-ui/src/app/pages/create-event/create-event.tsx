@@ -1,6 +1,6 @@
 import { faAlignLeft, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { EventRestriction, EventRestrictionMap, ILocation } from '@mull/types';
+import { EventRestriction, EventRestrictionMap, ICreateEventForm } from '@mull/types';
 import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
 import { History } from 'history';
 import { cloneDeep, isEmpty } from 'lodash';
@@ -65,7 +65,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
     date.setMinutes(parseInt(minute));
   };
 
-  const formik = useFormik({
+  const formik = useFormik<ICreateEventForm>({
     initialValues: {
       activeRestriction: EventRestriction.NONE,
       startDate: null,
@@ -74,8 +74,8 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       endTime: '',
       eventTitle: '',
       description: '',
-      location: { title: '' } as ILocation,
-      imageFile: '',
+      location: { title: '' },
+      imageFile: null,
     },
 
     validationSchema: Yup.object({
@@ -115,10 +115,6 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         const {
           data: { uploadFile: uploadedFile },
         } = await uploadFile({ variables: { file: file } });
-
-        // TODO Temporary workaround. Backend currently doesn't expect a location field. See TASK-33 #124
-        // let temp = cloneDeep(payload);
-        // delete temp.location;
 
         await createEvent({
           variables: {
@@ -161,8 +157,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         description: formik.values.description,
         title: formik.values.eventTitle,
         restriction: formik.values.activeRestriction,
-        // TODO: Add location to the graphql createEventInput type TASK-33
-        // location: formik.values.location,
+        location: formik.values.location,
         image: null,
       });
       setIsInReview(true);

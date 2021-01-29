@@ -7,18 +7,13 @@ exports[`location autocomplete textbox should match snapshot 1`] = `
   <div
     aria-expanded={false}
     aria-owns={null}
-    className="MuiAutocomplete-root MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
+    className="MuiAutocomplete-root location-autocomplete-textbox MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
     data-testid="location-autocomplete-textbox"
     onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     onMouseDown={[Function]}
     role="combobox"
-    style={
-      Object {
-        "padding": "6px 20px",
-      }
-    }
   >
     <div
       className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -47,7 +42,7 @@ exports[`location autocomplete textbox should match snapshot 1`] = `
           required={false}
           spellCheck="false"
           type="text"
-          value=""
+          value="845 rue Sherbrooke"
         />
         <div
           className="MuiAutocomplete-endAdornment"
@@ -86,6 +81,9 @@ exports[`location autocomplete textbox should match snapshot 1`] = `
                 />
               </svg>
             </span>
+            <span
+              className="MuiTouchRipple-root"
+            />
           </button>
           <button
             aria-label="Open"
@@ -121,6 +119,9 @@ exports[`location autocomplete textbox should match snapshot 1`] = `
                 />
               </svg>
             </span>
+            <span
+              className="MuiTouchRipple-root"
+            />
           </button>
         </div>
       </div>

@@ -39,8 +39,11 @@ describe('myEventsPage', () => {
                   title: 'test',
                   description: 'test',
                   startDate: '2020-12-12T03:00:00.000Z',
-                  endDate: '2020-12-11T17:00:00.000Z',
                   __typename: 'Event',
+                  restriction: 1,
+                  location: {
+                    title: 'mockTitle',
+                  },
                 },
               ],
             },

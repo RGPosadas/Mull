@@ -6,6 +6,7 @@ input CreateEventInput {
   description: String!
   endDate: DateTime!
   image: MediaInput!
+  location: LocationInput!
   restriction: Int!
   startDate: DateTime!
   title: String!
@@ -29,8 +30,22 @@ type Event {
   endDate: DateTime!
   id: ID!
   image: Media
+  location: Location
   restriction: Float!
   startDate: DateTime!
+  title: String!
+}
+
+type Location {
+  coordinates: Point
+  id: ID!
+  placeId: String
+  title: String!
+}
+
+input LocationInput {
+  coordinates: PointInput
+  placeId: String
   title: String!
 }
 
@@ -55,6 +70,7 @@ input MediaInput {
 
 type Mutation {
   createEvent(event: CreateEventInput!): Event!
+  createLocation(location: LocationInput!): Location!
   createUser(user: CreateUserInput!): User!
   deleteEvent(id: Int!): Event!
   deleteUser(id: Int!): User!
@@ -66,14 +82,25 @@ type Mutation {
   uploadFile(file: Upload!): Media!
 }
 
+type Point {
+  id: ID!
+  lat: Float!
+  long: Float!
+}
+
+input PointInput {
+  lat: Float!
+  long: Float!
+}
+
 type Query {
   coHostEvents(coHostId: Int!): [Event!]!
   discoverEvents(userId: Int!): [Event!]!
   event(id: Int!): Event!
   events: [Event!]!
-  getAutocompletedLocations(userInput: String!): [String!]!
   hostEvents(hostId: Int!): [Event!]!
   isParticipant(eventId: Int!, userId: Int!): Boolean!
+  location(id: Int!): Location!
   participantEvents(userId: Int!): [Event!]!
   user(id: Int!): User!
   users: [User!]!
@@ -90,6 +117,7 @@ input UpdateEventInput {
   description: String
   endDate: DateTime
   id: ID!
+  location: LocationInput!
   restriction: Int
   startDate: DateTime
   title: String

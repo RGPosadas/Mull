@@ -26,6 +26,9 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
   const [joinEvent] = useJoinEventMutation();
   const [leaveEvent] = useLeaveEventMutation();
 
+  // TODO: Implement distance calculator
+  const distance = 15;
+
   return (
     <div className="event-card-container button" onClick={onClick} style={style}>
       <img
@@ -58,10 +61,7 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
         <div className="event-card-text">
           <div className="event-card-title">{event.title}</div>
 
-          <div className="event-card-location">
-            {/* TODO: Dynamically add address. Currently not available in the data from the query*/}
-            15km • 1455 Boulevard de Maisonneuve O, Montréal, QC H3G 1M8
-          </div>
+          <div className="event-card-location">{`${distance}km • ${event.location.title}`}</div>
         </div>
         <EventMembers profilePictures={dummyProfilePictures} />
         {/* TODO: Implement share */}

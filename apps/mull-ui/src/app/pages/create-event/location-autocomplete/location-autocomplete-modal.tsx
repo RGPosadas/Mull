@@ -1,30 +1,22 @@
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Dialog from '@material-ui/core/Dialog';
-import { EventRestriction, ILocation } from '@mull/types';
-import { FormikConfig } from 'formik';
+import { ICreateEventForm } from '@mull/types';
+import { FormikContextType } from 'formik';
 import React, { useState } from 'react';
+import { LocationInput } from '../../../../generated/graphql';
 import { CustomTextInput, MullBackButton } from '../../../components';
+import './location-autocomplete-modal.scss';
 import LocationAutoCompleteTextbox from './location-autocomplete-textbox';
 
 export interface LocationAutocompleteModalProps {
-  formik: FormikConfig<{
-    activeRestriction: EventRestriction;
-    startDate: Date;
-    endDate: Date;
-    startTime: string;
-    endTime: string;
-    eventTitle: string;
-    description: string;
-    location: ILocation;
-    imageFile: string;
-  }>;
+  formik: FormikContextType<ICreateEventForm>;
 }
 
 export default function LocationAutocompleteModal({
   formik: { touched, setFieldValue, errors, values },
-}) {
-  const [inputValue, setInputValue] = useState('');
+}: LocationAutocompleteModalProps) {
+  const [inputValue, setInputValue] = useState(values.location.title);
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -35,7 +27,7 @@ export default function LocationAutocompleteModal({
     setOpen(false);
   };
 
-  const handleSetValue = (location: ILocation) => {
+  const handleSetValue = (location: LocationInput) => {
     setInputValue(location.title);
     setFieldValue('location', location);
     handleClose();
@@ -46,17 +38,23 @@ export default function LocationAutocompleteModal({
       <CustomTextInput
         title="Location"
         fieldName="location"
-        value={inputValue || values.location.title}
+        value={inputValue}
         readOnly
         onClick={handleClickOpen}
         hasErrors={touched.location && !!errors.location}
-        errorMessage={errors.location}
+        errorMessage={errors.location as string}
         svgIcon={<FontAwesomeIcon className="input-icon" icon={faMapMarkerAlt} />}
       />
 
       <Dialog fullScreen open={open}>
-        <MullBackButton children={'Edit'} onClick={handleClose} className={'edit'} />
-        <LocationAutoCompleteTextbox handleSetValue={handleSetValue} input={inputValue} />
+        <MullBackButton onClick={handleClose} className="location-autocomplete-modal-back-button">
+          Edit
+        </MullBackButton>
+        <LocationAutoCompleteTextbox
+          handleSetValue={handleSetValue}
+          input={inputValue}
+          setInputValue={setInputValue}
+        />
       </Dialog>
     </>
   );

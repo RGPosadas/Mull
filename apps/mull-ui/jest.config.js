@@ -8,4 +8,5 @@ module.exports = {
   coverageDirectory: '../../coverage/apps/mull-ui',
   setupFiles: ['./jest.config.setup.js'],
   displayName: 'mull-ui',
+  coveragePathIgnorePatterns: ['generated', 'assets'],
 };

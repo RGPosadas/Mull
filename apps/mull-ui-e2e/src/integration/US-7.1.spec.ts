@@ -6,7 +6,6 @@ import { frameSizes } from './../fixtures/frame-sizes';
 frameSizes.forEach((frame) => {
   describe(`US-7.1: Multiple Registration Options (${frame.name} view)`, () => {
     beforeEach(() => {
-      cy.mockRefreshRequest();
       cy.viewport(frame.res[0], frame.res[1]);
     });
 

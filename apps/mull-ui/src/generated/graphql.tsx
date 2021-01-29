@@ -1,5 +1,5 @@
-import * as Apollo from '@apollo/client';
 import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -21,6 +21,7 @@ export type CreateEventInput = {
   description: Scalars['String'];
   endDate: Scalars['DateTime'];
   image: MediaInput;
+  location: LocationInput;
   restriction: Scalars['Int'];
   startDate: Scalars['DateTime'];
   title: Scalars['String'];
@@ -41,8 +42,23 @@ export type Event = {
   endDate: Scalars['DateTime'];
   id: Scalars['ID'];
   image?: Maybe<Media>;
+  location?: Maybe<Location>;
   restriction: Scalars['Float'];
   startDate: Scalars['DateTime'];
+  title: Scalars['String'];
+};
+
+export type Location = {
+  __typename?: 'Location';
+  coordinates?: Maybe<Point>;
+  id: Scalars['ID'];
+  placeId?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+};
+
+export type LocationInput = {
+  coordinates?: Maybe<PointInput>;
+  placeId?: Maybe<Scalars['String']>;
   title: Scalars['String'];
 };
 
@@ -70,6 +86,7 @@ export type MediaInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createEvent: Event;
+  createLocation: Location;
   createUser: User;
   deleteEvent: Event;
   deleteUser: User;
@@ -84,6 +101,11 @@ export type Mutation = {
 
 export type MutationCreateEventArgs = {
   event: CreateEventInput;
+};
+
+
+export type MutationCreateLocationArgs = {
+  location: LocationInput;
 };
 
 
@@ -133,15 +155,27 @@ export type MutationUploadFileArgs = {
   file: Scalars['Upload'];
 };
 
+export type Point = {
+  __typename?: 'Point';
+  id: Scalars['ID'];
+  lat: Scalars['Float'];
+  long: Scalars['Float'];
+};
+
+export type PointInput = {
+  lat: Scalars['Float'];
+  long: Scalars['Float'];
+};
+
 export type Query = {
   __typename?: 'Query';
   coHostEvents: Array<Event>;
   discoverEvents: Array<Event>;
   event: Event;
   events: Array<Event>;
-  getAutocompletedLocations: Array<Scalars['String']>;
   hostEvents: Array<Event>;
   isParticipant: Scalars['Boolean'];
+  location: Location;
   participantEvents: Array<Event>;
   user: User;
   users: Array<User>;
@@ -163,11 +197,6 @@ export type QueryEventArgs = {
 };
 
 
-export type QueryGetAutocompletedLocationsArgs = {
-  userInput: Scalars['String'];
-};
-
-
 export type QueryHostEventsArgs = {
   hostId: Scalars['Int'];
 };
@@ -176,6 +205,11 @@ export type QueryHostEventsArgs = {
 export type QueryIsParticipantArgs = {
   eventId: Scalars['Int'];
   userId: Scalars['Int'];
+};
+
+
+export type QueryLocationArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -199,6 +233,7 @@ export type UpdateEventInput = {
   description?: Maybe<Scalars['String']>;
   endDate?: Maybe<Scalars['DateTime']>;
   id: Scalars['ID'];
+  location: LocationInput;
   restriction?: Maybe<Scalars['Int']>;
   startDate?: Maybe<Scalars['DateTime']>;
   title?: Maybe<Scalars['String']>;
@@ -299,17 +334,22 @@ export type LeaveEventMutation = (
   & Pick<Mutation, 'leaveEvent'>
 );
 
-export type EventQueryVariables = Exact<{
-  id: Scalars['Int'];
-}>;
+export type EventPageContentFragment = (
+  { __typename?: 'Event' }
+  & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
+  & { location?: Maybe<(
+    { __typename?: 'Location' }
+    & Pick<Location, 'title'>
+  )> }
+);
 
-
-export type EventQuery = (
-  { __typename?: 'Query' }
-  & { event: (
-    { __typename?: 'Event' }
-    & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
-  ) }
+export type EventCardContentFragment = (
+  { __typename?: 'Event' }
+  & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate'>
+  & { location?: Maybe<(
+    { __typename?: 'Location' }
+    & Pick<Location, 'title'>
+  )> }
 );
 
 export type DiscoverEventsQueryVariables = Exact<{
@@ -321,7 +361,7 @@ export type DiscoverEventsQuery = (
   { __typename?: 'Query' }
   & { discoverEvents: Array<(
     { __typename?: 'Event' }
-    & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate'>
+    & EventCardContentFragment
   )> }
 );
 
@@ -334,10 +374,10 @@ export type OwnedEventsQuery = (
   { __typename?: 'Query' }
   & { coHostEvents: Array<(
     { __typename?: 'Event' }
-    & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate'>
+    & EventCardContentFragment
   )>, hostEvents: Array<(
     { __typename?: 'Event' }
-    & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate'>
+    & EventCardContentFragment
   )> }
 );
 
@@ -350,18 +390,8 @@ export type ParticipantEventsQuery = (
   { __typename?: 'Query' }
   & { participantEvents: Array<(
     { __typename?: 'Event' }
-    & Pick<Event, 'id' | 'endDate' | 'description' | 'startDate' | 'title'>
+    & EventCardContentFragment
   )> }
-);
-
-export type AutocompletedLocationsQueryVariables = Exact<{
-  userInput: Scalars['String'];
-}>;
-
-
-export type AutocompletedLocationsQuery = (
-  { __typename?: 'Query' }
-  & Pick<Query, 'getAutocompletedLocations'>
 );
 
 export type EventPageQueryVariables = Exact<{
@@ -375,23 +405,32 @@ export type EventPageQuery = (
   & Pick<Query, 'isParticipant'>
   & { event: (
     { __typename?: 'Event' }
-    & EventContentFragment
+    & EventPageContentFragment
   ) }
 );
 
-export type EventContentFragment = (
-  { __typename?: 'Event' }
-  & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
-);
-
-export const EventContentFragmentDoc = gql`
-    fragment EventContent on Event {
+export const EventPageContentFragmentDoc = gql`
+    fragment EventPageContent on Event {
   id
   title
   description
   startDate
   endDate
   restriction
+  location {
+    title
+  }
+}
+    `;
+export const EventCardContentFragmentDoc = gql`
+    fragment EventCardContent on Event {
+  id
+  title
+  restriction
+  startDate
+  location {
+    title
+  }
 }
     `;
 export const CreateEventDocument = gql`
@@ -585,55 +624,13 @@ export function useLeaveEventMutation(baseOptions?: Apollo.MutationHookOptions<L
 export type LeaveEventMutationHookResult = ReturnType<typeof useLeaveEventMutation>;
 export type LeaveEventMutationResult = Apollo.MutationResult<LeaveEventMutation>;
 export type LeaveEventMutationOptions = Apollo.BaseMutationOptions<LeaveEventMutation, LeaveEventMutationVariables>;
-export const EventDocument = gql`
-    query Event($id: Int!) {
-  event(id: $id) {
-    id
-    title
-    description
-    startDate
-    endDate
-    restriction
-  }
-}
-    `;
-
-/**
- * __useEventQuery__
- *
- * To run a query within a React component, call `useEventQuery` and pass it any options that fit your needs.
- * When your component renders, `useEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useEventQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useEventQuery(baseOptions: Apollo.QueryHookOptions<EventQuery, EventQueryVariables>) {
-        return Apollo.useQuery<EventQuery, EventQueryVariables>(EventDocument, baseOptions);
-      }
-export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventQuery, EventQueryVariables>) {
-          return Apollo.useLazyQuery<EventQuery, EventQueryVariables>(EventDocument, baseOptions);
-        }
-export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
-export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
-export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
 export const DiscoverEventsDocument = gql`
     query DiscoverEvents($userId: Int!) {
   discoverEvents(userId: $userId) {
-    id
-    title
-    description
-    startDate
-    endDate
+    ...EventCardContent
   }
 }
-    `;
+    ${EventCardContentFragmentDoc}`;
 
 /**
  * __useDiscoverEventsQuery__
@@ -663,21 +660,13 @@ export type DiscoverEventsQueryResult = Apollo.QueryResult<DiscoverEventsQuery, 
 export const OwnedEventsDocument = gql`
     query OwnedEvents($userId: Int!) {
   coHostEvents(coHostId: $userId) {
-    id
-    title
-    description
-    startDate
-    endDate
+    ...EventCardContent
   }
   hostEvents(hostId: $userId) {
-    id
-    title
-    description
-    startDate
-    endDate
+    ...EventCardContent
   }
 }
-    `;
+    ${EventCardContentFragmentDoc}`;
 
 /**
  * __useOwnedEventsQuery__
@@ -707,14 +696,10 @@ export type OwnedEventsQueryResult = Apollo.QueryResult<OwnedEventsQuery, OwnedE
 export const ParticipantEventsDocument = gql`
     query ParticipantEvents($userId: Int!) {
   participantEvents(userId: $userId) {
-    id
-    endDate
-    description
-    startDate
-    title
+    ...EventCardContent
   }
 }
-    `;
+    ${EventCardContentFragmentDoc}`;
 
 /**
  * __useParticipantEventsQuery__
@@ -741,45 +726,14 @@ export function useParticipantEventsLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type ParticipantEventsQueryHookResult = ReturnType<typeof useParticipantEventsQuery>;
 export type ParticipantEventsLazyQueryHookResult = ReturnType<typeof useParticipantEventsLazyQuery>;
 export type ParticipantEventsQueryResult = Apollo.QueryResult<ParticipantEventsQuery, ParticipantEventsQueryVariables>;
-export const AutocompletedLocationsDocument = gql`
-    query AutocompletedLocations($userInput: String!) {
-  getAutocompletedLocations(userInput: $userInput)
-}
-    `;
-
-/**
- * __useAutocompletedLocationsQuery__
- *
- * To run a query within a React component, call `useAutocompletedLocationsQuery` and pass it any options that fit your needs.
- * When your component renders, `useAutocompletedLocationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAutocompletedLocationsQuery({
- *   variables: {
- *      userInput: // value for 'userInput'
- *   },
- * });
- */
-export function useAutocompletedLocationsQuery(baseOptions: Apollo.QueryHookOptions<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>) {
-        return Apollo.useQuery<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>(AutocompletedLocationsDocument, baseOptions);
-      }
-export function useAutocompletedLocationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>) {
-          return Apollo.useLazyQuery<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>(AutocompletedLocationsDocument, baseOptions);
-        }
-export type AutocompletedLocationsQueryHookResult = ReturnType<typeof useAutocompletedLocationsQuery>;
-export type AutocompletedLocationsLazyQueryHookResult = ReturnType<typeof useAutocompletedLocationsLazyQuery>;
-export type AutocompletedLocationsQueryResult = Apollo.QueryResult<AutocompletedLocationsQuery, AutocompletedLocationsQueryVariables>;
 export const EventPageDocument = gql`
     query EventPage($eventId: Int!, $userId: Int!) {
   isParticipant(eventId: $eventId, userId: $userId)
   event(id: $eventId) {
-    ...EventContent
+    ...EventPageContent
   }
 }
-    ${EventContentFragmentDoc}`;
+    ${EventPageContentFragmentDoc}`;
 
 /**
  * __useEventPageQuery__

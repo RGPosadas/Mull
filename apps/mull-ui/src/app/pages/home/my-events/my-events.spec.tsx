@@ -22,6 +22,7 @@ describe('myEventsPage', () => {
     );
     expect(baseElement).toBeTruthy();
   });
+
   it('should render eventCards within the my-events page', async () => {
     await act(async () => {
       const mocks: MockedResponse[] = [
@@ -38,7 +39,10 @@ describe('myEventsPage', () => {
                   title: 'test',
                   description: 'test',
                   startDate: '2020-12-12T03:00:00.000Z',
-                  endDate: '2020-12-11T17:00:00.000Z',
+                  location: {
+                    title: 'mockTitle',
+                  },
+                  restriction: 0,
                   __typename: 'Event',
                 },
               ],
@@ -48,7 +52,10 @@ describe('myEventsPage', () => {
                   title: 'test',
                   description: 'test',
                   startDate: '2020-12-12T03:00:00.000Z',
-                  endDate: '2020-12-11T17:00:00.000Z',
+                  location: {
+                    title: 'mockTitle',
+                  },
+                  restriction: 1,
                   __typename: 'Event',
                 },
               ],

@@ -3,46 +3,66 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { IGooglePlace } from '@mull/types';
+import axios from 'axios';
 import { debounce } from 'lodash';
-import React, { useEffect, useMemo, useState } from 'react';
-import { useAutocompletedLocationsLazyQuery } from '../../../../generated/graphql';
+import React, { useMemo, useState } from 'react';
+import { environment } from '../../../../environments/environment';
+import { LocationInput } from '../../../../generated/graphql';
+import { useToast } from '../../../hooks/useToast';
 import './location-autocomplete-textbox.scss';
 
 export interface LocationAutocompleteTextboxProps {
-  handleSetValue: (value: string) => void;
+  handleSetValue: (location: LocationInput) => void;
   input: string;
+  setInputValue: (value: React.SetStateAction<string>) => void;
 }
 
-export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
+const CURRENT_LOCATION: IGooglePlace = { description: 'Current Location', placeId: null };
+
+export default function LocationAutocompleteTextbox({
+  handleSetValue,
+  input,
+  setInputValue,
+}: LocationAutocompleteTextboxProps) {
   const [open, setOpen] = useState(false);
-  const [options, setOptions] = useState<string[]>([]);
-  const [getAutocompletedLocations, { loading, data }] = useAutocompletedLocationsLazyQuery();
-  const CURRENT_LOCATION = 'Current Location';
+  const [options, setOptions] = useState<IGooglePlace[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const { notifyToast } = useToast();
 
   const debounceGetLocation = useMemo(
     () =>
-      debounce(
-        (values: string) =>
-          getAutocompletedLocations({
-            variables: { userInput: values },
-          }),
-        350
-      ),
-    [getAutocompletedLocations]
+      debounce((search: string) => {
+        setLoading(true);
+        axios
+          .get(encodeURI(`${environment.backendUrl}/api/location-autocomplete?search=${search}`))
+          .then((data) => data.data)
+          .then((data: IGooglePlace[]) => {
+            setOptions([CURRENT_LOCATION, ...data]);
+            setLoading(false);
+          });
+      }, 350),
+    []
   );
-
-  useEffect(() => {
-    if (!loading && data) {
-      setOptions(data.getAutocompletedLocations);
-    }
-  }, [loading, data, setOptions]);
 
   const getCurrentPosition = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const pos = `latitude: ${position.coords.latitude}, longitude: ${position.coords.longitude}`;
-        handleSetValue({ title: 'Current Location', coords: pos });
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location: LocationInput = {
+            title: 'Current Location',
+            coordinates: {
+              lat: position.coords.latitude,
+              long: position.coords.longitude,
+            },
+          };
+          handleSetValue(location);
+        },
+        () => {
+          notifyToast('Cannot get your current location coordinates.', { type: 'error' });
+        },
+        { enableHighAccuracy: true }
+      );
     }
   };
 
@@ -51,8 +71,11 @@ export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
       <Autocomplete
         id="location-input-field"
         data-testid="location-autocomplete-textbox"
-        style={{ padding: '6px 20px' }}
+        className="location-autocomplete-textbox"
+        inputValue={input}
+        defaultValue={input}
         open={open}
+        getOptionLabel={(option) => (option.description ? option.description : '')}
         onFocus={() => {
           setOptions([CURRENT_LOCATION]);
           setOpen(true);
@@ -63,27 +86,30 @@ export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
         onClose={() => {
           setOpen(false);
         }}
-        defaultValue={input}
         onInputChange={(_event, value) => {
-          if (value) {
+          setInputValue(value ? value : '');
+          if (value && value !== CURRENT_LOCATION.description) {
             debounceGetLocation(value);
           }
         }}
-        onChange={(_event, value) => {
-          if (value === CURRENT_LOCATION) {
+        onChange={(_event, value: IGooglePlace) => {
+          if (value && value.description === CURRENT_LOCATION.description) {
             getCurrentPosition();
           } else if (value) {
-            handleSetValue({ title: value });
+            handleSetValue({ title: value.description, placeId: value.placeId });
           }
         }}
-        getOptionSelected={(option, value) => option === value}
-        renderOption={(option) => {
-          const icon = option === CURRENT_LOCATION ? faLocationArrow : faMapMarkerAlt;
+        getOptionSelected={(option: IGooglePlace, value) => {
+          return option.description === ((value as unknown) as string);
+        }}
+        renderOption={(option: IGooglePlace) => {
+          const icon =
+            option.description === CURRENT_LOCATION.description ? faLocationArrow : faMapMarkerAlt;
           return (
-            <React.Fragment>
-              <FontAwesomeIcon icon={icon} style={{ marginRight: '0.8rem' }} />
-              {option}
-            </React.Fragment>
+            <>
+              <FontAwesomeIcon icon={icon} className="location-autocomplete-option" />
+              {option.description}
+            </>
           );
         }}
         options={options}
@@ -96,10 +122,10 @@ export default function LocationAutocompleteTextbox({ handleSetValue, input }) {
             InputProps={{
               ...params.InputProps,
               endAdornment: (
-                <React.Fragment>
+                <>
                   {loading ? <CircularProgress color="inherit" size={20} /> : null}
                   {params.InputProps.endAdornment}
-                </React.Fragment>
+                </>
               ),
             }}
           />

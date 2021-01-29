@@ -4,7 +4,7 @@ import { FileUpload } from 'graphql-upload';
 import { Media } from '../entities';
 import { MediaService } from './media.service';
 
-@Resolver('Media')
+@Resolver(/* istanbul ignore next */ () => Media)
 export class MediaResolver {
   constructor(private readonly mediaService: MediaService) {}
 

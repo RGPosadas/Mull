@@ -50,8 +50,14 @@ export interface ISerializedEvent extends Omit<IEvent, 'startDate' | 'endDate' |
 export interface ILocation {
   id?: number;
   title: string;
+  event?: IEvent;
+  coordinates?: IPoint;
   placeId?: string;
-  coordinates?: [];
+}
+
+export interface IPoint {
+  lat: number;
+  long: number;
 }
 
 export interface IUser {
@@ -82,4 +88,9 @@ export interface IRefreshResponse {
 export interface IRoute {
   url: string;
   displayName: string;
+}
+
+export class IGooglePlace {
+  description: string;
+  placeId: string;
 }

@@ -1,57 +1,46 @@
-# Find events by Id
-query Event($id: Int!) {
-  event(id: $id) {
-    id
+fragment EventPageContent on Event {
+  id
+  title
+  description
+  startDate
+  endDate
+  restriction
+  location {
     title
-    description
-    startDate
-    endDate
-    restriction
+  }
+}
+
+fragment EventCardContent on Event {
+  id
+  title
+  restriction
+  startDate
+  location {
+    title
   }
 }
 
 query DiscoverEvents($userId: Int!) {
   discoverEvents(userId: $userId) {
-    id
-    title
-    description
-    startDate
-    endDate
+    ...EventCardContent
   }
 }
 
 # Gets all related events to a user
 query OwnedEvents($userId: Int!) {
   coHostEvents(coHostId: $userId) {
-    id
-    title
-    description
-    startDate
-    endDate
+    ...EventCardContent
   }
   hostEvents(hostId: $userId) {
-    id
-    title
-    description
-    startDate
-    endDate
+    ...EventCardContent
   }
 }
 
 # Get all the events that a user is participating in
 query ParticipantEvents($userId: Int!) {
   participantEvents(userId: $userId) {
-    id
-    endDate
-    description
-    startDate
-    title
+    ...EventCardContent
   }
-}
-
-# Get an array of autocompleted locations as the user types into the text input
-query AutocompletedLocations($userInput: String!) {
-  getAutocompletedLocations(userInput: $userInput)
 }
 
 # Find events by Id and finds participating events of user
@@ -59,15 +48,6 @@ query EventPage($eventId: Int!, $userId: Int!) {
   isParticipant(eventId: $eventId, userId: $userId)
 
   event(id: $eventId) {
-    ...EventContent
+    ...EventPageContent
   }
-}
-
-fragment EventContent on Event {
-  id
-  title
-  description
-  startDate
-  endDate
-  restriction
 }
