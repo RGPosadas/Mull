@@ -10,8 +10,7 @@ import { ROUTES } from '../constants';
 import { environment } from '../environments/environment';
 import { setAccessToken } from './access-token';
 import './app.scss';
-import { BotNavBar, SubNavBar, TopNavBar } from './components';
-import PrivateRoute from './components/private-route/private-route';
+import { BotNavBar, PrivateRoute, SubNavBar, TopNavBar } from './components';
 import { UserProvider } from './context/user.context';
 import NotFoundPage from './pages/404/not-found-page';
 import CreateEventPage from './pages/create-event/create-event';
@@ -20,6 +19,8 @@ import DiscoverPage from './pages/home/discover/discover-page';
 import MyEventsPage from './pages/home/my-events/my-events';
 import UpcomingPage from './pages/home/upcoming/upcoming';
 import LoginPage from './pages/login/login';
+import AnnouncementsPage from './pages/messages/announcements/announcements';
+import MessagesPage from './pages/messages/messages-page';
 import RegisterPage from './pages/register/register';
 import TokenRedirectPage from './pages/token-redirect/token-redirect';
 
@@ -50,7 +51,7 @@ export const App = () => {
   });
 
   const getTopBarStyle = (): CSSProperties => {
-    if (location.pathname.includes(ROUTES.HOME)) {
+    if (location.pathname.includes(ROUTES.HOME) || location.pathname.includes(ROUTES.MESSAGES)) {
       return { boxShadow: 'none' };
     }
     return {};
@@ -64,7 +65,7 @@ export const App = () => {
       <div>
         {/* Redirects to discover tab when user is home */}
         <PrivateRoute exact path={['/', ROUTES.HOME]}>
-          {<Redirect to={ROUTES.DISCOVER} />}
+          {<Redirect to={ROUTES.DISCOVER.url} />}
         </PrivateRoute>
 
         {/* Switch for main page */}
@@ -97,17 +98,37 @@ export const App = () => {
             }
           />
           <PrivateRoute path={ROUTES.HOME}>
-            <SubNavBar className="top-nav-bar-shadow" />
+            <SubNavBar
+              routes={[ROUTES.DISCOVER, ROUTES.UPCOMING, ROUTES.MY_EVENTS]}
+              className="top-nav-bar-shadow"
+            />
             <div className="page-container with-sub-nav-bar">
               <SwipeableRoutes>
-                <PrivateRoute path={ROUTES.DISCOVER} component={DiscoverPage} />
-                <PrivateRoute path={ROUTES.UPCOMING} component={UpcomingPage} />
-                <PrivateRoute path={ROUTES.MY_EVENTS} component={MyEventsPage} />
+                <PrivateRoute path={ROUTES.DISCOVER.url} component={DiscoverPage} />
+                <PrivateRoute path={ROUTES.UPCOMING.url} component={UpcomingPage} />
+                <PrivateRoute path={ROUTES.MY_EVENTS.url} component={MyEventsPage} />
                 <PrivateRoute exact path={ROUTES.HOME}>
-                  <Redirect to={ROUTES.DISCOVER} />
+                  <Redirect to={ROUTES.DISCOVER.url} />
                 </PrivateRoute>
               </SwipeableRoutes>
             </div>
+          </PrivateRoute>
+          <PrivateRoute path={ROUTES.MESSAGES}>
+            <MessagesPage>
+              <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
+                <SwipeableRoutes>
+                  {/* TODO: Create the Group Chat page and add in its component here */}
+                  {/* <PrivateRoute path={ROUTES.GROUPCHAT.url} component={GroupChatPage} /> */}
+                  <PrivateRoute path={ROUTES.ANNOUNCEMENTS.url} component={AnnouncementsPage} />
+                  <PrivateRoute exact path={ROUTES.MESSAGES}>
+                    <Redirect to={ROUTES.ANNOUNCEMENTS.url} />
+                  </PrivateRoute>
+                </SwipeableRoutes>
+              </div>
+            </MessagesPage>
+            <PrivateRoute exact path={ROUTES.MESSAGES}>
+              <Redirect to={ROUTES.ANNOUNCEMENTS.url} />
+            </PrivateRoute>
           </PrivateRoute>
           <PrivateRoute component={NotFoundPage} />
         </Switch>

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatBubble should match snapshot 1`] = `
+<div
+  className="chat-container"
+>
+  <p
+    className="announcement-time"
+  />
+  <div
+    className="other-user-chat-container"
+  >
+    <img
+      alt="user"
+      className="user-picture"
+    />
+    <p
+      className="chat-bubble"
+    />
+  </div>
+</div>
+`;

@@ -1,0 +1,54 @@
+@import '../../../variables.scss';
+
+.chat-input-container {
+  width: 100%;
+  position: fixed;
+  bottom: $bot-nav-bar-height-mobile;
+  padding: 1rem;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  background-color: $background-color;
+  .custom-file-upload-container {
+    margin-right: 0.8rem;
+  }
+  .chat-input-button {
+    position: absolute;
+    bottom: 0.4rem;
+    right: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100%;
+    border: 1px $primary-color solid;
+    background: $primary-color;
+    box-sizing: border-box;
+    padding: 0.3em;
+    svg {
+      color: $background-color;
+    }
+  }
+  svg {
+    color: $primary-color;
+    &.custom-file-upload-icon {
+      font-size: 1.5em; //em used to follow fontawesome standards for sizing
+      padding: 0.2rem;
+    }
+  }
+}
+
+.file-upload-feedback {
+  :active {
+    background-color: #b3e6ff;
+  }
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .chat-input-container {
+    width: $page-container-width;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}

@@ -78,3 +78,8 @@ export interface IRefreshResponse {
   ok: boolean;
   accessToken: string;
 }
+
+export interface IRoute {
+  url: string;
+  displayName: string;
+}

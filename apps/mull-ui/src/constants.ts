@@ -5,13 +5,15 @@ import { EventRestriction, ISerializedEvent } from '@mull/types';
  */
 export const ROUTES = {
   HOME: '/home',
-  DISCOVER: '/home/discover',
-  UPCOMING: '/home/upcoming',
-  MY_EVENTS: '/home/myevents',
+  DISCOVER: { url: '/home/discover', displayName: 'Discover' },
+  UPCOMING: { url: '/home/upcoming', displayName: 'Upcoming' },
+  MY_EVENTS: { url: '/home/myevents', displayName: 'My Events' },
   MAP: '/map',
   CREATE_EVENT: '/create-event',
   TOOLS: '/tools',
   MESSAGES: '/messages',
+  GROUPCHAT: { url: '/messages/group-chat', displayName: 'Group Chat' },
+  ANNOUNCEMENTS: { url: '/messages/announcements', displayName: 'Announcements' },
   PROFILE: '/profile',
   LOGIN: '/login',
   REGISTER: '/register',

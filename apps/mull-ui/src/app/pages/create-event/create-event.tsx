@@ -187,6 +187,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           <div className="create-event">
             <p className="create-event-text">Create Event</p>
             <CustomFileUpload
+              className="custom-file-upload custom-file-upload-icon-container"
               imageURL={imageURLFile}
               hasErrors={formik.touched.imageFile && !!formik.errors.imageFile}
               errorMessage={formik.errors.imageFile}
@@ -229,7 +230,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               onChange={formik.handleChange}
               hasErrors={formik.touched.eventTitle && !!formik.errors.eventTitle}
               errorMessage={formik.errors.eventTitle}
-              svgIcon={<FontAwesomeIcon icon={faPencilAlt} />}
+              svgIcon={<FontAwesomeIcon className="input-icon" icon={faPencilAlt} />}
             />
             <CustomTextInput
               title="Description"
@@ -238,7 +239,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               onChange={formik.handleChange}
               hasErrors={formik.touched.description && !!formik.errors.description}
               errorMessage={formik.errors.description}
-              svgIcon={<FontAwesomeIcon icon={faAlignLeft} />}
+              svgIcon={<FontAwesomeIcon className="input-icon" icon={faAlignLeft} />}
             />
 
             <LocationAutocompleteModal formik={formik} />

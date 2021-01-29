@@ -10,16 +10,19 @@
 
   // Needed since SubNavBar can't be positioned at the end of the page, since it must be part of the home route
   z-index: 2;
+
+  &.with-header {
+    top: $top-nav-bar-height-mobile + $top-nav-header-height-mobile;
+    padding: 0.9rem 0 0 0;
+  }
 }
 
 .inner-cont {
   display: flex;
   box-sizing: border-box;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: flex-start;
-
   width: 100%;
-  padding: 0 2rem;
   margin: 0 auto;
 }
 
@@ -36,10 +39,15 @@
   .sub-nav-bar-container {
     top: $top-nav-bar-height-desktop;
     height: $sub-nav-bar-height-desktop;
+    &.with-header {
+      top: $top-nav-header-height-desktop + $top-nav-bar-height-desktop;
+      padding: 1rem 0 0 0 0;
+    }
   }
 
   .inner-cont {
     width: $page-container-width;
-    padding: 0 0.5rem;
+    justify-content: space-between;
+    padding: 0 1rem;
   }
 }

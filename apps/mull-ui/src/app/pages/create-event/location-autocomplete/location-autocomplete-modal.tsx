@@ -51,7 +51,7 @@ export default function LocationAutocompleteModal({
         onClick={handleClickOpen}
         hasErrors={touched.location && !!errors.location}
         errorMessage={errors.location}
-        svgIcon={<FontAwesomeIcon icon={faMapMarkerAlt} />}
+        svgIcon={<FontAwesomeIcon className="input-icon" icon={faMapMarkerAlt} />}
       />
 
       <Dialog fullScreen open={open}>

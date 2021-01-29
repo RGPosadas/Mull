@@ -1,0 +1,55 @@
+@import '../../../variables.scss';
+
+.chat-container {
+  margin: 1rem 0;
+}
+
+.chat-bubble {
+  max-width: 65%;
+}
+
+.current-user-chat-container {
+  flex-direction: row-reverse;
+  img {
+    margin-right: 0;
+  }
+  .chat-bubble {
+    background-color: $sent-chat-color;
+  }
+}
+
+.other-user-chat-container {
+  .chat-bubble {
+    background-color: $received-chat-color;
+  }
+}
+
+.current-user-chat-container,
+.other-user-chat-container {
+  display: flex;
+  .chat-bubble {
+    border-radius: 1rem;
+    padding: 0.75rem;
+    align-self: center;
+  }
+}
+
+.announcement-time {
+  font-size: 0.875rem;
+  text-align: center;
+  color: $inactive-button-color;
+}
+
+.user-picture {
+  width: 2.2rem;
+  height: 2.2rem;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0.5rem;
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .chat-bubble {
+    max-width: 70%;
+  }
+}
