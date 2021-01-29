@@ -61,7 +61,7 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
         <div className="event-card-text">
           <div className="event-card-title">{event.title}</div>
 
-          <div className="event-card-location">{`${distance}km • ${event.location?.title}`}</div>
+          <div className="event-card-location">{`${distance}km • ${event.location.title}`}</div>
         </div>
         <EventMembers profilePictures={dummyProfilePictures} />
         {/* TODO: Implement share */}
