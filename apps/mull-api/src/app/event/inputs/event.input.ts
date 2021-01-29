@@ -29,8 +29,9 @@ export class CreateEventInput implements Partial<Event> {
   // host: User;
 
   @Field(/* istanbul ignore next*/ () => LocationInput)
-  location?: Location;
+  location: Location;
 }
+
 @InputType()
 export class UpdateEventInput implements Partial<Event> {
   @Field(/* istanbul ignore next */ () => ID)
@@ -55,6 +56,6 @@ export class UpdateEventInput implements Partial<Event> {
   // @Field()
   // image: Media;
 
-  // @Field()
-  // location: Location;
+  @Field(/* istanbul ignore next*/ () => LocationInput)
+  location?: Location;
 }

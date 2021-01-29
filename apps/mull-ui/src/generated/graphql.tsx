@@ -233,6 +233,7 @@ export type UpdateEventInput = {
   description?: Maybe<Scalars['String']>;
   endDate?: Maybe<Scalars['DateTime']>;
   id: Scalars['ID'];
+  location: LocationInput;
   restriction?: Maybe<Scalars['Int']>;
   startDate?: Maybe<Scalars['DateTime']>;
   title?: Maybe<Scalars['String']>;
