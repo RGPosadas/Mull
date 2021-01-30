@@ -4,12 +4,7 @@ import { Repository } from 'typeorm';
 import { Event } from '../entities';
 import { mockAllUsers } from '../user/user.mockdata';
 import { MockType } from '../user/user.service.spec';
-import {
-  mockAllEvents,
-  mockExpectedQueryReturn,
-  mockPartialEvent,
-  mockQueryReturn,
-} from './event.mockdata';
+import { mockAllEvents, mockPartialEvent } from './event.mockdata';
 import { EventService } from './event.service';
 import { CreateEventInput } from './inputs/event.input';
 
@@ -23,10 +18,14 @@ const mockEventRepository = () => ({
   delete: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
   save: jest.fn((event: Event) => event),
   createQueryBuilder: jest.fn(() => ({
+    select: jest.fn().mockReturnThis(),
     leftJoin: jest.fn().mockReturnThis(),
+    distinct: jest.fn().mockReturnThis(),
     where: jest.fn().mockReturnThis(),
     andWhere: jest.fn().mockReturnThis(),
     leftJoinAndSelect: jest.fn().mockReturnThis(),
+    setParameter: jest.fn().mockReturnThis(),
+    getQuery: jest.fn().mockReturnThis(),
     getMany: jest.fn().mockReturnValue(mockAllEvents[0]),
   })),
   query: jest.fn().mockReturnThis(),
@@ -177,10 +176,9 @@ describe('EventService', () => {
 
   it('should return all the events a user is not involved in', async () => {
     const userId = mockAllUsers[2].id;
-    repository.query.mockImplementation(() => mockQueryReturn);
     const foundEvents = await service.getEventsRecommendedToUser(userId);
-    expect(foundEvents).toEqual(mockExpectedQueryReturn);
-    expect(repository.query).toBeCalledTimes(1);
+    expect(foundEvents).toEqual(mockAllEvents[0]);
+    expect(repository.createQueryBuilder).toBeCalled();
   });
 
   it('should get an image', async () => {
