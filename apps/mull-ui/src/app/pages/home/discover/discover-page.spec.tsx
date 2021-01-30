@@ -6,20 +6,27 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
 import { DiscoverEventsDocument } from '../../../../generated/graphql';
+import { UserProvider } from '../../../context/user.context';
 import DiscoverPage from './discover-page';
 
 describe('discoverPage', () => {
+  const renderHelper = (history, mocks) => {
+    return (
+      <UserProvider value={{ userId: 1, setUserId: jest.fn() }}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Router history={history}>
+            <DiscoverPage history={history} />
+          </Router>
+        </MockedProvider>
+      </UserProvider>
+    );
+  };
+
   it('should render successfully', () => {
     const history = createMemoryHistory();
     history.push(ROUTES.DISCOVER.url);
 
-    const { baseElement } = render(
-      <MockedProvider>
-        <Router history={history}>
-          <DiscoverPage history={history} />
-        </Router>
-      </MockedProvider>
-    );
+    const { baseElement } = render(renderHelper(history, null));
     expect(baseElement).toBeTruthy();
   });
 
@@ -58,13 +65,7 @@ describe('discoverPage', () => {
       const history = createMemoryHistory();
       history.push(ROUTES.DISCOVER.url);
 
-      const utils = render(
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <Router history={history}>
-            <DiscoverPage history={history} />
-          </Router>
-        </MockedProvider>
-      );
+      const utils = render(renderHelper(history, mocks));
 
       await new Promise((resolve) => setTimeout(resolve, 0));
 

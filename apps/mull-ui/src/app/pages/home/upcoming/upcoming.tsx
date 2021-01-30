@@ -1,6 +1,6 @@
 import { ISerializedEvent } from '@mull/types';
-import { useParticipantEventsQuery } from 'apps/mull-ui/src/generated/graphql';
 import React, { useContext } from 'react';
+import { useParticipantEventsQuery } from '../../../../generated/graphql';
 import { EventCard } from '../../../components';
 import UserContext from '../../../context/user.context';
 

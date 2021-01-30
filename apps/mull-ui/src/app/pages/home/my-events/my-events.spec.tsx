@@ -6,20 +6,27 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
 import { OwnedEventsDocument } from '../../../../generated/graphql';
+import { UserProvider } from '../../../context/user.context';
 import MyEventsPage from './my-events';
 
 describe('myEventsPage', () => {
+  const renderHelper = (history, mocks) => {
+    return (
+      <UserProvider value={{ userId: 1, setUserId: jest.fn() }}>
+        <MockedProvider mocks={mocks}>
+          <Router history={history}>
+            <MyEventsPage history={history} />
+          </Router>
+        </MockedProvider>
+      </UserProvider>
+    );
+  };
+
   it('should render successfully', () => {
     const history = createMemoryHistory();
     history.push(ROUTES.MY_EVENTS.url);
 
-    const { baseElement } = render(
-      <MockedProvider>
-        <Router history={history}>
-          <MyEventsPage history={history} />
-        </Router>
-      </MockedProvider>
-    );
+    const { baseElement } = render(renderHelper(history, null));
     expect(baseElement).toBeTruthy();
   });
 
@@ -75,13 +82,7 @@ describe('myEventsPage', () => {
       const history = createMemoryHistory();
       history.push(ROUTES.MY_EVENTS.url);
 
-      const utils = render(
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <Router history={history}>
-            <MyEventsPage history={history} />
-          </Router>
-        </MockedProvider>
-      );
+      const utils = render(renderHelper(history, mocks));
 
       await new Promise((resolve) => setTimeout(resolve, 0));
 

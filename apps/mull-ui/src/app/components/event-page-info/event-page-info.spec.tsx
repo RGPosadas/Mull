@@ -5,16 +5,19 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import renderer from 'react-test-renderer';
 import { dummyEvent } from '../../../constants';
+import { UserProvider } from '../../context/user.context';
 import EventPageInfo from './event-page-info';
 
 describe('EventPageInfo', () => {
   const renderHelper = (history: History) => {
     return (
-      <MockedProvider>
-        <Router history={history}>
-          <EventPageInfo isJoined={true} isReview={false} event={dummyEvent} />
-        </Router>
-      </MockedProvider>
+      <UserProvider value={{ userId: 1, setUserId: jest.fn() }}>
+        <MockedProvider>
+          <Router history={history}>
+            <EventPageInfo isJoined={true} isReview={false} event={dummyEvent} />
+          </Router>
+        </MockedProvider>
+      </UserProvider>
     );
   };
 

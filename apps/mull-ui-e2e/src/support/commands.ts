@@ -20,7 +20,7 @@ Cypress.Commands.add('mockRefreshRequest', () => {
     statusCode: 201,
     body: {
       accessToken:
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTIsImlhdCI6MTYxMTI4OTc5MywiZXhwIjoxNjExMjkzNDM2LCJqdGkiOiJhMmU5NGRjNS03M2MzLTRmYjMtOGM4NS1lZGJiNDhiODlmY2IifQ.d8UHgMh8HglhAXtGj_Szkoctwa-SKBHFxFXQYn6FYHUs',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMDQ3NjA0LCJleHAiOjE2MTIwNDg1MDR9.Wmb_xkPVM_qLBjsG_uVe9yMvYsHj7ECoitc7yW4LyNE',
       ok: true,
     },
   });
