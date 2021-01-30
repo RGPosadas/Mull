@@ -128,6 +128,12 @@ To test all projects:
 nx run-many --target=test --all
 ```
 
+To test a specific file:
+
+```bash
+nx test <project> --test-file <file-name>
+```
+
 To test projects affected by your changes:
 
 ```bash
