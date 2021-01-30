@@ -163,51 +163,5 @@ exports[`Announcements should match snapshot 1`] = `
       </p>
     </div>
   </div>
-  <div
-    className="chat-container"
-  >
-    <p
-      className="announcement-time"
-    >
-      13:00 21/10/20
-    </p>
-    <div
-      className="current-user-chat-container"
-    >
-      <img
-        alt="user"
-        className="user-picture"
-        src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
-      />
-      <p
-        className="chat-bubble"
-      >
-        Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
-      </p>
-    </div>
-  </div>
-  <div
-    className="chat-container"
-  >
-    <p
-      className="announcement-time"
-    >
-      13:00 21/10/20
-    </p>
-    <div
-      className="current-user-chat-container"
-    >
-      <img
-        alt="user"
-        className="user-picture"
-        src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
-      />
-      <p
-        className="chat-bubble"
-      >
-        Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
-      </p>
-    </div>
-  </div>
 </div>
 `;
