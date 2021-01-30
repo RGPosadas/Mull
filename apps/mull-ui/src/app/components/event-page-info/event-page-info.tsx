@@ -9,8 +9,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useJoinEventMutation, useLeaveEventMutation } from '../../../generated/graphql';
+import UserContext from '../../context/user.context';
 import MullButton from '../mull-button/mull-button';
 import { ExpandableText } from './../expandable-text/expandable-text';
 import './event-page-info.scss';
@@ -38,9 +39,7 @@ export const EventPageInfo = ({
   const [leaveEvent] = useLeaveEventMutation();
 
   const eventId = parseInt(event.id);
-  // TODO: Have a user object when logged in to access userId
-  const userId = 1;
-
+  const { userId } = useContext(UserContext);
   const [joined, setJoined] = useState<boolean>(isJoined);
 
   const handleJoinEventButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {

@@ -61,7 +61,8 @@ export interface IPoint {
 }
 
 export interface IUser {
-  name: string;
+  id?: number;
+  name?: string;
 }
 
 export interface IMedia {

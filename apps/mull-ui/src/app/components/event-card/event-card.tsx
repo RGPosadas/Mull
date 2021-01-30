@@ -1,10 +1,11 @@
 import { faCheck, faShareAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ISerializedEvent } from '@mull/types';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { dummyProfilePictures } from '../../../constants'; // TODO query the participants profile pictures
 import { useJoinEventMutation, useLeaveEventMutation } from '../../../generated/graphql';
 import { formatDate, mediaUrl } from '../../../utilities';
+import UserContext from '../../context/user.context';
 import EventMembers from '../event-members/event-members';
 import './event-card.scss';
 
@@ -20,8 +21,8 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
 
   const [joined, setJoined] = useState<boolean>(isJoined);
   const eventId = parseInt(event.id);
-  // TODO: Have a user object when logged in to access userId
-  const userId = 1;
+
+  const { userId } = useContext(UserContext);
 
   const [joinEvent] = useJoinEventMutation();
   const [leaveEvent] = useLeaveEventMutation();

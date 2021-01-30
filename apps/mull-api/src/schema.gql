@@ -5,6 +5,7 @@
 input CreateEventInput {
   description: String!
   endDate: DateTime!
+  host: UserInput!
   image: MediaInput!
   location: LocationInput!
   restriction: Int!
@@ -143,4 +144,8 @@ type User {
   password: String
   registrationMethod: RegistrationMethod!
   timezone: String!
+}
+
+input UserInput {
+  id: Int!
 }
