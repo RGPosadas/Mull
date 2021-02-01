@@ -3,23 +3,23 @@ import './chat-bubble.scss';
 
 export interface chatBubbleProps {
   isCurrentUser?: boolean;
-  chatDate: string;
-  userPicture: string;
-  chatMessage: string;
+  chatDate?: string;
+  userPicture?: string;
+  children?: string;
 }
 
 export const ChatBubble = ({
-  isCurrentUser,
-  chatDate,
-  userPicture,
-  chatMessage,
+  isCurrentUser = false,
+  chatDate = '',
+  userPicture = '',
+  children = '',
 }: chatBubbleProps) => {
   return (
     <div className="chat-container">
       <p className="announcement-time">{chatDate}</p>
       <div className={`${isCurrentUser ? 'current-user' : 'other-user'}-chat-container`}>
         <img className="user-picture" src={userPicture} alt="user" />
-        <p className="chat-bubble">{chatMessage}</p>
+        <p className="chat-bubble">{children}</p>
       </div>
     </div>
   );
