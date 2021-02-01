@@ -232,8 +232,14 @@ Prerequisite:
 seeding:
 
 1. Start the database, if running locally
-1. Run `npm run start mull-api` to update the columns (You don't have to have this running afte updating)
+1. Run `npm run start mull-api` to update the columns (You don't have to have this running after updating)
 1. Run `npm run seed:run`
+
+For images to show on the app after seeding:
+
+Download the Images from [the image folder in the drive](https://drive.google.com/drive/folders/1Czg2p3kZMvOyvrGpTfBH5bSq4sJVQZsJ?usp=sharing) and add them to the upload folder in mull-api.
+
+This only needs to be done once and other images can be added.
 
 ## Travis CI
 
