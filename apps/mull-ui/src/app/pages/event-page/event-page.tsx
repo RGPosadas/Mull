@@ -1,12 +1,13 @@
+import { cloneDeep } from 'lodash';
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { CreateEventInput, useEventPageQuery } from '../../../generated/graphql';
+import { CreateEventInput, useEventPageQuery, useUserQuery } from '../../../generated/graphql';
 import { EventPageHeader, EventPageInfo } from '../../components';
 import UserContext from '../../context/user.context';
 import './event-page.scss';
 
 export interface EventPageProps {
-  event?: Partial<CreateEventInput>;
+  reviewEvent?: Partial<CreateEventInput>;
   prevPage: string;
   eventImageURL?: string;
   buttonType?: 'submit' | 'button' | 'reset';
@@ -17,7 +18,7 @@ export interface EventPageProps {
 }
 
 export const EventPage = ({
-  event,
+  reviewEvent,
   prevPage,
   onBackButtonClick,
   onButtonClick,
@@ -28,23 +29,46 @@ export const EventPage = ({
 }: EventPageProps) => {
   const { id } = useParams<{ id: string }>();
   const eventId = parseInt(id);
+
   const { userId } = useContext(UserContext);
 
-  const { loading, error, data } = useEventPageQuery({
+  let event = cloneDeep(reviewEvent);
+
+  const { loading: loadingEvent, error: errorEvent, data: dataEvent } = useEventPageQuery({
     variables: { eventId, userId },
-    skip: !!event,
+    skip: !!reviewEvent,
   });
 
-  if (!loading && data) {
-    event = data.event;
-    isJoined = data.isParticipant;
+  const { loading: loadingUser, error: errorUser, data: dataUser } = useUserQuery({
+    variables: { userId },
+    skip: !reviewEvent,
+  });
+
+  if (!loadingEvent && dataEvent) {
+    event = cloneDeep(dataEvent.event);
+    isJoined = dataEvent.isParticipant;
   }
 
-  if (error) {
-    console.error(error);
+  if (!loadingUser && dataUser) {
+    event.host = dataUser.user;
   }
 
-  return event ? (
+  if (errorEvent) {
+    console.error(errorEvent);
+    return <div>Error occured when loading data</div>;
+  }
+
+  if (errorUser) {
+    console.error(errorUser);
+    return <div>Error occured when loading data</div>;
+  }
+
+  if (loadingEvent || loadingUser || !event.host) {
+    // TODO: Replace with spinner or loading component
+    return <div>Loading...</div>;
+  }
+
+  return (
     <div className="page-container no-padding event-page-container">
       <EventPageHeader
         event={event}
@@ -62,7 +86,7 @@ export const EventPage = ({
         />
       </div>
     </div>
-  ) : null;
+  );
 };
 
 export default EventPage;

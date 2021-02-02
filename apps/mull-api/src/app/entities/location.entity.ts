@@ -1,12 +1,12 @@
 import { ILocation, IPoint } from '@mull/types';
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Event } from '../entities';
 
 @Entity()
 @ObjectType()
 export class Point implements IPoint {
-  @Field(/* istanbul ignore next */ () => ID)
+  @Field(/* istanbul ignore next */ () => Int)
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -22,7 +22,7 @@ export class Point implements IPoint {
 @Entity()
 @ObjectType()
 export class Location implements ILocation {
-  @Field(/* istanbul ignore next */ () => ID)
+  @Field(/* istanbul ignore next */ () => Int)
   @PrimaryGeneratedColumn()
   id: number;
 

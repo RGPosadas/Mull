@@ -20,7 +20,6 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
   const { day, month, time } = formatDate(new Date(event.startDate));
 
   const [joined, setJoined] = useState<boolean>(isJoined);
-  const eventId = parseInt(event.id);
 
   const { userId } = useContext(UserContext);
 
@@ -43,9 +42,9 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
           e.stopPropagation();
           setJoined(!joined);
           if (joined === false) {
-            joinEvent({ variables: { eventId, userId } });
+            joinEvent({ variables: { eventId: event.id, userId } });
           } else {
-            leaveEvent({ variables: { eventId, userId } });
+            leaveEvent({ variables: { eventId: event.id, userId } });
           }
         }}
         className={`event-card-join ${joined ? 'joined' : ''}`}

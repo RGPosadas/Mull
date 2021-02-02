@@ -12,6 +12,10 @@ fragment EventPageContent on Event {
     id
     mediaType
   }
+  host {
+    id
+    name
+  }
 }
 
 fragment EventCardContent on Event {
@@ -57,5 +61,12 @@ query EventPage($eventId: Int!, $userId: Int!) {
 
   event(id: $eventId) {
     ...EventPageContent
+  }
+}
+
+query User($userId: Int!) {
+  user(id: $userId) {
+    id
+    name
   }
 }

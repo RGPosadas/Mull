@@ -175,7 +175,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
     <form className="container" onSubmit={formik.handleSubmit}>
       {isInReview ? (
         <EventPage
-          event={payload}
+          reviewEvent={payload}
           prevPage={'Edit'}
           onBackButtonClick={() => setIsInReview(false)}
           buttonType={'submit'}

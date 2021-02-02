@@ -41,7 +41,8 @@ export type Event = {
   __typename?: 'Event';
   description: Scalars['String'];
   endDate: Scalars['DateTime'];
-  id: Scalars['ID'];
+  host: User;
+  id: Scalars['Int'];
   image?: Maybe<Media>;
   location?: Maybe<Location>;
   restriction: Scalars['Float'];
@@ -52,7 +53,7 @@ export type Event = {
 export type Location = {
   __typename?: 'Location';
   coordinates?: Maybe<Point>;
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   placeId?: Maybe<Scalars['String']>;
   title: Scalars['String'];
 };
@@ -158,7 +159,7 @@ export type MutationUploadFileArgs = {
 
 export type Point = {
   __typename?: 'Point';
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   lat: Scalars['Float'];
   long: Scalars['Float'];
 };
@@ -233,7 +234,7 @@ export enum RegistrationMethod {
 export type UpdateEventInput = {
   description?: Maybe<Scalars['String']>;
   endDate?: Maybe<Scalars['DateTime']>;
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   location: LocationInput;
   restriction?: Maybe<Scalars['Int']>;
   startDate?: Maybe<Scalars['DateTime']>;
@@ -243,7 +244,7 @@ export type UpdateEventInput = {
 export type UpdateUserInput = {
   dob?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
 };
 
@@ -254,7 +255,7 @@ export type User = {
   dob: Scalars['DateTime'];
   email: Scalars['String'];
   friends: Array<User>;
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   name: Scalars['String'];
   password?: Maybe<Scalars['String']>;
   registrationMethod: RegistrationMethod;
@@ -348,7 +349,10 @@ export type EventPageContentFragment = (
   )>, image?: Maybe<(
     { __typename?: 'Media' }
     & Pick<Media, 'id' | 'mediaType'>
-  )> }
+  )>, host: (
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'name'>
+  ) }
 );
 
 export type EventCardContentFragment = (
@@ -420,6 +424,19 @@ export type EventPageQuery = (
   ) }
 );
 
+export type UserQueryVariables = Exact<{
+  userId: Scalars['Int'];
+}>;
+
+
+export type UserQuery = (
+  { __typename?: 'Query' }
+  & { user: (
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'name'>
+  ) }
+);
+
 export const EventPageContentFragmentDoc = gql`
     fragment EventPageContent on Event {
   id
@@ -434,6 +451,10 @@ export const EventPageContentFragmentDoc = gql`
   image {
     id
     mediaType
+  }
+  host {
+    id
+    name
   }
 }
     `;
@@ -780,3 +801,37 @@ export function useEventPageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type EventPageQueryHookResult = ReturnType<typeof useEventPageQuery>;
 export type EventPageLazyQueryHookResult = ReturnType<typeof useEventPageLazyQuery>;
 export type EventPageQueryResult = Apollo.QueryResult<EventPageQuery, EventPageQueryVariables>;
+export const UserDocument = gql`
+    query User($userId: Int!) {
+  user(id: $userId) {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useUserQuery__
+ *
+ * To run a query within a React component, call `useUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useUserQuery(baseOptions: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>) {
+        return Apollo.useQuery<UserQuery, UserQueryVariables>(UserDocument, baseOptions);
+      }
+export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQuery, UserQueryVariables>) {
+          return Apollo.useLazyQuery<UserQuery, UserQueryVariables>(UserDocument, baseOptions);
+        }
+export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
+export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
+export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;

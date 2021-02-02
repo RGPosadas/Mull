@@ -38,7 +38,6 @@ export const EventPageInfo = ({
   const [joinEvent] = useJoinEventMutation();
   const [leaveEvent] = useLeaveEventMutation();
 
-  const eventId = parseInt(event.id);
   const { userId } = useContext(UserContext);
   const [joined, setJoined] = useState<boolean>(isJoined);
 
@@ -46,9 +45,9 @@ export const EventPageInfo = ({
     e.stopPropagation();
     setJoined(!joined);
     if (joined) {
-      leaveEvent({ variables: { eventId, userId } });
+      leaveEvent({ variables: { eventId: event.id, userId } });
     } else {
-      joinEvent({ variables: { eventId, userId } });
+      joinEvent({ variables: { eventId: event.id, userId } });
     }
   };
 
@@ -64,7 +63,7 @@ export const EventPageInfo = ({
 
         {/* TODO: Remove placeholder text once users are implemented */}
         <p className="row-text" data-testid="event-host">
-          Placeholder Host
+          {event.host.name}
         </p>
         {/* <p className="row-text">{event.host?.name}</p> */}
 
