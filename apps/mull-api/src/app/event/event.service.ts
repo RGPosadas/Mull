@@ -55,8 +55,8 @@ export class EventService {
   async isUserAttendingEvent(eventId: number, userId: number): Promise<boolean> {
     const event = await this.eventRepository
       .createQueryBuilder('event')
-      .leftJoin('event.participants', 'participant', 'participant.id = :userId', { userId })
-      .leftJoin('event.coHosts', 'coHost', 'coHost.id = :userId', { userId })
+      .leftJoin('event.participants', 'participant')
+      .leftJoin('event.coHosts', 'coHost')
       .where('event.id = :eventId', { eventId })
       .andWhere(
         new Brackets((qb) => {
