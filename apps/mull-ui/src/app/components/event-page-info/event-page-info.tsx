@@ -62,7 +62,7 @@ export const EventPageInfo = ({
         ></img>
 
         {/* TODO: Remove placeholder text once users are implemented */}
-        <p className="row-text" data-testid="event-host">
+        <p className="row-text" data-testid="event-page-host">
           {event.host.name}
         </p>
         {/* <p className="row-text">{event.host?.name}</p> */}
@@ -71,7 +71,7 @@ export const EventPageInfo = ({
       </div>
       <div className="info-row">
         <FontAwesomeIcon icon={faMapMarkerAlt} className="event-page-icon color-grey" />
-        <p className="row-text" data-testid="event-location">
+        <p className="row-text" data-testid="event-page-location">
           {event.location.title}
         </p>
         <FontAwesomeIcon icon={faMap} className="event-page-icon color-green" />

@@ -34,12 +34,14 @@ exports[`EventPageHeader should match snapshot 1`] = `
   </button>
   <div
     className="title"
+    data-testid="event-page-title"
   >
     Test title
   </div>
   <img
     alt="Event Page"
     className="event-image"
+    data-testid="event-page-image"
     src="http://localhost:3333/api/media/1"
   />
   <div

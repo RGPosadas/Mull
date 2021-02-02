@@ -5,12 +5,12 @@ import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
-import { ParticipantEventsDocument } from '../../../../generated/graphql';
+import { ParticipantEventsDocument, ParticipantEventsQuery } from '../../../../generated/graphql';
 import { UserProvider } from '../../../context/user.context';
 import UpcomingPage from './upcoming';
 
 describe('UpcomingPage', () => {
-  const renderHelper = (history, mocks) => {
+  const renderHelper = (history, mocks: MockedResponse[]) => {
     return (
       <UserProvider value={{ userId: 1, setUserId: jest.fn() }}>
         <MockedProvider mocks={mocks} addTypename={false}>
@@ -42,7 +42,7 @@ describe('UpcomingPage', () => {
             data: {
               participantEvents: [
                 {
-                  id: '1',
+                  id: 1,
                   title: 'test',
                   description: 'test',
                   startDate: '2020-12-12T03:00:00.000Z',
@@ -57,7 +57,7 @@ describe('UpcomingPage', () => {
                   },
                 },
               ],
-            },
+            } as ParticipantEventsQuery,
           },
         },
       ];

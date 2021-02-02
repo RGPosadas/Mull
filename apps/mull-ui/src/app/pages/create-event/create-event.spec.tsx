@@ -1,4 +1,4 @@
-import { MockedProvider } from '@apollo/client/testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import '@testing-library/jest-dom';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import user from '@testing-library/user-event';
@@ -11,7 +11,7 @@ import { UserProvider } from '../../context/user.context';
 import CreateEventPage from './create-event';
 
 describe('CreateEvent', () => {
-  const renderHelper = (history, mocks) => {
+  const renderHelper = (history, mocks: MockedResponse[]) => {
     return (
       <UserProvider value={{ userId: 1, setUserId: jest.fn() }}>
         <MockedProvider mocks={mocks} addTypename={false}>
@@ -61,7 +61,7 @@ describe('CreateEvent', () => {
 
   it('should submit a valid event', async () => {
     const file = new File(['hello'], 'hello.png', { type: 'image/png' });
-    const mocks = [
+    const mocks: MockedResponse[] = [
       {
         request: {
           query: UploadFileDocument,

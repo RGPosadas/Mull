@@ -60,7 +60,7 @@ export interface IPoint {
 }
 
 export interface IUser {
-  id?: number;
+  id: number;
   name?: string;
 }
 

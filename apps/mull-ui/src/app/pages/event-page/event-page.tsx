@@ -53,16 +53,6 @@ export const EventPage = ({
     event.host = dataUser.user;
   }
 
-  if (errorEvent) {
-    console.error(errorEvent);
-    return <div>Error occured when loading data</div>;
-  }
-
-  if (errorUser) {
-    console.error(errorUser);
-    return <div>Error occured when loading data</div>;
-  }
-
   if (loadingEvent || loadingUser || !event.host) {
     // TODO: Replace with spinner or loading component
     return <div>Loading...</div>;

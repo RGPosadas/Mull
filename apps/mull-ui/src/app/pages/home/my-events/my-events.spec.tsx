@@ -5,12 +5,12 @@ import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
-import { OwnedEventsDocument } from '../../../../generated/graphql';
+import { OwnedEventsDocument, OwnedEventsQuery } from '../../../../generated/graphql';
 import { UserProvider } from '../../../context/user.context';
 import MyEventsPage from './my-events';
 
 describe('myEventsPage', () => {
-  const renderHelper = (history, mocks) => {
+  const renderHelper = (history, mocks: MockedResponse[]) => {
     return (
       <UserProvider value={{ userId: 1, setUserId: jest.fn() }}>
         <MockedProvider mocks={mocks}>
@@ -42,7 +42,7 @@ describe('myEventsPage', () => {
             data: {
               coHostEvents: [
                 {
-                  id: '1',
+                  id: 1,
                   title: 'test',
                   description: 'test',
                   startDate: '2020-12-12T03:00:00.000Z',
@@ -59,7 +59,7 @@ describe('myEventsPage', () => {
               ],
               hostEvents: [
                 {
-                  id: '2',
+                  id: 2,
                   title: 'test',
                   description: 'test',
                   startDate: '2020-12-12T03:00:00.000Z',
@@ -74,7 +74,7 @@ describe('myEventsPage', () => {
                   __typename: 'Event',
                 },
               ],
-            },
+            } as OwnedEventsQuery,
           },
         },
       ];

@@ -27,9 +27,12 @@ export const EventPageHeader = ({
   return (
     <div className="event-page-header">
       <MullBackButton onClick={handleBackButton}>{prevPage}</MullBackButton>
-      <div className="title">{event.title}</div>
+      <div className="title" data-testid="event-page-title">
+        {event.title}
+      </div>
       <img
         className="event-image"
+        data-testid="event-page-image"
         src={eventImageURL ? eventImageURL : mediaUrl(event)}
         alt="Event Page"
       />

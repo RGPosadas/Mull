@@ -44,13 +44,16 @@ export const dummyEvent: ISerializedEvent = {
   restriction: EventRestriction.NONE,
   participants: [
     {
+      id: 1,
       name: 'User 1',
     },
     {
+      id: 2,
       name: 'User 2',
     },
   ],
   host: {
+    id: 3,
     name: 'Test user',
   },
   image: {
