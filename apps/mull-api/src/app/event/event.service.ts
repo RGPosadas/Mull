@@ -72,52 +72,38 @@ export class EventService {
   }
 
   /**
-   * Find all the events that the user has not joined, created or is not co-hosting
+   * Find all public events that the user has not joined, created or is not co-hosting
    * @param userId
    */
   async getEventsRecommendedToUser(userId: number): Promise<Event[]> {
-    const discoverableEvents = await this.eventRepository.query(
-      `
-      SELECT DISTINCT event.id,
-                      event.title,
-                      event.startDate,
-                      event.endDate,
-                      event.description,
-                      event.imageid,
-                      event.hostid,
-                      event.locationid,
-                      event.restriction,
-                      location.id    AS location_id,
-                      location.title AS location_title
-        FROM event
-              LEFT JOIN event_participants
-                      ON event.id = event_participants.eventid
-              LEFT JOIN location
-                      ON event.locationid = location.id
-        WHERE event.id NOT IN (SELECT event.id
-                          FROM   event
-                          WHERE  event.hostid = ${userId})
-              AND event.id NOT IN (SELECT event_participants.eventid
-                              FROM   event_participants
-                              WHERE  event_participants.userid = ${userId})
-              AND event.id NOT IN (SELECT event_cohosts.eventid
-                              FROM   event_cohosts
-                              WHERE  event_cohosts.userid = ${userId}) 
-    `
-    );
+    // subquery for events a user will participate in
+    const joinedEventsQuery = await this.eventRepository
+      .createQueryBuilder('event')
+      .select('event.id')
+      .leftJoin('event.participants', 'user')
+      .where('user.id = :userId');
+    // subquery for events a user is co-hosting
+    const coHostedEventsQuery = await this.eventRepository
+      .createQueryBuilder('event')
+      .select('event.id')
+      .leftJoin('event.coHosts', 'user')
+      .where('user.id = :userId');
+    // subquery for events a user is a host of
+    const hostedEventsQuery = await this.eventRepository
+      .createQueryBuilder('event')
+      .select('event.id')
+      .where('event.hostId = :userId');
 
-    return discoverableEvents.map(
-      (event): Event => {
-        const { location_id, location_title, ...rest } = event;
-        return {
-          ...rest,
-          location: {
-            title: location_title,
-            id: location_id,
-          },
-        };
-      }
-    );
+    return await this.eventRepository
+      .createQueryBuilder('event')
+      .distinct(true)
+      .leftJoinAndSelect('event.location', 'location')
+      .where(`event.id NOT IN (${joinedEventsQuery.getQuery()})`)
+      .andWhere(`event.id NOT IN (${coHostedEventsQuery.getQuery()})`)
+      .andWhere(`event.id NOT IN (${hostedEventsQuery.getQuery()})`)
+      .andWhere('event.restriction = "0"')
+      .setParameter('userId', userId)
+      .getMany();
   }
 
   async createEvent(input: CreateEventInput): Promise<Event> {
