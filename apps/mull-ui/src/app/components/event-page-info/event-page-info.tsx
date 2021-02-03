@@ -9,8 +9,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useJoinEventMutation, useLeaveEventMutation } from '../../../generated/graphql';
+import UserContext from '../../context/user.context';
 import MullButton from '../mull-button/mull-button';
 import { ExpandableText } from './../expandable-text/expandable-text';
 import './event-page-info.scss';
@@ -37,19 +38,16 @@ export const EventPageInfo = ({
   const [joinEvent] = useJoinEventMutation();
   const [leaveEvent] = useLeaveEventMutation();
 
-  const eventId = parseInt(event.id);
-  // TODO: Have a user object when logged in to access userId
-  const userId = 1;
-
+  const { userId } = useContext(UserContext);
   const [joined, setJoined] = useState<boolean>(isJoined);
 
   const handleJoinEventButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     e.stopPropagation();
     setJoined(!joined);
     if (joined) {
-      leaveEvent({ variables: { eventId, userId } });
+      leaveEvent({ variables: { eventId: event.id, userId } });
     } else {
-      joinEvent({ variables: { eventId, userId } });
+      joinEvent({ variables: { eventId: event.id, userId } });
     }
   };
 
@@ -64,8 +62,8 @@ export const EventPageInfo = ({
         ></img>
 
         {/* TODO: Remove placeholder text once users are implemented */}
-        <p className="row-text" data-testid="event-host">
-          Placeholder Host
+        <p className="row-text" data-testid="event-page-host">
+          {event.host.name}
         </p>
         {/* <p className="row-text">{event.host?.name}</p> */}
 
@@ -73,7 +71,7 @@ export const EventPageInfo = ({
       </div>
       <div className="info-row">
         <FontAwesomeIcon icon={faMapMarkerAlt} className="event-page-icon color-grey" />
-        <p className="row-text" data-testid="event-location">
+        <p className="row-text" data-testid="event-page-location">
           {event.location.title}
         </p>
         <FontAwesomeIcon icon={faMap} className="event-page-icon color-green" />

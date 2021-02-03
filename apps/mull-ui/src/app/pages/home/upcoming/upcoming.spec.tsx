@@ -5,21 +5,28 @@ import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
-import { ParticipantEventsDocument } from '../../../../generated/graphql';
+import { ParticipantEventsDocument, ParticipantEventsQuery } from '../../../../generated/graphql';
+import { UserProvider } from '../../../context/user.context';
 import UpcomingPage from './upcoming';
 
-describe('myEventsPage', () => {
+describe('UpcomingPage', () => {
+  const renderHelper = (history, mocks: MockedResponse[]) => {
+    return (
+      <UserProvider value={{ userId: 1, setUserId: jest.fn() }}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Router history={history}>
+            <UpcomingPage history={history} />
+          </Router>
+        </MockedProvider>
+      </UserProvider>
+    );
+  };
+
   it('should render successfully', () => {
     const history = createMemoryHistory();
     history.push(ROUTES.UPCOMING.url);
 
-    const { baseElement } = render(
-      <MockedProvider>
-        <Router history={history}>
-          <UpcomingPage history={history} />
-        </Router>
-      </MockedProvider>
-    );
+    const { baseElement } = render(renderHelper(history, null));
     expect(baseElement).toBeTruthy();
   });
 
@@ -35,7 +42,7 @@ describe('myEventsPage', () => {
             data: {
               participantEvents: [
                 {
-                  id: '1',
+                  id: 1,
                   title: 'test',
                   description: 'test',
                   startDate: '2020-12-12T03:00:00.000Z',
@@ -50,7 +57,7 @@ describe('myEventsPage', () => {
                   },
                 },
               ],
-            },
+            } as ParticipantEventsQuery,
           },
         },
       ];
@@ -58,13 +65,7 @@ describe('myEventsPage', () => {
       const history = createMemoryHistory();
       history.push(ROUTES.UPCOMING.url);
 
-      const utils = render(
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <Router history={history}>
-            <UpcomingPage history={history} />
-          </Router>
-        </MockedProvider>
-      );
+      const utils = render(renderHelper(history, mocks));
 
       await new Promise((resolve) => setTimeout(resolve, 0));
 

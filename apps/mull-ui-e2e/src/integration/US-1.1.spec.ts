@@ -33,8 +33,8 @@ frameSizes.forEach((frame) => {
     });
 
     it('should select today as the start and end date', () => {
-      cy.get('.-today').click().should('have.text', new Date().getDate().toString());
-      cy.get('.-today').click().should('have.text', new Date().getDate().toString());
+      cy.get('.-today').click().should('contain.text', new Date().getDate().toString());
+      cy.get('.-today').click().should('contain.text', new Date().getDate().toString());
     });
 
     it('should type into the event description input', () => {

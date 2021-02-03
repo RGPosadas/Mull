@@ -1,7 +1,13 @@
 import { RegistrationMethod } from '@mull/types';
-import { Field, ID, InputType } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 import { IsDate, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
 import { User } from '../../entities';
+
+@InputType()
+export class UserInput implements Partial<User> {
+  @Field(/* istanbul ignore next */ () => Int)
+  id: number;
+}
 
 @InputType()
 export class CreateUserInput implements Partial<User> {
@@ -27,7 +33,7 @@ export class CreateUserInput implements Partial<User> {
 
 @InputType()
 export class UpdateUserInput implements Partial<User> {
-  @Field(/* istanbul ignore next */ () => ID)
+  @Field(/* istanbul ignore next */ () => Int)
   id: number;
 
   @Field({ nullable: true })

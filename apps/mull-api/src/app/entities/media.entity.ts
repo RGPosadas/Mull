@@ -1,5 +1,5 @@
 import { IMedia } from '@mull/types';
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Post } from './post.entity';
 
@@ -9,7 +9,7 @@ export class Media implements IMedia {
   constructor(mediaType: string) {
     this.mediaType = mediaType;
   }
-  @Field(/* istanbul ignore next */ () => ID)
+  @Field(/* istanbul ignore next */ () => Int)
   @PrimaryGeneratedColumn()
   @Field()
   id: number;

@@ -1,4 +1,4 @@
-import { MockedProvider } from '@apollo/client/testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import '@testing-library/jest-dom';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import user from '@testing-library/user-event';
@@ -7,20 +7,27 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
 import { UploadFileDocument } from '../../../generated/graphql';
+import { UserProvider } from '../../context/user.context';
 import CreateEventPage from './create-event';
 
 describe('CreateEvent', () => {
+  const renderHelper = (history, mocks: MockedResponse[]) => {
+    return (
+      <UserProvider value={{ userId: 1, setUserId: jest.fn() }}>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Router history={history}>
+            <CreateEventPage history={history} />
+          </Router>
+        </MockedProvider>
+      </UserProvider>
+    );
+  };
+
   it('should render successfully', () => {
     const history = createMemoryHistory();
     history.push(ROUTES.CREATE_EVENT);
 
-    const { baseElement } = render(
-      <MockedProvider>
-        <Router history={history}>
-          <CreateEventPage history={history} />
-        </Router>
-      </MockedProvider>
-    );
+    const { baseElement } = render(renderHelper(history, null));
     expect(baseElement).toBeTruthy();
   });
 
@@ -28,13 +35,7 @@ describe('CreateEvent', () => {
     window.URL.createObjectURL = jest.fn();
     const history = createMemoryHistory();
     history.push(ROUTES.CREATE_EVENT);
-    const utils = render(
-      <MockedProvider>
-        <Router history={history}>
-          <CreateEventPage history={history} />
-        </Router>
-      </MockedProvider>
-    );
+    const utils = render(renderHelper(history, null));
     const file = new File(['hello'], 'hello.png', { type: 'image/png' });
     const imageInput = utils.getByTestId('file') as HTMLInputElement;
     await waitFor(() => {
@@ -47,13 +48,7 @@ describe('CreateEvent', () => {
   it('should have validation errors', async () => {
     const history = createMemoryHistory();
     history.push(ROUTES.CREATE_EVENT);
-    const utils = render(
-      <MockedProvider>
-        <Router history={history}>
-          <CreateEventPage history={history} />
-        </Router>
-      </MockedProvider>
-    );
+    const utils = render(renderHelper(history, null));
     const submitButton = utils.container.querySelector(
       'button[class="mull-button create-event-button"]'
     );
@@ -66,7 +61,7 @@ describe('CreateEvent', () => {
 
   it('should submit a valid event', async () => {
     const file = new File(['hello'], 'hello.png', { type: 'image/png' });
-    const mocks = [
+    const mocks: MockedResponse[] = [
       {
         request: {
           query: UploadFileDocument,
@@ -87,13 +82,7 @@ describe('CreateEvent', () => {
 
     const history = createMemoryHistory();
     history.push(ROUTES.CREATE_EVENT);
-    const utils = render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <Router history={history}>
-          <CreateEventPage history={history} />
-        </Router>
-      </MockedProvider>
-    );
+    const utils = render(renderHelper(history, mocks));
 
     const imageInput = utils.getByTestId('file');
     await waitFor(() => {

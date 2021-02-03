@@ -1,13 +1,14 @@
 import { ISerializedEvent } from '@mull/types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useParticipantEventsQuery } from '../../../../generated/graphql';
 import { EventCard } from '../../../components';
-import '../home-discover.scss';
+import UserContext from '../../../context/user.context';
 
 export const UpcomingPage = ({ history }) => {
+  const { userId } = useContext(UserContext);
+
   const { data } = useParticipantEventsQuery({
-    // TODO: dynamically pass current UserId
-    variables: { userId: 1 },
+    variables: { userId },
   });
 
   if (data) {

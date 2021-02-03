@@ -5,6 +5,7 @@
 input CreateEventInput {
   description: String!
   endDate: DateTime!
+  host: UserInput!
   image: MediaInput!
   location: LocationInput!
   restriction: Int!
@@ -28,7 +29,8 @@ scalar DateTime
 type Event {
   description: String!
   endDate: DateTime!
-  id: ID!
+  host: User!
+  id: Int!
   image: Media
   location: Location
   restriction: Float!
@@ -38,7 +40,7 @@ type Event {
 
 type Location {
   coordinates: Point
-  id: ID!
+  id: Int!
   placeId: String
   title: String!
 }
@@ -83,7 +85,7 @@ type Mutation {
 }
 
 type Point {
-  id: ID!
+  id: Int!
   lat: Float!
   long: Float!
 }
@@ -116,7 +118,7 @@ enum RegistrationMethod {
 input UpdateEventInput {
   description: String
   endDate: DateTime
-  id: ID!
+  id: Int!
   location: LocationInput!
   restriction: Int
   startDate: DateTime
@@ -126,7 +128,7 @@ input UpdateEventInput {
 input UpdateUserInput {
   dob: DateTime
   email: String
-  id: ID!
+  id: Int!
   name: String
 }
 
@@ -138,9 +140,13 @@ type User {
   dob: DateTime!
   email: String!
   friends: [User!]!
-  id: ID!
+  id: Int!
   name: String!
   password: String
   registrationMethod: RegistrationMethod!
   timezone: String!
+}
+
+input UserInput {
+  id: Int!
 }

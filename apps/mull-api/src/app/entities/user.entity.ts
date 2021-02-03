@@ -1,5 +1,5 @@
 import { IUser, RegistrationMethod } from '@mull/types';
-import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -25,7 +25,7 @@ export class User implements IUser {
     this.id = id;
   }
 
-  @Field(/* istanbul ignore next */ () => ID)
+  @Field(/* istanbul ignore next */ () => Int)
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -73,7 +73,7 @@ export class User implements IUser {
 
   /**
    * The friends of this user. People this person is following.
-   * e.g: I am friends with you. Your ID would go in this list.
+   * e.g: I am friends with you. Your id would go in this list.
    */
   @ManyToMany(
     /* istanbul ignore next */ () => User,

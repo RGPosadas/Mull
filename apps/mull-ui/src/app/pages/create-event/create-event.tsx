@@ -4,7 +4,7 @@ import { EventRestriction, EventRestrictionMap, ICreateEventForm } from '@mull/t
 import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
 import { History } from 'history';
 import { cloneDeep, isEmpty } from 'lodash';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { DAY_IN_MILLISECONDS, ROUTES } from '../../../constants';
@@ -13,6 +13,7 @@ import {
   useCreateEventMutation,
   useUploadFileMutation,
 } from '../../../generated/graphql';
+import UserContext from '../../context/user.context';
 import { useToast } from '../../hooks/useToast';
 import {
   CustomFileUpload,
@@ -44,6 +45,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
   const [isInReview, setIsInReview] = useState<boolean>(false); // Show either form or review page
   const [payload, setPayload] = useState<Partial<CreateEventInput>>(null);
   const { notifyToast, updateToast } = useToast();
+  const { userId } = useContext(UserContext);
   /**
    * Handles image file uploads
    * @param {ChangeEvent<HTMLInputElement>} event
@@ -159,6 +161,9 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         restriction: formik.values.activeRestriction,
         location: formik.values.location,
         image: null,
+        host: {
+          id: userId,
+        },
       });
       setIsInReview(true);
     } else {
@@ -170,7 +175,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
     <form className="container" onSubmit={formik.handleSubmit}>
       {isInReview ? (
         <EventPage
-          event={payload}
+          reviewEvent={payload}
           prevPage={'Edit'}
           onBackButtonClick={() => setIsInReview(false)}
           buttonType={'submit'}

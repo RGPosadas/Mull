@@ -14,9 +14,9 @@ exports[`EventPageInfo should match snapshot 1`] = `
     />
     <p
       className="row-text"
-      data-testid="event-host"
+      data-testid="event-page-host"
     >
-      Placeholder Host
+      Test user
     </p>
     <svg
       aria-hidden="true"
@@ -58,7 +58,7 @@ exports[`EventPageInfo should match snapshot 1`] = `
     </svg>
     <p
       className="row-text"
-      data-testid="event-location"
+      data-testid="event-page-location"
     >
       1260 Remembrance Road Montreal, Qc
     </p>

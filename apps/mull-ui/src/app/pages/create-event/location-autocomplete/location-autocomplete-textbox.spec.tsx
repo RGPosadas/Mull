@@ -30,6 +30,10 @@ const mockLocationAutocompleteTextboxProps: () => LocationAutocompleteTextboxPro
 });
 
 describe('location autocomplete textbox', () => {
+  // To suppress annoying warning by material ui
+  beforeAll(() => {
+    jest.spyOn(console, 'warn').mockImplementation(jest.fn());
+  });
   it('should render successfully', () => {
     const props = mockLocationAutocompleteTextboxProps();
     const { baseElement } = render(<LocationAutocompleteTextbox {...props} />);

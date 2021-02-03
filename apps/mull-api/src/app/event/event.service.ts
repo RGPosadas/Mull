@@ -16,12 +16,14 @@ export class EventService {
   }
 
   getEvent(id: number): Promise<Event> {
-    return this.eventRepository.findOne(id, { relations: ['location', 'location.coordinates'] });
+    return this.eventRepository.findOne(id, {
+      relations: ['location', 'location.coordinates', 'host'],
+    });
   }
 
   getEventsHostedByUser(hostId: number): Promise<Event[]> {
     return this.eventRepository.find({
-      relations: ['host', 'location', 'location.coordinates'],
+      relations: ['location', 'location.coordinates', 'host'],
       where: {
         host: {
           id: hostId,
@@ -33,17 +35,19 @@ export class EventService {
   getEventsCoHostedByUser(coHostId: number): Promise<Event[]> {
     return this.eventRepository
       .createQueryBuilder('event')
-      .leftJoin('event.coHosts', 'user')
       .leftJoinAndSelect('event.location', 'location')
-      .where('user.id = :userId', { userId: coHostId })
+      .leftJoinAndSelect('event.host', 'host')
+      .leftJoin('event.coHosts', 'coHost')
+      .where('coHost.id = :userId', { userId: coHostId })
       .getMany();
   }
 
   getEventsAttendedByUser(userId: number): Promise<Event[]> {
     return this.eventRepository
       .createQueryBuilder('event')
-      .leftJoin('event.participants', 'user')
       .leftJoinAndSelect('event.location', 'location')
+      .leftJoinAndSelect('event.host', 'host')
+      .leftJoin('event.participants', 'user')
       .where('user.id = :userId', { userId })
       .getMany();
   }
@@ -51,16 +55,14 @@ export class EventService {
   async isUserAttendingEvent(eventId: number, userId: number): Promise<boolean> {
     const event = await this.eventRepository
       .createQueryBuilder('event')
-      .leftJoin('event.participants', 'user')
+      .leftJoin('event.participants', 'participant')
       .leftJoin('event.coHosts', 'coHost')
-      .where(
-        new Brackets((qb) => {
-          qb.where('coHost.id = :userId', { userId }).orWhere('user.id = :userId', { userId });
-        })
-      )
+      .where('event.id = :eventId', { eventId })
       .andWhere(
         new Brackets((qb) => {
-          qb.where('event.id = :eventId', { eventId });
+          qb.where('coHost.id = :userId', { userId }).orWhere('participant.id = :userId', {
+            userId,
+          });
         })
       )
       .getOne();
@@ -98,6 +100,7 @@ export class EventService {
       .createQueryBuilder('event')
       .distinct(true)
       .leftJoinAndSelect('event.location', 'location')
+      .leftJoinAndSelect('event.host', 'host')
       .where(`event.id NOT IN (${joinedEventsQuery.getQuery()})`)
       .andWhere(`event.id NOT IN (${coHostedEventsQuery.getQuery()})`)
       .andWhere(`event.id NOT IN (${hostedEventsQuery.getQuery()})`)

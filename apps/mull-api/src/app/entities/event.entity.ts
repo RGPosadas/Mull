@@ -1,5 +1,5 @@
 import { EventRestriction, IEvent } from '@mull/types';
-import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -23,7 +23,7 @@ registerEnumType(EventRestriction, {
 @Entity()
 @ObjectType()
 export class Event implements IEvent {
-  @Field(/* istanbul ignore next */ () => ID)
+  @Field(/* istanbul ignore next */ () => Int)
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -70,6 +70,7 @@ export class Event implements IEvent {
   @JoinTable({ name: 'event_cohosts' })
   coHosts?: User[];
 
+  @Field(/* istanbul ignore next */ () => User)
   @ManyToOne(
     /* istanbul ignore next */ () => User,
     /* istanbul ignore next */ (user) => user.events
