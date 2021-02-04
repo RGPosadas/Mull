@@ -121,20 +121,13 @@ export type MutationDeleteEventArgs = {
 };
 
 
-export type MutationDeleteUserArgs = {
-  id: Scalars['Int'];
-};
-
-
 export type MutationJoinEventArgs = {
   eventId: Scalars['Int'];
-  userId: Scalars['Int'];
 };
 
 
 export type MutationLeaveEventArgs = {
   eventId: Scalars['Int'];
-  userId: Scalars['Int'];
 };
 
 
@@ -184,43 +177,17 @@ export type Query = {
 };
 
 
-export type QueryCoHostEventsArgs = {
-  coHostId: Scalars['Int'];
-};
-
-
-export type QueryDiscoverEventsArgs = {
-  userId: Scalars['Int'];
-};
-
-
 export type QueryEventArgs = {
   id: Scalars['Int'];
 };
 
 
-export type QueryHostEventsArgs = {
-  hostId: Scalars['Int'];
-};
-
-
 export type QueryIsParticipantArgs = {
   eventId: Scalars['Int'];
-  userId: Scalars['Int'];
 };
 
 
 export type QueryLocationArgs = {
-  id: Scalars['Int'];
-};
-
-
-export type QueryParticipantEventsArgs = {
-  userId: Scalars['Int'];
-};
-
-
-export type QueryUserArgs = {
   id: Scalars['Int'];
 };
 
@@ -320,7 +287,6 @@ export type LoginMutation = (
 
 export type JoinEventMutationVariables = Exact<{
   eventId: Scalars['Int'];
-  userId: Scalars['Int'];
 }>;
 
 
@@ -331,7 +297,6 @@ export type JoinEventMutation = (
 
 export type LeaveEventMutationVariables = Exact<{
   eventId: Scalars['Int'];
-  userId: Scalars['Int'];
 }>;
 
 
@@ -367,9 +332,7 @@ export type EventCardContentFragment = (
   )> }
 );
 
-export type DiscoverEventsQueryVariables = Exact<{
-  userId: Scalars['Int'];
-}>;
+export type DiscoverEventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type DiscoverEventsQuery = (
@@ -380,9 +343,7 @@ export type DiscoverEventsQuery = (
   )> }
 );
 
-export type OwnedEventsQueryVariables = Exact<{
-  userId: Scalars['Int'];
-}>;
+export type OwnedEventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type OwnedEventsQuery = (
@@ -396,9 +357,7 @@ export type OwnedEventsQuery = (
   )> }
 );
 
-export type ParticipantEventsQueryVariables = Exact<{
-  userId: Scalars['Int'];
-}>;
+export type ParticipantEventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ParticipantEventsQuery = (
@@ -411,7 +370,6 @@ export type ParticipantEventsQuery = (
 
 export type EventPageQueryVariables = Exact<{
   eventId: Scalars['Int'];
-  userId: Scalars['Int'];
 }>;
 
 
@@ -424,9 +382,7 @@ export type EventPageQuery = (
   ) }
 );
 
-export type UserQueryVariables = Exact<{
-  userId: Scalars['Int'];
-}>;
+export type UserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UserQuery = (
@@ -603,8 +559,8 @@ export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const JoinEventDocument = gql`
-    mutation JoinEvent($eventId: Int!, $userId: Int!) {
-  joinEvent(eventId: $eventId, userId: $userId)
+    mutation JoinEvent($eventId: Int!) {
+  joinEvent(eventId: $eventId)
 }
     `;
 export type JoinEventMutationFn = Apollo.MutationFunction<JoinEventMutation, JoinEventMutationVariables>;
@@ -623,7 +579,6 @@ export type JoinEventMutationFn = Apollo.MutationFunction<JoinEventMutation, Joi
  * const [joinEventMutation, { data, loading, error }] = useJoinEventMutation({
  *   variables: {
  *      eventId: // value for 'eventId'
- *      userId: // value for 'userId'
  *   },
  * });
  */
@@ -634,8 +589,8 @@ export type JoinEventMutationHookResult = ReturnType<typeof useJoinEventMutation
 export type JoinEventMutationResult = Apollo.MutationResult<JoinEventMutation>;
 export type JoinEventMutationOptions = Apollo.BaseMutationOptions<JoinEventMutation, JoinEventMutationVariables>;
 export const LeaveEventDocument = gql`
-    mutation LeaveEvent($eventId: Int!, $userId: Int!) {
-  leaveEvent(eventId: $eventId, userId: $userId)
+    mutation LeaveEvent($eventId: Int!) {
+  leaveEvent(eventId: $eventId)
 }
     `;
 export type LeaveEventMutationFn = Apollo.MutationFunction<LeaveEventMutation, LeaveEventMutationVariables>;
@@ -654,7 +609,6 @@ export type LeaveEventMutationFn = Apollo.MutationFunction<LeaveEventMutation, L
  * const [leaveEventMutation, { data, loading, error }] = useLeaveEventMutation({
  *   variables: {
  *      eventId: // value for 'eventId'
- *      userId: // value for 'userId'
  *   },
  * });
  */
@@ -665,8 +619,8 @@ export type LeaveEventMutationHookResult = ReturnType<typeof useLeaveEventMutati
 export type LeaveEventMutationResult = Apollo.MutationResult<LeaveEventMutation>;
 export type LeaveEventMutationOptions = Apollo.BaseMutationOptions<LeaveEventMutation, LeaveEventMutationVariables>;
 export const DiscoverEventsDocument = gql`
-    query DiscoverEvents($userId: Int!) {
-  discoverEvents(userId: $userId) {
+    query DiscoverEvents {
+  discoverEvents {
     ...EventCardContent
   }
 }
@@ -684,11 +638,10 @@ export const DiscoverEventsDocument = gql`
  * @example
  * const { data, loading, error } = useDiscoverEventsQuery({
  *   variables: {
- *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useDiscoverEventsQuery(baseOptions: Apollo.QueryHookOptions<DiscoverEventsQuery, DiscoverEventsQueryVariables>) {
+export function useDiscoverEventsQuery(baseOptions?: Apollo.QueryHookOptions<DiscoverEventsQuery, DiscoverEventsQueryVariables>) {
         return Apollo.useQuery<DiscoverEventsQuery, DiscoverEventsQueryVariables>(DiscoverEventsDocument, baseOptions);
       }
 export function useDiscoverEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DiscoverEventsQuery, DiscoverEventsQueryVariables>) {
@@ -698,11 +651,11 @@ export type DiscoverEventsQueryHookResult = ReturnType<typeof useDiscoverEventsQ
 export type DiscoverEventsLazyQueryHookResult = ReturnType<typeof useDiscoverEventsLazyQuery>;
 export type DiscoverEventsQueryResult = Apollo.QueryResult<DiscoverEventsQuery, DiscoverEventsQueryVariables>;
 export const OwnedEventsDocument = gql`
-    query OwnedEvents($userId: Int!) {
-  coHostEvents(coHostId: $userId) {
+    query OwnedEvents {
+  coHostEvents {
     ...EventCardContent
   }
-  hostEvents(hostId: $userId) {
+  hostEvents {
     ...EventCardContent
   }
 }
@@ -720,11 +673,10 @@ export const OwnedEventsDocument = gql`
  * @example
  * const { data, loading, error } = useOwnedEventsQuery({
  *   variables: {
- *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useOwnedEventsQuery(baseOptions: Apollo.QueryHookOptions<OwnedEventsQuery, OwnedEventsQueryVariables>) {
+export function useOwnedEventsQuery(baseOptions?: Apollo.QueryHookOptions<OwnedEventsQuery, OwnedEventsQueryVariables>) {
         return Apollo.useQuery<OwnedEventsQuery, OwnedEventsQueryVariables>(OwnedEventsDocument, baseOptions);
       }
 export function useOwnedEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OwnedEventsQuery, OwnedEventsQueryVariables>) {
@@ -734,8 +686,8 @@ export type OwnedEventsQueryHookResult = ReturnType<typeof useOwnedEventsQuery>;
 export type OwnedEventsLazyQueryHookResult = ReturnType<typeof useOwnedEventsLazyQuery>;
 export type OwnedEventsQueryResult = Apollo.QueryResult<OwnedEventsQuery, OwnedEventsQueryVariables>;
 export const ParticipantEventsDocument = gql`
-    query ParticipantEvents($userId: Int!) {
-  participantEvents(userId: $userId) {
+    query ParticipantEvents {
+  participantEvents {
     ...EventCardContent
   }
 }
@@ -753,11 +705,10 @@ export const ParticipantEventsDocument = gql`
  * @example
  * const { data, loading, error } = useParticipantEventsQuery({
  *   variables: {
- *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useParticipantEventsQuery(baseOptions: Apollo.QueryHookOptions<ParticipantEventsQuery, ParticipantEventsQueryVariables>) {
+export function useParticipantEventsQuery(baseOptions?: Apollo.QueryHookOptions<ParticipantEventsQuery, ParticipantEventsQueryVariables>) {
         return Apollo.useQuery<ParticipantEventsQuery, ParticipantEventsQueryVariables>(ParticipantEventsDocument, baseOptions);
       }
 export function useParticipantEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ParticipantEventsQuery, ParticipantEventsQueryVariables>) {
@@ -767,8 +718,8 @@ export type ParticipantEventsQueryHookResult = ReturnType<typeof useParticipantE
 export type ParticipantEventsLazyQueryHookResult = ReturnType<typeof useParticipantEventsLazyQuery>;
 export type ParticipantEventsQueryResult = Apollo.QueryResult<ParticipantEventsQuery, ParticipantEventsQueryVariables>;
 export const EventPageDocument = gql`
-    query EventPage($eventId: Int!, $userId: Int!) {
-  isParticipant(eventId: $eventId, userId: $userId)
+    query EventPage($eventId: Int!) {
+  isParticipant(eventId: $eventId)
   event(id: $eventId) {
     ...EventPageContent
   }
@@ -788,7 +739,6 @@ export const EventPageDocument = gql`
  * const { data, loading, error } = useEventPageQuery({
  *   variables: {
  *      eventId: // value for 'eventId'
- *      userId: // value for 'userId'
  *   },
  * });
  */
@@ -802,8 +752,8 @@ export type EventPageQueryHookResult = ReturnType<typeof useEventPageQuery>;
 export type EventPageLazyQueryHookResult = ReturnType<typeof useEventPageLazyQuery>;
 export type EventPageQueryResult = Apollo.QueryResult<EventPageQuery, EventPageQueryVariables>;
 export const UserDocument = gql`
-    query User($userId: Int!) {
-  user(id: $userId) {
+    query User {
+  user {
     id
     name
   }
@@ -822,11 +772,10 @@ export const UserDocument = gql`
  * @example
  * const { data, loading, error } = useUserQuery({
  *   variables: {
- *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useUserQuery(baseOptions: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>) {
+export function useUserQuery(baseOptions?: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>) {
         return Apollo.useQuery<UserQuery, UserQueryVariables>(UserDocument, baseOptions);
       }
 export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQuery, UserQueryVariables>) {

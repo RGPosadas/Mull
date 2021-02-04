@@ -1,16 +1,11 @@
 import { ISerializedEvent } from '@mull/types';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useDiscoverEventsQuery } from '../../../../generated/graphql';
 import { EventCard } from '../../../components';
-import UserContext from '../../../context/user.context';
 import '../home-discover.scss';
 
 export const DiscoverPage = ({ history }) => {
-  const { userId } = useContext(UserContext);
-
-  const { data } = useDiscoverEventsQuery({
-    variables: { userId },
-  });
+  const { data } = useDiscoverEventsQuery({});
 
   if (data) {
     const events = (data.discoverEvents as unknown) as Partial<ISerializedEvent>[];

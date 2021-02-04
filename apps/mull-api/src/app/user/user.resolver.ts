@@ -1,4 +1,6 @@
-import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
+import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { AuthenticatedUser, AuthGuard } from '../auth/auth.guard';
 import { User } from '../entities';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 import { UserService } from './user.service';
@@ -8,12 +10,13 @@ export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
   @Query(/* istanbul ignore next */ () => [User])
+  @UseGuards(AuthGuard)
   async users() {
     return this.userService.getAllUsers();
   }
 
   @Query(/* istanbul ignore next */ () => User)
-  async user(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+  async user(@AuthenticatedUser() id: number) {
     return this.userService.getUser(id);
   }
 
@@ -24,17 +27,19 @@ export class UserResolver {
   }
 
   @Mutation(/* istanbul ignore next */ () => User)
+  @UseGuards(AuthGuard)
   async createUser(@Args('user') user: CreateUserInput) {
     return this.userService.createUser(user);
   }
 
   @Mutation(/* istanbul ignore next */ () => User)
+  @UseGuards(AuthGuard)
   async updateUser(@Args('user') user: UpdateUserInput) {
     return this.userService.updateUser(user);
   }
 
   @Mutation(/* istanbul ignore next */ () => User)
-  async deleteUser(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+  async deleteUser(@AuthenticatedUser() id: number) {
     return this.userService.deleteUser(id);
   }
 }

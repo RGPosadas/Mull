@@ -1,15 +1,10 @@
 import { ISerializedEvent } from '@mull/types';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useParticipantEventsQuery } from '../../../../generated/graphql';
 import { EventCard } from '../../../components';
-import UserContext from '../../../context/user.context';
 
 export const UpcomingPage = ({ history }) => {
-  const { userId } = useContext(UserContext);
-
-  const { data } = useParticipantEventsQuery({
-    variables: { userId },
-  });
+  const { data } = useParticipantEventsQuery({});
 
   if (data) {
     const events = (data.participantEvents as unknown) as Partial<ISerializedEvent>[];

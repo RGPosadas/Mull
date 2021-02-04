@@ -75,9 +75,9 @@ type Mutation {
   createLocation(location: LocationInput!): Location!
   createUser(user: CreateUserInput!): User!
   deleteEvent(id: Int!): Event!
-  deleteUser(id: Int!): User!
-  joinEvent(eventId: Int!, userId: Int!): Boolean!
-  leaveEvent(eventId: Int!, userId: Int!): Boolean!
+  deleteUser: User!
+  joinEvent(eventId: Int!): Boolean!
+  leaveEvent(eventId: Int!): Boolean!
   login(loginInput: LoginInput!): LoginResult!
   updateEvent(event: UpdateEventInput!): Event!
   updateUser(user: UpdateUserInput!): User!
@@ -96,15 +96,15 @@ input PointInput {
 }
 
 type Query {
-  coHostEvents(coHostId: Int!): [Event!]!
-  discoverEvents(userId: Int!): [Event!]!
+  coHostEvents: [Event!]!
+  discoverEvents: [Event!]!
   event(id: Int!): Event!
   events: [Event!]!
-  hostEvents(hostId: Int!): [Event!]!
-  isParticipant(eventId: Int!, userId: Int!): Boolean!
+  hostEvents: [Event!]!
+  isParticipant(eventId: Int!): Boolean!
   location(id: Int!): Location!
-  participantEvents(userId: Int!): [Event!]!
-  user(id: Int!): User!
+  participantEvents: [Event!]!
+  user: User!
   users: [User!]!
 }
 
