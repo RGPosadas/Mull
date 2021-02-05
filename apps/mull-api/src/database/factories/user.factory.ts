@@ -1,6 +1,6 @@
 import { RegistrationMethod } from '@mull/types';
-import { define, factory } from 'typeorm-seeding';
-import { Media, User } from '../../app/entities';
+import { define } from 'typeorm-seeding';
+import { User } from '../../app/entities';
 import faker = require('faker');
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -17,8 +17,6 @@ define(User, () => {
   user.timezone = faker.lorem.word();
   user.registrationMethod = faker.random.objectElement<RegistrationMethod>(RegistrationMethod);
   user.tokenVersion = 0;
-
-  user.avatar = factory(Media)() as any;
 
   return user;
 });

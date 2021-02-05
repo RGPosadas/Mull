@@ -1,6 +1,6 @@
 import faker = require('faker');
 import { define, factory } from 'typeorm-seeding';
-import { Event, Media, User } from '../../app/entities';
+import { Event, Location, Media, User } from '../../app/entities';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -22,6 +22,8 @@ define(Event, () => {
   event.coHosts = factory(User)().createMany(faker.random.number(maxCoHostNumber)) as any;
   event.participants = factory(User)().createMany(faker.random.number(maxParticipants)) as any;
   event.image = factory(Media)() as any;
+
+  event.location = factory(Location)() as any;
 
   return event;
 });
