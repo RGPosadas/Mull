@@ -16,6 +16,7 @@ export const mockNewPartialUser: CreateUserInput = {
   dob: new Date(),
   name: 'Mock McMockson Jr.',
   registrationMethod: RegistrationMethod.LOCAL,
+  joinDate: new Date(),
 };
 
 export const mockAllUsers: User[] = [
@@ -55,6 +56,7 @@ export const mockAllUsers: User[] = [
     ],
     tokenVersion: 0,
     registrationMethod: RegistrationMethod.LOCAL,
+    joinDate: new Date(),
   },
   {
     id: 7,
@@ -92,6 +94,7 @@ export const mockAllUsers: User[] = [
     ],
     tokenVersion: 0,
     registrationMethod: RegistrationMethod.GOOGLE,
+    joinDate: new Date(),
   },
   {
     id: 3,
@@ -129,5 +132,6 @@ export const mockAllUsers: User[] = [
     ],
     registrationMethod: RegistrationMethod.GOOGLE,
     tokenVersion: 0,
+    joinDate: new Date(),
   },
 ];

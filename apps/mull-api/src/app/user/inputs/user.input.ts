@@ -29,6 +29,9 @@ export class CreateUserInput implements Partial<User> {
 
   @Field(() => RegistrationMethod)
   registrationMethod: RegistrationMethod;
+
+  @Field()
+  joinDate: Date;
 }
 
 @InputType()

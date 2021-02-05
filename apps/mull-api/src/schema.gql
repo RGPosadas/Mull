@@ -15,6 +15,7 @@ input CreateEventInput {
 input CreateUserInput {
   dob: DateTime
   email: String!
+  joinDate: DateTime!
   name: String!
   password: String
   registrationMethod: RegistrationMethod!
@@ -140,6 +141,7 @@ type User {
   email: String!
   friends: [User!]!
   id: Int!
+  joinDate: DateTime!
   name: String!
   password: String
   registrationMethod: RegistrationMethod!

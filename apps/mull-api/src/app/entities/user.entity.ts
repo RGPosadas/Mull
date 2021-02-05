@@ -94,4 +94,8 @@ export class User implements IUser {
     /* istanbul ignore next */ (reaction) => reaction.user
   )
   postReactions?: PostReaction[];
+
+  @Column()
+  @Field()
+  joinDate?: Date;
 }

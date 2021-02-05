@@ -13,6 +13,7 @@ define(User, () => {
   user.name = faker.name.firstName() + ' ' + faker.name.lastName();
   user.description = faker.lorem.sentence();
   user.dob = faker.date.past();
+  user.joinDate = faker.date.past(1);
 
   user.timezone = faker.lorem.word();
   user.registrationMethod = faker.random.objectElement<RegistrationMethod>(RegistrationMethod);
