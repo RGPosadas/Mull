@@ -97,6 +97,7 @@
     "@babel/preset-env": "7.9.6",
     "@babel/preset-react": "7.9.4",
     "@babel/preset-typescript": "7.9.0",
+    "@golevelup/nestjs-testing": "^0.1.2",
     "@graphql-codegen/cli": "1.20.0",
     "@graphql-codegen/introspection": "1.18.1",
     "@graphql-codegen/typescript": "1.20.0",
