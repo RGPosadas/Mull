@@ -22,3 +22,8 @@ export interface ICreateEventForm {
   location: ILocation;
   imageFile: string;
 }
+export interface IProfileEditForm {
+  displayName: string;
+  description: string;
+  imageFile: string;
+}
