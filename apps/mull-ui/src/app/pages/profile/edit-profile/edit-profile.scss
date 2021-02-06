@@ -7,9 +7,6 @@
 }
 
 .edit-profile-container {
-  justify-content: center;
-  margin-bottom: 10px;
-
   .mull-back-button {
     align-self: flex-start;
   }
@@ -21,8 +18,8 @@
     .custom-file-upload-image {
       margin-left: auto;
       margin-right: auto;
-      width: 10rem;
-      height: 10rem;
+      width: 8rem;
+      height: 8rem;
       object-fit: cover;
       border-radius: 50%;
     }
@@ -30,7 +27,7 @@
     .pencil-icon {
       position: absolute;
       top: 0.5rem;
-      right: 1rem;
+      right: 0.1rem;
       border-radius: 20rem;
       padding: 0.35rem;
       border: 1px #27b09a solid;
@@ -66,12 +63,12 @@
   }
 
   .save-button {
-    margin-top: 1em;
-    width: 150px;
+    margin-top: 1.5rem;
+    width: 9.375rem;
   }
 
   .edit-header {
-    font-size: 23px;
+    font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 0.5em;
   }

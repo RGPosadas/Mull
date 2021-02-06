@@ -122,7 +122,7 @@ export const App = () => {
           </PrivateRoute>
           <PrivateRoute path={ROUTES.CAMERA} component={TrashRecognitionPage} />
           <PrivateRoute path={ROUTES.PROFILE.profile}>
-            <div className="page-container with-sub-nav-bar">
+            <div className="page-container">
               <PrivateRoute path={ROUTES.PROFILE.editProfile} component={EditProfilePage} />
             </div>
           </PrivateRoute>
