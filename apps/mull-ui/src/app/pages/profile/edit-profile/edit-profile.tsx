@@ -10,6 +10,7 @@ import './edit-profile.scss';
 
 const EditProfile = () => {
   // TODO: Add initial profile image if user has one
+  // TODO: If user does not have an image, set to default image https://www.pngitem.com/pimgs/m/214-2145309_blank-profile-picture-circle-hd-png-download.png
   const [imageURLFile, setImageURLFile] = useState<string>(
     'https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg'
   );
@@ -60,7 +61,9 @@ const EditProfile = () => {
   return (
     <form className="edit-profile-container" onSubmit={formik.handleSubmit}>
       <MullBackButton>Profile</MullBackButton>
+
       <p className="edit-header">Edit Profile</p>
+
       <CustomFileUpload
         className="custom-file-upload-profile-picture"
         imageURL={imageURLFile}
@@ -69,7 +72,7 @@ const EditProfile = () => {
         handleFileUpload={handleFileUpload}
         fieldName="imageFile"
         isEditProfile={true}
-      ></CustomFileUpload>
+      />
 
       <CustomTextInput
         title="Display Name"
@@ -79,9 +82,11 @@ const EditProfile = () => {
         hasErrors={formik.touched.displayName && !!formik.errors.displayName}
         errorMessage={formik.errors.displayName}
       />
+
       <label className="description-label" htmlFor={'description'}>
         Description
       </label>
+
       <textarea
         id="description"
         className={`description-msg ${
@@ -90,10 +95,12 @@ const EditProfile = () => {
         rows={6}
         value={formik.values.description}
         onChange={formik.handleChange}
-      ></textarea>
+      />
+
       {formik.touched.description && !!formik.errors.description ? (
         <span className="error-message">{formik.errors.description}</span>
       ) : null}
+
       <MullButton className="save-button" type="button" onClick={handleSaveButton}>
         Save
       </MullButton>
