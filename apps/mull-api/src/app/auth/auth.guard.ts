@@ -13,8 +13,8 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class AuthGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-    const accessToken = context.switchToHttp().getNext().req.headers.authorization.split(' ')[1];
     try {
+      const accessToken = context.switchToHttp().getNext().req.headers.authorization.split(' ')[1];
       return !!jwt.verify(accessToken, environment.jwt.accessSecret);
     } catch (err) {
       throw new UnauthorizedException('Unauthorized');
@@ -23,8 +23,8 @@ export class AuthGuard implements CanActivate {
 }
 
 export const AuthenticatedUser = createParamDecorator((_, context: ExecutionContext): number => {
-  const accessToken = context.switchToHttp().getNext().req.headers.authorization.split(' ')[1];
   try {
+    const accessToken = context.switchToHttp().getNext().req.headers.authorization.split(' ')[1];
     const { id } = jwt.verify(accessToken, environment.jwt.accessSecret) as IAuthToken;
     return id;
   } catch (err) {
