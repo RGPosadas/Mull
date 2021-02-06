@@ -36,7 +36,6 @@ describe('UpcomingPage', () => {
         {
           request: {
             query: ParticipantEventsDocument,
-            variables: { userId: 1 },
           },
           result: {
             data: {
