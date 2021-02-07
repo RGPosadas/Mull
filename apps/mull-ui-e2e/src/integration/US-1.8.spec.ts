@@ -10,7 +10,7 @@ frameSizes.forEach((frame) => {
       cy.visit('http://localhost:4200/create-event', geolocationStub);
     });
 
-    it('should preview the event', () => {
+    it('should review the event', () => {
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
       cy.get('#startTime').type('11:20');
       cy.get('#endTime').type('15:20');
@@ -41,7 +41,7 @@ frameSizes.forEach((frame) => {
       cy.get('[data-testid=event-restriction]').should('have.text', 'Friends');
     });
 
-    it('should preview the event, then allow the user to edit the form', () => {
+    it('should review the event, then allow the user to edit the form', () => {
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
       cy.get('#startTime').type('11:20');
       cy.get('#endTime').type('15:20');
