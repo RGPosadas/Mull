@@ -27,7 +27,6 @@ export class UserResolver {
   }
 
   @Mutation(/* istanbul ignore next */ () => User)
-  @UseGuards(AuthGuard)
   async createUser(@Args('user') user: CreateUserInput) {
     return this.userService.createUser(user);
   }
