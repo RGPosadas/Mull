@@ -10,6 +10,10 @@ export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
   const model = useRef<TensorflowJsModel>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
+
+  const width = 500;
+  const height = 667;
+
   useEffect(() => {
     model.current = TensorflowJsModel.getInstance();
     model.current.init(MULL_MODEL_URL);
@@ -17,7 +21,7 @@ export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
   }, []);
 
   const handleOnClick = async () => {
-    const results = await model.current.detect(imgRef.current, { threshold: 0.3, numResults: 100 });
+    const results = await model.current.detect(imgRef.current, { threshold: 0.4, numResults: 100 });
     const ctx = canvasRef.current.getContext('2d');
     ctx.strokeStyle = '#00ff00';
     results.forEach((result) => {
@@ -33,12 +37,11 @@ export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
       <img
         alt="Test"
         ref={imgRef}
-        src="https://i.imgur.com/f4Pk5Mo.jpg"
-        width={500}
-        height={330}
+        src="https://farm4.staticflickr.com/7372/9303908257_374934b32f_o.jpg"
+        width={width}
         className="trash-recognition-overlap"
       />
-      <canvas ref={canvasRef} width={500} height={330} className="trash-recognition-overlap" />
+      <canvas ref={canvasRef} width={width} height={height} className="trash-recognition-overlap" />
       <button data-testid="temp-trash-recog-page-button" onClick={handleOnClick}>
         Click me to detect!
       </button>
