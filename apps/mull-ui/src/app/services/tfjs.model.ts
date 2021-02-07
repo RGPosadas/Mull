@@ -12,7 +12,9 @@ export interface WasteRecognitionModel {
 }
 
 export class TensorflowJsModel implements WasteRecognitionModel {
-  private constructor() {}
+  private constructor() {
+    // noop. Private constructor for Singleton
+  }
   model: GraphModel;
 
   private static instance: TensorflowJsModel;
@@ -57,15 +59,14 @@ export class TensorflowJsModel implements WasteRecognitionModel {
       7*      detection_boxes             [1 100 4]
      */
 
-    let modelOutput = (await this.model.executeAsync(batched)) as tf.Tensor[];
+    const modelOutput = (await this.model.executeAsync(batched)) as tf.Tensor[];
 
     let numDetections = (await modelOutput[1].data())[0] as number;
     const scores = await modelOutput[3].data();
     const classes = await modelOutput[4].data();
     // 1D array with 4 * N elements. bounds are ordered as ymin, xmin, ymax, xmax
     const boxes = await modelOutput[7].data();
-    console.log({ numDetections, scores, classes, boxes });
-    let detectionResults: DetectionResult[] = [];
+    const detectionResults: DetectionResult[] = [];
 
     if (options.numResults < numDetections) {
       numDetections = options.numResults;
@@ -77,21 +78,23 @@ export class TensorflowJsModel implements WasteRecognitionModel {
         break;
       }
 
-      let [ymin, xmin, ymax, xmax] = boxes.slice(i * 4, (i + 1) * 4);
-      let bndBox: BoundingBox = {
+      const [ymin, xmin, ymax, xmax] = boxes.slice(i * 4, (i + 1) * 4);
+      const bndBox: BoundingBox = {
         x: xmin * imageWidth,
         y: ymin * imageHeight,
         width: (xmax - xmin) * imageWidth,
         height: (ymax - ymin) * imageHeight,
       };
-      let clazz = labelMap[classes[i]];
+      const clazz = labelMap[classes[i]];
       detectionResults.push({ bndBox, class: clazz, confidence: scores[i] });
     }
 
     return detectionResults;
   }
   dispose(): void {
-    throw new Error('Method not implemented.');
+    if (this.model) {
+      this.model.dispose();
+    }
   }
 }
 

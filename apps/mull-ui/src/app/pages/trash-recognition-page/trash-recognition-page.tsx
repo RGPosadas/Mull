@@ -1,32 +1,29 @@
 import React, { useEffect, useRef } from 'react';
+import { MULL_MODEL_URL } from '../../../constants';
 import { TensorflowJsModel } from '../../services/tfjs.model';
 import './trash-recognition-page.scss';
 
 /* eslint-disable-next-line */
 export interface TrashRecognitionPageProps {}
 
-const modelUrl = 'https://raw.githubusercontent.com/TheGreatMarkus/mull-model/main/tfjs/model.json';
-
 export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
-  let model: TensorflowJsModel;
-  let canvasRef = useRef<HTMLCanvasElement>(null);
-  let imgRef = useRef<HTMLImageElement>(null);
+  const model = useRef<TensorflowJsModel>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
   useEffect(() => {
-    model = TensorflowJsModel.getInstance();
-    model.init(modelUrl);
+    model.current = TensorflowJsModel.getInstance();
+    model.current.init(MULL_MODEL_URL);
     imgRef.current.setAttribute('crossOrigin', 'anonymous');
   }, []);
 
-  const handleOnClick = () => {
-    model.detect(imgRef.current, { threshold: 0.3, numResults: 100 }).then((results) => {
-      console.log(results);
-      let ctx = canvasRef.current.getContext('2d');
-      ctx.strokeStyle = '#00ff00';
-      results.map((result) => {
-        let box = result.bndBox;
-        ctx.strokeRect(box.x, box.y, box.width, box.height);
-        ctx.strokeText(result.class, box.x, box.y);
-      });
+  const handleOnClick = async () => {
+    const results = await model.current.detect(imgRef.current, { threshold: 0.3, numResults: 100 });
+    const ctx = canvasRef.current.getContext('2d');
+    ctx.strokeStyle = '#00ff00';
+    results.forEach((result) => {
+      const box = result.bndBox;
+      ctx.strokeRect(box.x, box.y, box.width, box.height);
+      ctx.strokeText(result.class, box.x, box.y);
     });
   };
 
@@ -34,6 +31,7 @@ export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
     <div className="page-container">
       <h1>Welcome to trash-recognition-page!</h1>
       <img
+        alt="Test"
         ref={imgRef}
         src="https://i.imgur.com/f4Pk5Mo.jpg"
         width={500}
@@ -41,7 +39,9 @@ export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
         className="trash-recognition-overlap"
       />
       <canvas ref={canvasRef} width={500} height={330} className="trash-recognition-overlap" />
-      <button onClick={handleOnClick}>Click me to detect!</button>
+      <button data-testid="temp-trash-recog-page-button" onClick={handleOnClick}>
+        Click me to detect!
+      </button>
     </div>
   );
 }
