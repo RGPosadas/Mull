@@ -16,7 +16,7 @@
     - [Running a local database for development](#running-a-local-database-for-development)
     - [Working with GraphQL on the Frontend](#working-with-graphql-on-the-frontend)
     - [Building and Serving the application for production](#building-and-serving-the-application-for-production)
-  - [Populate database](#populate-database)
+    - [Populate database](#populate-database)
   - [Travis CI](#travis-ci)
     - [Scripts](#scripts)
   - [Troubleshooting](#troubleshooting)
@@ -186,7 +186,7 @@ You can serve the database locally for testing, and to avoid interfering with th
 1. Install [docker](https://docs.docker.com/get-docker/) and [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) (or any similar SQL clients)
 1. Start docker
 1. Pull a `mysql` image. This image contains the information needed to spin up an instance of a mysql database using docker
-   - `docker pull mysql:5:7:32`
+   - `docker pull mysql:5.7.32`
 1. Create and run a MySQL container, which will run an instance of MySQL
    - `docker run --name mull-db -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 -d mysql:5.7.32`
 1. Start MySQL Workbench and test the connection with your database on `localhost:3306`. If the test was successful, connect to it

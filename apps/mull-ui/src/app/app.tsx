@@ -23,6 +23,7 @@ import AnnouncementsPage from './pages/messages/announcements/announcements';
 import MessagesPage from './pages/messages/messages-page';
 import RegisterPage from './pages/register/register';
 import TokenRedirectPage from './pages/token-redirect/token-redirect';
+import TrashRecognitionPage from './pages/trash-recognition-page/trash-recognition-page';
 
 /**
  * Main component of the application
@@ -118,6 +119,7 @@ export const App = () => {
               <Redirect to={ROUTES.ANNOUNCEMENTS.url} />
             </PrivateRoute>
           </PrivateRoute>
+          <PrivateRoute path={ROUTES.CAMERA} component={TrashRecognitionPage} />
           <PrivateRoute component={NotFoundPage} />
         </Switch>
 

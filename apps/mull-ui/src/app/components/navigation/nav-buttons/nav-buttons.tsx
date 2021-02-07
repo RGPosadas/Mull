@@ -20,7 +20,7 @@ export const NavButtons = () => {
       <NavLink to={ROUTES.CREATE_EVENT} activeClassName="active" data-testid="create-event-navlink">
         <CreateEventIcon className="nav-middle-button" />
       </NavLink>
-      <NavLink to={ROUTES.TOOLS} activeClassName="active" data-testid="tools-navlink">
+      <NavLink to={ROUTES.CAMERA} activeClassName="active" data-testid="camera-navlink">
         <MachineLearningIcon className="nav-button" />
       </NavLink>
       <NavLink to={ROUTES.MESSAGES} activeClassName="active" data-testid="messages-navlink">

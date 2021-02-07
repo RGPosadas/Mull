@@ -10,7 +10,7 @@ export const ROUTES = {
   MY_EVENTS: { url: '/home/myevents', displayName: 'My Events' },
   MAP: '/map',
   CREATE_EVENT: '/create-event',
-  TOOLS: '/tools',
+  CAMERA: '/camera',
   MESSAGES: '/messages',
   GROUPCHAT: { url: '/messages/group-chat', displayName: 'Group Chat' },
   ANNOUNCEMENTS: { url: '/messages/announcements', displayName: 'Announcements' },
