@@ -8,19 +8,20 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
+const jwt = require('jsonwebtoken');
+
 declare namespace Cypress {
   interface Chainable<Subject> {
-    mockRefreshRequest(): void;
+    mockRefreshRequest(userId?): void;
   }
 }
 //
 // -- This is a parent command --
-Cypress.Commands.add('mockRefreshRequest', () => {
+Cypress.Commands.add('mockRefreshRequest', (userId = 1) => {
   cy.intercept('POST', 'http://localhost:3333/api/auth/refresh', {
     statusCode: 201,
     body: {
-      accessToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEyMDQ3NjA0LCJleHAiOjE2MTIwNDg1MDR9.Wmb_xkPVM_qLBjsG_uVe9yMvYsHj7ECoitc7yW4LyNE',
+      accessToken: jwt.sign({ id: userId }, Cypress.env('ACCESS_TOKEN_SECRET')),
       ok: true,
     },
   });
