@@ -1,3 +1,4 @@
+import { ISerializedEvent } from '@mull/types';
 import { cloneDeep } from 'lodash';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -29,7 +30,7 @@ export const EventPage = ({
   const { id } = useParams<{ id: string }>();
   const eventId = parseInt(id);
 
-  let event = cloneDeep(reviewEvent);
+  let event = cloneDeep(reviewEvent) as ISerializedEvent;
 
   const { loading: loadingEvent, error: errorEvent, data: dataEvent } = useEventPageQuery({
     variables: { eventId },

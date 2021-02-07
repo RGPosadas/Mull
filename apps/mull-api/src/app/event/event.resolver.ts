@@ -50,9 +50,8 @@ export class EventResolver {
   }
 
   @Mutation(/* istanbul ignore next */ () => Event)
-  @UseGuards(AuthGuard)
-  async createEvent(@Args('event') event: CreateEventInput) {
-    return this.eventService.createEvent(event);
+  async createEvent(@AuthenticatedUser() hostId: number, @Args('event') event: CreateEventInput) {
+    return this.eventService.createEvent(hostId, event);
   }
 
   @Mutation(/* istanbul ignore next */ () => Event)

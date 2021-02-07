@@ -20,7 +20,6 @@ export type Scalars = {
 export type CreateEventInput = {
   description: Scalars['String'];
   endDate: Scalars['DateTime'];
-  host: UserInput;
   image: MediaInput;
   location: LocationInput;
   restriction: Scalars['Int'];
@@ -227,10 +226,6 @@ export type User = {
   password?: Maybe<Scalars['String']>;
   registrationMethod: RegistrationMethod;
   timezone: Scalars['String'];
-};
-
-export type UserInput = {
-  id: Scalars['Int'];
 };
 
 export type CreateEventMutationVariables = Exact<{
