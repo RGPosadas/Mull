@@ -8,9 +8,9 @@ import { MullBackButton } from '../../../components/mull-back-button/mull-back-b
 import MullButton from '../../../components/mull-button/mull-button';
 import './edit-profile.scss';
 
-const EditProfile = () => {
+const EditProfile = ({ history }) => {
   // TODO: Add initial profile image if user has one
-  // TODO: If user does not have an image, set to default image https://www.pngitem.com/pimgs/m/214-2145309_blank-profile-picture-circle-hd-png-download.png
+  // TODO: If user does not have an image, set to a default image
   const [imageURLFile, setImageURLFile] = useState<string>(
     'https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg'
   );
@@ -39,72 +39,67 @@ const EditProfile = () => {
       displayName: Yup.string().required('Display name is required'),
       description: Yup.string().required('Description is required'),
     }),
+    //TODO: implement form logic
     onSubmit: async () => {
       const errors = await formik.validateForm();
       if (isEmpty(errors)) {
-        console.log(errors);
+        //TODO: update profile in database
+        console.log('Form successfully submitted');
       } else {
         formik.setTouched(setNestedObjectValues<FormikTouched<FormikValues>>(errors, true));
       }
     },
   });
 
-  const handleSaveButton = async () => {
-    const errors = await formik.validateForm();
-    if (isEmpty(errors)) {
-      console.log(errors);
-    } else {
-      formik.setTouched(setNestedObjectValues<FormikTouched<FormikValues>>(errors, true));
-    }
-  };
-
   return (
-    <form className="edit-profile-container" onSubmit={formik.handleSubmit}>
-      <MullBackButton>Profile</MullBackButton>
+    <div className="page-container">
+      <form className="edit-profile-container" onSubmit={formik.handleSubmit}>
+        <MullBackButton>Profile</MullBackButton>
 
-      <p className="edit-header">Edit Profile</p>
+        <p className="edit-header">Edit Profile</p>
 
-      <CustomFileUpload
-        className="custom-file-upload-profile-picture"
-        imageURL={imageURLFile}
-        hasErrors={formik.touched.imageFile && !!formik.errors.imageFile}
-        errorMessage={formik.errors.imageFile}
-        handleFileUpload={handleFileUpload}
-        fieldName="imageFile"
-        isEditProfile={true}
-      />
+        <CustomFileUpload
+          className="custom-file-upload-profile-picture"
+          imageURL={imageURLFile}
+          hasErrors={formik.touched.imageFile && !!formik.errors.imageFile}
+          errorMessage={formik.errors.imageFile}
+          handleFileUpload={handleFileUpload}
+          fieldName="imageFile"
+          displayPencilIcon={true}
+        />
 
-      <CustomTextInput
-        title="Display Name"
-        fieldName="displayName"
-        value={formik.values.displayName}
-        onChange={formik.handleChange}
-        hasErrors={formik.touched.displayName && !!formik.errors.displayName}
-        errorMessage={formik.errors.displayName}
-      />
+        <CustomTextInput
+          title="Display Name"
+          fieldName="displayName"
+          value={formik.values.displayName}
+          onChange={formik.handleChange}
+          hasErrors={formik.touched.displayName && !!formik.errors.displayName}
+          errorMessage={formik.errors.displayName}
+        />
 
-      <label className="description-label" htmlFor={'description'}>
-        Description
-      </label>
+        <label className="description-label" htmlFor={'description'}>
+          Description
+        </label>
 
-      <textarea
-        id="description"
-        className={`description-msg ${
-          formik.touched.description && !!formik.errors.description ? 'error' : ''
-        }`}
-        rows={6}
-        value={formik.values.description}
-        onChange={formik.handleChange}
-      />
+        <textarea
+          id="description"
+          className={`description-msg ${
+            formik.touched.description && !!formik.errors.description ? 'error' : ''
+          }`}
+          rows={6}
+          value={formik.values.description}
+          onChange={formik.handleChange}
+        />
 
-      {formik.touched.description && !!formik.errors.description ? (
-        <span className="error-message">{formik.errors.description}</span>
-      ) : null}
+        {formik.touched.description && !!formik.errors.description ? (
+          <span className="error-message">{formik.errors.description}</span>
+        ) : null}
 
-      <MullButton className="save-button" type="button" onClick={handleSaveButton}>
-        Save
-      </MullButton>
-    </form>
+        <MullButton className="save-button" type="submit">
+          Save
+        </MullButton>
+      </form>
+    </div>
   );
 };
 

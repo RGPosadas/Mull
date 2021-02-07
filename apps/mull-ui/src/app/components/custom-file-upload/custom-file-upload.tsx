@@ -10,7 +10,7 @@ export interface CustomFileUploadProps {
   imageURL: string;
   handleFileUpload: (event: ChangeEvent<HTMLInputElement>) => void;
   fieldName: string;
-  isEditProfile?: boolean;
+  displayPencilIcon?: boolean;
 }
 
 export const CustomFileUpload = ({
@@ -20,7 +20,7 @@ export const CustomFileUpload = ({
   errorMessage,
   handleFileUpload,
   fieldName,
-  isEditProfile,
+  displayPencilIcon,
 }: CustomFileUploadProps) => {
   return (
     <div className="custom-file-upload-container">
@@ -32,7 +32,9 @@ export const CustomFileUpload = ({
             <FontAwesomeIcon className="custom-file-upload-icon" icon={faImages} />
           </div>
         )}
-        {isEditProfile && <FontAwesomeIcon className="pencil-icon" icon={faPencilAlt} />}
+        {displayPencilIcon && (
+          <FontAwesomeIcon className="custom-file-upload-pencil-icon" icon={faPencilAlt} />
+        )}
       </label>
       {hasErrors ? <span className="error-message">{errorMessage}</span> : null}
       <input

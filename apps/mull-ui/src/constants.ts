@@ -14,7 +14,7 @@ export const ROUTES = {
   MESSAGES: '/messages',
   GROUPCHAT: { url: '/messages/group-chat', displayName: 'Group Chat' },
   ANNOUNCEMENTS: { url: '/messages/announcements', displayName: 'Announcements' },
-  PROFILE: { profile: '/profile', editProfile: '/profile/edit' },
+  PROFILE: { DISPLAY: '/profile', EDIT: '/profile/edit' },
   LOGIN: '/login',
   REGISTER: '/register',
   EVENT_BY_ID: '/events/:id',

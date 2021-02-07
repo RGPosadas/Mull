@@ -121,10 +121,8 @@ export const App = () => {
             </PrivateRoute>
           </PrivateRoute>
           <PrivateRoute path={ROUTES.CAMERA} component={TrashRecognitionPage} />
-          <PrivateRoute path={ROUTES.PROFILE.profile}>
-            <div className="page-container">
-              <PrivateRoute path={ROUTES.PROFILE.editProfile} component={EditProfilePage} />
-            </div>
+          <PrivateRoute path={ROUTES.PROFILE.DISPLAY}>
+            <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
           </PrivateRoute>
           <PrivateRoute component={NotFoundPage} />
         </Switch>

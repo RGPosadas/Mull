@@ -24,20 +24,20 @@
       border-radius: 50%;
     }
 
-    .pencil-icon {
+    .custom-file-upload-pencil-icon {
       position: absolute;
       top: 0.5rem;
       right: 0.1rem;
       border-radius: 20rem;
       padding: 0.35rem;
-      border: 1px #27b09a solid;
-      color: #27b09a;
+      border: 1px $primary-color solid;
+      color: $primary-color;
       background-color: white;
     }
   }
 
   .custom-text-input-container {
-    margin-bottom: 1.875rem;
+    margin: 1.875rem;
     width: 100%;
   }
 
@@ -50,7 +50,7 @@
     padding: 1em 2.5em 1em 1em;
     outline: none;
     resize: none;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     border: 1.5px $primary-color solid;
     &.error {
       border-color: #ff0000;
@@ -68,8 +68,8 @@
   }
 
   .edit-header {
-    font-size: 1.5rem;
+    font-size: 1.375rem;
     font-weight: bold;
-    margin-bottom: 0.5em;
+    margin-bottom: 1em;
   }
 }
