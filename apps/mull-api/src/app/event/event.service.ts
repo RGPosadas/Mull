@@ -151,4 +151,32 @@ export class EventService {
     const { image } = await this.eventRepository.findOne(eventId, { relations: ['image'] });
     return image;
   }
+
+  /**
+   * Find a user's portfolio.
+   * A user's portfolio is made up of participating, cohosted, and hosted events that have ended.
+   * @param userId
+   */
+  async getUserEventsPortfolio(userId: number): Promise<Event[]> {
+    const currentDateTime = new Date().toISOString().replace('T', ' ');
+    return await this.eventRepository
+      .createQueryBuilder('event')
+      .leftJoinAndSelect('event.location', 'location')
+      .leftJoin('event.host', 'host')
+      .leftJoin('event.coHosts', 'coHost')
+      .leftJoin('event.participants', 'user')
+      .where('host.id = :userId AND event.endDate < :currentDateTime', {
+        userId,
+        currentDateTime: currentDateTime,
+      })
+      .orWhere('coHost.id = :userId AND event.endDate < :currentDateTime', {
+        userId,
+        currentDateTime: currentDateTime,
+      })
+      .orWhere('user.id = :userId AND event.endDate < :currentDateTime', {
+        userId,
+        currentDateTime: currentDateTime,
+      })
+      .getMany();
+  }
 }
