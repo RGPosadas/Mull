@@ -1,8 +1,11 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { GraphQLUpload } from 'apollo-server-express';
+import { FileUpload } from 'graphql-upload';
 import { AuthenticatedUser, AuthGuard } from '../auth/auth.guard';
 import { User } from '../entities';
 import { EventService } from '../event/event.service';
+import { MediaService } from '../media/media.service';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 import { UserService } from './user.service';
 
@@ -10,7 +13,8 @@ import { UserService } from './user.service';
 export class UserResolver {
   constructor(
     private readonly userService: UserService,
-    private readonly eventService: EventService
+    private readonly eventService: EventService,
+    private readonly mediaService: MediaService
   ) {}
 
   @Query(/* istanbul ignore next */ () => [User])
@@ -37,8 +41,22 @@ export class UserResolver {
 
   @Mutation(/* istanbul ignore next */ () => User)
   @UseGuards(AuthGuard)
-  async updateUser(@Args('user') user: UpdateUserInput) {
-    return this.userService.updateUser(user);
+  async updateUser(
+    @Args('userInput') userInput: UpdateUserInput,
+    @Args('newAvatar', { type: /* istanbul ignore next */ () => GraphQLUpload, nullable: true })
+    newAvatar: FileUpload
+  ) {
+    var user = await this.userService.getUser(userInput.id);
+    if (newAvatar) {
+      var media = user.avatar
+        ? await this.mediaService.updateMedia(newAvatar, user.avatar)
+        : await this.mediaService.uploadFile(newAvatar);
+      userInput = {
+        ...userInput,
+        avatar: media,
+      };
+    }
+    return await this.userService.updateUser(userInput);
   }
 
   @Mutation(/* istanbul ignore next */ () => User)

@@ -81,7 +81,7 @@ type Mutation {
   login(loginInput: LoginInput!): LoginResult!
   updateEvent(event: UpdateEventInput!): Event!
   updateMedia(newMedia: Upload!, oldMedia: MediaInput!): Media!
-  updateUser(user: UpdateUserInput!): User!
+  updateUser(newAvatar: Upload, userInput: UpdateUserInput!): User!
   uploadFile(file: Upload!): Media!
 }
 
@@ -130,6 +130,8 @@ input UpdateEventInput {
 }
 
 input UpdateUserInput {
+  avatar: MediaInput
+  description: String
   dob: DateTime
   email: String
   id: Int!
@@ -140,8 +142,9 @@ input UpdateUserInput {
 scalar Upload
 
 type User {
+  avatar: Media
   description: String!
-  dob: DateTime!
+  dob: DateTime
   email: String!
   friends: [User!]!
   id: Int!

@@ -43,6 +43,7 @@ export class User implements IUser {
   })
   timezone: string;
 
+  @Field(/* istanbul ignore next */ () => Media, { nullable: true })
   @OneToOne(/* istanbul ignore next */ () => Media)
   @JoinColumn()
   avatar?: Media;
@@ -51,9 +52,9 @@ export class User implements IUser {
   @Column()
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ nullable: true })
-  dob: Date;
+  dob?: Date;
 
   @Field(() => RegistrationMethod)
   @Column({
