@@ -80,6 +80,7 @@ type Mutation {
   leaveEvent(eventId: Int!): Boolean!
   login(loginInput: LoginInput!): LoginResult!
   updateEvent(event: UpdateEventInput!): Event!
+  updateMedia(newMedia: Upload!, oldMedia: MediaInput!): Media!
   updateUser(user: UpdateUserInput!): User!
   uploadFile(file: Upload!): Media!
 }

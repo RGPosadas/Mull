@@ -4,6 +4,7 @@ import { GraphQLUpload } from 'apollo-server-express';
 import { FileUpload } from 'graphql-upload';
 import { AuthGuard } from '../auth/auth.guard';
 import { Media } from '../entities';
+import { MediaInput } from './inputs/media.input';
 import { MediaService } from './media.service';
 
 @Resolver(/* istanbul ignore next */ () => Media)
@@ -15,7 +16,16 @@ export class MediaResolver {
   async uploadFile(
     @Args('file', { type: /* istanbul ignore next */ () => GraphQLUpload })
     file: FileUpload
-  ): Promise<Media | Error> {
+  ): Promise<Media> {
     return this.mediaService.uploadFile(file);
+  }
+
+  @Mutation(/* istanbul ignore next */ () => Media)
+  async updateMedia(
+    @Args('newMedia', { type: /* istanbul ignore next */ () => GraphQLUpload })
+    newMedia: FileUpload,
+    @Args('oldMedia') oldMedia: MediaInput
+  ): Promise<Media> {
+    return this.mediaService.updateMedia(newMedia, oldMedia);
   }
 }
