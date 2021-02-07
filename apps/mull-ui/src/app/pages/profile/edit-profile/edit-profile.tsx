@@ -8,7 +8,7 @@ import { MullBackButton } from '../../../components/mull-back-button/mull-back-b
 import MullButton from '../../../components/mull-button/mull-button';
 import './edit-profile.scss';
 
-const EditProfile = ({ history }) => {
+const EditProfile = () => {
   // TODO: Add initial profile image if user has one
   // TODO: If user does not have an image, set to a default image
   const [imageURLFile, setImageURLFile] = useState<string>(
