@@ -8,7 +8,7 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 declare namespace Cypress {
   interface Chainable<Subject> {
