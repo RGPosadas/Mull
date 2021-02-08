@@ -134,20 +134,21 @@ def main(_):
         # For each class we are training against
         for class_folder in os.listdir(type_path):
             input_path = os.path.join(type_path, class_folder)
-            record_name = "{}_{}.record".format(type_folder, class_folder)
-            output_dir = os.path.join(args.output_folder, type_folder)
-            if not os.path.exists(output_dir):
-                os.mkdir(output_dir)
-            output_path = os.path.join(output_dir, record_name)
+            if(os.path.isdir(input_path)):
+                record_name = "{}_{}.record".format(type_folder, class_folder)
+                output_dir = os.path.join(args.output_folder, type_folder)
+                if not os.path.exists(output_dir):
+                    os.mkdir(output_dir)
+                output_path = os.path.join(output_dir, record_name)
 
-            writer = tf.python_io.TFRecordWriter(output_path)
-            examples = xml_to_csv(input_path)
-            grouped = split(examples, 'filename')
-            for group in grouped:
-                tf_example = create_tf_example(group, input_path)
-                writer.write(tf_example.SerializeToString())
-            writer.close()
-            print('Successfully created the TFRecord file: {}'.format(output_path))
+                writer = tf.python_io.TFRecordWriter(output_path)
+                examples = xml_to_csv(input_path)
+                grouped = split(examples, 'filename')
+                for group in grouped:
+                    tf_example = create_tf_example(group, input_path)
+                    writer.write(tf_example.SerializeToString())
+                writer.close()
+                print('Successfully created the TFRecord file: {}'.format(output_path))
 
 
 if __name__ == '__main__':

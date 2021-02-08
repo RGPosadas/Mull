@@ -10,7 +10,7 @@ export const ROUTES = {
   MY_EVENTS: { url: '/home/myevents', displayName: 'My Events' },
   MAP: '/map',
   CREATE_EVENT: '/create-event',
-  TOOLS: '/tools',
+  CAMERA: '/camera',
   MESSAGES: '/messages',
   GROUPCHAT: { url: '/messages/group-chat', displayName: 'Group Chat' },
   ANNOUNCEMENTS: { url: '/messages/announcements', displayName: 'Announcements' },
@@ -22,6 +22,9 @@ export const ROUTES = {
 };
 
 export const DAY_IN_MILLISECONDS = 86400000;
+
+export const MULL_MODEL_URL =
+  'https://raw.githubusercontent.com/TheGreatMarkus/mull-model/main/tfjs/model.json';
 
 // TODO delete when US 2.1 is completed
 export const dummyProfilePictures: string[] = [

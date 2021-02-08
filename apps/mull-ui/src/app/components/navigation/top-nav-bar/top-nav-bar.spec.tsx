@@ -24,7 +24,7 @@ describe('TopNavBar', () => {
       [ROUTES.HOME]: 'home-navlink',
       [ROUTES.MAP]: 'map-navlink',
       [ROUTES.CREATE_EVENT]: 'create-event-navlink',
-      [ROUTES.TOOLS]: 'tools-navlink',
+      [ROUTES.CAMERA]: 'camera-navlink',
       [ROUTES.PROFILE]: 'profile-desktop-navlink',
       [ROUTES.MESSAGES]: 'messages-navlink',
     };

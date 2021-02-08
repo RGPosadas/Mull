@@ -45,8 +45,8 @@ exports[`BotNavBar should match snapshot 1`] = `
     </a>
     <a
       aria-current={null}
-      data-testid="tools-navlink"
-      href="/tools"
+      data-testid="camera-navlink"
+      href="/camera"
       onClick={[Function]}
     >
       <svg

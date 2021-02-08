@@ -94,3 +94,16 @@ export class IGooglePlace {
   description: string;
   placeId: string;
 }
+
+export interface DetectionResult {
+  class: string;
+  bndBox: BoundingBox;
+  confidence: number;
+}
+
+export interface BoundingBox {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
