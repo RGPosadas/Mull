@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/no-unused-vars, @typescript-eslint/no-var-requires */
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -8,7 +8,7 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
 declare namespace Cypress {
   interface Chainable<Subject> {
