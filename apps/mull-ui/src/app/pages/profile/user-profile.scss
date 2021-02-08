@@ -1,0 +1,11 @@
+@import '../../../variables.scss';
+
+.settings-container {
+  padding: 0.5rem 0;
+}
+
+.joined-date-container {
+  color: $inactive-button-color;
+  margin: 0.5rem;
+  text-align: center;
+}

@@ -1,6 +1,14 @@
+import {
+  faCog,
+  faLeaf,
+  faPencilAlt,
+  faUserFriends,
+  faUserPlus,
+} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import ProfileHeader from '../../components/profile-header/profile-header';
 import SettingsButton from '../../components/settings-button/settings-button';
+import './user-profile.scss';
 
 export const UserProfilePage = () => {
   return (
@@ -13,7 +21,23 @@ export const UserProfilePage = () => {
         userHosting={2}
         userDescription="Regardless of making complicated reasons or calculations, I just want to live simply counting up to about 5 or 6."
       ></ProfileHeader>
-      <SettingsButton></SettingsButton>
+      <div className="settings-container">
+        <h3>Portfolio</h3>
+        <SettingsButton icon={faLeaf} settingName="My Portfolio"></SettingsButton>
+      </div>
+      <div className="settings-container">
+        <h3>Friends</h3>
+        <SettingsButton icon={faUserPlus} settingName="Add Friends"></SettingsButton>
+        <SettingsButton icon={faUserFriends} settingName="My Friends"></SettingsButton>
+      </div>
+      <div className="settings-container">
+        <h3>Misc.</h3>
+        <SettingsButton icon={faPencilAlt} settingName="Edit Profile"></SettingsButton>
+        <SettingsButton icon={faCog} settingName="Settings"></SettingsButton>
+      </div>
+      <div className="joined-date-container">
+        <p>Joined Müll on February 2, 2021</p>
+      </div>
     </div>
   );
 };

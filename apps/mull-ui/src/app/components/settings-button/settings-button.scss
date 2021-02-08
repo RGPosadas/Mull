@@ -1,4 +1,17 @@
-.button-background {
-  background-color: pink;
-  padding: 0 1rem;
+@import '../../../variables.scss';
+
+.settings-button-container {
+  border: 0.12rem solid $primary-color;
+  border-radius: 0.5rem;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  margin: 0.75rem 0;
+}
+
+.settings-icon {
+  margin: 0.75rem;
+  font-size: 1.25rem;
+  color: $primary-color;
 }

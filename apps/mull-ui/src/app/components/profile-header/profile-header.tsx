@@ -13,12 +13,12 @@ export interface profileHeaderProps {
 }
 
 export const ProfileHeader = ({
-  userName = '',
-  userPicture = '',
+  userName,
+  userPicture,
   userPortfolio = 0,
   userFriends = 0,
   userHosting = 0,
-  userDescription = '',
+  userDescription,
 }: profileHeaderProps) => {
   return (
     <div className="profile-background">
