@@ -21,7 +21,10 @@ export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
   }, []);
 
   const handleOnClick = async () => {
-    const results = await model.current.detect(imgRef.current, { threshold: 0.4, numResults: 100 });
+    const results = await model.current.detect(imgRef.current, {
+      threshold: 0.45,
+      numResults: 100,
+    });
     const ctx = canvasRef.current.getContext('2d');
     ctx.strokeStyle = '#00ff00';
     results.forEach((result) => {

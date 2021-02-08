@@ -9,23 +9,19 @@ const mockedTf = tf as jest.Mocked<typeof tf>;
 
 mockedTf.loadGraphModel.mockImplementation(async (modelUrl: string) => {
   return ({
-    executeAsync: async () => {
+    executeAsync: async (inputs, outputs) => {
       return ([
-        null,
         {
-          data: () => [2],
-        },
-        null,
-        {
-          data: () => [0.5, 0.5],
+          data: () => [0.2, 0.2, 0.5, 0.5, 0.2, 0.2, 0.5, 0.5],
         },
         {
           data: () => [1, 1],
         },
-        null,
-        null,
         {
-          data: () => [0.2, 0.2, 0.5, 0.5, 0.2, 0.2, 0.5, 0.5],
+          data: () => [0.5, 0.5],
+        },
+        {
+          data: () => [2],
         },
       ] as unknown) as Tensor[];
     },

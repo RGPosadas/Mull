@@ -48,24 +48,30 @@ export class TensorflowJsModel implements WasteRecognitionModel {
       executeAsync will return an array of 8 Tensors, which are the following.
       An asterick indicates that the info is useful to us
       
-      index   name                        shape
-      0       detection_anchor_indices    [1, 100]
-      1*      num_detections              [1]
-      2       raw_detection_scores        [1 1917 5]
-      3*      detection_scores            [1 100]
-      4*      detection_classes           [1 100]
-      5       detection_multiclass_scores [1 100 5]
-      6       raw_detection_boxes         [1 1917 4]
-      7*      detection_boxes             [1 100 4]
+      output_node_name    name                          shape
+      Identity:0          detection_anchor_indices      [1, 100]
+      Identity_1:0*       detection_boxes               [1 100 4]
+      Identity_2:0*       detection_classes             [1 100]
+      Identity_3:0        detection_multiclass_scores   [1 100 5]
+      Identity_4:0*       detection_scores              [1 100]
+      Identity_5:0*       num_detections                [1]
+      Identity_6:0        raw_detection_boxes           [1 1917 4]
+      Identity_7:0        raw_detection_scores          [1 1917 5]
      */
 
-    const modelOutput = (await this.model.executeAsync(batched)) as tf.Tensor[];
+    const modelOutput = (await this.model.executeAsync(batched, [
+      'Identity_1:0',
+      'Identity_2:0',
+      'Identity_4:0',
+      'Identity_5:0',
+    ])) as tf.Tensor[];
 
-    let numDetections = (await modelOutput[1].data())[0] as number;
-    const scores = await modelOutput[3].data();
-    const classes = await modelOutput[4].data();
     // 1D array with 4 * N elements. bounds are ordered as ymin, xmin, ymax, xmax
-    const boxes = await modelOutput[7].data();
+    const boxes = await modelOutput[0].data();
+    const classes = await modelOutput[1].data();
+    const scores = await modelOutput[2].data();
+    let numDetections = (await modelOutput[3].data())[0] as number;
+
     const detectionResults: DetectionResult[] = [];
 
     if (options.numResults < numDetections) {
