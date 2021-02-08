@@ -63,6 +63,7 @@ describe('AuthGuards', () => {
   });
   // This testing methodology for param decorators was found on the nestjs github repo
   // https://github.com/nestjs/nest/issues/1020
+  /* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function */
   describe('Auth Param Decorator', () => {
     function getParamDecoratorFactory(decorator: Function) {
       class Test {
