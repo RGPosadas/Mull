@@ -7,7 +7,7 @@ import { MediaInput } from '../../media/inputs/media.input';
 @InputType()
 export class CreateEventInput {
   @Field()
-  title?: string;
+  title: string;
 
   @Field()
   startDate: Date;
