@@ -1,4 +1,4 @@
-import { faImages } from '@fortawesome/free-solid-svg-icons';
+import { faImages, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { ChangeEvent } from 'react';
 import './custom-file-upload.scss';
@@ -10,6 +10,7 @@ export interface CustomFileUploadProps {
   imageURL: string;
   handleFileUpload: (event: ChangeEvent<HTMLInputElement>) => void;
   fieldName: string;
+  displayPencilIcon?: boolean;
 }
 
 export const CustomFileUpload = ({
@@ -19,6 +20,7 @@ export const CustomFileUpload = ({
   errorMessage,
   handleFileUpload,
   fieldName,
+  displayPencilIcon,
 }: CustomFileUploadProps) => {
   return (
     <div className="custom-file-upload-container">
@@ -29,6 +31,9 @@ export const CustomFileUpload = ({
           <div className={className}>
             <FontAwesomeIcon className="custom-file-upload-icon" icon={faImages} />
           </div>
+        )}
+        {displayPencilIcon && (
+          <FontAwesomeIcon className="custom-file-upload-pencil-icon" icon={faPencilAlt} />
         )}
       </label>
       {hasErrors ? <span className="error-message">{errorMessage}</span> : null}

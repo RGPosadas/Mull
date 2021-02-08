@@ -1,0 +1,75 @@
+@import '../../../../variables.scss';
+
+.edit-profile-container,
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-profile-container {
+  .mull-back-button {
+    align-self: flex-start;
+  }
+
+  .custom-file-upload-container {
+    position: relative;
+    margin: auto;
+    width: fit-content;
+    .custom-file-upload-image {
+      margin-left: auto;
+      margin-right: auto;
+      width: 8rem;
+      height: 8rem;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .custom-file-upload-pencil-icon {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.1rem;
+      border-radius: 20rem;
+      padding: 0.35rem;
+      border: 1px $primary-color solid;
+      color: $primary-color;
+      background-color: white;
+    }
+  }
+
+  .custom-text-input-container {
+    margin: 1.875rem;
+    width: 100%;
+  }
+
+  .description-label {
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .description-msg {
+    padding: 1em 2.5em 1em 1em;
+    outline: none;
+    resize: none;
+    border-radius: 1.25rem;
+    border: 1.5px $primary-color solid;
+    &.error {
+      border-color: #ff0000;
+    }
+  }
+
+  .save-button,
+  .edit-header {
+    align-self: center;
+  }
+
+  .save-button {
+    margin-top: 1.5rem;
+    width: 9.375rem;
+  }
+
+  .edit-header {
+    font-size: 1.375rem;
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+}

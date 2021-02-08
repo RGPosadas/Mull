@@ -23,7 +23,7 @@ export const TopNavBar = ({ style }: TopNavBarProps) => {
         <NavButtons />
       </div>
       <NavLink
-        to={ROUTES.PROFILE}
+        to={ROUTES.PROFILE.DISPLAY}
         className="profile-button"
         activeClassName="active"
         data-testid="profile-desktop-navlink"
