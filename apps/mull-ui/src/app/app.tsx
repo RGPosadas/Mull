@@ -22,6 +22,7 @@ import LoginPage from './pages/login/login';
 import AnnouncementsPage from './pages/messages/announcements/announcements';
 import MessagesPage from './pages/messages/messages-page';
 import EditProfilePage from './pages/profile/edit-profile/edit-profile';
+import UserProfilePage from './pages/profile/user-profile';
 import RegisterPage from './pages/register/register';
 import TokenRedirectPage from './pages/token-redirect/token-redirect';
 import TrashRecognitionPage from './pages/trash-recognition-page/trash-recognition-page';
@@ -121,7 +122,9 @@ export const App = () => {
             </PrivateRoute>
           </PrivateRoute>
           <PrivateRoute path={ROUTES.CAMERA} component={TrashRecognitionPage} />
-          <PrivateRoute path={ROUTES.PROFILE.DISPLAY}>
+            <div className="page-container with-top-nav-bar">
+              <PrivateRoute path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
+            </div>
             <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
           </PrivateRoute>
           <PrivateRoute component={NotFoundPage} />

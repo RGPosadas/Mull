@@ -1,0 +1,41 @@
+@import '../../../variables.scss';
+
+.profile-background {
+  padding: 0 1rem;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 1.25rem 0;
+  font-weight: bold;
+}
+
+.user-name-container {
+  display: flex;
+}
+
+.share-button {
+  color: $primary-color;
+  font-size: 1.5rem;
+}
+
+.profile-picture {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 0.1rem solid black;
+}
+
+.profile-stats {
+  font-weight: bold;
+}
+
+.user-description-container {
+  display: flex;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: $breakpoint-mobile) {
+}
