@@ -195,9 +195,9 @@ You can serve the database locally for testing, and to avoid interfering with th
 1. Install [docker](https://docs.docker.com/get-docker/) and [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) (or any similar SQL clients)
 1. Start docker
 1. Pull a `mysql` image. This image contains the information needed to spin up an instance of a mysql database using docker
-   - `docker pull mysql:5.7.32`
+   - `docker pull mysql:latest`
 1. Create and run a MySQL container, which will run an instance of MySQL
-   - `docker run --name mull-db -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 -d mysql:5.7.32`
+   - `docker run --name mull-db -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 -d mysql:latest --default-authentication-plugin=mysql_native_password`
 1. Start MySQL Workbench and test the connection with your database on `localhost:3306`. If the test was successful, connect to it
 1. Update the following fields in your `.env`:
    - `root=localhost`
