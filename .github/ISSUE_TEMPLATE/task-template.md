@@ -27,5 +27,6 @@ Lorem ipsum...
 ...
 - [ ] Task criteria #n
 - [ ] Documentation present where necessary
-- [ ] Unit and UI tests are implemented for every component and function
+- [ ] Unit and UI tests are implemented for every new component and function
+- [ ] The application should still work with seeded data
 - [ ] Must match [Mockup](create-mockup-link)
