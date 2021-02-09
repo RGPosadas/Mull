@@ -1,4 +1,5 @@
-import { ISerializedEvent } from '@mull/types';
+import { DetectionResult, ISerializedEvent } from '@mull/types';
+import { categoryMap, WasteType } from './app/services/maps';
 import { environment } from './environments/environment';
 
 /**
@@ -22,3 +23,29 @@ export const formatDate = (
 
 export const mediaUrl = (event: Partial<ISerializedEvent>) =>
   `${environment.backendUrl}/api/media/${event.image.id}`;
+
+const svgSize = 45;
+const svgMap = {
+  [WasteType.COMPOST]: './assets/icons/trash-recognition-icons/CompostIcon.svg',
+  [WasteType.EWASTE]: './assets/icons/trash-recognition-icons/GeneralIcon.svg',
+  [WasteType.TRASH]: './assets/icons/trash-recognition-icons/TrashIcon.svg',
+  [WasteType.RECYCLABLE]: './assets/icons/trash-recognition-icons/RecycleIcon.svg',
+};
+
+export const drawDetectionIcons = async (
+  ctx: CanvasRenderingContext2D,
+  results: DetectionResult[]
+) => {
+  results.forEach((result) => {
+    const box = result.bndBox;
+    const category = categoryMap[result.class];
+    const dx = box.x - svgSize / 2 + box.width / 2;
+    const dy = box.y - svgSize / 2 + box.height / 2;
+
+    var icon = new Image();
+    icon.onload = () => {
+      ctx.drawImage(icon, dx, dy, svgSize, svgSize);
+    };
+    icon.src = svgMap[category];
+  });
+};

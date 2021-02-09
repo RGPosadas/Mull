@@ -1,4 +1,4 @@
-import { EventRestriction, ISerializedEvent } from '@mull/types';
+import { DetectionResult, EventRestriction, ISerializedEvent } from '@mull/types';
 
 /**
  * enum of the current routes for the application
@@ -64,3 +64,16 @@ export const dummyEvent: ISerializedEvent = {
     mediaType: 'jpeg',
   },
 };
+
+export const dummyDetectionResults: DetectionResult[] = [
+  {
+    bndBox: {
+      height: 50,
+      width: 100,
+      x: 20,
+      y: 40,
+    },
+    class: 'recyclable',
+    confidence: 0.8,
+  },
+];
