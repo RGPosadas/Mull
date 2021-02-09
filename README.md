@@ -4,7 +4,7 @@
   - [Team Members](#team-members)
   - [Development Guidelines](#development-guidelines)
   - [Setting Up your Development Environment](#setting-up-your-development-environment)
-    - [Nx and npm](#nx-and-npm)
+    - [Environment](#environment)
     - [Enforcing Code Formatting and Standards](#enforcing-code-formatting-and-standards)
     - [Secrets and configuration](#secrets-and-configuration)
   - [Running Linting](#running-linting)
@@ -43,11 +43,12 @@ We try our best to adhere to the set of rules and guidelines that we've come up 
 
 ## Setting Up your Development Environment
 
-### Nx and npm
+### Environment
 
-We use npm and Nx to manage our workspace and dependencies. The Nx CLI offers powerful tools for development, and we recommend you install it when contributing to the project.
+We use **NodeJS 14**, **npm 7**, and Nx to manage our workspace and dependencies. The Nx CLI offers powerful tools for development, and we recommend you install it when contributing to the project.
 
-1. Install npm and nodejs for your operating system.
+1. Install NodeJS 14 for your operating system.
+1. Install npm 7 (if it wasn't included in your NodeJS installation)
 1. Install the Nx CLI:
    - `npm install -g nx`
 1. Install dependencies:
@@ -211,9 +212,9 @@ To stop the container whilst keeping the database changes, run `docker stop mull
 ### Working with GraphQL on the Frontend
 
 1. Write your query/mutation into the respective `.gql` files located in `apps/mull-ui/src/graphql`
-2. Run GraphQL Codegen:
+1. Run GraphQL Codegen:
    - `npm run gen-graphql`
-3. Import hooks from `apps/mull-ui/src/generated/graphql.tsx`
+1. Import hooks from `apps/mull-ui/src/generated/graphql.tsx`
 
 ### Building and Serving the application for production
 
@@ -276,6 +277,6 @@ As a fix, try [clearing the Travis cache](https://docs.travis-ci.com/user/cachin
 When there are merge conflicts in the `package-lock.json` file, here are the general steps to take to fix them:
 
 1. Delete the `package-lock.json` file
-2. Temporarily remove the `preinstall` script in `package.json`. Installing packages with that script without the lock file won't work.
-3. Run `npm i` to install the packages again and regenerate the `package-lock.json` file.
-4. Put back the `preinstall` script you removed in step 2
+1. Temporarily remove the `preinstall` script in `package.json`. Installing packages with that script without the lock file won't work.
+1. Run `npm i` to install the packages again and regenerate the `package-lock.json` file.
+1. Put back the `preinstall` script you removed in step 2
