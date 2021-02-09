@@ -29,7 +29,8 @@ Lorem ipsum...
 ...
 - [ ] US criteria #n
 - [ ] User Acceptance Flow is respected
-- [ ] Documentation present where necessary
-- [ ] Unit and UI tests are implemented for every component and function
 - [ ] There must exist an automated Cypress acceptance test which tests the user acceptance flow
+- [ ] Documentation present where necessary
+- [ ] Unit and UI tests are implemented for every new component and function
+- [ ] The application should still work with seeded data
 - [ ] Must match [Mockup](create-mockup-link)
