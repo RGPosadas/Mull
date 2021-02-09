@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { createWriteStream, renameSync, unlinkSync } from 'fs';
 import { FileUpload } from 'graphql-upload';
@@ -20,7 +20,7 @@ export class MediaService {
       var media = await this.createMedia(file.mimetype);
       this.updateFilename(file.filename, media.id, media.mediaType);
     } catch (err) {
-      throw new Error('Internal Server Error');
+      throw new InternalServerErrorException();
     }
 
     return media;
@@ -62,22 +62,22 @@ export class MediaService {
   }
 
   /**
-   * Delete the old media and upload new media (while keeping the same mediaId)
-   * @param newMedia new media to upload
-   * @param oldMedia old media to delete
+   * Delete the old file and upload new file (while keeping the same mediaId)
+   * @param newFile new file to upload
+   * @param oldFile old file to delete
    */
-  async updateMedia(newMedia: FileUpload, oldMedia: MediaInput): Promise<Media> {
-    const mediaIdToKeep = oldMedia.id;
+  async updateFile(newFile: FileUpload, oldFile: MediaInput): Promise<Media> {
+    const mediaIdToKeep = oldFile.id;
     try {
-      this.deleteStoredMedia(oldMedia);
-      await this.saveFile(newMedia);
-      const newMediaType = newMedia.mimetype.split('/')[1];
-      this.updateFilename(newMedia.filename, mediaIdToKeep, newMediaType);
-      if (oldMedia.mediaType != newMediaType) {
-        await this.mediaRepository.update(mediaIdToKeep, { mediaType: newMediaType });
+      this.deleteStoredMedia(oldFile);
+      await this.saveFile(newFile);
+      const newFileType = newFile.mimetype.split('/')[1];
+      this.updateFilename(newFile.filename, mediaIdToKeep, newFileType);
+      if (oldFile.mediaType != newFileType) {
+        await this.mediaRepository.update(mediaIdToKeep, { mediaType: newFileType });
       }
     } catch (err) {
-      throw new Error('Internal Server Error');
+      throw new InternalServerErrorException();
     }
     return this.getMedia(mediaIdToKeep);
   }

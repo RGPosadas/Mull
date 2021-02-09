@@ -21,11 +21,11 @@ export class MediaResolver {
   }
 
   @Mutation(/* istanbul ignore next */ () => Media)
-  async updateMedia(
-    @Args('newMedia', { type: /* istanbul ignore next */ () => GraphQLUpload })
-    newMedia: FileUpload,
-    @Args('oldMedia') oldMedia: MediaInput
+  async updateFile(
+    @Args('newFile', { type: /* istanbul ignore next */ () => GraphQLUpload })
+    newFile: FileUpload,
+    @Args('oldFile') oldFile: MediaInput
   ): Promise<Media> {
-    return this.mediaService.updateMedia(newMedia, oldMedia);
+    return this.mediaService.updateFile(newFile, oldFile);
   }
 }

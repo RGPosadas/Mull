@@ -49,7 +49,7 @@ export class UserResolver {
     var user = await this.userService.getUser(userInput.id);
     if (newAvatar) {
       var media = user.avatar
-        ? await this.mediaService.updateMedia(newAvatar, user.avatar)
+        ? await this.mediaService.updateFile(newAvatar, user.avatar)
         : await this.mediaService.uploadFile(newAvatar);
       userInput = {
         ...userInput,
