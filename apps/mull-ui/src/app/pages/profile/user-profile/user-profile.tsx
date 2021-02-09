@@ -6,8 +6,9 @@ import {
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import ProfileHeader from '../../components/profile-header/profile-header';
-import SettingsButton from '../../components/settings-button/settings-button';
+import { Link } from 'react-router-dom';
+import ProfileHeader from '../../../components/profile-header/profile-header';
+import SettingsButton from '../../../components/settings-button/settings-button';
 import './user-profile.scss';
 
 export const UserProfilePage = () => {
@@ -32,7 +33,9 @@ export const UserProfilePage = () => {
       </div>
       <div className="settings-container">
         <h3>Misc.</h3>
-        <SettingsButton icon={faPencilAlt} settingName="Edit Profile"></SettingsButton>
+        <Link to="/profile/edit">
+          <SettingsButton icon={faPencilAlt} settingName="Edit Profile"></SettingsButton>
+        </Link>
         <SettingsButton icon={faCog} settingName="Settings"></SettingsButton>
       </div>
       <div className="joined-date-container">

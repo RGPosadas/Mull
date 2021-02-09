@@ -5,7 +5,7 @@ import './settings-button.scss';
 
 export interface setttingsButtonProps {
   icon?: IconProp;
-  settingName: string;
+  settingName?: string;
 }
 
 export const SettingsButton = ({ icon, settingName }: setttingsButtonProps) => {
