@@ -5,7 +5,9 @@ describe('Utilities', () => {
   describe('drawDetectionIcons', () => {
     const mockCtx = {
       drawImage: jest.fn(
-        (image: CanvasImageSource, dx: number, dy: number, dw: number, dh: number) => {}
+        (image: CanvasImageSource, dx: number, dy: number, dw: number, dh: number) => {
+          // noop
+        }
       ),
     };
     it('should draw a svg icon', (done) => {
@@ -16,7 +18,9 @@ describe('Utilities', () => {
           }, 50);
         }
 
-        onload() {}
+        onload() {
+          // noop
+        }
       } as unknown) as typeof Image;
 
       drawDetectionIcons((mockCtx as unknown) as CanvasRenderingContext2D, dummyDetectionResults);

@@ -1,6 +1,6 @@
-import { drawDetectionIcons } from 'apps/mull-ui/src/utilities';
 import React, { useEffect, useRef } from 'react';
 import { MULL_MODEL_URL } from '../../../constants';
+import { drawDetectionIcons } from '../../../utilities';
 import { TensorflowJsModel } from '../../services/tfjs.model';
 import './trash-recognition-page.scss';
 
