@@ -21,6 +21,7 @@ export class MediaResolver {
   }
 
   @Mutation(/* istanbul ignore next */ () => Media)
+  @UseGuards(AuthGuard)
   async updateFile(
     @Args('newFile', { type: /* istanbul ignore next */ () => GraphQLUpload })
     newFile: FileUpload,

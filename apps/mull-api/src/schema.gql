@@ -101,13 +101,13 @@ type Query {
   discoverEvents: [Event!]!
   event(id: Int!): Event!
   events: [Event!]!
-  friendCount(id: Int!): Int!
+  friendCount: Int!
   hostEvents: [Event!]!
-  hostingCount(id: Int!): Int!
+  hostingCount: Int!
   isParticipant(eventId: Int!): Boolean!
   location(id: Int!): Location!
   participantEvents: [Event!]!
-  portfolioCount(id: Int!): Int!
+  portfolioCount: Int!
   user: User!
   users: [User!]!
 }

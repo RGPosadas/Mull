@@ -65,17 +65,17 @@ export class UserResolver {
   }
 
   @Query(/* istanbul ignore next */ () => Int)
-  async friendCount(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+  async friendCount(@AuthenticatedUser() id: number) {
     return (await this.userService.getFriends(id)).length;
   }
 
   @Query(/* istanbul ignore next */ () => Int)
-  async hostingCount(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+  async hostingCount(@AuthenticatedUser() id: number) {
     return (await this.eventService.getEventsHostedByUser(id)).length;
   }
 
   @Query(/* istanbul ignore next */ () => Int)
-  async portfolioCount(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+  async portfolioCount(@AuthenticatedUser() id: number) {
     return (await this.eventService.getUserEventsPortfolio(id)).length;
   }
 }
