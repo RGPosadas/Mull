@@ -56,7 +56,7 @@ export class MediaService {
     return await this.mediaRepository.findOne(mediaId);
   }
 
-  deleteStoredMedia(media: MediaInput): boolean {
+  deleteStoredFile(media: MediaInput): boolean {
     unlinkSync(join(process.cwd(), `/apps/mull-api/uploads/${media.id}.${media.mediaType}`));
     return true;
   }
@@ -69,7 +69,7 @@ export class MediaService {
   async updateFile(newFile: FileUpload, oldFile: MediaInput): Promise<Media> {
     const mediaIdToKeep = oldFile.id;
     try {
-      this.deleteStoredMedia(oldFile);
+      this.deleteStoredFile(oldFile);
       await this.saveFile(newFile);
       const newFileType = newFile.mimetype.split('/')[1];
       this.updateFilename(newFile.filename, mediaIdToKeep, newFileType);
