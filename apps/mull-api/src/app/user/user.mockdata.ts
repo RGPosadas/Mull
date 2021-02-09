@@ -1,6 +1,6 @@
 import { RegistrationMethod } from '@mull/types';
 import { User } from '../entities';
-import { CreateUserInput } from './inputs/user.input';
+import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 
 export const mockPartialUser: Partial<User> = {
   password: 'password',
@@ -8,6 +8,7 @@ export const mockPartialUser: Partial<User> = {
   dob: new Date(),
   name: 'Mock McMockson',
   registrationMethod: RegistrationMethod.LOCAL,
+  avatar: null,
 };
 
 export const mockNewPartialUser: CreateUserInput = {
@@ -19,6 +20,14 @@ export const mockNewPartialUser: CreateUserInput = {
   joinDate: new Date(),
 };
 
+export const mockUpdateUserInput: UpdateUserInput[] = [
+  {
+    id: 1,
+    description: 'I am no longer very good programmer :(',
+  },
+  { id: 7, description: 'my new description!' },
+];
+
 export const mockAllUsers: User[] = [
   {
     id: 1,
@@ -28,6 +37,7 @@ export const mockAllUsers: User[] = [
     name: 'Bob',
     dob: new Date(),
     description: 'I am very good programmer',
+    avatar: null,
     friends: [
       {
         id: 7,
@@ -40,6 +50,7 @@ export const mockAllUsers: User[] = [
         friends: [],
         tokenVersion: 0,
         registrationMethod: RegistrationMethod.LOCAL,
+        avatar: null,
       },
       {
         id: 12,
@@ -52,11 +63,12 @@ export const mockAllUsers: User[] = [
         friends: [],
         tokenVersion: 0,
         registrationMethod: RegistrationMethod.LOCAL,
+        avatar: null,
       },
     ],
     tokenVersion: 0,
     registrationMethod: RegistrationMethod.LOCAL,
-    joinDate: new Date(),
+    joinDate: new Date('2020-10-31T22:09:00.000Z'),
   },
   {
     id: 7,
@@ -66,6 +78,11 @@ export const mockAllUsers: User[] = [
     name: 'Cristian',
     dob: new Date(),
     description: "There's a first for everything",
+    avatar: {
+      id: 2,
+      mediaType: 'jpeg',
+      post: null,
+    },
     friends: [
       {
         id: 1,
@@ -78,6 +95,7 @@ export const mockAllUsers: User[] = [
         friends: [],
         tokenVersion: 0,
         registrationMethod: RegistrationMethod.LOCAL,
+        avatar: null,
       },
       {
         id: 12,
@@ -90,6 +108,7 @@ export const mockAllUsers: User[] = [
         friends: [],
         tokenVersion: 0,
         registrationMethod: RegistrationMethod.LOCAL,
+        avatar: null,
       },
     ],
     tokenVersion: 0,
@@ -104,6 +123,7 @@ export const mockAllUsers: User[] = [
     name: 'Jose',
     dob: new Date(),
     description: 'What goes up, comes down',
+    avatar: null,
     friends: [
       {
         id: 1,
@@ -116,6 +136,7 @@ export const mockAllUsers: User[] = [
         friends: [],
         registrationMethod: RegistrationMethod.LOCAL,
         tokenVersion: 0,
+        avatar: null,
       },
       {
         id: 12,
@@ -128,10 +149,52 @@ export const mockAllUsers: User[] = [
         friends: [],
         registrationMethod: RegistrationMethod.LOCAL,
         tokenVersion: 0,
+        avatar: null,
       },
     ],
     registrationMethod: RegistrationMethod.GOOGLE,
     tokenVersion: 0,
+    joinDate: new Date(),
+  },
+];
+
+// It's mockAllUsers[0] and mockAllUsers[1] with updated avatar and description
+export const mockExpectedUpdatedUser: User[] = [
+  {
+    id: 1,
+    avatar: {
+      id: 1,
+      mediaType: 'jpeg',
+      post: null,
+    },
+    description: 'I am no longer very good programmer :(',
+    email: 'mock@mock.com',
+    timezone: '',
+    name: 'Bob',
+    dob: new Date(),
+    password: '$2b$10$Wo/ClOmaI/qItblWM1saEeWgqv9S9nt6QO4KW1kBXdzPT1.q8XuuG',
+    registrationMethod: RegistrationMethod.LOCAL,
+    tokenVersion: 0,
+    events: null,
+    joinDate: new Date('2020-10-31T22:09:00.000Z'),
+    friends: [],
+  },
+  {
+    id: 7,
+    password: 'password',
+    email: 'me@me.com',
+    timezone: '',
+    name: 'Cristian',
+    dob: new Date(),
+    description: 'my new description!',
+    avatar: {
+      id: 2,
+      mediaType: 'png',
+      post: null,
+    },
+    friends: [],
+    tokenVersion: 0,
+    registrationMethod: RegistrationMethod.GOOGLE,
     joinDate: new Date(),
   },
 ];
