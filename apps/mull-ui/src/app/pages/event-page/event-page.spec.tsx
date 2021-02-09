@@ -65,7 +65,7 @@ describe('EventPage', () => {
       {
         request: {
           query: EventPageDocument,
-          variables: { userId: 1, eventId: 1 },
+          variables: { eventId: 1 },
         },
         result: {
           data: {

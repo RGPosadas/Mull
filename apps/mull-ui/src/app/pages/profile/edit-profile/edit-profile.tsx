@@ -53,9 +53,8 @@ const EditProfile = () => {
 
   return (
     <div className="page-container">
+      <MullBackButton>Profile</MullBackButton>
       <form className="edit-profile-container" onSubmit={formik.handleSubmit}>
-        <MullBackButton>Profile</MullBackButton>
-
         <p className="edit-header">Edit Profile</p>
 
         <CustomFileUpload

@@ -1,9 +1,9 @@
+import { ISerializedEvent } from '@mull/types';
 import { cloneDeep } from 'lodash';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { CreateEventInput, useEventPageQuery, useUserQuery } from '../../../generated/graphql';
 import { EventPageHeader, EventPageInfo } from '../../components';
-import UserContext from '../../context/user.context';
 import './event-page.scss';
 
 export interface EventPageProps {
@@ -30,17 +30,14 @@ export const EventPage = ({
   const { id } = useParams<{ id: string }>();
   const eventId = parseInt(id);
 
-  const { userId } = useContext(UserContext);
-
-  let event = cloneDeep(reviewEvent);
+  let event = cloneDeep(reviewEvent) as ISerializedEvent;
 
   const { loading: loadingEvent, error: errorEvent, data: dataEvent } = useEventPageQuery({
-    variables: { eventId, userId },
+    variables: { eventId },
     skip: !!reviewEvent,
   });
 
   const { loading: loadingUser, error: errorUser, data: dataUser } = useUserQuery({
-    variables: { userId },
     skip: !reviewEvent,
   });
 

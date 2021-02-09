@@ -36,7 +36,6 @@ describe('discoverPage', () => {
         {
           request: {
             query: DiscoverEventsDocument,
-            variables: { userId: 1 },
           },
           result: {
             data: {

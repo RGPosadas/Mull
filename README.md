@@ -144,6 +144,15 @@ nx affected:test --base=origin/<base-branch>
 
 E2E testing is done thought the [Nx CLI](https://nx.dev/latest/react/cli/e2e), and uses [cypress](https://www.cypress.io/).
 
+Add a `cypress.env.json` in the `mull-ui-e2e` project. See `docs-and-resources` channel on slack for our secret key.
+
+```properties
+{
+   "ACCESS_TOKEN_SECRET": "<secret-key>"
+}
+...
+```
+
 To run e2e tests for a project:
 
 ```bash

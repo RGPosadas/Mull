@@ -34,6 +34,7 @@ yarn-error.log
 testem.log
 /typings
 /.env*
+cypress.env.json
 
 # System Files
 .DS_Store

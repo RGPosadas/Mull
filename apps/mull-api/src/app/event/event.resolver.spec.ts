@@ -7,7 +7,10 @@ import { EventService } from './event.service';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 
 const mockEventService = () => ({
-  createEvent: jest.fn((mockEventData: CreateEventInput) => ({ ...mockEventData })),
+  createEvent: jest.fn((hostId: number, mockEventData: CreateEventInput) => ({
+    ...mockEventData,
+    hostId: { id: hostId },
+  })),
   getEvent: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
   getAllEvents: jest.fn(() => mockAllEvents),
   updateEvent: jest.fn((mockEventData: UpdateEventInput) => ({ ...mockEventData })),
@@ -58,8 +61,8 @@ describe('UserResolver', () => {
   });
 
   it('should create event', async () => {
-    const returnedEvent = await resolver.createEvent(mockPartialEvent as CreateEventInput);
-    expect(returnedEvent).toEqual(mockPartialEvent);
+    const returnedEvent = await resolver.createEvent(5, mockPartialEvent as CreateEventInput);
+    expect(returnedEvent).toEqual({ ...mockPartialEvent, hostId: { id: 5 } });
   });
 
   it('should fetch all events', async () => {

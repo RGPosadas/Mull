@@ -55,8 +55,9 @@ describe('EventService', () => {
   });
 
   it('should create the event', async () => {
-    const returnedEvent = await service.createEvent(mockPartialEvent as CreateEventInput);
-    expect(returnedEvent).toEqual(mockPartialEvent);
+    const hostId = 5;
+    const returnedEvent = await service.createEvent(hostId, mockPartialEvent as CreateEventInput);
+    expect(returnedEvent).toEqual({ ...mockPartialEvent, host: { id: hostId } });
   });
 
   it('should fetch all events', async () => {

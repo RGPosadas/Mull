@@ -9,9 +9,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useJoinEventMutation, useLeaveEventMutation } from '../../../generated/graphql';
-import UserContext from '../../context/user.context';
 import MullButton from '../mull-button/mull-button';
 import { ExpandableText } from './../expandable-text/expandable-text';
 import './event-page-info.scss';
@@ -38,16 +37,15 @@ export const EventPageInfo = ({
   const [joinEvent] = useJoinEventMutation();
   const [leaveEvent] = useLeaveEventMutation();
 
-  const { userId } = useContext(UserContext);
   const [joined, setJoined] = useState<boolean>(isJoined);
 
   const handleJoinEventButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     e.stopPropagation();
     setJoined(!joined);
     if (joined) {
-      leaveEvent({ variables: { eventId: event.id, userId } });
+      leaveEvent({ variables: { eventId: event.id } });
     } else {
-      joinEvent({ variables: { eventId: event.id, userId } });
+      joinEvent({ variables: { eventId: event.id } });
     }
   };
 

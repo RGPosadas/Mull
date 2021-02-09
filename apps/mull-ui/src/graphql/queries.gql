@@ -32,40 +32,40 @@ fragment EventCardContent on Event {
   }
 }
 
-query DiscoverEvents($userId: Int!) {
-  discoverEvents(userId: $userId) {
+query DiscoverEvents {
+  discoverEvents {
     ...EventCardContent
   }
 }
 
 # Gets all related events to a user
-query OwnedEvents($userId: Int!) {
-  coHostEvents(coHostId: $userId) {
+query OwnedEvents {
+  coHostEvents {
     ...EventCardContent
   }
-  hostEvents(hostId: $userId) {
+  hostEvents {
     ...EventCardContent
   }
 }
 
 # Get all the events that a user is participating in
-query ParticipantEvents($userId: Int!) {
-  participantEvents(userId: $userId) {
+query ParticipantEvents {
+  participantEvents {
     ...EventCardContent
   }
 }
 
 # Find events by Id and finds participating events of user
-query EventPage($eventId: Int!, $userId: Int!) {
-  isParticipant(eventId: $eventId, userId: $userId)
+query EventPage($eventId: Int!) {
+  isParticipant(eventId: $eventId)
 
   event(id: $eventId) {
     ...EventPageContent
   }
 }
 
-query User($userId: Int!) {
-  user(id: $userId) {
+query User {
+  user {
     id
     name
   }

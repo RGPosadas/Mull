@@ -36,7 +36,6 @@ describe('myEventsPage', () => {
         {
           request: {
             query: OwnedEventsDocument,
-            variables: { userId: 1 },
           },
           result: {
             data: {

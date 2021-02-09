@@ -109,8 +109,8 @@ export class EventService {
       .getMany();
   }
 
-  async createEvent(input: CreateEventInput): Promise<Event> {
-    return await this.eventRepository.save(input);
+  async createEvent(hostId: number, input: CreateEventInput): Promise<Event> {
+    return await this.eventRepository.save({ ...input, host: { id: hostId } });
   }
 
   async updateEvent(input: UpdateEventInput): Promise<Event> {
