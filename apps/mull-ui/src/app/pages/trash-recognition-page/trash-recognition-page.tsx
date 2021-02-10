@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { MULL_MODEL_URL } from '../../../constants';
+import { drawDetectionIcons } from '../../../utilities';
 import { TensorflowJsModel } from '../../services/tfjs.model';
 import './trash-recognition-page.scss';
 
@@ -26,12 +27,8 @@ export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
       numResults: 100,
     });
     const ctx = canvasRef.current.getContext('2d');
-    ctx.strokeStyle = '#00ff00';
-    results.forEach((result) => {
-      const box = result.bndBox;
-      ctx.strokeRect(box.x, box.y, box.width, box.height);
-      ctx.strokeText(result.class, box.x, box.y);
-    });
+    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    drawDetectionIcons(ctx, results);
   };
 
   return (
@@ -40,7 +37,7 @@ export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
       <img
         alt="Test"
         ref={imgRef}
-        src="https://farm4.staticflickr.com/7372/9303908257_374934b32f_o.jpg"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Apple_pie.jpg/1200px-Apple_pie.jpg"
         width={width}
         className="trash-recognition-overlap"
       />
