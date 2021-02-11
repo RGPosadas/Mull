@@ -20,11 +20,13 @@ const mockEventRepository = () => ({
   createQueryBuilder: jest.fn(() => ({
     select: jest.fn().mockReturnThis(),
     leftJoin: jest.fn().mockReturnThis(),
+    orWhere: jest.fn().mockReturnThis(),
     distinct: jest.fn().mockReturnThis(),
     where: jest.fn().mockReturnThis(),
     andWhere: jest.fn().mockReturnThis(),
     leftJoinAndSelect: jest.fn().mockReturnThis(),
     setParameter: jest.fn().mockReturnThis(),
+    setParameters: jest.fn().mockReturnThis(),
     getQuery: jest.fn().mockReturnThis(),
     getMany: jest.fn().mockReturnValue(mockAllEvents[0]),
   })),
@@ -185,5 +187,10 @@ describe('EventService', () => {
   it('should get an image', async () => {
     const image = await service.getEventImage(36);
     expect(image).toEqual(mockAllEvents[1].image);
+  });
+
+  it(`should return a user's portfolio`, async () => {
+    const portfolio = await service.getUserEventsPortfolio(mockAllEvents[0].host.id);
+    expect(portfolio).toEqual(mockAllEvents[0]);
   });
 });

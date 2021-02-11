@@ -1,7 +1,8 @@
 import { RegistrationMethod } from '@mull/types';
 import { Field, InputType, Int } from '@nestjs/graphql';
 import { IsDate, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
-import { User } from '../../entities';
+import { Media, User } from '../../entities';
+import { MediaInput } from '../../media/inputs/media.input';
 
 @InputType()
 export class UserInput implements Partial<User> {
@@ -29,6 +30,9 @@ export class CreateUserInput implements Partial<User> {
 
   @Field(() => RegistrationMethod)
   registrationMethod: RegistrationMethod;
+
+  @Field()
+  joinDate: Date;
 }
 
 @InputType()
@@ -39,7 +43,7 @@ export class UpdateUserInput implements Partial<User> {
   @Field({ nullable: true })
   @IsOptional()
   @IsDate()
-  dob: Date;
+  dob?: Date;
 
   @Field({ nullable: true })
   @IsOptional()
@@ -49,4 +53,12 @@ export class UpdateUserInput implements Partial<User> {
   @IsOptional()
   @IsEmail()
   email?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  description?: string;
+
+  @Field(/* istanbul ignore next */ () => MediaInput, { nullable: true })
+  @IsOptional()
+  avatar?: Media;
 }

@@ -15,6 +15,7 @@ input CreateEventInput {
 input CreateUserInput {
   dob: DateTime
   email: String!
+  joinDate: DateTime!
   name: String!
   password: String
   registrationMethod: RegistrationMethod!
@@ -79,7 +80,8 @@ type Mutation {
   leaveEvent(eventId: Int!): Boolean!
   login(loginInput: LoginInput!): LoginResult!
   updateEvent(event: UpdateEventInput!): Event!
-  updateUser(user: UpdateUserInput!): User!
+  updateFile(newFile: Upload!, oldFile: MediaInput!): Media!
+  updateUser(newAvatar: Upload, userInput: UpdateUserInput!): User!
   uploadFile(file: Upload!): Media!
 }
 
@@ -99,10 +101,13 @@ type Query {
   discoverEvents: [Event!]!
   event(id: Int!): Event!
   events: [Event!]!
+  friendCount: Int!
   hostEvents: [Event!]!
+  hostingCount: Int!
   isParticipant(eventId: Int!): Boolean!
   location(id: Int!): Location!
   participantEvents: [Event!]!
+  portfolioCount: Int!
   user: User!
   users: [User!]!
 }
@@ -125,6 +130,8 @@ input UpdateEventInput {
 }
 
 input UpdateUserInput {
+  avatar: MediaInput
+  description: String
   dob: DateTime
   email: String
   id: Int!
@@ -135,11 +142,13 @@ input UpdateUserInput {
 scalar Upload
 
 type User {
+  avatar: Media
   description: String!
-  dob: DateTime!
+  dob: DateTime
   email: String!
   friends: [User!]!
   id: Int!
+  joinDate: DateTime!
   name: String!
   password: String
   registrationMethod: RegistrationMethod!

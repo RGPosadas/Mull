@@ -14,11 +14,11 @@ export class UserService {
   ) {}
 
   getAllUsers(): Promise<User[]> {
-    return this.userRepository.find();
+    return this.userRepository.find({ relations: ['avatar'] });
   }
 
   getUser(id: number): Promise<User> {
-    return this.userRepository.findOne(id);
+    return this.userRepository.findOne(id, { relations: ['avatar'] });
   }
 
   findByEmail(email: string): Promise<User[]> {

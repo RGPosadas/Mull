@@ -36,7 +36,11 @@ const Register = ({ history }: RegisterProps) => {
 
     onSubmit: async (values) => {
       notifyToast('Registering new user...');
-      const user = { ...values, registrationMethod: RegistrationMethod.Local };
+      const user = {
+        ...values,
+        joinDate: new Date(),
+        registrationMethod: RegistrationMethod.Local,
+      };
 
       try {
         var { errors } = await createUser({ variables: { user } });

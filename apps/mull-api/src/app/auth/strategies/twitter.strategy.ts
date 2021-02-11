@@ -28,6 +28,7 @@ export class TwitterStrategy extends PassportStrategy(Strategy, 'twitter') {
       name: username,
       email: emails[0].value,
       registrationMethod: RegistrationMethod.TWITTER,
+      joinDate: new Date(),
     };
     await this.authService.validateOAuthUser(user, done);
   }

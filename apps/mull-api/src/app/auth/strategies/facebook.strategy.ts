@@ -29,6 +29,7 @@ export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
       name: `${first_name} ${last_name}`,
       email: email,
       registrationMethod: RegistrationMethod.FACEBOOK,
+      joinDate: new Date(),
     };
     await this.authService.validateOAuthUser(user, done);
   }

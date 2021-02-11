@@ -30,6 +30,7 @@ export type CreateEventInput = {
 export type CreateUserInput = {
   dob?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
+  joinDate: Scalars['DateTime'];
   name: Scalars['String'];
   password?: Maybe<Scalars['String']>;
   registrationMethod: RegistrationMethod;
@@ -222,6 +223,7 @@ export type User = {
   email: Scalars['String'];
   friends: Array<User>;
   id: Scalars['Int'];
+  joinDate: Scalars['DateTime'];
   name: Scalars['String'];
   password?: Maybe<Scalars['String']>;
   registrationMethod: RegistrationMethod;

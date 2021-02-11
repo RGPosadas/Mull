@@ -1,8 +1,18 @@
 import { RegistrationMethod } from '@mull/types';
 import { UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { mockAllEvents } from '../event/event.mockdata';
+import { EventService } from '../event/event.service';
+import { mockFileJPEG, mockFilePNG } from '../media/media.mockdata';
+import { MediaService } from '../media/media.service';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
-import { mockAllUsers, mockNewPartialUser, mockPartialUser } from './user.mockdata';
+import {
+  mockAllUsers,
+  mockExpectedUpdatedUser,
+  mockNewPartialUser,
+  mockPartialUser,
+  mockUpdateUserInput,
+} from './user.mockdata';
 import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
 
@@ -16,8 +26,34 @@ const mockUserService = () => ({
     );
   }),
   getFriends: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id).friends),
-  updateUser: jest.fn((mockUserData: UpdateUserInput) => ({ ...mockUserData })),
+  updateUser: jest.fn((userInput: UpdateUserInput) => {
+    return mockExpectedUpdatedUser.find((user) => user.id === userInput.id);
+  }),
   deleteUser: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
+});
+
+const mockEventService = () => ({
+  getUserEventsPortfolio: jest.fn(() => [mockAllEvents[0], mockAllEvents[1]]),
+  getEventsHostedByUser: jest.fn((id: number) => [
+    mockAllEvents.find((event) => event.host.id === id),
+  ]),
+});
+
+const mockMediaService = () => ({
+  uploadFile: jest.fn(() => {
+    return {
+      id: 1,
+      mediaType: 'jpeg',
+      post: null,
+    };
+  }),
+  updateFile: jest.fn(() => {
+    return {
+      id: 2,
+      mediaType: 'png',
+      post: null,
+    };
+  }),
 });
 
 describe('UserResolver', () => {
@@ -26,10 +62,9 @@ describe('UserResolver', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UserResolver,
-        {
-          provide: UserService,
-          useFactory: mockUserService,
-        },
+        { provide: UserService, useFactory: mockUserService },
+        { provide: EventService, useFactory: mockEventService },
+        { provide: MediaService, useFactory: mockMediaService },
       ],
     }).compile();
 
@@ -71,9 +106,14 @@ describe('UserResolver', () => {
     expect(returnedUserFriends).toEqual(mockAllUsers[0].friends);
   });
 
-  it('should update the user', async () => {
-    const updatedUser = await resolver.updateUser(mockPartialUser as UpdateUserInput);
-    expect(updatedUser).toEqual(mockPartialUser);
+  it('should update the user and upload a new avatar', async () => {
+    const updatedUser = await resolver.updateUser(mockUpdateUserInput[0], mockFileJPEG);
+    expect(updatedUser).toEqual(mockExpectedUpdatedUser[0]);
+  });
+
+  it('should update the user and update its avatar', async () => {
+    const updatedUser = await resolver.updateUser(mockUpdateUserInput[1], mockFilePNG);
+    expect(updatedUser).toEqual(mockExpectedUpdatedUser[1]);
   });
 
   it('should return the deleted user', async () => {
@@ -84,5 +124,17 @@ describe('UserResolver', () => {
   it('should return the user with given id', async () => {
     const foundUser = await resolver.user(1);
     expect(foundUser).toEqual(mockAllUsers.find((user) => user.id === 1));
+  });
+
+  it(`'should return the user's friend count`, async () => {
+    expect(await resolver.friendCount(1)).toEqual(2);
+  });
+
+  it(`'should return the user's hosting count`, async () => {
+    expect(await resolver.hostingCount(1)).toEqual(1);
+  });
+
+  it(`'should return the user's portfolio count`, async () => {
+    expect(await resolver.portfolioCount(3)).toEqual(2);
   });
 });

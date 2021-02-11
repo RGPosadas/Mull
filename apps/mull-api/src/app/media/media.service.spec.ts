@@ -1,19 +1,27 @@
+import { InternalServerErrorException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { unlinkSync } from 'fs';
 import { Media } from '../entities';
-import { mockFile, mockInvalidFile, mockMedia } from './media.mockdata';
+import {
+  mockAllMedias,
+  mockFileJPEG,
+  mockFilePNG,
+  mockInvalidFile,
+  mockMediaInput,
+} from './media.mockdata';
 import { MediaService } from './media.service';
 
 const mockMediaRepository = () => ({
-  findOne: jest.fn(() => mockMedia),
-  create: jest.fn((mockMimeType: string) => {
-    const mockFileType = mockMimeType.split('/')[1];
-    const mockMedia = new Media(mockFileType);
-    mockMedia.id = 7;
-    return mockMedia;
+  findOne: jest.fn((id: number) => mockAllMedias[id - 1]),
+  save: jest.fn((file: Media) => {
+    file.id = file.mediaType == 'jpeg' ? 1 : 2;
+    file.post = null;
+    return file;
   }),
-  save: jest.fn((file: Media) => file),
+  update: jest.fn((id: number) => {
+    return { id: id, mediaType: id == 2 ? 'jpeg' : 'png', post: null };
+  }),
 });
 
 describe('MediaService', () => {
@@ -34,8 +42,12 @@ describe('MediaService', () => {
 
   afterAll(() => {
     unlinkSync(`apps/mull-api/uploads/0.jpeg`);
+    unlinkSync(`apps/mull-api/uploads/1.jpeg`);
+    unlinkSync(`apps/mull-api/uploads/2.png`);
+    unlinkSync(`apps/mull-api/uploads/2.jpeg`);
     unlinkSync(`apps/mull-api/uploads/undefined.jpeg`);
-    unlinkSync(`apps/mull-api/uploads/zoro`);
+    unlinkSync(`apps/mull-api/uploads/zoro.jpeg`);
+    unlinkSync(`apps/mull-api/uploads/luffy.png`);
   });
 
   it('should be defined', () => {
@@ -43,23 +55,23 @@ describe('MediaService', () => {
   });
 
   it('should upload a file', async () => {
-    const mockUploadedFile = await service.uploadFile(mockFile);
-    expect(mockUploadedFile).toEqual(mockMedia);
+    const mockUploadedFile = await service.uploadFile(mockFileJPEG);
+    expect(mockUploadedFile).toEqual(mockAllMedias[0]);
   });
 
   it('should not upload an invalid file', async () => {
-    const expectedError = new Error('Internal Server Error');
-    const errorMedia = await service.uploadFile(mockInvalidFile);
-    expect(errorMedia).toEqual(expectedError);
+    await expect(() => service.uploadFile(mockInvalidFile)).rejects.toThrow(
+      InternalServerErrorException
+    );
   });
 
   it('should create media', async () => {
-    const returnedMedia = await service.createMedia(mockFile.mimetype);
-    expect(returnedMedia.mediaType).toEqual(mockFile.mimetype.split('/')[1]);
+    const returnedMedia = await service.createMedia(mockFileJPEG.mimetype);
+    expect(returnedMedia.mediaType).toEqual(mockFileJPEG.mimetype.split('/')[1]);
   });
 
   it('should create a file', async () => {
-    const returnedPromise = await service.saveFile(mockFile);
+    const returnedPromise = await service.saveFile(mockFileJPEG);
     expect(returnedPromise).toEqual(true);
   });
 
@@ -70,8 +82,8 @@ describe('MediaService', () => {
   });
 
   it('should rename a file', async () => {
-    const mockFileType = mockFile.mimetype.split('/')[1];
-    const mockRenameFileName = service.updateFilename(mockFile.filename, 0, mockFileType);
+    const mockFileType = mockFileJPEG.mimetype.split('/')[1];
+    const mockRenameFileName = service.updateFilename(mockFileJPEG.filename, 0, mockFileType);
     expect(mockRenameFileName).toEqual(true);
   });
 
@@ -85,7 +97,19 @@ describe('MediaService', () => {
   });
 
   it('should find an image', async () => {
-    const foundMedia = await service.getMedia(7);
-    expect(foundMedia).toEqual(mockMedia);
+    const foundMedia = await service.getMedia(1);
+    expect(foundMedia).toEqual(mockAllMedias[0]);
+  });
+
+  it('should update a file', async () => {
+    await service.uploadFile(mockFilePNG);
+    const updatedFile = await service.updateFile(mockFileJPEG, mockMediaInput);
+    expect(updatedFile).toEqual(mockAllMedias[1]);
+  });
+
+  it('should not update an invalid file', async () => {
+    await expect(() => service.updateFile(mockInvalidFile, mockMediaInput)).rejects.toThrow(
+      InternalServerErrorException
+    );
   });
 });
