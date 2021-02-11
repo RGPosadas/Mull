@@ -14,6 +14,7 @@ import { EntitiesModule } from './entities';
 import { EventModule } from './event/event.module';
 import { LocationModule } from './location/location.module';
 import { MediaModule } from './media/media.module';
+import { PostModule } from './post/post.module';
 // Modules
 import { UserModule } from './user';
 
@@ -55,6 +56,7 @@ import { UserModule } from './user';
         credentials: true,
       },
       context: ({ req, res }) => ({ req, res }),
+      installSubscriptionHandlers: true,
     }),
     SessionModule.forRoot({
       session: {
@@ -64,6 +66,7 @@ import { UserModule } from './user';
         saveUninitialized: false,
       },
     }),
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],
