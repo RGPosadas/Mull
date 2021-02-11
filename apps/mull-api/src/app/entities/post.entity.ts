@@ -1,3 +1,4 @@
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -13,30 +14,38 @@ import { PostReaction } from './post-reaction.entity';
 import { User } from './user.entity';
 
 @Entity()
+@ObjectType()
 export class Post {
+  @Field(/* istanbul ignore next */ () => Int)
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => User)
-  @JoinColumn()
+  @Field(/* istanbul ignore next */ () => User)
+  @ManyToOne(/* istanbul ignore next */ () => User, /* istanbul ignore next */ (user) => user.posts)
   user: User;
 
-  @OneToOne(() => Post)
+  @Field({ nullable: true })
+  @OneToOne(/* istanbul ignore next */ () => Post)
   @JoinColumn()
-  parentPost: Post;
+  parentPost?: Post;
 
+  @Field()
   @Column()
   message: string;
 
+  @Field()
   @Column()
   createdTime: Date;
 
+  @Field(/* istanbul ignore next */ () => [Media], { nullable: true })
   @OneToMany(() => Media, (media) => media.post)
-  medias: Media[];
+  medias?: Media[];
 
-  @OneToMany(() => PostReaction, (reaction) => reaction.post)
-  reactions: PostReaction[];
+  @Field(/* istanbul ignore next */ () => [PostReaction], { nullable: true })
+  @OneToMany(/* istanbul ignore next */ () => PostReaction, (reaction) => reaction.post)
+  reactions?: PostReaction[];
 
-  @ManyToOne(() => Channel, (channel) => channel.posts)
+  @Field(/* istanbul ignore next */ () => Channel)
+  @ManyToOne(/* istanbul ignore next */ () => Channel, (channel) => channel.posts)
   channel: Channel;
 }
