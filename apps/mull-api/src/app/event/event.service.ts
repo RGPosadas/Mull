@@ -165,18 +165,10 @@ export class EventService {
       .leftJoin('event.host', 'host')
       .leftJoin('event.coHosts', 'coHost')
       .leftJoin('event.participants', 'user')
-      .where('host.id = :userId AND event.endDate < :currentDateTime', {
-        userId,
-        currentDateTime: currentDateTime,
-      })
-      .orWhere('coHost.id = :userId AND event.endDate < :currentDateTime', {
-        userId,
-        currentDateTime: currentDateTime,
-      })
-      .orWhere('user.id = :userId AND event.endDate < :currentDateTime', {
-        userId,
-        currentDateTime: currentDateTime,
-      })
+      .where('host.id = :userId AND event.endDate < :currentDateTime')
+      .orWhere('coHost.id = :userId AND event.endDate < :currentDateTime')
+      .orWhere('user.id = :userId AND event.endDate < :currentDateTime')
+      .setParameters({ userId, currentDateTime: currentDateTime })
       .getMany();
   }
 }
