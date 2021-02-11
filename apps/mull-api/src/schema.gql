@@ -2,6 +2,19 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Channel {
+  event: Event!
+  id: Int!
+  name: String!
+  participants: [User!]!
+  posts: [Post!]!
+  rights: Int!
+}
+
+input ChannelInput {
+  id: Float!
+}
+
 input CreateEventInput {
   description: String!
   endDate: DateTime!
@@ -10,6 +23,16 @@ input CreateEventInput {
   restriction: Int!
   startDate: DateTime!
   title: String!
+}
+
+input CreatePostInput {
+  channel: ChannelInput
+  createdTime: DateTime!
+  medias: MediaInput
+  message: String!
+  parentPost: ParentPostInput
+  reactions: PostReactionInput
+  user: UserInput!
 }
 
 input CreateUserInput {
@@ -74,15 +97,20 @@ type Mutation {
   createEvent(event: CreateEventInput!): Event!
   createLocation(location: LocationInput!): Location!
   createUser(user: CreateUserInput!): User!
-  deleteEvent(id: Int!): Event!
+  deleteEvent(id: Int!): Post!
   deleteUser: User!
   joinEvent(eventId: Int!): Boolean!
   leaveEvent(eventId: Int!): Boolean!
   login(loginInput: LoginInput!): LoginResult!
-  updateEvent(event: UpdateEventInput!): Event!
+  post(post: CreatePostInput!): Post!
+  updateEvent(post: UpdatePostInput!): Post!
   updateFile(newFile: Upload!, oldFile: MediaInput!): Media!
   updateUser(newAvatar: Upload, userInput: UpdateUserInput!): User!
   uploadFile(file: Upload!): Media!
+}
+
+input ParentPostInput {
+  id: Int!
 }
 
 type Point {
@@ -94,6 +122,28 @@ type Point {
 input PointInput {
   lat: Float!
   long: Float!
+}
+
+type Post {
+  channel: Channel!
+  createdTime: DateTime!
+  id: Int!
+  medias: [Media!]
+  message: String!
+  parentPost: Post
+  reactions: [PostReaction!]
+  user: User!
+}
+
+type PostReaction {
+  id: Int!
+  post: Post!
+  type: Int!
+  user: User!
+}
+
+input PostReactionInput {
+  id: Int!
 }
 
 type Query {
@@ -108,6 +158,7 @@ type Query {
   location(id: Int!): Location!
   participantEvents: [Event!]!
   portfolioCount: Int!
+  posts: [Post!]!
   user: User!
   users: [User!]!
 }
@@ -119,14 +170,19 @@ enum RegistrationMethod {
   TWITTER
 }
 
-input UpdateEventInput {
-  description: String
-  endDate: DateTime
+type Subscription {
+  postAdded: Post!
+}
+
+input UpdatePostInput {
+  channel: ChannelInput
+  createdTime: DateTime!
   id: Int!
-  location: LocationInput!
-  restriction: Int
-  startDate: DateTime
-  title: String
+  medias: MediaInput
+  message: String!
+  parentPost: ParentPostInput
+  reactions: PostReactionInput
+  user: UserInput!
 }
 
 input UpdateUserInput {
@@ -153,4 +209,8 @@ type User {
   password: String
   registrationMethod: RegistrationMethod!
   timezone: String!
+}
+
+input UserInput {
+  id: Int!
 }
