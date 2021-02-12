@@ -13,9 +13,10 @@ import './user-profile.scss';
 
 export interface userProfileProps {
   joinDate?: string;
+  friendRequestCount?: number;
 }
 
-export const UserProfilePage = ({ joinDate }: userProfileProps) => {
+export const UserProfilePage = ({ joinDate, friendRequestCount }: userProfileProps) => {
   return (
     <div>
       <ProfileHeader
@@ -34,7 +35,7 @@ export const UserProfilePage = ({ joinDate }: userProfileProps) => {
         <h3>Friends</h3>
         <SettingsButton icon={faUserPlus} settingName="Add Friends"></SettingsButton>
         <SettingsButton icon={faUserFriends} settingName="My Friends"></SettingsButton>
-        <p className="friend-request-count">4</p>
+        <p className="friend-request-count">{(friendRequestCount = 4)}</p>
       </div>
       <div className="settings-container below-friends">
         <h3>Misc.</h3>

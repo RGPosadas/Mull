@@ -8,7 +8,6 @@ describe('UserProfilePage', () => {
   it('should render successfully', () => {
     const { baseElement } = render(
       <BrowserRouter>
-        {' '}
         <UserProfilePage />
       </BrowserRouter>
     );
@@ -20,7 +19,6 @@ describe('UserProfilePage', () => {
     const tree = renderer
       .create(
         <BrowserRouter>
-          {' '}
           <UserProfilePage />
         </BrowserRouter>
       )
