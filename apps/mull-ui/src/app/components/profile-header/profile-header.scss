@@ -1,9 +1,13 @@
 @import '../../../variables.scss';
 
+.profile-background {
+  position: relative;
+}
+
 .profile-header {
   display: flex;
   justify-content: space-between;
-  margin: 1.25rem 0;
+  margin: 1.5rem 0;
   font-weight: bold;
 }
 
@@ -14,6 +18,8 @@
 .share-button {
   color: $primary-color;
   font-size: 1.5rem;
+  position: absolute;
+  right: 0;
 }
 
 .user-profile-picture {
@@ -21,7 +27,7 @@
   height: 5rem;
   object-fit: cover;
   border-radius: 50%;
-  border: 0.1rem solid black;
+  border: 1px solid black;
 }
 
 .profile-side-container,
@@ -42,22 +48,22 @@ for-current-user {
 
 .for-current-user {
   .profile-stats {
-    padding: 8% 4%;
+    padding: 8% 2%;
   }
 }
 
-.friend-status-button,
-.not-friends-status-button {
-  padding: 0.55rem;
-  width: 80%;
-  margin: 0.75rem;
-}
-
-.not-friends-status-button {
+.friend-status-button {
   background: white;
   border: 0.12rem solid $primary-color;
   color: black;
   font-weight: normal;
+}
+
+.friend-status-button,
+.not-friend-status-button {
+  padding: 0.55rem;
+  width: 80%;
+  margin: 0.75rem;
 }
 
 .user-description-container {

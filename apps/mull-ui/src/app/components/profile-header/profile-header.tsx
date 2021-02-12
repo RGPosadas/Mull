@@ -4,25 +4,22 @@ import React from 'react';
 import { MullButton } from '..';
 import './profile-header.scss';
 
-// TODO: Check UserID, if currentUserID == profileUserID, then it is true, so return without the Friend button, otherwise return with the Friend button
-let isCurrentUser = false;
-let isFriend = false;
-
-function checkFriendStatus() {
+function checkFriendStatus(isFriend: boolean) {
+  let friendStatus: string;
+  if (isFriend === true) {
+    friendStatus = 'Friends';
+  }
+  if (isFriend === false) {
+    friendStatus = 'Pending';
+  }
+  // No relation in the Friends table
+  if (isFriend === null) {
+    friendStatus = 'Add Friend';
+  }
   return (
     <div className="friend-status-container">
-      <MullButton className={isFriend ? 'friend-status-button' : 'not-friends-status-button'}>
-        {(() => {
-          switch (isFriend) {
-            case true:
-              return 'Friends';
-            case false:
-              return 'Pending';
-            // No relation at all in the Friends table
-            case null:
-              return 'Add Friend';
-          }
-        })()}
+      <MullButton className={isFriend ? 'friend-status-button' : 'not-friend-status-button'}>
+        {friendStatus}
       </MullButton>
     </div>
   );
@@ -45,12 +42,15 @@ export const ProfileHeader = ({
   userHosting = 0,
   userDescription = '',
 }: profileHeaderProps) => {
+  // TODO: Check UserID, if currentUserID == profileUserID, then it is true, so return without the Friend button, otherwise return with the Friend button
+  const isCurrentUser = false;
+  const isFriend = true;
   return (
     <div className="profile-background">
       <div className="user-name-container">
         <h1>{userName}</h1>
-        <button>
-          <FontAwesomeIcon className="share-button" icon={faShareAlt} />
+        <button className="share-button">
+          <FontAwesomeIcon icon={faShareAlt} />
         </button>
       </div>
       <div className="profile-header">
@@ -75,7 +75,7 @@ export const ProfileHeader = ({
             <br />
             Hosting
           </button>
-          {isCurrentUser ? null : checkFriendStatus()}
+          {isCurrentUser ? null : checkFriendStatus(isFriend)}
         </div>
       </div>
       <div className="user-description-container">
