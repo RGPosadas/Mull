@@ -4,8 +4,31 @@
   padding: 0.5rem 0;
 }
 
+.with-friends {
+  padding: 0.9rem 0 0 0;
+}
+
+.below-friends {
+  padding: 0 0 0.5rem 0;
+}
+
 .joined-date-container {
   color: $inactive-button-color;
   margin: 0.5rem;
   text-align: center;
+}
+
+.friend-request-count {
+  display: flex;
+  background-color: $primary-color;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-weight: bold;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -6.7rem;
+  left: 90%;
 }

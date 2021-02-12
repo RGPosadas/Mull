@@ -16,7 +16,7 @@
   font-size: 1.5rem;
 }
 
-.profile-picture {
+.user-profile-picture {
   width: 5rem;
   height: 5rem;
   object-fit: cover;
@@ -24,8 +24,40 @@
   border: 0.1rem solid black;
 }
 
+.profile-side-container,
+for-current-user {
+  width: 100%;
+  text-align: center;
+}
+
 .profile-stats {
   font-weight: bold;
+  padding: 0 4%;
+}
+
+.friend-status-container {
+  display: flex;
+  justify-content: center;
+}
+
+.for-current-user {
+  .profile-stats {
+    padding: 8% 4%;
+  }
+}
+
+.friend-status-button,
+.not-friends-status-button {
+  padding: 0.55rem;
+  width: 80%;
+  margin: 0.75rem;
+}
+
+.not-friends-status-button {
+  background: white;
+  border: 0.12rem solid $primary-color;
+  color: black;
+  font-weight: normal;
 }
 
 .user-description-container {

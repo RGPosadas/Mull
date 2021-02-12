@@ -11,7 +11,11 @@ import ProfileHeader from '../../../components/profile-header/profile-header';
 import SettingsButton from '../../../components/settings-button/settings-button';
 import './user-profile.scss';
 
-export const UserProfilePage = () => {
+export interface userProfileProps {
+  joinDate?: string;
+}
+
+export const UserProfilePage = ({ joinDate }: userProfileProps) => {
   return (
     <div>
       <ProfileHeader
@@ -26,12 +30,13 @@ export const UserProfilePage = () => {
         <h3>Portfolio</h3>
         <SettingsButton icon={faLeaf} settingName="My Portfolio"></SettingsButton>
       </div>
-      <div className="settings-container">
+      <div className="settings-container with-friends">
         <h3>Friends</h3>
         <SettingsButton icon={faUserPlus} settingName="Add Friends"></SettingsButton>
         <SettingsButton icon={faUserFriends} settingName="My Friends"></SettingsButton>
+        <p className="friend-request-count">4</p>
       </div>
-      <div className="settings-container">
+      <div className="settings-container below-friends">
         <h3>Misc.</h3>
         <Link to="/profile/edit">
           <SettingsButton icon={faPencilAlt} settingName="Edit Profile"></SettingsButton>
@@ -39,7 +44,7 @@ export const UserProfilePage = () => {
         <SettingsButton icon={faCog} settingName="Settings"></SettingsButton>
       </div>
       <div className="joined-date-container">
-        <p>Joined Müll on February 2, 2021</p>
+        <p>Joined Müll on {(joinDate = 'February 2, 2021')}</p>
       </div>
     </div>
   );
