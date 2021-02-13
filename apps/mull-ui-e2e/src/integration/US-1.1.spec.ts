@@ -87,6 +87,40 @@ frameSizes.forEach((frame) => {
       cy.get('#location ~ .error-message').should('have.text', 'Event Location is required.');
     });
 
+    it('should show an error when end time is greater than start time', () => {
+      cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
+
+      cy.get('#startTime').type('11:20');
+
+      cy.get('#endTime').type('08:20');
+
+      cy.get('#eventTitle').type('test title');
+
+      cy.get('.-today').click();
+      cy.get('.-today').click();
+
+      cy.get('#description').type('test description');
+
+      cy.get('#location').click();
+      cy.get('#location-input-field').should('be.visible');
+
+      cy.get('#location-input-field').type('845 Rue Sherbrooke');
+      cy.get('#location-input-field-option-0', { timeout: 3500 }).should(
+        'contain.text',
+        '845 Rue Sherbrooke'
+      );
+
+      cy.get('#location-input-field-option-0', { timeout: 5000 }).click();
+      cy.get('[data-testid=pill-id-1]').click();
+      cy.get('.create-event-button').click();
+      cy.get('.event-page-button').click();
+
+      cy.get('#endTime ~ .error-message').should(
+        'have.text',
+        'The end time must be after the start time.'
+      );
+    });
+
     it('should show a successful submission message', () => {
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
 

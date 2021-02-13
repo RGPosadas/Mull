@@ -4,6 +4,7 @@ import { EventRestriction, EventRestrictionMap, ICreateEventForm } from '@mull/t
 import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
 import { History } from 'history';
 import { cloneDeep, isEmpty } from 'lodash';
+import moment from 'moment';
 import React, { ChangeEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
@@ -88,7 +89,12 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           return diff <= 30 * DAY_IN_MILLISECONDS;
         }),
       startTime: Yup.string().required('Start Time is required.'),
-      endTime: Yup.string().required('End Time is required.'),
+      endTime: Yup.string()
+        .required('End Time is required.')
+        .test('is-greater', 'The end time must be after the start time.', function (value) {
+          const { startTime } = this.parent;
+          return moment(value, 'HH:mm').isSameOrAfter(moment(startTime, 'HH:mm'));
+        }),
       eventTitle: Yup.string()
         .required('Event Title is required.')
         .max(65, 'Event Title length must be under 65 characters.'),
