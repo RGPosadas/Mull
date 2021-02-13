@@ -1,13 +1,10 @@
 import { Post } from '../entities';
-import { mockAllEvents } from '../event/event.mockdata';
 import { mockAllUsers } from '../user/user.mockdata';
 import { CreatePostInput, UpdatePostInput } from './inputs/post.input';
 
 const userA = mockAllUsers[0]; // id: 1
 const userB = mockAllUsers[1]; // id: 7
 const userC = mockAllUsers[2]; // id: 3
-
-const mockEventA = mockAllEvents[0];
 
 export const mockPartialPosts: CreatePostInput | UpdatePostInput = {
   id: 22,

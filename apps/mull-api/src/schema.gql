@@ -97,14 +97,16 @@ type Mutation {
   createEvent(event: CreateEventInput!): Event!
   createLocation(location: LocationInput!): Location!
   createUser(user: CreateUserInput!): User!
-  deleteEvent(id: Int!): Post!
+  deleteEvent(id: Int!): Event!
+  deletePost(id: Int!): Post!
   deleteUser: User!
   joinEvent(eventId: Int!): Boolean!
   leaveEvent(eventId: Int!): Boolean!
   login(loginInput: LoginInput!): LoginResult!
   post(post: CreatePostInput!): Post!
-  updateEvent(post: UpdatePostInput!): Post!
+  updateEvent(event: UpdateEventInput!): Event!
   updateFile(newFile: Upload!, oldFile: MediaInput!): Media!
+  updatePost(post: UpdatePostInput!): Post!
   updateUser(newAvatar: Upload, userInput: UpdateUserInput!): User!
   uploadFile(file: Upload!): Media!
 }
@@ -172,6 +174,16 @@ enum RegistrationMethod {
 
 type Subscription {
   postAdded: Post!
+}
+
+input UpdateEventInput {
+  description: String
+  endDate: DateTime
+  id: Int!
+  location: LocationInput!
+  restriction: Int
+  startDate: DateTime
+  title: String
 }
 
 input UpdatePostInput {
