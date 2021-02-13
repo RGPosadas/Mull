@@ -1,16 +1,13 @@
 import { Args, Int, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
-import { PubSub } from 'graphql-subscriptions';
 import { Post } from '../entities';
 import { CreatePostInput, UpdatePostInput } from './inputs/post.input';
+import pubSub from './post.pubsub';
 import { PostService } from './post.service';
-
-const pubSub = new PubSub();
 
 @Resolver(() => Post)
 export class PostResolver {
   constructor(private readonly postService: PostService) {}
-
-  @Subscription(() => Post)
+  @Subscription(/* istanbul ignore next */ () => Post)
   postAdded() {
     return pubSub.asyncIterator(['postAdded']);
   }
@@ -30,12 +27,12 @@ export class PostResolver {
   }
 
   @Mutation(/* istanbul ignore next */ () => Post)
-  async updateEvent(@Args('post') post: UpdatePostInput) {
+  async updatePost(@Args('post') post: UpdatePostInput) {
     return this.postService.updatePost(post);
   }
 
   @Mutation(/* istanbul ignore next */ () => Post)
-  async deleteEvent(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+  async deletePost(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
     return this.postService.deletePost(id);
   }
 }

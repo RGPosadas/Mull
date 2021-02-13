@@ -26,6 +26,7 @@ import { UserModule } from './user';
     MediaModule,
     AuthModule,
     LocationModule,
+    PostModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: environment.db.host,
@@ -66,7 +67,6 @@ import { UserModule } from './user';
         saveUninitialized: false,
       },
     }),
-    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],
