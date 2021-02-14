@@ -6,6 +6,14 @@ import jwtDecode from 'jwt-decode';
 import { getAccessToken, setAccessToken } from '../app/access-token';
 import { environment } from '../environments/environment';
 
+/**
+ * This link is responsible for refreshing the access token when it expires.
+ *
+ * isTokenValidOrUndefined checks if the access token expired and will
+ * call fetchAccessToken if it is.
+ *
+ * handleFetch is the callback for fetchAccessToken
+ */
 const tokenRefreshLink = new TokenRefreshLink({
   accessTokenField: 'accessToken',
   isTokenValidOrUndefined: () => {
@@ -34,6 +42,13 @@ const tokenRefreshLink = new TokenRefreshLink({
   },
 });
 
+/**
+ * This link is responsible for binding the authorization header
+ * on requests.
+ *
+ * It also provides attaches an observable to requests to re-run them
+ * if a 401 HTTP status is returned.
+ */
 const authLink = new ApolloLink(
   (operation, forward) =>
     new Observable((observer) => {
@@ -64,8 +79,10 @@ const authLink = new ApolloLink(
     })
 );
 
+// This is the link that requests are sent to
 const httpLink = new HttpLink({ uri: `${environment.backendUrl}/graphql`, credentials: 'include' });
 
+// This is the link that media upload requests are sent to
 const uploadLink = createUploadLink({
   uri: `${environment.backendUrl}/graphql`,
 });
