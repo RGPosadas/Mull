@@ -120,6 +120,7 @@
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "11.1.2",
     "@testing-library/user-event": "^12.2.2",
+    "@types/apollo-upload-client": "^14.1.0",
     "@types/bcrypt": "^3.0.0",
     "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.9",
