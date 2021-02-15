@@ -124,9 +124,7 @@ export const App = () => {
           <PrivateRoute path={ROUTES.CAMERA} component={TrashRecognitionPage} />
           <PrivateRoute>
             <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
-            <div className="page-container">
-              <PrivateRoute path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
-            </div>
+            <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
           </PrivateRoute>
           <PrivateRoute component={NotFoundPage} />
         </Switch>

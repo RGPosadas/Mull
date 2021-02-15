@@ -4,27 +4,6 @@ import React from 'react';
 import { MullButton } from '..';
 import './profile-header.scss';
 
-function checkFriendStatus(isFriend: boolean) {
-  let friendStatus: string;
-  if (isFriend === true) {
-    friendStatus = 'Friends';
-  }
-  if (isFriend === false) {
-    friendStatus = 'Pending';
-  }
-  // No relation in the Friends table
-  if (isFriend === null) {
-    friendStatus = 'Add Friend';
-  }
-  return (
-    <div className="friend-status-container">
-      <MullButton className={isFriend ? 'friend-status-button' : 'not-friend-status-button'}>
-        {friendStatus}
-      </MullButton>
-    </div>
-  );
-}
-
 export interface profileHeaderProps {
   userName?: string;
   userPicture?: string;
@@ -43,10 +22,31 @@ export const ProfileHeader = ({
   userDescription = '',
 }: profileHeaderProps) => {
   // TODO: Check UserID, if currentUserID == profileUserID, then it is true, so return without the Friend button, otherwise return with the Friend button
-  const isCurrentUser = false;
+  const isCurrentUser = true;
   const isFriend = true;
+
+  function checkFriendStatus(isFriend: boolean) {
+    let friendStatus: string;
+    if (isFriend === true) {
+      friendStatus = 'Friends';
+    } else if (isFriend === false) {
+      friendStatus = 'Pending';
+    }
+    // No relation in the Friends table
+    else {
+      friendStatus = 'Add Friend';
+    }
+    return (
+      <div className="friend-status-container">
+        <MullButton className={isFriend ? 'friend-status-button' : 'not-friend-status-button'}>
+          {friendStatus}
+        </MullButton>
+      </div>
+    );
+  }
+
   return (
-    <div className="profile-background">
+    <div className="profile-header-container">
       <div className="user-name-container">
         <h1>{userName}</h1>
         <button className="share-button">
