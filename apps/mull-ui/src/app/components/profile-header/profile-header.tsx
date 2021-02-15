@@ -43,7 +43,7 @@ export const ProfileHeader = ({
   userDescription = '',
 }: profileHeaderProps) => {
   // TODO: Check UserID, if currentUserID == profileUserID, then it is true, so return without the Friend button, otherwise return with the Friend button
-  const isCurrentUser = true;
+  const isCurrentUser = false;
   const isFriend = true;
   return (
     <div className="profile-background">

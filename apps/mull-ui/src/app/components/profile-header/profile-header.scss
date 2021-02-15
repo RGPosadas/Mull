@@ -31,14 +31,14 @@
 }
 
 .profile-side-container,
-for-current-user {
+.for-current-user {
   width: 100%;
   text-align: center;
 }
 
 .profile-stats {
   font-weight: bold;
-  padding: 0 4%;
+  width: 30%;
 }
 
 .friend-status-container {
@@ -48,7 +48,7 @@ for-current-user {
 
 .for-current-user {
   .profile-stats {
-    padding: 8% 2%;
+    padding: 1.5rem 0.5rem;
   }
 }
 

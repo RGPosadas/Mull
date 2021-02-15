@@ -3,7 +3,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import ProfileHeader from './profile-header';
 
-describe('ChatBubble', () => {
+describe('ProfileHeader', () => {
   it('should render successfully', () => {
     const { baseElement } = render(<ProfileHeader />);
 

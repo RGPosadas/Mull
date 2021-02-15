@@ -4,7 +4,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import SettingsButton from './settings-button';
 
-describe('ChatBubble', () => {
+describe('SettingsButton', () => {
   it('should render successfully', () => {
     const { baseElement } = render(<SettingsButton icon={faGraduationCap} />);
 
