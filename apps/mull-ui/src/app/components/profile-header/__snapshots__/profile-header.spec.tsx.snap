@@ -2,7 +2,7 @@
 
 exports[`ProfileHeader should match snapshot 1`] = `
 <div
-  className="profile-background"
+  className="profile-header-container"
 >
   <div
     className="user-name-container"
@@ -41,7 +41,7 @@ exports[`ProfileHeader should match snapshot 1`] = `
       src=""
     />
     <div
-      className="profile-side-container"
+      className="profile-side-container for-current-user"
     >
       <button
         className="profile-stats"
@@ -64,18 +64,6 @@ exports[`ProfileHeader should match snapshot 1`] = `
         <br />
         Hosting
       </button>
-      <div
-        className="friend-status-container"
-      >
-        <button
-          className="mull-button friend-status-button"
-          data-testid="mull-button"
-          onClick={[Function]}
-          type="submit"
-        >
-          Friends
-        </button>
-      </div>
     </div>
   </div>
   <div
