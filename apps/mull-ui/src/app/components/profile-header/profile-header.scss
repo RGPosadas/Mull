@@ -1,0 +1,72 @@
+@import '../../../variables.scss';
+
+.profile-header-container {
+  position: relative;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5rem 0;
+  font-weight: bold;
+}
+
+.user-name-container {
+  display: flex;
+}
+
+.share-button {
+  color: $primary-color;
+  font-size: 1.5rem;
+  position: absolute;
+  right: 0;
+}
+
+.user-profile-picture {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.profile-side-container,
+.for-current-user {
+  width: 100%;
+  text-align: center;
+}
+
+.profile-stats {
+  font-weight: bold;
+  width: 30%;
+}
+
+.friend-status-container {
+  display: flex;
+  justify-content: center;
+}
+
+.for-current-user {
+  .profile-stats {
+    padding: 1.5rem 0.5rem;
+  }
+}
+
+.friend-status-button {
+  background: white;
+  border: 0.12rem solid $primary-color;
+  color: black;
+  font-weight: normal;
+}
+
+.friend-status-button,
+.not-friend-status-button {
+  padding: 0.55rem;
+  width: 80%;
+  margin: 0.75rem;
+}
+
+.user-description-container {
+  display: flex;
+  margin-bottom: 1.25rem;
+}
