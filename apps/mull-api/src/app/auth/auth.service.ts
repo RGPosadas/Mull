@@ -34,7 +34,7 @@ export class AuthService {
   createAccessToken(user: Partial<User>) {
     return this.jwtService.sign(
       { id: user.id },
-      { expiresIn: '15m', secret: environment.jwt.accessSecret }
+      { expiresIn: '150m', secret: environment.jwt.accessSecret }
     );
   }
 

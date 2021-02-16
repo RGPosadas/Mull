@@ -107,3 +107,7 @@ export interface BoundingBox {
   width: number;
   height: number;
 }
+
+export interface IWebSocketParams {
+  authToken: string;
+}

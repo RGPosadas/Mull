@@ -1,3 +1,4 @@
+import { gql, useSubscription } from '@apollo/client';
 import React from 'react';
 import { ROUTES } from '../../../constants';
 import { ChatHeader, ChatInput, SubNavBar } from '../../components';
@@ -9,7 +10,21 @@ export interface MessagePageProps {
  * Adds a sub-nav-header and sub-navigation to the top of the page, above the children
  * Children are rendered in between and then adds a sticky chat-input at the bottom of the page.
  */
+
+const POSTS = gql`
+  subscription PostAdded {
+    postAdded {
+      message
+      createdTime
+      id
+    }
+  }
+`;
+
 export const MessagesPage = ({ children }: MessagePageProps) => {
+  const { data, loading } = useSubscription(POSTS);
+  if (loading) return <div>loading</div>;
+
   return (
     <div>
       <ChatHeader eventTitle="Clean up Rogers Park" />
@@ -19,6 +34,7 @@ export const MessagesPage = ({ children }: MessagePageProps) => {
       />
       {children}
       <ChatInput />
+      <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 };
