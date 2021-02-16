@@ -46,7 +46,7 @@ const tokenRefreshLink = new TokenRefreshLink({
  * This link is responsible for binding the authorization header
  * on requests.
  *
- * It also provides attaches an observable to requests to re-run them
+ * It also attaches an observable to requests to re-run them
  * if a 401 HTTP status is returned.
  */
 const authLink = new ApolloLink(
@@ -79,7 +79,10 @@ const authLink = new ApolloLink(
     })
 );
 
-// This is the link that media upload requests are sent to
+/**
+ * This is a terminating link that acts as an HTTP link
+ * while providing a file upload feature
+ */
 const uploadLink = createUploadLink({
   uri: `${environment.backendUrl}/graphql`,
   credentials: 'include',
