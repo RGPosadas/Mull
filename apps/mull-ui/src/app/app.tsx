@@ -51,7 +51,7 @@ export const App = () => {
         }
         setLoading(false);
       });
-  });
+  }, []);
 
   const getTopBarStyle = (): CSSProperties => {
     if (location.pathname.includes(ROUTES.HOME) || location.pathname.includes(ROUTES.MESSAGES)) {
