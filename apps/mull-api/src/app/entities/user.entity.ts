@@ -13,6 +13,7 @@ import {
 import { Event } from './event.entity';
 import { Media } from './media.entity';
 import { PostReaction } from './post-reaction.entity';
+import { Post } from './post.entity';
 
 registerEnumType(RegistrationMethod, {
   name: 'RegistrationMethod',
@@ -99,4 +100,6 @@ export class User implements IUser {
   @Column()
   @Field()
   joinDate?: Date;
+  @OneToMany(/* istanbul ignore next */ () => Post, /* istanbul ignore next */ (post) => post.user)
+  posts?: Post[];
 }
