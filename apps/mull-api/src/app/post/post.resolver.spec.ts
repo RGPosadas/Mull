@@ -14,6 +14,7 @@ const mockPostService = () => ({
   getPost: jest.fn((id: number) => mockAllPosts.find((post) => post.id === id)),
   updatePost: jest.fn((mockPostData: UpdatePostInput) => ({ ...mockPostData })),
   deletePost: jest.fn((id: number) => mockAllPosts.find((post) => post.id === id)),
+  getAllPosts: jest.fn(() => mockAllPosts),
 });
 
 describe('PostResolver', () => {
@@ -34,6 +35,11 @@ describe('PostResolver', () => {
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  it('should get all posts', async () => {
+    const allPosts = await resolver.posts();
+    expect(allPosts).toEqual(mockAllPosts);
   });
 
   it('it should subscribe to new messages', async () => {
