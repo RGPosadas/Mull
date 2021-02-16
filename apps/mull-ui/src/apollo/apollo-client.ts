@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloLink, HttpLink, InMemoryCache, Observable } from '@apollo/client';
+import { ApolloClient, ApolloLink, InMemoryCache, Observable } from '@apollo/client';
 import { IAuthToken } from '@mull/types';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import { createUploadLink } from 'apollo-upload-client';
@@ -79,16 +79,14 @@ const authLink = new ApolloLink(
     })
 );
 
-// This is the link that requests are sent to
-const httpLink = new HttpLink({ uri: `${environment.backendUrl}/graphql`, credentials: 'include' });
-
 // This is the link that media upload requests are sent to
 const uploadLink = createUploadLink({
   uri: `${environment.backendUrl}/graphql`,
+  credentials: 'include',
 });
 
 const apolloClient = new ApolloClient({
-  link: ApolloLink.from([tokenRefreshLink, authLink, httpLink, uploadLink]),
+  link: ApolloLink.from([tokenRefreshLink, authLink, uploadLink]),
   cache: new InMemoryCache(),
   credentials: 'include',
   defaultOptions: {
