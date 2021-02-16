@@ -10,6 +10,7 @@ import { AppController } from './app.controller';
 // Services
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { ChannelModule } from './channel/channel.module';
 import { EntitiesModule } from './entities';
 import { EventModule } from './event/event.module';
 import { LocationModule } from './location/location.module';
@@ -27,6 +28,7 @@ import { UserModule } from './user';
     AuthModule,
     LocationModule,
     PostModule,
+    ChannelModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: environment.db.host,
