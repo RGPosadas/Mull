@@ -15,7 +15,7 @@ export class PostResolver {
   }
 
   @Mutation(/* istanbul ignore next */ () => Post)
-  //@UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   async post(
     @Args('post') post: CreatePostInput,
     @Args('channelId', { type: () => Int }) channelId: number
@@ -46,7 +46,7 @@ export class PostResolver {
   }
 
   @Query(/* istanbul ignore next */ () => [Post])
-  //@UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   async channelPosts(@Args('channelId', { type: () => Int }) channelId: number) {
     return this.postService.getAllChannelPosts(channelId);
   }
