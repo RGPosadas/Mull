@@ -43,7 +43,7 @@ describe('PostResolver', () => {
   });
 
   it('it should subscribe to new messages', async () => {
-    await resolver.post(mockPartialPosts as CreatePostInput);
+    await resolver.post(mockPartialPosts as CreatePostInput, 1);
     expect(pubSub.publish).toHaveBeenCalled();
   });
 
