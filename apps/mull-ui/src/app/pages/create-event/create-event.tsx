@@ -96,7 +96,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           'The end time must be after the start time.',
           function (endTime) {
             const { startTime, startDate, endDate } = this.parent;
-            if (startDate < endDate) return true;
+            if (endDate && startDate < endDate) return true;
             return moment(endTime, 'HH:mm').isSameOrAfter(moment(startTime, 'HH:mm'));
           }
         ),
