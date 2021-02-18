@@ -87,6 +87,48 @@ frameSizes.forEach((frame) => {
       cy.get('#location ~ .error-message').should('have.text', 'Event Location is required.');
     });
 
+    const fillEventForm = () => {
+      cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
+
+      cy.get('#startTime').type('11:20');
+      cy.get('#endTime').type('08:20');
+
+      cy.get('#eventTitle').type('test title');
+
+      cy.get('#description').type('test description');
+
+      cy.get('#location').click();
+
+      cy.get('#location-input-field-option-0', { timeout: 5000 }).click();
+      cy.get('[data-testid=pill-id-1]').click();
+    };
+
+    it('should show an error when end time is greater than start time if the event is on the same day', () => {
+      fillEventForm();
+
+      cy.get('.-today').click();
+      cy.get('.-today').click();
+
+      cy.get('.create-event-button').click();
+
+      cy.get('#endTime ~ .error-message').should(
+        'have.text',
+        'The end time must be after the start time.'
+      );
+    });
+
+    it('should not show an error when end time is greater than start time if the event is on different days', () => {
+      fillEventForm();
+
+      const tomorrow = new Date().getDate() + 1;
+      cy.get('.-today').click();
+      cy.contains(tomorrow).click();
+
+      cy.get('.create-event-button').click();
+
+      cy.get('#endTime ~ .error-message').should('not.exist');
+    });
+
     it('should show a successful submission message', () => {
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
 
