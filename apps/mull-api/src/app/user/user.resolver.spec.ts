@@ -3,7 +3,7 @@ import { UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mockAllEvents } from '../event/event.mockdata';
 import { EventService } from '../event/event.service';
-import { mockFileJPEG, mockFilePNG } from '../media/media.mockdata';
+import { mockAllMedias, mockFileJPEG, mockFilePNG } from '../media/media.mockdata';
 import { MediaService } from '../media/media.service';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 import {
@@ -41,18 +41,13 @@ const mockEventService = () => ({
 
 const mockMediaService = () => ({
   uploadFile: jest.fn(() => {
-    return {
-      id: 1,
-      mediaType: 'jpeg',
-      post: null,
-    };
+    return mockAllMedias[0];
   }),
   updateFile: jest.fn(() => {
-    return {
-      id: 2,
-      mediaType: 'png',
-      post: null,
-    };
+    return mockAllMedias[1];
+  }),
+  deleteMedia: jest.fn(() => {
+    return mockAllMedias[0];
   }),
 });
 

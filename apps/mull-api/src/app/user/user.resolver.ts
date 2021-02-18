@@ -48,15 +48,20 @@ export class UserResolver {
   ) {
     var user = await this.userService.getUser(userInput.id);
     if (newAvatar) {
-      var media = user.avatar
-        ? await this.mediaService.updateFile(newAvatar, user.avatar)
-        : await this.mediaService.uploadFile(newAvatar);
+      if (user.avatar) {
+        var oldMediaId = user.avatar.id;
+        var media = await this.mediaService.updateFile(newAvatar, user.avatar);
+      } else {
+        var media = await this.mediaService.uploadFile(newAvatar);
+      }
       userInput = {
         ...userInput,
         avatar: media,
       };
     }
-    return await this.userService.updateUser(userInput);
+    const updatedUser = await this.userService.updateUser(userInput);
+    if (newAvatar && !!user.avatar) this.mediaService.deleteMedia(oldMediaId);
+    return updatedUser;
   }
 
   @Mutation(/* istanbul ignore next */ () => User)
