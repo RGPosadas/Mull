@@ -99,11 +99,11 @@ input MediaInput {
 }
 
 type Mutation {
-  createChannel(eventId: Int!, input: CreateChannelInput!): Channel!
+  createChannel(eventId: Int!, input: CreateChannelInput!): Boolean!
   createEvent(event: CreateEventInput!): Event!
   createLocation(location: LocationInput!): Location!
   createUser(user: CreateUserInput!): User!
-  deleteChannel(id: Int!): Channel!
+  deleteChannel(id: Int!): Boolean!
   deleteEvent(id: Int!): Event!
   deletePost(id: Int!): Post!
   deleteUser: User!
