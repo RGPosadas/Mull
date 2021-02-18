@@ -11,6 +11,10 @@ export class EventService {
     private eventRepository: Repository<Event>
   ) {}
 
+  getChannel(channelId: number): Promise<Event> {
+    return this.eventRepository.findOne(channelId);
+  }
+
   getAllEvents(): Promise<Event[]> {
     return this.eventRepository.find();
   }
