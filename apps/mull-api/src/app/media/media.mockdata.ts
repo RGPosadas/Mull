@@ -35,8 +35,8 @@ export const mockInvalidFile: FileUpload = {
 };
 
 export const mockMediaInput: MediaInput = {
-  id: 2,
-  mediaType: 'png',
+  id: 1,
+  mediaType: 'jpeg',
 };
 
 export const mockAllMedias: Media[] = [
@@ -45,5 +45,5 @@ export const mockAllMedias: Media[] = [
     mediaType: 'jpeg',
     post: null,
   },
-  { id: 2, mediaType: 'jpeg', post: null },
+  { id: 2, mediaType: 'png', post: null },
 ];
