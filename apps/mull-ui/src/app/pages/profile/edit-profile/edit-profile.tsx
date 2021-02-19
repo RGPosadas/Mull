@@ -32,7 +32,10 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
       imageFile: '',
     },
     validationSchema: Yup.object({
-      displayName: Yup.string().required('Display name is required'),
+      displayName: Yup.string()
+        .required('Display name is required')
+        .max(24, 'Display Name must be 24 characters or less.'),
+      description: Yup.string().max(250, 'Description must be 250 characters or less.'),
     }),
 
     onSubmit: async () => {
