@@ -6,7 +6,6 @@ import { mockAllPosts, mockPartialPosts } from './post.mockdata';
 import { PostService } from './post.service';
 
 const mockPostRepository = () => ({
-  create: jest.fn((mockUserData: CreatePostInput) => ({ ...mockUserData })),
   findOne: jest.fn((id: number) => {
     return mockAllPosts.find((post) => post.id === id);
   }),
@@ -14,17 +13,6 @@ const mockPostRepository = () => ({
   update: jest.fn((id: number) => mockAllPosts.find((post) => post.id === id)),
   delete: jest.fn((id: number) => mockAllPosts.find((post) => post.id === id)),
   save: jest.fn((post: Post) => post),
-  createQueryBuilder: jest.fn(() => ({
-    select: jest.fn().mockReturnThis(),
-    leftJoin: jest.fn().mockReturnThis(),
-    distinct: jest.fn().mockReturnThis(),
-    where: jest.fn().mockReturnThis(),
-    andWhere: jest.fn().mockReturnThis(),
-    leftJoinAndSelect: jest.fn().mockReturnThis(),
-    setParameter: jest.fn().mockReturnThis(),
-    getQuery: jest.fn().mockReturnThis(),
-    getMany: jest.fn().mockReturnValue(mockAllPosts[0]),
-  })),
   query: jest.fn().mockReturnThis(),
 });
 

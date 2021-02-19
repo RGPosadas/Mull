@@ -20,8 +20,13 @@ export const mockAllPosts: Post[] = [
     user: userA,
     message: 'This the first post',
     createdTime: new Date('2020-10-27T01:31:00.000Z'),
-    //TODO: replace null with a mock channel
-    channel: null,
+    channel: {
+      id: 1,
+      name: 'private',
+      rights: 0,
+      posts: [],
+      participants: mockAllUsers,
+    },
   },
 
   {
@@ -29,13 +34,25 @@ export const mockAllPosts: Post[] = [
     user: userB,
     message: 'This the 2nd post',
     createdTime: new Date('2020-10-27T01:31:00.000Z'),
-    channel: null,
+    channel: {
+      id: 1,
+      name: 'private',
+      rights: 0,
+      posts: [],
+      participants: mockAllUsers,
+    },
   },
   {
     id: 25,
     user: userC,
     message: 'This the 3rd post',
     createdTime: new Date('2020-10-27T01:31:00.000Z'),
-    channel: null,
+    channel: {
+      id: 1,
+      name: 'private',
+      rights: 0,
+      posts: [],
+      participants: mockAllUsers,
+    },
   },
 ];

@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type Channel {
-  event: Event!
+  event: Event
   id: Int!
   name: String!
   participants: [User!]!
@@ -13,6 +13,11 @@ type Channel {
 
 input ChannelInput {
   id: Float!
+}
+
+input CreateChannelInput {
+  name: String!
+  rights: Float!
 }
 
 input CreateEventInput {
@@ -26,7 +31,7 @@ input CreateEventInput {
 }
 
 input CreatePostInput {
-  channel: ChannelInput
+  channel: ChannelInput!
   createdTime: DateTime!
   medias: MediaInput
   message: String!
@@ -94,9 +99,11 @@ input MediaInput {
 }
 
 type Mutation {
+  createChannel(eventId: Int!, input: CreateChannelInput!): Boolean!
   createEvent(event: CreateEventInput!): Event!
   createLocation(location: LocationInput!): Location!
   createUser(user: CreateUserInput!): User!
+  deleteChannel(id: Int!): Boolean!
   deleteEvent(id: Int!): Event!
   deletePost(id: Int!): Post!
   deleteUser: User!
@@ -149,11 +156,13 @@ input PostReactionInput {
 }
 
 type Query {
+  channelPosts(channelId: Int!): [Post!]!
   coHostEvents: [Event!]!
   discoverEvents: [Event!]!
   event(id: Int!): Event!
   events: [Event!]!
   friendCount: Int!
+  getChannel(id: Int!): Channel!
   hostEvents: [Event!]!
   hostingCount: Int!
   isParticipant(eventId: Int!): Boolean!
@@ -173,7 +182,7 @@ enum RegistrationMethod {
 }
 
 type Subscription {
-  postAdded: Post!
+  postAdded(channelId: Int!): Post!
 }
 
 input UpdateEventInput {
@@ -187,7 +196,7 @@ input UpdateEventInput {
 }
 
 input UpdatePostInput {
-  channel: ChannelInput
+  channel: ChannelInput!
   createdTime: DateTime!
   id: Int!
   medias: MediaInput

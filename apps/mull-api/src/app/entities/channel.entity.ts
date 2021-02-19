@@ -27,9 +27,9 @@ export class Channel {
   @Column()
   rights: number;
 
-  @Field(() => Event)
-  @ManyToOne(() => Event, (event) => event.channels)
-  event: Event;
+  @Field(() => Event, { nullable: true })
+  @ManyToOne(() => Event, (event) => event.channels, { nullable: true })
+  event?: Event;
 
   @Field(() => [Post])
   @OneToMany(() => Post, (post) => post.channel)

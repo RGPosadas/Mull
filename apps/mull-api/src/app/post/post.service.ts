@@ -15,9 +15,12 @@ export class PostService {
     return this.postRepository.findOne(postId);
   }
 
-  //TODO: add channel id and update name
   getAllPosts(): Promise<Post[]> {
     return this.postRepository.find();
+  }
+
+  async getAllChannelPosts(channelId: number): Promise<Post[]> {
+    return this.postRepository.find({ where: { channel: { id: channelId } } });
   }
 
   async createPost(input: CreatePostInput): Promise<Post> {

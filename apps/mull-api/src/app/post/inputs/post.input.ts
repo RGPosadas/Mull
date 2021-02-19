@@ -17,7 +17,7 @@ export class CreatePostInput {
   @Field()
   createdTime: Date;
 
-  @Field(/* istanbul ignore next */ () => ChannelInput, { nullable: true }) //TODO: remove nullable in TASK-58
+  @Field(/* istanbul ignore next */ () => ChannelInput)
   channel: ChannelInput;
 
   @Field(/* istanbul ignore next */ () => ParentPostInput, { nullable: true })

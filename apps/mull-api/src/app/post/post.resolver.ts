@@ -10,15 +10,15 @@ import { PostService } from './post.service';
 export class PostResolver {
   constructor(private readonly postService: PostService) {}
   @Subscription(/* istanbul ignore next */ () => Post)
-  postAdded() {
-    return pubSub.asyncIterator(['postAdded']);
+  postAdded(@Args('channelId', { type: /* istanbul ignore next */ () => Int }) channelId: number) {
+    return pubSub.asyncIterator(['postAdded' + channelId]);
   }
 
   @Mutation(/* istanbul ignore next */ () => Post)
   @UseGuards(AuthGuard)
   async post(@Args('post') post: CreatePostInput) {
     const savedPost = this.postService.createPost(post);
-    pubSub.publish('postAdded', {
+    pubSub.publish('postAdded' + post.channel.id, {
       postAdded: savedPost,
     });
     return savedPost;
@@ -40,5 +40,11 @@ export class PostResolver {
   @UseGuards(AuthGuard)
   async deletePost(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
     return this.postService.deletePost(id);
+  }
+
+  @Query(/* istanbul ignore next */ () => [Post])
+  @UseGuards(AuthGuard)
+  async channelPosts(@Args('channelId', { type: () => Int }) channelId: number) {
+    return this.postService.getAllChannelPosts(channelId);
   }
 }

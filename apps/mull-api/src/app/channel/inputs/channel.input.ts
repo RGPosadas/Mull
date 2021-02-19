@@ -6,3 +6,12 @@ export class ChannelInput implements Partial<Channel> {
   @Field()
   id: number;
 }
+
+@InputType()
+export class CreateChannelInput implements Partial<Channel> {
+  @Field()
+  name: string;
+
+  @Field()
+  rights: number;
+}
