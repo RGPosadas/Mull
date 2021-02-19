@@ -1,0 +1,7 @@
+subscription PostAdded {
+  postAdded {
+    message
+    createdTime
+    id
+  }
+}

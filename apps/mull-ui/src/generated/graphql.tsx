@@ -17,6 +17,20 @@ export type Scalars = {
   Upload: any;
 };
 
+export type Channel = {
+  __typename?: 'Channel';
+  event: Event;
+  id: Scalars['Int'];
+  name: Scalars['String'];
+  participants: Array<User>;
+  posts: Array<Post>;
+  rights: Scalars['Int'];
+};
+
+export type ChannelInput = {
+  id: Scalars['Float'];
+};
+
 export type CreateEventInput = {
   description: Scalars['String'];
   endDate: Scalars['DateTime'];
@@ -25,6 +39,16 @@ export type CreateEventInput = {
   restriction: Scalars['Int'];
   startDate: Scalars['DateTime'];
   title: Scalars['String'];
+};
+
+export type CreatePostInput = {
+  channel?: Maybe<ChannelInput>;
+  createdTime: Scalars['DateTime'];
+  medias?: Maybe<MediaInput>;
+  message: Scalars['String'];
+  parentPost?: Maybe<ParentPostInput>;
+  reactions?: Maybe<PostReactionInput>;
+  user: UserInput;
 };
 
 export type CreateUserInput = {
@@ -91,11 +115,15 @@ export type Mutation = {
   createLocation: Location;
   createUser: User;
   deleteEvent: Event;
+  deletePost: Post;
   deleteUser: User;
   joinEvent: Scalars['Boolean'];
   leaveEvent: Scalars['Boolean'];
   login: LoginResult;
+  post: Post;
   updateEvent: Event;
+  updateFile: Media;
+  updatePost: Post;
   updateUser: User;
   uploadFile: Media;
 };
@@ -121,6 +149,11 @@ export type MutationDeleteEventArgs = {
 };
 
 
+export type MutationDeletePostArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationJoinEventArgs = {
   eventId: Scalars['Int'];
 };
@@ -136,18 +169,39 @@ export type MutationLoginArgs = {
 };
 
 
+export type MutationPostArgs = {
+  post: CreatePostInput;
+};
+
+
 export type MutationUpdateEventArgs = {
   event: UpdateEventInput;
 };
 
 
+export type MutationUpdateFileArgs = {
+  newFile: Scalars['Upload'];
+  oldFile: MediaInput;
+};
+
+
+export type MutationUpdatePostArgs = {
+  post: UpdatePostInput;
+};
+
+
 export type MutationUpdateUserArgs = {
-  user: UpdateUserInput;
+  newAvatar?: Maybe<Scalars['Upload']>;
+  userInput: UpdateUserInput;
 };
 
 
 export type MutationUploadFileArgs = {
   file: Scalars['Upload'];
+};
+
+export type ParentPostInput = {
+  id: Scalars['Int'];
 };
 
 export type Point = {
@@ -162,16 +216,44 @@ export type PointInput = {
   long: Scalars['Float'];
 };
 
+export type Post = {
+  __typename?: 'Post';
+  channel: Channel;
+  createdTime: Scalars['DateTime'];
+  id: Scalars['Int'];
+  medias?: Maybe<Array<Media>>;
+  message: Scalars['String'];
+  parentPost?: Maybe<Post>;
+  reactions?: Maybe<Array<PostReaction>>;
+  user: User;
+};
+
+export type PostReaction = {
+  __typename?: 'PostReaction';
+  id: Scalars['Int'];
+  post: Post;
+  type: Scalars['Int'];
+  user: User;
+};
+
+export type PostReactionInput = {
+  id: Scalars['Int'];
+};
+
 export type Query = {
   __typename?: 'Query';
   coHostEvents: Array<Event>;
   discoverEvents: Array<Event>;
   event: Event;
   events: Array<Event>;
+  friendCount: Scalars['Int'];
   hostEvents: Array<Event>;
+  hostingCount: Scalars['Int'];
   isParticipant: Scalars['Boolean'];
   location: Location;
   participantEvents: Array<Event>;
+  portfolioCount: Scalars['Int'];
+  posts: Array<Post>;
   user: User;
   users: Array<User>;
 };
@@ -198,6 +280,11 @@ export enum RegistrationMethod {
   Twitter = 'TWITTER'
 }
 
+export type Subscription = {
+  __typename?: 'Subscription';
+  postAdded: Post;
+};
+
 export type UpdateEventInput = {
   description?: Maybe<Scalars['String']>;
   endDate?: Maybe<Scalars['DateTime']>;
@@ -208,7 +295,20 @@ export type UpdateEventInput = {
   title?: Maybe<Scalars['String']>;
 };
 
+export type UpdatePostInput = {
+  channel?: Maybe<ChannelInput>;
+  createdTime: Scalars['DateTime'];
+  id: Scalars['Int'];
+  medias?: Maybe<MediaInput>;
+  message: Scalars['String'];
+  parentPost?: Maybe<ParentPostInput>;
+  reactions?: Maybe<PostReactionInput>;
+  user: UserInput;
+};
+
 export type UpdateUserInput = {
+  avatar?: Maybe<MediaInput>;
+  description?: Maybe<Scalars['String']>;
   dob?: Maybe<Scalars['DateTime']>;
   email?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
@@ -218,8 +318,9 @@ export type UpdateUserInput = {
 
 export type User = {
   __typename?: 'User';
+  avatar?: Maybe<Media>;
   description: Scalars['String'];
-  dob: Scalars['DateTime'];
+  dob?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   friends: Array<User>;
   id: Scalars['Int'];
@@ -228,6 +329,10 @@ export type User = {
   password?: Maybe<Scalars['String']>;
   registrationMethod: RegistrationMethod;
   timezone: Scalars['String'];
+};
+
+export type UserInput = {
+  id: Scalars['Int'];
 };
 
 export type CreateEventMutationVariables = Exact<{
@@ -387,6 +492,17 @@ export type UserQuery = (
   & { user: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'name'>
+  ) }
+);
+
+export type PostAddedSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PostAddedSubscription = (
+  { __typename?: 'Subscription' }
+  & { postAdded: (
+    { __typename?: 'Post' }
+    & Pick<Post, 'message' | 'createdTime' | 'id'>
   ) }
 );
 
@@ -781,3 +897,33 @@ export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQ
 export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
 export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
 export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
+export const PostAddedDocument = gql`
+    subscription PostAdded {
+  postAdded {
+    message
+    createdTime
+    id
+  }
+}
+    `;
+
+/**
+ * __usePostAddedSubscription__
+ *
+ * To run a query within a React component, call `usePostAddedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `usePostAddedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostAddedSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePostAddedSubscription(baseOptions?: Apollo.SubscriptionHookOptions<PostAddedSubscription, PostAddedSubscriptionVariables>) {
+        return Apollo.useSubscription<PostAddedSubscription, PostAddedSubscriptionVariables>(PostAddedDocument, baseOptions);
+      }
+export type PostAddedSubscriptionHookResult = ReturnType<typeof usePostAddedSubscription>;
+export type PostAddedSubscriptionResult = Apollo.SubscriptionResult<PostAddedSubscription>;
