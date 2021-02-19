@@ -1,8 +1,8 @@
 import { createMock } from '@golevelup/nestjs-testing';
-import { ExecutionContext } from '@nestjs/common';
+import { ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
 import jwt from 'jsonwebtoken';
-import { AuthenticatedUser, AuthGuard } from './auth.guard';
+import { authenticatedSubscription, AuthenticatedUser, AuthGuard } from './auth.guard';
 
 jest.mock('jsonwebtoken');
 const mockedJwt = jwt as jest.Mocked<typeof jwt>;
@@ -119,6 +119,22 @@ describe('AuthGuards', () => {
       });
       const factory = getParamDecoratorFactory(AuthenticatedUser);
       expect(() => factory(null, context)).toThrow('Unauthorized');
+    });
+  });
+  describe('authenticatedSubscription', () => {
+    it('it should authenticate a valid token', () => {
+      mockedJwt.verify.mockImplementation(() => {
+        return;
+      });
+      const result = authenticatedSubscription('abc123');
+      expect(result).toBeTruthy();
+    });
+
+    it('it should throw exception with invalid token', () => {
+      mockedJwt.verify.mockImplementation(() => {
+        throw new UnauthorizedException('Unauthorized');
+      });
+      expect(() => authenticatedSubscription('abc321')).toThrow('Unauthorized');
     });
   });
 });

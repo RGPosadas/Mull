@@ -1,4 +1,6 @@
-import { ApolloClient, ApolloLink, InMemoryCache, Observable } from '@apollo/client';
+import { ApolloClient, ApolloLink, InMemoryCache, Observable, split } from '@apollo/client';
+import { WebSocketLink } from '@apollo/client/link/ws';
+import { getMainDefinition } from '@apollo/client/utilities';
 import { IAuthToken } from '@mull/types';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import { createUploadLink } from 'apollo-upload-client';
@@ -80,6 +82,21 @@ const authLink = new ApolloLink(
 );
 
 /**
+ * This is a terminating link that enables communication
+ * using a WebSocket
+ */
+const wsLink = new WebSocketLink({
+  uri: `${environment.backendWsUrl}/graphql`,
+  options: {
+    lazy: true,
+    reconnect: true,
+    connectionParams: () => ({
+      authToken: getAccessToken(),
+    }),
+  },
+});
+
+/**
  * This is a terminating link that acts as an HTTP link
  * while providing a file upload feature
  */
@@ -88,8 +105,21 @@ const uploadLink = createUploadLink({
   credentials: 'include',
 });
 
+/**
+ * Since upload and WebSocket links are terminating,
+ * this link will split the traffic based on the request made.
+ */
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
+  },
+  wsLink,
+  uploadLink
+);
+
 const apolloClient = new ApolloClient({
-  link: ApolloLink.from([tokenRefreshLink, authLink, uploadLink]),
+  link: ApolloLink.from([tokenRefreshLink, authLink, splitLink]),
   cache: new InMemoryCache(),
   credentials: 'include',
   defaultOptions: {

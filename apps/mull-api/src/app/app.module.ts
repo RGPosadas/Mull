@@ -1,3 +1,4 @@
+import { IWebSocketParams } from '@mull/types';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -9,6 +10,7 @@ import { environment } from '../environments/environment';
 import { AppController } from './app.controller';
 // Services
 import { AppService } from './app.service';
+import { authenticatedSubscription } from './auth/auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { EntitiesModule } from './entities';
 import { EventModule } from './event/event.module';
@@ -55,6 +57,11 @@ import { UserModule } from './user';
           ? environment.client.baseUrl
           : [environment.client.baseUrl, 'https://studio.apollographql.com'],
         credentials: true,
+      },
+      subscriptions: {
+        onConnect: (connectionParams: IWebSocketParams) => {
+          return authenticatedSubscription(connectionParams.authToken);
+        },
       },
       context: ({ req, res }) => ({ req, res }),
       installSubscriptionHandlers: true,

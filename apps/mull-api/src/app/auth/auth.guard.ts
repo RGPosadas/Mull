@@ -31,3 +31,12 @@ export const AuthenticatedUser = createParamDecorator((_, context: ExecutionCont
     throw new UnauthorizedException('Unauthorized');
   }
 });
+
+export const authenticatedSubscription = (authToken: string) => {
+  try {
+    jwt.verify(authToken, environment.jwt.accessSecret);
+    return true;
+  } catch (err) {
+    throw new UnauthorizedException('Unauthorized');
+  }
+};

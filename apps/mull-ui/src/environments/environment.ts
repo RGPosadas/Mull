@@ -4,4 +4,5 @@
 export const environment = {
   production: false,
   backendUrl: 'http://localhost:3333',
+  backendWsUrl: 'ws://localhost:3333',
 };
