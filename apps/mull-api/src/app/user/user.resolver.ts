@@ -46,7 +46,7 @@ export class UserResolver {
     @Args('newAvatar', { type: /* istanbul ignore next */ () => GraphQLUpload, nullable: true })
     newAvatar: FileUpload
   ) {
-    var user = await this.userService.getUser(userInput.id);
+    const user = await this.userService.getUser(userInput.id);
     if (newAvatar) {
       if (user.avatar) {
         var oldMediaId = user.avatar.id;

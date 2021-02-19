@@ -17,7 +17,7 @@ export const UserProfilePage = () => {
   const { data: userProfile, loading } = useUserProfileQuery();
 
   if (!loading && userProfile) {
-    var { year, month, day } = formatJoinDate(new Date(userProfile.user.joinDate));
+    const { year, month, day } = formatJoinDate(new Date(userProfile.user.joinDate));
     const friendRequestExists = true;
 
     return (
