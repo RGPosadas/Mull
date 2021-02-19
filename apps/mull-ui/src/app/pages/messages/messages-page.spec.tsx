@@ -1,3 +1,4 @@
+import { MockedProvider } from '@apollo/client/testing';
 import { render } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import React from 'react';
@@ -9,9 +10,11 @@ describe('MessagesPage', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
     const { baseElement } = render(
-      <Router history={history}>
-        <MessagesPage children="SwipeableRoutes" />
-      </Router>
+      <MockedProvider>
+        <Router history={history}>
+          <MessagesPage children="SwipeableRoutes" />
+        </Router>
+      </MockedProvider>
     );
 
     expect(baseElement).toBeTruthy();
@@ -21,9 +24,11 @@ describe('MessagesPage', () => {
     const history = createMemoryHistory();
     const tree = renderer
       .create(
-        <Router history={history}>
-          <MessagesPage children="SwipeableRoutes" />
-        </Router>
+        <MockedProvider>
+          <Router history={history}>
+            <MessagesPage children="SwipeableRoutes" />
+          </Router>
+        </MockedProvider>
       )
       .toJSON();
     expect(tree).toMatchSnapshot();
