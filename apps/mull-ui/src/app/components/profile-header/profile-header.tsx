@@ -30,18 +30,18 @@ export function checkFriendStatus(isFriend: boolean) {
 export interface profileHeaderProps {
   userName?: string;
   userPicture?: string;
-  userPortfolio?: number;
-  userFriends?: number;
-  userHosting?: number;
+  portfolioCount?: number;
+  friendCount?: number;
+  hostingCount?: number;
   userDescription?: string;
 }
 
 export const ProfileHeader = ({
   userName = '',
   userPicture = '',
-  userPortfolio = 0,
-  userFriends = 0,
-  userHosting = 0,
+  portfolioCount = 0,
+  friendCount = 0,
+  hostingCount = 0,
   userDescription = '',
 }: profileHeaderProps) => {
   // TODO: Check UserID, if currentUserID == profileUserID, then it is true, so return without the Friend button, otherwise return with the Friend button
@@ -51,7 +51,7 @@ export const ProfileHeader = ({
   return (
     <div className="profile-header-container">
       <div className="user-name-container">
-        <h1>{userName}</h1>
+        <h1 data-testid="userName">{userName}</h1>
         <button className="share-button">
           <FontAwesomeIcon icon={faShareAlt} />
         </button>
@@ -63,18 +63,18 @@ export const ProfileHeader = ({
             isCurrentUser ? 'profile-side-container for-current-user' : 'profile-side-container'
           }
         >
-          <button className="profile-stats">
-            {userPortfolio}
+          <button className="profile-stats" data-testid="portfolioCount">
+            {portfolioCount}
             <br />
             Portfolio
           </button>
-          <button className="profile-stats">
-            {userFriends}
+          <button className="profile-stats" data-testid="friendCount">
+            {friendCount}
             <br />
             Friends
           </button>
-          <button className="profile-stats">
-            {userHosting}
+          <button className="profile-stats" data-testid="hostingCount">
+            {hostingCount}
             <br />
             Hosting
           </button>
@@ -82,7 +82,7 @@ export const ProfileHeader = ({
         </div>
       </div>
       <div className="user-description-container">
-        <p>{userDescription}</p>
+        <p data-testid="userDescription">{userDescription}</p>
       </div>
     </div>
   );

@@ -26,9 +26,9 @@ export const UserProfilePage = () => {
           userName={userProfile.user.name}
           userPicture={avatarUrl(userProfile.user as User)}
           userDescription={userProfile.user.description}
-          userPortfolio={userProfile.portfolioCount}
-          userFriends={userProfile.friendCount}
-          userHosting={userProfile.hostingCount}
+          portfolioCount={userProfile.portfolioCount}
+          friendCount={userProfile.friendCount}
+          hostingCount={userProfile.hostingCount}
         />
         <div className="settings-container">
           <h3>Portfolio</h3>
