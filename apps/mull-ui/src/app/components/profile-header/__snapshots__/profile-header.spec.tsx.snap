@@ -7,7 +7,9 @@ exports[`ProfileHeader should match snapshot 1`] = `
   <div
     className="user-name-container"
   >
-    <h1>
+    <h1
+      data-testid="userName"
+    >
       
     </h1>
     <button
@@ -45,6 +47,7 @@ exports[`ProfileHeader should match snapshot 1`] = `
     >
       <button
         className="profile-stats"
+        data-testid="portfolioCount"
       >
         0
         <br />
@@ -52,6 +55,7 @@ exports[`ProfileHeader should match snapshot 1`] = `
       </button>
       <button
         className="profile-stats"
+        data-testid="friendCount"
       >
         0
         <br />
@@ -59,6 +63,7 @@ exports[`ProfileHeader should match snapshot 1`] = `
       </button>
       <button
         className="profile-stats"
+        data-testid="hostingCount"
       >
         0
         <br />
@@ -69,7 +74,9 @@ exports[`ProfileHeader should match snapshot 1`] = `
   <div
     className="user-description-container"
   >
-    <p>
+    <p
+      data-testid="userDescription"
+    >
       
     </p>
   </div>

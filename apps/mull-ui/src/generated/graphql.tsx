@@ -448,15 +448,6 @@ export type EventCardContentFragment = (
   )> }
 );
 
-export type UserContentFragment = (
-  { __typename?: 'User' }
-  & Pick<User, 'id' | 'name' | 'description'>
-  & { avatar?: Maybe<(
-    { __typename?: 'Media' }
-    & Pick<Media, 'id'>
-  )> }
-);
-
 export type DiscoverEventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -514,7 +505,11 @@ export type UserQuery = (
   { __typename?: 'Query' }
   & { user: (
     { __typename?: 'User' }
-    & UserContentFragment
+    & Pick<User, 'id' | 'name' | 'description'>
+    & { avatar?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id'>
+    )> }
   ) }
 );
 
@@ -526,8 +521,11 @@ export type UserProfileQuery = (
   & Pick<Query, 'friendCount' | 'hostingCount' | 'portfolioCount'>
   & { user: (
     { __typename?: 'User' }
-    & Pick<User, 'joinDate'>
-    & UserContentFragment
+    & Pick<User, 'name' | 'description' | 'joinDate'>
+    & { avatar?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id'>
+    )> }
   ) }
 );
 
@@ -575,16 +573,6 @@ export const EventCardContentFragmentDoc = gql`
   image {
     id
     mediaType
-  }
-}
-    `;
-export const UserContentFragmentDoc = gql`
-    fragment UserContent on User {
-  id
-  name
-  description
-  avatar {
-    id
   }
 }
     `;
@@ -946,10 +934,15 @@ export type EventPageQueryResult = Apollo.QueryResult<EventPageQuery, EventPageQ
 export const UserDocument = gql`
     query User {
   user {
-    ...UserContent
+    id
+    name
+    description
+    avatar {
+      id
+    }
   }
 }
-    ${UserContentFragmentDoc}`;
+    `;
 
 /**
  * __useUserQuery__
@@ -978,14 +971,18 @@ export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
 export const UserProfileDocument = gql`
     query UserProfile {
   user {
-    ...UserContent
+    name
+    description
     joinDate
+    avatar {
+      id
+    }
   }
   friendCount
   hostingCount
   portfolioCount
 }
-    ${UserContentFragmentDoc}`;
+    `;
 
 /**
  * __useUserProfileQuery__

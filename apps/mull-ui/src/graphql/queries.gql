@@ -32,15 +32,6 @@ fragment EventCardContent on Event {
   }
 }
 
-fragment UserContent on User {
-  id
-  name
-  description
-  avatar {
-    id
-  }
-}
-
 query DiscoverEvents {
   discoverEvents {
     ...EventCardContent
@@ -75,14 +66,23 @@ query EventPage($eventId: Int!) {
 
 query User {
   user {
-    ...UserContent
+    id
+    name
+    description
+    avatar {
+      id
+    }
   }
 }
 
 query UserProfile {
   user {
-    ...UserContent
+    name
+    description
     joinDate
+    avatar {
+      id
+    }
   }
 
   friendCount
