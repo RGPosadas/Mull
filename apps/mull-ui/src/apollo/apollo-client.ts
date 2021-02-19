@@ -81,6 +81,10 @@ const authLink = new ApolloLink(
     })
 );
 
+/**
+ * This is a terminating link that enables communication
+ * using a WebSocket
+ */
 const wsLink = new WebSocketLink({
   uri: `${environment.backendWsUrl}/graphql`,
   options: {
@@ -101,6 +105,10 @@ const uploadLink = createUploadLink({
   credentials: 'include',
 });
 
+/**
+ * Since upload and WebSocket links are terminating,
+ * this link will split the traffic based on the request made.
+ */
 const splitLink = split(
   ({ query }) => {
     const definition = getMainDefinition(query);
