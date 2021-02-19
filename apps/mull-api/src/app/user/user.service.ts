@@ -43,7 +43,7 @@ export class UserService {
     const existingUser = await this.findUnique(input.email, input.registrationMethod);
     if (existingUser.length > 0)
       throw new UnauthorizedException('User with this email already exists.');
-    return await this.userRepository.save({ ...input });
+    return this.userRepository.save({ ...input });
   }
 
   async updateUser(userInput: UpdateUserInput): Promise<User> {
