@@ -2,6 +2,7 @@ import 'cypress-file-upload';
 import { geolocationStub } from '../fixtures';
 import { frameSizes } from './../fixtures/frame-sizes';
 
+/* eslint-disable cypress/no-unnecessary-waiting */
 frameSizes.forEach((frame) => {
   describe(`US-2.7: Preview Event (${frame.name} view)`, () => {
     beforeEach(() => {
