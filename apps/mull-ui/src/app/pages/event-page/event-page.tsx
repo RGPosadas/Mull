@@ -3,7 +3,8 @@ import { cloneDeep } from 'lodash';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { CreateEventInput, useEventPageQuery, useUserQuery } from '../../../generated/graphql';
-import { EventPageHeader, EventPageInfo } from '../../components';
+import { EventPageHeader } from './event-page-header/event-page-header';
+import { EventPageInfo } from './event-page-info/event-page-info';
 import './event-page.scss';
 
 export interface EventPageProps {
@@ -63,15 +64,13 @@ export const EventPage = ({
         handleBackButton={onBackButtonClick}
         eventImageURL={eventImageURL}
       />
-      <div className="event-page-info">
-        <EventPageInfo
-          event={event}
-          handleMullButton={onButtonClick}
-          isReview={isReview}
-          isJoined={isJoined}
-          buttonType={buttonType}
-        />
-      </div>
+      <EventPageInfo
+        event={event}
+        handleMullButton={onButtonClick}
+        isReview={isReview}
+        isJoined={isJoined}
+        buttonType={buttonType}
+      />
     </div>
   );
 };

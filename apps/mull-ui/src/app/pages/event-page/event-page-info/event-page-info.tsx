@@ -10,9 +10,8 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
-import { useJoinEventMutation, useLeaveEventMutation } from '../../../generated/graphql';
-import MullButton from '../mull-button/mull-button';
-import { ExpandableText } from './../expandable-text/expandable-text';
+import { useJoinEventMutation, useLeaveEventMutation } from '../../../../generated/graphql';
+import { ExpandableText, MullButton } from '../../../components';
 import './event-page-info.scss';
 
 export interface EventPageInfoProps {

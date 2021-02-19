@@ -4,8 +4,6 @@ export * from './custom-text-input/custom-text-input';
 export * from './custom-time-picker/custom-time-picker';
 export * from './event-card/event-card';
 export * from './event-members/event-members';
-export * from './event-page-header/event-page-header';
-export * from './event-page-info/event-page-info';
 export * from './expandable-text/expandable-text';
 export * from './mull-back-button/mull-back-button';
 export * from './mull-button/mull-button';

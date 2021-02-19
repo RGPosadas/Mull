@@ -1,14 +1,25 @@
 @import '../../../variables.scss';
 
+$event-page-header-height: 17rem;
+
 .event-page-container {
-  display: flex;
-  height: calc(100vh - #{$top-nav-bar-height-mobile + $bot-nav-bar-height-mobile});
-  flex-direction: column;
+  position: relative;
 }
 
-.event-page-info {
-  overflow-y: auto;
-  display: block;
+.event-page-header-container {
+  position: fixed;
+  top: $top-nav-bar-height-mobile;
+  box-sizing: border-box;
+  height: $event-page-header-height;
+  width: 100%;
+  padding: 0.5rem;
+
+  background-color: white;
+}
+
+.event-page-info-container {
+  margin-top: $top-nav-bar-height-mobile + $event-page-header-height;
+  position: relative;
 }
 
 .event-page-icon {
@@ -26,7 +37,15 @@
 }
 
 @media (min-width: $breakpoint-mobile) {
-  .event-page-container {
-    height: calc(100vh - #{$top-nav-bar-height-desktop});
+  .event-page-header-container {
+    top: $top-nav-bar-height-desktop;
+
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 35%;
+  }
+
+  .event-page-info-container {
+    margin-top: $top-nav-bar-height-desktop + $event-page-header-height;
   }
 }

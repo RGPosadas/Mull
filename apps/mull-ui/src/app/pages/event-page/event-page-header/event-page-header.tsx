@@ -3,8 +3,8 @@ import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ISerializedEvent } from '@mull/types';
 import React from 'react';
-import { formatDate, mediaUrl } from '../../../utilities';
-import MullBackButton from '../mull-back-button/mull-back-button';
+import { formatDate, mediaUrl } from '../../../../utilities';
+import { MullBackButton } from '../../../components';
 import './event-page-header.scss';
 
 export interface EventPageHeaderProps {
@@ -25,7 +25,7 @@ export const EventPageHeader = ({
   );
   const { day: endDay, month: endMonth, time: endTime } = formatDate(new Date(event.endDate));
   return (
-    <div className="event-page-header">
+    <div className="event-page-header-container">
       <MullBackButton onClick={handleBackButton}>{prevPage}</MullBackButton>
       <div className="title" data-testid="event-page-title">
         {event.title}
