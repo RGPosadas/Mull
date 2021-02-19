@@ -16,12 +16,9 @@ export class PostResolver {
 
   @Mutation(/* istanbul ignore next */ () => Post)
   @UseGuards(AuthGuard)
-  async post(
-    @Args('post') post: CreatePostInput,
-    @Args('channelId', { type: () => Int }) channelId: number
-  ) {
+  async post(@Args('post') post: CreatePostInput) {
     const savedPost = this.postService.createPost(post);
-    pubSub.publish('postAdded' + channelId, {
+    pubSub.publish('postAdded' + post.channel.id, {
       postAdded: savedPost,
     });
     return savedPost;

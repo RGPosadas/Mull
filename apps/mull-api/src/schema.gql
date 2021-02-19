@@ -110,7 +110,7 @@ type Mutation {
   joinEvent(eventId: Int!): Boolean!
   leaveEvent(eventId: Int!): Boolean!
   login(loginInput: LoginInput!): LoginResult!
-  post(channelId: Int!, post: CreatePostInput!): Post!
+  post(post: CreatePostInput!): Post!
   updateEvent(event: UpdateEventInput!): Event!
   updateFile(newFile: Upload!, oldFile: MediaInput!): Media!
   updatePost(post: UpdatePostInput!): Post!
