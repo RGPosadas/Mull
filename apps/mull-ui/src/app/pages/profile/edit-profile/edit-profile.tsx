@@ -1,7 +1,6 @@
 import { IProfileEditForm } from '@mull/types';
-import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { History } from 'history';
-import { isEmpty } from 'lodash';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
@@ -39,28 +38,23 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
     }),
 
     onSubmit: async () => {
-      const errors = await formik.validateForm();
-      if (isEmpty(errors)) {
-        notifyToast('Submitting User Profile...');
-        try {
-          await updateUser({
-            variables: {
-              newAvatar: file,
-              userInput: {
-                id: userData.user.id,
-                name: formik.values.displayName,
-                description: formik.values.description,
-              },
+      notifyToast('Submitting User Profile...');
+      try {
+        await updateUser({
+          variables: {
+            newAvatar: file,
+            userInput: {
+              id: userData.user.id,
+              name: formik.values.displayName,
+              description: formik.values.description,
             },
-          });
-          updateToast(toast.TYPE.SUCCESS, 'Profile Updated');
-          history.push(ROUTES.PROFILE.DISPLAY);
-        } catch (err) {
-          updateToast(toast.TYPE.ERROR, 'Error: Failed To Update Profile');
-          console.error(err);
-        }
-      } else {
-        formik.setTouched(setNestedObjectValues<FormikTouched<FormikValues>>(errors, true));
+          },
+        });
+        updateToast(toast.TYPE.SUCCESS, 'Profile Updated');
+        history.push(ROUTES.PROFILE.DISPLAY);
+      } catch (err) {
+        updateToast(toast.TYPE.ERROR, 'Error: Failed To Update Profile');
+        console.error(err);
       }
     },
   });
@@ -75,6 +69,8 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [userData]);
 
+  if (userLoading) return <div className="page-container">Loading...</div>;
+
   /**
    * Handles image file uploads
    * @param {ChangeEvent<HTMLInputElement>} event
@@ -85,7 +81,7 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
     formik.setFieldValue('imageFile', event.target.files[0]);
   };
 
-  return !userLoading && userData ? (
+  return (
     <div className="page-container">
       <MullBackButton>Profile</MullBackButton>
       <form className="edit-profile-container" onSubmit={formik.handleSubmit}>
@@ -133,8 +129,6 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
         </MullButton>
       </form>
     </div>
-  ) : (
-    <div className="page-container">Loading...</div>
   );
 };
 

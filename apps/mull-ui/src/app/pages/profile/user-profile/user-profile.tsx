@@ -16,47 +16,45 @@ import './user-profile.scss';
 export const UserProfilePage = () => {
   const { data: userProfile, loading } = useUserProfileQuery();
 
-  if (!loading && userProfile) {
-    const { year, month, day } = formatJoinDate(new Date(userProfile.user.joinDate));
-    const friendRequestExists = true;
+  if (loading) return <div className="page-container">Loading...</div>;
 
-    return (
-      <div className="page-container">
-        <ProfileHeader
-          userName={userProfile.user.name}
-          userPicture={avatarUrl(userProfile.user as User)}
-          userDescription={userProfile.user.description}
-          portfolioCount={userProfile.portfolioCount}
-          friendCount={userProfile.friendCount}
-          hostingCount={userProfile.hostingCount}
-        />
-        <div className="settings-container">
-          <h3>Portfolio</h3>
-          <SettingsButton icon={faLeaf} settingName="My Portfolio" />
-        </div>
-        <div className="settings-container with-friends">
-          <h3>Friends</h3>
-          <SettingsButton icon={faUserPlus} settingName="Add Friends" />
-          <SettingsButton icon={faUserFriends} settingName="My Friends" />
-          <p className={friendRequestExists ? 'friend-request-count' : 'no-friend-request'}>{4}</p>
-        </div>
-        <div className="settings-container below-friends">
-          <h3>Misc.</h3>
-          <Link to="/profile/edit">
-            <SettingsButton icon={faPencilAlt} settingName="Edit Profile" />
-          </Link>
-          <SettingsButton icon={faCog} settingName="Settings" />
-        </div>
-        <div className="joined-date-container">
-          <p>
-            Joined Müll on {month} {day}, {year}
-          </p>
-        </div>
+  const { year, month, day } = formatJoinDate(new Date(userProfile.user.joinDate));
+  const friendRequestExists = true;
+
+  return (
+    <div className="page-container">
+      <ProfileHeader
+        userName={userProfile.user.name}
+        userPicture={avatarUrl(userProfile.user as User)}
+        userDescription={userProfile.user.description}
+        portfolioCount={userProfile.portfolioCount}
+        friendCount={userProfile.friendCount}
+        hostingCount={userProfile.hostingCount}
+      />
+      <div className="settings-container">
+        <h3>Portfolio</h3>
+        <SettingsButton icon={faLeaf} settingName="My Portfolio" />
       </div>
-    );
-  } else {
-    return <div className="page-container">Loading...</div>;
-  }
+      <div className="settings-container with-friends">
+        <h3>Friends</h3>
+        <SettingsButton icon={faUserPlus} settingName="Add Friends" />
+        <SettingsButton icon={faUserFriends} settingName="My Friends" />
+        <p className={friendRequestExists ? 'friend-request-count' : 'no-friend-request'}>{4}</p>
+      </div>
+      <div className="settings-container below-friends">
+        <h3>Misc.</h3>
+        <Link to="/profile/edit">
+          <SettingsButton icon={faPencilAlt} settingName="Edit Profile" />
+        </Link>
+        <SettingsButton icon={faCog} settingName="Settings" />
+      </div>
+      <div className="joined-date-container">
+        <p>
+          Joined Müll on {month} {day}, {year}
+        </p>
+      </div>
+    </div>
+  );
 };
 
 export default UserProfilePage;
