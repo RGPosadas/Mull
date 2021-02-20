@@ -1,5 +1,5 @@
-import * as Apollo from '@apollo/client';
 import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -19,7 +19,7 @@ export type Scalars = {
 
 export type Channel = {
   __typename?: 'Channel';
-  event: Event;
+  event?: Maybe<Event>;
   id: Scalars['Int'];
   name: Scalars['String'];
   participants: Array<User>;
@@ -29,6 +29,11 @@ export type Channel = {
 
 export type ChannelInput = {
   id: Scalars['Float'];
+};
+
+export type CreateChannelInput = {
+  name: Scalars['String'];
+  rights: Scalars['Float'];
 };
 
 export type CreateEventInput = {
@@ -42,7 +47,7 @@ export type CreateEventInput = {
 };
 
 export type CreatePostInput = {
-  channel?: Maybe<ChannelInput>;
+  channel: ChannelInput;
   createdTime: Scalars['DateTime'];
   medias?: Maybe<MediaInput>;
   message: Scalars['String'];
@@ -111,9 +116,11 @@ export type MediaInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createChannel: Scalars['Boolean'];
   createEvent: Event;
   createLocation: Location;
   createUser: User;
+  deleteChannel: Scalars['Boolean'];
   deleteEvent: Event;
   deletePost: Post;
   deleteUser: User;
@@ -129,6 +136,12 @@ export type Mutation = {
 };
 
 
+export type MutationCreateChannelArgs = {
+  eventId: Scalars['Int'];
+  input: CreateChannelInput;
+};
+
+
 export type MutationCreateEventArgs = {
   event: CreateEventInput;
 };
@@ -141,6 +154,11 @@ export type MutationCreateLocationArgs = {
 
 export type MutationCreateUserArgs = {
   user: CreateUserInput;
+};
+
+
+export type MutationDeleteChannelArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -242,11 +260,13 @@ export type PostReactionInput = {
 
 export type Query = {
   __typename?: 'Query';
+  channelPosts: Array<Post>;
   coHostEvents: Array<Event>;
   discoverEvents: Array<Event>;
   event: Event;
   events: Array<Event>;
   friendCount: Scalars['Int'];
+  getChannel: Channel;
   hostEvents: Array<Event>;
   hostingCount: Scalars['Int'];
   isParticipant: Scalars['Boolean'];
@@ -259,7 +279,17 @@ export type Query = {
 };
 
 
+export type QueryChannelPostsArgs = {
+  channelId: Scalars['Int'];
+};
+
+
 export type QueryEventArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryGetChannelArgs = {
   id: Scalars['Int'];
 };
 
@@ -285,6 +315,11 @@ export type Subscription = {
   postAdded: Post;
 };
 
+
+export type SubscriptionPostAddedArgs = {
+  channelId: Scalars['Int'];
+};
+
 export type UpdateEventInput = {
   description?: Maybe<Scalars['String']>;
   endDate?: Maybe<Scalars['DateTime']>;
@@ -296,7 +331,7 @@ export type UpdateEventInput = {
 };
 
 export type UpdatePostInput = {
-  channel?: Maybe<ChannelInput>;
+  channel: ChannelInput;
   createdTime: Scalars['DateTime'];
   id: Scalars['Int'];
   medias?: Maybe<MediaInput>;
@@ -529,7 +564,9 @@ export type UserProfileQuery = (
   ) }
 );
 
-export type PostAddedSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type PostAddedSubscriptionVariables = Exact<{
+  channelId: Scalars['Int'];
+}>;
 
 
 export type PostAddedSubscription = (
@@ -1008,3 +1045,34 @@ export function useUserProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type UserProfileQueryHookResult = ReturnType<typeof useUserProfileQuery>;
 export type UserProfileLazyQueryHookResult = ReturnType<typeof useUserProfileLazyQuery>;
 export type UserProfileQueryResult = Apollo.QueryResult<UserProfileQuery, UserProfileQueryVariables>;
+export const PostAddedDocument = gql`
+    subscription PostAdded($channelId: Int!) {
+  postAdded(channelId: $channelId) {
+    message
+    createdTime
+    id
+  }
+}
+    `;
+
+/**
+ * __usePostAddedSubscription__
+ *
+ * To run a query within a React component, call `usePostAddedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `usePostAddedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostAddedSubscription({
+ *   variables: {
+ *      channelId: // value for 'channelId'
+ *   },
+ * });
+ */
+export function usePostAddedSubscription(baseOptions: Apollo.SubscriptionHookOptions<PostAddedSubscription, PostAddedSubscriptionVariables>) {
+        return Apollo.useSubscription<PostAddedSubscription, PostAddedSubscriptionVariables>(PostAddedDocument, baseOptions);
+      }
+export type PostAddedSubscriptionHookResult = ReturnType<typeof usePostAddedSubscription>;
+export type PostAddedSubscriptionResult = Apollo.SubscriptionResult<PostAddedSubscription>;
