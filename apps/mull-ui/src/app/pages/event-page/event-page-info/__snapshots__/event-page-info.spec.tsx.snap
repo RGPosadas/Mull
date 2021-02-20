@@ -3,6 +3,7 @@
 exports[`EventPageInfo should match snapshot 1`] = `
 <div
   className="event-page-info-container "
+  style={Object {}}
 >
   <div
     className="info-row"

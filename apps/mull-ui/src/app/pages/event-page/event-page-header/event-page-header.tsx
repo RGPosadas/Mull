@@ -40,6 +40,7 @@ export const EventPageHeader = ({
     return () => {
       window.removeEventListener('resize', handleHeaderChange);
     };
+    /* eslint-disable react-hooks/exhaustive-deps */
   }, []);
 
   return (
