@@ -1,6 +1,6 @@
 import { ISerializedEvent } from '@mull/types';
 import { cloneDeep } from 'lodash';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CreateEventInput, useEventPageQuery, useUserQuery } from '../../../generated/graphql';
 import { EventPageHeader } from './event-page-header/event-page-header';
@@ -30,6 +30,8 @@ export const EventPage = ({
 }: EventPageProps) => {
   const { id } = useParams<{ id: string }>();
   const eventId = parseInt(id);
+  const [headerHeight, setHeaderHeight] = useState<number>(0);
+  const headerRef = useRef<HTMLDivElement>(null);
 
   let event = cloneDeep(reviewEvent) as ISerializedEvent;
 
@@ -59,12 +61,15 @@ export const EventPage = ({
   return (
     <div className="page-container no-padding event-page-container">
       <EventPageHeader
+        headerRef={headerRef}
         event={event}
         prevPage={prevPage}
         handleBackButton={onBackButtonClick}
         eventImageURL={eventImageURL}
+        setHeaderHeight={setHeaderHeight}
       />
       <EventPageInfo
+        style={{ paddingTop: headerHeight }}
         event={event}
         handleMullButton={onButtonClick}
         isReview={isReview}

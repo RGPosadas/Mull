@@ -17,6 +17,7 @@ import './event-page-info.scss';
 export interface EventPageInfoProps {
   event: Partial<ISerializedEvent>;
   className?: string;
+  style?: React.CSSProperties;
   isReview: boolean;
   isJoined: boolean;
   buttonType?: 'submit' | 'button' | 'reset';
@@ -29,6 +30,7 @@ export interface EventPageInfoProps {
 export const EventPageInfo = ({
   event,
   className = '',
+  style = {},
   isReview,
   isJoined,
   buttonType,
@@ -49,7 +51,7 @@ export const EventPageInfo = ({
   };
 
   return (
-    <div className={`event-page-info-container ${className}`}>
+    <div className={`event-page-info-container ${className}`} style={style}>
       <div className="info-row">
         {/* TODO: Currently using placeholder for the profile picture. The US will need to actually fetch image from media server */}
         <img

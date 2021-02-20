@@ -8,9 +8,9 @@ $event-page-header-height: 17rem;
 
 .event-page-header-container {
   position: fixed;
+  z-index: 2;
   top: $top-nav-bar-height-mobile;
   box-sizing: border-box;
-  height: $event-page-header-height;
   width: 100%;
   padding: 0.5rem;
 
@@ -18,7 +18,7 @@ $event-page-header-height: 17rem;
 }
 
 .event-page-info-container {
-  margin-top: $top-nav-bar-height-mobile + $event-page-header-height;
+  margin-top: $top-nav-bar-height-mobile;
   position: relative;
 }
 
@@ -46,6 +46,6 @@ $event-page-header-height: 17rem;
   }
 
   .event-page-info-container {
-    margin-top: $top-nav-bar-height-desktop + $event-page-header-height;
+    margin-top: $top-nav-bar-height-desktop;
   }
 }
