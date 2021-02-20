@@ -25,8 +25,8 @@ frameSizes.forEach((frame) => {
       cy.get('.create-event-button').click();
       cy.get('.event-page-button').click();
 
-      cy.get('[data-testid=subnavigation-myevents-button]').click().wait(200);
-      cy.get('.event-card-container').last().click().wait(200);
+      cy.visit('http://localhost:4200/home/myevents');
+      cy.get('.event-card-container').last().click();
 
       cy.get('.title').should('have.text', 'Title for US-2.7: Preview Event E2E');
       cy.get('.event-image').should('have.attr', 'src');

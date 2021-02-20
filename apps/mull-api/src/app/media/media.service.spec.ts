@@ -13,15 +13,16 @@ import {
 import { MediaService } from './media.service';
 
 const mockMediaRepository = () => ({
-  findOne: jest.fn((id: number) => mockAllMedias[id - 1]),
+  findOne: jest.fn((id: number) => mockAllMedias.find((media) => media.id === id)),
   save: jest.fn((file: Media) => {
     file.id = file.mediaType == 'jpeg' ? 1 : 2;
     file.post = null;
     return file;
   }),
   update: jest.fn((id: number) => {
-    return { id: id, mediaType: id == 2 ? 'jpeg' : 'png', post: null };
+    return { id: id, mediaType: 'png', post: null };
   }),
+  delete: jest.fn((id: number) => mockAllMedias.find((media) => media.id === id)),
 });
 
 describe('MediaService', () => {
@@ -102,8 +103,7 @@ describe('MediaService', () => {
   });
 
   it('should update a file', async () => {
-    await service.uploadFile(mockFilePNG);
-    const updatedFile = await service.updateFile(mockFileJPEG, mockMediaInput);
+    const updatedFile = await service.updateFile(mockFilePNG, mockMediaInput);
     expect(updatedFile).toEqual(mockAllMedias[1]);
   });
 
@@ -111,5 +111,10 @@ describe('MediaService', () => {
     await expect(() => service.updateFile(mockInvalidFile, mockMediaInput)).rejects.toThrow(
       InternalServerErrorException
     );
+  });
+
+  it('should return the deleted media', async () => {
+    const deletedMedia = await service.deleteMedia(1);
+    expect(deletedMedia).toEqual(mockAllMedias[0]);
   });
 });

@@ -7,26 +7,29 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { User, useUserProfileQuery } from '../../../../generated/graphql';
+import { avatarUrl, formatJoinDate } from '../../../../utilities';
 import ProfileHeader from '../../../components/profile-header/profile-header';
 import SettingsButton from '../../../components/settings-button/settings-button';
 import './user-profile.scss';
 
-export interface userProfileProps {
-  joinDate?: string;
-  friendRequestCount?: number;
-}
+export const UserProfilePage = () => {
+  const { data: userProfile, loading } = useUserProfileQuery();
 
-export const UserProfilePage = ({ joinDate, friendRequestCount }: userProfileProps) => {
+  if (loading) return <div className="page-container">Loading...</div>;
+
+  const { year, month, day } = formatJoinDate(new Date(userProfile.user.joinDate));
   const friendRequestExists = true;
+
   return (
     <div className="page-container">
       <ProfileHeader
-        userName="Andrea Gloria"
-        userPicture="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
-        userPortfolio={8}
-        userFriends={24}
-        userHosting={2}
-        userDescription="Regardless of making complicated reasons or calculations, I just want to live simply counting up to about 5 or 6."
+        userName={userProfile.user.name}
+        userPicture={avatarUrl(userProfile.user as User)}
+        userDescription={userProfile.user.description}
+        portfolioCount={userProfile.portfolioCount}
+        friendCount={userProfile.friendCount}
+        hostingCount={userProfile.hostingCount}
       />
       <div className="settings-container">
         <h3>Portfolio</h3>
@@ -36,9 +39,7 @@ export const UserProfilePage = ({ joinDate, friendRequestCount }: userProfilePro
         <h3>Friends</h3>
         <SettingsButton icon={faUserPlus} settingName="Add Friends" />
         <SettingsButton icon={faUserFriends} settingName="My Friends" />
-        <p className={friendRequestExists ? 'friend-request-count' : 'no-friend-request'}>
-          {(friendRequestCount = 4)}
-        </p>
+        <p className={friendRequestExists ? 'friend-request-count' : 'no-friend-request'}>{4}</p>
       </div>
       <div className="settings-container below-friends">
         <h3>Misc.</h3>
@@ -48,9 +49,12 @@ export const UserProfilePage = ({ joinDate, friendRequestCount }: userProfilePro
         <SettingsButton icon={faCog} settingName="Settings" />
       </div>
       <div className="joined-date-container">
-        <p>Joined Müll on {(joinDate = 'February 2, 2021')}</p>
+        <p>
+          Joined Müll on {month} {day}, {year}
+        </p>
       </div>
     </div>
   );
 };
+
 export default UserProfilePage;

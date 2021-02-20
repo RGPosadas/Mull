@@ -1,22 +1,75 @@
 import { IProfileEditForm } from '@mull/types';
-import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
-import { isEmpty } from 'lodash';
-import React, { ChangeEvent, useState } from 'react';
+import { useFormik } from 'formik';
+import { History } from 'history';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
+import { ROUTES } from '../../../../constants';
+import { User, useUpdateUserMutation, useUserQuery } from '../../../../generated/graphql';
+import { avatarUrl } from '../../../../utilities';
 import { CustomFileUpload, CustomTextInput } from '../../../components';
 import { MullBackButton } from '../../../components/mull-back-button/mull-back-button';
 import MullButton from '../../../components/mull-button/mull-button';
+import { useToast } from '../../../hooks/useToast';
 import './edit-profile.scss';
 
-const EditProfile = () => {
-  // TODO: Add initial profile image if user has one
-  // TODO: If user does not have an image, set to a default image
-  const [imageURLFile, setImageURLFile] = useState<string>(
-    'https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg'
-  );
+export interface EditProfilePageProps {
+  history: History;
+}
 
-  // Uploaded image file blob
+const EditProfile = ({ history }: EditProfilePageProps) => {
+  const [imageURLFile, setImageURLFile] = useState<string>('');
   const [file, setFile] = useState<File>(null);
+  const { data: userData, loading: userLoading } = useUserQuery();
+  const [updateUser] = useUpdateUserMutation();
+  const { updateToast, notifyToast } = useToast();
+
+  const formik = useFormik<IProfileEditForm>({
+    initialValues: {
+      displayName: '',
+      description: '',
+      imageFile: '',
+    },
+    validationSchema: Yup.object({
+      displayName: Yup.string()
+        .required('Display name is required')
+        .max(24, 'Display Name must be 24 characters or less.'),
+      description: Yup.string().max(250, 'Description must be 250 characters or less.'),
+    }),
+
+    onSubmit: async () => {
+      notifyToast('Submitting User Profile...');
+      try {
+        await updateUser({
+          variables: {
+            newAvatar: file,
+            userInput: {
+              id: userData.user.id,
+              name: formik.values.displayName,
+              description: formik.values.description,
+            },
+          },
+        });
+        updateToast(toast.TYPE.SUCCESS, 'Profile Updated');
+        history.push(ROUTES.PROFILE.DISPLAY);
+      } catch (err) {
+        updateToast(toast.TYPE.ERROR, 'Error: Failed To Update Profile');
+        console.error(err);
+      }
+    },
+  });
+
+  useEffect(() => {
+    if (!userLoading) {
+      setImageURLFile(avatarUrl(userData.user as User));
+      formik.setFieldValue('displayName', userData.user.name);
+      formik.setFieldValue('description', userData.user.description);
+    }
+    // Ignored since the suggested fix broke the react hooks lifecycle
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, [userData]);
+
+  if (userLoading) return <div className="page-container">Loading...</div>;
 
   /**
    * Handles image file uploads
@@ -27,29 +80,6 @@ const EditProfile = () => {
     setFile(event.target.files[0]);
     formik.setFieldValue('imageFile', event.target.files[0]);
   };
-
-  const formik = useFormik<IProfileEditForm>({
-    initialValues: {
-      displayName: '',
-      description: '',
-      imageFile: null,
-    },
-
-    validationSchema: Yup.object({
-      displayName: Yup.string().required('Display name is required'),
-      description: Yup.string().required('Description is required'),
-    }),
-    //TODO: implement form logic
-    onSubmit: async () => {
-      const errors = await formik.validateForm();
-      if (isEmpty(errors)) {
-        //TODO: update profile in database
-        console.log('Form successfully submitted');
-      } else {
-        formik.setTouched(setNestedObjectValues<FormikTouched<FormikValues>>(errors, true));
-      }
-    },
-  });
 
   return (
     <div className="page-container">

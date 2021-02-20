@@ -68,5 +68,24 @@ query User {
   user {
     id
     name
+    description
+    avatar {
+      id
+    }
   }
+}
+
+query UserProfile {
+  user {
+    name
+    description
+    joinDate
+    avatar {
+      id
+    }
+  }
+
+  friendCount
+  hostingCount
+  portfolioCount
 }

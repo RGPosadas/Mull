@@ -1,6 +1,7 @@
 import { DetectionResult, ISerializedEvent } from '@mull/types';
 import { categoryMap, WasteType } from './app/services/maps';
 import { environment } from './environments/environment';
+import { User } from './generated/graphql';
 
 /**
  * Converts date to a list of tokens for displaying
@@ -21,6 +22,14 @@ export const formatDate = (
   return { year: date.getFullYear(), month, day: date.getDate(), time: timeString };
 };
 
+export const formatJoinDate = (date: Date): { year: number; month: string; day: number } => {
+  const month = Intl.DateTimeFormat('en-us', {
+    month: 'long',
+  }).format(date);
+
+  return { year: date.getFullYear(), month, day: date.getDate() };
+};
+
 export const mediaUrl = (event: Partial<ISerializedEvent>) =>
   `${environment.backendUrl}/api/media/${event.image.id}`;
 
@@ -31,6 +40,11 @@ const svgMap = {
   [WasteType.TRASH]: './assets/icons/trash-recognition-icons/TrashIcon.svg',
   [WasteType.RECYCLABLE]: './assets/icons/trash-recognition-icons/RecycleIcon.svg',
 };
+
+export const avatarUrl = (user: User) =>
+  user.avatar
+    ? `${environment.backendUrl}/api/media/${user.avatar.id}`
+    : `./assets/icons/icon-192x192.png`;
 
 export const drawDetectionIcons = async (
   ctx: CanvasRenderingContext2D,

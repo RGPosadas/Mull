@@ -19,7 +19,7 @@ export type Scalars = {
 
 export type Channel = {
   __typename?: 'Channel';
-  event: Event;
+  event?: Maybe<Event>;
   id: Scalars['Int'];
   name: Scalars['String'];
   participants: Array<User>;
@@ -29,6 +29,11 @@ export type Channel = {
 
 export type ChannelInput = {
   id: Scalars['Float'];
+};
+
+export type CreateChannelInput = {
+  name: Scalars['String'];
+  rights: Scalars['Float'];
 };
 
 export type CreateEventInput = {
@@ -42,7 +47,7 @@ export type CreateEventInput = {
 };
 
 export type CreatePostInput = {
-  channel?: Maybe<ChannelInput>;
+  channel: ChannelInput;
   createdTime: Scalars['DateTime'];
   medias?: Maybe<MediaInput>;
   message: Scalars['String'];
@@ -111,9 +116,11 @@ export type MediaInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createChannel: Scalars['Boolean'];
   createEvent: Event;
   createLocation: Location;
   createUser: User;
+  deleteChannel: Scalars['Boolean'];
   deleteEvent: Event;
   deletePost: Post;
   deleteUser: User;
@@ -129,6 +136,12 @@ export type Mutation = {
 };
 
 
+export type MutationCreateChannelArgs = {
+  eventId: Scalars['Int'];
+  input: CreateChannelInput;
+};
+
+
 export type MutationCreateEventArgs = {
   event: CreateEventInput;
 };
@@ -141,6 +154,11 @@ export type MutationCreateLocationArgs = {
 
 export type MutationCreateUserArgs = {
   user: CreateUserInput;
+};
+
+
+export type MutationDeleteChannelArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -242,11 +260,13 @@ export type PostReactionInput = {
 
 export type Query = {
   __typename?: 'Query';
+  channelPosts: Array<Post>;
   coHostEvents: Array<Event>;
   discoverEvents: Array<Event>;
   event: Event;
   events: Array<Event>;
   friendCount: Scalars['Int'];
+  getChannel: Channel;
   hostEvents: Array<Event>;
   hostingCount: Scalars['Int'];
   isParticipant: Scalars['Boolean'];
@@ -259,7 +279,17 @@ export type Query = {
 };
 
 
+export type QueryChannelPostsArgs = {
+  channelId: Scalars['Int'];
+};
+
+
 export type QueryEventArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryGetChannelArgs = {
   id: Scalars['Int'];
 };
 
@@ -285,6 +315,11 @@ export type Subscription = {
   postAdded: Post;
 };
 
+
+export type SubscriptionPostAddedArgs = {
+  channelId: Scalars['Int'];
+};
+
 export type UpdateEventInput = {
   description?: Maybe<Scalars['String']>;
   endDate?: Maybe<Scalars['DateTime']>;
@@ -296,7 +331,7 @@ export type UpdateEventInput = {
 };
 
 export type UpdatePostInput = {
-  channel?: Maybe<ChannelInput>;
+  channel: ChannelInput;
   createdTime: Scalars['DateTime'];
   id: Scalars['Int'];
   medias?: Maybe<MediaInput>;
@@ -407,6 +442,20 @@ export type LeaveEventMutation = (
   & Pick<Mutation, 'leaveEvent'>
 );
 
+export type UpdateUserMutationVariables = Exact<{
+  userInput: UpdateUserInput;
+  newAvatar?: Maybe<Scalars['Upload']>;
+}>;
+
+
+export type UpdateUserMutation = (
+  { __typename?: 'Mutation' }
+  & { updateUser: (
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  ) }
+);
+
 export type EventPageContentFragment = (
   { __typename?: 'Event' }
   & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
@@ -491,11 +540,33 @@ export type UserQuery = (
   { __typename?: 'Query' }
   & { user: (
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'name'>
+    & Pick<User, 'id' | 'name' | 'description'>
+    & { avatar?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id'>
+    )> }
   ) }
 );
 
-export type PostAddedSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type UserProfileQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserProfileQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'friendCount' | 'hostingCount' | 'portfolioCount'>
+  & { user: (
+    { __typename?: 'User' }
+    & Pick<User, 'name' | 'description' | 'joinDate'>
+    & { avatar?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id'>
+    )> }
+  ) }
+);
+
+export type PostAddedSubscriptionVariables = Exact<{
+  channelId: Scalars['Int'];
+}>;
 
 
 export type PostAddedSubscription = (
@@ -731,6 +802,39 @@ export function useLeaveEventMutation(baseOptions?: Apollo.MutationHookOptions<L
 export type LeaveEventMutationHookResult = ReturnType<typeof useLeaveEventMutation>;
 export type LeaveEventMutationResult = Apollo.MutationResult<LeaveEventMutation>;
 export type LeaveEventMutationOptions = Apollo.BaseMutationOptions<LeaveEventMutation, LeaveEventMutationVariables>;
+export const UpdateUserDocument = gql`
+    mutation UpdateUser($userInput: UpdateUserInput!, $newAvatar: Upload) {
+  updateUser(userInput: $userInput, newAvatar: $newAvatar) {
+    id
+  }
+}
+    `;
+export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>;
+
+/**
+ * __useUpdateUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ *   variables: {
+ *      userInput: // value for 'userInput'
+ *      newAvatar: // value for 'newAvatar'
+ *   },
+ * });
+ */
+export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>) {
+        return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, baseOptions);
+      }
+export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
+export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
 export const DiscoverEventsDocument = gql`
     query DiscoverEvents {
   discoverEvents {
@@ -869,6 +973,10 @@ export const UserDocument = gql`
   user {
     id
     name
+    description
+    avatar {
+      id
+    }
   }
 }
     `;
@@ -897,9 +1005,49 @@ export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQ
 export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
 export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
 export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
+export const UserProfileDocument = gql`
+    query UserProfile {
+  user {
+    name
+    description
+    joinDate
+    avatar {
+      id
+    }
+  }
+  friendCount
+  hostingCount
+  portfolioCount
+}
+    `;
+
+/**
+ * __useUserProfileQuery__
+ *
+ * To run a query within a React component, call `useUserProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserProfileQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserProfileQuery(baseOptions?: Apollo.QueryHookOptions<UserProfileQuery, UserProfileQueryVariables>) {
+        return Apollo.useQuery<UserProfileQuery, UserProfileQueryVariables>(UserProfileDocument, baseOptions);
+      }
+export function useUserProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserProfileQuery, UserProfileQueryVariables>) {
+          return Apollo.useLazyQuery<UserProfileQuery, UserProfileQueryVariables>(UserProfileDocument, baseOptions);
+        }
+export type UserProfileQueryHookResult = ReturnType<typeof useUserProfileQuery>;
+export type UserProfileLazyQueryHookResult = ReturnType<typeof useUserProfileLazyQuery>;
+export type UserProfileQueryResult = Apollo.QueryResult<UserProfileQuery, UserProfileQueryVariables>;
 export const PostAddedDocument = gql`
-    subscription PostAdded {
-  postAdded {
+    subscription PostAdded($channelId: Int!) {
+  postAdded(channelId: $channelId) {
     message
     createdTime
     id
@@ -919,10 +1067,11 @@ export const PostAddedDocument = gql`
  * @example
  * const { data, loading, error } = usePostAddedSubscription({
  *   variables: {
+ *      channelId: // value for 'channelId'
  *   },
  * });
  */
-export function usePostAddedSubscription(baseOptions?: Apollo.SubscriptionHookOptions<PostAddedSubscription, PostAddedSubscriptionVariables>) {
+export function usePostAddedSubscription(baseOptions: Apollo.SubscriptionHookOptions<PostAddedSubscription, PostAddedSubscriptionVariables>) {
         return Apollo.useSubscription<PostAddedSubscription, PostAddedSubscriptionVariables>(PostAddedDocument, baseOptions);
       }
 export type PostAddedSubscriptionHookResult = ReturnType<typeof usePostAddedSubscription>;

@@ -27,24 +27,17 @@ export class MediaService {
   }
 
   /**
-   * Delete the old file and upload new file (while keeping the same mediaId)
+   * Delete the old file and upload new file
    * @param newFile new file to upload
    * @param oldFile old file to delete
    */
   async updateFile(newFile: FileUpload, oldFile: MediaInput): Promise<Media> {
-    const mediaIdToKeep = oldFile.id;
     try {
       this.deleteStoredFile(oldFile);
-      await this.saveFile(newFile);
-      const newFileType = newFile.mimetype.split('/')[1];
-      this.updateFilename(newFile.filename, mediaIdToKeep, newFileType);
-      if (oldFile.mediaType != newFileType) {
-        await this.mediaRepository.update(mediaIdToKeep, { mediaType: newFileType });
-      }
+      return this.uploadFile(newFile);
     } catch (err) {
       throw new InternalServerErrorException();
     }
-    return this.getMedia(mediaIdToKeep);
   }
 
   saveFile({ createReadStream, filename }: FileUpload): Promise<boolean> {
@@ -63,6 +56,12 @@ export class MediaService {
     const fileType = mediaType.split('/')[1];
     const newMedia = new Media(fileType);
     return await this.mediaRepository.save(newMedia);
+  }
+
+  async deleteMedia(id: number): Promise<Media> {
+    const media = this.getMedia(id);
+    await this.mediaRepository.delete(id);
+    return media;
   }
 
   updateFilename(prevFilename: string, nextFilename: number, fileType: string): boolean {

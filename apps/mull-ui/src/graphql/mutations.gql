@@ -36,3 +36,9 @@ mutation JoinEvent($eventId: Int!) {
 mutation LeaveEvent($eventId: Int!) {
   leaveEvent(eventId: $eventId)
 }
+
+mutation UpdateUser($userInput: UpdateUserInput!, $newAvatar: Upload) {
+  updateUser(userInput: $userInput, newAvatar: $newAvatar) {
+    id
+  }
+}

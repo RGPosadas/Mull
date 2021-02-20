@@ -1,5 +1,5 @@
-subscription PostAdded {
-  postAdded {
+subscription PostAdded($channelId: Int!) {
+  postAdded(channelId: $channelId) {
     message
     createdTime
     id
