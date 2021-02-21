@@ -79,24 +79,24 @@ export class EventService {
    */
   async getEventsRecommendedToUser(userId: number): Promise<Event[]> {
     // subquery for events a user will participate in
-    const joinedEventsQuery = await this.eventRepository
+    const joinedEventsQuery = this.eventRepository
       .createQueryBuilder('event')
       .select('event.id')
       .leftJoin('event.participants', 'user')
       .where('user.id = :userId');
     // subquery for events a user is co-hosting
-    const coHostedEventsQuery = await this.eventRepository
+    const coHostedEventsQuery = this.eventRepository
       .createQueryBuilder('event')
       .select('event.id')
       .leftJoin('event.coHosts', 'user')
       .where('user.id = :userId');
     // subquery for events a user is a host of
-    const hostedEventsQuery = await this.eventRepository
+    const hostedEventsQuery = this.eventRepository
       .createQueryBuilder('event')
       .select('event.id')
       .where('event.hostId = :userId');
 
-    return await this.eventRepository
+    return this.eventRepository
       .createQueryBuilder('event')
       .distinct(true)
       .leftJoinAndSelect('event.location', 'location')
@@ -110,7 +110,7 @@ export class EventService {
   }
 
   async createEvent(hostId: number, input: CreateEventInput): Promise<Event> {
-    return await this.eventRepository.save({ ...input, host: { id: hostId } });
+    return this.eventRepository.save({ ...input, host: { id: hostId } });
   }
 
   async updateEvent(input: UpdateEventInput): Promise<Event> {
@@ -128,7 +128,7 @@ export class EventService {
     const user = new User(userId);
     const event = await this.eventRepository.findOne(eventId, { relations: ['participants'] });
     event.participants.push(user);
-    return await this.eventRepository.save(event);
+    return this.eventRepository.save(event);
   }
 
   async removeEventParticipant(eventId: number, userId: number) {
@@ -143,7 +143,7 @@ export class EventService {
     } else {
       const index = event.participants.indexOf(user);
       event.participants.splice(index, 1);
-      return await this.eventRepository.save(event);
+      return this.eventRepository.save(event);
     }
   }
 
@@ -159,7 +159,7 @@ export class EventService {
    */
   async getUserEventsPortfolio(userId: number): Promise<Event[]> {
     const currentDateTime = new Date().toISOString().replace('T', ' ');
-    return await this.eventRepository
+    return this.eventRepository
       .createQueryBuilder('event')
       .leftJoinAndSelect('event.location', 'location')
       .leftJoin('event.host', 'host')

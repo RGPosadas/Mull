@@ -55,7 +55,7 @@ export class MediaService {
   async createMedia(mediaType: string): Promise<Media> {
     const fileType = mediaType.split('/')[1];
     const newMedia = new Media(fileType);
-    return await this.mediaRepository.save(newMedia);
+    return this.mediaRepository.save(newMedia);
   }
 
   async deleteMedia(id: number): Promise<Media> {
@@ -73,7 +73,7 @@ export class MediaService {
   }
 
   async getMedia(mediaId: number): Promise<Media> {
-    return await this.mediaRepository.findOne(mediaId);
+    return this.mediaRepository.findOne(mediaId);
   }
 
   deleteStoredFile(media: MediaInput): boolean {

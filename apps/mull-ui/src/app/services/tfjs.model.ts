@@ -70,7 +70,7 @@ export class TensorflowJsModel implements WasteRecognitionModel {
     const boxes = await modelOutput[0].data();
     const classes = await modelOutput[1].data();
     const scores = await modelOutput[2].data();
-    let numDetections = (await modelOutput[3].data())[0] as number;
+    let numDetections = (await modelOutput[3].data())[0];
 
     const detectionResults: DetectionResult[] = [];
 

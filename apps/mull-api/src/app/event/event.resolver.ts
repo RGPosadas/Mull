@@ -86,6 +86,6 @@ export class EventResolver {
 
   @ResolveField(/* istanbul ignore next */ () => Media)
   async image(@Parent() event: Event) {
-    return await this.eventService.getEventImage(event.id);
+    return this.eventService.getEventImage(event.id);
   }
 }

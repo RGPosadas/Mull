@@ -22,10 +22,8 @@ export class AppController {
       throw new Error(response.data.error_message);
     }
 
-    const autocompleteLocations: IGooglePlace[] = response.data.predictions.map((field) => {
-      const googlePlace: IGooglePlace = { description: field.description, placeId: field.place_id };
-      return googlePlace;
-    });
-    return autocompleteLocations;
+    return response.data.predictions.map((field) => {
+      return { description: field.description, placeId: field.place_id } as IGooglePlace;
+    }) as IGooglePlace[];
   }
 }

@@ -3,7 +3,7 @@ import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nes
 import { GraphQLUpload } from 'apollo-server-express';
 import { FileUpload } from 'graphql-upload';
 import { AuthenticatedUser, AuthGuard } from '../auth/auth.guard';
-import { User } from '../entities';
+import { Media, User } from '../entities';
 import { EventService } from '../event/event.service';
 import { MediaService } from '../media/media.service';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
@@ -39,6 +39,28 @@ export class UserResolver {
     return this.userService.createUser(user);
   }
 
+  private async handleNewAvatar(
+    newAvatar: FileUpload,
+    user: User,
+    userInput: UpdateUserInput
+  ): Promise<UpdateUserInput> {
+    let media: Media;
+    if (newAvatar) {
+      if (user.avatar) {
+        const oldMediaId = user.avatar.id;
+        media = await this.mediaService.updateFile(newAvatar, user.avatar);
+        this.mediaService.deleteMedia(oldMediaId);
+      } else {
+        media = await this.mediaService.uploadFile(newAvatar);
+      }
+      return {
+        ...userInput,
+        avatar: media,
+      };
+    }
+    return userInput;
+  }
+
   @Mutation(/* istanbul ignore next */ () => User)
   @UseGuards(AuthGuard)
   async updateUser(
@@ -47,21 +69,8 @@ export class UserResolver {
     newAvatar: FileUpload
   ) {
     const user = await this.userService.getUser(userInput.id);
-    if (newAvatar) {
-      if (user.avatar) {
-        var oldMediaId = user.avatar.id;
-        var media = await this.mediaService.updateFile(newAvatar, user.avatar);
-      } else {
-        var media = await this.mediaService.uploadFile(newAvatar);
-      }
-      userInput = {
-        ...userInput,
-        avatar: media,
-      };
-    }
-    const updatedUser = await this.userService.updateUser(userInput);
-    if (newAvatar && !!user.avatar) this.mediaService.deleteMedia(oldMediaId);
-    return updatedUser;
+    userInput = await this.handleNewAvatar(newAvatar, user, userInput);
+    return this.userService.updateUser(userInput);
   }
 
   @Mutation(/* istanbul ignore next */ () => User)

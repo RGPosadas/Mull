@@ -24,7 +24,7 @@ export class PostService {
   }
 
   async createPost(input: CreatePostInput): Promise<Post> {
-    return await this.postRepository.save(input);
+    return this.postRepository.save(input);
   }
 
   async deletePost(postId: number): Promise<Post> {
@@ -35,6 +35,6 @@ export class PostService {
 
   async updatePost(input: UpdatePostInput): Promise<Post> {
     await this.postRepository.update(input.id, { ...input });
-    return await this.getPost(input.id);
+    return this.getPost(input.id);
   }
 }
