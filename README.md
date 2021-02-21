@@ -48,7 +48,7 @@ We try our best to adhere to the set of rules and guidelines that we've come up 
 We use **NodeJS 14**, **npm 7**, and Nx to manage our workspace and dependencies. The Nx CLI offers powerful tools for development, and we recommend you install it when contributing to the project.
 
 1. Install NodeJS 14 for your operating system.
-1. Install npm 7 (if it wasn't included in your NodeJS installation)
+1. Install npm 6 (if it wasn't included in your NodeJS installation or you have a different version)
 1. Install the Nx CLI:
    - `npm install -g nx`
 1. Install dependencies:
