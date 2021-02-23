@@ -37,7 +37,6 @@ input CreatePostInput {
   message: String!
   parentPost: ParentPostInput
   reactions: PostReactionInput
-  user: UserInput!
 }
 
 input CreateUserInput {
@@ -203,7 +202,6 @@ input UpdatePostInput {
   message: String!
   parentPost: ParentPostInput
   reactions: PostReactionInput
-  user: UserInput!
 }
 
 input UpdateUserInput {
@@ -230,8 +228,4 @@ type User {
   password: String
   registrationMethod: RegistrationMethod!
   timezone: String!
-}
-
-input UserInput {
-  id: Int!
 }

@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
-import { AuthGuard } from '../auth/auth.guard';
+import { AuthenticatedUser, AuthGuard } from '../auth/auth.guard';
 import { Post } from '../entities';
 import { CreatePostInput, UpdatePostInput } from './inputs/post.input';
 import pubSub from './post.pubsub';
@@ -15,9 +15,8 @@ export class PostResolver {
   }
 
   @Mutation(/* istanbul ignore next */ () => Post)
-  @UseGuards(AuthGuard)
-  async post(@Args('post') post: CreatePostInput) {
-    const savedPost = this.postService.createPost(post);
+  async post(@Args('post') post: CreatePostInput, @AuthenticatedUser() userId: number) {
+    const savedPost = this.postService.createPost(post, userId);
     pubSub.publish('postAdded' + post.channel.id, {
       postAdded: savedPost,
     });
