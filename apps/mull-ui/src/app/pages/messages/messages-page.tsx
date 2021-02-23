@@ -12,7 +12,12 @@ export interface MessagePageProps {
  * Children are rendered in between and then adds a sticky chat-input at the bottom of the page.
  */
 export const MessagesPage = ({ children }: MessagePageProps) => {
-  const { data, loading } = usePostAddedSubscription();
+  // TODO set channel id to right value
+  const { data, loading } = usePostAddedSubscription({
+    variables: {
+      channelId: 1,
+    },
+  });
 
   return (
     <div>

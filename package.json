@@ -37,6 +37,7 @@
     "workspace-generator": "nx workspace-generator"
   },
   "resolutions": {
+    "fs-capacitor": "^6.2.0",
     "graphql-upload": "^11.0.0"
   },
   "dependencies": {
@@ -55,7 +56,6 @@
     "@nestjs/passport": "^7.1.0",
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/typeorm": "^7.1.4",
-    "@react-native-community/geolocation": "^2.0.2",
     "@tensorflow/tfjs": "^3.0.0",
     "apollo-link-token-refresh": "^0.3.2",
     "apollo-server-express": "^2.18.2",
@@ -73,7 +73,6 @@
     "graphql-upload": "^11.0.0",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.20",
-    "material-ui": "^0.20.2",
     "mysql": "^2.18.1",
     "nestjs-session": "^1.0.1",
     "passport": "^0.4.1",
