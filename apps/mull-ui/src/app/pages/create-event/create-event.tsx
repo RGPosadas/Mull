@@ -91,15 +91,13 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       startTime: Yup.string().required('Start Time is required.'),
       endTime: Yup.string()
         .required('End Time is required.')
-        .test(
-          'endTime is after startTime',
-          'The end time must be after the start time.',
-          function (endTime) {
-            const { startTime, startDate, endDate } = this.parent;
-            if (endDate && startDate < endDate) return true;
-            return moment(endTime, 'HH:mm').isSameOrAfter(moment(startTime, 'HH:mm'));
-          }
-        ),
+        .test('endTime is after startTime', 'The end time must be after the start time.', function (
+          endTime
+        ) {
+          const { startTime, startDate, endDate } = this.parent;
+          if (endDate && startDate < endDate) return true;
+          return moment(endTime, 'HH:mm').isSameOrAfter(moment(startTime, 'HH:mm'));
+        }),
       eventTitle: Yup.string()
         .required('Event Title is required.')
         .max(65, 'Event Title length must be under 65 characters.'),

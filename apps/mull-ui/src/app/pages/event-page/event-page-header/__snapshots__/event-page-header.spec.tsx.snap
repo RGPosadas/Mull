@@ -2,7 +2,7 @@
 
 exports[`EventPageHeader should match snapshot 1`] = `
 <div
-  className="event-page-header"
+  className="event-page-header-container"
 >
   <button
     className="mull-back-button undefined"
@@ -42,6 +42,7 @@ exports[`EventPageHeader should match snapshot 1`] = `
     alt="Event Page"
     className="event-image"
     data-testid="event-page-image"
+    onLoad={[Function]}
     src="http://localhost:3333/api/media/1"
   />
   <div

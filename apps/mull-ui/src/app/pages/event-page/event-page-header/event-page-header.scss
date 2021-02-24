@@ -1,4 +1,6 @@
-.event-page-header {
+@import '../../../../variables.scss';
+
+.event-page-header-container {
   padding: 0.5rem 0.5rem 0;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
@@ -12,7 +14,7 @@
 .event-image {
   border-radius: 8px;
   display: block;
-  max-height: 10rem;
+  max-height: 9rem;
   margin: 0 auto;
 }
 
@@ -33,4 +35,10 @@
 .clock-icon {
   position: absolute;
   left: 0.5rem;
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .event-image {
+    max-width: 100%;
+  }
 }
