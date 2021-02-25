@@ -23,6 +23,7 @@ import LoginPage from './pages/login/login';
 import AnnouncementsPage from './pages/messages/announcements/announcements';
 import ChatPagesHeader from './pages/messages/chat-pages-header';
 import EventMessageList from './pages/messages/event-messages/event-message-list';
+import GroupChatPage from './pages/messages/group-chat/group-chat';
 import EditProfilePage from './pages/profile/edit-profile/edit-profile';
 import UserProfilePage from './pages/profile/user-profile/user-profile';
 import RegisterPage from './pages/register/register';
@@ -112,8 +113,7 @@ export const App = () => {
           <PrivateRoute path={ROUTES.MESSAGES}>
             <ChatPagesHeader>
               <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
-                {/* TODO: Create the Group Chat page and add in its component here */}
-                {/* <PrivateRoute path={ROUTES.GROUPCHAT.url} component={GroupChatPage} /> */}
+                <PrivateRoute path={ROUTES.GROUPCHAT.url} component={GroupChatPage} />
                 <PrivateRoute path={ROUTES.ANNOUNCEMENTS.url} component={AnnouncementsPage} />
                 <PrivateRoute exact path={ROUTES.MESSAGES}>
                   <Redirect to={ROUTES.ANNOUNCEMENTS.url} />
