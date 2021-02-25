@@ -43,6 +43,7 @@ import { UserModule } from './user';
        * Allows entities to be loaded by a sub module.
        */
       autoLoadEntities: true,
+      charset: 'utf8mb4_unicode_ci',
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'apps/mull-api/src/schema.gql'),
