@@ -49,7 +49,7 @@ import { UserModule } from './user';
       autoSchemaFile: join(process.cwd(), 'apps/mull-api/src/schema.gql'),
       sortSchema: true,
       /**
-       * Access the graphql playground at https://localhost:port/graphql
+       * Access the graphql playground at https://host:port/graphql
        */
       playground: !environment.production,
       uploads: {

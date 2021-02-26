@@ -70,7 +70,7 @@ This project uses pre-commit to enforce formatting and standards. To make sure s
 
 Some secrets and sensitive configuration files are needed to properly operate certains parts of the stack.
 
-1. Add an .env file with the required credentials in the root of the project (see `docs-and-resources` channel on slack for credentials):
+1. Add an `.env`file with the required credentials in the root of the project (see `docs-and-resources` channel on slack for credentials):
 
    ```properties
    TYPEORM_HOST=<host>
@@ -79,9 +79,26 @@ Some secrets and sensitive configuration files are needed to properly operate ce
    ...
    ```
 
+1. Add a `cypress.env.json` in the `apps/mull-ui-e2e/` project folder. See `docs-and-resources` channel on slack for our secret key.
+
+   ```properties
+   {
+      "ACCESS_TOKEN_SECRET": "<secret-key>"
+   }
+   ```
+
+1. Add a `host.env.ts` under the `libs/types/src/` folder. This file specify the hostnames where the application are currently being hosted, and makes it easy to change them.
+
+   ```ts
+   export const UI_HOSTNAME = 'hostname';
+   export const API_HOSTNAME = 'hostname';
+   ```
+
 1. Start the server and client dev server in another terminal to test that everything is working correctly.
    - `nx serve mull-api`
-   - `nx serve mull`
+   - `nx serve mull-ui`
+   - If you specified a host other than `localhost` in your `host.env.ts`, then make sure to add the `--host` flag so that the webserver can be configured properly to serve the app on the right host
+     - example: `nx sere mull-ui --host 123.123.123.123`
 
 ## Running Linting
 
@@ -144,15 +161,6 @@ nx affected:test --base=origin/<base-branch>
 ### E2E Tests
 
 E2E testing is done thought the [Nx CLI](https://nx.dev/latest/react/cli/e2e), and uses [cypress](https://www.cypress.io/).
-
-Add a `cypress.env.json` in the `mull-ui-e2e` project. See `docs-and-resources` channel on slack for our secret key.
-
-```properties
-{
-   "ACCESS_TOKEN_SECRET": "<secret-key>"
-}
-...
-```
 
 To run e2e tests for a project:
 

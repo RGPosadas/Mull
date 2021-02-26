@@ -1,3 +1,4 @@
+import { API_HOSTNAME, UI_HOSTNAME } from '@mull/types';
 import dotenv = require('dotenv');
 dotenv.config();
 
@@ -35,9 +36,9 @@ export const environment = {
     placesApi: process.env.GOOGLE_KEY,
   },
   client: {
-    baseUrl: 'http://localhost:4200',
+    baseUrl: 'http://' + UI_HOSTNAME + ':4200',
   },
   backend: {
-    url: 'http://localhost:3333',
+    url: 'http://' + API_HOSTNAME + ':3333',
   },
 };
