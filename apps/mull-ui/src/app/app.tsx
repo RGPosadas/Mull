@@ -20,7 +20,7 @@ import MyEventsPage from './pages/home/my-events/my-events';
 import UpcomingPage from './pages/home/upcoming/upcoming';
 import LoginPage from './pages/login/login';
 import AnnouncementsPage from './pages/messages/announcements/announcements';
-import MessagesPage from './pages/messages/messages-page';
+import ChatPagesHeader from './pages/messages/chat-pages-header';
 import EditProfilePage from './pages/profile/edit-profile/edit-profile';
 import UserProfilePage from './pages/profile/user-profile/user-profile';
 import RegisterPage from './pages/register/register';
@@ -105,21 +105,16 @@ export const App = () => {
             </div>
           </PrivateRoute>
           <PrivateRoute path={ROUTES.MESSAGES}>
-            <MessagesPage>
+            <ChatPagesHeader>
               <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
-                <SwipeableRoutes>
-                  {/* TODO: Create the Group Chat page and add in its component here */}
-                  {/* <PrivateRoute path={ROUTES.GROUPCHAT.url} component={GroupChatPage} /> */}
-                  <PrivateRoute path={ROUTES.ANNOUNCEMENTS.url} component={AnnouncementsPage} />
-                  <PrivateRoute exact path={ROUTES.MESSAGES}>
-                    <Redirect to={ROUTES.ANNOUNCEMENTS.url} />
-                  </PrivateRoute>
-                </SwipeableRoutes>
+                {/* TODO: Create the Group Chat page and add in its component here */}
+                {/* <PrivateRoute path={ROUTES.GROUPCHAT.url} component={GroupChatPage} /> */}
+                <PrivateRoute path={ROUTES.ANNOUNCEMENTS.url} component={AnnouncementsPage} />
+                <PrivateRoute exact path={ROUTES.MESSAGES}>
+                  <Redirect to={ROUTES.ANNOUNCEMENTS.url} />
+                </PrivateRoute>
               </div>
-            </MessagesPage>
-            <PrivateRoute exact path={ROUTES.MESSAGES}>
-              <Redirect to={ROUTES.ANNOUNCEMENTS.url} />
-            </PrivateRoute>
+            </ChatPagesHeader>
           </PrivateRoute>
           <PrivateRoute path={ROUTES.CAMERA} component={TrashRecognitionPage} />
           <PrivateRoute>
