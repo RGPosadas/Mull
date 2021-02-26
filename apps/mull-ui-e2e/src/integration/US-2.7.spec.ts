@@ -1,3 +1,4 @@
+import { UI_HOSTNAME } from '@mull/types';
 import 'cypress-file-upload';
 import { geolocationStub } from '../fixtures';
 import { frameSizes } from './../fixtures/frame-sizes';
@@ -7,7 +8,7 @@ frameSizes.forEach((frame) => {
     beforeEach(() => {
       cy.mockRefreshRequest();
       cy.viewport(frame.res[0], frame.res[1]);
-      cy.visit('http://localhost:4200/create-event', geolocationStub);
+      cy.visit('http://' + UI_HOSTNAME + ':4200/create-event', geolocationStub);
     });
 
     it('should preview an event', () => {
@@ -25,7 +26,7 @@ frameSizes.forEach((frame) => {
       cy.get('.create-event-button').click();
       cy.get('.event-page-button').click();
 
-      cy.visit('http://localhost:4200/home/myevents');
+      cy.visit('http://' + UI_HOSTNAME + ':4200/home/myevents');
       cy.get('.event-card-container').last().click();
 
       cy.get('.title').should('have.text', 'Title for US-2.7: Preview Event E2E');
