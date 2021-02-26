@@ -3,13 +3,14 @@ import { User } from '../entities';
 import { mockAllUsers } from '../user/user.mockdata';
 import { mockAllEvents, mockImage, mockPartialEvent } from './event.mockdata';
 import { EventResolver } from './event.resolver';
-import { EventService } from './event.service';
+import { DEFAULT_EVENT_CHANNELS, EventService } from './event.service';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 
 const mockEventService = () => ({
   createEvent: jest.fn((hostId: number, mockEventData: CreateEventInput) => ({
     ...mockEventData,
     hostId: { id: hostId },
+    channels: DEFAULT_EVENT_CHANNELS,
   })),
   getEvent: jest.fn((id: number) => mockAllEvents.find((event) => event.id === id)),
   getAllEvents: jest.fn(() => mockAllEvents),
@@ -62,7 +63,11 @@ describe('UserResolver', () => {
 
   it('should create event', async () => {
     const returnedEvent = await resolver.createEvent(5, mockPartialEvent as CreateEventInput);
-    expect(returnedEvent).toEqual({ ...mockPartialEvent, hostId: { id: 5 } });
+    expect(returnedEvent).toEqual({
+      ...mockPartialEvent,
+      hostId: { id: 5 },
+      channels: DEFAULT_EVENT_CHANNELS,
+    });
   });
 
   it('should fetch all events', async () => {

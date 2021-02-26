@@ -4,15 +4,17 @@ import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import renderer from 'react-test-renderer';
-import MessagesPage from './messages-page';
+import ChatPagesHeader from './chat-pages-header';
 
-describe('MessagesPage', () => {
+describe('ChatPagesHeader', () => {
   it('should render successfully', () => {
     const history = createMemoryHistory();
     const { baseElement } = render(
       <MockedProvider>
         <Router history={history}>
-          <MessagesPage children="SwipeableRoutes" />
+          <ChatPagesHeader>
+            <div className="page-container with-sub-nav-and-header with-bottom-chat-input"></div>
+          </ChatPagesHeader>
         </Router>
       </MockedProvider>
     );
@@ -26,7 +28,9 @@ describe('MessagesPage', () => {
       .create(
         <MockedProvider>
           <Router history={history}>
-            <MessagesPage children="SwipeableRoutes" />
+            <ChatPagesHeader>
+              <div className="page-container with-sub-nav-and-header with-bottom-chat-input"></div>
+            </ChatPagesHeader>
           </Router>
         </MockedProvider>
       )

@@ -1,8 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Brackets, Repository } from 'typeorm';
+import { CreateChannelInput } from '../channel/inputs/channel.input';
 import { Event, Media, User } from '../entities';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
+
+export const DEFAULT_EVENT_CHANNELS: CreateChannelInput[] = [
+  { name: 'Announcements', rights: 0 },
+  { name: 'Group Chat', rights: 1 },
+];
 
 @Injectable()
 export class EventService {
@@ -110,7 +116,11 @@ export class EventService {
   }
 
   async createEvent(hostId: number, input: CreateEventInput): Promise<Event> {
-    return this.eventRepository.save({ ...input, host: { id: hostId } });
+    return this.eventRepository.save({
+      ...input,
+      host: { id: hostId },
+      channels: DEFAULT_EVENT_CHANNELS,
+    });
   }
 
   async updateEvent(input: UpdateEventInput): Promise<Event> {

@@ -5,7 +5,7 @@ import { Event } from '../entities';
 import { mockAllUsers } from '../user/user.mockdata';
 import { MockType } from '../user/user.service.spec';
 import { mockAllEvents, mockPartialEvent } from './event.mockdata';
-import { EventService } from './event.service';
+import { DEFAULT_EVENT_CHANNELS, EventService } from './event.service';
 import { CreateEventInput } from './inputs/event.input';
 
 const mockEventRepository = () => ({
@@ -59,7 +59,11 @@ describe('EventService', () => {
   it('should create the event', async () => {
     const hostId = 5;
     const returnedEvent = await service.createEvent(hostId, mockPartialEvent as CreateEventInput);
-    expect(returnedEvent).toEqual({ ...mockPartialEvent, host: { id: hostId } });
+    expect(returnedEvent).toEqual({
+      ...mockPartialEvent,
+      host: { id: hostId },
+      channels: DEFAULT_EVENT_CHANNELS,
+    });
   });
 
   it('should fetch all events', async () => {
