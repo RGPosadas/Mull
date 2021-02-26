@@ -24,7 +24,7 @@ export class Channel {
   name: string;
 
   @Field(() => Int)
-  @Column()
+  @Column({ comment: '0: host only, 1: all participants' })
   rights: number;
 
   @Field(() => Event, { nullable: true })

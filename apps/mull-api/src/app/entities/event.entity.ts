@@ -58,7 +58,8 @@ export class Event implements IEvent {
 
   @OneToMany(
     /* istanbul ignore next */ () => Channel,
-    /* istanbul ignore next */ (channel) => channel.event
+    /* istanbul ignore next */ (channel) => channel.event,
+    { cascade: true }
   )
   channels?: Channel[];
 
