@@ -14,6 +14,7 @@ import {
   useCreateEventMutation,
   useUploadFileMutation,
 } from '../../../generated/graphql';
+import { hasEmoji } from '../../../utilities';
 import { useToast } from '../../hooks/useToast';
 import {
   CustomFileUpload,
@@ -100,7 +101,10 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         }),
       eventTitle: Yup.string()
         .required('Event Title is required.')
-        .max(65, 'Event Title length must be under 65 characters.'),
+        .max(65, 'Event Title length must be under 65 characters.')
+        .test('EmojiCheck', 'Emojis are not allowed in Event Title.', function (eventTitle) {
+          return !hasEmoji(eventTitle);
+        }),
       activeRestriction: Yup.number().min(0).max(2),
       description: Yup.string()
         .required('Event Description is required.')

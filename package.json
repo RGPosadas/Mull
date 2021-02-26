@@ -66,6 +66,7 @@
     "cookie-parser": "^1.4.5",
     "date-fns": "^2.16.1",
     "document-register-element": "1.13.1",
+    "emoji-regex": "^9.2.1",
     "faker": "^5.1.0",
     "formik": "^2.2.0",
     "graphql": "^15.3.0",

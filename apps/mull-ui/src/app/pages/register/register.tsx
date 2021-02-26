@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import logo from '../../../assets/mull-logo.png';
 import { ROUTES } from '../../../constants';
 import { RegistrationMethod, useCreateUserMutation } from '../../../generated/graphql';
+import { hasEmoji } from '../../../utilities';
 import { CustomTextInput } from '../../components';
 import { useToast } from '../../hooks/useToast';
 import './register.scss';
@@ -29,7 +30,12 @@ const Register = ({ history }: RegisterProps) => {
     },
 
     validationSchema: Yup.object({
-      name: Yup.string().required('Name is required.'),
+      name: Yup.string()
+        .required('Name is required.')
+        .max(24, 'Name must be 24 characters or less.')
+        .test('EmojiCheck', 'Emojis are not allowed in Name.', function (name) {
+          return !hasEmoji(name);
+        }),
       email: Yup.string().required('Email is required.').email('Email format is incorrect'),
       password: Yup.string().required('Password is required.'),
     }),

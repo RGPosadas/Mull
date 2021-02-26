@@ -1,4 +1,5 @@
 import { DetectionResult, ISerializedEvent } from '@mull/types';
+import emojiRegexRGI from 'emoji-regex/es2015/RGI_Emoji.js';
 import { categoryMap, WasteType } from './app/services/maps';
 import { environment } from './environments/environment';
 import { User } from './generated/graphql';
@@ -62,4 +63,8 @@ export const drawDetectionIcons = async (
     };
     icon.src = svgMap[category];
   });
+};
+
+export const hasEmoji = (text: string) => {
+  return !!emojiRegexRGI().exec(text);
 };

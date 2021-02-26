@@ -203,7 +203,7 @@ You can serve the database locally for testing, and to avoid interfering with th
 1. Update the following fields in your `.env`:
    - `root=localhost`
    - `password=password`, or whatever password you put for `MYSQL_ROOT_PASSWORD`
-1. Using MySQL Workbench, create a new schema in your database called `mull-dev` (case sensitive)
+1. Using MySQL Workbench, create a new schema in your database called `mull-dev` (case sensitive). In order to support emojis, set `Character Set: utf8mb4` and `Collation: utf8mb4_unicode_ci`.
 
 You now should have a functioning mysql database running locally, usable for the project!
 
