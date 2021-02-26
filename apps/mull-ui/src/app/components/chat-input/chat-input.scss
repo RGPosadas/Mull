@@ -3,6 +3,8 @@
 .chat-input-container {
   width: 100%;
   position: fixed;
+  left: 0;
+  right: 0;
   bottom: $bot-nav-bar-height-mobile;
   padding: 1rem;
   display: flex;
@@ -47,8 +49,6 @@
     width: $page-container-width;
     margin-left: auto;
     margin-right: auto;
-    left: 0;
-    right: 0;
     bottom: 0;
   }
 }
