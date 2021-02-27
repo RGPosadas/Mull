@@ -20,8 +20,8 @@ export class TensorflowJsModel implements WasteRecognitionModel {
 
   private static instance: TensorflowJsModel;
 
-  private detecting: boolean = false;
-  private toDispose: boolean = false;
+  private detecting = false;
+  private toDispose = false;
 
   static getInstance() {
     if (!this.instance) {

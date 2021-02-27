@@ -50,7 +50,7 @@ export const avatarUrl = (user: User) =>
 export const drawDetectionIcons = (
   canvas: HTMLCanvasElement,
   results: DetectionResult[],
-  debug: boolean = false
+  debug = false
 ) => {
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -65,7 +65,7 @@ export const drawDetectionIcons = (
       ctx.strokeStyle = '#00ff00';
       ctx.font = '20px Courier';
       ctx.strokeRect(box.x, box.y - 20, box.width, box.height);
-      ctx.strokeText(`${result.class}: ${result.confidence}`, box.x, box.y);
+      ctx.strokeText(`${result.class}: ${(result.confidence * 100).toFixed(1)}%`, box.x, box.y);
     }
     var icon = new Image();
     icon.onload = () => {
