@@ -53,10 +53,10 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
             },
           },
         });
-        updateToast(toast.TYPE.SUCCESS, 'Profile Updated');
+        updateToast('Profile Updated', toast.TYPE.SUCCESS);
         history.push(ROUTES.PROFILE.DISPLAY);
       } catch (err) {
-        updateToast(toast.TYPE.ERROR, 'Error: Failed To Update Profile');
+        updateToast('Error: Failed To Update Profile', toast.TYPE.ERROR);
         console.error(err);
       }
     },
