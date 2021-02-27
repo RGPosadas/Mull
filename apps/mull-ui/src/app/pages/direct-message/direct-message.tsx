@@ -9,18 +9,21 @@ export interface DirectMessageProps {}
 // TODO: Query that returns an array of user profiles related to user
 const userData = [
   {
+    id: 1,
     name: 'Bob Marley',
     description: 'Singer',
     picture:
       'https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg',
   },
   {
+    id: 2,
     name: 'Shawn Mendes',
     description: 'Singer',
     picture:
       'https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg',
   },
   {
+    id: 3,
     name: 'Justin Bieber',
     description: 'Singer',
     picture:
@@ -51,11 +54,12 @@ const DirectMessagePage = () => {
         {userData
           .filter(
             (user) =>
-              user.name.toLowerCase().includes(searchValue.toLowerCase()) || searchValue == ''
+              user.name.toLowerCase().includes(searchValue.toLowerCase()) || searchValue === ''
           )
           .map((user) => {
             return (
               <ContactRow
+                userId={user.id}
                 userName={user.name}
                 userDescription={user.description}
                 userPicture={user.picture}
