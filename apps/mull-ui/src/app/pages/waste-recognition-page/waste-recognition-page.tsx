@@ -60,7 +60,7 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
       return cameraPromise;
     } else {
       throw new Error(
-        'Either no camera exists on your device, or access to it was denied by the browser.'
+        'Either no camera exists on your device, or your browser denied access to it'
       );
     }
   };
@@ -72,9 +72,11 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
       await setupCamera();
     } catch (err) {
       if (err instanceof DOMException) {
-        notifyToast(`Permissions to access the camera was denied.`, toast.TYPE.ERROR);
+        notifyToast(`Permission to access the camera was denied`, toast.TYPE.ERROR);
+      } else if (err instanceof Error) {
+        notifyToast(`${err.message}`, toast.TYPE.ERROR);
       } else {
-        notifyToast(`${err}`, toast.TYPE.ERROR);
+        notifyToast(err, toast.TYPE.ERROR);
       }
       return;
     }
@@ -82,7 +84,9 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
     try {
       await modelRef.current.init(MULL_MODEL_URL);
     } catch {
-      notifyToast(`Unable to load detection model`, toast.TYPE.ERROR);
+      notifyToast('Detection model loading failed', toast.TYPE.ERROR);
+      setModelLoading(false);
+      return;
     }
 
     detectFrame(videoRef.current, modelRef.current, canvasRef.current);
