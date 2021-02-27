@@ -19,6 +19,7 @@ export const ROUTES = {
   REGISTER: '/register',
   EVENT_BY_ID: '/events/:id',
   TOKEN_REDIRECT: '/token-redirect/:token',
+  DIRECT_MESSAGES: '/dms',
 };
 
 export const DAY_IN_MILLISECONDS = 86400000;

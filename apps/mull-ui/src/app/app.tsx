@@ -14,6 +14,7 @@ import { BotNavBar, PrivateRoute, SubNavBar, TopNavBar } from './components';
 import { UserProvider } from './context/user.context';
 import NotFoundPage from './pages/404/not-found-page';
 import CreateEventPage from './pages/create-event/create-event';
+import DirectMessagePage from './pages/direct-message/direct-message';
 import EventPage from './pages/event-page/event-page';
 import DiscoverPage from './pages/home/discover/discover-page';
 import MyEventsPage from './pages/home/my-events/my-events';
@@ -70,7 +71,6 @@ export const App = () => {
         <PrivateRoute exact path={['/', ROUTES.HOME]}>
           {<Redirect to={ROUTES.DISCOVER.url} />}
         </PrivateRoute>
-
         {/* Switch for main page */}
         <Switch>
           <Route
@@ -117,6 +117,7 @@ export const App = () => {
             </ChatPagesHeader>
           </PrivateRoute>
           <PrivateRoute path={ROUTES.CAMERA} component={WasteRecognitionPage} />
+          <PrivateRoute path={ROUTES.DIRECT_MESSAGES} component={DirectMessagePage} />
           <PrivateRoute>
             <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
             <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
