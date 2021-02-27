@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import React from 'react';
 import { TensorflowJsModel } from '../../services/tfjs.model';
-import TrashRecognitionPage from './waste-recognition-page';
+import WasteRecognitionPage from './waste-recognition-page';
 
 jest.mock('@tensorflow/tfjs');
 
@@ -42,9 +42,9 @@ navigator.mediaDevices = mediaDevicesMock;
 
 TensorflowJsModel.getInstance = TensorflowJsModelMock;
 
-describe('TrashRecognitionPage', () => {
+describe('WasteRecognitionPage', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<TrashRecognitionPage />);
+    const { baseElement } = render(<WasteRecognitionPage />);
     expect(baseElement).toBeTruthy();
   });
 });

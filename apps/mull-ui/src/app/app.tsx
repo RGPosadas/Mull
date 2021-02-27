@@ -25,7 +25,7 @@ import EditProfilePage from './pages/profile/edit-profile/edit-profile';
 import UserProfilePage from './pages/profile/user-profile/user-profile';
 import RegisterPage from './pages/register/register';
 import TokenRedirectPage from './pages/token-redirect/token-redirect';
-import TrashRecognitionPage from './pages/waste-recognition-page/waste-recognition-page';
+import WasteRecognitionPage from './pages/waste-recognition-page/waste-recognition-page';
 
 /**
  * Main component of the application
@@ -116,7 +116,7 @@ export const App = () => {
               </div>
             </ChatPagesHeader>
           </PrivateRoute>
-          <PrivateRoute path={ROUTES.CAMERA} component={TrashRecognitionPage} />
+          <PrivateRoute path={ROUTES.CAMERA} component={WasteRecognitionPage} />
           <PrivateRoute>
             <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
             <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />

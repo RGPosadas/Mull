@@ -7,9 +7,9 @@ import { TensorflowJsModel } from '../../services/tfjs.model';
 import './waste-recognition-page.scss';
 
 /* eslint-disable-next-line */
-export interface TrashRecognitionPageProps {}
+export interface WasteRecognitionPageProps {}
 
-export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
+export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
   const modelRef = useRef<TensorflowJsModel>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -94,7 +94,7 @@ export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
     canvas: HTMLCanvasElement
   ) => {
     // TODO adjust numResults/threshold to filter out bad results better. Might need to be dynamic
-    const results = await model.detect(video, { numResults: 10, threshold: 0.5 });
+    const results = await model.detect(video, { numResults: 10, threshold: 0.45 });
     if (modelLoading) {
       setModelLoading(false);
     }
@@ -119,4 +119,4 @@ export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
   );
 }
 
-export default TrashRecognitionPage;
+export default WasteRecognitionPage;
