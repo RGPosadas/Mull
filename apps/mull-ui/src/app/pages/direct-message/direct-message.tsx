@@ -6,7 +6,7 @@ import './direct-message.scss';
 /* eslint-disable-next-line */
 export interface DirectMessageProps {}
 
-// const { data: userProfiles, loading } = useUserProfilesQuery();
+// TODO: Query that returns an array of user profiles related to user
 const userData = [
   {
     name: 'Bob Marley',
@@ -29,11 +29,10 @@ const userData = [
 ];
 
 const DirectMessagePage = () => {
-  // TODO: update search function for dynamic data
   const [searchValue, setSearchValue] = useState('');
 
-  const handleChange = (e) => {
-    setSearchValue(e.target.value);
+  const handleChange = (event) => {
+    setSearchValue(event.target.value);
   };
 
   return (
@@ -49,15 +48,11 @@ const DirectMessagePage = () => {
           errorMessage={null}
           placeholder={'Search'}
         />
-
         {userData
-          .filter((user) => {
-            if (searchValue == '') {
-              return user;
-            } else if (user.name.toLowerCase().includes(searchValue.toLowerCase())) {
-              return user;
-            }
-          })
+          .filter(
+            (user) =>
+              user.name.toLowerCase().includes(searchValue.toLowerCase()) || searchValue == ''
+          )
           .map((user) => {
             return (
               <ContactRow
