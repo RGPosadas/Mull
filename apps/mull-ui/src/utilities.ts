@@ -50,7 +50,7 @@ export const avatarUrl = (user: User) =>
 export const drawDetectionIcons = (
   canvas: HTMLCanvasElement,
   results: DetectionResult[],
-  debug: boolean
+  debug: boolean = false
 ) => {
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, canvas.width, canvas.height);

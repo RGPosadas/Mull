@@ -25,7 +25,7 @@ import EditProfilePage from './pages/profile/edit-profile/edit-profile';
 import UserProfilePage from './pages/profile/user-profile/user-profile';
 import RegisterPage from './pages/register/register';
 import TokenRedirectPage from './pages/token-redirect/token-redirect';
-import TrashRecognitionPage from './pages/trash-recognition-page/trash-recognition-page';
+import TrashRecognitionPage from './pages/waste-recognition-page/waste-recognition-page';
 
 /**
  * Main component of the application

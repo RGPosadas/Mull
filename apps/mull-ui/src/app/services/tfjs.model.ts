@@ -13,11 +13,15 @@ export interface WasteRecognitionModel {
 
 export class TensorflowJsModel implements WasteRecognitionModel {
   private constructor() {
-    // noop. Private constructor for Singleton
+    // Private constructor for Singleton
+    this.model = null;
   }
   model: GraphModel;
 
   private static instance: TensorflowJsModel;
+
+  private detecting: boolean = false;
+  private toDispose: boolean = false;
 
   static getInstance() {
     if (!this.instance) {
@@ -27,12 +31,19 @@ export class TensorflowJsModel implements WasteRecognitionModel {
   }
 
   async init(modelUrl: string): Promise<void> {
-    this.model = await tf.loadGraphModel(modelUrl);
+    if (!this.model) {
+      this.model = await tf.loadGraphModel(modelUrl);
+    }
   }
   async detect(
     input: Tensor3D | ImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
     options: DetectionOptions = { numResults: 20, threshold: 0.5 }
   ): Promise<DetectionResult[]> {
+    if (!this.model) {
+      return [];
+    }
+    this.detecting = true;
+
     const batched = tf.tidy(() => {
       if (!(input instanceof tf.Tensor)) {
         input = tf.browser.fromPixels(input);
@@ -95,11 +106,28 @@ export class TensorflowJsModel implements WasteRecognitionModel {
       detectionResults.push({ bndBox, class: clazz, confidence: scores[i] });
     }
 
+    // clean the tensors
+    batched.dispose();
+    tf.dispose(modelOutput);
+
+    this.detecting = false;
+
+    if (this.toDispose) {
+      this.dispose();
+    }
     return detectionResults;
   }
   dispose(): void {
-    if (this.model) {
-      this.model.dispose();
+    if (this.model && !this.detecting) {
+      try {
+        this.model.dispose();
+        this.model = null;
+      } catch {
+        //ignore
+      }
+      this.model = null;
+    } else if (this.model && this.detecting) {
+      this.toDispose = true; // Let the detect() method dispose after it's done
     }
   }
 }

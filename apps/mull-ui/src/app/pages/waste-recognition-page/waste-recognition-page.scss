@@ -1,0 +1,42 @@
+@import '../../../variables.scss';
+
+.waste-recognition-page-overlap {
+  position: fixed;
+  box-sizing: border-box;
+
+  left: 0;
+  right: 0;
+  top: $top-nav-bar-height-mobile;
+  bottom: $bot-nav-bar-height-mobile;
+
+  width: 100vw;
+  height: calc(100% - #{$top-nav-bar-height-mobile} - #{$bot-nav-bar-height-mobile});
+
+  object-fit: contain;
+
+  z-index: 1;
+}
+
+.waste-recognition-page-overlay-text {
+  position: fixed;
+  z-index: 2;
+
+  bottom: $bot-nav-bar-height-mobile + 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  color: white;
+  background-color: transparentize($color: #000000, $amount: 0.5);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .waste-recognition-page-overlap {
+    top: $top-nav-bar-height-desktop;
+
+    bottom: 0;
+
+    height: calc(100% - #{$top-nav-bar-height-desktop});
+  }
+}

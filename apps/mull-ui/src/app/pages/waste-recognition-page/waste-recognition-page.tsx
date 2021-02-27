@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MULL_MODEL_URL } from '../../../constants';
 import { drawDetectionIcons } from '../../../utilities';
 import { TensorflowJsModel } from '../../services/tfjs.model';
-import './trash-recognition-page.scss';
+import './waste-recognition-page.scss';
 
 /* eslint-disable-next-line */
 export interface TrashRecognitionPageProps {}
@@ -11,22 +11,28 @@ export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
   const modelRef = useRef<TensorflowJsModel>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream>(null);
 
   const [videoLoading, setVideoLoading] = useState<boolean>(true);
   const [modelLoading, setModelLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setup();
+    return () => {
+      modelRef.current.dispose();
+      streamRef.current.getTracks()[0].stop();
+    };
   }, []);
 
   const setupCamera = async () => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       let cameraPromise = navigator.mediaDevices
         .getUserMedia({
-          video: { facingMode: 'user' },
+          video: { facingMode: 'environment' },
           audio: false,
         })
         .then((stream) => {
+          streamRef.current = stream;
           videoRef.current.srcObject = stream;
 
           let { width, height } = stream.getTracks()[0].getSettings();
@@ -69,7 +75,7 @@ export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
     if (modelLoading) {
       setModelLoading(false);
     }
-    drawDetectionIcons(canvas, results, true);
+    drawDetectionIcons(canvas, results);
     requestAnimationFrame(() => {
       detectFrame(video, model, canvas);
     });
@@ -77,16 +83,11 @@ export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
 
   return (
     <div className="page-container">
-      <h1>Welcome to trash-recognition-page!</h1>
-      {videoLoading ? <div> Loading Video Feed</div> : null}
-      {modelLoading ? <div> Loading Model</div> : null}
-      <video
-        ref={videoRef}
-        src="https://farm4.staticflickr.com/7372/9303908257_374934b32f_o.jpg"
-        className="trash-recognition-overlap"
-      />
-
-      <canvas ref={canvasRef} className="trash-recognition-overlap" />
+      {modelLoading ? (
+        <div className="waste-recognition-page-overlay-text">Warming Up Model</div>
+      ) : null}
+      <video ref={videoRef} className="waste-recognition-page-overlap" />
+      <canvas ref={canvasRef} className="waste-recognition-page-overlap" />
     </div>
   );
 }
