@@ -86,7 +86,11 @@ export function TrashRecognitionPage(props: TrashRecognitionPageProps) {
       {modelLoading ? (
         <div className="waste-recognition-page-overlay-text">Warming Up Model</div>
       ) : null}
-      <video ref={videoRef} className="waste-recognition-page-overlap" />
+      <video
+        ref={videoRef}
+        className="waste-recognition-page-overlap"
+        data-testid="waste-recognition-page-video"
+      />
       <canvas ref={canvasRef} className="waste-recognition-page-overlap" />
     </div>
   );
