@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import { createMemoryHistory, History } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
+import renderer from 'react-test-renderer';
 import { dummyEvent } from '../../../constants';
 import { UserProvider } from '../../context/user.context';
 import EventCard from './event-card';
@@ -24,6 +25,12 @@ describe('EventCard', () => {
     const history = createMemoryHistory();
     const { baseElement } = render(renderHelper(history));
     expect(baseElement).toBeTruthy();
+  });
+
+  it('should match snapshot', () => {
+    const history = createMemoryHistory();
+    const tree = renderer.create(renderHelper(history)).toJSON();
+    expect(tree).toMatchSnapshot();
   });
 
   it('should render dates correctly', () => {

@@ -8,7 +8,6 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-const lib = require('@mull/types'); // Importing this with require, since otherwise webpack would complain
 const jwt = require('jsonwebtoken');
 
 declare namespace Cypress {
@@ -17,11 +16,10 @@ declare namespace Cypress {
     interceptGraphQLReqs(): void;
   }
 }
-
 //
 // -- This is a parent command --
 Cypress.Commands.add('mockRefreshRequest', (userId = 1) => {
-  cy.intercept('POST', 'http://' + lib.UI_HOSTNAME + ':3333/api/auth/refresh', {
+  cy.intercept('POST', 'http://localhost:3333/api/auth/refresh', {
     statusCode: 201,
     body: {
       accessToken: jwt.sign({ id: userId }, Cypress.env('ACCESS_TOKEN_SECRET')),
@@ -38,7 +36,7 @@ Cypress.Commands.add('mockRefreshRequest', (userId = 1) => {
  * Ref: https://docs.cypress.io/api/commands/wait.html#Alias
  */
 Cypress.Commands.add('interceptGraphQLReqs', () => {
-  return cy.intercept('POST', '' + lib.UI_HOSTNAME + ':3333/graphql', (req) => {
+  return cy.intercept('POST', 'localhost:3333/graphql', (req) => {
     if (req.body.operationName.includes('User')) {
       req.alias = 'User';
     }

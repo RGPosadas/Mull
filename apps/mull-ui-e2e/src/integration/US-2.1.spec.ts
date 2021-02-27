@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
-import { UI_HOSTNAME } from '@mull/types';
 import { frameSizes } from './../fixtures/frame-sizes';
+
 frameSizes.forEach((frame) => {
   describe(`US-2.1: Show events as a list discover page (${frame.name} view)`, () => {
     beforeEach(() => {
@@ -9,7 +9,7 @@ frameSizes.forEach((frame) => {
     });
 
     it('should see a list of events on all tabs', () => {
-      cy.visit('http://' + UI_HOSTNAME + ':4200/home/discover');
+      cy.visit('http://localhost:4200/home/discover');
       cy.get('a.subnavigation-link').then(($subnav) => {
         $subnav[1].click();
       });

@@ -1,5 +1,4 @@
 /// <reference types="Cypress" />
-import { UI_HOSTNAME } from '@mull/types';
 import 'cypress-file-upload';
 import { geolocationStub } from '../fixtures';
 import { frameSizes } from './../fixtures/frame-sizes';
@@ -8,13 +7,13 @@ frameSizes.forEach((frame) => {
   describe(`US-7.6: Login as a User (${frame.name} view)`, () => {
     beforeEach(() => {
       cy.viewport(frame.res[0], frame.res[1]);
-      cy.visit('http://' + UI_HOSTNAME + ':4200/', geolocationStub);
+      cy.visit('http://localhost:4200/', geolocationStub);
     });
 
     it('should login a user', () => {
       cy.get('#email').type('test@email.com');
       cy.get('#password').type('fdsgsfdj');
-      cy.intercept('POST', 'http://' + UI_HOSTNAME + ':3333/graphql', (req) => {
+      cy.intercept('POST', 'http://localhost:3333/graphql', (req) => {
         if (req.body.operationName === 'Login') {
           req.reply({
             statusCode: 200,

@@ -1,5 +1,4 @@
 /// <reference types="Cypress" />
-import { UI_HOSTNAME } from '@mull/types';
 import 'cypress-file-upload';
 import { geolocationStub } from '../fixtures';
 import { frameSizes } from './../fixtures/frame-sizes';
@@ -9,7 +8,7 @@ frameSizes.forEach((frame) => {
     beforeEach(() => {
       cy.mockRefreshRequest();
       cy.viewport(frame.res[0], frame.res[1]);
-      cy.visit('http://' + UI_HOSTNAME + ':4200/create-event', geolocationStub);
+      cy.visit('http://localhost:4200/create-event', geolocationStub);
     });
 
     it('should preview the file', () => {

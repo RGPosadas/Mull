@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import React from 'react';
-import { dummyEvent } from '../../../constants';
+import renderer from 'react-test-renderer';
+import { dummyEvent } from '../../../../constants';
 import EventPageHeader from './event-page-header';
 
 describe('EventPageHeader', () => {
@@ -18,6 +19,11 @@ describe('EventPageHeader', () => {
   it('should render successfully', () => {
     const { baseElement } = render(renderHelper());
     expect(baseElement).toBeTruthy();
+  });
+
+  it('should match snapshot', () => {
+    const tree = renderer.create(renderHelper()).toJSON();
+    expect(tree).toMatchSnapshot();
   });
 
   it('should render dates correctly', () => {

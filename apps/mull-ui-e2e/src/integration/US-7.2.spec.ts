@@ -1,5 +1,4 @@
 /// <reference types="Cypress" />
-import { UI_HOSTNAME } from '@mull/types';
 import 'cypress-file-upload';
 import * as faker from 'faker';
 import { frameSizes } from './../fixtures/frame-sizes';
@@ -8,7 +7,7 @@ frameSizes.forEach((frame) => {
   describe(`US-7.2: Müll Profile (${frame.name} view)`, () => {
     const email = faker.internet.email();
     before(() => {
-      cy.visit('http://' + UI_HOSTNAME + ':4200/register');
+      cy.visit('http://localhost:4200/register');
       cy.get('#name').type('Andrea Gloria');
       cy.get('#email').type(email);
       cy.get('#password').type('password');
@@ -21,11 +20,11 @@ frameSizes.forEach((frame) => {
     });
 
     it(`should show the user's expected profile`, () => {
-      cy.visit('http://' + UI_HOSTNAME + ':4200/login');
+      cy.visit('http://localhost:4200/login');
       cy.get('#email').type(email);
       cy.get('#password').type('password');
       cy.get('.login').click().wait('@Login');
-      cy.visit('http://' + UI_HOSTNAME + ':4200/profile');
+      cy.visit('http://localhost:4200/profile');
 
       cy.get('[data-testid=userName]').should('have.text', 'Andrea Gloria');
       cy.get('[data-testid=userDescription]').should('have.text', '');
@@ -35,11 +34,11 @@ frameSizes.forEach((frame) => {
     });
 
     it(`should show the user's updated profile`, () => {
-      cy.visit('http://' + UI_HOSTNAME + ':4200/login');
+      cy.visit('http://localhost:4200/login');
       cy.get('#email').type(email);
       cy.get('#password').type('password');
       cy.get('.login').click().wait('@Login');
-      cy.visit('http://' + UI_HOSTNAME + ':4200/profile/edit').wait('@User');
+      cy.visit('http://localhost:4200/profile/edit').wait('@User');
       cy.get('#description').clear().type('This is my updated description!');
       cy.get('.save-button').click();
 

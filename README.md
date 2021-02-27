@@ -87,18 +87,13 @@ Some secrets and sensitive configuration files are needed to properly operate ce
    }
    ```
 
-1. Add a `host.env.ts` under the `libs/types/src/` folder. This file specify the hostnames where the application are currently being hosted, and makes it easy to change them.
-
-   ```ts
-   export const UI_HOSTNAME = 'hostname';
-   export const API_HOSTNAME = 'hostname';
-   ```
+1. There is a `host.env.ts` under the `libs/types/src/` folder. This file specifies the hostnames where the applications are currently being hosted and makes it easy to change them. There are a few use cases for this, the most common being if you want to access the application you're hosting on your computer from another device, like your phone. We should not commit changes to this file.
 
 1. Start the server and client dev server in another terminal to test that everything is working correctly.
    - `nx serve mull-api`
    - `nx serve mull-ui`
    - If you specified a host other than `localhost` in your `host.env.ts`, then make sure to add the `--host` flag so that the webserver can be configured properly to serve the app on the right host
-     - example: `nx sere mull-ui --host 123.123.123.123`
+     - example: `nx serve mull-ui --host 123.123.123.123`
 
 ## Running Linting
 

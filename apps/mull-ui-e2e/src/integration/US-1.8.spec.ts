@@ -1,13 +1,13 @@
-import { UI_HOSTNAME } from '@mull/types';
 import 'cypress-file-upload';
 import { geolocationStub } from '../fixtures';
 import { frameSizes } from './../fixtures/frame-sizes';
+
 frameSizes.forEach((frame) => {
   describe(`US-1.8: Review Event Creation (${frame.name} view)`, () => {
     beforeEach(() => {
       cy.mockRefreshRequest();
       cy.viewport(frame.res[0], frame.res[1]);
-      cy.visit('http://' + UI_HOSTNAME + ':4200/create-event', geolocationStub);
+      cy.visit('http://localhost:4200/create-event', geolocationStub);
     });
 
     it('should review the event', () => {
