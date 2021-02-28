@@ -111,9 +111,3 @@ export interface BoundingBox {
 export interface IWebSocketParams {
   authToken: string;
 }
-
-export interface IPost {
-  user: IUser;
-  message: string;
-  createdTime: Date;
-}
