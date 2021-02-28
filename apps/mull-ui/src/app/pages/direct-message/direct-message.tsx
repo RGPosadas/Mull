@@ -34,10 +34,6 @@ const userData = [
 const DirectMessagePage = () => {
   const [searchValue, setSearchValue] = useState('');
 
-  const handleChange = (event) => {
-    setSearchValue(event.target.value);
-  };
-
   return (
     <div className="direct-messages-container">
       <ChatHeader eventTitle="Direct Messages" />
@@ -46,17 +42,13 @@ const DirectMessagePage = () => {
           title=""
           fieldName="searchValue"
           value={searchValue}
-          onChange={handleChange}
+          onChange={(event) => setSearchValue(event.target.value)}
           hasErrors={null}
           errorMessage={null}
           placeholder={'Search'}
         />
-        {userData
-          .filter(
-            (user) =>
-              user.name.toLowerCase().includes(searchValue.toLowerCase()) || searchValue === ''
-          )
-          .map((user) => {
+        {userData.map((user) => {
+          if (user.name.toLowerCase().includes(searchValue.toLowerCase()) || searchValue === '')
             return (
               <ContactRow
                 userId={user.id}
@@ -65,7 +57,7 @@ const DirectMessagePage = () => {
                 userPicture={user.picture}
               />
             );
-          })}
+        })}
       </div>
     </div>
   );
