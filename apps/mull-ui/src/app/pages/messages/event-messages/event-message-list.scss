@@ -1,0 +1,11 @@
+@import '../../../../variables.scss';
+
+.event-messages-container {
+  margin-top: 6rem;
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .event-messages-container {
+    margin-top: 9rem;
+  }
+}

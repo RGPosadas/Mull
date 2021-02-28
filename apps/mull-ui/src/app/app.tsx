@@ -22,6 +22,7 @@ import UpcomingPage from './pages/home/upcoming/upcoming';
 import LoginPage from './pages/login/login';
 import AnnouncementsPage from './pages/messages/announcements/announcements';
 import ChatPagesHeader from './pages/messages/chat-pages-header';
+import EventMessageList from './pages/messages/event-messages/event-message-list';
 import EditProfilePage from './pages/profile/edit-profile/edit-profile';
 import UserProfilePage from './pages/profile/user-profile/user-profile';
 import RegisterPage from './pages/register/register';
@@ -122,6 +123,7 @@ export const App = () => {
           </PrivateRoute>
           <PrivateRoute path={ROUTES.CAMERA} component={WasteRecognitionPage} />
           <PrivateRoute path={ROUTES.DIRECT_MESSAGES} component={DirectMessagePage} />
+          <PrivateRoute path={ROUTES.EVENT_MESSAGE_LIST} component={EventMessageList} />
           <PrivateRoute>
             <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
             <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />

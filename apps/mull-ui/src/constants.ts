@@ -20,6 +20,7 @@ export const ROUTES = {
   EVENT_BY_ID: '/events/:id',
   TOKEN_REDIRECT: '/token-redirect/:token',
   DIRECT_MESSAGES: '/dms',
+  EVENT_MESSAGE_LIST: '/event-messages-list',
 };
 
 export const DAY_IN_MILLISECONDS = 86400000;

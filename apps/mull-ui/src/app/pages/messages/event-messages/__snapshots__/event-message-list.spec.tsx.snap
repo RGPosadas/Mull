@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventMessageList should match snapshot 1`] = `
+<div
+  className="event-messages-container"
+>
+  <div
+    className="header undefined"
+  >
+    <button
+      className="hamburger-button"
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-bars fa-w-14 fa-2x hamburger-menu"
+        color="grey"
+        data-icon="bars"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 448 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </button>
+    <h1>
+      Event Messages
+    </h1>
+  </div>
+  <div
+    className="page-container"
+  >
+    <div
+      className="custom-text-input-container "
+    >
+      <label
+        className="custom-text-input-label"
+        htmlFor="searchField"
+      >
+        
+      </label>
+      <input
+        className="custom-text-input input-border "
+        data-testid="custom-text-input"
+        id="searchField"
+        name="searchField"
+        onChange={[Function]}
+        placeholder="Search"
+        type="text"
+        value=""
+      />
+    </div>
+    <div>
+      <div
+        className="event-bullet-container"
+      >
+        <img
+          alt="event"
+          className="event-photo"
+          src="https://i.pinimg.com/originals/c9/a1/44/c9a144b70e175c0361c6e2725677e55a.jpg"
+        />
+        <div
+          className="event-bullet-date-box"
+        >
+          <div
+            className="event-box-day-font"
+          >
+            1
+          </div>
+          <div
+            className="event-box-font"
+          >
+            Feb
+          </div>
+          <div
+            className="event-box-font"
+          >
+            8
+            :
+            20
+          </div>
+        </div>
+        <div>
+          Clean up of Rogers Park
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        className="event-bullet-container"
+      >
+        <img
+          alt="event"
+          className="event-photo"
+          src="https://i.pinimg.com/originals/c9/a1/44/c9a144b70e175c0361c6e2725677e55a.jpg"
+        />
+        <div
+          className="event-bullet-date-box"
+        >
+          <div
+            className="event-box-day-font"
+          >
+            5
+          </div>
+          <div
+            className="event-box-font"
+          >
+            Feb
+          </div>
+          <div
+            className="event-box-font"
+          >
+            8
+            :
+            20
+          </div>
+        </div>
+        <div>
+          Lets do this guys!
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        className="event-bullet-container"
+      >
+        <img
+          alt="event"
+          className="event-photo"
+          src="https://i.pinimg.com/originals/c9/a1/44/c9a144b70e175c0361c6e2725677e55a.jpg"
+        />
+        <div
+          className="event-bullet-date-box"
+        >
+          <div
+            className="event-box-day-font"
+          >
+            7
+          </div>
+          <div
+            className="event-box-font"
+          >
+            Feb
+          </div>
+          <div
+            className="event-box-font"
+          >
+            8
+            :
+            20
+          </div>
+        </div>
+        <div>
+          My god please clean this...
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
