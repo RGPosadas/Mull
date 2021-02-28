@@ -1,14 +1,14 @@
 import { useRef } from 'react';
-import { toast, ToastOptions, TypeOptions } from 'react-toastify';
+import { toast, TypeOptions } from 'react-toastify';
 
 export const useToast = () => {
-  const toastId = useRef(null);
+  const toastId = useRef<React.ReactText>(null);
 
-  const notifyToast = (message: string, options?: ToastOptions) => {
-    toastId.current = toast(message, { autoClose: false, ...options });
+  const notifyToast = (message: string, type: TypeOptions = toast.TYPE.INFO) => {
+    toastId.current = toast(message, { autoClose: 3000, type });
   };
 
-  const updateToast = (type: TypeOptions, message: string) => {
+  const updateToast = (message: string, type: TypeOptions = toast.TYPE.INFO) => {
     toast.update(toastId.current, {
       type,
       render: message,

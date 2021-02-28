@@ -64,14 +64,14 @@ export const Login = ({ history }: LoginProps) => {
         var decodedToken: IAuthToken = jwtDecode(accessToken);
       } catch (err) {
         console.error(err);
-        updateToast(toast.TYPE.ERROR, `Invalid Login Token`);
+        updateToast(`Invalid Login Token`, toast.TYPE.ERROR);
         return;
       }
 
       setUserId(decodedToken.id);
       history.push(ROUTES.DISCOVER.url);
 
-      updateToast(toast.TYPE.SUCCESS, 'Login Successful');
+      updateToast('Login Successful', toast.TYPE.SUCCESS);
     },
   });
 

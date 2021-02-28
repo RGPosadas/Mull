@@ -35,6 +35,7 @@ mockedTf.tidy.mockImplementation((fn: () => void) => {
   fn();
   return {
     shape: [0, 100, 200],
+    dispose: jest.fn(),
   };
 });
 

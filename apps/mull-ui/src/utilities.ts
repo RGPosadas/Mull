@@ -47,16 +47,26 @@ export const avatarUrl = (user: User) =>
     ? `${environment.backendUrl}/api/media/${user.avatar.id}`
     : `./assets/icons/icon-192x192.png`;
 
-export const drawDetectionIcons = async (
-  ctx: CanvasRenderingContext2D,
-  results: DetectionResult[]
+export const drawDetectionIcons = (
+  canvas: HTMLCanvasElement,
+  results: DetectionResult[],
+  debug = false
 ) => {
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   results.forEach((result) => {
     const box = result.bndBox;
     const category = categoryMap[result.class];
     const dx = box.x - svgSize / 2 + box.width / 2;
     const dy = box.y - svgSize / 2 + box.height / 2;
 
+    if (debug) {
+      ctx.strokeStyle = '#00ff00';
+      ctx.font = '20px Courier';
+      ctx.strokeRect(box.x, box.y - 20, box.width, box.height);
+      ctx.strokeText(`${result.class}: ${(result.confidence * 100).toFixed(1)}%`, box.x, box.y);
+    }
     var icon = new Image();
     icon.onload = () => {
       ctx.drawImage(icon, dx, dy, svgSize, svgSize);

@@ -57,13 +57,13 @@ const Register = ({ history }: RegisterProps) => {
 
       if (errors) {
         const messages = errors.map((err) => err.message).reduce((err1, err2) => err1 + err2);
-        updateToast(toast.TYPE.ERROR, `Error, user not created: ${messages}`);
+        updateToast(`Error, user not created: ${messages}`, toast.TYPE.ERROR);
         return;
       }
 
       updateToast(
-        toast.TYPE.SUCCESS,
-        'Account created successfully. Please login with your new credentials.'
+        'Account created successfully. Please login with your new credentials.',
+        toast.TYPE.SUCCESS
       );
       history.push(ROUTES.LOGIN);
     },

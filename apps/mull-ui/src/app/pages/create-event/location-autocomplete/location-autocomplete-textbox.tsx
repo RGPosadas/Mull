@@ -7,6 +7,7 @@ import { IGooglePlace } from '@mull/types';
 import axios from 'axios';
 import { debounce } from 'lodash';
 import React, { useMemo, useState } from 'react';
+import { toast } from 'react-toastify';
 import { environment } from '../../../../environments/environment';
 import { LocationInput } from '../../../../generated/graphql';
 import { useToast } from '../../../hooks/useToast';
@@ -59,7 +60,7 @@ export default function LocationAutocompleteTextbox({
           handleSetValue(location);
         },
         () => {
-          notifyToast('Cannot get your current location coordinates.', { type: 'error' });
+          notifyToast('Cannot get your current location coordinates.', toast.TYPE.ERROR);
         },
         { enableHighAccuracy: true }
       );

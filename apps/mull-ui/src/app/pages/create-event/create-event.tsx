@@ -92,13 +92,15 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       startTime: Yup.string().required('Start Time is required.'),
       endTime: Yup.string()
         .required('End Time is required.')
-        .test('endTime is after startTime', 'The end time must be after the start time.', function (
-          endTime
-        ) {
-          const { startTime, startDate, endDate } = this.parent;
-          if (endDate && startDate < endDate) return true;
-          return moment(endTime, 'HH:mm').isSameOrAfter(moment(startTime, 'HH:mm'));
-        }),
+        .test(
+          'endTime is after startTime',
+          'The end time must be after the start time.',
+          function (endTime) {
+            const { startTime, startDate, endDate } = this.parent;
+            if (endDate && startDate < endDate) return true;
+            return moment(endTime, 'HH:mm').isSameOrAfter(moment(startTime, 'HH:mm'));
+          }
+        ),
       eventTitle: Yup.string()
         .required('Event Title is required.')
         .max(65, 'Event Title length must be under 65 characters.')
@@ -137,10 +139,10 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
             } as CreateEventInput,
           },
         });
-        updateToast(toast.TYPE.SUCCESS, 'Event Created');
+        updateToast('Event Created', toast.TYPE.SUCCESS);
         history.push(ROUTES.HOME);
       } catch (err) {
-        updateToast(toast.TYPE.ERROR, 'Fatal Error: Event Not Created');
+        updateToast('Fatal Error: Event Not Created', toast.TYPE.ERROR);
         console.error(err);
       }
     },
