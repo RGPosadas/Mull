@@ -31,6 +31,13 @@ export const formatJoinDate = (date: Date): { year: number; month: string; day: 
   return { year: date.getFullYear(), month, day: date.getDate() };
 };
 
+export const formatChatBubbleDate = (date: Date) => {
+  return `${date.getHours()}:${String(date.getMinutes()).padStart(
+    2,
+    '0'
+  )} ${date.toLocaleDateString()}`;
+};
+
 export const mediaUrl = (event: Partial<ISerializedEvent>) =>
   `${environment.backendUrl}/api/media/${event.image.id}`;
 
