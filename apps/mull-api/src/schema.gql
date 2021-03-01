@@ -54,6 +54,7 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Event {
+  coHosts: [User!]!
   description: String!
   endDate: DateTime!
   host: User!
@@ -162,6 +163,7 @@ type Query {
   events: [Event!]!
   friendCount: Int!
   getChannel(id: Int!): Channel!
+  getChannelByEvent(channelName: String!, eventId: Int!): Channel!
   hostEvents: [Event!]!
   hostingCount: Int!
   isParticipant(eventId: Int!): Boolean!

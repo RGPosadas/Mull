@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { AuthGuard } from '../auth/auth.guard';
+import { AuthenticatedUser, AuthGuard } from '../auth/auth.guard';
 import { Channel } from '../entities';
 import { ChannelService } from './channel.service';
 import { CreateChannelInput } from './inputs/channel.input';
@@ -27,5 +27,15 @@ export class ChannelResolver {
   @UseGuards(AuthGuard)
   async getChannel(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
     return this.channelService.getChannel(id);
+  }
+
+  @Query(/* istanbul ignore next */ () => Channel)
+  @UseGuards(AuthGuard)
+  async getChannelByEvent(
+    @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId: number,
+    @Args('channelName') channelName: string,
+    @AuthenticatedUser() userId: number
+  ) {
+    return this.channelService.getChannelByEvent(eventId, channelName, userId);
   }
 }

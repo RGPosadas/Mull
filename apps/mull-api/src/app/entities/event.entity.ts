@@ -67,6 +67,7 @@ export class Event implements IEvent {
   @JoinTable({ name: 'event_participants' })
   participants?: User[];
 
+  @Field(/* istanbul ignore next */ () => [User])
   @ManyToMany(/* istanbul ignore next */ () => User)
   @JoinTable({ name: 'event_cohosts' })
   coHosts?: User[];
