@@ -8,6 +8,14 @@ const mockChannelService = () => ({
   getChannel: jest.fn((channelId: number) => {
     return mockAllChannels.find((channel) => channel.id === channelId);
   }),
+  getChannelByEvent: jest.fn((eventId, channelName, userId) => {
+    return mockAllChannels.find(
+      (channel) =>
+        channel.event.id === eventId &&
+        channel.name === channelName &&
+        channel.event.host.id === userId
+    );
+  }),
   createChannel: jest.fn((mockChannelData: CreateChannelInput) => ({ ...mockChannelData })),
   deleteChannel: jest.fn((channelId: number) =>
     mockAllChannels.find((channel) => channel.id === channelId)
@@ -31,6 +39,15 @@ describe('ChannelResolver', () => {
   it('should get a channel', async () => {
     const getChannel = await resolver.getChannel(mockAllChannels[0].id);
     expect(getChannel).toBe(mockAllChannels[0]);
+  });
+
+  it('should get a channel by event id', async () => {
+    const getChannel = await resolver.getChannelByEvent(
+      mockAllChannels[2].event.id,
+      'Announcements',
+      mockAllChannels[2].event.host.id
+    );
+    expect(getChannel).toBe(mockAllChannels[2]);
   });
 
   it('should create a channel', async () => {

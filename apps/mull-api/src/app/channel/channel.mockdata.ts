@@ -1,4 +1,5 @@
 import { Channel } from '../entities';
+import { mockAllEvents } from '../event/event.mockdata';
 import { mockAllPosts } from '../post/post.mockdata';
 import { mockAllUsers } from '../user/user.mockdata';
 import { CreateChannelInput } from './inputs/channel.input';
@@ -7,23 +8,26 @@ export const mockAllChannels: Channel[] = [
   {
     id: 1,
     name: 'private',
-    rights: 0,
+    rights: 2,
     posts: mockAllPosts,
     participants: mockAllUsers,
+    event: mockAllEvents[1],
   },
   {
     id: 2,
-    name: 'groupchat',
-    rights: 0,
+    name: 'Group Chat',
+    rights: 1,
     posts: mockAllPosts,
     participants: mockAllUsers,
+    event: mockAllEvents[2],
   },
   {
     id: 3,
-    name: 'announcements',
+    name: 'Announcements',
     rights: 0,
     posts: mockAllPosts,
     participants: mockAllUsers,
+    event: mockAllEvents[0],
   },
 ];
 

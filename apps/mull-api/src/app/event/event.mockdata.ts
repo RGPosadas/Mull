@@ -2,9 +2,9 @@ import { Event, Media } from '../entities';
 import { mockAllUsers } from '../user/user.mockdata';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 
-const userA = mockAllUsers[0]; // id: 1
-const userB = mockAllUsers[1]; // id: 7
-const userC = mockAllUsers[2]; // id: 3
+const userWithId1 = mockAllUsers[0];
+const userWithId7 = mockAllUsers[1];
+const userWithId3 = mockAllUsers[2];
 
 export const mockPartialEvent: CreateEventInput | UpdateEventInput = {
   id: 35,
@@ -23,9 +23,9 @@ export const mockAllEvents: Event[] = [
     startDate: new Date('2020-10-27T01:31:00.000Z'),
     endDate: new Date('2020-11-01T01:31:00.000Z'),
     restriction: 0,
-    host: userA,
-    coHosts: [userB],
-    participants: [userC],
+    host: userWithId1,
+    coHosts: [userWithId7],
+    participants: [userWithId3],
     location: {
       id: 1,
       title: 'locationA',
@@ -46,9 +46,9 @@ export const mockAllEvents: Event[] = [
     startDate: new Date('2020-10-29T13:30:00.000Z'),
     endDate: new Date('2020-11-01T01:30:00.000Z'),
     restriction: 1,
-    host: userB,
-    coHosts: [userA],
-    participants: [userC],
+    host: userWithId7,
+    coHosts: [userWithId1],
+    participants: [userWithId3],
     location: {
       id: 2,
       title: 'locationB',
@@ -69,8 +69,31 @@ export const mockAllEvents: Event[] = [
     startDate: new Date('2022-10-29T20:20:00.000Z'),
     endDate: new Date('2022-10-31T22:09:00.000Z'),
     restriction: 0,
-    host: userB,
-    coHosts: [userA],
+    host: userWithId7,
+    coHosts: [userWithId1],
+    participants: [],
+    location: {
+      id: 3,
+      title: 'locationC',
+      coordinates: null,
+      placeId: 'googlePlaceIdC',
+      event: null,
+    },
+    image: {
+      id: 3,
+      mediaType: 'jpeg',
+      post: null,
+    },
+  },
+  {
+    id: 38,
+    title: 'No Cohosts',
+    description: 'lots of trash',
+    startDate: new Date('2022-10-29T20:20:00.000Z'),
+    endDate: new Date('2022-10-31T22:09:00.000Z'),
+    restriction: 0,
+    host: userWithId7,
+    coHosts: [],
     participants: [],
     location: {
       id: 3,
@@ -95,8 +118,8 @@ export const mockQueryReturn = [
     startDate: new Date('2020-10-29T20:20:00.000Z'),
     endDate: new Date('2020-10-31T22:09:00.000Z'),
     restriction: 0,
-    host: userB,
-    coHosts: [userA],
+    host: userWithId7,
+    coHosts: [userWithId1],
     participants: [],
     location_id: 3,
     location_title: 'locationC',
@@ -111,8 +134,8 @@ export const mockExpectedQueryReturn = [
     startDate: new Date('2020-10-29T20:20:00.000Z'),
     endDate: new Date('2020-10-31T22:09:00.000Z'),
     restriction: 0,
-    host: userB,
-    coHosts: [userA],
+    host: userWithId7,
+    coHosts: [userWithId1],
     participants: [],
     location: {
       id: 3,
