@@ -119,3 +119,17 @@ query UserProfile {
   hostingCount
   portfolioCount
 }
+
+query ChannelByEvent($eventId: Int!, $channelName: String!) {
+  getChannelByEvent(eventId: $eventId, channelName: $channelName) {
+    id
+    event {
+      host {
+        id
+      }
+      coHosts {
+        id
+      }
+    }
+  }
+}

@@ -27,3 +27,8 @@ export interface IProfileEditForm {
   description: string;
   imageFile: string;
 }
+
+export interface IChatForm {
+  message: string;
+  imageFile: string;
+}

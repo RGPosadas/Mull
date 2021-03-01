@@ -42,3 +42,9 @@ mutation UpdateUser($userInput: UpdateUserInput!, $newAvatar: Upload) {
     id
   }
 }
+
+mutation CreatePost($post: CreatePostInput!) {
+  post(post: $post) {
+    message
+  }
+}
