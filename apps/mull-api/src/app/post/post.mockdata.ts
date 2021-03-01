@@ -8,7 +8,6 @@ const userC = mockAllUsers[2]; // id: 3
 
 export const mockPartialPosts: CreatePostInput | UpdatePostInput = {
   id: 22,
-  user: { id: 23 },
   message: 'This is a post',
   createdTime: new Date('2020-10-27T01:31:00.000Z'),
   channel: { id: 2 },

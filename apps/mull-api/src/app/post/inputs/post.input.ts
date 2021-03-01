@@ -2,15 +2,11 @@ import { Field, InputType, Int } from '@nestjs/graphql';
 import { ChannelInput } from '../../channel/inputs/channel.input';
 import { Media } from '../../entities';
 import { MediaInput } from '../../media/inputs/media.input';
-import { UserInput } from '../../user/inputs/user.input';
 import { ParentPostInput } from './parent-post.input';
 import { PostReactionInput } from './post-reaction.input';
 
 @InputType()
 export class CreatePostInput {
-  @Field(/* istanbul ignore next */ () => UserInput)
-  user: UserInput;
-
   @Field()
   message: string;
 

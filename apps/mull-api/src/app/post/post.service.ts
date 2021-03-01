@@ -23,8 +23,8 @@ export class PostService {
     return this.postRepository.find({ where: { channel: { id: channelId } } });
   }
 
-  async createPost(input: CreatePostInput): Promise<Post> {
-    return this.postRepository.save(input);
+  async createPost(input: CreatePostInput, userId: number): Promise<Post> {
+    return this.postRepository.save({ ...input, user: { id: userId } });
   }
 
   async deletePost(postId: number): Promise<Post> {

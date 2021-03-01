@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Post } from '../entities';
-import { CreatePostInput } from './inputs/post.input';
 import { mockAllPosts, mockPartialPosts } from './post.mockdata';
 import { PostService } from './post.service';
 
@@ -38,8 +37,8 @@ describe('PostService', () => {
   });
 
   it('should create the post', async () => {
-    const returnedPost = await service.createPost(mockPartialPosts as CreatePostInput);
-    expect(returnedPost).toEqual(returnedPost);
+    const returnedPost = await service.createPost(mockPartialPosts, 5);
+    expect(returnedPost).toEqual({ ...mockPartialPosts, user: { id: 5 } });
   });
 
   it('should fetch all posts', async () => {
