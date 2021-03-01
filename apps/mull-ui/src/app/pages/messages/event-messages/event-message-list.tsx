@@ -11,21 +11,21 @@ export interface EventMessageListProps {}
 const messageChannels = [
   {
     eventTitle: 'Clean up of Rogers Park',
-    eventPicture: 'https://i.pinimg.com/originals/c9/a1/44/c9a144b70e175c0361c6e2725677e55a.jpg',
+    eventPicture:
+      'https://www.visitsavannah.com/sites/default/files/styles/large_square/public/chippewa_square.jpg?itok=FRu5WGIl',
     eventDate: new Date(2021, 1, 1, 8, 20, 30, 1),
-    id: 1,
   },
   {
     eventTitle: 'Lets do this guys!',
-    eventPicture: 'https://i.pinimg.com/originals/c9/a1/44/c9a144b70e175c0361c6e2725677e55a.jpg',
+    eventPicture:
+      'https://www.visitsavannah.com/sites/default/files/styles/large_square/public/chippewa_square.jpg?itok=FRu5WGIl',
     eventDate: new Date(2021, 1, 5, 8, 20, 30, 1),
-    id: 2,
   },
   {
     eventTitle: 'My god please clean this...',
-    eventPicture: 'https://i.pinimg.com/originals/c9/a1/44/c9a144b70e175c0361c6e2725677e55a.jpg',
+    eventPicture:
+      'https://www.visitsavannah.com/sites/default/files/styles/large_square/public/chippewa_square.jpg?itok=FRu5WGIl',
     eventDate: new Date(2021, 1, 7, 8, 20, 30, 0),
-    id: 3,
   },
 ];
 
@@ -33,9 +33,13 @@ export const EventMessageList = (props: EventMessageListProps) => {
   const [searchString, setSearchString] = useState<string>('');
 
   return (
-    <div className="page-container">
-      <ChatHeader eventTitle="Event Messages" style={{ right: '0.625rem', marginTop: '1rem' }} />
-      <div className="event-messages-container">
+    <div className="event-messages-container">
+      <ChatHeader
+        eventTitle="Event Messages"
+        style={{ zIndex: 9 }}
+        className="top-nav-bar-shadow"
+      />
+      <div className="page-container">
         <CustomTextInput
           title=""
           fieldName="searchField"
@@ -45,14 +49,14 @@ export const EventMessageList = (props: EventMessageListProps) => {
           onChange={(e) => setSearchString(e.target.value)}
           placeholder="Search"
         />
-        {messageChannels.map((messageChannel) => {
+        {messageChannels.map((messageChannel, idx) => {
           if (messageChannel.eventTitle.toLowerCase().includes(searchString.toLowerCase()))
             return (
               <EventBullet
                 eventTitle={messageChannel.eventTitle}
                 eventPicture={messageChannel.eventPicture}
                 eventDate={messageChannel.eventDate}
-                key={messageChannel.id}
+                key={idx}
               />
             );
         })}
