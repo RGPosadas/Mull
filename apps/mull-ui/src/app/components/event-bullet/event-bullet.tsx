@@ -1,27 +1,12 @@
 import React from 'react';
+import { monthNames } from '../../../constants';
 import './event-bullet.scss';
-
-/* eslint-disable-next-line */
 export interface EventBulletProps {
   eventTitle: string;
   eventPicture: string;
   eventDate: Date;
+  key: number;
 }
-
-const monthNames = [
-  'Jan',
-  'Feb',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'Aug',
-  'Sept',
-  'Oct',
-  'Nov',
-  'Dec',
-];
 
 export const EventBullet = ({ eventTitle, eventPicture, eventDate }: EventBulletProps) => {
   return (
@@ -30,11 +15,11 @@ export const EventBullet = ({ eventTitle, eventPicture, eventDate }: EventBullet
         <img className="event-photo" src={eventPicture} alt="event"></img>
 
         <div className="event-bullet-date-box">
-          <div className="event-box-day-font">{eventDate.getDate()}</div>
-          <div className="event-box-font">{monthNames[eventDate.getMonth()]}</div>
-          <div className="event-box-font">
+          <span className="event-box-day-font">{eventDate.getDate()}</span>
+          <span className="event-box-font">{monthNames[eventDate.getMonth()]}</span>
+          <span className="event-box-font">
             {eventDate.getHours()}:{eventDate.getMinutes()}
-          </div>
+          </span>
         </div>
 
         <div>{eventTitle}</div>

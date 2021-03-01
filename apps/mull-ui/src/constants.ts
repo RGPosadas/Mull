@@ -141,3 +141,18 @@ export const mockPosts = [
     createdTime: new Date(),
   },
 ];
+
+export const monthNames = [
+  'Jan',
+  'Feb',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'Aug',
+  'Sept',
+  'Oct',
+  'Nov',
+  'Dec',
+];
