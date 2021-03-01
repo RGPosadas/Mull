@@ -77,3 +77,65 @@ export const dummyDetectionResults: DetectionResult[] = [
     confidence: 0.8,
   },
 ];
+
+const mockUser1 = {
+  id: 1,
+  password: '$2b$10$Wo/ClOmaI/qItblWM1saEeWgqv9S9nt6QO4KW1kBXdzPT1.q8XuuG',
+  email: 'mock@mock.com',
+  timezone: '',
+  name: 'Bob',
+  dob: new Date(),
+  description: 'I am very good programmer',
+  avatar: { id: 1, mediaType: 'png' },
+  friends: null,
+  tokenVersion: 0,
+  registrationMethod: null,
+  joinDate: new Date('2020-10-31T22:09:00.000Z'),
+};
+
+const mockUser2 = {
+  id: 2,
+  password: '$2b$10$Wo/ClOmaI/qItblWM1saEeWgqv9S9nt6QO4KW1kBXdzPT1.q8XuuG',
+  email: 'mock@mock.com',
+  timezone: '',
+  name: 'Bob',
+  dob: new Date(),
+  description: 'I am very good programmer',
+  avatar: { id: 1, mediaType: 'png' },
+  friends: null,
+  tokenVersion: 0,
+  registrationMethod: null,
+  joinDate: new Date('2020-10-31T22:09:00.000Z'),
+};
+
+const mockChannel = {
+  id: 3,
+  name: 'announcements',
+  rights: 0,
+  posts: null,
+  participants: null,
+};
+
+export const mockPosts = [
+  {
+    id: 1,
+    channel: mockChannel,
+    user: mockUser1,
+    message: 'message 1 from user 1, current user id is 1',
+    createdTime: new Date(),
+  },
+  {
+    id: 2,
+    channel: mockChannel,
+    user: mockUser2,
+    message: 'message 2 from user 2',
+    createdTime: new Date(),
+  },
+  {
+    id: 3,
+    channel: mockChannel,
+    user: mockUser2,
+    message: 'message 3 from user 3',
+    createdTime: new Date(),
+  },
+];
