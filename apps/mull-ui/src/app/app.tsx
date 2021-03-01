@@ -55,7 +55,11 @@ export const App = () => {
   }, []);
 
   const getTopBarStyle = (): CSSProperties => {
-    if (location.pathname.includes(ROUTES.HOME) || location.pathname.includes(ROUTES.MESSAGES)) {
+    if (
+      location.pathname.includes(ROUTES.HOME) ||
+      location.pathname.includes(ROUTES.MESSAGES) ||
+      location.pathname.includes(ROUTES.DIRECT_MESSAGES)
+    ) {
       return { boxShadow: 'none' };
     }
     return {};
