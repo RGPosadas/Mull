@@ -13,23 +13,23 @@
     height: 3.5rem;
     object-fit: cover;
     border-radius: 50%;
-    border: 1px solid black;
+    border: 0.0625rem solid black;
   }
   .user-details {
     display: flex;
     padding: 0.3rem;
     flex-direction: column;
-    .userName {
+    .username {
       margin-top: 0.5rem;
       font-weight: normal;
-      font-size: 18px;
-      line-height: 18px;
+      font-size: 1.125rem;
+      line-height: 1.125rem;
     }
-    .userDescription {
+    .last-message {
       margin-top: 0.2rem;
       font-weight: 300;
-      font-size: 12px;
-      line-height: 12px;
+      font-size: 0.75rem;
+      line-height: 0.75rem;
     }
     span {
       padding-left: 0.5rem;
