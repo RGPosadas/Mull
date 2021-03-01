@@ -1,14 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Announcements should match snapshot 1`] = `
-Array [
+<div
+  className="chat-bubble-list"
+>
   <div
     className="chat-container"
   >
     <p
       className="announcement-time"
     >
-      0:12 2021-02-28
+      22:33 2021-02-28
     </p>
     <div
       className="current-user-chat-container"
@@ -16,7 +18,7 @@ Array [
       <img
         alt="user"
         className="user-picture"
-        src="./assets/icons/icon-192x192.png"
+        src="http://localhost:3333/api/media/1"
       />
       <p
         className="chat-bubble"
@@ -24,14 +26,14 @@ Array [
         message 1 from user 1, current user id is 1
       </p>
     </div>
-  </div>,
+  </div>
   <div
     className="chat-container"
   >
     <p
       className="announcement-time"
     >
-      0:12 2021-02-28
+      22:33 2021-02-28
     </p>
     <div
       className="other-user-chat-container"
@@ -39,7 +41,7 @@ Array [
       <img
         alt="user"
         className="user-picture"
-        src="./assets/icons/icon-192x192.png"
+        src="http://localhost:3333/api/media/1"
       />
       <p
         className="chat-bubble"
@@ -47,14 +49,14 @@ Array [
         message 2 from user 2
       </p>
     </div>
-  </div>,
+  </div>
   <div
     className="chat-container"
   >
     <p
       className="announcement-time"
     >
-      0:12 2021-02-28
+      22:33 2021-02-28
     </p>
     <div
       className="other-user-chat-container"
@@ -70,6 +72,6 @@ Array [
         message 3 from user 3
       </p>
     </div>
-  </div>,
-]
+  </div>
+</div>
 `;

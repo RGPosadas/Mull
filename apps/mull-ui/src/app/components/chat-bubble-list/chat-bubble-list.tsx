@@ -1,30 +1,27 @@
-import { Post } from 'apps/mull-ui/src/generated/graphql';
-import { avatarUrl } from 'apps/mull-ui/src/utilities';
-import React from 'react';
+import React, { useContext } from 'react';
+import { Post } from '../../../generated/graphql';
+import { avatarUrl, formatChatBubbleDate } from '../../../utilities';
 import ChatBubble from '../../components/chat-bubble/chat-bubble';
+import UserContext from '../../context/user.context';
 
-const formatDate = (date: Date) => {
-  return `${date.getHours()}:${String(date.getMinutes()).padStart(
-    2,
-    '0'
-  )} ${date.toLocaleDateString()}`;
+export interface ChatBubbleListProps {
+  posts: Post[];
+}
+
+export const ChatBubbleList = ({ posts }: ChatBubbleListProps) => {
+  const { userId } = useContext(UserContext);
+  const chatBubbleList = posts.map((post) => (
+    <ChatBubble
+      key={post.id}
+      isCurrentUser={userId === post.user.id}
+      chatDate={formatChatBubbleDate(post.createdTime)}
+      userPicture={avatarUrl(post.user)}
+    >
+      {post.message}
+    </ChatBubble>
+  ));
+
+  return <div className="chat-bubble-list">{chatBubbleList}</div>;
 };
 
-export const chatBubbleList = ({ data }) => {
-  if (data) {
-    const posts = data.posts as Post[];
-    var chatBubbleList = posts.map((post) => (
-      <ChatBubble
-        isCurrentUser={data.currentUser.id == post.user.id}
-        chatDate={formatDate(post.createdTime)}
-        userPicture={avatarUrl(post.user)}
-      >
-        {post.message}
-      </ChatBubble>
-    ));
-
-    return <>{chatBubbleList}</>;
-  }
-};
-
-export default chatBubbleList;
+export default ChatBubbleList;
