@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChatHeader, CustomTextInput } from '../../../components';
+import { CustomTextInput } from '../../../components';
 import EventBullet from '../../../components/event-bullet/event-bullet';
 import './event-message-list.scss';
 
@@ -33,34 +33,27 @@ export const EventMessageList = (props: EventMessageListProps) => {
   const [searchString, setSearchString] = useState<string>('');
 
   return (
-    <div className="event-messages-container">
-      <ChatHeader
-        eventTitle="Event Messages"
-        style={{ zIndex: 9 }}
-        className="top-nav-bar-shadow"
+    <div className="page-container">
+      <CustomTextInput
+        title=""
+        fieldName="searchField"
+        value={searchString}
+        hasErrors={null}
+        errorMessage={null}
+        onChange={(e) => setSearchString(e.target.value)}
+        placeholder="Search"
       />
-      <div className="page-container">
-        <CustomTextInput
-          title=""
-          fieldName="searchField"
-          value={searchString}
-          hasErrors={null}
-          errorMessage={null}
-          onChange={(e) => setSearchString(e.target.value)}
-          placeholder="Search"
-        />
-        {messageChannels.map((messageChannel, idx) => {
-          if (messageChannel.eventTitle.toLowerCase().includes(searchString.toLowerCase()))
-            return (
-              <EventBullet
-                eventTitle={messageChannel.eventTitle}
-                eventPicture={messageChannel.eventPicture}
-                eventDate={messageChannel.eventDate}
-                key={idx}
-              />
-            );
-        })}
-      </div>
+      {messageChannels.map((messageChannel, idx) => {
+        if (messageChannel.eventTitle.toLowerCase().includes(searchString.toLowerCase()))
+          return (
+            <EventBullet
+              eventTitle={messageChannel.eventTitle}
+              eventPicture={messageChannel.eventPicture}
+              eventDate={messageChannel.eventDate}
+              key={idx}
+            />
+          );
+      })}
     </div>
   );
 };
