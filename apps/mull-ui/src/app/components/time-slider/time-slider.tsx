@@ -5,11 +5,21 @@ import './time-slider.module.scss';
 
 const MySlider = Slider.createSliderWithTooltip(Slider);
 
+/**
+ * converts a float between 0 to 24 to a readable time format
+ * 23.75 -> 23:45
+ * @param minutes
+ */
 function minTommss(minutes: number) {
   var hour = Math.floor(Math.abs(minutes));
   var min = Math.floor((Math.abs(minutes) * 60) % 60);
   return (hour < 10 ? '0' : '') + hour + ':' + (min < 10 ? '0' : '') + min;
 }
+
+/**
+ * shows a 12 hour clock instead of 24
+ * @param time
+ */
 const getStringTime = (time) => {
   return time > 12 ? minTommss(time % 12) + ' pm' : minTommss(time % 12) + '  am';
 };
@@ -20,7 +30,7 @@ export interface TimeSliderProps {
   reverse?: boolean;
 }
 
-const test = (value: number) => {
+const createNewDate = (value: number) => {
   const hhmm = minTommss(value).split(':');
   const d = new Date();
   d.setHours(parseInt(hhmm[0]));
@@ -55,7 +65,7 @@ export const TimeSlider = ({ startOrEnd, reverse }: TimeSliderProps) => {
         }}
         railStyle={{ backgroundColor: reverse ? '#27b09a' : 'silver', height: 10 }}
       />
-      {test(value)}
+      {createNewDate(value)}
     </div>
   );
 };
