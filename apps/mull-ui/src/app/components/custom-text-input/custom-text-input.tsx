@@ -12,6 +12,7 @@ export interface CustomTextInputProps {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
   readOnly?: boolean;
+  placeholder?: string;
 }
 
 /**
@@ -38,6 +39,7 @@ export const CustomTextInput = ({
   password,
   onClick,
   readOnly,
+  placeholder,
 }: CustomTextInputProps) => {
   return (
     <div className={`custom-text-input-container ${hasErrors ? 'error' : ''}`}>
@@ -54,6 +56,7 @@ export const CustomTextInput = ({
         onChange={onChange}
         onClick={onClick}
         readOnly={readOnly}
+        placeholder={placeholder}
       />
       {svgIcon ? svgIcon : null}
       {hasErrors ? <span className="error-message">{errorMessage}</span> : null}

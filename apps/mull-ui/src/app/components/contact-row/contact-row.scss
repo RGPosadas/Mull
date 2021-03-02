@@ -1,0 +1,49 @@
+@import '../../../variables.scss';
+
+.contact-container {
+  display: flex;
+  margin-top: 2rem;
+  justify-content: space-between;
+  .user-information {
+    display: flex;
+    flex-direction: row;
+  }
+  .user-profile-picture {
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 0.0625rem solid black;
+  }
+  .user-details {
+    display: flex;
+    padding: 0.3rem;
+    flex-direction: column;
+    .username {
+      margin-top: 0.5rem;
+      font-weight: normal;
+      font-size: 1.125rem;
+      line-height: 1.125rem;
+    }
+    .last-message {
+      margin-top: 0.2rem;
+      font-weight: 300;
+      font-size: 0.75rem;
+      line-height: 0.75rem;
+    }
+    span {
+      padding-left: 0.5rem;
+    }
+  }
+  .friend-settings-icon {
+    color: $primary-color;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+    width: 100%;
+  }
+  a:hover {
+    cursor: pointer;
+  }
+}
