@@ -122,6 +122,7 @@ export const App = () => {
             </ChatPagesHeader>
           </PrivateRoute>
           <PrivateRoute path={ROUTES.CAMERA} component={WasteRecognitionPage} />
+          {/* TODO: Messages main page: Add swipeable routes for DM + Event Message page */}
           <PrivateRoute path={ROUTES.DIRECT_MESSAGES} component={DirectMessagePage} />
           <PrivateRoute path={ROUTES.EVENT_MESSAGE_LIST} component={EventMessageList} />
           <PrivateRoute>
