@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { Maybe, Media, Post, User } from '../../../generated/graphql';
 import { avatarUrl, formatChatBubbleDate } from '../../../utilities';
 import ChatBubble from '../../components/chat-bubble/chat-bubble';
@@ -15,11 +15,17 @@ export interface ChatBubbleListProps {
 }
 
 export const ChatBubbleList = ({ posts, subToMore }: ChatBubbleListProps) => {
+  const messageEndRef = useRef<HTMLDivElement>(null);
+  const { userId } = useContext(UserContext);
+
   useEffect(() => {
+    messageEndRef.current?.scrollIntoView(); // Scroll to bottom of chat on initial page load
     subToMore();
   }, []);
 
-  const { userId } = useContext(UserContext);
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' }); // Scroll to bottom chat smoothly when new post added
+  }, [posts]);
 
   const chatBubbleList = posts.map((post) => {
     return (
@@ -34,7 +40,12 @@ export const ChatBubbleList = ({ posts, subToMore }: ChatBubbleListProps) => {
     );
   });
 
-  return <div className="chat-bubble-list">{chatBubbleList}</div>;
+  return (
+    <div className="chat-bubble-list">
+      {chatBubbleList}
+      <div ref={messageEndRef}></div>
+    </div>
+  );
 };
 
 export default ChatBubbleList;
