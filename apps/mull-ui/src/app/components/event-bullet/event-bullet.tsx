@@ -12,10 +12,9 @@ export const EventBullet = ({ eventTitle, eventPicture, eventDate }: EventBullet
   return (
     <div>
       <div className="event-bullet-container">
-        <img className="event-photo" src={eventPicture} alt="event"></img>
-
+        <img className="event-bullet-photo" src={eventPicture} alt="event" />
         <div className="event-bullet-date-box">
-          <span className="event-box-day-font">{eventDate.getDate()}</span>
+          <span className="event-box-bold-font">{eventDate.getDate()}</span>
           <span className="event-box-font">{monthNames[eventDate.getMonth()]}</span>
           <span className="event-box-font">
             {eventDate.getHours()}:{eventDate.getMinutes()}
