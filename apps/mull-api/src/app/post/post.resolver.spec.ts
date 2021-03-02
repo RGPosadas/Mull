@@ -8,9 +8,7 @@ import { PostService } from './post.service';
 jest.mock('./post.pubsub');
 
 const mockPostService = () => ({
-  createPost: jest.fn((mockPostData: CreatePostInput) => {
-    mockPostData;
-  }),
+  createPost: jest.fn((mockPostData: CreatePostInput) => mockPostData),
   getPost: jest.fn((id: number) => mockAllPosts.find((post) => post.id === id)),
   updatePost: jest.fn((mockPostData: UpdatePostInput) => ({ ...mockPostData })),
   deletePost: jest.fn((id: number) => mockAllPosts.find((post) => post.id === id)),
