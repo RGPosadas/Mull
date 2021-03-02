@@ -12,7 +12,7 @@ export class PostService {
   ) {}
 
   getPost(postId: number): Promise<Post> {
-    return this.postRepository.findOne(postId);
+    return this.postRepository.findOne(postId, { relations: ['user', 'user.avatar'] });
   }
 
   getAllPosts(): Promise<Post[]> {
@@ -24,6 +24,7 @@ export class PostService {
   }
 
   async createPost(input: CreatePostInput, userId: number): Promise<Post> {
+    //TODO: Check permission of channel and validate if user can post to channel
     return this.postRepository.save({ ...input, user: { id: userId } });
   }
 
