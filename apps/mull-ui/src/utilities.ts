@@ -49,7 +49,7 @@ const svgMap = {
   [WasteType.RECYCLABLE]: './assets/icons/trash-recognition-icons/RecycleIcon.svg',
 };
 
-export const avatarUrl = (user: User) =>
+export const avatarUrl = (user: Partial<User>) =>
   user.avatar
     ? `${environment.backendUrl}/api/media/${user.avatar.id}`
     : `./assets/icons/icon-192x192.png`;

@@ -31,7 +31,7 @@ export const ChatInput = ({ formik }: ChatInputProps) => {
         hasErrors={null}
         errorMessage={null}
         svgIcon={
-          <button className="chat-input-button">
+          <button type="submit" className="chat-input-button">
             <FontAwesomeIcon icon={faPaperPlane} className="send-icon" />
           </button>
         }
