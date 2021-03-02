@@ -33,7 +33,9 @@ export class ChannelService {
   }
 
   getChannel(channelId: number): Promise<Channel> {
-    return this.channelRepository.findOne(channelId);
+    return this.channelRepository.findOne(channelId, {
+      relations: ['event', 'event.host', 'event.coHosts', 'event.participants'],
+    });
   }
 
   async getChannelByEvent(eventId: number, channelName: string, userId: number): Promise<Channel> {
