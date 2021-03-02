@@ -131,5 +131,18 @@ query ChannelByEvent($eventId: Int!, $channelName: String!) {
         id
       }
     }
+    posts {
+      id
+      message
+      createdTime
+      user {
+        id
+        name
+        avatar {
+          id
+          mediaType
+        }
+      }
+    }
   }
 }

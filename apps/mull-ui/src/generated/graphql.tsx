@@ -467,7 +467,7 @@ export type CreatePostMutation = (
   { __typename?: 'Mutation' }
   & { post: (
     { __typename?: 'Post' }
-    & Pick<Post, 'message'>
+    & Pick<Post, 'id' | 'message'>
   ) }
 );
 
@@ -620,6 +620,17 @@ export type ChannelByEventQuery = (
         { __typename?: 'User' }
         & Pick<User, 'id'>
       )> }
+    )>, posts: Array<(
+      { __typename?: 'Post' }
+      & Pick<Post, 'id' | 'message' | 'createdTime'>
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'id' | 'name'>
+        & { avatar?: Maybe<(
+          { __typename?: 'Media' }
+          & Pick<Media, 'id' | 'mediaType'>
+        )> }
+      ) }
     )> }
   ) }
 );
@@ -633,7 +644,15 @@ export type PostAddedSubscription = (
   { __typename?: 'Subscription' }
   & { postAdded: (
     { __typename?: 'Post' }
-    & Pick<Post, 'message' | 'createdTime' | 'id'>
+    & Pick<Post, 'id' | 'createdTime' | 'message'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'name'>
+      & { avatar?: Maybe<(
+        { __typename?: 'Media' }
+        & Pick<Media, 'id' | 'mediaType'>
+      )> }
+    ) }
   ) }
 );
 
@@ -898,6 +917,7 @@ export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMut
 export const CreatePostDocument = gql`
     mutation CreatePost($post: CreatePostInput!) {
   post(post: $post) {
+    id
     message
   }
 }
@@ -1179,6 +1199,19 @@ export const ChannelByEventDocument = gql`
         id
       }
     }
+    posts {
+      id
+      message
+      createdTime
+      user {
+        id
+        name
+        avatar {
+          id
+          mediaType
+        }
+      }
+    }
   }
 }
     `;
@@ -1212,9 +1245,17 @@ export type ChannelByEventQueryResult = Apollo.QueryResult<ChannelByEventQuery, 
 export const PostAddedDocument = gql`
     subscription PostAdded($channelId: Int!) {
   postAdded(channelId: $channelId) {
-    message
-    createdTime
     id
+    createdTime
+    message
+    user {
+      id
+      name
+      avatar {
+        id
+        mediaType
+      }
+    }
   }
 }
     `;
