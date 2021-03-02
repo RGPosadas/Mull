@@ -1,0 +1,33 @@
+.identified-waste-container {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid black;
+  border-radius: 2rem;
+  overflow: hidden;
+  margin-top: 40%;
+  z-index: 2;
+  position: relative;
+}
+
+.close-button {
+  text-align: right;
+  padding: 0.5rem 1rem 0;
+}
+
+.waste-title {
+  padding: 0.5rem;
+  display: flex;
+}
+
+.waste-picture-container {
+  text-align: center;
+  padding: 1rem 1rem;
+}
+
+.waste-picture {
+  height: 10rem;
+}
+
+.waste-info {
+  padding: 0.5rem;
+  text-align: center;
+}
