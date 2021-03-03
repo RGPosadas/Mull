@@ -69,7 +69,7 @@ describe('ChannelService', () => {
     expect(getChannelByCoHost).toBe(testChannel);
   });
 
-  it('should get a group chat channel by event id', async () => {
+  it('should get a group chat channel by event id with host', async () => {
     const testChannel = mockAllChannels[1];
     repository.findOne.mockImplementation(() => {
       return mockAllChannels.find((channel) => {
@@ -78,7 +78,7 @@ describe('ChannelService', () => {
           channel.name === testChannel.name &&
           (channel.event.host.id === testChannel.event.host.id ||
             channel.event.coHosts === testChannel.event.coHosts ||
-            channel.participants === testChannel.participants)
+            channel.event.participants === testChannel.event.participants)
         );
       });
     });
@@ -92,13 +92,26 @@ describe('ChannelService', () => {
       'Group Chat',
       testChannel.event.coHosts[0].id
     );
+    expect(getChannelWithHost).toBe(testChannel);
+    expect(getChannelWithCoHost).toBe(testChannel);
+  });
+
+  it('should get a group chat channel by event id with participant', async () => {
+    const testChannel = mockAllChannels[1];
+    repository.findOne.mockImplementation(() => {
+      return mockAllChannels.find((channel) => {
+        return (
+          channel.event.id === testChannel.event.id &&
+          channel.name === testChannel.name &&
+          channel.event.participants === testChannel.event.participants
+        );
+      });
+    });
     const getChannelWithParticipant = await service.getChannelByEvent(
       testChannel.event.id,
       'Group Chat',
-      testChannel.participants[2].id
+      testChannel.event.participants[0].id
     );
-    expect(getChannelWithHost).toBe(testChannel);
-    expect(getChannelWithCoHost).toBe(testChannel);
     expect(getChannelWithParticipant).toBe(testChannel);
   });
 

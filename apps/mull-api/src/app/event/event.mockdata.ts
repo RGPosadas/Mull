@@ -71,7 +71,7 @@ export const mockAllEvents: Event[] = [
     restriction: 0,
     host: userWithId7,
     coHosts: [userWithId1],
-    participants: [],
+    participants: [userWithId3],
     location: {
       id: 3,
       title: 'locationC',
