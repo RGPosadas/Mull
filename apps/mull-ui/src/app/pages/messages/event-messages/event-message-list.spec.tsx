@@ -1,16 +1,16 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render } from '@testing-library/react';
-import { ROUTES } from 'apps/mull-ui/src/constants';
+import { createMemoryHistory } from 'history';
+import React from 'react';
+import { Router } from 'react-router-dom';
+import renderer, { act } from 'react-test-renderer';
+import { ROUTES } from '../../../../constants';
 import {
   OwnedEventsDocument,
   OwnedEventsQuery,
   ParticipantEventsDocument,
   ParticipantEventsQuery,
-} from 'apps/mull-ui/src/generated/graphql';
-import { createMemoryHistory } from 'history';
-import React from 'react';
-import { Router } from 'react-router-dom';
-import renderer, { act } from 'react-test-renderer';
+} from '../../../../generated/graphql';
 import { UserProvider } from '../../../context/user.context';
 import EventMessageList from './event-message-list';
 
