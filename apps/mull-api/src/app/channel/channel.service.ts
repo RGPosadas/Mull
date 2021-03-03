@@ -10,15 +10,10 @@ export class ChannelService {
     private channelRepository: Repository<Channel>
   ) {}
 
-  /**
-   * Returns a boolean for whether a user has access to a channel or not
-   * @param channel
-   * @param userId
-   */
-  validateEventChannelParticipants(channel: Channel, userId: number) {
+  validateEventChannlWritePermission(channel: Channel, userId: number) {
     const host = channel.event.host;
     const coHosts = channel.event.coHosts;
-    const participants = channel.participants;
+    const participants = channel.event.participants;
     if (channel.rights === 0) {
       return host.id === userId || coHosts.some((coHost) => coHost.id === userId);
     } else if (channel.rights === 1) {
@@ -30,6 +25,17 @@ export class ChannelService {
     } else {
       return false;
     }
+  }
+
+  validateEventChannelReadPermission(channel: Channel, userId: number) {
+    const host = channel.event.host;
+    const coHosts = channel.event.coHosts;
+    const participants = channel.event.participants;
+    return (
+      host.id === userId ||
+      coHosts.some((coHost) => coHost.id === userId) ||
+      participants.some((participant) => participant.id === userId)
+    );
   }
 
   getChannel(channelId: number): Promise<Channel> {
@@ -47,10 +53,11 @@ export class ChannelService {
         'event',
         'event.host',
         'event.coHosts',
+        'event.participants',
       ],
       where: { event: { id: eventId }, name: channelName },
     });
-    if (this.validateEventChannelParticipants(channel, userId)) {
+    if (this.validateEventChannelReadPermission(channel, userId)) {
       return channel;
     } else {
       throw new UnauthorizedException('Unauthorized');
