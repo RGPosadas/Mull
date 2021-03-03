@@ -110,7 +110,7 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
   };
 
   return (
-    <div className="page-container" style={{ backgroundColor: 'lightblue' }}>
+    <div className="page-container">
       <IdentifiedWasteModal />
       {modelLoading ? (
         <div className="waste-recognition-page-overlay-text">Warming up the Detection Model</div>
