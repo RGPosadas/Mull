@@ -1,41 +1,37 @@
+import { ISerializedEvent } from '@mull/types';
+import { useOwnedEventsQuery, useParticipantEventsQuery } from 'apps/mull-ui/src/generated/graphql';
+import { mediaUrl } from 'apps/mull-ui/src/utilities';
 import React, { useState } from 'react';
 import { CustomTextInput } from '../../../components';
-import EventBullet from '../../../components/event-bullet/event-bullet';
+import { EventBullet } from '../../../components/event-bullet/event-bullet';
 import './event-message-list.scss';
 
-/* eslint-disable-next-line */
-export interface EventMessageListProps {}
-
-/*TODO: Remove this and replace with query of event message channels*/
-
-const messageChannels = [
-  {
-    eventTitle: 'Clean up of Rogers Park',
-    eventPicture:
-      'https://www.visitsavannah.com/sites/default/files/styles/large_square/public/chippewa_square.jpg?itok=FRu5WGIl',
-    eventDate: new Date(2021, 1, 1, 8, 20, 30, 1),
-  },
-  {
-    eventTitle: 'Lets do this guys!',
-    eventPicture:
-      'https://www.visitsavannah.com/sites/default/files/styles/large_square/public/chippewa_square.jpg?itok=FRu5WGIl',
-    eventDate: new Date(2021, 1, 5, 8, 20, 30, 1),
-  },
-  {
-    eventTitle: 'My god please clean this...',
-    eventPicture:
-      'https://www.visitsavannah.com/sites/default/files/styles/large_square/public/chippewa_square.jpg?itok=FRu5WGIl',
-    eventDate: new Date(2021, 1, 7, 8, 20, 30, 0),
-  },
-];
-
-export const EventMessageList = (props: EventMessageListProps) => {
+export const EventMessageList = () => {
+  const { data: participatingData, loading: participatingLoading } = useParticipantEventsQuery();
+  const { data: ownedData, loading: ownedLoading } = useOwnedEventsQuery();
   const [searchString, setSearchString] = useState<string>('');
+
+  if (participatingLoading || ownedLoading) return <div className="page-container">Loading...</div>;
+
+  const events = (participatingData.participantEvents
+    .concat(ownedData.hostEvents)
+    .concat(ownedData.coHostEvents) as unknown) as Partial<ISerializedEvent>[];
+
+  var eventBullets = events
+    .filter((event) => event.title.toLowerCase().includes(searchString.toLowerCase()))
+    .map((event, index) => (
+      <EventBullet
+        eventTitle={event.title}
+        eventPicture={mediaUrl(event)}
+        eventDate={new Date(event.startDate)}
+        key={'event-bullet-' + index}
+      />
+    ));
 
   return (
     <div className="page-container">
       <CustomTextInput
-        title=""
+        title={null}
         fieldName="searchField"
         value={searchString}
         hasErrors={null}
@@ -43,17 +39,7 @@ export const EventMessageList = (props: EventMessageListProps) => {
         onChange={(e) => setSearchString(e.target.value)}
         placeholder="Search"
       />
-      {messageChannels.map((messageChannel, idx) => {
-        if (messageChannel.eventTitle.toLowerCase().includes(searchString.toLowerCase()))
-          return (
-            <EventBullet
-              eventTitle={messageChannel.eventTitle}
-              eventPicture={messageChannel.eventPicture}
-              eventDate={messageChannel.eventDate}
-              key={idx}
-            />
-          );
-      })}
+      <div>{eventBullets}</div>
     </div>
   );
 };

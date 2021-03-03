@@ -5,7 +5,8 @@ export interface EventBulletProps {
   eventTitle: string;
   eventPicture: string;
   eventDate: Date;
-  key: number;
+  key: string;
+  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void; //TODO: redirect to the correct DM page
 }
 
 export const EventBullet = ({ eventTitle, eventPicture, eventDate }: EventBulletProps) => {
