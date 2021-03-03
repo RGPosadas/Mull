@@ -1,15 +1,17 @@
 import { IChatForm, ISerializedPost } from '@mull/types';
 import {
+  Event,
   PostAddedDocument,
   useChannelByEventQuery,
   useCreatePostMutation,
 } from 'apps/mull-ui/src/generated/graphql';
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { ChatInput } from '../../../components';
 import ChatBubbleList from '../../../components/chat-bubble-list/chat-bubble-list';
+import UserContext from '../../../context/user.context';
 import { useToast } from '../../../hooks/useToast';
 
 interface subscriptionData {
@@ -23,12 +25,19 @@ interface subscriptionData {
 export const AnnouncementsPage = () => {
   const { updateToast } = useToast();
   const [createPostMutation] = useCreatePostMutation();
+  const { userId } = useContext(UserContext);
   const { data, loading, subscribeToMore } = useChannelByEventQuery({
     variables: {
       eventId: 4, //TODO: Replace with dynamic event ID
       channelName: 'Announcements',
     },
   });
+
+  const isEventHost = (event: Event, currentUserId: number) => {
+    return (
+      event.host.id === currentUserId || event.coHosts.some((coHost) => coHost.id === currentUserId)
+    );
+  };
 
   const subToMore = () =>
     subscribeToMore({
@@ -82,7 +91,9 @@ export const AnnouncementsPage = () => {
     return (
       <div className="announcement-page">
         <ChatBubbleList posts={data.getChannelByEvent.posts} subToMore={subToMore} />
-        <ChatInput formik={formik} />
+        {isEventHost(data.getChannelByEvent.event as Event, userId) && (
+          <ChatInput formik={formik} />
+        )}
       </div>
     );
   }
