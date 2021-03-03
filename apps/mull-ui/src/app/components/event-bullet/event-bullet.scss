@@ -1,0 +1,34 @@
+.event-bullet-container {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  position: relative;
+  padding: 1rem 0;
+}
+
+.event-bullet-photo {
+  max-width: 3rem;
+  max-height: 2.9rem;
+  border-radius: 15%;
+}
+
+.event-bullet-date-box {
+  display: flex;
+  border: 0.125rem #a9a9a9;
+  border-radius: 15%;
+  border-style: solid;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0.625rem;
+  height: 3.125rem;
+  width: 3.125rem;
+}
+
+.event-box-day-font {
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.event-box-font {
+  font-size: 0.625rem;
+}

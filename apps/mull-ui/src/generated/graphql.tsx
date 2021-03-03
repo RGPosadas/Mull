@@ -53,7 +53,6 @@ export type CreatePostInput = {
   message: Scalars['String'];
   parentPost?: Maybe<ParentPostInput>;
   reactions?: Maybe<PostReactionInput>;
-  user: UserInput;
 };
 
 export type CreateUserInput = {
@@ -338,7 +337,6 @@ export type UpdatePostInput = {
   message: Scalars['String'];
   parentPost?: Maybe<ParentPostInput>;
   reactions?: Maybe<PostReactionInput>;
-  user: UserInput;
 };
 
 export type UpdateUserInput = {
@@ -364,10 +362,6 @@ export type User = {
   password?: Maybe<Scalars['String']>;
   registrationMethod: RegistrationMethod;
   timezone: Scalars['String'];
-};
-
-export type UserInput = {
-  id: Scalars['Int'];
 };
 
 export type CreateEventMutationVariables = Exact<{
@@ -501,10 +495,24 @@ export type OwnedEventsQuery = (
   { __typename?: 'Query' }
   & { coHostEvents: Array<(
     { __typename?: 'Event' }
-    & EventCardContentFragment
+    & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate'>
+    & { location?: Maybe<(
+      { __typename?: 'Location' }
+      & Pick<Location, 'title'>
+    )>, image?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id' | 'mediaType'>
+    )> }
   )>, hostEvents: Array<(
     { __typename?: 'Event' }
-    & EventCardContentFragment
+    & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate'>
+    & { location?: Maybe<(
+      { __typename?: 'Location' }
+      & Pick<Location, 'title'>
+    )>, image?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id' | 'mediaType'>
+    )> }
   )> }
 );
 
@@ -515,7 +523,14 @@ export type ParticipantEventsQuery = (
   { __typename?: 'Query' }
   & { participantEvents: Array<(
     { __typename?: 'Event' }
-    & EventCardContentFragment
+    & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate'>
+    & { location?: Maybe<(
+      { __typename?: 'Location' }
+      & Pick<Location, 'title'>
+    )>, image?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id' | 'mediaType'>
+    )> }
   )> }
 );
 
@@ -870,13 +885,33 @@ export type DiscoverEventsQueryResult = Apollo.QueryResult<DiscoverEventsQuery, 
 export const OwnedEventsDocument = gql`
     query OwnedEvents {
   coHostEvents {
-    ...EventCardContent
+    id
+    title
+    restriction
+    startDate
+    location {
+      title
+    }
+    image {
+      id
+      mediaType
+    }
   }
   hostEvents {
-    ...EventCardContent
+    id
+    title
+    restriction
+    startDate
+    location {
+      title
+    }
+    image {
+      id
+      mediaType
+    }
   }
 }
-    ${EventCardContentFragmentDoc}`;
+    `;
 
 /**
  * __useOwnedEventsQuery__
@@ -905,10 +940,20 @@ export type OwnedEventsQueryResult = Apollo.QueryResult<OwnedEventsQuery, OwnedE
 export const ParticipantEventsDocument = gql`
     query ParticipantEvents {
   participantEvents {
-    ...EventCardContent
+    id
+    title
+    restriction
+    startDate
+    location {
+      title
+    }
+    image {
+      id
+      mediaType
+    }
   }
 }
-    ${EventCardContentFragmentDoc}`;
+    `;
 
 /**
  * __useParticipantEventsQuery__
