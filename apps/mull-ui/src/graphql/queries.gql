@@ -41,17 +41,47 @@ query DiscoverEvents {
 # Gets all related events to a user
 query OwnedEvents {
   coHostEvents {
-    ...EventCardContent
+    id
+    title
+    restriction
+    startDate
+    location {
+      title
+    }
+    image {
+      id
+      mediaType
+    }
   }
   hostEvents {
-    ...EventCardContent
+    id
+    title
+    restriction
+    startDate
+    location {
+      title
+    }
+    image {
+      id
+      mediaType
+    }
   }
 }
 
 # Get all the events that a user is participating in
 query ParticipantEvents {
   participantEvents {
-    ...EventCardContent
+    id
+    title
+    restriction
+    startDate
+    location {
+      title
+    }
+    image {
+      id
+      mediaType
+    }
   }
 }
 
