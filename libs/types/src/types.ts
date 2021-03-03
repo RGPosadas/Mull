@@ -111,3 +111,26 @@ export interface BoundingBox {
 export interface IWebSocketParams {
   authToken: string;
 }
+
+export interface IPost {
+  id: number;
+  user: IUser;
+  parentPost: IPost;
+  message: string;
+  createdTime: Date;
+  medias?: IMedia[];
+  channel: IChannel;
+}
+
+export interface ISerializedPost extends Omit<IPost, 'createdTime'> {
+  createdTime: string;
+}
+
+export interface IChannel {
+  id: number;
+  name: string;
+  rights: number;
+  event?: ISerializedEvent;
+  participants: IUser[];
+  posts: ISerializedPost[];
+}

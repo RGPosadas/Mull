@@ -1,17 +1,12 @@
+import { ISerializedPost } from '@mull/types';
 import React, { useContext, useEffect, useRef } from 'react';
-import { Maybe, Media, Post, User } from '../../../generated/graphql';
 import { avatarUrl, formatChatBubbleDate } from '../../../utilities';
 import ChatBubble from '../../components/chat-bubble/chat-bubble';
 import UserContext from '../../context/user.context';
 
 export interface ChatBubbleListProps {
-  posts: Array<
-    { __typename?: 'Post' } & Pick<Post, 'id' | 'message' | 'createdTime'> & {
-        user: { __typename?: 'User' } & Pick<User, 'id' | 'name'> & {
-            avatar?: Maybe<{ __typename?: 'Media' } & Pick<Media, 'id' | 'mediaType'>>;
-          };
-      }
-  >;
+  posts: Partial<ISerializedPost>[];
+  subToMore: () => void;
 }
 
 export const ChatBubbleList = ({ posts, subToMore }: ChatBubbleListProps) => {

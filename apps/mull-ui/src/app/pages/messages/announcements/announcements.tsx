@@ -1,6 +1,9 @@
-import { gql } from '@apollo/client';
-import { IChatForm } from '@mull/types';
-import { useChannelByEventQuery, useCreatePostMutation } from 'apps/mull-ui/src/generated/graphql';
+import { IChatForm, ISerializedPost } from '@mull/types';
+import {
+  PostAddedDocument,
+  useChannelByEventQuery,
+  useCreatePostMutation,
+} from 'apps/mull-ui/src/generated/graphql';
 import { useFormik } from 'formik';
 import React from 'react';
 import { toast } from 'react-toastify';
@@ -9,39 +12,29 @@ import { ChatInput } from '../../../components';
 import ChatBubbleList from '../../../components/chat-bubble-list/chat-bubble-list';
 import { useToast } from '../../../hooks/useToast';
 
-const POST_SUBSCRIPTION = gql`
-  subscription PostAdded($channelId: Int!) {
-    postAdded(channelId: $channelId) {
-      id
-      createdTime
-      message
-      user {
-        id
-        name
-        avatar {
-          id
-          mediaType
-        }
-      }
-    }
-  }
-`;
+interface subscriptionData {
+  subscriptionData: {
+    data: {
+      postAdded: Partial<ISerializedPost>;
+    };
+  };
+}
 
 export const AnnouncementsPage = () => {
   const { updateToast } = useToast();
   const [createPostMutation] = useCreatePostMutation();
   const { data, loading, subscribeToMore } = useChannelByEventQuery({
     variables: {
-      eventId: 4,
+      eventId: 4, //TODO: Replace with dynamic event ID
       channelName: 'Announcements',
     },
   });
 
   const subToMore = () =>
     subscribeToMore({
-      document: POST_SUBSCRIPTION,
+      document: PostAddedDocument,
       variables: { channelId: data.getChannelByEvent.id },
-      updateQuery: (prev, { subscriptionData }) => {
+      updateQuery: (prev, { subscriptionData }: subscriptionData) => {
         if (!subscriptionData.data) return prev;
         const newPostItem = subscriptionData.data.postAdded;
 
