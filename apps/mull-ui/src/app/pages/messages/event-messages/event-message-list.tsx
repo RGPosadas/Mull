@@ -1,7 +1,7 @@
 import { ISerializedEvent } from '@mull/types';
-import { useOwnedEventsQuery, useParticipantEventsQuery } from 'apps/mull-ui/src/generated/graphql';
-import { mediaUrl } from 'apps/mull-ui/src/utilities';
 import React, { useState } from 'react';
+import { useOwnedEventsQuery, useParticipantEventsQuery } from '../../../../generated/graphql';
+import { mediaUrl } from '../../../../utilities';
 import { CustomTextInput } from '../../../components';
 import { EventBullet } from '../../../components/event-bullet/event-bullet';
 import './event-message-list.scss';
