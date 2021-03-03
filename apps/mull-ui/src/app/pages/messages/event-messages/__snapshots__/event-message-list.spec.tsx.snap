@@ -2,92 +2,59 @@
 
 exports[`EventMessageList should match snapshot 1`] = `
 <div
-  className="event-messages-container"
+  className="page-container"
 >
   <div
-    className="header undefined"
+    className="custom-text-input-container "
   >
-    <button
-      className="hamburger-button"
-    >
-      <svg
-        aria-hidden="true"
-        className="svg-inline--fa fa-bars fa-w-14 fa-2x hamburger-menu"
-        color="grey"
-        data-icon="bars"
-        data-prefix="fas"
-        focusable="false"
-        role="img"
-        style={Object {}}
-        viewBox="0 0 448 512"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
-          fill="currentColor"
-          style={Object {}}
-        />
-      </svg>
-    </button>
-    <h1>
-      Event Messages
-    </h1>
+    <label
+      className="custom-text-input-label"
+      htmlFor="searchField"
+    />
+    <input
+      className="custom-text-input input-border "
+      data-testid="custom-text-input"
+      id="searchField"
+      name="searchField"
+      onChange={[Function]}
+      placeholder="Search"
+      type="text"
+      value=""
+    />
   </div>
-  <div
-    className="page-container"
-  >
-    <div
-      className="custom-text-input-container "
-    >
-      <label
-        className="custom-text-input-label"
-        htmlFor="searchField"
-      >
-        
-      </label>
-      <input
-        className="custom-text-input input-border "
-        data-testid="custom-text-input"
-        id="searchField"
-        name="searchField"
-        onChange={[Function]}
-        placeholder="Search"
-        type="text"
-        value=""
-      />
-    </div>
+  <div>
     <div>
       <div
         className="event-bullet-container"
       >
         <img
           alt="event"
-          className="event-photo"
-          src="https://i.pinimg.com/originals/c9/a1/44/c9a144b70e175c0361c6e2725677e55a.jpg"
+          className="event-bullet-photo"
+          src="http://localhost:3333/api/media/1"
         />
         <div
           className="event-bullet-date-box"
         >
-          <div
-            className="event-box-day-font"
+          <span
+            className="event-box-bold-font"
           >
-            1
-          </div>
-          <div
+            11
+          </span>
+          <span
             className="event-box-font"
           >
-            Feb
-          </div>
-          <div
+            Dec
+          </span>
+          <span
             className="event-box-font"
           >
-            8
+            22
             :
-            20
-          </div>
+            0
+          </span>
         </div>
         <div>
-          Clean up of Rogers Park
+          Test title
         </div>
       </div>
     </div>
@@ -97,32 +64,32 @@ exports[`EventMessageList should match snapshot 1`] = `
       >
         <img
           alt="event"
-          className="event-photo"
-          src="https://i.pinimg.com/originals/c9/a1/44/c9a144b70e175c0361c6e2725677e55a.jpg"
+          className="event-bullet-photo"
+          src="http://localhost:3333/api/media/1"
         />
         <div
           className="event-bullet-date-box"
         >
-          <div
-            className="event-box-day-font"
+          <span
+            className="event-box-bold-font"
           >
-            5
-          </div>
-          <div
+            11
+          </span>
+          <span
             className="event-box-font"
           >
-            Feb
-          </div>
-          <div
+            Dec
+          </span>
+          <span
             className="event-box-font"
           >
-            8
+            22
             :
-            20
-          </div>
+            0
+          </span>
         </div>
         <div>
-          Lets do this guys!
+          Test title
         </div>
       </div>
     </div>
@@ -132,32 +99,32 @@ exports[`EventMessageList should match snapshot 1`] = `
       >
         <img
           alt="event"
-          className="event-photo"
-          src="https://i.pinimg.com/originals/c9/a1/44/c9a144b70e175c0361c6e2725677e55a.jpg"
+          className="event-bullet-photo"
+          src="http://localhost:3333/api/media/1"
         />
         <div
           className="event-bullet-date-box"
         >
-          <div
-            className="event-box-day-font"
+          <span
+            className="event-box-bold-font"
           >
-            7
-          </div>
-          <div
+            11
+          </span>
+          <span
             className="event-box-font"
           >
-            Feb
-          </div>
-          <div
+            Dec
+          </span>
+          <span
             className="event-box-font"
           >
-            8
+            22
             :
-            20
-          </div>
+            0
+          </span>
         </div>
         <div>
-          My god please clean this...
+          Test title
         </div>
       </div>
     </div>
