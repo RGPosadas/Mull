@@ -38,6 +38,7 @@ export interface IEvent {
   restriction: EventRestriction;
   participants?: IUser[];
   host?: IUser;
+  coHosts?: IUser[];
   location?: ILocation;
 }
 

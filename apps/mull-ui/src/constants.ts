@@ -61,6 +61,12 @@ export const dummyEvent: ISerializedEvent = {
     id: 3,
     name: 'Test user',
   },
+  coHosts: [
+    {
+      id: 4,
+      name: 'First CoHost',
+    },
+  ],
   image: {
     id: 1,
     mediaType: 'jpeg',
@@ -141,6 +147,14 @@ export const mockPosts = [
     createdTime: new Date(),
   },
 ];
+
+export const mockChannelWithPosts = {
+  id: 3,
+  name: 'announcements',
+  rights: 0,
+  posts: mockPosts,
+  event: dummyEvent,
+};
 
 export const monthNames = [
   'Jan',

@@ -6,9 +6,10 @@ import ChatBubbleList from './chat-bubble-list';
 
 describe('ChatBubble', () => {
   it('should render successfully', () => {
+    window.HTMLElement.prototype.scrollIntoView = function () {};
     const { baseElement } = render(
       <UserProvider value={{ userId: 1, setUserId: jest.fn() }}>
-        <ChatBubbleList posts={mockPosts} />
+        <ChatBubbleList posts={mockPosts} subToMore={jest.fn()} />
       </UserProvider>
     );
 

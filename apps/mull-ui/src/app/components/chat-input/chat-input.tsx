@@ -13,7 +13,11 @@ export interface ChatInputProps {
 
 export const ChatInput = ({ formik }: ChatInputProps) => {
   return (
-    <form onSubmit={formik.handleSubmit} className="chat-input-container">
+    <form
+      onSubmit={formik.handleSubmit}
+      className="chat-input-container"
+      data-testid="announcement-chat-input"
+    >
       {/* TODO: Handle form data as needed by back-end */}
       <CustomFileUpload
         className="file-upload-feedback"
