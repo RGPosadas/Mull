@@ -15,6 +15,11 @@ input CreateDmChannelInput {
   participants: [UserInput!]!
 }
 
+input CreateEventChannelInput {
+  name: String!
+  rights: Float!
+}
+
 input CreateEventInput {
   description: String!
   endDate: DateTime!
@@ -108,7 +113,9 @@ input MediaInput {
 }
 
 type Mutation {
+  createDmChannel(input: CreateDmChannelInput!): DirectMessageChannel!
   createEvent(event: CreateEventInput!): Event!
+  createEventChannel(eventId: Int!, input: CreateEventChannelInput!): Boolean!
   createLocation(location: LocationInput!): Location!
   createUser(user: CreateUserInput!): User!
   deleteChannel(id: Int!): Boolean!
@@ -173,6 +180,7 @@ type Query {
   getChannel(id: Int!): Channel!
   getChannelByEvent(channelName: String!, eventId: Int!): Channel!
   getDmChannel(input: CreateDmChannelInput!): DirectMessageChannel!
+  getDmChannel(participants: [UserInput!]!): DirectMessageChannel
   getEventChannel(id: Int!): EventChannel!
   hostEvents: [Event!]!
   hostingCount: Int!

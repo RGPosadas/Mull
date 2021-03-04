@@ -2,11 +2,27 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthenticatedUser, AuthGuard } from '../auth/auth.guard';
 import { Channel, DirectMessageChannel } from '../entities';
+import { UserInput } from '../user/inputs/user.input';
 import { ChannelService } from './channel.service';
-import { CreateDmChannelInput } from './inputs/channel.input';
+import { CreateDmChannelInput, CreateEventChannelInput } from './inputs/channel.input';
 @Resolver('Channel')
 export class ChannelResolver {
   constructor(private readonly channelService: ChannelService) {}
+
+  @Mutation(/* istanbul ignore next */ () => Boolean)
+  @UseGuards(AuthGuard)
+  async createEventChannel(
+    @Args('input') input: CreateEventChannelInput,
+    @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId?: number
+  ) {
+    return this.channelService.createEventChannel(input, eventId);
+  }
+
+  @Mutation(/* istanbul ignore next */ () => DirectMessageChannel)
+  @UseGuards(AuthGuard)
+  async createDmChannel(@Args('input') input: CreateDmChannelInput) {
+    return this.channelService.createDmChannel(input);
+  }
 
   @Mutation(/* istanbul ignore next */ () => Boolean)
   @UseGuards(AuthGuard)
@@ -30,16 +46,14 @@ export class ChannelResolver {
     return this.channelService.getChannelByEvent(eventId, channelName, userId);
   }
 
-  @Query(/* istanbul ignore next */ () => DirectMessageChannel)
+  @Query(/* istanbul ignore next */ () => DirectMessageChannel, { nullable: true })
   @UseGuards(AuthGuard)
   async getDmChannel(
-    @Args('input', { type: /* istanbul ignore next */ () => CreateDmChannelInput })
-    input: CreateDmChannelInput
+    @Args('participants', { type: /* istanbul ignore next */ () => [UserInput] })
+    participants: UserInput[]
   ) {
-    const [usr1, usr2] = input.participants;
+    const [usr1, usr2] = participants;
     const dmChannel = await this.channelService.findUsersInDmChannel(usr1.id, usr2.id);
-    if (dmChannel) return dmChannel;
-    const { id } = await this.channelService.createDmChannel(input);
-    return this.channelService.getDmChannel(id);
+    return dmChannel ? dmChannel : null;
   }
 }

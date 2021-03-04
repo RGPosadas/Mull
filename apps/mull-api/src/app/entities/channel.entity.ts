@@ -16,19 +16,19 @@ import { Event, Post, User } from './';
 @TableInheritance({ column: { type: 'varchar', name: 'channelType' } })
 @ObjectType()
 export class Channel {
-  @Field(() => Int)
+  @Field(/* istanbul ignore next */ () => Int)
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field(() => [Post])
-  @OneToMany(() => Post, (post) => post.channel)
+  @Field(/* istanbul ignore next */ () => [Post])
+  @OneToMany(/* istanbul ignore next */ () => Post, (post) => post.channel)
   posts: Post[];
 }
 
 @ChildEntity()
 @ObjectType()
 export class DirectMessageChannel extends Channel {
-  @Field(() => [User])
+  @Field(/* istanbul ignore next */ () => [User])
   @ManyToMany(/* istanbul ignore next */ () => User)
   @JoinTable({ name: 'dm_participants' })
   participants: User[];
@@ -41,11 +41,11 @@ export class EventChannel extends Channel {
   @Column()
   name: string;
 
-  @Field(() => Int)
+  @Field(/* istanbul ignore next */ () => Int)
   @Column({ comment: '0: host only, 1: all participants' })
   rights: number;
 
-  @Field(() => Event, { nullable: true })
-  @ManyToOne(() => Event, (event) => event.channels, { nullable: true })
+  @Field(/* istanbul ignore next */ () => Event, { nullable: true })
+  @ManyToOne(/* istanbul ignore next */ () => Event, (event) => event.channels, { nullable: true })
   event?: Event;
 }

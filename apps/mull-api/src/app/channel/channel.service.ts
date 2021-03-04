@@ -82,7 +82,7 @@ export class ChannelService {
   }
 
   async createDmChannel(input: CreateDmChannelInput): Promise<DirectMessageChannel> {
-    return await this.dmChannelRepository.save(input);
+    return this.dmChannelRepository.save(input);
   }
 
   async deleteChannel(channelId: number): Promise<boolean> {
