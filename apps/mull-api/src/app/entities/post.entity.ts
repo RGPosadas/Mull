@@ -8,7 +8,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Channel } from './channel.entity';
+import { Channel, DirectMessageChannel, EventChannel } from './channel.entity';
 import { Media } from './media.entity';
 import { PostReaction } from './post-reaction.entity';
 import { User } from './user.entity';
@@ -45,7 +45,7 @@ export class Post {
   @OneToMany(/* istanbul ignore next */ () => PostReaction, (reaction) => reaction.post)
   reactions?: PostReaction[];
 
-  @Field(/* istanbul ignore next */ () => Channel)
+  @Field(/* istanbul ignore next */ () => EventChannel || DirectMessageChannel)
   @ManyToOne(/* istanbul ignore next */ () => Channel, (channel) => channel.posts)
-  channel: Channel;
+  channel: EventChannel | DirectMessageChannel;
 }

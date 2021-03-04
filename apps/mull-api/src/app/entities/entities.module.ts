@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 // Entities
-import { Channel } from './channel.entity';
+import { Channel, DirectMessageChannel, EventChannel } from './channel.entity';
 import { Event } from './event.entity';
 import { Location, Point } from './location.entity';
 import { Media } from './media.entity';
@@ -14,7 +14,18 @@ import { User } from './user.entity';
  */
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Channel, Event, Location, Media, PostReaction, Post, Point, User]),
+    TypeOrmModule.forFeature([
+      Channel,
+      Event,
+      Location,
+      Media,
+      PostReaction,
+      Post,
+      Point,
+      User,
+      EventChannel,
+      DirectMessageChannel,
+    ]),
   ],
   exports: [TypeOrmModule],
 })

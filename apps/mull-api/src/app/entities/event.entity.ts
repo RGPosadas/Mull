@@ -11,7 +11,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Channel } from './channel.entity';
+import { EventChannel } from './channel.entity';
 import { Location } from './location.entity';
 import { Media } from './media.entity';
 import { User } from './user.entity';
@@ -57,11 +57,11 @@ export class Event implements IEvent {
   restriction: EventRestriction;
 
   @OneToMany(
-    /* istanbul ignore next */ () => Channel,
+    /* istanbul ignore next */ () => EventChannel,
     /* istanbul ignore next */ (channel) => channel.event,
     { cascade: true }
   )
-  channels?: Channel[];
+  channels?: EventChannel[];
 
   @ManyToMany(/* istanbul ignore next */ () => User)
   @JoinTable({ name: 'event_participants' })

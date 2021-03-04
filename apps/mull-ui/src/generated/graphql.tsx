@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+import { gql } from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -19,21 +19,16 @@ export type Scalars = {
 
 export type Channel = {
   __typename?: 'Channel';
-  event?: Maybe<Event>;
   id: Scalars['Int'];
-  name: Scalars['String'];
-  participants: Array<User>;
   posts: Array<Post>;
-  rights: Scalars['Int'];
 };
 
 export type ChannelInput = {
   id: Scalars['Float'];
 };
 
-export type CreateChannelInput = {
-  name: Scalars['String'];
-  rights: Scalars['Float'];
+export type CreateDmChannelInput = {
+  participants: Array<UserInput>;
 };
 
 export type CreateEventInput = {
@@ -65,6 +60,13 @@ export type CreateUserInput = {
 };
 
 
+export type DirectMessageChannel = {
+  __typename?: 'DirectMessageChannel';
+  id: Scalars['Int'];
+  participants: Array<User>;
+  posts: Array<Post>;
+};
+
 export type Event = {
   __typename?: 'Event';
   coHosts: Array<User>;
@@ -77,6 +79,15 @@ export type Event = {
   restriction: Scalars['Float'];
   startDate: Scalars['DateTime'];
   title: Scalars['String'];
+};
+
+export type EventChannel = {
+  __typename?: 'EventChannel';
+  event?: Maybe<Event>;
+  id: Scalars['Int'];
+  name: Scalars['String'];
+  posts: Array<Post>;
+  rights: Scalars['Int'];
 };
 
 export type Location = {
@@ -116,7 +127,6 @@ export type MediaInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createChannel: Scalars['Boolean'];
   createEvent: Event;
   createLocation: Location;
   createUser: User;
@@ -133,12 +143,6 @@ export type Mutation = {
   updatePost: Post;
   updateUser: User;
   uploadFile: Media;
-};
-
-
-export type MutationCreateChannelArgs = {
-  eventId: Scalars['Int'];
-  input: CreateChannelInput;
 };
 
 
@@ -236,7 +240,7 @@ export type PointInput = {
 
 export type Post = {
   __typename?: 'Post';
-  channel: Channel;
+  channel: EventChannel;
   createdTime: Scalars['DateTime'];
   id: Scalars['Int'];
   medias?: Maybe<Array<Media>>;
@@ -267,7 +271,12 @@ export type Query = {
   events: Array<Event>;
   friendCount: Scalars['Int'];
   getChannel: Channel;
+<<<<<<< HEAD
   getChannelByEvent: Channel;
+=======
+  getDmChannel: DirectMessageChannel;
+  getEventChannel: EventChannel;
+>>>>>>> 8ddfca0a... feat: use single table inheritance for EventChannel and DirectMessageChannel
   hostEvents: Array<Event>;
   hostingCount: Scalars['Int'];
   isParticipant: Scalars['Boolean'];
@@ -370,6 +379,10 @@ export type User = {
   password?: Maybe<Scalars['String']>;
   registrationMethod: RegistrationMethod;
   timezone: Scalars['String'];
+};
+
+export type UserInput = {
+  id: Scalars['Int'];
 };
 
 export type CreateEventMutationVariables = Exact<{

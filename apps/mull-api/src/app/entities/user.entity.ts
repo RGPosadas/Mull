@@ -100,6 +100,7 @@ export class User implements IUser {
   @Column()
   @Field()
   joinDate?: Date;
+
   @OneToMany(/* istanbul ignore next */ () => Post, /* istanbul ignore next */ (post) => post.user)
   posts?: Post[];
 }
