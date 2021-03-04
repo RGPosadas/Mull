@@ -1,15 +1,26 @@
-import { Channel } from '../entities';
+import { Channel, DirectMessageChannel, EventChannel } from '../entities';
 import { mockAllEvents } from '../event/event.mockdata';
 import { mockAllPosts } from '../post/post.mockdata';
-import { CreateChannelInput } from './inputs/channel.input';
+import { mockAllUsers } from '../user/user.mockdata';
+import { CreateDmChannelInput, CreateEventChannelInput } from './inputs/channel.input';
 
 export const mockAllChannels: Channel[] = [
+  {
+    id: 5,
+    posts: mockAllPosts,
+  },
+  {
+    id: 6,
+    posts: mockAllPosts,
+  },
+];
+
+export const mockAllEventChannels: EventChannel[] = [
   {
     id: 1,
     name: 'private',
     rights: 2,
     posts: mockAllPosts,
-    participants: null,
     event: mockAllEvents[1],
   },
   {
@@ -17,7 +28,6 @@ export const mockAllChannels: Channel[] = [
     name: 'Group Chat',
     rights: 1,
     posts: mockAllPosts,
-    participants: null,
     event: mockAllEvents[2],
   },
   {
@@ -25,9 +35,20 @@ export const mockAllChannels: Channel[] = [
     name: 'Announcements',
     rights: 0,
     posts: mockAllPosts,
-    participants: null,
     event: mockAllEvents[0],
   },
 ];
 
-export const mockCreateChannel: CreateChannelInput = { name: 'inputChannel', rights: 0 };
+export const mockAllDirectMessageChannels: DirectMessageChannel[] = [
+  {
+    id: 4,
+    participants: [mockAllUsers[0], mockAllUsers[1]],
+    posts: mockAllPosts,
+  },
+];
+
+export const mockCreateEventChannel: CreateEventChannelInput = { name: 'inputChannel', rights: 0 };
+
+export const mockCreateDmChannel: CreateDmChannelInput = {
+  participants: [mockAllUsers[0], mockAllUsers[1]],
+};

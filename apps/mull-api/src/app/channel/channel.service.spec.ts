@@ -1,45 +1,106 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Channel } from '../entities';
+import { Channel, DirectMessageChannel, EventChannel } from '../entities';
+import { mockAllUsers } from '../user/user.mockdata';
 import { MockType } from '../user/user.service.spec';
-import { mockAllChannels, mockCreateChannel } from './channel.mockdata';
+import {
+  mockAllChannels,
+  mockAllDirectMessageChannels,
+  mockAllEventChannels,
+  mockCreateChannel,
+  mockCreateDmChannel,
+  mockCreateEventChannel,
+} from './channel.mockdata';
 import { ChannelService } from './channel.service';
-import { CreateChannelInput } from './inputs/channel.input';
+import { CreateDmChannelInput, CreateEventChannelInput } from './inputs/channel.input';
 
 const mockChannelRepository = () => ({
   findOne: jest.fn((channelId: number) => {
     return mockAllChannels.find((channel) => channel.id === channelId);
   }),
-  save: jest.fn((mockChannelData: CreateChannelInput) => ({ ...mockChannelData })),
   delete: jest.fn((channelId: number) =>
     mockAllChannels.find((channel) => channel.id === channelId)
   ),
 });
 
+const mockEventChannelRepository = () => ({
+  findOne: jest.fn((channelId: number) => {
+    return mockAllEventChannels.find((channel) => channel.id === channelId);
+  }),
+  save: jest.fn((mockChannelData: CreateEventChannelInput) => ({ ...mockChannelData })),
+});
+
+const mockDmChannelRepository = () => ({
+  findOne: jest.fn((channelId: number) => {
+    return mockAllDirectMessageChannels.find((channel) => channel.id === channelId);
+  }),
+  save: jest.fn((mockChannelData: CreateDmChannelInput) => ({ ...mockChannelData })),
+  createQueryBuilder: jest.fn(() => ({
+    where: jest.fn().mockReturnThis(),
+    leftJoinAndSelect: jest.fn().mockReturnThis(),
+    getMany: jest.fn(),
+  })),
+});
+
 describe('ChannelService', () => {
   let service: ChannelService;
   let repository: MockType<Repository<Channel>>;
+  let dmRepository: MockType<Repository<DirectMessageChannel>>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ChannelService,
         { provide: getRepositoryToken(Channel), useFactory: mockChannelRepository },
+        { provide: getRepositoryToken(EventChannel), useFactory: mockEventChannelRepository },
+        { provide: getRepositoryToken(DirectMessageChannel), useFactory: mockDmChannelRepository },
       ],
     }).compile();
 
     service = module.get<ChannelService>(ChannelService);
     repository = module.get(getRepositoryToken(Channel));
+    dmRepository = module.get(getRepositoryToken(DirectMessageChannel));
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  it('should get a channel', async () => {
-    const getChannel = await service.getChannel(mockAllChannels[0].id);
-    expect(getChannel).toBe(mockAllChannels[0]);
+  it('should get a generic channel', async () => {
+    const returnedChannel = await service.getChannel(mockAllChannels[0].id);
+    expect(returnedChannel).toBe(mockAllChannels[0]);
+  });
+
+  it('should get an event channel', async () => {
+    const returnedEventChannel = await service.getEventChannel(mockAllEventChannels[0].id);
+    expect(returnedEventChannel).toBe(mockAllEventChannels[0]);
+  });
+
+  it('should get a direct message channel', async () => {
+    const returnedDmChannel = await service.getDmChannel(mockAllDirectMessageChannels[0].id);
+    expect(returnedDmChannel).toBe(mockAllDirectMessageChannels[0]);
+  });
+
+  it('should create an event channel', async () => {
+    const createdEventChannel = await service.createEventChannel(mockCreateEventChannel, 1);
+    expect(createdEventChannel).toBeTruthy();
+  });
+
+  it('should create a DM channel', async () => {
+    const createdDmChannel = await service.createDmChannel(mockCreateDmChannel);
+    expect(createdDmChannel).toBeTruthy();
+  });
+
+  it('should delete all types of channels', async () => {
+    const deletedChannel = await service.deleteChannel(mockAllChannels[0].id);
+    expect(deletedChannel).toBeTruthy();
+
+    const deletedEventChannel = await service.deleteChannel(mockAllEventChannels[0].id);
+    expect(deletedEventChannel).toBeTruthy();
+
+    const deletedDmChannel = await service.deleteChannel(mockAllDirectMessageChannels[0].id);
+    expect(deletedDmChannel).toBeTruthy();
   });
 
   it('should get a announcement channel by event id', async () => {
@@ -138,8 +199,29 @@ describe('ChannelService', () => {
     expect(createChannel).toBeTruthy();
   });
 
-  it('should delete a channel', async () => {
-    const deleteChannel = await service.deleteChannel(mockAllChannels[0].id);
-    expect(deleteChannel).toBeTruthy();
+  it('should find the users in a DM channel', async () => {
+    dmRepository.createQueryBuilder.mockReturnValue({
+      where: jest.fn().mockReturnThis(),
+      leftJoinAndSelect: jest.fn().mockReturnThis(),
+      getMany: jest.fn().mockReturnValue(mockAllDirectMessageChannels),
+    });
+    const foundDmChannel = await service.findUsersInDmChannel(
+      mockAllUsers[0].id,
+      mockAllUsers[1].id
+    );
+    expect(foundDmChannel).toBe(mockAllDirectMessageChannels[0]);
+  });
+
+  it('should not find the users in a DM channel', async () => {
+    dmRepository.createQueryBuilder.mockReturnValue({
+      where: jest.fn().mockReturnThis(),
+      leftJoinAndSelect: jest.fn().mockReturnThis(),
+      getMany: jest.fn().mockReturnValue([]),
+    });
+    const foundDmChannel = await service.findUsersInDmChannel(
+      mockAllUsers[0].id,
+      mockAllUsers[2].id
+    );
+    expect(foundDmChannel).toBeUndefined();
   });
 });
