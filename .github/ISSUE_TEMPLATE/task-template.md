@@ -26,6 +26,7 @@ Lorem ipsum...
 - [ ] Task criteria #2
 ...
 - [ ] Task criteria #n
+- [ ] Security is handled in the backend (if backend ticket)
 - [ ] Documentation present where necessary
 - [ ] Unit and UI tests are implemented for every new component and function
 - [ ] The application should still work with seeded data
