@@ -6,6 +6,7 @@ import ChatBubbleList from './chat-bubble-list';
 
 describe('ChatBubble', () => {
   it('should render successfully', () => {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     window.HTMLElement.prototype.scrollIntoView = function () {};
     const { baseElement } = render(
       <UserProvider value={{ userId: 1, setUserId: jest.fn() }}>

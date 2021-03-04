@@ -1,10 +1,10 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { act, render } from '@testing-library/react';
-import { mockChannelWithPosts, ROUTES } from 'apps/mull-ui/src/constants';
-import { ChannelByEventDocument } from 'apps/mull-ui/src/generated/graphql';
 import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
+import { mockChannelWithPosts, ROUTES } from '../../../../../src/constants';
+import { ChannelByEventDocument } from '../../../../generated/graphql';
 import { UserProvider } from '../../../context/user.context';
 import AnnouncementsPage from './announcements';
 
@@ -18,6 +18,11 @@ describe('Announcements', () => {
       </MockedProvider>
     </UserProvider>
   );
+  beforeAll(() => {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    window.HTMLElement.prototype.scrollIntoView = function () {};
+  });
+
   it('should render successfully', () => {
     const history = createMemoryHistory();
     history.push(ROUTES.ANNOUNCEMENTS.url);
@@ -46,7 +51,6 @@ describe('Announcements', () => {
 
   it('should have a chatInput', async () => {
     await act(async () => {
-      window.HTMLElement.prototype.scrollIntoView = function () {};
       const history = createMemoryHistory();
       history.push(ROUTES.ANNOUNCEMENTS.url);
       const utils = render(renderHelper(history, mocks, mockChannelWithPosts.event.host.id));
@@ -58,7 +62,6 @@ describe('Announcements', () => {
 
   it('should not have a chatInput', async () => {
     await act(async () => {
-      window.HTMLElement.prototype.scrollIntoView = function () {};
       const history = createMemoryHistory();
       history.push(ROUTES.ANNOUNCEMENTS.url);
       const utils = render(renderHelper(history, mocks, -100));

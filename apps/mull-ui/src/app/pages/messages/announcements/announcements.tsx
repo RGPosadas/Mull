@@ -1,14 +1,14 @@
 import { IChatForm, ISerializedPost } from '@mull/types';
+import { useFormik } from 'formik';
+import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
+import * as Yup from 'yup';
 import {
   Event,
   PostAddedDocument,
   useChannelByEventQuery,
   useCreatePostMutation,
-} from 'apps/mull-ui/src/generated/graphql';
-import { useFormik } from 'formik';
-import React, { useContext } from 'react';
-import { toast } from 'react-toastify';
-import * as Yup from 'yup';
+} from '../../../../generated/graphql';
 import { ChatInput } from '../../../components';
 import ChatBubbleList from '../../../components/chat-bubble-list/chat-bubble-list';
 import UserContext from '../../../context/user.context';
