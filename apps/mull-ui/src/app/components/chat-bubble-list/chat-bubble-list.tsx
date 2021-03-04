@@ -15,11 +15,8 @@ export const ChatBubbleList = ({ posts, subToMore }: ChatBubbleListProps) => {
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView(); // Scroll to bottom of chat on initial page load
-  }, []);
-
-  useEffect(() => {
     subToMore();
-  }, [subToMore]);
+  }, []);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' }); // Scroll to bottom chat smoothly when new post added
