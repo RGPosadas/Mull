@@ -1,21 +1,12 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthenticatedUser, AuthGuard } from '../auth/auth.guard';
-import { Channel } from '../entities';
+import { Channel, DirectMessageChannel } from '../entities';
 import { ChannelService } from './channel.service';
-import { CreateChannelInput } from './inputs/channel.input';
+import { CreateDmChannelInput } from './inputs/channel.input';
 @Resolver('Channel')
 export class ChannelResolver {
   constructor(private readonly channelService: ChannelService) {}
-
-  @Mutation(/* istanbul ignore next */ () => Boolean)
-  @UseGuards(AuthGuard)
-  async createChannel(
-    @Args('input') input: CreateChannelInput,
-    @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId?: number
-  ) {
-    return this.channelService.createChannel(input, eventId);
-  }
 
   @Mutation(/* istanbul ignore next */ () => Boolean)
   @UseGuards(AuthGuard)
@@ -31,11 +22,24 @@ export class ChannelResolver {
 
   @Query(/* istanbul ignore next */ () => Channel)
   @UseGuards(AuthGuard)
-  async getChannelByEvent(
+  async getEventChannel(
     @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId: number,
     @Args('channelName') channelName: string,
     @AuthenticatedUser() userId: number
   ) {
     return this.channelService.getChannelByEvent(eventId, channelName, userId);
+  }
+
+  @Query(/* istanbul ignore next */ () => DirectMessageChannel)
+  @UseGuards(AuthGuard)
+  async getDmChannel(
+    @Args('input', { type: /* istanbul ignore next */ () => CreateDmChannelInput })
+    input: CreateDmChannelInput
+  ) {
+    const [usr1, usr2] = input.participants;
+    const dmChannel = await this.channelService.findUsersInDmChannel(usr1.id, usr2.id);
+    if (dmChannel) return dmChannel;
+    const { id } = await this.channelService.createDmChannel(input);
+    return this.channelService.getDmChannel(id);
   }
 }
