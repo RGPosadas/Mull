@@ -1,6 +1,9 @@
 import { IChatForm, ISerializedPost } from '@mull/types';
+import { ROUTES } from 'apps/mull-ui/src/constants';
 import { useFormik } from 'formik';
+import { History } from 'history';
 import React, { useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import {
@@ -22,13 +25,17 @@ interface subscriptionData {
   };
 }
 
-export const AnnouncementsPage = () => {
+export interface AnnouncementPageProps {
+  history: History;
+}
+
+export const AnnouncementsPage = ({ history }: AnnouncementPageProps) => {
   const { updateToast } = useToast();
   const [createPostMutation] = useCreatePostMutation();
   const { userId } = useContext(UserContext);
-  const { data, loading, subscribeToMore } = useChannelByEventQuery({
+  const { data, loading, error, subscribeToMore } = useChannelByEventQuery({
     variables: {
-      eventId: 4, //TODO: Replace with dynamic event ID
+      eventId: 1, //TODO: Replace with dynamic event ID
       channelName: 'Announcements',
     },
   });
@@ -85,7 +92,9 @@ export const AnnouncementsPage = () => {
       }
     },
   });
-
+  if (error) {
+    return <Redirect to={ROUTES.LOGIN} />;
+  }
   if (loading) return <div className="page-container">Loading...</div>;
   if (data) {
     return (
