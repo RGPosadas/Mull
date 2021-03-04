@@ -1,11 +1,11 @@
 import { IChatForm, ISerializedPost } from '@mull/types';
-import { ROUTES } from 'apps/mull-ui/src/constants';
 import { useFormik } from 'formik';
 import { History } from 'history';
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
+import { ROUTES } from '../../../../../src/constants';
 import {
   Event,
   PostAddedDocument,
@@ -53,7 +53,6 @@ export const AnnouncementsPage = ({ history }: AnnouncementPageProps) => {
       updateQuery: (prev, { subscriptionData }: subscriptionData) => {
         if (!subscriptionData.data) return prev;
         const newPostItem = subscriptionData.data.postAdded;
-
         const newList = Object.assign({}, prev, {
           getChannelByEvent: {
             posts: [...prev.getChannelByEvent.posts, newPostItem],

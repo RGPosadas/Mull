@@ -34,7 +34,7 @@ const mockChannelService = () => ({
   deleteChannel: jest.fn((channelId: number) =>
     mockAllChannels.find((channel) => channel.id === channelId)
   ),
-  validateEventChannlWritePermission: jest.fn((data, userId) => data.event.host.id === userId),
+  validateEventChannelWritePermission: jest.fn((data, userId) => data.event.host.id === userId),
 });
 
 describe('PostService', () => {

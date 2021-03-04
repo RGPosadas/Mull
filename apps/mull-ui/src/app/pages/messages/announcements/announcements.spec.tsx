@@ -4,7 +4,7 @@ import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { mockChannelWithPosts, ROUTES } from '../../../../../src/constants';
-import { ChannelByEventDocument } from '../../../../generated/graphql';
+import { ChannelByEventDocument, PostAddedDocument } from '../../../../generated/graphql';
 import { UserProvider } from '../../../context/user.context';
 import AnnouncementsPage from './announcements';
 
@@ -13,7 +13,7 @@ describe('Announcements', () => {
     <UserProvider value={{ userId, setUserId: jest.fn() }}>
       <MockedProvider mocks={mocks} addTypename={false}>
         <Router history={history}>
-          <AnnouncementsPage />
+          <AnnouncementsPage history={history} />
         </Router>
       </MockedProvider>
     </UserProvider>
@@ -37,13 +37,40 @@ describe('Announcements', () => {
       request: {
         query: ChannelByEventDocument,
         variables: {
-          eventId: 4,
+          eventId: 1,
           channelName: 'Announcements',
         },
       },
       result: {
         data: {
           getChannelByEvent: mockChannelWithPosts,
+        },
+      },
+    },
+    {
+      request: {
+        query: PostAddedDocument,
+        variables: {
+          channelId: 3,
+        },
+      },
+      result: {
+        data: {
+          postAdded: {
+            id: 1,
+            createdTime: new Date(),
+            message: 'message',
+            user: {
+              id: 1,
+              name: 'someone',
+              avatar: {
+                id: 3,
+                mediaType: 'png',
+              },
+              __typename: 'User',
+            },
+            __typename: 'Post',
+          },
         },
       },
     },

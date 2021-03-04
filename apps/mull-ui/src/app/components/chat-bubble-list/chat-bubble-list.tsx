@@ -16,6 +16,7 @@ export const ChatBubbleList = ({ posts, subToMore }: ChatBubbleListProps) => {
   useEffect(() => {
     messageEndRef.current?.scrollIntoView(); // Scroll to bottom of chat on initial page load
     subToMore();
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 
   useEffect(() => {

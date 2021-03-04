@@ -10,7 +10,7 @@ export class ChannelService {
     private channelRepository: Repository<Channel>
   ) {}
 
-  validateEventChannlWritePermission(channel: Channel, userId: number) {
+  validateEventChannelWritePermission(channel: Channel, userId: number) {
     const host = channel.event.host;
     const coHosts = channel.event.coHosts;
     const participants = channel.event.participants;
