@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IdentifiedWasteModal should match snapshot 1`] = `
+<div
+  className="identified-waste-container"
+>
+  <div
+    data-testid="open-modal"
+    onClick={[Function]}
+  >
+    <button>
+      CLICK HERE
+    </button>
+  </div>
+</div>
+`;
