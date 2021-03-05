@@ -18,7 +18,7 @@ export const ChatInput = ({ formik }: ChatInputProps) => {
       className="chat-input-container"
       data-testid="announcement-chat-input"
     >
-      {/* TODO: Handle form data as needed by back-end */}
+      {/* TODO: Handle Image upload back-end */}
       <CustomFileUpload
         className="file-upload-feedback"
         imageURL={null}

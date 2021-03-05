@@ -53,6 +53,7 @@ export const AnnouncementsPage = ({ history }: AnnouncementPageProps) => {
       updateQuery: (prev, { subscriptionData }: subscriptionData) => {
         if (!subscriptionData.data) return prev;
         const newPostItem = subscriptionData.data.postAdded;
+        //Add the new message received from the subscriber
         const newList = Object.assign({}, prev, {
           getChannelByEvent: {
             posts: [...prev.getChannelByEvent.posts, newPostItem],

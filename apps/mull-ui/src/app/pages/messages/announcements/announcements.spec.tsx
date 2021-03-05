@@ -87,7 +87,7 @@ describe('Announcements', () => {
     });
   });
 
-  it('should not have a chatInput', async () => {
+  it('should not have a chatInput because user is not host', async () => {
     await act(async () => {
       const history = createMemoryHistory();
       history.push(ROUTES.ANNOUNCEMENTS.url);
