@@ -9,7 +9,14 @@ export const DiscoverPage = ({ history }) => {
 
   if (data) {
     const events = (data.discoverEvents as unknown) as Partial<ISerializedEvent>[];
-    var eventCards = events.map((event, index) => (
+    const sortedEvents = events
+      .slice()
+      .sort(
+        (event1, event2) =>
+          new Date(event1.startDate).valueOf() - new Date(event2.startDate).valueOf()
+      );
+
+    var eventCards = sortedEvents.map((event, index) => (
       <EventCard
         key={`discover-${index}`}
         isJoined={false}

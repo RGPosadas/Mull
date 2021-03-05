@@ -1,4 +1,4 @@
-import { faAlignLeft, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EventRestriction, EventRestrictionMap, ICreateEventForm } from '@mull/types';
 import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
@@ -92,15 +92,13 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       startTime: Yup.string().required('Start Time is required.'),
       endTime: Yup.string()
         .required('End Time is required.')
-        .test(
-          'endTime is after startTime',
-          'The end time must be after the start time.',
-          function (endTime) {
-            const { startTime, startDate, endDate } = this.parent;
-            if (endDate && startDate < endDate) return true;
-            return moment(endTime, 'HH:mm').isSameOrAfter(moment(startTime, 'HH:mm'));
-          }
-        ),
+        .test('endTime is after startTime', 'The end time must be after the start time.', function (
+          endTime
+        ) {
+          const { startTime, startDate, endDate } = this.parent;
+          if (endDate && startDate < endDate) return true;
+          return moment(endTime, 'HH:mm').isSameOrAfter(moment(startTime, 'HH:mm'));
+        }),
       eventTitle: Yup.string()
         .required('Event Title is required.')
         .max(65, 'Event Title length must be under 65 characters.')
@@ -242,7 +240,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               errorMessage={formik.errors.eventTitle}
               svgIcon={<FontAwesomeIcon className="input-icon" icon={faPencilAlt} />}
             />
-            <CustomTextInput
+            {/* <CustomTextInput
               title="Description"
               fieldName="description"
               value={formik.values.description}
@@ -250,6 +248,18 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               hasErrors={formik.touched.description && !!formik.errors.description}
               errorMessage={formik.errors.description}
               svgIcon={<FontAwesomeIcon className="input-icon" icon={faAlignLeft} />}
+            /> */}
+            <label className="description-label" htmlFor={'description'}>
+              Description
+            </label>
+            <textarea
+              id="description"
+              className={`description-msg ${
+                formik.touched.description && !!formik.errors.description ? 'error' : ''
+              }`}
+              rows={1}
+              value={formik.values.description}
+              onChange={formik.handleChange}
             />
 
             <LocationAutocompleteModal formik={formik} />

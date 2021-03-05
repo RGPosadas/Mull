@@ -45,6 +45,29 @@
   margin-bottom: 15px;
 }
 
+.description-label {
+  align-self: flex-start;
+}
+.description-msg {
+  height: 2.8rem;
+  width: 87%;
+  outline: none;
+  resize: none;
+  border-radius: 1.25rem;
+  border: 1.5px $primary-color solid;
+  padding: 1em 2.5em 1em 1em;
+  margin-bottom: 1.875rem;
+  &.error {
+    border-color: #ff0000;
+  }
+}
+
+.description-label {
+  color: black;
+  align-items: flex-start;
+  font-weight: 600;
+  line-height: 1.5;
+}
 @media (min-width: $breakpoint-mobile) {
   .create-event-text {
     font-size: 1.5rem;
