@@ -67,6 +67,7 @@ export type CreateUserInput = {
 
 export type Event = {
   __typename?: 'Event';
+  coHosts: Array<User>;
   description: Scalars['String'];
   endDate: Scalars['DateTime'];
   host: User;
@@ -266,6 +267,7 @@ export type Query = {
   events: Array<Event>;
   friendCount: Scalars['Int'];
   getChannel: Channel;
+  getChannelByEvent: Channel;
   hostEvents: Array<Event>;
   hostingCount: Scalars['Int'];
   isParticipant: Scalars['Boolean'];
@@ -290,6 +292,12 @@ export type QueryEventArgs = {
 
 export type QueryGetChannelArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryGetChannelByEventArgs = {
+  channelName: Scalars['String'];
+  eventId: Scalars['Int'];
 };
 
 
@@ -450,6 +458,19 @@ export type UpdateUserMutation = (
   ) }
 );
 
+export type CreatePostMutationVariables = Exact<{
+  post: CreatePostInput;
+}>;
+
+
+export type CreatePostMutation = (
+  { __typename?: 'Mutation' }
+  & { post: (
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'message'>
+  ) }
+);
+
 export type EventPageContentFragment = (
   { __typename?: 'Event' }
   & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
@@ -579,6 +600,41 @@ export type UserProfileQuery = (
   ) }
 );
 
+export type ChannelByEventQueryVariables = Exact<{
+  eventId: Scalars['Int'];
+  channelName: Scalars['String'];
+}>;
+
+
+export type ChannelByEventQuery = (
+  { __typename?: 'Query' }
+  & { getChannelByEvent: (
+    { __typename?: 'Channel' }
+    & Pick<Channel, 'id'>
+    & { event?: Maybe<(
+      { __typename?: 'Event' }
+      & { host: (
+        { __typename?: 'User' }
+        & Pick<User, 'id'>
+      ), coHosts: Array<(
+        { __typename?: 'User' }
+        & Pick<User, 'id'>
+      )> }
+    )>, posts: Array<(
+      { __typename?: 'Post' }
+      & Pick<Post, 'id' | 'message' | 'createdTime'>
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'id' | 'name'>
+        & { avatar?: Maybe<(
+          { __typename?: 'Media' }
+          & Pick<Media, 'id' | 'mediaType'>
+        )> }
+      ) }
+    )> }
+  ) }
+);
+
 export type PostAddedSubscriptionVariables = Exact<{
   channelId: Scalars['Int'];
 }>;
@@ -588,7 +644,15 @@ export type PostAddedSubscription = (
   { __typename?: 'Subscription' }
   & { postAdded: (
     { __typename?: 'Post' }
-    & Pick<Post, 'message' | 'createdTime' | 'id'>
+    & Pick<Post, 'id' | 'createdTime' | 'message'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'name'>
+      & { avatar?: Maybe<(
+        { __typename?: 'Media' }
+        & Pick<Media, 'id' | 'mediaType'>
+      )> }
+    ) }
   ) }
 );
 
@@ -850,6 +914,39 @@ export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
 export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
+export const CreatePostDocument = gql`
+    mutation CreatePost($post: CreatePostInput!) {
+  post(post: $post) {
+    id
+    message
+  }
+}
+    `;
+export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
+
+/**
+ * __useCreatePostMutation__
+ *
+ * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
+ *   variables: {
+ *      post: // value for 'post'
+ *   },
+ * });
+ */
+export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>) {
+        return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument, baseOptions);
+      }
+export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
+export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
+export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
 export const DiscoverEventsDocument = gql`
     query DiscoverEvents {
   discoverEvents {
@@ -1090,12 +1187,75 @@ export function useUserProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type UserProfileQueryHookResult = ReturnType<typeof useUserProfileQuery>;
 export type UserProfileLazyQueryHookResult = ReturnType<typeof useUserProfileLazyQuery>;
 export type UserProfileQueryResult = Apollo.QueryResult<UserProfileQuery, UserProfileQueryVariables>;
+export const ChannelByEventDocument = gql`
+    query ChannelByEvent($eventId: Int!, $channelName: String!) {
+  getChannelByEvent(eventId: $eventId, channelName: $channelName) {
+    id
+    event {
+      host {
+        id
+      }
+      coHosts {
+        id
+      }
+    }
+    posts {
+      id
+      message
+      createdTime
+      user {
+        id
+        name
+        avatar {
+          id
+          mediaType
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useChannelByEventQuery__
+ *
+ * To run a query within a React component, call `useChannelByEventQuery` and pass it any options that fit your needs.
+ * When your component renders, `useChannelByEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useChannelByEventQuery({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *      channelName: // value for 'channelName'
+ *   },
+ * });
+ */
+export function useChannelByEventQuery(baseOptions: Apollo.QueryHookOptions<ChannelByEventQuery, ChannelByEventQueryVariables>) {
+        return Apollo.useQuery<ChannelByEventQuery, ChannelByEventQueryVariables>(ChannelByEventDocument, baseOptions);
+      }
+export function useChannelByEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ChannelByEventQuery, ChannelByEventQueryVariables>) {
+          return Apollo.useLazyQuery<ChannelByEventQuery, ChannelByEventQueryVariables>(ChannelByEventDocument, baseOptions);
+        }
+export type ChannelByEventQueryHookResult = ReturnType<typeof useChannelByEventQuery>;
+export type ChannelByEventLazyQueryHookResult = ReturnType<typeof useChannelByEventLazyQuery>;
+export type ChannelByEventQueryResult = Apollo.QueryResult<ChannelByEventQuery, ChannelByEventQueryVariables>;
 export const PostAddedDocument = gql`
     subscription PostAdded($channelId: Int!) {
   postAdded(channelId: $channelId) {
-    message
-    createdTime
     id
+    createdTime
+    message
+    user {
+      id
+      name
+      avatar {
+        id
+        mediaType
+      }
+    }
   }
 }
     `;

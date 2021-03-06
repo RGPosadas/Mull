@@ -16,11 +16,12 @@ export class PostResolver {
 
   @Mutation(/* istanbul ignore next */ () => Post)
   async post(@Args('post') post: CreatePostInput, @AuthenticatedUser() userId: number) {
-    const savedPost = this.postService.createPost(post, userId);
+    const partialSavedPost = await this.postService.createPost(post, userId); // typeORM does not return the complete entity
+    const completeSavedPost = await this.postService.getPost(partialSavedPost.id);
     pubSub.publish('postAdded' + post.channel.id, {
-      postAdded: savedPost,
+      postAdded: completeSavedPost,
     });
-    return savedPost;
+    return completeSavedPost;
   }
 
   @Query(/* istanbul ignore next */ () => [Post])

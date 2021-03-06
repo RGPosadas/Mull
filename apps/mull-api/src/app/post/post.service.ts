@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ChannelService } from '../channel/channel.service';
 import { Post } from '../entities';
 import { CreatePostInput, UpdatePostInput } from './inputs/post.input';
 
@@ -8,11 +9,12 @@ import { CreatePostInput, UpdatePostInput } from './inputs/post.input';
 export class PostService {
   constructor(
     @InjectRepository(Post)
-    private postRepository: Repository<Post>
+    private postRepository: Repository<Post>,
+    private readonly channelService: ChannelService
   ) {}
 
   getPost(postId: number): Promise<Post> {
-    return this.postRepository.findOne(postId);
+    return this.postRepository.findOne(postId, { relations: ['user', 'user.avatar'] });
   }
 
   getAllPosts(): Promise<Post[]> {
@@ -24,7 +26,12 @@ export class PostService {
   }
 
   async createPost(input: CreatePostInput, userId: number): Promise<Post> {
-    return this.postRepository.save({ ...input, user: { id: userId } });
+    const channel = await this.channelService.getChannel(input.channel.id);
+    if (this.channelService.validateEventChannelWritePermission(channel, userId)) {
+      return this.postRepository.save({ ...input, user: { id: userId } });
+    } else {
+      throw new UnauthorizedException('Unauthorized');
+    }
   }
 
   async deletePost(postId: number): Promise<Post> {

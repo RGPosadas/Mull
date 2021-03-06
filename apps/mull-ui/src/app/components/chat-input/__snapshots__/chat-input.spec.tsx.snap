@@ -3,6 +3,8 @@
 exports[`ChatInput should match snapshot 1`] = `
 <form
   className="chat-input-container"
+  data-testid="chat-input"
+  onSubmit={[MockFunction]}
 >
   <div
     className="custom-file-upload-container"
@@ -47,21 +49,20 @@ exports[`ChatInput should match snapshot 1`] = `
   >
     <label
       className="custom-text-input-label"
-      htmlFor="description"
+      htmlFor="message"
     >
       
     </label>
     <input
       className="custom-text-input input-border "
       data-testid="custom-text-input"
-      id="description"
-      name="description"
-      onChange={[Function]}
+      id="message"
+      name="message"
       type="text"
-      value=""
     />
     <button
       className="chat-input-button"
+      type="submit"
     >
       <svg
         aria-hidden="true"

@@ -21,6 +21,10 @@ define(Event, () => {
   event.host = factory(User)() as any;
   event.coHosts = factory(User)().createMany(faker.random.number(maxCoHostNumber)) as any;
   event.participants = factory(User)().createMany(faker.random.number(maxParticipants)) as any;
+  event.channels = [
+    { name: 'Announcements', rights: 0 },
+    { name: 'Group Chat', rights: 1 },
+  ] as any;
   event.image = factory(Media)() as any;
 
   event.location = factory(Location)() as any;

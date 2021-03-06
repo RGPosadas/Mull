@@ -1,6 +1,6 @@
 import { Connection } from 'typeorm';
 import { Factory, Seeder } from 'typeorm-seeding';
-import { Event } from '../../app/entities';
+import { Event, Post } from '../../app/entities';
 import faker = require('faker');
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -32,9 +32,25 @@ const createFriends = async (connection: Connection) => {
   }
 };
 
+const createPosts = async (connection: Connection, factory: Factory) => {
+  const count = await connection.query('SELECT COUNT(*) FROM `mull-dev`.channel');
+  await factory(Post)(parseInt(count[0]['COUNT(*)'])).createMany(50);
+};
+
+const US3_1Seeder = async (connection: Connection) => {
+  await connection.query('UPDATE `mull-dev`.event SET hostId = 1 WHERE event.id = 1');
+  try {
+    await connection.query('INSERT INTO `mull-dev`.event_participants VALUES (1, 2)');
+  } catch (e) {
+    // user 2 is already a participant of event 1
+  }
+};
+
 export default class DatabaseSeeder implements Seeder {
   public async run(factory: Factory, connection: Connection): Promise<any> {
     await factory(Event)().createMany(10);
+    await createPosts(connection, factory);
+    await US3_1Seeder(connection);
     await createFriends(connection);
   }
 }

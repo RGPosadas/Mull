@@ -1,7 +1,15 @@
 subscription PostAdded($channelId: Int!) {
   postAdded(channelId: $channelId) {
-    message
-    createdTime
     id
+    createdTime
+    message
+    user {
+      id
+      name
+      avatar {
+        id
+        mediaType
+      }
+    }
   }
 }
