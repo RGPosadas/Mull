@@ -4,6 +4,7 @@ import { MULL_MODEL_URL } from '../../../constants';
 import { drawDetectionIcons } from '../../../utilities';
 import { useToast } from '../../hooks/useToast';
 import { TensorflowJsModel } from '../../services/tfjs.model';
+import IdentifiedWasteModal from './identified-waste-modal';
 import './waste-recognition-page.scss';
 
 /* eslint-disable-next-line */
@@ -110,6 +111,7 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
 
   return (
     <div className="page-container">
+      <IdentifiedWasteModal />
       {modelLoading ? (
         <div className="waste-recognition-page-overlay-text">Warming up the Detection Model</div>
       ) : null}

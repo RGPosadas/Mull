@@ -42,7 +42,7 @@ export const mediaUrl = (event: Partial<ISerializedEvent>) =>
   `${environment.backendUrl}/api/media/${event.image.id}`;
 
 const svgSize = 45;
-const svgMap = {
+export const svgMap = {
   [WasteType.COMPOST]: './assets/icons/trash-recognition-icons/CompostIcon.svg',
   [WasteType.EWASTE]: './assets/icons/trash-recognition-icons/GeneralIcon.svg',
   [WasteType.TRASH]: './assets/icons/trash-recognition-icons/TrashIcon.svg',
