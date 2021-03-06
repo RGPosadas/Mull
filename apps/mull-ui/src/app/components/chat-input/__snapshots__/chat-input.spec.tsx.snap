@@ -3,7 +3,7 @@
 exports[`ChatInput should match snapshot 1`] = `
 <form
   className="chat-input-container"
-  data-testid="announcement-chat-input"
+  data-testid="chat-input"
   onSubmit={[MockFunction]}
 >
   <div
