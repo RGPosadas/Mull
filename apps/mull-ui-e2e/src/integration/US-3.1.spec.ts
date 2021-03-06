@@ -12,10 +12,18 @@ frameSizes.forEach((frame) => {
       cy.mockRefreshRequest();
       const date = new Date();
       cy.visit('http://localhost:4200/messages/announcements');
+      cy.get('.event-chat', { timeout: 5000 }).should('exist');
       cy.get('.custom-text-input').type(`${date.toString()}{enter}`);
       /* eslint-disable-next-line cypress/no-unnecessary-waiting */
       cy.wait(500); // Test was flaky with aliases
       cy.contains(date.toString());
+    });
+
+    it('should not have chat input since user is not a host', () => {
+      cy.mockRefreshRequest(2);
+      cy.visit('http://localhost:4200/messages/announcements');
+      cy.get('.event-chat', { timeout: 5000 }).should('exist');
+      cy.get('chat-input-container').should('not.exist');
     });
 
     it('should not have access to announcements page', () => {

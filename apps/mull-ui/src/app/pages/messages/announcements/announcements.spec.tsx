@@ -1,9 +1,9 @@
 import { MockedProvider } from '@apollo/client/testing';
 import { render } from '@testing-library/react';
-import { ROUTES } from 'apps/mull-ui/src/constants';
 import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
+import { ROUTES } from '../../../../../src/constants';
 import { UserProvider } from '../../../context/user.context';
 import AnnouncementsPage from './announcements';
 
