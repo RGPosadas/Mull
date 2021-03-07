@@ -45,7 +45,6 @@ const mockDirectMessageChannelRepository = () => ({
 
 describe('ChannelService', () => {
   let service: ChannelService;
-  let repository: MockType<Repository<Channel>>;
   let directMessageRepository: MockType<Repository<DirectMessageChannel>>;
   let eventRepository: MockType<Repository<EventChannel>>;
 
@@ -63,7 +62,6 @@ describe('ChannelService', () => {
     }).compile();
 
     service = module.get<ChannelService>(ChannelService);
-    repository = module.get(getRepositoryToken(Channel));
     directMessageRepository = module.get(getRepositoryToken(DirectMessageChannel));
     eventRepository = module.get(getRepositoryToken(EventChannel));
   });
