@@ -2,7 +2,6 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Channel, DirectMessageChannel, EventChannel } from '../entities';
-import { CreateEventChannelInput } from './inputs/channel.input';
 @Injectable()
 export class ChannelService {
   constructor(
@@ -59,11 +58,6 @@ export class ChannelService {
     } else {
       throw new UnauthorizedException('Unauthorized');
     }
-  }
-
-  async createEventChannel(input: CreateEventChannelInput, eventId: number): Promise<boolean> {
-    await this.eventChannelRepository.save({ ...input, event: { id: eventId } });
-    return true;
   }
 
   async createDmChannel(fromUserId: number, toUserId: number): Promise<DirectMessageChannel> {

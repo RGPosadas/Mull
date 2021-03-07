@@ -2,7 +2,6 @@ import { Channel, DirectMessageChannel, EventChannel } from '../entities';
 import { mockAllEvents } from '../event/event.mockdata';
 import { mockAllPosts } from '../post/post.mockdata';
 import { mockAllUsers } from '../user/user.mockdata';
-import { CreateEventChannelInput } from './inputs/channel.input';
 
 const eventChannel = new EventChannel();
 const dmChannel = new DirectMessageChannel();
@@ -61,8 +60,3 @@ export const mockAllDirectMessageChannels: DirectMessageChannel[] = [
     validateWritePermission: dmChannel.validateWritePermission,
   },
 ];
-
-export const mockCreateEventChannel: CreateEventChannelInput = {
-  name: 'inputChannel',
-  rights: 0,
-};

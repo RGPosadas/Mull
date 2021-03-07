@@ -6,11 +6,6 @@ input ChannelInput {
   id: Float!
 }
 
-input CreateEventChannelInput {
-  name: String!
-  rights: Float!
-}
-
 input CreateEventInput {
   description: String!
   endDate: DateTime!
@@ -106,7 +101,6 @@ input MediaInput {
 type Mutation {
   createDmChannel(toUserId: Int!): DirectMessageChannel!
   createEvent(event: CreateEventInput!): Event!
-  createEventChannel(eventId: Int!, input: CreateEventChannelInput!): EventChannel!
   createLocation(location: LocationInput!): Location!
   createUser(user: CreateUserInput!): User!
   deleteChannel(id: Int!): Boolean!

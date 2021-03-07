@@ -5,7 +5,6 @@ import {
   mockAllChannels,
   mockAllDirectMessageChannels,
   mockAllEventChannels,
-  mockCreateEventChannel,
 } from './channel.mockdata';
 import { ChannelResolver } from './channel.resolver';
 import { ChannelService } from './channel.service';
@@ -77,11 +76,6 @@ describe('ChannelResolver', () => {
       mockAllUsers[2].id
     );
     expect(directMessageChannel).toBe(null);
-  });
-
-  it('should create an event channel', async () => {
-    const createdEventChannel = await resolver.createEventChannel(mockCreateEventChannel);
-    expect(createdEventChannel).toBeTruthy();
   });
 
   it('should create a direct message channel', async () => {

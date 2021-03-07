@@ -3,19 +3,9 @@ import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthenticatedUser, AuthGuard } from '../auth/auth.guard';
 import { DirectMessageChannel, EventChannel } from '../entities';
 import { ChannelService } from './channel.service';
-import { CreateEventChannelInput } from './inputs/channel.input';
 @Resolver('Channel')
 export class ChannelResolver {
   constructor(private readonly channelService: ChannelService) {}
-
-  @Mutation(/* istanbul ignore next */ () => EventChannel)
-  @UseGuards(AuthGuard)
-  async createEventChannel(
-    @Args('input') input: CreateEventChannelInput,
-    @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId?: number
-  ) {
-    return this.channelService.createEventChannel(input, eventId);
-  }
 
   @Mutation(/* istanbul ignore next */ () => DirectMessageChannel)
   @UseGuards(AuthGuard)

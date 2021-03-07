@@ -9,7 +9,6 @@ import {
   mockAllChannels,
   mockAllDirectMessageChannels,
   mockAllEventChannels,
-  mockCreateEventChannel,
 } from './channel.mockdata';
 import { ChannelService } from './channel.service';
 import { CreateEventChannelInput } from './inputs/channel.input';
@@ -84,11 +83,6 @@ describe('ChannelService', () => {
       mockAllUsers[0].id
     );
     expect(returnedDmChannel).toBe(mockAllDirectMessageChannels[0]);
-  });
-
-  it('should create an event channel', async () => {
-    const createdEventChannel = await service.createEventChannel(mockCreateEventChannel, 1);
-    expect(createdEventChannel).toBeTruthy();
   });
 
   it('should create a DM channel', async () => {
