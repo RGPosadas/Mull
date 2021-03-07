@@ -8,7 +8,7 @@ import { ROUTES } from '../../../../../src/constants';
 import {
   Event,
   PostAddedDocument,
-  useChannelByEventQuery,
+  useChannelByEventIdQuery,
   useCreatePostMutation,
 } from '../../../../generated/graphql';
 import { ChatInput } from '../../../components';
@@ -34,7 +34,7 @@ export const EventChat = ({ eventId, channelName, restrictChatInput }: EventChat
   const { updateToast } = useToast();
   const [createPostMutation] = useCreatePostMutation();
   const { userId } = useContext(UserContext);
-  const { data, loading, error, subscribeToMore } = useChannelByEventQuery({
+  const { data, loading, error, subscribeToMore } = useChannelByEventIdQuery({
     variables: {
       eventId, //TODO: Replace with dynamic event ID
       channelName,
@@ -51,14 +51,14 @@ export const EventChat = ({ eventId, channelName, restrictChatInput }: EventChat
   const subToMore = () =>
     subscribeToMore({
       document: PostAddedDocument,
-      variables: { channelId: data.getChannelByEvent.id },
+      variables: { channelId: data.getChannelByEventId.id },
       updateQuery: (prev, { subscriptionData }: subscriptionData) => {
         if (!subscriptionData.data) return prev;
         const newPostItem = subscriptionData.data.postAdded;
         //Add the new message received from the subscriber
         const newList = Object.assign({}, prev, {
-          getChannelByEvent: {
-            posts: [...prev.getChannelByEvent.posts, newPostItem],
+          getChannelByEventId: {
+            posts: [...prev.getChannelByEventId.posts, newPostItem],
           },
         });
 
@@ -81,7 +81,7 @@ export const EventChat = ({ eventId, channelName, restrictChatInput }: EventChat
         createPostMutation({
           variables: {
             post: {
-              channel: { id: data.getChannelByEvent.id },
+              channel: { id: data.getChannelByEventId.id },
               message: formik.values.message,
               createdTime: Date.now(),
             },
@@ -101,8 +101,8 @@ export const EventChat = ({ eventId, channelName, restrictChatInput }: EventChat
   if (data) {
     return (
       <div className="event-chat">
-        <ChatBubbleList posts={data.getChannelByEvent.posts} subToMore={subToMore} />
-        {isEventHost(data.getChannelByEvent.event as Event) && <ChatInput formik={formik} />}
+        <ChatBubbleList posts={data.getChannelByEventId.posts} subToMore={subToMore} />
+        {isEventHost(data.getChannelByEventId.event as Event) && <ChatInput formik={formik} />}
       </div>
     );
   }

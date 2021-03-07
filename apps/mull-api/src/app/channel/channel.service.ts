@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Channel, DirectMessageChannel, EventChannel } from '../entities';
-import { CreateDmChannelInput, CreateEventChannelInput } from './inputs/channel.input';
+import { CreateEventChannelInput } from './inputs/channel.input';
 @Injectable()
 export class ChannelService {
   constructor(
@@ -14,42 +14,24 @@ export class ChannelService {
     private dmChannelRepository: Repository<DirectMessageChannel>
   ) {}
 
-  validateEventChannelWritePermission(channel: Channel, userId: number) {
-    const host = channel.event.host;
-    const coHosts = channel.event.coHosts;
-    const participants = channel.event.participants;
-    if (channel.rights === 0) {
-      return host.id === userId || coHosts.some((coHost) => coHost.id === userId);
-    } else if (channel.rights === 1) {
-      return (
-        host.id === userId ||
-        coHosts.some((coHost) => coHost.id === userId) ||
-        participants.some((participant) => participant.id === userId)
-      );
-    } else {
-      return false;
-    }
-  }
-
-  validateEventChannelReadPermission(channel: Channel, userId: number) {
-    const host = channel.event.host;
-    const coHosts = channel.event.coHosts;
-    const participants = channel.event.participants;
-    return (
-      host.id === userId ||
-      coHosts.some((coHost) => coHost.id === userId) ||
-      participants.some((participant) => participant.id === userId)
-    );
-  }
-
   getChannel(channelId: number): Promise<Channel> {
     return this.channelRepository.findOne(channelId, {
+      relations: ['event', 'event.host', 'event.coHosts', 'event.participants', 'participants'],
+    });
+  }
+
+  getEventChannel(channelId: number): Promise<EventChannel> {
+    return this.eventChannelRepository.findOne(channelId, {
       relations: ['event', 'event.host', 'event.coHosts', 'event.participants'],
     });
   }
 
-  async getChannelByEvent(eventId: number, channelName: string, userId: number): Promise<Channel> {
-    const channel = await this.channelRepository.findOne({
+  async getChannelByEventId(
+    eventId: number,
+    channelName: string,
+    userId: number
+  ): Promise<EventChannel> {
+    const eventChannel = await this.eventChannelRepository.findOne({
       relations: [
         'posts',
         'posts.user',
@@ -61,19 +43,22 @@ export class ChannelService {
       ],
       where: { event: { id: eventId }, name: channelName },
     });
-    if (this.validateEventChannelReadPermission(channel, userId)) {
-      return channel;
+    if (eventChannel.validateReadPermission(userId)) {
+      return eventChannel;
     } else {
       throw new UnauthorizedException('Unauthorized');
     }
   }
 
-  getEventChannel(channelId: number): Promise<EventChannel> {
-    return this.eventChannelRepository.findOne(channelId);
-  }
-
-  getDmChannel(channelId: number): Promise<DirectMessageChannel> {
-    return this.dmChannelRepository.findOne(channelId, { relations: ['participants'] });
+  async getDmChannel(channelId: number, userId: number): Promise<DirectMessageChannel> {
+    const dmChannel = await this.dmChannelRepository.findOne(channelId, {
+      relations: ['participants'],
+    });
+    if (dmChannel.validateReadPermission(userId)) {
+      return dmChannel;
+    } else {
+      throw new UnauthorizedException('Unauthorized');
+    }
   }
 
   async createEventChannel(input: CreateEventChannelInput, eventId: number): Promise<boolean> {
@@ -81,8 +66,8 @@ export class ChannelService {
     return true;
   }
 
-  async createDmChannel(input: CreateDmChannelInput): Promise<DirectMessageChannel> {
-    return this.dmChannelRepository.save(input);
+  async createDmChannel(fromUserId: number, toUserId: number): Promise<DirectMessageChannel> {
+    return this.dmChannelRepository.save({ participants: [{ id: fromUserId }, { id: toUserId }] });
   }
 
   async deleteChannel(channelId: number): Promise<boolean> {
@@ -90,7 +75,10 @@ export class ChannelService {
     return true;
   }
 
-  async findUsersInDmChannel(userId1: number, userId2: number): Promise<DirectMessageChannel> {
+  async findDirectMessageChannelByUserIds(
+    userId1: number,
+    userId2: number
+  ): Promise<DirectMessageChannel> {
     const dmChannelsList = await this.dmChannelRepository
       .createQueryBuilder()
       .leftJoinAndSelect('DirectMessageChannel.participants', 'participants')

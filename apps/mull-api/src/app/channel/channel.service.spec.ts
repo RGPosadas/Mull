@@ -1,3 +1,4 @@
+import { UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -8,12 +9,10 @@ import {
   mockAllChannels,
   mockAllDirectMessageChannels,
   mockAllEventChannels,
-  mockCreateChannel,
-  mockCreateDmChannel,
   mockCreateEventChannel,
 } from './channel.mockdata';
 import { ChannelService } from './channel.service';
-import { CreateDmChannelInput, CreateEventChannelInput } from './inputs/channel.input';
+import { CreateEventChannelInput } from './inputs/channel.input';
 
 const mockChannelRepository = () => ({
   findOne: jest.fn((channelId: number) => {
@@ -28,14 +27,14 @@ const mockEventChannelRepository = () => ({
   findOne: jest.fn((channelId: number) => {
     return mockAllEventChannels.find((channel) => channel.id === channelId);
   }),
-  save: jest.fn((mockChannelData: CreateEventChannelInput) => ({ ...mockChannelData })),
+  save: jest.fn((mockEventChannelData: CreateEventChannelInput) => ({ ...mockEventChannelData })),
 });
 
 const mockDmChannelRepository = () => ({
   findOne: jest.fn((channelId: number) => {
     return mockAllDirectMessageChannels.find((channel) => channel.id === channelId);
   }),
-  save: jest.fn((mockChannelData: CreateDmChannelInput) => ({ ...mockChannelData })),
+  save: jest.fn((mockDmChannelData: DirectMessageChannel) => ({ ...mockDmChannelData })),
   createQueryBuilder: jest.fn(() => ({
     where: jest.fn().mockReturnThis(),
     leftJoinAndSelect: jest.fn().mockReturnThis(),
@@ -47,6 +46,7 @@ describe('ChannelService', () => {
   let service: ChannelService;
   let repository: MockType<Repository<Channel>>;
   let dmRepository: MockType<Repository<DirectMessageChannel>>;
+  let eventRepository: MockType<Repository<EventChannel>>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -61,6 +61,7 @@ describe('ChannelService', () => {
     service = module.get<ChannelService>(ChannelService);
     repository = module.get(getRepositoryToken(Channel));
     dmRepository = module.get(getRepositoryToken(DirectMessageChannel));
+    eventRepository = module.get(getRepositoryToken(EventChannel));
   });
 
   it('should be defined', () => {
@@ -78,7 +79,10 @@ describe('ChannelService', () => {
   });
 
   it('should get a direct message channel', async () => {
-    const returnedDmChannel = await service.getDmChannel(mockAllDirectMessageChannels[0].id);
+    const returnedDmChannel = await service.getDmChannel(
+      mockAllDirectMessageChannels[0].id,
+      mockAllUsers[0].id
+    );
     expect(returnedDmChannel).toBe(mockAllDirectMessageChannels[0]);
   });
 
@@ -88,7 +92,7 @@ describe('ChannelService', () => {
   });
 
   it('should create a DM channel', async () => {
-    const createdDmChannel = await service.createDmChannel(mockCreateDmChannel);
+    const createdDmChannel = await service.createDmChannel(mockAllUsers[0].id, mockAllUsers[1].id);
     expect(createdDmChannel).toBeTruthy();
   });
 
@@ -103,25 +107,24 @@ describe('ChannelService', () => {
     expect(deletedDmChannel).toBeTruthy();
   });
 
-  it('should get a announcement channel by event id', async () => {
-    const testChannel = mockAllChannels[2];
-    repository.findOne.mockImplementation(() => {
-      return mockAllChannels.find((channel) => {
+  it('should get an announcement channel by event id', async () => {
+    const testChannel = mockAllEventChannels[2];
+    eventRepository.findOne.mockImplementation(() => {
+      return mockAllEventChannels.find((channel) => {
         return (
           channel.event.id === testChannel.event.id &&
           channel.name === testChannel.name &&
           (channel.event.host.id === testChannel.event.host.id ||
-            channel.event.coHosts === testChannel.event.coHosts ||
-            channel.participants === testChannel.participants)
+            channel.event.coHosts === testChannel.event.coHosts)
         );
       });
     });
-    const getChannel = await service.getChannelByEvent(
+    const getChannel = await service.getChannelByEventId(
       testChannel.event.id,
       'Announcements',
       testChannel.event.host.id
     );
-    const getChannelByCoHost = await service.getChannelByEvent(
+    const getChannelByCoHost = await service.getChannelByEventId(
       testChannel.event.id,
       'Announcements',
       testChannel.event.coHosts[0].id
@@ -131,9 +134,9 @@ describe('ChannelService', () => {
   });
 
   it('should get a group chat channel by event id with host', async () => {
-    const testChannel = mockAllChannels[1];
-    repository.findOne.mockImplementation(() => {
-      return mockAllChannels.find((channel) => {
+    const testChannel = mockAllEventChannels[1];
+    eventRepository.findOne.mockImplementation(() => {
+      return mockAllEventChannels.find((channel) => {
         return (
           channel.event.id === testChannel.event.id &&
           channel.name === testChannel.name &&
@@ -143,12 +146,12 @@ describe('ChannelService', () => {
         );
       });
     });
-    const getChannelWithHost = await service.getChannelByEvent(
+    const getChannelWithHost = await service.getChannelByEventId(
       testChannel.event.id,
       'Group Chat',
       testChannel.event.host.id
     );
-    const getChannelWithCoHost = await service.getChannelByEvent(
+    const getChannelWithCoHost = await service.getChannelByEventId(
       testChannel.event.id,
       'Group Chat',
       testChannel.event.coHosts[0].id
@@ -158,9 +161,9 @@ describe('ChannelService', () => {
   });
 
   it('should get a group chat channel by event id with participant', async () => {
-    const testChannel = mockAllChannels[1];
-    repository.findOne.mockImplementation(() => {
-      return mockAllChannels.find((channel) => {
+    const testChannel = mockAllEventChannels[1];
+    eventRepository.findOne.mockImplementation(() => {
+      return mockAllEventChannels.find((channel) => {
         return (
           channel.event.id === testChannel.event.id &&
           channel.name === testChannel.name &&
@@ -168,7 +171,7 @@ describe('ChannelService', () => {
         );
       });
     });
-    const getChannelWithParticipant = await service.getChannelByEvent(
+    const getChannelWithParticipant = await service.getChannelByEventId(
       testChannel.event.id,
       'Group Chat',
       testChannel.event.participants[0].id
@@ -176,27 +179,28 @@ describe('ChannelService', () => {
     expect(getChannelWithParticipant).toBe(testChannel);
   });
 
-  it('should throw exception when getting an unauthorized channel', async () => {
-    const testChannel = mockAllChannels[0];
-    repository.findOne.mockImplementation(() => {
-      return mockAllChannels.find((channel) => {
+  it('should throw exception when getting an unauthorized event channel', async () => {
+    const testChannel = mockAllEventChannels[0];
+    eventRepository.findOne.mockImplementation(() => {
+      return mockAllEventChannels.find((channel) => {
         return (
           channel.event.id === testChannel.event.id &&
           channel.name === testChannel.name &&
           (channel.event.host.id === testChannel.event.host.id ||
-            channel.event.coHosts === testChannel.event.coHosts ||
-            channel.participants === testChannel.participants)
+            channel.event.coHosts === testChannel.event.coHosts)
         );
       });
     });
-    expect(() =>
-      service.getChannelByEvent(testChannel.event.id, testChannel.name, -100)
-    ).rejects.toThrow('Unauthorized');
+    expect(
+      async () => await service.getChannelByEventId(testChannel.event.id, testChannel.name, -100)
+    ).rejects.toThrow(UnauthorizedException);
   });
 
-  it('should create a channel', async () => {
-    const createChannel = await service.createChannel(mockCreateChannel);
-    expect(createChannel).toBeTruthy();
+  it('should throw exception when getting an unauthorized dm channel', async () => {
+    const testChannel = mockAllDirectMessageChannels[0];
+    expect(async () => await service.getDmChannel(testChannel.id, -100)).rejects.toThrow(
+      UnauthorizedException
+    );
   });
 
   it('should find the users in a DM channel', async () => {
@@ -205,7 +209,7 @@ describe('ChannelService', () => {
       leftJoinAndSelect: jest.fn().mockReturnThis(),
       getMany: jest.fn().mockReturnValue(mockAllDirectMessageChannels),
     });
-    const foundDmChannel = await service.findUsersInDmChannel(
+    const foundDmChannel = await service.findDirectMessageChannelByUserIds(
       mockAllUsers[0].id,
       mockAllUsers[1].id
     );
@@ -218,7 +222,7 @@ describe('ChannelService', () => {
       leftJoinAndSelect: jest.fn().mockReturnThis(),
       getMany: jest.fn().mockReturnValue([]),
     });
-    const foundDmChannel = await service.findUsersInDmChannel(
+    const foundDmChannel = await service.findDirectMessageChannelByUserIds(
       mockAllUsers[0].id,
       mockAllUsers[2].id
     );

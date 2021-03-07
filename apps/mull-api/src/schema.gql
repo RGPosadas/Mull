@@ -2,17 +2,8 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Channel {
-  id: Int!
-  posts: [Post!]!
-}
-
 input ChannelInput {
   id: Float!
-}
-
-input CreateDmChannelInput {
-  participants: [UserInput!]!
 }
 
 input CreateEventChannelInput {
@@ -113,9 +104,9 @@ input MediaInput {
 }
 
 type Mutation {
-  createDmChannel(input: CreateDmChannelInput!): DirectMessageChannel!
+  createDmChannel(toUserId: Int!): DirectMessageChannel!
   createEvent(event: CreateEventInput!): Event!
-  createEventChannel(eventId: Int!, input: CreateEventChannelInput!): Boolean!
+  createEventChannel(eventId: Int!, input: CreateEventChannelInput!): EventChannel!
   createLocation(location: LocationInput!): Location!
   createUser(user: CreateUserInput!): User!
   deleteChannel(id: Int!): Boolean!
@@ -177,11 +168,8 @@ type Query {
   event(id: Int!): Event!
   events: [Event!]!
   friendCount: Int!
-  getChannel(id: Int!): Channel!
-  getChannelByEvent(channelName: String!, eventId: Int!): Channel!
-  getDmChannel(input: CreateDmChannelInput!): DirectMessageChannel!
-  getDmChannel(participants: [UserInput!]!): DirectMessageChannel
-  getEventChannel(id: Int!): EventChannel!
+  getChannelByEventId(channelName: String!, eventId: Int!): EventChannel!
+  getDmChannel(toUserId: Int!): DirectMessageChannel
   hostEvents: [Event!]!
   hostingCount: Int!
   isParticipant(eventId: Int!): Boolean!
@@ -248,8 +236,4 @@ type User {
   password: String
   registrationMethod: RegistrationMethod!
   timezone: String!
-}
-
-input UserInput {
-  id: Int!
 }
