@@ -99,7 +99,7 @@ input MediaInput {
 }
 
 type Mutation {
-  createDmChannel(toUserId: Int!): DirectMessageChannel!
+  createDirectMessageChannel(toUserId: Int!): DirectMessageChannel!
   createEvent(event: CreateEventInput!): Event!
   createLocation(location: LocationInput!): Location!
   createUser(user: CreateUserInput!): User!
@@ -163,7 +163,7 @@ type Query {
   events: [Event!]!
   friendCount: Int!
   getChannelByEventId(channelName: String!, eventId: Int!): EventChannel!
-  getDmChannel(toUserId: Int!): DirectMessageChannel
+  getDirectMessageChannel(toUserId: Int!): DirectMessageChannel
   hostEvents: [Event!]!
   hostingCount: Int!
   isParticipant(eventId: Int!): Boolean!

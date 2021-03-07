@@ -22,13 +22,13 @@ const mockChannelService = () => ({
         channel.event.host.id === userId
     );
   }),
-  getDmChannel: jest.fn((channelId: number) => {
+  getDirectMessageChannel: jest.fn((channelId: number) => {
     return mockAllDirectMessageChannels.find((channel) => channel.id === channelId);
   }),
   createEventChannel: jest.fn((mockEventChannelData: CreateEventChannelInput) => ({
     ...mockEventChannelData,
   })),
-  createDmChannel: jest.fn().mockReturnValue(mockAllDirectMessageChannels[0]),
+  createDirectMessageChannel: jest.fn().mockReturnValue(mockAllDirectMessageChannels[0]),
   deleteChannel: jest.fn((channelId: number) =>
     mockAllChannels.find((channel) => channel.id === channelId)
   ),
@@ -62,7 +62,7 @@ describe('ChannelResolver', () => {
 
   it('should get a direct message channel', async () => {
     service.findDirectMessageChannelByUserIds.mockReturnValue(mockAllDirectMessageChannels[0]);
-    const directMessageChannel = await resolver.getDmChannel(
+    const directMessageChannel = await resolver.getDirectMessageChannel(
       mockAllUsers[0].id,
       mockAllUsers[1].id
     );
@@ -71,7 +71,7 @@ describe('ChannelResolver', () => {
 
   it('should not get a direct message channel', async () => {
     service.findDirectMessageChannelByUserIds.mockReturnValue(null);
-    const directMessageChannel = await resolver.getDmChannel(
+    const directMessageChannel = await resolver.getDirectMessageChannel(
       mockAllUsers[0].id,
       mockAllUsers[2].id
     );
@@ -79,8 +79,11 @@ describe('ChannelResolver', () => {
   });
 
   it('should create a direct message channel', async () => {
-    const createdDmChannel = await resolver.createDmChannel(mockAllUsers[0].id, mockAllUsers[1].id);
-    expect(createdDmChannel).toBe(mockAllDirectMessageChannels[0]);
+    const createdDirectMessageChannel = await resolver.createDirectMessageChannel(
+      mockAllUsers[0].id,
+      mockAllUsers[1].id
+    );
+    expect(createdDirectMessageChannel).toBe(mockAllDirectMessageChannels[0]);
   });
 
   it('should delete a channel', async () => {

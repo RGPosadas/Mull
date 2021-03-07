@@ -17,23 +17,8 @@ export type Scalars = {
   Upload: any;
 };
 
-export type Channel = {
-  __typename?: 'Channel';
-  id: Scalars['Int'];
-  posts: Array<Post>;
-};
-
 export type ChannelInput = {
   id: Scalars['Float'];
-};
-
-export type CreateDmChannelInput = {
-  participants: Array<UserInput>;
-};
-
-export type CreateEventChannelInput = {
-  name: Scalars['String'];
-  rights: Scalars['Float'];
 };
 
 export type CreateEventInput = {
@@ -132,9 +117,8 @@ export type MediaInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createDmChannel: DirectMessageChannel;
+  createDirectMessageChannel: DirectMessageChannel;
   createEvent: Event;
-  createEventChannel: Scalars['Boolean'];
   createLocation: Location;
   createUser: User;
   deleteChannel: Scalars['Boolean'];
@@ -153,19 +137,13 @@ export type Mutation = {
 };
 
 
-export type MutationCreateDmChannelArgs = {
-  input: CreateDmChannelInput;
+export type MutationCreateDirectMessageChannelArgs = {
+  toUserId: Scalars['Int'];
 };
 
 
 export type MutationCreateEventArgs = {
   event: CreateEventInput;
-};
-
-
-export type MutationCreateEventChannelArgs = {
-  eventId: Scalars['Int'];
-  input: CreateEventChannelInput;
 };
 
 
@@ -288,9 +266,8 @@ export type Query = {
   event: Event;
   events: Array<Event>;
   friendCount: Scalars['Int'];
-  getChannel: Channel;
   getChannelByEventId: EventChannel;
-  getDmChannel?: Maybe<DirectMessageChannel>;
+  getDirectMessageChannel?: Maybe<DirectMessageChannel>;
   hostEvents: Array<Event>;
   hostingCount: Scalars['Int'];
   isParticipant: Scalars['Boolean'];
@@ -313,19 +290,14 @@ export type QueryEventArgs = {
 };
 
 
-export type QueryGetChannelArgs = {
-  id: Scalars['Int'];
-};
-
-
 export type QueryGetChannelByEventIdArgs = {
   channelName: Scalars['String'];
   eventId: Scalars['Int'];
 };
 
 
-export type QueryGetDmChannelArgs = {
-  participants: Array<UserInput>;
+export type QueryGetDirectMessageChannelArgs = {
+  toUserId: Scalars['Int'];
 };
 
 
@@ -398,10 +370,6 @@ export type User = {
   password?: Maybe<Scalars['String']>;
   registrationMethod: RegistrationMethod;
   timezone: Scalars['String'];
-};
-
-export type UserInput = {
-  id: Scalars['Int'];
 };
 
 export type CreateEventMutationVariables = Exact<{

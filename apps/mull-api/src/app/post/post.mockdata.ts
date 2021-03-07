@@ -6,7 +6,7 @@ const userA = mockAllUsers[0]; // id: 1
 const userB = mockAllUsers[1]; // id: 7
 const userC = mockAllUsers[2]; // id: 3
 
-const dmChannel = new DirectMessageChannel();
+const directMessageChannel = new DirectMessageChannel();
 const eventChannel = new EventChannel();
 
 export const mockPartialPosts: CreatePostInput | UpdatePostInput = {
@@ -55,8 +55,8 @@ export const mockAllPosts: Post[] = [
       id: 1,
       posts: [],
       participants: mockAllUsers,
-      validateWritePermission: dmChannel.validateWritePermission,
-      validateReadPermission: dmChannel.validateReadPermission,
+      validateWritePermission: directMessageChannel.validateWritePermission,
+      validateReadPermission: directMessageChannel.validateReadPermission,
     },
   },
 ];

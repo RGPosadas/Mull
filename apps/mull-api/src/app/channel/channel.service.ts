@@ -10,7 +10,7 @@ export class ChannelService {
     @InjectRepository(EventChannel)
     private eventChannelRepository: Repository<EventChannel>,
     @InjectRepository(DirectMessageChannel)
-    private dmChannelRepository: Repository<DirectMessageChannel>
+    private directMessageChannelRepository: Repository<DirectMessageChannel>
   ) {}
 
   getChannel(channelId: number): Promise<Channel> {
@@ -49,19 +49,24 @@ export class ChannelService {
     }
   }
 
-  async getDmChannel(channelId: number, userId: number): Promise<DirectMessageChannel> {
-    const dmChannel = await this.dmChannelRepository.findOne(channelId, {
+  async getDirectMessageChannel(channelId: number, userId: number): Promise<DirectMessageChannel> {
+    const directMessageChannel = await this.directMessageChannelRepository.findOne(channelId, {
       relations: ['participants'],
     });
-    if (dmChannel.validateReadPermission(userId)) {
-      return dmChannel;
+    if (directMessageChannel.validateReadPermission(userId)) {
+      return directMessageChannel;
     } else {
       throw new UnauthorizedException('Unauthorized');
     }
   }
 
-  async createDmChannel(fromUserId: number, toUserId: number): Promise<DirectMessageChannel> {
-    return this.dmChannelRepository.save({ participants: [{ id: fromUserId }, { id: toUserId }] });
+  async createDirectMessageChannel(
+    fromUserId: number,
+    toUserId: number
+  ): Promise<DirectMessageChannel> {
+    return this.directMessageChannelRepository.save({
+      participants: [{ id: fromUserId }, { id: toUserId }],
+    });
   }
 
   async deleteChannel(channelId: number): Promise<boolean> {
@@ -73,14 +78,14 @@ export class ChannelService {
     userId1: number,
     userId2: number
   ): Promise<DirectMessageChannel> {
-    const dmChannelsList = await this.dmChannelRepository
+    const directMessageChannelsList = await this.directMessageChannelRepository
       .createQueryBuilder()
       .leftJoinAndSelect('DirectMessageChannel.participants', 'participants')
       .where('participants.id = :userId1 OR participants.id = :userId2', { userId1, userId2 })
       .getMany();
 
     // TODO: redo this filtering as TypeORM syntax
-    return dmChannelsList.find(({ participants }) => {
+    return directMessageChannelsList.find(({ participants }) => {
       let count = 0;
       for (const participant of participants) {
         if (participant.id === userId1 || participant.id === userId2) count++;

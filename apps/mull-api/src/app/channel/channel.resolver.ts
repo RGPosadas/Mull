@@ -9,11 +9,11 @@ export class ChannelResolver {
 
   @Mutation(/* istanbul ignore next */ () => DirectMessageChannel)
   @UseGuards(AuthGuard)
-  async createDmChannel(
+  async createDirectMessageChannel(
     @Args('toUserId', { type: /* istanbul ignore next */ () => Int }) toUserId: number,
     @AuthenticatedUser() fromUserId: number
   ) {
-    return this.channelService.createDmChannel(fromUserId, toUserId);
+    return this.channelService.createDirectMessageChannel(fromUserId, toUserId);
   }
 
   @Mutation(/* istanbul ignore next */ () => Boolean)
@@ -34,15 +34,15 @@ export class ChannelResolver {
 
   @Query(/* istanbul ignore next */ () => DirectMessageChannel, { nullable: true })
   @UseGuards(AuthGuard)
-  async getDmChannel(
+  async getDirectMessageChannel(
     @Args('toUserId', { type: /* istanbul ignore next */ () => Int })
     toUserId: number,
     @AuthenticatedUser() fromUserId: number
   ) {
-    const dmChannel = await this.channelService.findDirectMessageChannelByUserIds(
+    const directMessageChannel = await this.channelService.findDirectMessageChannelByUserIds(
       fromUserId,
       toUserId
     );
-    return dmChannel ? dmChannel : null;
+    return directMessageChannel ? directMessageChannel : null;
   }
 }

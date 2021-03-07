@@ -4,14 +4,14 @@ import { mockAllPosts } from '../post/post.mockdata';
 import { mockAllUsers } from '../user/user.mockdata';
 
 const eventChannel = new EventChannel();
-const dmChannel = new DirectMessageChannel();
+const directMessageChannel = new DirectMessageChannel();
 
 export const mockAllChannels: Channel[] = [
   {
     id: 5,
     posts: mockAllPosts,
-    validateReadPermission: dmChannel.validateReadPermission,
-    validateWritePermission: dmChannel.validateWritePermission,
+    validateReadPermission: directMessageChannel.validateReadPermission,
+    validateWritePermission: directMessageChannel.validateWritePermission,
   },
   {
     id: 2,
@@ -56,7 +56,7 @@ export const mockAllDirectMessageChannels: DirectMessageChannel[] = [
     id: 4,
     participants: [mockAllUsers[0], mockAllUsers[1]],
     posts: mockAllPosts,
-    validateReadPermission: dmChannel.validateReadPermission,
-    validateWritePermission: dmChannel.validateWritePermission,
+    validateReadPermission: directMessageChannel.validateReadPermission,
+    validateWritePermission: directMessageChannel.validateWritePermission,
   },
 ];
