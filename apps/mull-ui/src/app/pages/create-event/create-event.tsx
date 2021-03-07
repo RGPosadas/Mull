@@ -1,4 +1,4 @@
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faAlignLeft, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EventRestriction, EventRestrictionMap, ICreateEventForm } from '@mull/types';
 import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
@@ -249,19 +249,21 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               errorMessage={formik.errors.description}
               svgIcon={<FontAwesomeIcon className="input-icon" icon={faAlignLeft} />}
             /> */}
-            <label className="description-label" htmlFor={'description'}>
-              Description
-            </label>
-            <textarea
-              id="description"
-              className={`description-msg ${
-                formik.touched.description && !!formik.errors.description ? 'error' : ''
-              }`}
-              rows={1}
-              value={formik.values.description}
-              onChange={formik.handleChange}
-            />
-
+            <div className="textarea-create-event-container">
+              <label className="description-label" htmlFor={'description'}>
+                Description
+              </label>
+              <textarea
+                id="description"
+                className={`description-msg ${
+                  formik.touched.description && !!formik.errors.description ? 'error' : ''
+                }`}
+                rows={1}
+                value={formik.values.description}
+                onChange={formik.handleChange}
+              />
+              <FontAwesomeIcon className="description-input-icon" icon={faAlignLeft} />
+            </div>
             <LocationAutocompleteModal formik={formik} />
 
             <PillOptions
