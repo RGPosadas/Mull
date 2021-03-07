@@ -27,7 +27,7 @@ export class PostService {
 
   async createPost(input: CreatePostInput, userId: number): Promise<Post> {
     const channel = await this.channelService.getChannel(input.channel.id);
-    if (this.channelService.validateEventChannelWritePermission(channel, userId)) {
+    if (channel.validateWritePermission(userId)) {
       return this.postRepository.save({ ...input, user: { id: userId } });
     } else {
       throw new UnauthorizedException('Unauthorized');
