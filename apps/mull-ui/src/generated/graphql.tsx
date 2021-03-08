@@ -17,23 +17,8 @@ export type Scalars = {
   Upload: any;
 };
 
-export type Channel = {
-  __typename?: 'Channel';
-  event?: Maybe<Event>;
-  id: Scalars['Int'];
-  name: Scalars['String'];
-  participants: Array<User>;
-  posts: Array<Post>;
-  rights: Scalars['Int'];
-};
-
 export type ChannelInput = {
   id: Scalars['Float'];
-};
-
-export type CreateChannelInput = {
-  name: Scalars['String'];
-  rights: Scalars['Float'];
 };
 
 export type CreateEventInput = {
@@ -65,6 +50,13 @@ export type CreateUserInput = {
 };
 
 
+export type DirectMessageChannel = {
+  __typename?: 'DirectMessageChannel';
+  id: Scalars['Int'];
+  participants: Array<User>;
+  posts: Array<Post>;
+};
+
 export type Event = {
   __typename?: 'Event';
   coHosts: Array<User>;
@@ -77,6 +69,15 @@ export type Event = {
   restriction: Scalars['Float'];
   startDate: Scalars['DateTime'];
   title: Scalars['String'];
+};
+
+export type EventChannel = {
+  __typename?: 'EventChannel';
+  event?: Maybe<Event>;
+  id: Scalars['Int'];
+  name: Scalars['String'];
+  posts: Array<Post>;
+  rights: Scalars['Int'];
 };
 
 export type Location = {
@@ -116,7 +117,7 @@ export type MediaInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createChannel: Scalars['Boolean'];
+  createDirectMessageChannel: DirectMessageChannel;
   createEvent: Event;
   createLocation: Location;
   createUser: User;
@@ -136,9 +137,8 @@ export type Mutation = {
 };
 
 
-export type MutationCreateChannelArgs = {
-  eventId: Scalars['Int'];
-  input: CreateChannelInput;
+export type MutationCreateDirectMessageChannelArgs = {
+  toUserId: Scalars['Int'];
 };
 
 
@@ -236,7 +236,7 @@ export type PointInput = {
 
 export type Post = {
   __typename?: 'Post';
-  channel: Channel;
+  channel: EventChannel;
   createdTime: Scalars['DateTime'];
   id: Scalars['Int'];
   medias?: Maybe<Array<Media>>;
@@ -266,8 +266,8 @@ export type Query = {
   event: Event;
   events: Array<Event>;
   friendCount: Scalars['Int'];
-  getChannel: Channel;
-  getChannelByEvent: Channel;
+  getChannelByEventId: EventChannel;
+  getDirectMessageChannel?: Maybe<DirectMessageChannel>;
   hostEvents: Array<Event>;
   hostingCount: Scalars['Int'];
   isParticipant: Scalars['Boolean'];
@@ -290,14 +290,14 @@ export type QueryEventArgs = {
 };
 
 
-export type QueryGetChannelArgs = {
-  id: Scalars['Int'];
+export type QueryGetChannelByEventIdArgs = {
+  channelName: Scalars['String'];
+  eventId: Scalars['Int'];
 };
 
 
-export type QueryGetChannelByEventArgs = {
-  channelName: Scalars['String'];
-  eventId: Scalars['Int'];
+export type QueryGetDirectMessageChannelArgs = {
+  toUserId: Scalars['Int'];
 };
 
 
@@ -600,17 +600,17 @@ export type UserProfileQuery = (
   ) }
 );
 
-export type ChannelByEventQueryVariables = Exact<{
+export type ChannelByEventIdQueryVariables = Exact<{
   eventId: Scalars['Int'];
   channelName: Scalars['String'];
 }>;
 
 
-export type ChannelByEventQuery = (
+export type ChannelByEventIdQuery = (
   { __typename?: 'Query' }
-  & { getChannelByEvent: (
-    { __typename?: 'Channel' }
-    & Pick<Channel, 'id'>
+  & { getChannelByEventId: (
+    { __typename?: 'EventChannel' }
+    & Pick<EventChannel, 'id'>
     & { event?: Maybe<(
       { __typename?: 'Event' }
       & { host: (
@@ -1187,9 +1187,9 @@ export function useUserProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type UserProfileQueryHookResult = ReturnType<typeof useUserProfileQuery>;
 export type UserProfileLazyQueryHookResult = ReturnType<typeof useUserProfileLazyQuery>;
 export type UserProfileQueryResult = Apollo.QueryResult<UserProfileQuery, UserProfileQueryVariables>;
-export const ChannelByEventDocument = gql`
-    query ChannelByEvent($eventId: Int!, $channelName: String!) {
-  getChannelByEvent(eventId: $eventId, channelName: $channelName) {
+export const ChannelByEventIdDocument = gql`
+    query ChannelByEventId($eventId: Int!, $channelName: String!) {
+  getChannelByEventId(eventId: $eventId, channelName: $channelName) {
     id
     event {
       host {
@@ -1217,31 +1217,31 @@ export const ChannelByEventDocument = gql`
     `;
 
 /**
- * __useChannelByEventQuery__
+ * __useChannelByEventIdQuery__
  *
- * To run a query within a React component, call `useChannelByEventQuery` and pass it any options that fit your needs.
- * When your component renders, `useChannelByEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useChannelByEventIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useChannelByEventIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useChannelByEventQuery({
+ * const { data, loading, error } = useChannelByEventIdQuery({
  *   variables: {
  *      eventId: // value for 'eventId'
  *      channelName: // value for 'channelName'
  *   },
  * });
  */
-export function useChannelByEventQuery(baseOptions: Apollo.QueryHookOptions<ChannelByEventQuery, ChannelByEventQueryVariables>) {
-        return Apollo.useQuery<ChannelByEventQuery, ChannelByEventQueryVariables>(ChannelByEventDocument, baseOptions);
+export function useChannelByEventIdQuery(baseOptions: Apollo.QueryHookOptions<ChannelByEventIdQuery, ChannelByEventIdQueryVariables>) {
+        return Apollo.useQuery<ChannelByEventIdQuery, ChannelByEventIdQueryVariables>(ChannelByEventIdDocument, baseOptions);
       }
-export function useChannelByEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ChannelByEventQuery, ChannelByEventQueryVariables>) {
-          return Apollo.useLazyQuery<ChannelByEventQuery, ChannelByEventQueryVariables>(ChannelByEventDocument, baseOptions);
+export function useChannelByEventIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ChannelByEventIdQuery, ChannelByEventIdQueryVariables>) {
+          return Apollo.useLazyQuery<ChannelByEventIdQuery, ChannelByEventIdQueryVariables>(ChannelByEventIdDocument, baseOptions);
         }
-export type ChannelByEventQueryHookResult = ReturnType<typeof useChannelByEventQuery>;
-export type ChannelByEventLazyQueryHookResult = ReturnType<typeof useChannelByEventLazyQuery>;
-export type ChannelByEventQueryResult = Apollo.QueryResult<ChannelByEventQuery, ChannelByEventQueryVariables>;
+export type ChannelByEventIdQueryHookResult = ReturnType<typeof useChannelByEventIdQuery>;
+export type ChannelByEventIdLazyQueryHookResult = ReturnType<typeof useChannelByEventIdLazyQuery>;
+export type ChannelByEventIdQueryResult = Apollo.QueryResult<ChannelByEventIdQuery, ChannelByEventIdQueryVariables>;
 export const PostAddedDocument = gql`
     subscription PostAdded($channelId: Int!) {
   postAdded(channelId: $channelId) {

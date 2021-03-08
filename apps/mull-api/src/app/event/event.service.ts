@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Brackets, Repository } from 'typeorm';
-import { CreateChannelInput } from '../channel/inputs/channel.input';
+import { CreateEventChannelInput } from '../channel/inputs/channel.input';
 import { Event, Media, User } from '../entities';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 
-export const DEFAULT_EVENT_CHANNELS: CreateChannelInput[] = [
+export const DEFAULT_EVENT_CHANNELS: CreateEventChannelInput[] = [
   { name: 'Announcements', rights: 0 },
   { name: 'Group Chat', rights: 1 },
 ];

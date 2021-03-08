@@ -13,6 +13,7 @@ const mockPostService = () => ({
   updatePost: jest.fn((mockPostData: UpdatePostInput) => ({ ...mockPostData })),
   deletePost: jest.fn((id: number) => mockAllPosts.find((post) => post.id === id)),
   getAllPosts: jest.fn(() => mockAllPosts),
+  getAllChannelPosts: jest.fn(() => mockAllPosts),
 });
 
 describe('PostResolver', () => {
@@ -38,6 +39,11 @@ describe('PostResolver', () => {
   it('should get all posts', async () => {
     const allPosts = await resolver.posts();
     expect(allPosts).toEqual(mockAllPosts);
+  });
+
+  it('should fetch all posts in a given channel', async () => {
+    const returnedPosts = await resolver.channelPosts(mockAllPosts[0].channel.id);
+    expect(returnedPosts).toEqual(mockAllPosts);
   });
 
   it('it should subscribe to new messages', async () => {

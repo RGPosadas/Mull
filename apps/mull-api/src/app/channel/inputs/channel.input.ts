@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { Channel } from '../../entities';
+import { Channel, EventChannel } from '../../entities';
 
 @InputType()
 export class ChannelInput implements Partial<Channel> {
@@ -8,7 +8,7 @@ export class ChannelInput implements Partial<Channel> {
 }
 
 @InputType()
-export class CreateChannelInput implements Partial<Channel> {
+export class CreateEventChannelInput implements Partial<EventChannel> {
   @Field()
   name: string;
 

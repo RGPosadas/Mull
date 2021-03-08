@@ -2,22 +2,8 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Channel {
-  event: Event
-  id: Int!
-  name: String!
-  participants: [User!]!
-  posts: [Post!]!
-  rights: Int!
-}
-
 input ChannelInput {
   id: Float!
-}
-
-input CreateChannelInput {
-  name: String!
-  rights: Float!
 }
 
 input CreateEventInput {
@@ -53,6 +39,12 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type DirectMessageChannel {
+  id: Int!
+  participants: [User!]!
+  posts: [Post!]!
+}
+
 type Event {
   coHosts: [User!]!
   description: String!
@@ -64,6 +56,14 @@ type Event {
   restriction: Float!
   startDate: DateTime!
   title: String!
+}
+
+type EventChannel {
+  event: Event
+  id: Int!
+  name: String!
+  posts: [Post!]!
+  rights: Int!
 }
 
 type Location {
@@ -99,7 +99,7 @@ input MediaInput {
 }
 
 type Mutation {
-  createChannel(eventId: Int!, input: CreateChannelInput!): Boolean!
+  createDirectMessageChannel(toUserId: Int!): DirectMessageChannel!
   createEvent(event: CreateEventInput!): Event!
   createLocation(location: LocationInput!): Location!
   createUser(user: CreateUserInput!): User!
@@ -134,7 +134,7 @@ input PointInput {
 }
 
 type Post {
-  channel: Channel!
+  channel: EventChannel!
   createdTime: DateTime!
   id: Int!
   medias: [Media!]
@@ -162,8 +162,8 @@ type Query {
   event(id: Int!): Event!
   events: [Event!]!
   friendCount: Int!
-  getChannel(id: Int!): Channel!
-  getChannelByEvent(channelName: String!, eventId: Int!): Channel!
+  getChannelByEventId(channelName: String!, eventId: Int!): EventChannel!
+  getDirectMessageChannel(toUserId: Int!): DirectMessageChannel
   hostEvents: [Event!]!
   hostingCount: Int!
   isParticipant(eventId: Int!): Boolean!

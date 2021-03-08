@@ -120,8 +120,8 @@ query UserProfile {
   portfolioCount
 }
 
-query ChannelByEvent($eventId: Int!, $channelName: String!) {
-  getChannelByEvent(eventId: $eventId, channelName: $channelName) {
+query ChannelByEventId($eventId: Int!, $channelName: String!) {
+  getChannelByEventId(eventId: $eventId, channelName: $channelName) {
     id
     event {
       host {

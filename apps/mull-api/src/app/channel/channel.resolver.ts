@@ -1,20 +1,19 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthenticatedUser, AuthGuard } from '../auth/auth.guard';
-import { Channel } from '../entities';
+import { DirectMessageChannel, EventChannel } from '../entities';
 import { ChannelService } from './channel.service';
-import { CreateChannelInput } from './inputs/channel.input';
 @Resolver('Channel')
 export class ChannelResolver {
   constructor(private readonly channelService: ChannelService) {}
 
-  @Mutation(/* istanbul ignore next */ () => Boolean)
+  @Mutation(/* istanbul ignore next */ () => DirectMessageChannel)
   @UseGuards(AuthGuard)
-  async createChannel(
-    @Args('input') input: CreateChannelInput,
-    @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId?: number
+  async createDirectMessageChannel(
+    @Args('toUserId', { type: /* istanbul ignore next */ () => Int }) toUserId: number,
+    @AuthenticatedUser() fromUserId: number
   ) {
-    return this.channelService.createChannel(input, eventId);
+    return this.channelService.createDirectMessageChannel(fromUserId, toUserId);
   }
 
   @Mutation(/* istanbul ignore next */ () => Boolean)
@@ -23,19 +22,27 @@ export class ChannelResolver {
     return this.channelService.deleteChannel(id);
   }
 
-  @Query(/* istanbul ignore next */ () => Channel)
+  @Query(/* istanbul ignore next */ () => EventChannel)
   @UseGuards(AuthGuard)
-  async getChannel(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
-    return this.channelService.getChannel(id);
-  }
-
-  @Query(/* istanbul ignore next */ () => Channel)
-  @UseGuards(AuthGuard)
-  async getChannelByEvent(
+  async getChannelByEventId(
     @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId: number,
     @Args('channelName') channelName: string,
     @AuthenticatedUser() userId: number
   ) {
-    return this.channelService.getChannelByEvent(eventId, channelName, userId);
+    return this.channelService.getChannelByEventId(eventId, channelName, userId);
+  }
+
+  @Query(/* istanbul ignore next */ () => DirectMessageChannel, { nullable: true })
+  @UseGuards(AuthGuard)
+  async getDirectMessageChannel(
+    @Args('toUserId', { type: /* istanbul ignore next */ () => Int })
+    toUserId: number,
+    @AuthenticatedUser() fromUserId: number
+  ) {
+    const directMessageChannel = await this.channelService.findDirectMessageChannelByUserIds(
+      fromUserId,
+      toUserId
+    );
+    return directMessageChannel ? directMessageChannel : null;
   }
 }

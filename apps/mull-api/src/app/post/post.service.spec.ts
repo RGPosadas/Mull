@@ -1,8 +1,8 @@
+import { UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { mockAllChannels } from '../channel/channel.mockdata';
+import { mockAllChannels, mockAllEventChannels } from '../channel/channel.mockdata';
 import { ChannelService } from '../channel/channel.service';
-import { CreateChannelInput } from '../channel/inputs/channel.input';
 import { Post } from '../entities';
 import { mockAllPosts, mockPartialPosts } from './post.mockdata';
 import { PostService } from './post.service';
@@ -20,21 +20,19 @@ const mockPostRepository = () => ({
 
 const mockChannelService = () => ({
   getChannel: jest.fn((channelId: number) => {
-    return mockAllChannels.find((channel) => channel.id === channelId);
+    return mockAllEventChannels.find((channel) => channel.id === channelId);
   }),
-  getChannelByEvent: jest.fn((eventId, channelName, userId) => {
-    return mockAllChannels.find(
+  getChannelByEventId: jest.fn((eventId, channelName, userId) => {
+    return mockAllEventChannels.find(
       (channel) =>
         channel.event.id === eventId &&
         channel.name === channelName &&
         channel.event.host.id === userId
     );
   }),
-  createChannel: jest.fn((mockChannelData: CreateChannelInput) => ({ ...mockChannelData })),
   deleteChannel: jest.fn((channelId: number) =>
     mockAllChannels.find((channel) => channel.id === channelId)
   ),
-  validateEventChannelWritePermission: jest.fn((data, userId) => data.event.host.id === userId),
 });
 
 describe('PostService', () => {
@@ -65,11 +63,18 @@ describe('PostService', () => {
   });
 
   it('should not create the post due to invalid user permission', async () => {
-    expect(async () => await service.createPost(mockPartialPosts, -100)).rejects.toThrow();
+    await expect(() => service.createPost(mockPartialPosts, -100)).rejects.toThrow(
+      UnauthorizedException
+    );
   });
 
   it('should fetch all posts', async () => {
     const returnedPosts = await service.getAllPosts();
+    expect(returnedPosts).toEqual(mockAllPosts);
+  });
+
+  it('should fetch all posts in a given channel', async () => {
+    const returnedPosts = await service.getAllChannelPosts(mockAllPosts[0].channel.id);
     expect(returnedPosts).toEqual(mockAllPosts);
   });
 

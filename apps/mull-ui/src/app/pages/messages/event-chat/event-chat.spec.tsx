@@ -4,7 +4,7 @@ import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { mockChannelWithPosts } from '../../../../../src/constants';
-import { ChannelByEventDocument, PostAddedDocument } from '../../../../generated/graphql';
+import { ChannelByEventIdDocument, PostAddedDocument } from '../../../../generated/graphql';
 import { UserProvider } from '../../../context/user.context';
 import EventChat from './event-chat';
 
@@ -32,7 +32,7 @@ describe('Event Chat', () => {
   const mocks: MockedResponse[] = [
     {
       request: {
-        query: ChannelByEventDocument,
+        query: ChannelByEventIdDocument,
         variables: {
           eventId: 1,
           channelName: 'Announcements',
@@ -40,7 +40,7 @@ describe('Event Chat', () => {
       },
       result: {
         data: {
-          getChannelByEvent: mockChannelWithPosts,
+          getChannelByEventId: mockChannelWithPosts,
         },
       },
     },

@@ -1,10 +1,13 @@
-import { Post } from '../entities';
+import { DirectMessageChannel, EventChannel, Post } from '../entities';
 import { mockAllUsers } from '../user/user.mockdata';
 import { CreatePostInput, UpdatePostInput } from './inputs/post.input';
 
 const userA = mockAllUsers[0]; // id: 1
 const userB = mockAllUsers[1]; // id: 7
 const userC = mockAllUsers[2]; // id: 3
+
+const directMessageChannel = new DirectMessageChannel();
+const eventChannel = new EventChannel();
 
 export const mockPartialPosts: CreatePostInput | UpdatePostInput = {
   id: 22,
@@ -24,7 +27,8 @@ export const mockAllPosts: Post[] = [
       name: 'private',
       rights: 0,
       posts: [],
-      participants: mockAllUsers,
+      validateWritePermission: eventChannel.validateWritePermission,
+      validateReadPermission: eventChannel.validateReadPermission,
     },
   },
 
@@ -38,7 +42,8 @@ export const mockAllPosts: Post[] = [
       name: 'private',
       rights: 0,
       posts: [],
-      participants: mockAllUsers,
+      validateWritePermission: eventChannel.validateWritePermission,
+      validateReadPermission: eventChannel.validateReadPermission,
     },
   },
   {
@@ -48,10 +53,10 @@ export const mockAllPosts: Post[] = [
     createdTime: new Date('2020-10-27T01:31:00.000Z'),
     channel: {
       id: 1,
-      name: 'private',
-      rights: 0,
       posts: [],
       participants: mockAllUsers,
+      validateWritePermission: directMessageChannel.validateWritePermission,
+      validateReadPermission: directMessageChannel.validateReadPermission,
     },
   },
 ];
