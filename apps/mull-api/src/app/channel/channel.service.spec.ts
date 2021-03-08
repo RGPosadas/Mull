@@ -1,4 +1,4 @@
-import { UnauthorizedException } from '@nestjs/common';
+import { ConflictException, UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -89,11 +89,27 @@ describe('ChannelService', () => {
   });
 
   it('should create a DM channel', async () => {
+    directMessageRepository.createQueryBuilder.mockReturnValue({
+      where: jest.fn().mockReturnThis(),
+      leftJoinAndSelect: jest.fn().mockReturnThis(),
+      getMany: jest.fn().mockReturnValue(mockAllDirectMessageChannels),
+    });
     const createdDirectMessageChannel = await service.createDirectMessageChannel(
       mockAllUsers[0].id,
-      mockAllUsers[1].id
+      mockAllUsers[2].id
     );
-    expect(createdDirectMessageChannel).toBeTruthy();
+    expect(createdDirectMessageChannel).toBeTruthy;
+  });
+
+  it('should throw an exception when creating a DM channel with 2 users that already have a DM channel', async () => {
+    directMessageRepository.createQueryBuilder.mockReturnValue({
+      where: jest.fn().mockReturnThis(),
+      leftJoinAndSelect: jest.fn().mockReturnThis(),
+      getMany: jest.fn().mockReturnValue(mockAllDirectMessageChannels),
+    });
+    expect(
+      async () => await service.createDirectMessageChannel(mockAllUsers[0].id, mockAllUsers[1].id)
+    ).rejects.toThrow(ConflictException);
   });
 
   it('should delete all types of channels', async () => {

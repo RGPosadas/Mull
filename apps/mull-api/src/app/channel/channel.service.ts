@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Channel, DirectMessageChannel, EventChannel } from '../entities';
@@ -64,9 +64,16 @@ export class ChannelService {
     fromUserId: number,
     toUserId: number
   ): Promise<DirectMessageChannel> {
-    return this.directMessageChannelRepository.save({
-      participants: [{ id: fromUserId }, { id: toUserId }],
-    });
+    const directMessageChannel = await this.findDirectMessageChannelByUserIds(fromUserId, toUserId);
+    if (directMessageChannel) {
+      throw new ConflictException(
+        'Conflict: A DirectMessageChannel already exists between these 2 users.'
+      );
+    } else {
+      return this.directMessageChannelRepository.save({
+        participants: [{ id: fromUserId }, { id: toUserId }],
+      });
+    }
   }
 
   async deleteChannel(channelId: number): Promise<boolean> {
