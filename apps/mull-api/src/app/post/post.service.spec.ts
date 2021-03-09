@@ -1,9 +1,11 @@
 import { UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { mockAllChannels, mockAllEventChannels } from '../channel/channel.mockdata';
 import { ChannelService } from '../channel/channel.service';
 import { Post } from '../entities';
+import { MockType } from '../user/user.service.spec';
 import { mockAllPosts, mockPartialPosts } from './post.mockdata';
 import { PostService } from './post.service';
 
@@ -16,6 +18,12 @@ const mockPostRepository = () => ({
   delete: jest.fn((id: number) => mockAllPosts.find((post) => post.id === id)),
   save: jest.fn((post: Post) => post),
   query: jest.fn().mockReturnThis(),
+  createQueryBuilder: jest.fn(() => ({
+    leftJoinAndSelect: jest.fn().mockReturnThis(),
+    where: jest.fn().mockReturnThis(),
+    orderBy: jest.fn().mockReturnThis(),
+    getOne: jest.fn(),
+  })),
 });
 
 const mockChannelService = () => ({
@@ -37,6 +45,7 @@ const mockChannelService = () => ({
 
 describe('PostService', () => {
   let service: PostService;
+  let repository: MockType<Repository<Post>>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -51,6 +60,7 @@ describe('PostService', () => {
     }).compile();
 
     service = module.get<PostService>(PostService);
+    repository = module.get(getRepositoryToken(Post));
   });
 
   it('should be defined', () => {
@@ -86,5 +96,16 @@ describe('PostService', () => {
   it('should return the deleted event', async () => {
     const deletedPost = await service.deletePost(23);
     expect(deletedPost).toEqual(mockAllPosts.find((post) => post.id === 23));
+  });
+
+  it('should get the latest post', async () => {
+    repository.createQueryBuilder.mockReturnValue({
+      leftJoinAndSelect: jest.fn().mockReturnThis(),
+      where: jest.fn().mockReturnThis(),
+      orderBy: jest.fn().mockReturnThis(),
+      getOne: jest.fn().mockReturnValue([...mockAllPosts].reverse()[0]),
+    });
+    const latestPost = await service.getLatestPost(mockAllPosts[0].channel.id);
+    expect(latestPost).toEqual(mockAllPosts[2]);
   });
 });

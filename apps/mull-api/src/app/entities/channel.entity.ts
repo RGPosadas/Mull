@@ -8,7 +8,7 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  TableInheritance
+  TableInheritance,
 } from 'typeorm';
 import { Event, Post, User } from './';
 

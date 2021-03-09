@@ -44,4 +44,13 @@ export class PostService {
     await this.postRepository.update(input.id, { ...input });
     return this.getPost(input.id);
   }
+
+  async getLatestPost(channelId: number): Promise<Post> {
+    return this.postRepository
+      .createQueryBuilder('post')
+      .leftJoinAndSelect('post.channel', 'channel')
+      .where('channel.id = :channelId', { channelId })
+      .orderBy('post.createdTime', 'DESC')
+      .getOne();
+  }
 }
