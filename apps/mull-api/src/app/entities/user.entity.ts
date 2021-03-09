@@ -10,10 +10,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Event } from './event.entity';
-import { Media } from './media.entity';
-import { PostReaction } from './post-reaction.entity';
-import { Post } from './post.entity';
+import { DirectMessageChannel, Event, Media, Post, PostReaction } from './';
 
 registerEnumType(RegistrationMethod, {
   name: 'RegistrationMethod',
@@ -103,4 +100,13 @@ export class User implements IUser {
 
   @OneToMany(/* istanbul ignore next */ () => Post, /* istanbul ignore next */ (post) => post.user)
   posts?: Post[];
+}
+
+@ObjectType()
+export class Friend extends User {
+  @Field(/* istanbul ignore next */ () => Post, { nullable: true })
+  latestPost: Post;
+
+  @Field(/* istanbul ignore next */ () => DirectMessageChannel, { nullable: true })
+  directMessageChannel: DirectMessageChannel;
 }
