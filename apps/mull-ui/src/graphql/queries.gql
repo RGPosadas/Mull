@@ -146,3 +146,21 @@ query ChannelByEventId($eventId: Int!, $channelName: String!) {
     }
   }
 }
+
+query Friends {
+  friends {
+    id
+    name
+    avatar {
+      id
+      mediaType
+    }
+    directMessageChannel {
+      id
+    }
+    latestPost {
+      id
+      message
+    }
+  }
+}

@@ -80,6 +80,23 @@ export type EventChannel = {
   rights: Scalars['Int'];
 };
 
+export type Friend = {
+  __typename?: 'Friend';
+  avatar?: Maybe<Media>;
+  description: Scalars['String'];
+  directMessageChannel?: Maybe<DirectMessageChannel>;
+  dob?: Maybe<Scalars['DateTime']>;
+  email: Scalars['String'];
+  friends: Array<User>;
+  id: Scalars['Int'];
+  joinDate: Scalars['DateTime'];
+  latestPost?: Maybe<Post>;
+  name: Scalars['String'];
+  password?: Maybe<Scalars['String']>;
+  registrationMethod: RegistrationMethod;
+  timezone: Scalars['String'];
+};
+
 export type Location = {
   __typename?: 'Location';
   coordinates?: Maybe<Point>;
@@ -266,6 +283,7 @@ export type Query = {
   event: Event;
   events: Array<Event>;
   friendCount: Scalars['Int'];
+  friends: Array<Friend>;
   getChannelByEventId: EventChannel;
   getDirectMessageChannel?: Maybe<DirectMessageChannel>;
   hostEvents: Array<Event>;
@@ -633,6 +651,27 @@ export type ChannelByEventIdQuery = (
       ) }
     )> }
   ) }
+);
+
+export type FriendsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FriendsQuery = (
+  { __typename?: 'Query' }
+  & { friends: Array<(
+    { __typename?: 'Friend' }
+    & Pick<Friend, 'id' | 'name'>
+    & { avatar?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id' | 'mediaType'>
+    )>, directMessageChannel?: Maybe<(
+      { __typename?: 'DirectMessageChannel' }
+      & Pick<DirectMessageChannel, 'id'>
+    )>, latestPost?: Maybe<(
+      { __typename?: 'Post' }
+      & Pick<Post, 'id' | 'message'>
+    )> }
+  )> }
 );
 
 export type PostAddedSubscriptionVariables = Exact<{
@@ -1242,6 +1281,50 @@ export function useChannelByEventIdLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type ChannelByEventIdQueryHookResult = ReturnType<typeof useChannelByEventIdQuery>;
 export type ChannelByEventIdLazyQueryHookResult = ReturnType<typeof useChannelByEventIdLazyQuery>;
 export type ChannelByEventIdQueryResult = Apollo.QueryResult<ChannelByEventIdQuery, ChannelByEventIdQueryVariables>;
+export const FriendsDocument = gql`
+    query Friends {
+  friends {
+    id
+    name
+    avatar {
+      id
+      mediaType
+    }
+    directMessageChannel {
+      id
+    }
+    latestPost {
+      id
+      message
+    }
+  }
+}
+    `;
+
+/**
+ * __useFriendsQuery__
+ *
+ * To run a query within a React component, call `useFriendsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFriendsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFriendsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFriendsQuery(baseOptions?: Apollo.QueryHookOptions<FriendsQuery, FriendsQueryVariables>) {
+        return Apollo.useQuery<FriendsQuery, FriendsQueryVariables>(FriendsDocument, baseOptions);
+      }
+export function useFriendsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FriendsQuery, FriendsQueryVariables>) {
+          return Apollo.useLazyQuery<FriendsQuery, FriendsQueryVariables>(FriendsDocument, baseOptions);
+        }
+export type FriendsQueryHookResult = ReturnType<typeof useFriendsQuery>;
+export type FriendsLazyQueryHookResult = ReturnType<typeof useFriendsLazyQuery>;
+export type FriendsQueryResult = Apollo.QueryResult<FriendsQuery, FriendsQueryVariables>;
 export const PostAddedDocument = gql`
     subscription PostAdded($channelId: Int!) {
   postAdded(channelId: $channelId) {
