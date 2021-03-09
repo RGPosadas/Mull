@@ -1,4 +1,4 @@
-import { faCheck, faShareAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
@@ -44,10 +44,14 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
             leaveEvent({ variables: { eventId: event.id } });
           }
         }}
-        className={`event-card-join ${joined ? 'joined' : ''}`}
+        className={`event-card-join ${joined ? 'joined' : 'not-joined'}`}
         id={'event-card-join'}
       >
-        <FontAwesomeIcon icon={joined ? faCheck : faSignInAlt} />
+        {joined ? (
+          <FontAwesomeIcon icon={faCheck} />
+        ) : (
+          <img src="../../../assets/icons/join-icon.svg" className="join-icon" alt="Join" />
+        )}
       </button>
       <div className="event-card-description" onClick={onClick}>
         <div className="event-card-text">
