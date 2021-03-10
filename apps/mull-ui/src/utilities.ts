@@ -106,16 +106,16 @@ export const canvasToImageCoords = (
     imageCoords.y = (canvasCoords.y / canvas.height) * image.height;
 
     // Since the sides of the canvas have white padding, we need to find the offset to counterbalance this
-    let trueWidth = (canvas.height / image.height) * image.width;
-    let xOffset = (canvas.width - trueWidth) / 2;
+    const trueWidth = (canvas.height / image.height) * image.width;
+    const xOffset = (canvas.width - trueWidth) / 2;
     imageCoords.x = ((canvasCoords.x - xOffset) / trueWidth) * image.width;
   } else {
     // Canvas wider than image. There is padding on the top/bottom of the image
     imageCoords.x = (canvasCoords.x / canvas.width) * image.width;
 
     // Since the top/bottom of the canvas have white padding, we need to find the offset to counterbalance this
-    let trueHeight = (canvas.width / image.width) * image.height;
-    let offsetY = (canvas.height - trueHeight) / 2;
+    const trueHeight = (canvas.width / image.width) * image.height;
+    const offsetY = (canvas.height - trueHeight) / 2;
     imageCoords.y = ((canvasCoords.y - offsetY) / trueHeight) * image.height;
   }
 

@@ -140,7 +140,7 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
     };
     const imageCoords = canvasToImageCoords(canvasCoords, canvasSize, imageSize);
 
-    let clickedObjects = resultRef.current.filter((result) =>
+    const clickedObjects = resultRef.current.filter((result) =>
       coordsInBox(imageCoords, result.bndBox)
     );
 
