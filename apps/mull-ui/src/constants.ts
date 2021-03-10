@@ -1,4 +1,5 @@
 import { DetectionResult, EventRestriction, ISerializedEvent } from '@mull/types';
+import { WasteType } from './app/services/maps';
 
 /**
  * enum of the current routes for the application
@@ -170,3 +171,10 @@ export const monthNames = [
   'Nov',
   'Dec',
 ];
+
+export const WasteTypeSvgMap = {
+  [WasteType.COMPOST]: 'assets/icons/trash-recognition-icons/CompostIcon.svg',
+  [WasteType.EWASTE]: 'assets/icons/trash-recognition-icons/GeneralIcon.svg',
+  [WasteType.TRASH]: 'assets/icons/trash-recognition-icons/TrashIcon.svg',
+  [WasteType.RECYCLABLE]: 'assets/icons/trash-recognition-icons/RecycleIcon.svg',
+};

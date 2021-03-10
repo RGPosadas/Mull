@@ -1,6 +1,7 @@
 import { BoundingBox, Coordinates, DetectionResult, ISerializedEvent, Size } from '@mull/types';
 import emojiRegexRGI from 'emoji-regex/es2015/RGI_Emoji.js';
-import { categoryMap, WasteType } from './app/services/maps';
+import { categoryMap } from './app/services/maps';
+import { WasteTypeSvgMap } from './constants';
 import { environment } from './environments/environment';
 import { User } from './generated/graphql';
 
@@ -42,12 +43,6 @@ export const mediaUrl = (event: Partial<ISerializedEvent>) =>
   `${environment.backendUrl}/api/media/${event.image.id}`;
 
 const svgSize = 45;
-export const svgMap = {
-  [WasteType.COMPOST]: './assets/icons/trash-recognition-icons/CompostIcon.svg',
-  [WasteType.EWASTE]: './assets/icons/trash-recognition-icons/GeneralIcon.svg',
-  [WasteType.TRASH]: './assets/icons/trash-recognition-icons/TrashIcon.svg',
-  [WasteType.RECYCLABLE]: './assets/icons/trash-recognition-icons/RecycleIcon.svg',
-};
 
 export const avatarUrl = (user: Partial<User>) =>
   user.avatar

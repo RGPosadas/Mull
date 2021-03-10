@@ -2,7 +2,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dialog } from '@material-ui/core';
 import React, { useState } from 'react';
-import { svgMap } from '../../../utilities';
+import { WasteTypeSvgMap } from '../../../constants';
 import './identified-waste-page.scss';
 
 export interface IdentifiedWasteModalProps {
@@ -18,7 +18,7 @@ export const IdentifiedWasteModal = ({
   wastePicture,
   wasteInfo,
 }: IdentifiedWasteModalProps) => {
-  wasteIcon = '../../.' + svgMap[1];
+  wasteIcon = WasteTypeSvgMap[1];
   wasteTitle = 'This is recyclable!';
   wastePicture = 'http://pm1.narvii.com/5951/2922186bdf76edeb36250994eb99f1c32f31aea9_00.jpg';
   wasteInfo = 'Needs to be cleaned before recycling. Otherwise it goes to trashbin.';
