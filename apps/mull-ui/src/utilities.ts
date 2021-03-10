@@ -71,14 +71,14 @@ export const drawDetectionIcons = (
     if (debug) {
       ctx.strokeStyle = '#00ff00';
       ctx.font = '20px Courier';
-      ctx.strokeRect(box.x, box.y - 20, box.width, box.height);
-      ctx.strokeText(`${result.class}: ${(result.confidence * 100).toFixed(1)}%`, box.x, box.y);
+      ctx.strokeRect(box.x, box.y, box.width, box.height);
+      ctx.strokeText(`${result.class}: ${(result.confidence * 100).toFixed(1)}%`, box.x, box.y - 5);
     }
     var icon = new Image();
     icon.onload = () => {
       ctx.drawImage(icon, dx, dy, svgSize, svgSize);
     };
-    icon.src = svgMap[category];
+    icon.src = WasteTypeSvgMap[category];
   });
 };
 
