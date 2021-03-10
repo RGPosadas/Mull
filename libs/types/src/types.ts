@@ -96,19 +96,6 @@ export class IGooglePlace {
   placeId: string;
 }
 
-export interface DetectionResult {
-  class: string;
-  bndBox: BoundingBox;
-  confidence: number;
-}
-
-export interface BoundingBox {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
 export interface IWebSocketParams {
   authToken: string;
 }

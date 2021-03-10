@@ -1,4 +1,4 @@
-import { DetectionResult, ISerializedEvent } from '@mull/types';
+import { BoundingBox, Coordinates, DetectionResult, ISerializedEvent, Size } from '@mull/types';
 import emojiRegexRGI from 'emoji-regex/es2015/RGI_Emoji.js';
 import { categoryMap, WasteType } from './app/services/maps';
 import { environment } from './environments/environment';
@@ -84,4 +84,54 @@ export const drawDetectionIcons = (
 
 export const hasEmoji = (text: string) => {
   return !!emojiRegexRGI().exec(text);
+};
+
+/**
+ * Transforms the given canvasCoordinates to image space.
+ *
+ * @param canvasCoords The coordinates to transform
+ * @param canvas The canvas size
+ * @param image The image size
+ * @returns image coordinates
+ */
+export const canvasToImageCoords = (
+  canvasCoords: Coordinates,
+  canvas: Size,
+  image: Size
+): Coordinates => {
+  const imageCoords: Coordinates = {
+    x: 0,
+    y: 0,
+  };
+  const canvasRatio = canvas.width / canvas.height;
+  const imageRatio = image.width / image.height;
+
+  if (canvasRatio > imageRatio) {
+    // Canvas wider than image. There is padding on the sides of the image
+    imageCoords.y = (canvasCoords.y / canvas.height) * image.height;
+
+    // Since the sides of the canvas have white padding, we need to find the offset to counterbalance this
+    let trueWidth = (canvas.height / image.height) * image.width;
+    let xOffset = (canvas.width - trueWidth) / 2;
+    imageCoords.x = ((canvasCoords.x - xOffset) / trueWidth) * image.width;
+  } else {
+    // Canvas wider than image. There is padding on the top/bottom of the image
+    imageCoords.x = (canvasCoords.x / canvas.width) * image.width;
+
+    // Since the top/bottom of the canvas have white padding, we need to find the offset to counterbalance this
+    let trueHeight = (canvas.width / image.width) * image.height;
+    let offsetY = (canvas.height - trueHeight) / 2;
+    imageCoords.y = ((canvasCoords.y - offsetY) / trueHeight) * image.height;
+  }
+
+  return imageCoords;
+};
+
+export const coordsInBox = (coords: Coordinates, box: BoundingBox): boolean => {
+  return (
+    coords.x > box.x &&
+    coords.x < box.x + box.width &&
+    coords.y > box.y &&
+    coords.y < box.y + box.height
+  );
 };
