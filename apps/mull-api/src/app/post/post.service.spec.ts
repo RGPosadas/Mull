@@ -106,6 +106,6 @@ describe('PostService', () => {
       getOne: jest.fn().mockReturnValue([...mockAllPosts].reverse()[0]),
     });
     const latestPost = await service.getLatestPost(mockAllPosts[0].channel.id);
-    expect(latestPost).toEqual(mockAllPosts[2]);
+    expect(latestPost).toEqual(mockAllPosts[3]);
   });
 });

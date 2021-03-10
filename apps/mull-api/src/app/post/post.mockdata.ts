@@ -59,4 +59,17 @@ export const mockAllPosts: Post[] = [
       validateReadPermission: directMessageChannel.validateReadPermission,
     },
   },
+  {
+    id: 26,
+    user: userA,
+    message: 'This the 4th post',
+    createdTime: new Date('2020-10-27T01:31:00.000Z'),
+    channel: {
+      id: 4,
+      posts: [],
+      participants: [userA, userB],
+      validateWritePermission: directMessageChannel.validateWritePermission,
+      validateReadPermission: directMessageChannel.validateReadPermission,
+    },
+  },
 ];

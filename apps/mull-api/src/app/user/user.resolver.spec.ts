@@ -1,10 +1,15 @@
 import { RegistrationMethod } from '@mull/types';
 import { UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { mockAllDirectMessageChannels } from '../channel/channel.mockdata';
+import { ChannelService } from '../channel/channel.service';
 import { mockAllEvents } from '../event/event.mockdata';
 import { EventService } from '../event/event.service';
 import { mockAllMedias, mockFileJPEG, mockFilePNG } from '../media/media.mockdata';
 import { MediaService } from '../media/media.service';
+import { mockAllPosts } from '../post/post.mockdata';
+import { PostService } from '../post/post.service';
+import { mockAllFriends } from './friend.mockdata';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 import {
   mockAllUsers,
@@ -25,7 +30,7 @@ const mockUserService = () => ({
       mockAllUsers.filter((u) => u.email === email && u.registrationMethod === registrationMethod)
     );
   }),
-  getFriends: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id).friends),
+  getFriends: jest.fn(() => mockAllFriends),
   updateUser: jest.fn((userInput: UpdateUserInput) => {
     return mockExpectedUpdatedUser.find((user) => user.id === userInput.id);
   }),
@@ -51,6 +56,20 @@ const mockMediaService = () => ({
   }),
 });
 
+const mockPostService = () => ({
+  getLatestPost: jest.fn((channelId: number) =>
+    mockAllPosts.find((post) => post.channel.id == channelId)
+  ),
+});
+
+const mockChannelService = () => ({
+  findDirectMessageChannelByUserIds: jest.fn((userId1: number, userId2: number) =>
+    userId1 == mockAllUsers[0].id && userId2 == mockAllUsers[0].friends[0].id
+      ? mockAllDirectMessageChannels[0]
+      : null
+  ),
+});
+
 describe('UserResolver', () => {
   let resolver: UserResolver;
   beforeEach(async () => {
@@ -60,6 +79,8 @@ describe('UserResolver', () => {
         { provide: UserService, useFactory: mockUserService },
         { provide: EventService, useFactory: mockEventService },
         { provide: MediaService, useFactory: mockMediaService },
+        { provide: PostService, useFactory: mockPostService },
+        { provide: ChannelService, useFactory: mockChannelService },
       ],
     }).compile();
 
@@ -97,8 +118,8 @@ describe('UserResolver', () => {
   });
 
   it('should fetch all friends of mockUser 1', async () => {
-    const returnedUserFriends = await resolver.friends(mockAllUsers[0]);
-    expect(returnedUserFriends).toEqual(mockAllUsers[0].friends);
+    const returnedUserFriends = await resolver.friends(mockAllUsers[0].id);
+    expect(returnedUserFriends).toEqual(mockAllFriends);
   });
 
   it('should update the user and upload a new avatar', async () => {
