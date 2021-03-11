@@ -27,7 +27,7 @@ export const ROUTES = {
 export const DAY_IN_MILLISECONDS = 86400000;
 
 export const MULL_MODEL_URL =
-  'https://raw.githubusercontent.com/TheGreatMarkus/mull-model/main/tfjs/model.json';
+  'https://raw.githubusercontent.com/cristian-aldea/mull-model/main/tfjs-2/model.json';
 
 // TODO delete when US 2.1 is completed
 export const dummyProfilePictures: string[] = [

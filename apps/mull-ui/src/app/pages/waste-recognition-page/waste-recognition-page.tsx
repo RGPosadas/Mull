@@ -112,7 +112,7 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
     canvas: HTMLCanvasElement
   ) => {
     // TODO adjust numResults/threshold to filter out bad results better. Might need to be dynamic
-    resultRef.current = await model.detect(video, { numResults: 10, threshold: 0.45 });
+    resultRef.current = await model.detect(video, { numResults: 10, threshold: 0.6 });
     if (modelLoading) {
       setModelLoading(false);
     }

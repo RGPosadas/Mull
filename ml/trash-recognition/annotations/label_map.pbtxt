@@ -10,10 +10,25 @@ item {
 
 item {
     id: 3
-    name: 'food'
+    name: 'computer keyboard'
 }
 
 item {
     id: 4
+    name: 'food'
+}
+
+item {
+    id: 5
+    name: 'mobile phone'
+}
+
+item {
+    id: 6
+    name: 'plastic bag'
+}
+
+item {
+    id: 7
     name: 'tin can'
 }
