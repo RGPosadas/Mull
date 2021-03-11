@@ -52,6 +52,8 @@ const DateCalendar = ({
           onFocusChange={handleFocusChange}
           locale={enGB}
           minimumDate={new Date()}
+          // @ts-ignore
+          touchDragEnabled={false}
         />
       </div>
       {hasErrors ? <span className="error-message">{errorMessage}</span> : null}
