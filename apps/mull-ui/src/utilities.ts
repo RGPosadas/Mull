@@ -1,6 +1,7 @@
-import { DetectionResult, ISerializedEvent } from '@mull/types';
+import { BoundingBox, Coordinates, DetectionResult, ISerializedEvent, Size } from '@mull/types';
 import emojiRegexRGI from 'emoji-regex/es2015/RGI_Emoji.js';
-import { categoryMap, WasteType } from './app/services/maps';
+import { categoryMap } from './app/services/maps';
+import { WasteTypeSvgMap } from './constants';
 import { environment } from './environments/environment';
 import { User } from './generated/graphql';
 
@@ -42,12 +43,6 @@ export const mediaUrl = (event: Partial<ISerializedEvent>) =>
   `${environment.backendUrl}/api/media/${event.image.id}`;
 
 const svgSize = 45;
-export const svgMap = {
-  [WasteType.COMPOST]: './assets/icons/trash-recognition-icons/CompostIcon.svg',
-  [WasteType.EWASTE]: './assets/icons/trash-recognition-icons/GeneralIcon.svg',
-  [WasteType.TRASH]: './assets/icons/trash-recognition-icons/TrashIcon.svg',
-  [WasteType.RECYCLABLE]: './assets/icons/trash-recognition-icons/RecycleIcon.svg',
-};
 
 export const avatarUrl = (user: Partial<User>) =>
   user.avatar
@@ -71,17 +66,67 @@ export const drawDetectionIcons = (
     if (debug) {
       ctx.strokeStyle = '#00ff00';
       ctx.font = '20px Courier';
-      ctx.strokeRect(box.x, box.y - 20, box.width, box.height);
-      ctx.strokeText(`${result.class}: ${(result.confidence * 100).toFixed(1)}%`, box.x, box.y);
+      ctx.strokeRect(box.x, box.y, box.width, box.height);
+      ctx.strokeText(`${result.class}: ${(result.confidence * 100).toFixed(1)}%`, box.x, box.y - 5);
     }
     var icon = new Image();
     icon.onload = () => {
       ctx.drawImage(icon, dx, dy, svgSize, svgSize);
     };
-    icon.src = svgMap[category];
+    icon.src = WasteTypeSvgMap[category];
   });
 };
 
 export const hasEmoji = (text: string) => {
   return !!emojiRegexRGI().exec(text);
+};
+
+/**
+ * Transforms the given canvasCoordinates to image space.
+ *
+ * @param canvasCoords The coordinates to transform
+ * @param canvas The canvas size
+ * @param image The image size
+ * @returns image coordinates
+ */
+export const canvasToImageCoords = (
+  canvasCoords: Coordinates,
+  canvas: Size,
+  image: Size
+): Coordinates => {
+  const imageCoords: Coordinates = {
+    x: 0,
+    y: 0,
+  };
+  const canvasRatio = canvas.width / canvas.height;
+  const imageRatio = image.width / image.height;
+
+  if (canvasRatio > imageRatio) {
+    // Canvas wider than image. There is padding on the sides of the image
+    imageCoords.y = (canvasCoords.y / canvas.height) * image.height;
+
+    // Since the sides of the canvas have white padding, we need to find the offset to counterbalance this
+    const trueWidth = (canvas.height / image.height) * image.width;
+    const xOffset = (canvas.width - trueWidth) / 2;
+    imageCoords.x = ((canvasCoords.x - xOffset) / trueWidth) * image.width;
+  } else {
+    // Canvas wider than image. There is padding on the top/bottom of the image
+    imageCoords.x = (canvasCoords.x / canvas.width) * image.width;
+
+    // Since the top/bottom of the canvas have white padding, we need to find the offset to counterbalance this
+    const trueHeight = (canvas.width / image.width) * image.height;
+    const offsetY = (canvas.height - trueHeight) / 2;
+    imageCoords.y = ((canvasCoords.y - offsetY) / trueHeight) * image.height;
+  }
+
+  return imageCoords;
+};
+
+export const coordsInBox = (coords: Coordinates, box: BoundingBox): boolean => {
+  return (
+    coords.x > box.x &&
+    coords.x < box.x + box.width &&
+    coords.y > box.y &&
+    coords.y < box.y + box.height
+  );
 };
