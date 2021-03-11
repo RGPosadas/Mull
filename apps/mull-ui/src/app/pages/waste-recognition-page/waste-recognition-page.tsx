@@ -19,7 +19,6 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
   const resultRef = useRef<DetectionResult[]>([]);
   const { notifyToast } = useToast();
 
-  const [videoLoading, setVideoLoading] = useState<boolean>(true);
   const [modelLoading, setModelLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -65,7 +64,7 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
 
   const setupCamera = async () => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      const cameraPromise = navigator.mediaDevices
+      return navigator.mediaDevices
         .getUserMedia({
           video: { facingMode: 'environment' },
           audio: false,
@@ -85,12 +84,10 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
 
           return new Promise<MediaStream>((resolve, reject) => {
             videoRef.current.onloadedmetadata = () => {
-              setVideoLoading(false);
               resolve(stream);
             };
           });
         });
-      return cameraPromise;
     } else {
       throw new Error(
         'Either no camera exists on your device, or your browser denied access to it'
