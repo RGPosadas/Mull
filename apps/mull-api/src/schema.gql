@@ -66,6 +66,22 @@ type EventChannel {
   rights: Int!
 }
 
+type Friend {
+  avatar: Media
+  description: String!
+  directMessageChannel: DirectMessageChannel
+  dob: DateTime
+  email: String!
+  friends: [User!]!
+  id: Int!
+  joinDate: DateTime!
+  latestPost: Post
+  name: String!
+  password: String
+  registrationMethod: RegistrationMethod!
+  timezone: String!
+}
+
 type Location {
   coordinates: Point
   id: Int!
@@ -162,6 +178,7 @@ type Query {
   event(id: Int!): Event!
   events: [Event!]!
   friendCount: Int!
+  friends: [Friend!]!
   getChannelByEventId(channelName: String!, eventId: Int!): EventChannel!
   getDirectMessageChannel(toUserId: Int!): DirectMessageChannel
   hostEvents: [Event!]!

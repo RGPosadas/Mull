@@ -1,11 +1,13 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { GraphQLUpload } from 'apollo-server-express';
 import { FileUpload } from 'graphql-upload';
 import { AuthenticatedUser, AuthGuard } from '../auth/auth.guard';
-import { Media, User } from '../entities';
+import { ChannelService } from '../channel/channel.service';
+import { Friend, Media, User } from '../entities';
 import { EventService } from '../event/event.service';
 import { MediaService } from '../media/media.service';
+import { PostService } from '../post/post.service';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 import { UserService } from './user.service';
 
@@ -14,7 +16,9 @@ export class UserResolver {
   constructor(
     private readonly userService: UserService,
     private readonly eventService: EventService,
-    private readonly mediaService: MediaService
+    private readonly mediaService: MediaService,
+    private readonly channelService: ChannelService,
+    private readonly postService: PostService
   ) {}
 
   @Query(/* istanbul ignore next */ () => [User])
@@ -28,10 +32,22 @@ export class UserResolver {
     return this.userService.getUser(id);
   }
 
-  @ResolveField(/* istanbul ignore next */ () => [User])
-  async friends(@Parent() user: User) {
-    const { id } = user;
-    return this.userService.getFriends(id);
+  @Query(/* istanbul ignore next */ () => [Friend])
+  async friends(@AuthenticatedUser() id: number) {
+    const friends = await this.userService.getFriends(id);
+    const modifiedFriends: Friend[] = [];
+
+    for (const friend of friends) {
+      const channel = await this.channelService.findDirectMessageChannelByUserIds(id, friend.id);
+      const latestPost = channel ? await this.postService.getLatestPost(channel.id) : null;
+      const modifiedFriend: Friend = {
+        ...friend,
+        latestPost: latestPost,
+        directMessageChannel: channel,
+      };
+      modifiedFriends.push(modifiedFriend);
+    }
+    return modifiedFriends;
   }
 
   @Mutation(/* istanbul ignore next */ () => User)

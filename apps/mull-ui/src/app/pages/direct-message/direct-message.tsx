@@ -1,35 +1,29 @@
+import { IUser } from '@mull/types';
 import React, { useState } from 'react';
+import { useFriendsQuery } from '../../../generated/graphql';
+import { avatarUrl } from '../../../utilities';
 import { ChatHeader, CustomTextInput } from '../../components';
 import ContactRow from '../../components/contact-row/contact-row';
 import './direct-message.scss';
 
-// TODO: Query that returns an array of user profiles related to user
-const userData = [
-  {
-    id: 1,
-    name: 'Bob Marley',
-    lastMessage: 'hi there',
-    picture:
-      'https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg',
-  },
-  {
-    id: 2,
-    name: 'Shawn Mendes',
-    lastMessage: 'meet up soon!',
-    picture:
-      'https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg',
-  },
-  {
-    id: 3,
-    name: 'Justin Bieber',
-    lastMessage: 'see you there',
-    picture:
-      'https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg',
-  },
-];
-
 const DirectMessagePage = () => {
   const [searchValue, setSearchValue] = useState('');
+  const { data, loading } = useFriendsQuery();
+
+  if (loading) return <div className="page-container">Loading...</div>;
+
+  const contactRows = data.friends
+    .filter(({ name }) => name.toLowerCase().includes(searchValue.toLowerCase()))
+    .map(({ latestPost, ...friend }, index) => (
+      <ContactRow
+        key={'contact-row-' + index}
+        userId={friend.id}
+        userName={friend.name}
+        lastMessage={latestPost ? latestPost.message : ''}
+        // TODO in TASK-63: an onClick event that will create a DM channel if it doesn't exist between the current user and their friend
+        userPicture={avatarUrl(friend as IUser)}
+      />
+    ));
 
   return (
     <div className="direct-messages-container">
@@ -44,21 +38,8 @@ const DirectMessagePage = () => {
           errorMessage={null}
           placeholder={'Search'}
         />
-
-        {userData.length > 0 ? (
-          userData.map((user, idx) => {
-            if (user.name.toLowerCase().includes(searchValue.toLowerCase()) || searchValue === '')
-              return (
-                <ContactRow
-                  key={idx}
-                  userId={user.id}
-                  userName={user.name}
-                  lastMessage={user.lastMessage}
-                  userPicture={user.picture}
-                />
-              );
-            return null;
-          })
+        {contactRows.length > 0 ? (
+          <div>{contactRows}</div>
         ) : (
           <p className="search-results">No results found</p>
         )}
