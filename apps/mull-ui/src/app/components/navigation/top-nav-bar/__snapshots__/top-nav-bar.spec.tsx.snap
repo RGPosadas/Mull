@@ -4,11 +4,18 @@ exports[`TopNavBar should match snapshot 1`] = `
 <div
   className="top-nav-container top-nav-bar-shadow"
 >
-  <img
-    alt="Mull logo"
-    className="logo nav-element"
-    src="mull-logo.png"
-  />
+  <a
+    aria-current={null}
+    className="logo"
+    href="/home/discover"
+    onClick={[Function]}
+  >
+    <img
+      alt="Mull logo"
+      className="logo nav-element"
+      src="mull-logo.png"
+    />
+  </a>
   <div
     className="extra-buttons"
   >

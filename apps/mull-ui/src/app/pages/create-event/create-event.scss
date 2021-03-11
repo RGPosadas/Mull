@@ -59,7 +59,7 @@
   .description-input-icon {
     position: absolute;
     right: 1rem;
-    top: 2.5rem;
+    top: 4.25rem;
     color: rgba(0, 0, 0, 0.5);
   }
 
@@ -78,14 +78,15 @@
   }
 
   .description-msg {
-    height: 3rem;
-    width: 87%;
+    height: 7rem;
     outline: none;
     resize: none;
     border-radius: 1rem;
     border: 1.5px $primary-color solid;
     padding: 1em 2.5em 1em 1em;
     margin-bottom: 1.875rem;
+    width: 100%;
+    box-sizing: border-box;
     &.error {
       border-color: #ff0000;
     }

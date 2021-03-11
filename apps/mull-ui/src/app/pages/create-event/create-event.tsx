@@ -92,13 +92,15 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       startTime: Yup.string().required('Start Time is required.'),
       endTime: Yup.string()
         .required('End Time is required.')
-        .test('endTime is after startTime', 'The end time must be after the start time.', function (
-          endTime
-        ) {
-          const { startTime, startDate, endDate } = this.parent;
-          if (endDate && startDate < endDate) return true;
-          return moment(endTime, 'HH:mm').isSameOrAfter(moment(startTime, 'HH:mm'));
-        }),
+        .test(
+          'endTime is after startTime',
+          'The end time must be after the start time.',
+          function (endTime) {
+            const { startTime, startDate, endDate } = this.parent;
+            if (endDate && startDate < endDate) return true;
+            return moment(endTime, 'HH:mm').isSameOrAfter(moment(startTime, 'HH:mm'));
+          }
+        ),
       eventTitle: Yup.string()
         .required('Event Title is required.')
         .max(65, 'Event Title length must be under 65 characters.')
@@ -253,15 +255,17 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               <label className="description-label" htmlFor={'description'}>
                 Description
               </label>
-              <textarea
-                id="description"
-                className={`description-msg ${
-                  formik.touched.description && !!formik.errors.description ? 'error' : ''
-                }`}
-                rows={1}
-                value={formik.values.description}
-                onChange={formik.handleChange}
-              />
+              <div className="textarea-sub-container">
+                <textarea
+                  id="description"
+                  className={`description-msg ${
+                    formik.touched.description && !!formik.errors.description ? 'error' : ''
+                  }`}
+                  rows={1}
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                />
+              </div>
               <FontAwesomeIcon className="description-input-icon" icon={faAlignLeft} />
             </div>
             <LocationAutocompleteModal formik={formik} />
