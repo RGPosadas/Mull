@@ -1,4 +1,5 @@
 import { ISerializedEvent } from '@mull/types';
+import { sortEventsByDate } from 'apps/mull-ui/src/utilities';
 import React from 'react';
 import { useDiscoverEventsQuery } from '../../../../generated/graphql';
 import { EventCard } from '../../../components';
@@ -9,12 +10,7 @@ export const DiscoverPage = ({ history }) => {
 
   if (data) {
     const events = (data.discoverEvents as unknown) as Partial<ISerializedEvent>[];
-    const sortedEvents = events
-      .slice()
-      .sort(
-        (event1, event2) =>
-          new Date(event1.startDate).valueOf() - new Date(event2.startDate).valueOf()
-      );
+    const sortedEvents = sortEventsByDate(events);
 
     var eventCards = sortedEvents.map((event, index) => (
       <EventCard

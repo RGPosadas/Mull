@@ -130,3 +130,12 @@ export const coordsInBox = (coords: Coordinates, box: BoundingBox): boolean => {
     coords.y < box.y + box.height
   );
 };
+
+export const sortEventsByDate = (events: Partial<ISerializedEvent>[]) => {
+  return events
+    .slice()
+    .sort(
+      (event1, event2) =>
+        new Date(event1.startDate).valueOf() - new Date(event2.startDate).valueOf()
+    );
+};
