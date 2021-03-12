@@ -17,7 +17,7 @@
             "polyfills": "apps/mull-ui/src/polyfills.ts",
             "tsConfig": "apps/mull-ui/tsconfig.app.json",
             "assets": [
-              "apps/mull-ui/src/favicon.ico",
+              "apps/mull-ui/src/favicon.png",
               "apps/mull-ui/src/manifest.json",
               "apps/mull-ui/src/assets"
             ],
