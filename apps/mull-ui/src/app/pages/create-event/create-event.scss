@@ -65,12 +65,21 @@
 
   ::-webkit-scrollbar {
     width: 5px;
-    background: #f1f1f1;
   }
 
   ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: $primary-color;
+  }
+
+  ::-webkit-scrollbar-track-piece:end {
+    margin-bottom: 10px;
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-track-piece:start {
+    background: #f1f1f1;
+    margin-top: 10px;
   }
 
   .description-label {

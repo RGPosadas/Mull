@@ -242,15 +242,6 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               errorMessage={formik.errors.eventTitle}
               svgIcon={<FontAwesomeIcon className="input-icon" icon={faPencilAlt} />}
             />
-            {/* <CustomTextInput
-              title="Description"
-              fieldName="description"
-              value={formik.values.description}
-              onChange={formik.handleChange}
-              hasErrors={formik.touched.description && !!formik.errors.description}
-              errorMessage={formik.errors.description}
-              svgIcon={<FontAwesomeIcon className="input-icon" icon={faAlignLeft} />}
-            /> */}
             <div className="textarea-create-event-container">
               <label className="description-label" htmlFor={'description'}>
                 Description
