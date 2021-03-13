@@ -56,13 +56,11 @@ export const EventChat = ({ eventId, channelName, restrictChatInput }: EventChat
         if (!subscriptionData.data) return prev;
         const newPostItem = subscriptionData.data.postAdded;
         //Add the new message received from the subscriber
-        const newList = Object.assign({}, prev, {
+        return Object.assign({}, prev, {
           getChannelByEventId: {
             posts: [...prev.getChannelByEventId.posts, newPostItem],
           },
         });
-
-        return newList;
       },
     });
 
