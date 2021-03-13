@@ -78,6 +78,7 @@ exports[`UserProfilePage should match snapshot 1`] = `
       className="user-description-container"
     >
       <p
+        className="user-description"
         data-testid="userDescription"
       >
         a description

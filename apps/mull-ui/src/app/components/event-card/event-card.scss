@@ -43,13 +43,14 @@
   border-radius: 20rem;
   padding: 0.35rem;
 
-  border: 1px $primary-color solid;
-  color: $primary-color;
-  background-color: white;
-
   &.joined {
     color: white;
     background-color: $primary-color;
+    border: 1px $primary-color solid;
+  }
+
+  &.not-joined {
+    padding: 0;
   }
 
   svg {
@@ -57,6 +58,13 @@
     height: 1.2rem !important;
     display: block;
   }
+}
+
+.join-icon {
+  width: 2.15rem;
+  position: relative;
+  bottom: 0.3rem;
+  left: 0.1rem;
 }
 
 .event-card-description {

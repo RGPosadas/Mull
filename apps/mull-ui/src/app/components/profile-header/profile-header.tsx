@@ -82,7 +82,9 @@ export const ProfileHeader = ({
         </div>
       </div>
       <div className="user-description-container">
-        <p data-testid="userDescription">{userDescription}</p>
+        <p className="user-description" data-testid="userDescription">
+          {userDescription}
+        </p>
       </div>
     </div>
   );

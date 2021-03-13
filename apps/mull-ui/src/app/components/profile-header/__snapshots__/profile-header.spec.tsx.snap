@@ -75,6 +75,7 @@ exports[`ProfileHeader should match snapshot 1`] = `
     className="user-description-container"
   >
     <p
+      className="user-description"
       data-testid="userDescription"
     >
       

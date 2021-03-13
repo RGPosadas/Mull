@@ -18,7 +18,9 @@ export interface TopNavBarProps {
 export const TopNavBar = ({ style }: TopNavBarProps) => {
   return (
     <div className="top-nav-container top-nav-bar-shadow" style={style}>
-      <img src={logo} className="logo nav-element" alt="Mull logo" />
+      <NavLink to={ROUTES.DISCOVER.url} className="logo">
+        <img src={logo} className="logo nav-element" alt="Mull logo" />
+      </NavLink>
       <div className="extra-buttons">
         <NavButtons />
       </div>

@@ -69,4 +69,7 @@
 .user-description-container {
   display: flex;
   margin-bottom: 1.25rem;
+  .user-description {
+    white-space: pre-line;
+  }
 }

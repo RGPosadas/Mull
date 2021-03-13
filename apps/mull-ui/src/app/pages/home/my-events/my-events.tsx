@@ -1,6 +1,7 @@
 import { ISerializedEvent } from '@mull/types';
 import React from 'react';
 import { useOwnedEventsQuery } from '../../../../generated/graphql';
+import { sortEventsByDate } from '../../../../utilities';
 import { EventCard } from '../../../components';
 import '../home-discover.scss';
 
@@ -8,10 +9,12 @@ export const MyEventsPage = ({ history }) => {
   const { data } = useOwnedEventsQuery({});
 
   if (data) {
-    const events = (data.coHostEvents.concat(data.hostEvents) as unknown) as Partial<
-      ISerializedEvent
-    >[];
-    var eventCards = events.map((event, index) => (
+    const events = (data.coHostEvents.concat(
+      data.hostEvents
+    ) as unknown) as Partial<ISerializedEvent>[];
+    const sortedEvents = sortEventsByDate(events);
+
+    var eventCards = sortedEvents.map((event, index) => (
       <EventCard
         key={`myEvents-${index}`}
         isJoined={true}

@@ -8,6 +8,7 @@
 .info-row {
   display: flex;
   padding: 1rem 1rem;
+  white-space: pre-line;
   border-bottom: 0.5px solid rgba($color: $primary-color, $alpha: 0.5);
 }
 

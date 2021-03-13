@@ -1,6 +1,7 @@
 import { ISerializedEvent } from '@mull/types';
 import React from 'react';
 import { useDiscoverEventsQuery } from '../../../../generated/graphql';
+import { sortEventsByDate } from '../../../../utilities';
 import { EventCard } from '../../../components';
 import '../home-discover.scss';
 
@@ -9,7 +10,9 @@ export const DiscoverPage = ({ history }) => {
 
   if (data) {
     const events = (data.discoverEvents as unknown) as Partial<ISerializedEvent>[];
-    var eventCards = events.map((event, index) => (
+    const sortedEvents = sortEventsByDate(events);
+
+    var eventCards = sortedEvents.map((event, index) => (
       <EventCard
         key={`discover-${index}`}
         isJoined={false}

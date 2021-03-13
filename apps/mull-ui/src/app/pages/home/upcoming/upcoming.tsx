@@ -1,6 +1,7 @@
 import { ISerializedEvent } from '@mull/types';
 import React from 'react';
 import { useParticipantEventsQuery } from '../../../../generated/graphql';
+import { sortEventsByDate } from '../../../../utilities';
 import { EventCard } from '../../../components';
 
 export const UpcomingPage = ({ history }) => {
@@ -8,7 +9,9 @@ export const UpcomingPage = ({ history }) => {
 
   if (data) {
     const events = (data.participantEvents as unknown) as Partial<ISerializedEvent>[];
-    var eventCards = events.map((event, index) => (
+    const sortedEvents = sortEventsByDate(events);
+
+    var eventCards = sortedEvents.map((event, index) => (
       <EventCard
         key={`upcoming-${index}`}
         isJoined={true}
