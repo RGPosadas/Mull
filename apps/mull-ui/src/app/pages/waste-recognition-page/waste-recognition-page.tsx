@@ -14,12 +14,18 @@ export interface WasteRecognitionPageProps {}
 export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
   const modelRef = useRef<TensorflowJsModel>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  // This hidden canvas is used to render specific objects when the user clicks on an icon
+  const hiddenCanvas = useRef<HTMLCanvasElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream>(null);
   const resultRef = useRef<DetectionResult[]>([]);
   const { notifyToast } = useToast();
 
   const [modelLoading, setModelLoading] = useState<boolean>(true);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalDetectionResult, setModalDetectionResult] = useState<DetectionResult>(null);
+  const [modalImageURL, setModalImageURL] = useState<string>(null);
 
   useEffect(() => {
     setup();
@@ -145,16 +151,38 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
       // Since results are ordered by confidence, we should take the first result to be the one the user wanted to click
       const clickedObject = clickedObjects[0];
 
-      // TODO, show modal with first result in US-5.2
-      console.log(`Clicked on "${clickedObject.class}"`);
-    } else {
-      console.log('Clicked on nothing');
+      setModalDetectionResult(clickedObject);
+      setModalImageURL(getImageURL(clickedObject));
+      setModalOpen(true);
     }
+  };
+
+  const getImageURL = (detectionResult: DetectionResult) => {
+    const box = detectionResult.bndBox;
+    const canvas = hiddenCanvas.current;
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = videoRef.current.width;
+    canvas.height = videoRef.current.height;
+    ctx.drawImage(videoRef.current, 0, 0);
+
+    const imageData = ctx.getImageData(box.x, box.y, box.width, box.height);
+
+    canvas.width = imageData.width;
+    canvas.height = imageData.height;
+    ctx.putImageData(imageData, 0, 0);
+
+    return canvas.toDataURL();
   };
 
   return (
     <div className="page-container">
-      <IdentifiedWasteModal />
+      <IdentifiedWasteModal
+        imageSrc={modalImageURL}
+        detectionResult={modalDetectionResult}
+        open={modalOpen}
+        setOpen={setModalOpen}
+      />
       {modelLoading ? (
         <div className="waste-recognition-page-overlay-text">Warming up the Detection Model</div>
       ) : null}
@@ -164,6 +192,7 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
         data-testid="waste-recognition-page-video"
       />
       <canvas ref={canvasRef} className="waste-recognition-page-overlap" />
+      <canvas ref={hiddenCanvas} hidden={true} />
     </div>
   );
 }

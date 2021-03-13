@@ -1,24 +1,13 @@
 .identified-waste-container {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid black;
-  border-radius: 2rem;
-  z-index: 2;
-  position: relative;
-  text-align: center;
+  border-radius: 1rem !important;
+  padding: 1rem;
 }
-
-.MuiDialog-paperWidthSm {
-  max-width: 25rem !important;
-  border-radius: 2rem !important;
-  padding: 0.5rem 0.5rem 1rem 0.5rem;
-}
-.close-button {
+.identified-waste-modal-close {
   text-align: right;
-  padding: 0.5rem 1rem 0;
 }
 
-.waste-title {
-  padding: 0.5rem;
+.identified-waste-modal-title {
+  margin-bottom: 1rem;
   display: flex;
   text-transform: capitalize;
   align-self: center;
@@ -26,18 +15,21 @@
   h1 {
     margin-left: 0.5rem;
   }
+  img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 }
 
-.waste-picture-container {
-  text-align: center;
-  padding: 1rem 1rem;
+.identified-waste-modal-picture {
+  width: 100%;
+  max-height: 50vh;
+
+  border-radius: 1rem;
+
+  margin-bottom: 1rem;
 }
 
-.waste-picture {
-  height: 10rem;
-}
-
-.waste-info {
-  padding: 0.5rem;
+.identified-waste-modal-info {
   text-align: center;
 }
