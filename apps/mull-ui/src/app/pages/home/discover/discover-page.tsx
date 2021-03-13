@@ -1,7 +1,7 @@
 import { ISerializedEvent } from '@mull/types';
-import { sortEventsByDate } from 'apps/mull-ui/src/utilities';
 import React from 'react';
 import { useDiscoverEventsQuery } from '../../../../generated/graphql';
+import { sortEventsByDate } from '../../../../utilities';
 import { EventCard } from '../../../components';
 import '../home-discover.scss';
 

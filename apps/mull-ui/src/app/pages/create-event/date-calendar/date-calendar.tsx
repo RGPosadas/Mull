@@ -52,6 +52,7 @@ const DateCalendar = ({
           onFocusChange={handleFocusChange}
           locale={enGB}
           minimumDate={new Date()}
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           touchDragEnabled={false}
         />
