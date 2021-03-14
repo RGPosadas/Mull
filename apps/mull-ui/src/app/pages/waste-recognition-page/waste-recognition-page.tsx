@@ -1,8 +1,8 @@
 import { DetectionResult } from '@mull/types';
-import { dummyDetectionResults } from 'apps/mull-ui/src/mockdata';
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { MULL_MODEL_URL } from '../../../constants';
+import { dummyDetectionResults } from '../../../mockdata';
 import { canvasToImageCoords, coordsInBox, drawDetectionIcons } from '../../../utilities';
 import { useToast } from '../../hooks/useToast';
 import { TensorflowJsModel } from '../../services/tfjs.model';

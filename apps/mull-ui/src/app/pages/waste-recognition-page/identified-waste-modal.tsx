@@ -2,8 +2,8 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dialog } from '@material-ui/core';
 import { DetectionResult, wasteClassMap } from '@mull/types';
-import { WasteTypeSvgMap } from 'apps/mull-ui/src/constants';
 import React from 'react';
+import { WasteTypeSvgMap } from '../../../constants';
 import './identified-waste-page.scss';
 
 export interface IdentifiedWasteModalProps {
