@@ -22,6 +22,8 @@
   - [Troubleshooting](#troubleshooting)
     - [Failing Travis Builds](#failing-travis-builds)
     - [Package lock merge conflicts](#package-lock-merge-conflicts)
+    - [Accessing a locally hosted dev build from your phone](#accessing-a-locally-hosted-dev-build-from-your-phone)
+      - [Camera Issues](#camera-issues)
 
 ## Team Members
 
@@ -283,3 +285,21 @@ When there are merge conflicts in the `package-lock.json` file, here are the gen
 1. Temporarily remove the `preinstall` script in `package.json`. Installing packages with that script without the lock file won't work.
 1. Run `npm i` to install the packages again and regenerate the `package-lock.json` file.
 1. Put back the `preinstall` script you removed in step 2
+
+### Accessing a locally hosted dev build from your phone
+
+While you're developing the application, you might want to access the application from your phone. This would allow you to see how it looks on your device or test features such as the camera. Here are some general steps to do this, and some pitfalls to watch out for:
+
+1. Change the value of your `host.env.ts` host to the IP address of your machine
+1. Serve the backend/frontend applications with the `--host=your-ip-address` flag.
+1. Doing these steps will allow other computers in your local network to access the application by visiting `http://your-ip-address:4200`.
+
+#### Camera Issues
+
+If you experience issues using the camera on your phone when doing the above steps, this might be due to a few factors. Namely, browsers, by default, don't allow javascript to access your camera over an insecure connection that isn't localhost. Since you're accessing the application through the `your-ip-address` hostname, the browser will no longer trust the application and might prevent certain features.
+
+There are ways to remedy this, however. You can create a certificate and host the application over https.
+
+You can also ask your browser to trust your machine's ip address, which might be simpler:
+
+- Chrome: You can visit `chrome://flags/#unsafely-treat-insecure-origin-as-secure` on your browser (mobile or desktop works fine). You will see the `Insecure origins treated as secure` setting. Here, you can whitelist `http://your-ip-address:4200` (or other additional items as a comma-separated list), the browser will treat that origin as secure and will no longer block certain features.
