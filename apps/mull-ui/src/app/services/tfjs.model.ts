@@ -1,7 +1,6 @@
-import { BoundingBox, DetectionResult } from '@mull/types';
+import { BoundingBox, DetectionResult, wasteClasses } from '@mull/types';
 import * as tf from '@tensorflow/tfjs';
 import { GraphModel, Tensor3D } from '@tensorflow/tfjs';
-import { wasteClasses } from './maps';
 export interface WasteRecognitionModel {
   init(modelUrl: string): Promise<void>;
   detect(
