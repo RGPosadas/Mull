@@ -54,6 +54,7 @@
     align-items: flex-start;
     font-weight: 600;
     line-height: 1.5;
+    align-self: flex-start;
   }
 
   .description-input-icon {
@@ -80,10 +81,6 @@
   ::-webkit-scrollbar-track-piece:start {
     background: #f1f1f1;
     margin-top: 0.625rem;
-  }
-
-  .description-label {
-    align-self: flex-start;
   }
 
   .description-msg {

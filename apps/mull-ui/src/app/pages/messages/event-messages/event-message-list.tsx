@@ -4,7 +4,6 @@ import { useOwnedEventsQuery, useParticipantEventsQuery } from '../../../../gene
 import { mediaUrl } from '../../../../utilities';
 import { CustomTextInput } from '../../../components';
 import { EventBullet } from '../../../components/event-bullet/event-bullet';
-import './event-message-list.scss';
 
 export const EventMessageList = () => {
   const { data: participatingData, loading: participatingLoading } = useParticipantEventsQuery();
