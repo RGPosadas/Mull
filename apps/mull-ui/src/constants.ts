@@ -1,5 +1,4 @@
-import { DetectionResult, EventRestriction, ISerializedEvent } from '@mull/types';
-import { WasteType } from './app/services/maps';
+import { DetectionResult, EventRestriction, ISerializedEvent, WasteCategory } from '@mull/types';
 
 /**
  * enum of the current routes for the application
@@ -173,8 +172,8 @@ export const monthNames = [
 ];
 
 export const WasteTypeSvgMap = {
-  [WasteType.COMPOST]: 'assets/icons/trash-recognition-icons/CompostIcon.svg',
-  [WasteType.EWASTE]: 'assets/icons/trash-recognition-icons/GeneralIcon.svg',
-  [WasteType.TRASH]: 'assets/icons/trash-recognition-icons/TrashIcon.svg',
-  [WasteType.RECYCLABLE]: 'assets/icons/trash-recognition-icons/RecycleIcon.svg',
+  [WasteCategory.COMPOST]: 'assets/icons/trash-recognition-icons/CompostIcon.svg',
+  [WasteCategory.EWASTE]: 'assets/icons/trash-recognition-icons/GeneralIcon.svg',
+  [WasteCategory.TRASH]: 'assets/icons/trash-recognition-icons/TrashIcon.svg',
+  [WasteCategory.RECYCLABLE]: 'assets/icons/trash-recognition-icons/RecycleIcon.svg',
 };

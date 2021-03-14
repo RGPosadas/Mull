@@ -15,3 +15,10 @@ export interface DetectionResult {
   bndBox: BoundingBox;
   confidence: number;
 }
+
+export enum WasteCategory {
+  TRASH,
+  RECYCLABLE,
+  COMPOST,
+  EWASTE,
+}

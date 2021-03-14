@@ -21,13 +21,11 @@
   }
 }
 
-.identified-waste-modal-picture {
-  width: 100%;
+.identified-waste-modal-image {
   max-height: 50vh;
-
+  max-width: 100%;
   border-radius: 1rem;
-
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem;
 }
 
 .identified-waste-modal-info {
