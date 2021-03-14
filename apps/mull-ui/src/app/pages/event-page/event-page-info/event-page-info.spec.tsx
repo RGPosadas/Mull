@@ -4,8 +4,8 @@ import { createMemoryHistory, History } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import renderer from 'react-test-renderer';
-import { dummyEvent } from '../../../constants';
-import { UserProvider } from '../../context/user.context';
+import { dummyEvent } from '../../../../mockdata';
+import { UserProvider } from '../../../context/user.context';
 import EventPageInfo from './event-page-info';
 
 describe('EventPageInfo', () => {

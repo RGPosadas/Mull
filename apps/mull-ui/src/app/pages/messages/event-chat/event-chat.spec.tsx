@@ -3,7 +3,7 @@ import { act, render } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
-import { mockChannelWithPosts } from '../../../../../src/constants';
+import { mockChannelWithPosts } from '../../../../../src/mockdata';
 import { ChannelByEventIdDocument, PostAddedDocument } from '../../../../generated/graphql';
 import { UserProvider } from '../../../context/user.context';
 import EventChat from './event-chat';

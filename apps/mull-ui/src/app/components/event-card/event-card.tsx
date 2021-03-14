@@ -2,8 +2,8 @@ import { faCheck, faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
-import { dummyProfilePictures } from '../../../constants'; // TODO query the participants profile pictures
 import { useJoinEventMutation, useLeaveEventMutation } from '../../../generated/graphql';
+import { dummyProfilePictures } from '../../../mockdata'; // TODO query the participants profile pictures
 import { formatDate, mediaUrl } from '../../../utilities';
 import EventMembers from '../event-members/event-members';
 import './event-card.scss';

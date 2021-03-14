@@ -3,7 +3,6 @@ import { ISerializedEvent } from '@mull/types';
 import { act, render } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter, Route } from 'react-router-dom';
-import { dummyEvent } from '../../../constants';
 import { environment } from '../../../environments/environment';
 import {
   EventPageDocument,
@@ -11,6 +10,7 @@ import {
   UserDocument,
   UserQuery,
 } from '../../../generated/graphql';
+import { dummyEvent } from '../../../mockdata';
 import { UserProvider } from '../../context/user.context';
 import EventPage from './event-page';
 

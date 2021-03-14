@@ -1,5 +1,5 @@
 import { BoundingBox, Coordinates, Size } from '@mull/types';
-import { dummyDetectionResults } from './constants';
+import { dummyDetectionResults } from './mockdata';
 import { canvasToImageCoords, coordsInBox, drawDetectionIcons } from './utilities';
 
 describe('Utilities', () => {
@@ -46,7 +46,7 @@ describe('Utilities', () => {
       setTimeout(() => {
         expect(canvas.getContext.mock.calls.length).toBe(1);
         expect(canvas.getContext().strokeRect.mock.calls[0]).toEqual([20, 40, 100, 50]);
-        expect(canvas.getContext().strokeText.mock.calls[0]).toEqual(['recyclable: 80.0%', 20, 35]);
+        expect(canvas.getContext().strokeText.mock.calls[0]).toEqual(['bottle: 80.0%', 20, 35]);
         done();
       }, 200);
     });

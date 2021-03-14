@@ -1,4 +1,5 @@
 import { DetectionResult } from '@mull/types';
+import { dummyDetectionResults } from 'apps/mull-ui/src/mockdata';
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { MULL_MODEL_URL } from '../../../constants';
@@ -24,8 +25,10 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
   const [modelLoading, setModelLoading] = useState<boolean>(true);
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalDetectionResult, setModalDetectionResult] = useState<DetectionResult>(null);
-  const [modalImageURL, setModalImageURL] = useState<string>(null);
+  const [modalDetectionResult, setModalDetectionResult] = useState<DetectionResult>(
+    dummyDetectionResults[0]
+  );
+  const [modalImageURL, setModalImageURL] = useState<string>('no-image');
 
   useEffect(() => {
     setup();

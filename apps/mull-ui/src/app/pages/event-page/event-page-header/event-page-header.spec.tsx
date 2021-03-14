@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { dummyEvent } from '../../../../constants';
+import { dummyEvent } from '../../../../mockdata';
 import EventPageHeader from './event-page-header';
 
 describe('EventPageHeader', () => {

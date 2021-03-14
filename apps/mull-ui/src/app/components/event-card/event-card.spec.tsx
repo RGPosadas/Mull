@@ -4,7 +4,7 @@ import { createMemoryHistory, History } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import renderer from 'react-test-renderer';
-import { dummyEvent } from '../../../constants';
+import { dummyEvent } from '../../../mockdata';
 import { UserProvider } from '../../context/user.context';
 import EventCard from './event-card';
 
