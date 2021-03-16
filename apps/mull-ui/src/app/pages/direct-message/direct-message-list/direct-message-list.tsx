@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import { useFriendsQuery, User } from '../../../generated/graphql';
 import { CustomTextInput } from '../../components';
 import ContactRow from '../../components/contact-row/contact-row';
-import './direct-message.scss';
+import './direct-message-list.scss';
 
 export interface DirectMessagePageProps {
   history: History;
 }
-const DirectMessagePage = ({ history }: DirectMessagePageProps) => {
+const DirectMessageListPage = ({ history }: DirectMessagePageProps) => {
   const [searchValue, setSearchValue] = useState('');
   const { data, loading } = useFriendsQuery();
 
@@ -49,4 +49,4 @@ const DirectMessagePage = ({ history }: DirectMessagePageProps) => {
   );
 };
 
-export default DirectMessagePage;
+export default DirectMessageListPage;

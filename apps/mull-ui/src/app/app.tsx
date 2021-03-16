@@ -14,14 +14,17 @@ import { BotNavBar, PrivateRoute, SubNavBar, TopNavBar } from './components';
 import { UserProvider } from './context/user.context';
 import NotFoundPage from './pages/404/not-found-page';
 import CreateEventPage from './pages/create-event/create-event';
+import DirectMessageListPage from './pages/direct-message/direct-message-list/direct-message-list';
 import EventPage from './pages/event-page/event-page';
 import DiscoverPage from './pages/home/discover/discover-page';
 import MyEventsPage from './pages/home/my-events/my-events';
 import UpcomingPage from './pages/home/upcoming/upcoming';
 import LoginPage from './pages/login/login';
+import { EventMessageList } from './pages/messages/event-messages/event-message-list';
 import AddFriendsPage from './pages/profile/add-friends/add-friends';
 import EditProfilePage from './pages/profile/edit-profile/edit-profile';
 import MyFriends from './pages/profile/myFriends-profile/myFriends-profile';
+import OtherUserProfilePage from './pages/profile/other-user-profile/other-user-profile';
 import UserPortfolio from './pages/profile/user-portfolio/user-portfolio';
 import UserProfilePage from './pages/profile/user-profile/user-profile';
 import RegisterPage from './pages/register/register';
@@ -115,6 +118,15 @@ export const App = () => {
           <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
           <PrivateRoute path={ROUTES.PROFILE.PORTFOLIO} component={UserPortfolio} />
           <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
+          {/*TODO in TASK-83: route user profiles to /user/${user.id} */}
+          <PrivateRoute path={ROUTES.OTHER_USER_PROFILE} component={OtherUserProfilePage} />
+          {/* TODO: Messages main page: Add swipeable routes for DM + Event Message page */}
+          <PrivateRoute path={ROUTES.DIRECT_MESSAGES.url} component={DirectMessageListPage} />
+          <PrivateRoute path={ROUTES.EVENT_MESSAGE_LIST.url} component={EventMessageList} />
+          <PrivateRoute>
+            <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
+            <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
+          </PrivateRoute>
           <PrivateRoute component={NotFoundPage} />
         </Switch>
 
