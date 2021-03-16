@@ -12,8 +12,11 @@ export enum WasteType {
 export const labelMap = {
   1: 'bottle',
   2: 'box',
-  3: 'food',
-  4: 'tin can',
+  3: 'computer keyboard',
+  4: 'food',
+  5: 'mobile phone',
+  6: 'plastic bag',
+  7: 'tin can',
 };
 
 /**
@@ -22,6 +25,9 @@ export const labelMap = {
 export const categoryMap = {
   bottle: WasteType.RECYCLABLE,
   box: WasteType.RECYCLABLE,
+  'computer keyboard': WasteType.EWASTE,
   food: WasteType.COMPOST,
+  'mobile phone': WasteType.EWASTE,
+  'plastic bag': WasteType.TRASH,
   'tin can': WasteType.RECYCLABLE,
 };

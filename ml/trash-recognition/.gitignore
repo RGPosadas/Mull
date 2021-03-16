@@ -20,6 +20,7 @@ images/**/*.xml
 # External scripts (see https://github.com/tensorflow/models/tree/master/research/object_detection)
 exporter_main_v2.py
 model_main_tf2.py
+model_main_tf2_cpu.py
 
 # Models
 converted-models/*

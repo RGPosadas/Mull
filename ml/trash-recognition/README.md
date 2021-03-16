@@ -11,7 +11,8 @@
     - [Convert Model to TFJS Graph Model](#convert-model-to-tfjs-graph-model)
   - [External Links](#external-links)
   - [Troubleshooting](#troubleshooting)
-    - [Memory Issues during Training](#memory-issues-during-training)
+    - [GPU Memory Issues during Training](#gpu-memory-issues-during-training)
+    - [Not Enough GPU Memory for Training + Validation](#not-enough-gpu-memory-for-training--validation)
 
 This README will walk you through how to train a model for the Mull project. The structure and instructions are based on the [Tensorflow Object Detection API Tutorial](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/index.html).
 
@@ -115,7 +116,7 @@ Also, we have [a OneDrive folder](https://liveconcordia-my.sharepoint.com/:f:/g/
 
 ## Troubleshooting
 
-### Memory Issues during Training
+### GPU Memory Issues during Training
 
 When training a model on a GPU, you need a lot of memory for things to go smoothly. If your GPU doesn't have enough memory, Tensorflow may crash. To fix this, try allowing memory growth by adding the following snippet to the top of the `main` method in `model_main_tf2.py`.
 
@@ -125,3 +126,26 @@ When training a model on a GPU, you need a lot of memory for things to go smooth
   for gpu in gpus:
       tf.config.experimental.set_memory_growth(gpu, True)
 ```
+
+### Not Enough GPU Memory for Training + Validation
+
+When training, it is ideal to also get real-time validation to know how well the model is doing on new data. However, running validation also takes up a lot of GPU memory and can slow down training. A fix for this is to run the validation on CPU, thus avoiding having the two processes competing for resources.
+
+Steps:
+
+1. Create a new copy of `model_main_tf2.py`, called `model_main_tf2_cpu.py`
+2. Add the following code at the beginning on the main method in the new file. This will disable the GPU when running that file.
+
+```python
+try:
+      # Disable all GPUS
+      tf.config.set_visible_devices([], 'GPU')
+      visible_devices = tf.config.get_visible_devices()
+      for device in visible_devices:
+          assert device.device_type != 'GPU'
+  except:
+      # Invalid device or cannot modify virtual devices once initialized.
+      pass
+```
+
+3. Run validation on that file. Now training can use all of the GPU resources without having the validation interfere. It's fine if the validation runs on the CPU, since it doesn't need to be fast.
