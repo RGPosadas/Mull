@@ -3,7 +3,8 @@
   padding: 1rem;
 }
 .identified-waste-modal-close {
-  text-align: right;
+  align-self: flex-end;
+  width: fit-content;
 }
 
 .identified-waste-modal-title {
