@@ -24,6 +24,7 @@ import AnnouncementsPage from './pages/messages/announcements/announcements';
 import ChatPagesHeader from './pages/messages/chat-pages-header';
 import EventMessageList from './pages/messages/event-messages/event-message-list';
 import GroupChatPage from './pages/messages/group-chat/group-chat';
+import AddFriendsPage from './pages/profile/add-friends/add-friends';
 import EditProfilePage from './pages/profile/edit-profile/edit-profile';
 import OtherUserProfilePage from './pages/profile/other-user-profile/other-user-profile';
 import UserProfilePage from './pages/profile/user-profile/user-profile';
@@ -132,7 +133,7 @@ export const App = () => {
           <PrivateRoute path={ROUTES.SETTINGS} component={SettingsPage} />
           {/*TODO in TASK-83: route user profiles to /user/${user.id} */}
           <PrivateRoute path={ROUTES.OTHER_USER_PROFILE} component={OtherUserProfilePage} />
-
+          <PrivateRoute path={ROUTES.PROFILE.ADDFRIENDS} component={AddFriendsPage} />
           <PrivateRoute component={NotFoundPage} />
         </Switch>
 
