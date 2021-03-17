@@ -28,7 +28,7 @@ export const EventMessageList = () => {
     ));
 
   return (
-    <div className="page-container">
+    <div className="event-message-list">
       <CustomTextInput
         title={null}
         fieldName="searchField"
@@ -38,7 +38,7 @@ export const EventMessageList = () => {
         onChange={(e) => setSearchString(e.target.value)}
         placeholder="Search"
       />
-      <div>{eventBullets}</div>
+      <div className="event-bullets">{eventBullets}</div>
     </div>
   );
 };

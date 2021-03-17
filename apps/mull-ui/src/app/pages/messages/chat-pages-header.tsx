@@ -1,6 +1,6 @@
 import React from 'react';
 import { ROUTES } from '../../../constants';
-import { ChatHeader, SubNavBar } from '../../components';
+import { SubNavBar } from '../../components';
 
 export interface MessagePageProps {
   children: React.ReactNode;
@@ -13,9 +13,8 @@ export interface MessagePageProps {
 export const ChatPagesHeaders = ({ children }: MessagePageProps) => {
   return (
     <div>
-      <ChatHeader eventTitle="Clean up Rogers Park" />
       <SubNavBar
-        routes={[ROUTES.GROUPCHAT, ROUTES.ANNOUNCEMENTS]}
+        routes={[ROUTES.DIRECT_MESSAGES, ROUTES.EVENT_MESSAGE_LIST]}
         className="with-header top-nav-bar-shadow"
       />
       {children}

@@ -1,14 +1,9 @@
 @import '../../../variables.scss';
 
 .direct-messages-container {
-  .page-container {
-    padding: 5rem 2rem;
-  }
+  margin-top: 2rem;
   .search-results {
-    padding-top: 0.5rem;
+    padding-top: 2rem;
     text-align: center;
-  }
-  .top-nav-bar-shadow {
-    margin-top: 0.35rem;
   }
 }

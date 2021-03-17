@@ -29,7 +29,7 @@ describe('EventMessageList', () => {
 
   it('should render successfully', () => {
     const history = createMemoryHistory();
-    history.push(ROUTES.EVENT_MESSAGE_LIST);
+    history.push(ROUTES.EVENT_MESSAGE_LIST.url);
 
     const { baseElement } = render(renderHelper(history, null));
     expect(baseElement).toBeTruthy();
@@ -120,7 +120,7 @@ describe('EventMessageList', () => {
       },
     ];
     const history = createMemoryHistory();
-    history.push(ROUTES.EVENT_MESSAGE_LIST);
+    history.push(ROUTES.EVENT_MESSAGE_LIST.url);
 
     await act(async () => {
       const tree = renderer.create(renderHelper(history, mocks));
