@@ -1,49 +1,54 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dialog } from '@material-ui/core';
-import React, { useState } from 'react';
+import { DetectionResult, wasteClassMap } from '@mull/types';
+import React from 'react';
 import { WasteTypeSvgMap } from '../../../constants';
 import './identified-waste-page.scss';
 
 export interface IdentifiedWasteModalProps {
-  wasteIcon?: string;
-  wasteTitle?: string;
-  wastePicture?: string;
-  wasteInfo?: string;
+  detectionResult: DetectionResult;
+  imageSrc: string;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const IdentifiedWasteModal = ({
-  wasteIcon,
-  wasteTitle,
-  wastePicture,
-  wasteInfo,
+  detectionResult,
+  imageSrc,
+  open,
+  setOpen,
 }: IdentifiedWasteModalProps) => {
-  wasteIcon = WasteTypeSvgMap[1];
-  wasteTitle = 'This is recyclable!';
-  wastePicture = 'http://pm1.narvii.com/5951/2922186bdf76edeb36250994eb99f1c32f31aea9_00.jpg';
-  wasteInfo = 'Needs to be cleaned before recycling. Otherwise it goes to trashbin.';
+  const mapEntry = wasteClassMap[detectionResult?.class];
 
-  const [open, setOpen] = useState(false);
-
+  // Despite the modal actually running the below code and rendering a full modal during tests, the coverage metric doesn't pick it up. Therefore ignoring for now
+  // istanbul ignore next
   return (
-    <div className="identified-waste-container">
-      <div onClick={() => setOpen(true)} data-testid="open-modal">
-        <button>CLICK HERE</button>
+    <Dialog
+      open={detectionResult && imageSrc ? open : false}
+      onClose={() => setOpen(false)}
+      classes={{
+        paperWidthSm: 'identified-waste-container',
+      }}
+      maxWidth="sm"
+    >
+      <button
+        className="identified-waste-modal-close"
+        onClick={() => setOpen(false)}
+        data-testid="identified-waste-modal-close"
+      >
+        {<FontAwesomeIcon icon={faTimes} size="2x" color="grey" />}
+      </button>
+
+      <div className="identified-waste-modal-title">
+        <img src={WasteTypeSvgMap[mapEntry?.category]} alt="waste-icon" />
+        <h1>{detectionResult?.class}</h1>
       </div>
-      <Dialog open={open} onClose={() => setOpen(false)} data-testid="close-modal">
-        <div className="close-button" onClick={() => setOpen(false)}>
-          <button>{<FontAwesomeIcon icon={faTimes} size="2x" color="grey" />}</button>
-        </div>
-        <div className="waste-title">
-          <img src={wasteIcon} alt="waste-icon" />
-          <h1>{wasteTitle}</h1>
-        </div>
-        <div className="waste-picture-container">
-          <img src={wastePicture} className="waste-picture" alt="selected-waste" />
-        </div>
-        <div className="waste-info"> {wasteInfo}</div>
-      </Dialog>
-    </div>
+
+      <img src={imageSrc} className="identified-waste-modal-image" alt="selected-waste" />
+
+      <div className="identified-waste-modal-info">{mapEntry?.info}</div>
+    </Dialog>
   );
 };
 export default IdentifiedWasteModal;

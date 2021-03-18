@@ -2,6 +2,7 @@ import { DetectionResult } from '@mull/types';
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { MULL_MODEL_URL } from '../../../constants';
+import { dummyDetectionResults } from '../../../mockdata';
 import { canvasToImageCoords, coordsInBox, drawDetectionIcons } from '../../../utilities';
 import { useToast } from '../../hooks/useToast';
 import { TensorflowJsModel } from '../../services/tfjs.model';
@@ -14,12 +15,20 @@ export interface WasteRecognitionPageProps {}
 export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
   const modelRef = useRef<TensorflowJsModel>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  // This hidden canvas is used to render specific objects when the user clicks on an icon
+  const hiddenCanvas = useRef<HTMLCanvasElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream>(null);
   const resultRef = useRef<DetectionResult[]>([]);
   const { notifyToast } = useToast();
 
   const [modelLoading, setModelLoading] = useState<boolean>(true);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalDetectionResult, setModalDetectionResult] = useState<DetectionResult>(
+    dummyDetectionResults[0]
+  );
+  const [modalImageURL, setModalImageURL] = useState<string>('no-image');
 
   useEffect(() => {
     setup();
@@ -34,7 +43,9 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
    * Set up model, camera, listeners and other resources for the waste recognition page
    */
   const setup = async () => {
-    canvasRef.current.addEventListener('click', onCanvasClick);
+    if (canvasRef.current) {
+      canvasRef.current.addEventListener('click', onCanvasClick);
+    }
 
     modelRef.current = TensorflowJsModel.getInstance();
 
@@ -99,7 +110,9 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
    * Shutdown and dispose of page resources, such as the camera, model and listeners
    */
   const shutdown = () => {
-    canvasRef.current.removeEventListener('click', onCanvasClick);
+    if (canvasRef.current) {
+      canvasRef.current.removeEventListener('click', onCanvasClick);
+    }
     modelRef.current.dispose();
     if (streamRef.current && streamRef.current.getTracks().length > 0) {
       streamRef.current.getTracks()[0].stop();
@@ -145,16 +158,38 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
       // Since results are ordered by confidence, we should take the first result to be the one the user wanted to click
       const clickedObject = clickedObjects[0];
 
-      // TODO, show modal with first result in US-5.2
-      console.log(`Clicked on "${clickedObject.class}"`);
-    } else {
-      console.log('Clicked on nothing');
+      setModalDetectionResult(clickedObject);
+      setModalImageURL(getImageURL(clickedObject));
+      setModalOpen(true);
     }
+  };
+
+  const getImageURL = (detectionResult: DetectionResult) => {
+    const box = detectionResult.bndBox;
+    const canvas = hiddenCanvas.current;
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = videoRef.current.width;
+    canvas.height = videoRef.current.height;
+    ctx.drawImage(videoRef.current, 0, 0);
+
+    const imageData = ctx.getImageData(box.x, box.y, box.width, box.height);
+
+    canvas.width = imageData.width;
+    canvas.height = imageData.height;
+    ctx.putImageData(imageData, 0, 0);
+
+    return canvas.toDataURL();
   };
 
   return (
     <div className="page-container">
-      <IdentifiedWasteModal />
+      <IdentifiedWasteModal
+        imageSrc={modalImageURL}
+        detectionResult={modalDetectionResult}
+        open={modalOpen}
+        setOpen={setModalOpen}
+      />
       {modelLoading ? (
         <div className="waste-recognition-page-overlay-text">Warming up the Detection Model</div>
       ) : null}
@@ -164,6 +199,7 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
         data-testid="waste-recognition-page-video"
       />
       <canvas ref={canvasRef} className="waste-recognition-page-overlap" />
+      <canvas ref={hiddenCanvas} hidden={true} />
     </div>
   );
 }

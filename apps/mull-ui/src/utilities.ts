@@ -1,6 +1,12 @@
-import { BoundingBox, Coordinates, DetectionResult, ISerializedEvent, Size } from '@mull/types';
+import {
+  BoundingBox,
+  Coordinates,
+  DetectionResult,
+  ISerializedEvent,
+  Size,
+  wasteClassMap,
+} from '@mull/types';
 import emojiRegexRGI from 'emoji-regex/es2015/RGI_Emoji.js';
-import { categoryMap } from './app/services/maps';
 import { WasteTypeSvgMap } from './constants';
 import { environment } from './environments/environment';
 import { User } from './generated/graphql';
@@ -59,7 +65,7 @@ export const drawDetectionIcons = (
 
   results.forEach((result) => {
     const box = result.bndBox;
-    const category = categoryMap[result.class];
+    const category = wasteClassMap[result.class].category;
     const dx = box.x - svgSize / 2 + box.width / 2;
     const dy = box.y - svgSize / 2 + box.height / 2;
 

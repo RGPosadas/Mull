@@ -45,7 +45,7 @@ exports[`location autocomplete textbox should match snapshot 1`] = `
           value="845 rue Sherbrooke"
         />
         <div
-          className="MuiAutocomplete-endAdornment"
+          className="MuiAutocomplete-endAdornment location-textbox-end-adornment"
         >
           <button
             aria-label="Clear"

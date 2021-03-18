@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import React from 'react';
-import { dummyProfilePictures } from '../../../constants';
+import { dummyProfilePictures } from '../../../mockdata';
 import EventMembers from './event-members';
 
 describe('EventMembers', () => {

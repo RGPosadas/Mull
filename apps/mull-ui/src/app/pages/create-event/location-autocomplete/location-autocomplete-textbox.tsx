@@ -73,6 +73,9 @@ export default function LocationAutocompleteTextbox({
         id="location-input-field"
         data-testid="location-autocomplete-textbox"
         className="location-autocomplete-textbox"
+        classes={{
+          endAdornment: 'location-textbox-end-adornment',
+        }}
         inputValue={input}
         defaultValue={input}
         open={open}

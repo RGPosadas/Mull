@@ -1,7 +1,6 @@
-import { BoundingBox, DetectionResult } from '@mull/types';
+import { BoundingBox, DetectionResult, wasteClasses } from '@mull/types';
 import * as tf from '@tensorflow/tfjs';
 import { GraphModel, Tensor3D } from '@tensorflow/tfjs';
-import { labelMap } from './maps';
 export interface WasteRecognitionModel {
   init(modelUrl: string): Promise<void>;
   detect(
@@ -102,7 +101,7 @@ export class TensorflowJsModel implements WasteRecognitionModel {
         width: (xmax - xmin) * imageWidth,
         height: (ymax - ymin) * imageHeight,
       };
-      const clazz = labelMap[classes[i]];
+      const clazz = wasteClasses[classes[i] - 1];
       detectionResults.push({ bndBox, class: clazz, confidence: scores[i] });
     }
 

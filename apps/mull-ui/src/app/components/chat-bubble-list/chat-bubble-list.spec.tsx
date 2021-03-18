@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import React from 'react';
-import { mockPosts } from '../../../constants';
+import { mockPosts } from '../../../mockdata';
 import { UserProvider } from '../../context/user.context';
 import ChatBubbleList from './chat-bubble-list';
 
