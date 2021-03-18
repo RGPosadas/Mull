@@ -43,7 +43,9 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
    * Set up model, camera, listeners and other resources for the waste recognition page
    */
   const setup = async () => {
-    canvasRef.current.addEventListener('click', onCanvasClick);
+    if (canvasRef.current) {
+      canvasRef.current.addEventListener('click', onCanvasClick);
+    }
 
     modelRef.current = TensorflowJsModel.getInstance();
 
@@ -108,7 +110,9 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
    * Shutdown and dispose of page resources, such as the camera, model and listeners
    */
   const shutdown = () => {
-    canvasRef.current.removeEventListener('click', onCanvasClick);
+    if (canvasRef.current) {
+      canvasRef.current.removeEventListener('click', onCanvasClick);
+    }
     modelRef.current.dispose();
     if (streamRef.current && streamRef.current.getTracks().length > 0) {
       streamRef.current.getTracks()[0].stop();
