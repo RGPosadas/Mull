@@ -1,9 +1,9 @@
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { IUser } from '@mull/types';
 import React, { useState } from 'react';
-import { CustomTextInput } from '../../components';
 import { useFriendsQuery } from '../../../generated/graphql';
 import { avatarUrl } from '../../../utilities';
+import { CustomTextInput } from '../../components';
 import ContactRow from '../../components/contact-row/contact-row';
 import './direct-message.scss';
 
@@ -29,21 +29,20 @@ const DirectMessagePage = () => {
 
   return (
     <div className="direct-messages-container">
-      <div className="page-container">
-        <CustomTextInput
-          title=""
-          fieldName="searchValue"
-          value={searchValue}
-          onChange={(event) => setSearchValue(event.target.value)}
-          hasErrors={null}
-          errorMessage={null}
-          placeholder={'Search'}
-        />
-        {contactRows.length > 0 ? (
-          <div>{contactRows}</div>
-        ) : (
-          <p className="search-results">No results found</p>
-        )}
+      <CustomTextInput
+        title=""
+        fieldName="searchValue"
+        value={searchValue}
+        onChange={(event) => setSearchValue(event.target.value)}
+        hasErrors={null}
+        errorMessage={null}
+        placeholder={'Search'}
+      />
+      {contactRows.length > 0 ? (
+        <div>{contactRows}</div>
+      ) : (
+        <p className="search-results">No results found</p>
+      )}
     </div>
   );
 };
