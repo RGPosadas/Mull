@@ -18,7 +18,7 @@ export class UserService {
   }
 
   getUser(id: number): Promise<User> {
-    return this.userRepository.findOne(id, { relations: ['avatar'] });
+    return this.userRepository.findOne(id, { relations: ['avatar', 'friends'] });
   }
 
   findByEmail(email: string): Promise<User[]> {
@@ -59,6 +59,14 @@ export class UserService {
 
   async incrementTokenVersion(id: number): Promise<boolean> {
     await this.userRepository.increment({ id }, 'tokenVersion', 1);
+    return true;
+  }
+
+  async addFriend(currentUserId: number, userIdToAdd: number): Promise<boolean> {
+    const currentUser = await this.getUser(currentUserId);
+    const userToAdd = await this.getUser(userIdToAdd);
+    currentUser.friends.push(userToAdd);
+    await this.userRepository.save(currentUser);
     return true;
   }
 }
