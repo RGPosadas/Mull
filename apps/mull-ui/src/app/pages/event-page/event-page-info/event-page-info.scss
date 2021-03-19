@@ -9,7 +9,7 @@
   display: flex;
   padding: 1rem 1rem;
   white-space: pre-line;
-  border-bottom: 0.5px solid rgba($color: $primary-color, $alpha: 0.5);
+  border-bottom: 0.0313rem solid rgba($color: $primary-color, $alpha: 0.5);
 }
 
 .event-page-button {
@@ -17,10 +17,32 @@
   margin: 0.9rem 0;
 }
 
-.event-page-joined-button {
-  border: 1.5px solid $primary-color;
+.cancel-modal-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .cancel-event-title {
+    align-self: center;
+  }
+  .close-button {
+    position: absolute;
+    bottom: 22.5rem;
+    left: 13.75rem;
+    cursor: pointer;
+  }
+}
+
+.event-page-joined-button,
+.event-page-cancel-button {
+  border: 0.0938rem solid $primary-color;
   background: white;
   color: black;
+}
+
+.cancel-row {
+  display: flex;
+  flex-direction: row;
 }
 
 .row-text {
