@@ -6,7 +6,7 @@ import { CustomTextInput } from '../../../components';
 import { EventBullet } from '../../../components/event-bullet/event-bullet';
 import './event-message-list.scss';
 
-export const EventMessageList = () => {
+export const EventMessageList = ({ history }) => {
   const { data: participatingData, loading: participatingLoading } = useParticipantEventsQuery();
   const { data: ownedData, loading: ownedLoading } = useOwnedEventsQuery();
   const [searchString, setSearchString] = useState<string>('');
@@ -25,6 +25,7 @@ export const EventMessageList = () => {
         eventPicture={getMediaUrl(event.image.id)}
         eventDate={new Date(event.startDate)}
         key={'event-bullet-' + index}
+        onClick={() => history.push(`/event/messages/${event.id}/announcements`)}
       />
     ));
 

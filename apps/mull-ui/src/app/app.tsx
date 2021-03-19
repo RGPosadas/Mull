@@ -21,6 +21,7 @@ import MyEventsPage from './pages/home/my-events/my-events';
 import UpcomingPage from './pages/home/upcoming/upcoming';
 import LoginPage from './pages/login/login';
 import ChatPagesHeader from './pages/messages/chat-pages-header';
+import EventMessagesMenu from './pages/messages/event-messages-menu/event-messages-menu';
 import EventMessageList from './pages/messages/event-messages/event-message-list';
 import AddFriendsPage from './pages/profile/add-friends/add-friends';
 import EditProfilePage from './pages/profile/edit-profile/edit-profile';
@@ -117,10 +118,18 @@ export const App = () => {
                 <PrivateRoute path={ROUTES.DIRECT_MESSAGES.url} component={DirectMessagePage} />
                 <PrivateRoute path={ROUTES.EVENT_MESSAGE_LIST.url} component={EventMessageList} />
                 <PrivateRoute exact path={ROUTES.MESSAGES}>
-                  <Redirect to={ROUTES.ANNOUNCEMENTS.url} />
+                  <Redirect to={ROUTES.DIRECT_MESSAGES.url} />
                 </PrivateRoute>
               </div>
             </ChatPagesHeader>
+          </PrivateRoute>
+          <PrivateRoute path={ROUTES.EVENT_MESSAGES}>
+            <EventMessagesMenu>
+              <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
+                <PrivateRoute path={ROUTES.GROUPCHAT} component={GroupChatPage} />
+                <PrivateRoute path={ROUTES.ANNOUNCEMENTS} component={AnnouncementsPage} />
+              </div>
+            </EventMessagesMenu>
           </PrivateRoute>
           <PrivateRoute path={ROUTES.CAMERA} component={WasteRecognitionPage} />
           {/* TODO: Messages main page: Add swipeable routes for DM + Event Message page */}

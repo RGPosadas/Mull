@@ -1,7 +1,7 @@
 import { IChatForm, ISerializedPost } from '@mull/types';
 import { useFormik } from 'formik';
 import React, { ChangeEvent, useContext, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { ROUTES } from '../../../../../src/constants';
@@ -27,12 +27,11 @@ interface subscriptionData {
 }
 
 export interface EventChatProps {
-  eventId: number;
   channelName: string;
   restrictChatInput: boolean;
 }
 
-export const EventChat = ({ eventId, channelName, restrictChatInput }: EventChatProps) => {
+export const EventChat = ({ channelName, restrictChatInput }: EventChatProps) => {
   const { updateToast } = useToast();
   const [createPostMutation] = useCreatePostMutation();
 
@@ -41,9 +40,11 @@ export const EventChat = ({ eventId, channelName, restrictChatInput }: EventChat
   const [file, setFile] = useState<File>(null);
 
   const { userId } = useContext(UserContext);
+  const { id } = useParams<{ id: string }>();
+  const eventId = parseInt(id);
   const { data, loading, error, subscribeToMore } = useChannelByEventIdQuery({
     variables: {
-      eventId, //TODO: Replace with dynamic event ID
+      eventId,
       channelName,
     },
   });
