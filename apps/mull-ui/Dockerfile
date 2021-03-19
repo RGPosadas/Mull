@@ -1,10 +1,10 @@
-FROM node:12 as build
+FROM node:14 as build
 
 WORKDIR /mull-ui
 
 COPY ./ ./
 
-RUN npm i
+RUN npm i --unsafe-perm
 RUN npm run build-ui
 
 FROM nginx:stable-alpine
