@@ -10,9 +10,9 @@ import {
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Dialog } from '@material-ui/core';
 import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
-import Modal from 'react-modal';
 import { useJoinEventMutation, useLeaveEventMutation } from '../../../../generated/graphql';
 import { mediaUrl } from '../../../../utilities';
 import { ExpandableText, MullButton } from '../../../components';
@@ -55,18 +55,6 @@ export const EventPageInfo = ({
     } else {
       joinEvent({ variables: { eventId: event.id } });
     }
-  };
-
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-    overlay: { zIndex: 10 },
   };
 
   return (
@@ -113,12 +101,13 @@ export const EventPageInfo = ({
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
       </div>
       {
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={() => setIsOpen(false)}
-          ariaHideApp={false}
-          style={customStyles}
-          portalClassName="modal"
+        <Dialog
+          open={modalIsOpen}
+          onClose={() => setIsOpen(false)}
+          classes={{
+            paperWidthSm: 'cancel-event-container',
+          }}
+          maxWidth="sm"
         >
           <div className="cancel-modal-container">
             <p className="cancel-event-title">Cancel event?</p>
@@ -147,7 +136,7 @@ export const EventPageInfo = ({
               No
             </MullButton>
           </div>
-        </Modal>
+        </Dialog>
       }
       {isEventOwner ? (
         /* TODO: Make cancel event functional*/

@@ -22,13 +22,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
   .cancel-event-title {
     align-self: center;
   }
   .close-button {
     position: absolute;
-    bottom: 22.5rem;
-    left: 13.75rem;
+    bottom: 21.75rem;
+    left: 12.15rem;
     cursor: pointer;
   }
 }
@@ -50,4 +51,9 @@
   padding: 0 1rem;
   height: fit-content;
   align-self: center;
+}
+
+.cancel-event-container {
+  border-radius: 1rem !important;
+  padding: 2.5rem;
 }
