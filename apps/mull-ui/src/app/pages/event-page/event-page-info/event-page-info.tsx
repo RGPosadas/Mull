@@ -47,6 +47,8 @@ export const EventPageInfo = ({
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const [joined, setJoined] = useState<boolean>(isJoined);
 
+  const currentDate = new Date();
+
   const handleJoinEventButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     e.stopPropagation();
     setJoined(!joined);
@@ -56,7 +58,6 @@ export const EventPageInfo = ({
       joinEvent({ variables: { eventId: event.id } });
     }
   };
-
   return (
     <div className={`event-page-info-container ${className}`} style={style}>
       <div className="info-row">
@@ -144,7 +145,9 @@ export const EventPageInfo = ({
           <FontAwesomeIcon icon={faTrash} className="event-page-icon color-grey" />
           <p className="row-text">Cancel Event</p>
         </div>
-      ) : (
+      ) : null}
+
+      {currentDate.getTime() > new Date(event.endDate).getTime() ? null : (
         <MullButton
           className={`event-page-button ${joined ? 'event-page-joined-button' : ''}`}
           onClick={isReview ? null : handleJoinEventButton}

@@ -26,6 +26,8 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
   // TODO: Implement distance calculator
   const distance = 15;
 
+  const currentDate = new Date();
+
   return (
     <div className="event-card-container button" onClick={onClick} style={style}>
       <img className="event-card-image" src={mediaUrl(event)} alt="Event" />
@@ -34,25 +36,29 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
         <div>{time.replace(/\s/g, '')}</div>
       </div>
       {/* TODO: Add/remove user to event on press */}
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          setJoined(!joined);
-          if (joined === false) {
-            joinEvent({ variables: { eventId: event.id } });
-          } else {
-            leaveEvent({ variables: { eventId: event.id } });
-          }
-        }}
-        className={`event-card-join ${joined ? 'joined' : 'not-joined'}`}
-        id={'event-card-join'}
-      >
-        {joined ? (
-          <FontAwesomeIcon icon={faCheck} />
-        ) : (
-          <img src="../../../assets/icons/join-icon.svg" className="join-icon" alt="Join" />
-        )}
-      </button>
+
+      {currentDate.getTime() > new Date(event.endDate).getTime() ? null : (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setJoined(!joined);
+            if (joined === false) {
+              joinEvent({ variables: { eventId: event.id } });
+            } else {
+              leaveEvent({ variables: { eventId: event.id } });
+            }
+          }}
+          className={`event-card-join ${joined ? 'joined' : 'not-joined'}`}
+          id={'event-card-join'}
+        >
+          {joined ? (
+            <FontAwesomeIcon icon={faCheck} />
+          ) : (
+            <img src="../../../assets/icons/join-icon.svg" className="join-icon" alt="Join" />
+          )}
+        </button>
+      )}
+
       <div className="event-card-description" onClick={onClick}>
         <div className="event-card-text">
           <div className="event-card-title">{event.title}</div>

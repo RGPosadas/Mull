@@ -23,6 +23,7 @@ fragment EventCardContent on Event {
   title
   restriction
   startDate
+  endDate
   location {
     title
   }

@@ -506,7 +506,7 @@ export type EventPageContentFragment = (
 
 export type EventCardContentFragment = (
   { __typename?: 'Event' }
-  & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate'>
+  & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate' | 'endDate'>
   & { location?: Maybe<(
     { __typename?: 'Location' }
     & Pick<Location, 'title'>
@@ -722,6 +722,7 @@ export const EventCardContentFragmentDoc = gql`
   title
   restriction
   startDate
+  endDate
   location {
     title
   }
