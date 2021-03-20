@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   backendUrl: '',
-  backendWsUrl: '',
+  backendWsUrl: 'wss://www.mullapp.com',
 };

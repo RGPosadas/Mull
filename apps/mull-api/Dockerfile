@@ -1,10 +1,10 @@
-FROM node:12 as build
+FROM node:14 as build
 
 WORKDIR /usr/src/app
 
 COPY ./ ./
 
-RUN npm i
+RUN npm i --unsafe-perm
 RUN npm run build-api
 
 # create unprivileged user
