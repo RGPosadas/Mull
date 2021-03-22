@@ -119,12 +119,15 @@ export class UserResolver {
   }
 
   @Query(/* istanbul ignore next */ () => UserRelationship)
-  async getUserRelationship(@AuthenticatedUser() userA: number, @Args('userB') userB: number) {
-    const userAFriends = await this.userService.getFriends(userA);
-    const userBFriends = await this.userService.getFriends(userB);
+  async getUserRelationship(
+    @AuthenticatedUser() userIdA: number,
+    @Args('userIdB') userIdB: number
+  ) {
+    const userAFriends = await this.userService.getFriends(userIdA);
+    const userBFriends = await this.userService.getFriends(userIdB);
 
-    const AaddedB = !!userAFriends.find((friend) => userB === friend.id);
-    const BaddedA = !!userBFriends.find((friend) => userA === friend.id);
+    const AaddedB = !!userAFriends.find((friend) => userIdB === friend.id);
+    const BaddedA = !!userBFriends.find((friend) => userIdA === friend.id);
 
     if (AaddedB && BaddedA) {
       return UserRelationship.FRIENDS;
