@@ -1,4 +1,4 @@
-import { IUser, RegistrationMethod } from '@mull/types';
+import { IUser, RegistrationMethod, UserRelationship } from '@mull/types';
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import {
   Column,
@@ -14,6 +14,10 @@ import { DirectMessageChannel, Event, Media, Post, PostReaction } from './';
 
 registerEnumType(RegistrationMethod, {
   name: 'RegistrationMethod',
+});
+
+registerEnumType(UserRelationship, {
+  name: 'UserRelationship',
 });
 
 @Entity()

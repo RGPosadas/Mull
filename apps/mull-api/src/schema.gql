@@ -115,6 +115,7 @@ input MediaInput {
 }
 
 type Mutation {
+  addFriend(userIdToAdd: Float!): Boolean!
   createDirectMessageChannel(toUserId: Int!): DirectMessageChannel!
   createEvent(event: CreateEventInput!): Event!
   createLocation(location: LocationInput!): Location!
@@ -181,6 +182,7 @@ type Query {
   friends: [Friend!]!
   getChannelByEventId(channelName: String!, eventId: Int!): EventChannel!
   getDirectMessageChannel(toUserId: Int!): DirectMessageChannel
+  getUserRelationship(userIdB: Float!): UserRelationship!
   hostEvents: [Event!]!
   hostingCount: Int!
   isParticipant(eventId: Int!): Boolean!
@@ -247,4 +249,11 @@ type User {
   password: String
   registrationMethod: RegistrationMethod!
   timezone: String!
+}
+
+enum UserRelationship {
+  ADDED_ME
+  FRIENDS
+  NONE
+  PENDING_REQUEST
 }

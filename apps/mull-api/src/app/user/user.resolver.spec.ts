@@ -1,4 +1,4 @@
-import { RegistrationMethod } from '@mull/types';
+import { RegistrationMethod, UserRelationship } from '@mull/types';
 import { UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mockAllDirectMessageChannels } from '../channel/channel.mockdata';
@@ -9,7 +9,7 @@ import { mockAllMedias, mockFileJPEG, mockFilePNG } from '../media/media.mockdat
 import { MediaService } from '../media/media.service';
 import { mockAllPosts } from '../post/post.mockdata';
 import { PostService } from '../post/post.service';
-import { mockAllFriends } from './friend.mockdata';
+import { mockAllFriendsOfId1, mockAllFriendsOfId3 } from './friend.mockdata';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
 import {
   mockAllUsers,
@@ -30,11 +30,19 @@ const mockUserService = () => ({
       mockAllUsers.filter((u) => u.email === email && u.registrationMethod === registrationMethod)
     );
   }),
-  getFriends: jest.fn(() => mockAllFriends),
+  getFriends: jest.fn((id: number) =>
+    id === 1 ? mockAllFriendsOfId1 : id === 3 ? mockAllFriendsOfId3 : []
+  ),
   updateUser: jest.fn((userInput: UpdateUserInput) => {
     return mockExpectedUpdatedUser.find((user) => user.id === userInput.id);
   }),
   deleteUser: jest.fn((id: number) => mockAllUsers.find((user) => user.id === id)),
+  addFriend: jest.fn((currentUserId: number, userIdToAdd: number) => {
+    const userToAdd = mockAllUsers.find((user) => user.id === userIdToAdd);
+    const currentUser = mockAllUsers.find((user) => user.id === currentUserId);
+    currentUser.friends.push(userToAdd);
+    return true;
+  }),
 });
 
 const mockEventService = () => ({
@@ -119,7 +127,7 @@ describe('UserResolver', () => {
 
   it('should fetch all friends of mockUser 1', async () => {
     const returnedUserFriends = await resolver.friends(mockAllUsers[0].id);
-    expect(returnedUserFriends).toEqual(mockAllFriends);
+    expect(returnedUserFriends).toEqual(mockAllFriendsOfId1);
   });
 
   it('should update the user and upload a new avatar', async () => {
@@ -143,7 +151,7 @@ describe('UserResolver', () => {
   });
 
   it(`'should return the user's friend count`, async () => {
-    expect(await resolver.friendCount(1)).toEqual(2);
+    expect(await resolver.friendCount(1)).toEqual(3);
   });
 
   it(`'should return the user's hosting count`, async () => {
@@ -152,5 +160,38 @@ describe('UserResolver', () => {
 
   it(`'should return the user's portfolio count`, async () => {
     expect(await resolver.portfolioCount(3)).toEqual(2);
+  });
+
+  it(`should add a friend`, async () => {
+    expect(await resolver.addFriend(mockAllUsers[0].id, mockAllUsers[2].id)).toBeTruthy();
+  });
+
+  it('should return FRIENDS for UserRelationship', async () => {
+    const userRelationship = await resolver.getUserRelationship(
+      mockAllUsers[0].id,
+      mockAllUsers[2].id
+    );
+    expect(userRelationship).toEqual(UserRelationship.FRIENDS);
+  });
+
+  it('should return ADDED_ME for UserRelationship', async () => {
+    const userRelationship = await resolver.getUserRelationship(
+      mockAllUsers[1].id,
+      mockAllUsers[0].id
+    );
+    expect(userRelationship).toEqual(UserRelationship.ADDED_ME);
+  });
+
+  it('should return PENDING_REQUEST for UserRelationship', async () => {
+    const userRelationship = await resolver.getUserRelationship(
+      mockAllUsers[0].id,
+      mockAllUsers[1].id
+    );
+    expect(userRelationship).toEqual(UserRelationship.PENDING_REQUEST);
+  });
+
+  it('should return NONE for UserRelationship', async () => {
+    const userRelationship = await resolver.getUserRelationship(1000, 1001);
+    expect(userRelationship).toEqual(UserRelationship.NONE);
   });
 });

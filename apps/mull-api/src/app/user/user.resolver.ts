@@ -1,3 +1,4 @@
+import { UserRelationship } from '@mull/types';
 import { UseGuards } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { GraphQLUpload } from 'apollo-server-express';
@@ -107,5 +108,35 @@ export class UserResolver {
   @Query(/* istanbul ignore next */ () => Int)
   async portfolioCount(@AuthenticatedUser() id: number) {
     return (await this.eventService.getUserEventsPortfolio(id)).length;
+  }
+
+  @Mutation(/* istanbul ignore next */ () => Boolean)
+  async addFriend(
+    @AuthenticatedUser() currentUserId: number,
+    @Args('userIdToAdd') userIdToAdd: number
+  ) {
+    return this.userService.addFriend(currentUserId, userIdToAdd);
+  }
+
+  @Query(/* istanbul ignore next */ () => UserRelationship)
+  async getUserRelationship(
+    @AuthenticatedUser() userIdA: number,
+    @Args('userIdB') userIdB: number
+  ) {
+    const userAFriends = await this.userService.getFriends(userIdA);
+    const userBFriends = await this.userService.getFriends(userIdB);
+
+    const AaddedB = !!userAFriends.find((friend) => userIdB === friend.id);
+    const BaddedA = !!userBFriends.find((friend) => userIdA === friend.id);
+
+    if (AaddedB && BaddedA) {
+      return UserRelationship.FRIENDS;
+    } else if (AaddedB) {
+      return UserRelationship.PENDING_REQUEST;
+    } else if (BaddedA) {
+      return UserRelationship.ADDED_ME;
+    } else {
+      return UserRelationship.NONE;
+    }
   }
 }

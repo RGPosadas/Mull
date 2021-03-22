@@ -1,3 +1,4 @@
+import { UnprocessableEntityException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { cloneDeep } from 'lodash';
@@ -109,5 +110,15 @@ describe('UserService', () => {
     });
     await service.incrementTokenVersion(1);
     expect(mockAllUsers[0].tokenVersion).toBe(1);
+  });
+
+  it('should add a friend', async () => {
+    expect(await service.addFriend(mockAllUsers[0].id, mockAllUsers[2].id)).toBeTruthy();
+  });
+
+  it('should return UnprocessableEntityException when adding yourself as friend', async () => {
+    expect(
+      async () => await service.addFriend(mockAllUsers[0].id, mockAllUsers[0].id)
+    ).rejects.toThrow(UnprocessableEntityException);
   });
 });

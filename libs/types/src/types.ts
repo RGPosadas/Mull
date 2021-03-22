@@ -26,6 +26,13 @@ export enum RegistrationMethod {
   TWITTER = 'TWITTER',
 }
 
+export enum UserRelationship {
+  FRIENDS,
+  ADDED_ME,
+  PENDING_REQUEST,
+  NONE,
+}
+
 export const EventRestrictionMap = ['Everyone', 'Friends', 'Invite Only'];
 
 export interface IEvent {

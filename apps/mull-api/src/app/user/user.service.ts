@@ -1,5 +1,5 @@
 import { RegistrationMethod } from '@mull/types';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, UnprocessableEntityException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { genSalt, hash } from 'bcrypt';
 import { Repository } from 'typeorm';
@@ -18,7 +18,7 @@ export class UserService {
   }
 
   getUser(id: number): Promise<User> {
-    return this.userRepository.findOne(id, { relations: ['avatar'] });
+    return this.userRepository.findOne(id, { relations: ['avatar', 'friends'] });
   }
 
   findByEmail(email: string): Promise<User[]> {
@@ -59,6 +59,18 @@ export class UserService {
 
   async incrementTokenVersion(id: number): Promise<boolean> {
     await this.userRepository.increment({ id }, 'tokenVersion', 1);
+    return true;
+  }
+
+  async addFriend(currentUserId: number, userIdToAdd: number): Promise<boolean> {
+    if (currentUserId === userIdToAdd) {
+      throw new UnprocessableEntityException('Cannot add oneself as friend.');
+    }
+
+    const currentUser = await this.getUser(currentUserId);
+    const userToAdd = await this.getUser(userIdToAdd);
+    currentUser.friends.push(userToAdd);
+    await this.userRepository.save(currentUser);
     return true;
   }
 }
