@@ -4,22 +4,27 @@ import {
   faLock,
   faMap,
   faMapMarkerAlt,
+  faTimes,
+  faTrash,
   faUserFriends,
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Dialog } from '@material-ui/core';
 import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
 import { useJoinEventMutation, useLeaveEventMutation } from '../../../../generated/graphql';
+import { mediaUrl } from '../../../../utilities';
 import { ExpandableText, MullButton } from '../../../components';
 import './event-page-info.scss';
-
 export interface EventPageInfoProps {
   event: Partial<ISerializedEvent>;
   className?: string;
+  eventImageURL?: string;
   style?: React.CSSProperties;
   isReview: boolean;
   isJoined: boolean;
+  isEventOwner?: boolean;
   buttonType?: 'submit' | 'button' | 'reset';
   handleMullButton?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
@@ -33,11 +38,13 @@ export const EventPageInfo = ({
   style = {},
   isReview,
   isJoined,
+  isEventOwner,
   buttonType,
+  eventImageURL,
 }: EventPageInfoProps) => {
   const [joinEvent] = useJoinEventMutation();
   const [leaveEvent] = useLeaveEventMutation();
-
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const [joined, setJoined] = useState<boolean>(isJoined);
 
   const handleJoinEventButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
@@ -93,13 +100,59 @@ export const EventPageInfo = ({
         <p className="row-text">{event.participants?.map((p) => p.name).join(', ')}</p>
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
       </div>
-      <MullButton
-        className={`event-page-button ${joined ? 'event-page-joined-button' : ''}`}
-        onClick={isReview ? null : handleJoinEventButton}
-        type={buttonType}
-      >
-        {joined ? 'Leave' : isReview ? 'Create' : 'Join'}
-      </MullButton>
+      {
+        <Dialog
+          open={modalIsOpen}
+          onClose={() => setIsOpen(false)}
+          classes={{
+            paperWidthSm: 'cancel-event-container',
+          }}
+          maxWidth="sm"
+        >
+          <div className="cancel-modal-container">
+            <p className="cancel-event-title">Cancel event?</p>
+            <FontAwesomeIcon
+              onClick={() => setIsOpen(false)}
+              icon={faTimes}
+              className="event-page-icon color-grey close-button"
+            />
+            <br />
+            <img
+              className="event-image"
+              data-testid="event-page-image"
+              src={eventImageURL ? eventImageURL : mediaUrl(event)}
+              alt="Event Page"
+            />
+            <br />
+            {/*TODO: Cancel event functionality */}
+            <MullButton className="event-page-button event-page-cancel-button" type={buttonType}>
+              Yes
+            </MullButton>
+            <MullButton
+              onClick={() => setIsOpen(false)}
+              className="event-page-button event-page-cancel-button"
+              type={buttonType}
+            >
+              No
+            </MullButton>
+          </div>
+        </Dialog>
+      }
+      {isEventOwner ? (
+        /* TODO: Make cancel event functional*/
+        <div className="info-row" onClick={() => setIsOpen(true)}>
+          <FontAwesomeIcon icon={faTrash} className="event-page-icon color-grey" />
+          <p className="row-text">Cancel Event</p>
+        </div>
+      ) : (
+        <MullButton
+          className={`event-page-button ${joined ? 'event-page-joined-button' : ''}`}
+          onClick={isReview ? null : handleJoinEventButton}
+          type={buttonType}
+        >
+          {joined ? 'Leave' : isReview ? 'Create' : 'Join'}
+        </MullButton>
+      )}
     </div>
   );
 };
