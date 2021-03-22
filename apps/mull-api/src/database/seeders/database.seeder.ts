@@ -21,6 +21,7 @@ const createFriends = async (connection: Connection) => {
       .into('friends')
       .values([
         { userId_1: a[i].id, userId_2: a[i + 1].id },
+        { userId_1: a[i + 1].id, userId_2: a[i].id },
         { userId_1: a[i].id, userId_2: a[i + 2].id },
         { userId_1: a[i].id, userId_2: a[i + 3].id },
       ]);
