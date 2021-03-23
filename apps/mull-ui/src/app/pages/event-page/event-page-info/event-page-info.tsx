@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
 import { useJoinEventMutation, useLeaveEventMutation } from '../../../../generated/graphql';
-import { mediaUrl } from '../../../../utilities';
+import { getMediaUrl } from '../../../../utilities';
 import { ExpandableText, MullButton, MullModal } from '../../../components';
 import './event-page-info.scss';
 export interface EventPageInfoProps {
@@ -110,7 +110,7 @@ export const EventPageInfo = ({
           <img
             className="cancel-modal-event-image"
             data-testid="event-page-image"
-            src={eventImageURL ? eventImageURL : mediaUrl(event)}
+            src={eventImageURL ? eventImageURL : getMediaUrl(event.id)}
             alt="Event Page"
           />
 

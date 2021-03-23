@@ -3,7 +3,7 @@ import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ISerializedEvent } from '@mull/types';
 import React, { useEffect } from 'react';
-import { formatDate, mediaUrl } from '../../../../utilities';
+import { formatDate, getMediaUrl } from '../../../../utilities';
 import { MullBackButton } from '../../../components';
 import './event-page-header.scss';
 
@@ -52,7 +52,7 @@ export const EventPageHeader = ({
       <img
         className="event-image"
         data-testid="event-page-image"
-        src={eventImageURL ? eventImageURL : mediaUrl(event)}
+        src={eventImageURL ? eventImageURL : getMediaUrl(event.id)}
         alt="Event Page"
         // Check header size after image has loaded
         onLoad={handleHeaderChange}
