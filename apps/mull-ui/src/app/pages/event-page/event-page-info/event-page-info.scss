@@ -18,18 +18,14 @@
 }
 
 .cancel-modal-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
+  border-radius: 1rem !important;
+  padding: 2.5rem;
   .cancel-event-title {
     align-self: center;
   }
   .close-button {
-    position: absolute;
-    bottom: 21.75rem;
-    left: 12.15rem;
+    align-self: flex-end;
+    width: fit-content;
     cursor: pointer;
   }
 }
@@ -52,8 +48,9 @@
   height: fit-content;
   align-self: center;
 }
-
-.cancel-event-container {
-  border-radius: 1rem !important;
-  padding: 2.5rem;
+.cancel-modal-event-image {
+  max-height: 10rem;
+  min-width: 10rem;
+  border-radius: 8px;
+  display: block;
 }
