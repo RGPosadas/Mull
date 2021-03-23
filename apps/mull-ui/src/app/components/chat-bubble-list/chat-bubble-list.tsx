@@ -1,8 +1,9 @@
 import { ISerializedPost } from '@mull/types';
 import React, { useContext, useEffect, useRef } from 'react';
-import { avatarUrl, formatChatBubbleDate } from '../../../utilities';
+import { avatarUrl, formatChatBubbleDate, getMediaUrl } from '../../../utilities';
 import ChatBubble from '../../components/chat-bubble/chat-bubble';
 import UserContext from '../../context/user.context';
+import './chat-bubble-list.scss';
 
 export interface ChatBubbleListProps {
   posts: Partial<ISerializedPost>[];
@@ -20,7 +21,7 @@ export const ChatBubbleList = ({ posts, subToMore }: ChatBubbleListProps) => {
   }, []);
 
   useEffect(() => {
-    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' }); // Scroll to bottom chat smoothly when new post added
+    setTimeout(() => messageEndRef.current?.scrollIntoView({ behavior: 'smooth' }), 100); // wait a little and Scroll to bottom chat smoothly when new post added
   }, [posts]);
 
   const chatBubbleList = posts.map((post) => {
@@ -31,7 +32,11 @@ export const ChatBubbleList = ({ posts, subToMore }: ChatBubbleListProps) => {
         chatDate={formatChatBubbleDate(new Date(post.createdTime))}
         userPicture={avatarUrl(post.user)}
       >
-        {post.message}
+        <>
+          {post.medias && <img src={getMediaUrl(post.medias.id)} className="img" alt="" />}
+          {post.medias && <br />}
+          {post.message !== '' && post.message}
+        </>
       </ChatBubble>
     );
   });
