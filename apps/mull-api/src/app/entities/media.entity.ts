@@ -1,6 +1,6 @@
 import { IMedia } from '@mull/types';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Post } from './post.entity';
 
 @Entity()
@@ -19,6 +19,7 @@ export class Media implements IMedia {
   @Field()
   mediaType: string;
 
-  @ManyToOne(() => Post, (post) => post.medias)
+  @OneToOne(() => Post, (post) => post.medias, { cascade: true })
+  @JoinColumn()
   post: Post;
 }

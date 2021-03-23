@@ -30,16 +30,17 @@ export class Post {
   parentPost?: Post;
 
   @Field()
-  @Column()
+  @Column({ nullable: true })
   message: string;
 
   @Field()
   @Column()
   createdTime: Date;
 
-  @Field(/* istanbul ignore next */ () => [Media], { nullable: true })
-  @OneToMany(() => Media, (media) => media.post)
-  medias?: Media[];
+  @Field(/* istanbul ignore next */ () => Media, { nullable: true })
+  @OneToOne(() => Media, (media) => media.post)
+  @JoinColumn()
+  medias?: Media;
 
   @Field(/* istanbul ignore next */ () => [PostReaction], { nullable: true })
   @OneToMany(/* istanbul ignore next */ () => PostReaction, (reaction) => reaction.post)
