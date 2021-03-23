@@ -104,6 +104,7 @@ export const mockPosts: ISerializedPost[] = [
     user: mockUser1,
     message: 'message 1 from user 1, current user id is 1',
     createdTime: '2020-10-31T22:09:00.000Z',
+    media: null,
   },
   {
     parentPost: null,
@@ -112,6 +113,7 @@ export const mockPosts: ISerializedPost[] = [
     user: mockUser2,
     message: 'message 2 from user 2',
     createdTime: '2020-10-31T22:09:00.000Z',
+    media: null,
   },
   {
     parentPost: null,
@@ -120,6 +122,31 @@ export const mockPosts: ISerializedPost[] = [
     user: mockUser2,
     message: 'message 3 from user 3',
     createdTime: '2020-10-31T22:09:00.000Z',
+    media: null,
+  },
+  {
+    parentPost: null,
+    id: 4,
+    channel: mockChannel,
+    user: mockUser2,
+    message: '',
+    createdTime: '2020-10-31T22:09:00.000Z',
+    media: {
+      id: 1,
+      mediaType: 'jpeg',
+    },
+  },
+  {
+    parentPost: null,
+    id: 5,
+    channel: mockChannel,
+    user: mockUser2,
+    message: 'message 4 from user 4 with a media',
+    createdTime: '2020-10-31T22:09:00.000Z',
+    media: {
+      id: 1,
+      mediaType: 'png',
+    },
   },
 ];
 

@@ -40,7 +40,6 @@ exports[`ChatInput should match snapshot 1`] = `
       className="custom-file-upload-input"
       data-testid="file"
       id="imageFile"
-      onChange={null}
       type="file"
     />
   </div>
