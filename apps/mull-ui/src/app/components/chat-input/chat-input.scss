@@ -44,6 +44,11 @@
   }
 }
 
+.image-size {
+  max-height: 4rem;
+  max-width: 9rem;
+}
+
 @media (min-width: $breakpoint-mobile) {
   .chat-input-container {
     width: $page-container-width;
