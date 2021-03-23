@@ -9,6 +9,10 @@ import { MediaInput } from './inputs/media.input';
 
 @Injectable()
 export class MediaService {
+  private route = '/apps/mull-api/uploads';
+  private testRoute = '/apps/mull-api/uploads/testing';
+  private testing = false;
+
   constructor(
     @InjectRepository(Media)
     private mediaRepository: Repository<Media>
@@ -43,7 +47,7 @@ export class MediaService {
   saveFile({ createReadStream, filename }: FileUpload): Promise<boolean> {
     return new Promise((resolve, reject) => {
       createReadStream().pipe(
-        createWriteStream(join(process.cwd(), `/apps/mull-api/uploads/${filename}`))
+        createWriteStream(join(process.cwd(), `${this.getRoute()}/${filename}`))
           .on('finish', () => resolve(true))
           .on('error', () => {
             reject(false);
@@ -66,8 +70,8 @@ export class MediaService {
 
   updateFilename(prevFilename: string, nextFilename: number, fileType: string): boolean {
     renameSync(
-      join(process.cwd(), `/apps/mull-api/uploads/${prevFilename}`),
-      join(process.cwd(), `/apps/mull-api/uploads/${nextFilename}.${fileType}`)
+      join(process.cwd(), `${this.getRoute()}/${prevFilename}`),
+      join(process.cwd(), `${this.getRoute()}/${nextFilename}.${fileType}`)
     );
     return true;
   }
@@ -77,7 +81,15 @@ export class MediaService {
   }
 
   deleteStoredFile(media: MediaInput): boolean {
-    unlinkSync(join(process.cwd(), `/apps/mull-api/uploads/${media.id}.${media.mediaType}`));
+    unlinkSync(join(process.cwd(), `${this.getRoute()}/${media.id}.${media.mediaType}`));
     return true;
+  }
+
+  public setTesting(testing: boolean) {
+    this.testing = testing;
+  }
+
+  public getRoute(): string {
+    return this.testing ? this.testRoute : this.route;
   }
 }

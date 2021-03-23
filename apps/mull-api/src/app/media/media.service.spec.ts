@@ -2,6 +2,7 @@ import { InternalServerErrorException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { unlinkSync } from 'fs';
+import { join } from 'path';
 import { Media } from '../entities';
 import {
   mockAllMedias,
@@ -39,16 +40,12 @@ describe('MediaService', () => {
     }).compile();
 
     service = module.get<MediaService>(MediaService);
+    service.setTesting(true);
   });
 
   afterAll(() => {
-    unlinkSync(`apps/mull-api/uploads/0.jpeg`);
-    unlinkSync(`apps/mull-api/uploads/1.jpeg`);
-    unlinkSync(`apps/mull-api/uploads/2.png`);
-    unlinkSync(`apps/mull-api/uploads/2.jpeg`);
-    unlinkSync(`apps/mull-api/uploads/undefined.jpeg`);
-    unlinkSync(`apps/mull-api/uploads/zoro.jpeg`);
-    unlinkSync(`apps/mull-api/uploads/luffy.png`);
+    unlinkSync(join(process.cwd(), `${service.getRoute()}/0.jpeg`));
+    unlinkSync(join(process.cwd(), `${service.getRoute()}/2.png`));
   });
 
   it('should be defined', () => {
