@@ -35,7 +35,7 @@ export type CreatePostInput = {
   channel: ChannelInput;
   createdTime: Scalars['DateTime'];
   medias?: Maybe<MediaInput>;
-  message: Scalars['String'];
+  message?: Maybe<Scalars['String']>;
   parentPost?: Maybe<ParentPostInput>;
   reactions?: Maybe<PostReactionInput>;
 };
@@ -268,7 +268,7 @@ export type Post = {
   channel: EventChannel;
   createdTime: Scalars['DateTime'];
   id: Scalars['Int'];
-  medias?: Maybe<Array<Media>>;
+  medias?: Maybe<Media>;
   message: Scalars['String'];
   parentPost?: Maybe<Post>;
   reactions?: Maybe<Array<PostReaction>>;
@@ -392,7 +392,7 @@ export type UpdatePostInput = {
   createdTime: Scalars['DateTime'];
   id: Scalars['Int'];
   medias?: Maybe<MediaInput>;
-  message: Scalars['String'];
+  message?: Maybe<Scalars['String']>;
   parentPost?: Maybe<ParentPostInput>;
   reactions?: Maybe<PostReactionInput>;
 };
@@ -518,6 +518,10 @@ export type CreatePostMutation = (
   & { post: (
     { __typename?: 'Post' }
     & Pick<Post, 'id' | 'message'>
+    & { medias?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id' | 'mediaType'>
+    )> }
   ) }
 );
 
@@ -680,7 +684,10 @@ export type ChannelByEventIdQuery = (
           { __typename?: 'Media' }
           & Pick<Media, 'id' | 'mediaType'>
         )> }
-      ) }
+      ), medias?: Maybe<(
+        { __typename?: 'Media' }
+        & Pick<Media, 'id' | 'mediaType'>
+      )> }
     )> }
   ) }
 );
@@ -991,6 +998,10 @@ export const CreatePostDocument = gql`
   post(post: $post) {
     id
     message
+    medias {
+      id
+      mediaType
+    }
   }
 }
     `;
@@ -1285,6 +1296,10 @@ export const ChannelByEventIdDocument = gql`
           id
           mediaType
         }
+      }
+      medias {
+        id
+        mediaType
       }
     }
   }

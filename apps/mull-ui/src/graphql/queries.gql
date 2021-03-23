@@ -147,6 +147,10 @@ query ChannelByEventId($eventId: Int!, $channelName: String!) {
           mediaType
         }
       }
+      medias {
+        id
+        mediaType
+      }
     }
   }
 }

@@ -47,5 +47,9 @@ mutation CreatePost($post: CreatePostInput!) {
   post(post: $post) {
     id
     message
+    medias {
+      id
+      mediaType
+    }
   }
 }
