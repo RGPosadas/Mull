@@ -44,7 +44,8 @@ describe('discoverPage', () => {
                   id: 1,
                   title: 'test',
                   description: 'test',
-                  startDate: '2020-12-12T03:00:00.000Z',
+                  startDate: '2022-12-12T03:00:00.000Z',
+                  endDate: '2022-12-13T03:00:00.000Z',
                   __typename: 'Event',
                   location: {
                     title: 'mockTitle',

@@ -28,33 +28,40 @@ export class EventService {
   }
 
   getEventsHostedByUser(hostId: number): Promise<Event[]> {
-    return this.eventRepository.find({
-      relations: ['location', 'location.coordinates', 'host'],
-      where: {
-        host: {
-          id: hostId,
-        },
-      },
-    });
+    const currentDateTime = new Date().toISOString().replace('T', ' ');
+    return this.eventRepository
+      .createQueryBuilder('event')
+      .leftJoinAndSelect('event.location', 'location')
+      .leftJoin('event.host', 'host')
+      .where('host.id = :userId', { userId: hostId })
+      .andWhere('event.endDate >= :currentDateTime')
+      .setParameters({ hostId, currentDateTime: currentDateTime })
+      .getMany();
   }
 
   getEventsCoHostedByUser(coHostId: number): Promise<Event[]> {
+    const currentDateTime = new Date().toISOString().replace('T', ' ');
     return this.eventRepository
       .createQueryBuilder('event')
       .leftJoinAndSelect('event.location', 'location')
       .leftJoinAndSelect('event.host', 'host')
       .leftJoin('event.coHosts', 'coHost')
       .where('coHost.id = :userId', { userId: coHostId })
+      .andWhere('event.endDate >= :currentDateTime')
+      .setParameters({ coHostId, currentDateTime: currentDateTime })
       .getMany();
   }
 
   getEventsAttendedByUser(userId: number): Promise<Event[]> {
+    const currentDateTime = new Date().toISOString().replace('T', ' ');
     return this.eventRepository
       .createQueryBuilder('event')
       .leftJoinAndSelect('event.location', 'location')
       .leftJoinAndSelect('event.host', 'host')
       .leftJoin('event.participants', 'user')
       .where('user.id = :userId', { userId })
+      .andWhere('event.endDate >= :currentDateTime')
+      .setParameters({ userId, currentDateTime: currentDateTime })
       .getMany();
   }
 
@@ -84,6 +91,8 @@ export class EventService {
    * @param userId
    */
   async getEventsRecommendedToUser(userId: number): Promise<Event[]> {
+    const currentDateTime = new Date().toISOString().replace('T', ' ');
+
     // subquery for events a user will participate in
     const joinedEventsQuery = this.eventRepository
       .createQueryBuilder('event')
@@ -111,7 +120,8 @@ export class EventService {
       .andWhere(`event.id NOT IN (${coHostedEventsQuery.getQuery()})`)
       .andWhere(`event.id NOT IN (${hostedEventsQuery.getQuery()})`)
       .andWhere('event.restriction = "0"')
-      .setParameter('userId', userId)
+      .andWhere('event.endDate >= :currentDateTime')
+      .setParameters({ userId, currentDateTime: currentDateTime })
       .getMany();
   }
 

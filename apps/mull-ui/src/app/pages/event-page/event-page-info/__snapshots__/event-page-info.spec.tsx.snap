@@ -186,13 +186,5 @@ exports[`EventPageInfo should match snapshot 1`] = `
       />
     </svg>
   </div>
-  <button
-    className="mull-button event-page-button event-page-joined-button"
-    data-testid="mull-button"
-    onClick={[Function]}
-    type="submit"
-  >
-    Leave
-  </button>
 </div>
 `;
