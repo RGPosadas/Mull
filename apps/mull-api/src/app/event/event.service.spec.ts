@@ -128,7 +128,6 @@ describe('EventService', () => {
       getMany: jest.fn().mockReturnValue(mockAllEvents.find((event) => event.host.id === hostId)),
     }));
     const foundEvent = await service.getEventsHostedByUser(hostId);
-    console.log(foundEvent);
     expect(foundEvent).toEqual(mockAllEvents.find((event) => event.host.id === hostId));
     expect(repository.createQueryBuilder).toHaveBeenCalledTimes(1);
   });
@@ -139,6 +138,8 @@ describe('EventService', () => {
       leftJoin: jest.fn().mockReturnThis(),
       leftJoinAndSelect: jest.fn().mockReturnThis(),
       where: jest.fn().mockReturnThis(),
+      andWhere: jest.fn().mockReturnThis(),
+      setParameters: jest.fn().mockReturnThis(),
       getMany: jest
         .fn()
         .mockReturnValue(
@@ -158,6 +159,8 @@ describe('EventService', () => {
       leftJoin: jest.fn().mockReturnThis(),
       leftJoinAndSelect: jest.fn().mockReturnThis(),
       where: jest.fn().mockReturnThis(),
+      andWhere: jest.fn().mockReturnThis(),
+      setParameters: jest.fn().mockReturnThis(),
       getMany: jest
         .fn()
         .mockReturnValue(
