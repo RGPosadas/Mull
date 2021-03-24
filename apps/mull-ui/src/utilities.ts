@@ -145,3 +145,28 @@ export const sortEventsByDate = (events: Partial<ISerializedEvent>[]) => {
         new Date(event1.startDate).valueOf() - new Date(event2.startDate).valueOf()
     );
 };
+
+/**
+ * converts a float between 0 to 24 to a readable time format
+ * 23.75 -> 23:45
+ * @param minutes
+ */
+export const minTommss = (minutes: number): string => {
+  const hour = Math.floor(Math.abs(minutes));
+  const min = Math.floor((Math.abs(minutes) * 60) % 60);
+  return hour + ':' + (min < 10 ? '0' : '') + min;
+};
+
+/**
+ * shows a 12 hour clock instead of 24
+ * @param time
+ */
+export const getStringTime = (givenTime: number): string => {
+  let time: string =
+    givenTime < 12 ? minTommss(givenTime % 12) + ' am' : minTommss(givenTime % 12) + ' pm';
+  if (time.startsWith('0:')) {
+    time = time.replace('0:', '12:');
+  }
+
+  return time;
+};
