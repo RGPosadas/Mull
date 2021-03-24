@@ -91,11 +91,7 @@ describe('CreateEvent', () => {
     fireEvent.click(calendarDate);
     calendarDate = utils.container.querySelector('span[class="nice-dates-day -outside"]');
     fireEvent.click(calendarDate);
-    let input = utils.getByLabelText('Start Time');
-    fireEvent.change(input, { target: { value: '04:20' } });
-    input = utils.getByLabelText('End Time');
-    fireEvent.change(input, { target: { value: '06:09' } });
-    input = utils.getByLabelText('Event Title');
+    let input = utils.getByLabelText('Event Title');
     fireEvent.change(input, { target: { value: 'Clean up at rogers park' } });
     input = utils.getByLabelText('Description');
     fireEvent.change(input, { target: { value: 'Cleanup :)' } });
