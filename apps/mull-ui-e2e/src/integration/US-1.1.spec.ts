@@ -21,11 +21,47 @@ frameSizes.forEach((frame) => {
     });
 
     it('should enter the start time', () => {
-      cy.get('#startTime').type('11:20').should('have.value', '11:20');
+      cy.get('.rc-slider-handle')
+        .first()
+        .should('have.attr', 'aria-valuenow', 12)
+        .type('{leftarrow}');
+      cy.get('.rc-slider-handle').first().should('have.attr', 'aria-valuenow', 11.75);
     });
 
     it('should enter the end time', () => {
-      cy.get('#endTime').type('15:20').should('have.value', '15:20');
+      cy.get('.rc-slider-handle')
+        .last()
+        .should('have.attr', 'aria-valuenow', 12)
+        .type('{leftarrow}');
+      cy.get('.rc-slider-handle').last().should('have.attr', 'aria-valuenow', 11.75);
+    });
+
+    it('should go past 11:45pm inclusive', () => {
+      cy.get('.rc-slider-handle')
+        .first()
+        .should('have.attr', 'aria-valuenow', 12)
+        .type('{rightArrow}'.repeat(50));
+      cy.get('.rc-slider-handle').first().should('have.attr', 'aria-valuenow', 23.75);
+
+      cy.get('.rc-slider-handle')
+        .last()
+        .should('have.attr', 'aria-valuenow', 12)
+        .type('{rightArrow}'.repeat(50));
+      cy.get('.rc-slider-handle').last().should('have.attr', 'aria-valuenow', 23.75);
+    });
+
+    it('should not go before 12:00am inclusive', () => {
+      cy.get('.rc-slider-handle')
+        .first()
+        .should('have.attr', 'aria-valuenow', 12)
+        .type('{leftArrow}'.repeat(50));
+      cy.get('.rc-slider-handle').first().should('have.attr', 'aria-valuenow', 0);
+
+      cy.get('.rc-slider-handle')
+        .last()
+        .should('have.attr', 'aria-valuenow', 12)
+        .type('{leftArrow}'.repeat(50));
+      cy.get('.rc-slider-handle').last().should('have.attr', 'aria-valuenow', 0);
     });
 
     it('should type into the event title input', () => {
@@ -80,8 +116,6 @@ frameSizes.forEach((frame) => {
         'have.text',
         'Image is required.'
       );
-      cy.get('#startTime ~ .error-message').should('have.text', 'Start Time is required.');
-      cy.get('#endTime ~ .error-message').should('have.text', 'End Time is required.');
       cy.get('#eventTitle ~ .error-message').should('have.text', 'Event Title is required.');
       cy.get('.textarea-create-event-container > .error-message').should(
         'have.text',
@@ -93,8 +127,8 @@ frameSizes.forEach((frame) => {
     const fillEventForm = () => {
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
 
-      cy.get('#startTime').type('11:20');
-      cy.get('#endTime').type('08:20');
+      cy.get('.rc-slider-handle').first().should('have.attr', 'aria-valuenow', 12);
+      cy.get('.rc-slider-handle').last().should('have.attr', 'aria-valuenow', 12);
 
       cy.get('#eventTitle').type('test title');
 
@@ -112,12 +146,15 @@ frameSizes.forEach((frame) => {
       cy.get('.-today').click();
       cy.get('.-today').click();
 
+      cy.get('.rc-slider-handle').first().type('{rightarrow}');
+
+      cy.get('.rc-slider-handle').last().type('{leftarrow}');
+
       cy.get('.create-event-button').click();
 
-      cy.get('#endTime ~ .error-message').should(
-        'have.text',
-        'The end time must be after the start time.'
-      );
+      cy.get('.rc-slider ~ .error-message')
+        .last()
+        .should('have.text', 'The end time must be after the start time.');
     });
 
     it('should not show an error when end time is greater than start time if the event is on different days', () => {
@@ -135,9 +172,15 @@ frameSizes.forEach((frame) => {
     it('should show a successful submission message', () => {
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
 
-      cy.get('#startTime').type('11:20');
+      cy.get('.rc-slider-handle')
+        .first()
+        .should('have.attr', 'aria-valuenow', 12)
+        .type('{leftArrow}'.repeat(4));
 
-      cy.get('#endTime').type('15:20');
+      cy.get('.rc-slider-handle')
+        .last()
+        .should('have.attr', 'aria-valuenow', 12)
+        .type('{rightArrow}');
 
       cy.get('#eventTitle').type('test title');
 
