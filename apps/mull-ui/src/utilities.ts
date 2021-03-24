@@ -151,7 +151,7 @@ export const sortEventsByDate = (events: Partial<ISerializedEvent>[]) => {
  * 23.75 -> 23:45
  * @param minutes
  */
-export const minTommss = (minutes: number): string => {
+export const floatToHHMM = (minutes: number): string => {
   const hour = Math.floor(Math.abs(minutes));
   const min = Math.floor((Math.abs(minutes) * 60) % 60);
   return hour + ':' + (min < 10 ? '0' : '') + min;
@@ -163,7 +163,7 @@ export const minTommss = (minutes: number): string => {
  */
 export const getStringTime = (givenTime: number): string => {
   let time: string =
-    givenTime < 12 ? minTommss(givenTime % 12) + ' am' : minTommss(givenTime % 12) + ' pm';
+    givenTime < 12 ? floatToHHMM(givenTime % 12) + ' am' : floatToHHMM(givenTime % 12) + ' pm';
   if (time.startsWith('0:')) {
     time = time.replace('0:', '12:');
   }

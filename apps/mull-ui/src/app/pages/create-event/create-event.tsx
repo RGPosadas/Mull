@@ -14,7 +14,7 @@ import {
   useCreateEventMutation,
   useUploadFileMutation,
 } from '../../../generated/graphql';
-import { hasEmoji, minTommss } from '../../../utilities';
+import { hasEmoji, floatToHHMM } from '../../../utilities';
 import { useToast } from '../../hooks/useToast';
 import {
   CustomFileUpload,
@@ -62,7 +62,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
    * @param {Date} date Date object
    */
   const addTimeToDate = (time: number, date: Date) => {
-    const timeAsString = minTommss(time);
+    const timeAsString = floatToHHMM(time);
     const [hour, minute] = timeAsString.toString().split(':');
     date.setHours(parseInt(hour));
     date.setMinutes(parseInt(minute));
@@ -100,8 +100,8 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           function (endTime) {
             const { startTime, startDate, endDate } = this.parent;
             if (endDate && startDate < endDate) return true;
-            return moment(minTommss(endTime), 'HH:mm').isSameOrAfter(
-              moment(minTommss(startTime), 'HH:mm')
+            return moment(floatToHHMM(endTime), 'HH:mm').isSameOrAfter(
+              moment(floatToHHMM(startTime), 'HH:mm')
             );
           }
         ),
