@@ -20,8 +20,6 @@ import DiscoverPage from './pages/home/discover/discover-page';
 import MyEventsPage from './pages/home/my-events/my-events';
 import UpcomingPage from './pages/home/upcoming/upcoming';
 import LoginPage from './pages/login/login';
-import ChatPagesHeader from './pages/messages/chat-pages-header';
-import EventMessagesMenu from './pages/messages/event-messages-menu/event-messages-menu';
 import EventMessageList from './pages/messages/event-messages/event-message-list';
 import AddFriendsPage from './pages/profile/add-friends/add-friends';
 import EditProfilePage from './pages/profile/edit-profile/edit-profile';
@@ -31,6 +29,7 @@ import RegisterPage from './pages/register/register';
 import SettingsPage from './pages/settings-page/settings-page';
 import TokenRedirectPage from './pages/token-redirect/token-redirect';
 import WasteRecognitionPage from './pages/waste-recognition-page/waste-recognition-page';
+import MessagesRoute from './routes/messages.route';
 
 /**
  * Main component of the application
@@ -112,7 +111,7 @@ export const App = () => {
               </SwipeableRoutes>
             </div>
           </PrivateRoute>
-          <PrivateRoute path={ROUTES.MESSAGES}>
+          {/* <PrivateRoute path={ROUTES.MESSAGES}>
             <ChatPagesHeader>
               <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
                 <PrivateRoute path={ROUTES.DIRECT_MESSAGES.url} component={DirectMessagePage} />
@@ -130,7 +129,8 @@ export const App = () => {
                 <PrivateRoute path={ROUTES.ANNOUNCEMENTS} component={AnnouncementsPage} />
               </div>
             </EventMessagesMenu>
-          </PrivateRoute>
+          </PrivateRoute> */}
+          <PrivateRoute path={ROUTES.MESSAGES} component={MessagesRoute} />
           <PrivateRoute path={ROUTES.CAMERA} component={WasteRecognitionPage} />
           {/* TODO: Messages main page: Add swipeable routes for DM + Event Message page */}
           <PrivateRoute path={ROUTES.DIRECT_MESSAGES.url} component={DirectMessagePage} />
