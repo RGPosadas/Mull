@@ -57,7 +57,7 @@ export const EventPageInfo = ({
       joinEvent({ variables: { eventId: event.id } });
     }
   };
-  const isPassed = currentDate.getTime() > new Date(event.endDate).getTime();
+  const isEventExpired = currentDate.getTime() > new Date(event.endDate).getTime();
   return (
     <div className={`event-page-info-container ${className}`} style={style}>
       <div className="info-row">
@@ -135,11 +135,10 @@ export const EventPageInfo = ({
           </MullButton>
         </Dialog>
       }
-
-      {isPassed ? null : (
+      {isEventExpired ? null : (
         <MullButton
           className={`event-page-button ${
-            joined && !isEventOwner && !isReview ? 'event-page-joined-button' : ''
+            isEventOwner ? null : isReview ? null : joined ? 'event-page-joined-button' : null
           }`}
           onClick={isReview ? null : isEventOwner ? () => setIsOpen(true) : handleJoinEventButton}
           type={buttonType}

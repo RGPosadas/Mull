@@ -12,10 +12,17 @@ export interface EventCardProps {
   event: Partial<ISerializedEvent>;
   style?: React.CSSProperties;
   isJoined?: boolean;
+  isEventOwner?: boolean;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-export const EventCard = ({ event, style = {}, onClick, isJoined = false }: EventCardProps) => {
+export const EventCard = ({
+  event,
+  style = {},
+  onClick,
+  isJoined = false,
+  isEventOwner,
+}: EventCardProps) => {
   const { day, month, time } = formatDate(new Date(event.startDate));
 
   const [joined, setJoined] = useState<boolean>(isJoined);
@@ -27,7 +34,7 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
   const distance = 15;
 
   const currentDate = new Date();
-
+  const isEventExpired = currentDate.getTime() > new Date(event.endDate).getTime();
   return (
     <div className="event-card-container button" onClick={onClick} style={style}>
       <img className="event-card-image" src={mediaUrl(event)} alt="Event" />
@@ -35,9 +42,7 @@ export const EventCard = ({ event, style = {}, onClick, isJoined = false }: Even
         <div className="date-style">{`${day} ${month.toUpperCase()}`}</div>
         <div>{time.replace(/\s/g, '')}</div>
       </div>
-      {/* TODO: Add/remove user to event on press */}
-
-      {currentDate.getTime() > new Date(event.endDate).getTime() ? null : (
+      {isEventExpired ? null : isEventOwner ? null : (
         <button
           onClick={(e) => {
             e.stopPropagation();
