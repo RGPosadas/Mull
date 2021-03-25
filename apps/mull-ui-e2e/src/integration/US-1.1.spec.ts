@@ -83,7 +83,10 @@ frameSizes.forEach((frame) => {
       cy.get('#startTime ~ .error-message').should('have.text', 'Start Time is required.');
       cy.get('#endTime ~ .error-message').should('have.text', 'End Time is required.');
       cy.get('#eventTitle ~ .error-message').should('have.text', 'Event Title is required.');
-      cy.get('#description ~ .error-message').should('have.text', 'Event Description is required.');
+      cy.get('.textarea-create-event-container > .error-message').should(
+        'have.text',
+        'Event Description is required.'
+      );
       cy.get('#location ~ .error-message').should('have.text', 'Event Location is required.');
     });
 

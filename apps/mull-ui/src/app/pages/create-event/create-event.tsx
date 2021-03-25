@@ -260,7 +260,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               <FontAwesomeIcon className="description-input-icon" icon={faAlignLeft} />
 
               {formik.touched.description && !!formik.errors.description ? (
-                <span className="error-message"> {formik.errors.description} </span>
+                <span className="error-message">{formik.errors.description}</span>
               ) : null}
             </div>
             <LocationAutocompleteModal formik={formik} />
