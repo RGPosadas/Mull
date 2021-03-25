@@ -124,7 +124,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       imageFile: Yup.mixed().required('Image is required.'),
     }),
 
-    onSubmit: async (data) => {
+    onSubmit: async () => {
       notifyToast('Submitting Event...');
       try {
         const {
@@ -258,6 +258,10 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
                 />
               </div>
               <FontAwesomeIcon className="description-input-icon" icon={faAlignLeft} />
+
+              {formik.touched.description && !!formik.errors.description ? (
+                <span className="error-message"> {formik.errors.description} </span>
+              ) : null}
             </div>
             <LocationAutocompleteModal formik={formik} />
 
