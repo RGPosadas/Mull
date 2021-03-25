@@ -46,6 +46,7 @@ query OwnedEvents {
     title
     restriction
     startDate
+    endDate
     location {
       title
     }
@@ -59,6 +60,7 @@ query OwnedEvents {
     title
     restriction
     startDate
+    endDate
     location {
       title
     }
@@ -76,6 +78,7 @@ query ParticipantEvents {
     title
     restriction
     startDate
+    endDate
     location {
       title
     }
