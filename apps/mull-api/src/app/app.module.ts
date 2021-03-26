@@ -39,6 +39,7 @@ import { UserModule } from './user';
       password: environment.db.password,
       database: environment.production ? 'mull-prod' : 'mull-dev',
       synchronize: true,
+      timezone: 'Z',
       /**
        * Allows entities to be loaded by a sub module.
        */

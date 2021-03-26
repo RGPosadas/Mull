@@ -44,9 +44,9 @@ const loginUser = (username: string, password: string) => {
 const createEvent = (date, pillId = 0) => {
   cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
 
-  cy.get('#startTime').type('11:20');
+  cy.get('#startTime').type('00:00');
 
-  cy.get('#endTime').type('15:20');
+  cy.get('#endTime').type('23:59');
 
   cy.get('#eventTitle').type(date.toString());
 
