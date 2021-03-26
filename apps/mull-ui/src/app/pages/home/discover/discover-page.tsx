@@ -11,7 +11,6 @@ export const DiscoverPage = ({ history }) => {
   if (data) {
     const events = (data.discoverEvents as unknown) as Partial<ISerializedEvent>[];
     const sortedEvents = sortEventsByDate(events);
-
     var eventCards = sortedEvents.map((event, index) => (
       <EventCard
         key={`discover-${index}`}

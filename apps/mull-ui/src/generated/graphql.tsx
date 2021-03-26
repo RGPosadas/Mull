@@ -134,6 +134,7 @@ export type MediaInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addFriend: Scalars['Boolean'];
   createDirectMessageChannel: DirectMessageChannel;
   createEvent: Event;
   createLocation: Location;
@@ -151,6 +152,11 @@ export type Mutation = {
   updatePost: Post;
   updateUser: User;
   uploadFile: Media;
+};
+
+
+export type MutationAddFriendArgs = {
+  userIdToAdd: Scalars['Float'];
 };
 
 
@@ -286,6 +292,7 @@ export type Query = {
   friends: Array<Friend>;
   getChannelByEventId: EventChannel;
   getDirectMessageChannel?: Maybe<DirectMessageChannel>;
+  getUserRelationship: UserRelationship;
   hostEvents: Array<Event>;
   hostingCount: Scalars['Int'];
   isParticipant: Scalars['Boolean'];
@@ -316,6 +323,11 @@ export type QueryGetChannelByEventIdArgs = {
 
 export type QueryGetDirectMessageChannelArgs = {
   toUserId: Scalars['Int'];
+};
+
+
+export type QueryGetUserRelationshipArgs = {
+  userIdB: Scalars['Float'];
 };
 
 
@@ -389,6 +401,13 @@ export type User = {
   registrationMethod: RegistrationMethod;
   timezone: Scalars['String'];
 };
+
+export enum UserRelationship {
+  AddedMe = 'ADDED_ME',
+  Friends = 'FRIENDS',
+  None = 'NONE',
+  PendingRequest = 'PENDING_REQUEST'
+}
 
 export type CreateEventMutationVariables = Exact<{
   event: CreateEventInput;
@@ -506,7 +525,7 @@ export type EventPageContentFragment = (
 
 export type EventCardContentFragment = (
   { __typename?: 'Event' }
-  & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate'>
+  & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate' | 'endDate'>
   & { location?: Maybe<(
     { __typename?: 'Location' }
     & Pick<Location, 'title'>
@@ -534,7 +553,7 @@ export type OwnedEventsQuery = (
   { __typename?: 'Query' }
   & { coHostEvents: Array<(
     { __typename?: 'Event' }
-    & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate'>
+    & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate' | 'endDate'>
     & { location?: Maybe<(
       { __typename?: 'Location' }
       & Pick<Location, 'title'>
@@ -544,7 +563,7 @@ export type OwnedEventsQuery = (
     )> }
   )>, hostEvents: Array<(
     { __typename?: 'Event' }
-    & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate'>
+    & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate' | 'endDate'>
     & { location?: Maybe<(
       { __typename?: 'Location' }
       & Pick<Location, 'title'>
@@ -562,7 +581,7 @@ export type ParticipantEventsQuery = (
   { __typename?: 'Query' }
   & { participantEvents: Array<(
     { __typename?: 'Event' }
-    & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate'>
+    & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate' | 'endDate'>
     & { location?: Maybe<(
       { __typename?: 'Location' }
       & Pick<Location, 'title'>
@@ -722,6 +741,7 @@ export const EventCardContentFragmentDoc = gql`
   title
   restriction
   startDate
+  endDate
   location {
     title
   }
@@ -1025,6 +1045,7 @@ export const OwnedEventsDocument = gql`
     title
     restriction
     startDate
+    endDate
     location {
       title
     }
@@ -1038,6 +1059,7 @@ export const OwnedEventsDocument = gql`
     title
     restriction
     startDate
+    endDate
     location {
       title
     }
@@ -1080,6 +1102,7 @@ export const ParticipantEventsDocument = gql`
     title
     restriction
     startDate
+    endDate
     location {
       title
     }

@@ -28,23 +28,27 @@ export class EventService {
   }
 
   getEventsHostedByUser(hostId: number): Promise<Event[]> {
-    return this.eventRepository.find({
-      relations: ['location', 'location.coordinates', 'host'],
-      where: {
-        host: {
-          id: hostId,
-        },
-      },
-    });
+    const currentDateTime = new Date().toISOString().replace('T', ' ');
+    return this.eventRepository
+      .createQueryBuilder('event')
+      .leftJoinAndSelect('event.location', 'location')
+      .leftJoin('event.host', 'host')
+      .where('host.id = :userId', { userId: hostId })
+      .andWhere('event.endDate >= NOW()')
+      .setParameters({ hostId, currentDateTime: currentDateTime })
+      .getMany();
   }
 
   getEventsCoHostedByUser(coHostId: number): Promise<Event[]> {
+    const currentDateTime = new Date().toISOString().replace('T', ' ');
     return this.eventRepository
       .createQueryBuilder('event')
       .leftJoinAndSelect('event.location', 'location')
       .leftJoinAndSelect('event.host', 'host')
       .leftJoin('event.coHosts', 'coHost')
       .where('coHost.id = :userId', { userId: coHostId })
+      .andWhere('event.endDate >= NOW()')
+      .setParameters({ coHostId, currentDateTime: currentDateTime })
       .getMany();
   }
 
@@ -55,6 +59,8 @@ export class EventService {
       .leftJoinAndSelect('event.host', 'host')
       .leftJoin('event.participants', 'user')
       .where('user.id = :userId', { userId })
+      .andWhere('event.endDate >= NOW()')
+      .setParameters({ userId })
       .getMany();
   }
 
@@ -111,7 +117,8 @@ export class EventService {
       .andWhere(`event.id NOT IN (${coHostedEventsQuery.getQuery()})`)
       .andWhere(`event.id NOT IN (${hostedEventsQuery.getQuery()})`)
       .andWhere('event.restriction = "0"')
-      .setParameter('userId', userId)
+      .andWhere('event.endDate >= NOW()')
+      .setParameters({ userId })
       .getMany();
   }
 
@@ -168,17 +175,16 @@ export class EventService {
    * @param userId
    */
   async getUserEventsPortfolio(userId: number): Promise<Event[]> {
-    const currentDateTime = new Date().toISOString().replace('T', ' ');
     return this.eventRepository
       .createQueryBuilder('event')
       .leftJoinAndSelect('event.location', 'location')
       .leftJoin('event.host', 'host')
       .leftJoin('event.coHosts', 'coHost')
       .leftJoin('event.participants', 'user')
-      .where('host.id = :userId AND event.endDate < :currentDateTime')
-      .orWhere('coHost.id = :userId AND event.endDate < :currentDateTime')
-      .orWhere('user.id = :userId AND event.endDate < :currentDateTime')
-      .setParameters({ userId, currentDateTime: currentDateTime })
+      .where('host.id = :userId AND event.endDate < NOW()')
+      .orWhere('coHost.id = :userId AND event.endDate < NOW()')
+      .orWhere('user.id = :userId AND event.endDate < NOW()')
+      .setParameters({ userId })
       .getMany();
   }
 }

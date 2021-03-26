@@ -23,17 +23,6 @@ exports[`EventCard should match snapshot 1`] = `
       01:45PM
     </div>
   </div>
-  <button
-    className="event-card-join not-joined"
-    id="event-card-join"
-    onClick={[Function]}
-  >
-    <img
-      alt="Join"
-      className="join-icon"
-      src="../../../assets/icons/join-icon.svg"
-    />
-  </button>
   <div
     className="event-card-description"
   >

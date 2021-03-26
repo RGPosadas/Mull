@@ -5,7 +5,6 @@ import {
   faMap,
   faMapMarkerAlt,
   faTimes,
-  faTrash,
   faUserFriends,
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
@@ -47,6 +46,8 @@ export const EventPageInfo = ({
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const [joined, setJoined] = useState<boolean>(isJoined);
 
+  const currentDate = new Date();
+
   const handleJoinEventButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     e.stopPropagation();
     setJoined(!joined);
@@ -56,7 +57,7 @@ export const EventPageInfo = ({
       joinEvent({ variables: { eventId: event.id } });
     }
   };
-
+  const isEventExpired = currentDate.getTime() > new Date(event.endDate).getTime();
   return (
     <div className={`event-page-info-container ${className}`} style={style}>
       <div className="info-row">
@@ -66,7 +67,6 @@ export const EventPageInfo = ({
           className="event-page-icon"
           alt="Event"
         ></img>
-
         {/* TODO: Remove placeholder text once users are implemented */}
         <p className="row-text" data-testid="event-page-host">
           {event.host.name}
@@ -105,52 +105,45 @@ export const EventPageInfo = ({
           open={modalIsOpen}
           onClose={() => setIsOpen(false)}
           classes={{
-            paperWidthSm: 'cancel-event-container',
+            paperWidthSm: 'cancel-modal-container',
           }}
           maxWidth="sm"
         >
-          <div className="cancel-modal-container">
-            <p className="cancel-event-title">Cancel event?</p>
-            <FontAwesomeIcon
-              onClick={() => setIsOpen(false)}
-              icon={faTimes}
-              className="event-page-icon color-grey close-button"
-            />
-            <br />
-            <img
-              className="event-image"
-              data-testid="event-page-image"
-              src={eventImageURL ? eventImageURL : mediaUrl(event)}
-              alt="Event Page"
-            />
-            <br />
-            {/*TODO: Cancel event functionality */}
-            <MullButton className="event-page-button event-page-cancel-button" type={buttonType}>
-              Yes
-            </MullButton>
-            <MullButton
-              onClick={() => setIsOpen(false)}
-              className="event-page-button event-page-cancel-button"
-              type={buttonType}
-            >
-              No
-            </MullButton>
-          </div>
+          <button className="close-button" onClick={() => setIsOpen(false)}>
+            <FontAwesomeIcon icon={faTimes} className="color-grey" size="2x" />
+          </button>
+
+          <p className="cancel-event-title">Cancel event?</p>
+
+          <img
+            className="cancel-modal-event-image"
+            data-testid="event-page-image"
+            src={eventImageURL ? eventImageURL : mediaUrl(event)}
+            alt="Event Page"
+          />
+
+          {/*TODO: Cancel event functionality */}
+          <MullButton className="event-page-button event-page-cancel-button" type={buttonType}>
+            Yes
+          </MullButton>
+          <MullButton
+            onClick={() => setIsOpen(false)}
+            className="event-page-button event-page-cancel-button"
+            type={buttonType}
+          >
+            No
+          </MullButton>
         </Dialog>
       }
-      {isEventOwner ? (
-        /* TODO: Make cancel event functional*/
-        <div className="info-row" onClick={() => setIsOpen(true)}>
-          <FontAwesomeIcon icon={faTrash} className="event-page-icon color-grey" />
-          <p className="row-text">Cancel Event</p>
-        </div>
-      ) : (
+      {isEventExpired && !isReview ? null : (
         <MullButton
-          className={`event-page-button ${joined ? 'event-page-joined-button' : ''}`}
-          onClick={isReview ? null : handleJoinEventButton}
+          className={`event-page-button ${
+            joined && !isEventOwner && !isReview ? 'event-page-joined-button' : null
+          }`}
+          onClick={isReview ? null : isEventOwner ? () => setIsOpen(true) : handleJoinEventButton}
           type={buttonType}
         >
-          {joined ? 'Leave' : isReview ? 'Create' : 'Join'}
+          {isReview ? 'Create' : isEventOwner ? 'Cancel' : joined ? 'Leave' : 'Join'}
         </MullButton>
       )}
     </div>

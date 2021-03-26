@@ -19,6 +19,7 @@ export const MyEventsPage = ({ history }) => {
         key={`myEvents-${index}`}
         isJoined={true}
         event={event}
+        isEventOwner={true}
         onClick={() => history.push(`/events/${event.id}`)}
       />
     ));

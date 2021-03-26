@@ -13,7 +13,7 @@ frameSizes.forEach((frame) => {
     it('should review the event', () => {
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
       cy.get('#startTime').type('11:20');
-      cy.get('#endTime').type('15:20');
+      cy.get('#endTime').type('23:59');
       cy.get('#eventTitle').type('test title');
       cy.get('.-today').click();
       cy.get('.-today').click();
@@ -34,7 +34,7 @@ frameSizes.forEach((frame) => {
       );
       cy.get('[data-testid=end-date-div]').should(
         'have.text',
-        `${Cypress.moment().format('D MMM')}03:20 PM`
+        `${Cypress.moment().format('D MMM')}11:59 PM`
       );
       cy.get('[data-testid=event-page-location]').should('have.text', 'Current Location');
       cy.get('[data-testid=expandable-text-div]').should('have.text', 'test description');
@@ -44,7 +44,7 @@ frameSizes.forEach((frame) => {
     it('should review the event, then allow the user to edit the form', () => {
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
       cy.get('#startTime').type('11:20');
-      cy.get('#endTime').type('15:20');
+      cy.get('#endTime').type('23:59');
       cy.get('#eventTitle').type('test title');
       cy.get('.-today').click();
       cy.get('.-today').click();
@@ -72,7 +72,7 @@ frameSizes.forEach((frame) => {
       );
       cy.get('[data-testid=end-date-div]').should(
         'have.text',
-        `${Cypress.moment().format('D MMM')}03:20 PM`
+        `${Cypress.moment().format('D MMM')}11:59 PM`
       );
       cy.get('[data-testid=event-page-location]').should('have.text', 'Current Location');
       cy.get('[data-testid=expandable-text-div]').should('have.text', 'new test description');

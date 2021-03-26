@@ -119,10 +119,17 @@ describe('EventService', () => {
 
   it('should return a list of events that belongs to a host', async () => {
     const hostId = mockAllUsers[1].id;
-    repository.find.mockReturnValue(mockAllEvents.find((event) => event.host.id === hostId));
+    repository.createQueryBuilder.mockImplementation(() => ({
+      leftJoin: jest.fn().mockReturnThis(),
+      leftJoinAndSelect: jest.fn().mockReturnThis(),
+      where: jest.fn().mockReturnThis(),
+      andWhere: jest.fn().mockReturnThis(),
+      setParameters: jest.fn().mockReturnThis(),
+      getMany: jest.fn().mockReturnValue(mockAllEvents.find((event) => event.host.id === hostId)),
+    }));
     const foundEvent = await service.getEventsHostedByUser(hostId);
     expect(foundEvent).toEqual(mockAllEvents.find((event) => event.host.id === hostId));
-    expect(repository.find).toBeCalledTimes(1);
+    expect(repository.createQueryBuilder).toHaveBeenCalledTimes(1);
   });
 
   it('should return a list of events that belongs to a co-host', async () => {
@@ -131,6 +138,8 @@ describe('EventService', () => {
       leftJoin: jest.fn().mockReturnThis(),
       leftJoinAndSelect: jest.fn().mockReturnThis(),
       where: jest.fn().mockReturnThis(),
+      andWhere: jest.fn().mockReturnThis(),
+      setParameters: jest.fn().mockReturnThis(),
       getMany: jest
         .fn()
         .mockReturnValue(
@@ -150,6 +159,8 @@ describe('EventService', () => {
       leftJoin: jest.fn().mockReturnThis(),
       leftJoinAndSelect: jest.fn().mockReturnThis(),
       where: jest.fn().mockReturnThis(),
+      andWhere: jest.fn().mockReturnThis(),
+      setParameters: jest.fn().mockReturnThis(),
       getMany: jest
         .fn()
         .mockReturnValue(

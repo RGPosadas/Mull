@@ -12,8 +12,8 @@ frameSizes.forEach((frame) => {
 
     it('should preview an event', () => {
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
-      cy.get('#startTime').type('11:20');
-      cy.get('#endTime').type('15:20');
+      cy.get('#startTime').type('12:00');
+      cy.get('#endTime').type('23:59');
       cy.get('#eventTitle').type('Title for US-2.7: Preview Event E2E');
       cy.get('.-today').click();
       cy.get('.-today').click();
@@ -26,17 +26,17 @@ frameSizes.forEach((frame) => {
       cy.get('.event-page-button').click();
 
       cy.visit('http://localhost:4200/home/myevents');
-      cy.get('.event-card-container').last().click();
+      cy.get('.event-card-container').first().click();
 
       cy.get('.title').should('have.text', 'Title for US-2.7: Preview Event E2E');
       cy.get('.event-image').should('have.attr', 'src');
       cy.get('[data-testid=start-date-div]').should(
         'have.text',
-        `${Cypress.moment().format('D MMM')}11:20 AM`
+        `${Cypress.moment().format('D MMM')}12:00 AM`
       );
       cy.get('[data-testid=end-date-div]').should(
         'have.text',
-        `${Cypress.moment().format('D MMM')}03:20 PM`
+        `${Cypress.moment().format('D MMM')}11:59 PM`
       );
       cy.get('[data-testid=event-page-location]').should('have.text', 'Current Location');
       cy.get('[data-testid=expandable-text-div]').should(
