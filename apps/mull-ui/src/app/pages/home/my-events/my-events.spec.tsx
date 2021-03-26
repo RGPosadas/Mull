@@ -45,6 +45,7 @@ describe('myEventsPage', () => {
                   title: 'test',
                   description: 'test',
                   startDate: '2020-12-12T03:00:00.000Z',
+                  endDate: '2020-12-12T03:00:00.000Z',
                   location: {
                     title: 'mockTitle',
                   },
@@ -62,6 +63,7 @@ describe('myEventsPage', () => {
                   title: 'test',
                   description: 'test',
                   startDate: '2020-12-12T03:00:00.000Z',
+                  endDate: '2020-12-12T03:23:59.000Z',
                   location: {
                     title: 'mockTitle',
                   },
