@@ -42,7 +42,7 @@ export const EventCard = ({
         <div className="date-style">{`${day} ${month.toUpperCase()}`}</div>
         <div>{time.replace(/\s/g, '')}</div>
       </div>
-      {isEventExpired ? null : isEventOwner ? null : (
+      {isEventExpired || isEventOwner ? null : (
         <button
           onClick={(e) => {
             e.stopPropagation();

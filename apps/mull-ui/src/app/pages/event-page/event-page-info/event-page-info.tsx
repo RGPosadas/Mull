@@ -135,10 +135,10 @@ export const EventPageInfo = ({
           </MullButton>
         </Dialog>
       }
-      {isEventExpired ? null : (
+      {isEventExpired && !isReview ? null : (
         <MullButton
           className={`event-page-button ${
-            isEventOwner ? null : isReview ? null : joined ? 'event-page-joined-button' : null
+            joined && !isEventOwner && !isReview ? 'event-page-joined-button' : null
           }`}
           onClick={isReview ? null : isEventOwner ? () => setIsOpen(true) : handleJoinEventButton}
           type={buttonType}
