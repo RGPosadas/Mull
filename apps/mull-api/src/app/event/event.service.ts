@@ -34,7 +34,7 @@ export class EventService {
       .leftJoinAndSelect('event.location', 'location')
       .leftJoin('event.host', 'host')
       .where('host.id = :userId', { userId: hostId })
-      .andWhere('event.endDate >= :currentDateTime')
+      .andWhere('event.endDate >= NOW()')
       .setParameters({ hostId, currentDateTime: currentDateTime })
       .getMany();
   }
@@ -47,7 +47,7 @@ export class EventService {
       .leftJoinAndSelect('event.host', 'host')
       .leftJoin('event.coHosts', 'coHost')
       .where('coHost.id = :userId', { userId: coHostId })
-      .andWhere('event.endDate >= :currentDateTime')
+      .andWhere('event.endDate >= NOW()')
       .setParameters({ coHostId, currentDateTime: currentDateTime })
       .getMany();
   }
