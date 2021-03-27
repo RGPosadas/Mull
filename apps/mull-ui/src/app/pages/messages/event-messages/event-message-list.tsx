@@ -1,5 +1,6 @@
 import { ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
+import { ROUTES } from '../../../../constants';
 import { useOwnedEventsQuery, useParticipantEventsQuery } from '../../../../generated/graphql';
 import { getMediaUrl } from '../../../../utilities';
 import { CustomTextInput } from '../../../components';
@@ -25,7 +26,7 @@ export const EventMessageList = ({ history }) => {
         eventPicture={getMediaUrl(event.image.id)}
         eventDate={new Date(event.startDate)}
         key={'event-bullet-' + index}
-        onClick={() => history.push(`/event/messages/${event.id}/announcements`)}
+        onClick={() => history.push(`${ROUTES.ANNOUNCEMENTS.url.replace(':id', `${event.id}`)}`)}
       />
     ));
 

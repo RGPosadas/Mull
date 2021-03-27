@@ -1,5 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router';
+import { ROUTES } from '../../../../constants';
+import { useEventTitleQuery } from '../../../../generated/graphql';
 import { ChatHeader, SubNavBar } from '../../../components';
 
 export interface EventMessagesMenuProps {
@@ -13,18 +15,17 @@ export interface EventMessagesMenuProps {
 export const EventMessagesMenu = ({ children }: EventMessagesMenuProps) => {
   const { id } = useParams<{ id: string }>();
   const eventId = parseInt(id);
-  const groupChatRoute = {
-    url: `/event/messages/${eventId}/group-chat`,
-    displayName: 'Group Chat',
-  };
-  const announcementRoute = {
-    url: `/event/messages/${eventId}/announcements`,
-    displayName: 'Announcements',
-  };
+  const { data, loading } = useEventTitleQuery({ variables: { eventId } });
+  const groupChatRoute = ROUTES.GROUPCHAT;
+  groupChatRoute.url = groupChatRoute.url.replace(':id', id);
+  const announcementRoute = ROUTES.ANNOUNCEMENTS;
+  announcementRoute.url = announcementRoute.url.replace(':id', id);
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div>
-      <ChatHeader eventTitle="Clean up Rogers Park" />
+      <ChatHeader eventTitle={data.event.title} />
       <SubNavBar
         routes={[groupChatRoute, announcementRoute]}
         className="with-header top-nav-bar-shadow"
