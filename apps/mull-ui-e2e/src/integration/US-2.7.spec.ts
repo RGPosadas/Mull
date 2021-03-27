@@ -12,7 +12,7 @@ frameSizes.forEach((frame) => {
 
     it('should preview an event', () => {
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
-      cy.get('#startTime').type('12:00');
+      cy.get('#startTime').type('00:00');
       cy.get('#endTime').type('23:59');
       cy.get('#eventTitle').type('Title for US-2.7: Preview Event E2E');
       cy.get('.-today').click();
