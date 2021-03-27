@@ -11,6 +11,7 @@ import { mockAllPosts } from '../post/post.mockdata';
 import { PostService } from '../post/post.service';
 import { mockAllFriendsOfId1, mockAllFriendsOfId3 } from './friend.mockdata';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
+import { Relationship } from './outputs/user.output';
 import {
   mockAllUsers,
   mockExpectedUpdatedUser,
@@ -43,6 +44,13 @@ const mockUserService = () => ({
     currentUser.friends.push(userToAdd);
     return true;
   }),
+  removeFriend: jest.fn(() => {
+    return true;
+  }),
+  getRelationships: jest.fn((): Relationship[] => [
+    { user: mockAllUsers[0], type: RelationshipType.FRIENDS },
+  ]),
+  getUserRelationship: jest.fn((): RelationshipType => RelationshipType.FRIENDS),
 });
 
 const mockEventService = () => ({
@@ -166,32 +174,19 @@ describe('UserResolver', () => {
     expect(await resolver.addFriend(mockAllUsers[0].id, mockAllUsers[2].id)).toBeTruthy();
   });
 
-  it('should return FRIENDS for relationship', async () => {
-    const userRelationship = await resolver.getUserRelationship(
-      mockAllUsers[0].id,
-      mockAllUsers[2].id
-    );
-    expect(userRelationship).toEqual(RelationshipType.FRIENDS);
+  it(`should remove a friend`, async () => {
+    expect(await resolver.removeFriend(mockAllUsers[0].id, mockAllUsers[2].id)).toBeTruthy();
   });
 
-  it('should return ADDED_ME for relationship', async () => {
-    const userRelationship = await resolver.getUserRelationship(
-      mockAllUsers[1].id,
-      mockAllUsers[0].id
-    );
-    expect(userRelationship).toEqual(RelationshipType.ADDED_ME);
+  it(`should return all of the relationships for a user`, async () => {
+    expect(await resolver.getRelationships(mockAllUsers[0].id)).toEqual([
+      { user: mockAllUsers[0], type: RelationshipType.FRIENDS },
+    ]);
   });
 
-  it('should return PENDING_REQUEST for relationship', async () => {
-    const userRelationship = await resolver.getUserRelationship(
-      mockAllUsers[0].id,
-      mockAllUsers[1].id
+  it(`should return the relationship between two users`, async () => {
+    expect(await resolver.getUserRelationship(mockAllUsers[0].id, mockAllUsers[2].id)).toEqual(
+      RelationshipType.FRIENDS
     );
-    expect(userRelationship).toEqual(RelationshipType.PENDING_REQUEST);
-  });
-
-  it('should return NONE for relationship', async () => {
-    const userRelationship = await resolver.getUserRelationship(1000, 1001);
-    expect(userRelationship).toEqual(RelationshipType.NONE);
   });
 });
