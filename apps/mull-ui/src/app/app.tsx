@@ -58,11 +58,7 @@ export const App = () => {
   }, []);
 
   const getTopBarStyle = (): CSSProperties => {
-    if (
-      location.pathname.includes(ROUTES.HOME) ||
-      location.pathname.includes(ROUTES.MESSAGES) ||
-      location.pathname.includes(ROUTES.DIRECT_MESSAGES.url)
-    ) {
+    if (location.pathname.includes(ROUTES.HOME) || location.pathname.includes(ROUTES.MESSAGES)) {
       return { boxShadow: 'none' };
     }
     return {};
@@ -141,6 +137,10 @@ export const App = () => {
           <PrivateRoute path={ROUTES.SETTINGS} component={SettingsPage} />
           {/*TODO in TASK-83: route user profiles to /user/${user.id} */}
           <PrivateRoute path={ROUTES.OTHER_USER_PROFILE} component={OtherUserProfilePage} />
+          <PrivateRoute>
+            <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
+            <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
+          </PrivateRoute>
           <PrivateRoute component={NotFoundPage} />
         </Switch>
 
