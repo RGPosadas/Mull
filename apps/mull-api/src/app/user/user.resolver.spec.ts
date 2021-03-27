@@ -1,4 +1,4 @@
-import { RegistrationMethod, UserRelationship } from '@mull/types';
+import { RegistrationMethod, RelationshipType } from '@mull/types';
 import { UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mockAllDirectMessageChannels } from '../channel/channel.mockdata';
@@ -166,32 +166,32 @@ describe('UserResolver', () => {
     expect(await resolver.addFriend(mockAllUsers[0].id, mockAllUsers[2].id)).toBeTruthy();
   });
 
-  it('should return FRIENDS for UserRelationship', async () => {
+  it('should return FRIENDS for relationship', async () => {
     const userRelationship = await resolver.getUserRelationship(
       mockAllUsers[0].id,
       mockAllUsers[2].id
     );
-    expect(userRelationship).toEqual(UserRelationship.FRIENDS);
+    expect(userRelationship).toEqual(RelationshipType.FRIENDS);
   });
 
-  it('should return ADDED_ME for UserRelationship', async () => {
+  it('should return ADDED_ME for relationship', async () => {
     const userRelationship = await resolver.getUserRelationship(
       mockAllUsers[1].id,
       mockAllUsers[0].id
     );
-    expect(userRelationship).toEqual(UserRelationship.ADDED_ME);
+    expect(userRelationship).toEqual(RelationshipType.ADDED_ME);
   });
 
-  it('should return PENDING_REQUEST for UserRelationship', async () => {
+  it('should return PENDING_REQUEST for relationship', async () => {
     const userRelationship = await resolver.getUserRelationship(
       mockAllUsers[0].id,
       mockAllUsers[1].id
     );
-    expect(userRelationship).toEqual(UserRelationship.PENDING_REQUEST);
+    expect(userRelationship).toEqual(RelationshipType.PENDING_REQUEST);
   });
 
-  it('should return NONE for UserRelationship', async () => {
+  it('should return NONE for relationship', async () => {
     const userRelationship = await resolver.getUserRelationship(1000, 1001);
-    expect(userRelationship).toEqual(UserRelationship.NONE);
+    expect(userRelationship).toEqual(RelationshipType.NONE);
   });
 });
