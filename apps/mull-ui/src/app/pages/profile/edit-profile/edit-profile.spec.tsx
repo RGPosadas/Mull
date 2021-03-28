@@ -131,7 +131,7 @@ describe('EditProfile', () => {
       input = utils.getByLabelText('Description');
       fireEvent.change(input, { target: { value: 'bob the builder' } });
 
-      const submitButton = utils.container.querySelector('button[class="mull-button save-button"]');
+      const submitButton = utils.container.querySelector('button[data-testid="mull-button"]');
 
       await waitFor(() => {
         fireEvent.click(submitButton);

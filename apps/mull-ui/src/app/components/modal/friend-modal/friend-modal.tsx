@@ -1,6 +1,6 @@
-import { User } from 'apps/mull-ui/src/generated/graphql';
-import { avatarUrl } from 'apps/mull-ui/src/utilities';
 import React from 'react';
+import { User } from '../../../../generated/graphql';
+import { avatarUrl } from '../../../../utilities';
 import { MullButton } from '../../mull-button/mull-button';
 import { MullModal } from '../mull-modal/mull-modal';
 import './friend-modal.scss';
@@ -31,7 +31,7 @@ export function FriendModal({
 }: FriendModalProps) {
   return (
     <MullModal open={open} setOpen={setOpen} paperClasses={paperClasses} maxWidth={maxWidth}>
-      <img src={avatarUrl(user)} className="user-profile-picture"></img>
+      <img src={avatarUrl(user)} className="user-profile-picture" alt="Modal User Profile"></img>
       <div className="friend-modal-username">{user?.name}</div>
       {button1Text && button1OnClick && (
         <MullButton onClick={button1OnClick} className="friend-modal-button" altStyle>

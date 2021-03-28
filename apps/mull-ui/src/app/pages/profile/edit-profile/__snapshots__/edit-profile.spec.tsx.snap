@@ -113,7 +113,7 @@ exports[`EditProfile should match snapshot 1`] = `
       value="a description"
     />
     <button
-      className="mull-button save-button"
+      className="mull-button save-button "
       data-testid="mull-button"
       onClick={[Function]}
       type="submit"
