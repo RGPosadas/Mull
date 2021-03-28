@@ -11,7 +11,7 @@ frameSizes.forEach((frame) => {
     it('should post announcement on announcements page', () => {
       cy.mockRefreshRequest();
       const date = new Date();
-      cy.visit('http://localhost:4200/messages/announcements');
+      cy.visit('http://localhost:4200/messages/event/1/announcements');
       cy.get('.event-chat', { timeout: 5000 }).should('exist');
       cy.get('.custom-text-input').type(`${date.toString()}{enter}`);
       /* eslint-disable-next-line cypress/no-unnecessary-waiting */
@@ -21,7 +21,7 @@ frameSizes.forEach((frame) => {
 
     it('should not have chat input since user is not a host', () => {
       cy.mockRefreshRequest(2);
-      cy.visit('http://localhost:4200/messages/announcements');
+      cy.visit('http://localhost:4200/messages/event/1/announcements');
       cy.get('.event-chat', { timeout: 5000 }).should('exist');
       cy.get('chat-input-container').should('not.exist');
     });
@@ -29,7 +29,7 @@ frameSizes.forEach((frame) => {
     it('should not have access to announcements page', () => {
       const fakeUserId = -999;
       cy.mockRefreshRequest(fakeUserId);
-      cy.visit('http://localhost:4200/messages/announcements');
+      cy.visit('http://localhost:4200/messages/event/1/announcements');
       cy.get('.announcement-page').should('not.exist');
     });
   });
