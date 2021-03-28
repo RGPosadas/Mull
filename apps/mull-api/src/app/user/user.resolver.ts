@@ -124,7 +124,10 @@ export class UserResolver {
     @AuthenticatedUser() currentUserId: number,
     @Args('userIdToRemove') userIdToRemove: number
   ) {
-    return this.userService.removeFriend(currentUserId, userIdToRemove);
+    return (
+      this.userService.removeFriend(currentUserId, userIdToRemove) &&
+      this.userService.removeFriend(userIdToRemove, currentUserId)
+    );
   }
 
   @Query(/* istanbul ignore next */ () => [Relationship])
