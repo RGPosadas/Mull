@@ -64,6 +64,15 @@ button,
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
+.user-profile-picture {
+  box-sizing: border-box;
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
 @media (min-width: $breakpoint-mobile) {
   .nav-button,
   .nav-middle-button {

@@ -5,6 +5,8 @@ export * from './custom-time-picker/custom-time-picker';
 export * from './event-card/event-card';
 export * from './event-members/event-members';
 export * from './expandable-text/expandable-text';
+export * from './modal/friend-modal/friend-modal';
+export * from './modal/mull-modal/mull-modal';
 export * from './mull-back-button/mull-back-button';
 export * from './mull-button/mull-button';
 export * from './navigation/bot-nav-bar/bot-nav-bar';

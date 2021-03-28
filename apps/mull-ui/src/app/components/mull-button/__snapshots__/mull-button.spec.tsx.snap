@@ -2,7 +2,7 @@
 
 exports[`MullButton should match snapshot 1`] = `
 <button
-  className="mull-button "
+  className="mull-button  "
   data-testid="mull-button"
   onClick={[Function]}
   type="submit"

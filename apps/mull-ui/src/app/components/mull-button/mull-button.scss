@@ -3,8 +3,16 @@
 .mull-button {
   color: white;
   font-weight: bold;
-  padding: 1rem 3rem;
+  padding: 1rem;
+  min-width: 8rem;
   background: $primary-color;
   border-radius: 9px;
   outline: none;
+  border: 1px solid $primary-color;
+}
+
+.mull-button-alt-style {
+  background: white;
+  color: black;
+  font-weight: normal;
 }

@@ -49,9 +49,7 @@ describe('CreateEvent', () => {
     const history = createMemoryHistory();
     history.push(ROUTES.CREATE_EVENT);
     const utils = render(renderHelper(history, null));
-    const submitButton = utils.container.querySelector(
-      'button[class="mull-button create-event-button"]'
-    );
+    const submitButton = utils.container.querySelector('button[data-testid="mull-button"]');
     await waitFor(() => {
       fireEvent.click(submitButton);
     });
@@ -106,9 +104,7 @@ describe('CreateEvent', () => {
     const activeRestriction = utils.container.querySelector('.pill-options > div:nth-child(2)');
     fireEvent.click(activeRestriction);
 
-    const submitButton = utils.container.querySelector(
-      'button[class="mull-button create-event-button"]'
-    );
+    const submitButton = utils.container.querySelector('button[data-testid="mull-button"]');
     await waitFor(() => {
       fireEvent.click(submitButton);
     });
