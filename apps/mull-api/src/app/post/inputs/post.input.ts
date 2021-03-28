@@ -20,7 +20,7 @@ export class CreatePostInput {
   parentPost?: ParentPostInput;
 
   @Field(/* istanbul ignore next */ () => MediaInput, { nullable: true })
-  medias?: Media;
+  media?: Media;
 
   @Field(/* istanbul ignore next */ () => PostReactionInput, { nullable: true })
   reactions?: PostReactionInput[];

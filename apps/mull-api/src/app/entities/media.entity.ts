@@ -19,7 +19,7 @@ export class Media implements IMedia {
   @Field()
   mediaType: string;
 
-  @OneToOne(() => Post, (post) => post.medias, { cascade: true })
+  @OneToOne(() => Post, (post) => post.media, { cascade: true })
   @JoinColumn()
   post: Post;
 }

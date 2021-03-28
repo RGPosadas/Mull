@@ -21,7 +21,7 @@ export const ChatBubbleList = ({ posts, subToMore }: ChatBubbleListProps) => {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => messageEndRef.current?.scrollIntoView({ behavior: 'smooth' }), 100); // wait a little and Scroll to bottom chat smoothly when new post added
+    setTimeout(() => messageEndRef.current?.scrollIntoView({ behavior: 'smooth' }), 100); // wait a little and scroll to bottom chat smoothly when new post added
   }, [posts]);
 
   const chatBubbleList = posts.map((post) => {
@@ -33,8 +33,9 @@ export const ChatBubbleList = ({ posts, subToMore }: ChatBubbleListProps) => {
         userPicture={avatarUrl(post.user)}
       >
         <>
-          {post.medias && <img src={getMediaUrl(post.medias.id)} className="img" alt="" />}
-          {post.medias && <br />}
+          {post.media && (
+            <img src={getMediaUrl(post.media.id)} className="chat-bubble-image" alt="" />
+          )}
           {post.message !== '' && post.message}
         </>
       </ChatBubble>

@@ -107,7 +107,7 @@ export const EventChat = ({ eventId, channelName, restrictChatInput }: EventChat
             post: {
               channel: { id: data.getChannelByEventId.id },
               message: formik.values.message ? formik.values.message : '',
-              medias: uploadedFile
+              media: uploadedFile
                 ? { id: uploadedFile.id, mediaType: uploadedFile.mediaType }
                 : null,
               createdTime: Date.now(),
@@ -127,7 +127,6 @@ export const EventChat = ({ eventId, channelName, restrictChatInput }: EventChat
     return <Redirect to={ROUTES.LOGIN} />;
   }
   if (loading) return <div className="page-container">Loading...</div>;
-  console.log(data);
   if (data) {
     return (
       <div className="event-chat">

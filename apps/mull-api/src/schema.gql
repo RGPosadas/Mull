@@ -19,7 +19,7 @@ input CreateEventInput {
 input CreatePostInput {
   channel: ChannelInput!
   createdTime: DateTime!
-  medias: MediaInput
+  media: MediaInput
   message: String
   parentPost: ParentPostInput
   reactions: PostReactionInput
@@ -155,7 +155,7 @@ type Post {
   channel: EventChannel!
   createdTime: DateTime!
   id: Int!
-  medias: Media
+  media: Media
   message: String!
   parentPost: Post
   reactions: [PostReaction!]
@@ -233,7 +233,7 @@ input UpdatePostInput {
   channel: ChannelInput!
   createdTime: DateTime!
   id: Int!
-  medias: MediaInput
+  media: MediaInput
   message: String
   parentPost: ParentPostInput
   reactions: PostReactionInput

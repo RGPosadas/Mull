@@ -35,7 +35,7 @@ export class ChannelService {
         'posts',
         'posts.user',
         'posts.user.avatar',
-        'posts.medias',
+        'posts.media',
         'event',
         'event.host',
         'event.coHosts',

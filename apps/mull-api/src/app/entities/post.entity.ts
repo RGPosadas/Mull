@@ -40,7 +40,7 @@ export class Post {
   @Field(/* istanbul ignore next */ () => Media, { nullable: true })
   @OneToOne(() => Media, (media) => media.post)
   @JoinColumn()
-  medias?: Media;
+  media?: Media;
 
   @Field(/* istanbul ignore next */ () => [PostReaction], { nullable: true })
   @OneToMany(/* istanbul ignore next */ () => PostReaction, (reaction) => reaction.post)

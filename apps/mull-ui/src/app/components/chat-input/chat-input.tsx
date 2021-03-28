@@ -22,7 +22,9 @@ export const ChatInput = ({
 }: ChatInputProps) => {
   return (
     <form onSubmit={formik.handleSubmit} className="chat-input-container" data-testid="chat-input">
-      {image && <img className="image-size" src={image} alt="" onClick={handleCloseImage} />}
+      {image && (
+        <img className="chat-input-image-size" src={image} alt="" onClick={handleCloseImage} />
+      )}
       <CustomFileUpload
         className="file-upload-feedback"
         imageURL={null}

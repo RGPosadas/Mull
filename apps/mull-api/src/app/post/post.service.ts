@@ -14,7 +14,7 @@ export class PostService {
   ) {}
 
   getPost(postId: number): Promise<Post> {
-    return this.postRepository.findOne(postId, { relations: ['user', 'user.avatar', 'medias'] });
+    return this.postRepository.findOne(postId, { relations: ['user', 'user.avatar', 'media'] });
   }
 
   getAllPosts(): Promise<Post[]> {
