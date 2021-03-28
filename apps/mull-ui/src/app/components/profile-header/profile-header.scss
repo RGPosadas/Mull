@@ -22,14 +22,6 @@
   right: 0;
 }
 
-.user-profile-picture {
-  width: 5rem;
-  height: 5rem;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 1px solid black;
-}
-
 .profile-side-container,
 .for-current-user {
   width: 100%;
@@ -53,14 +45,6 @@
 }
 
 .friend-status-button {
-  background: white;
-  border: 0.12rem solid $primary-color;
-  color: black;
-  font-weight: normal;
-}
-
-.friend-status-button,
-.not-friend-status-button {
   padding: 0.55rem;
   width: 80%;
   margin: 0.75rem;

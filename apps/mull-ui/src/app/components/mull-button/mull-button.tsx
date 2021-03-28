@@ -5,6 +5,7 @@ export interface MullButtonProps {
   type?: 'submit' | 'reset' | 'button';
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   className?: string;
+  altStyle?: boolean;
   children?: string;
 }
 
@@ -14,12 +15,13 @@ export const MullButton = ({
     /* Do nothing */
   },
   className = '',
+  altStyle = false,
   children = '',
 }: MullButtonProps) => {
   return (
     <button
       type={type}
-      className={`mull-button ${className}`}
+      className={`mull-button ${className} ${altStyle ? 'mull-button-alt-style' : ''}`}
       onClick={onClick}
       data-testid="mull-button"
     >

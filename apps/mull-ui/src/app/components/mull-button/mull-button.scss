@@ -7,4 +7,10 @@
   background: $primary-color;
   border-radius: 9px;
   outline: none;
+  border: 1px solid $primary-color;
+}
+
+.mull-button-alt-style {
+  background: white;
+  color: black;
 }

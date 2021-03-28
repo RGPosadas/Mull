@@ -18,7 +18,8 @@ export function checkFriendStatus(isFriend: boolean) {
   return (
     <div className="friend-status-container">
       <MullButton
-        className={isFriend ? 'friend-status-button' : 'not-friend-status-button'}
+        className="friend-status-button"
+        altStyle={isFriend}
         // data-testid={friendStatus}
       >
         {friendStatus}

@@ -123,13 +123,14 @@ export const EventPageInfo = ({
           />
 
           {/*TODO: Cancel event functionality */}
-          <MullButton className="event-page-button event-page-cancel-button" type={buttonType}>
+          <MullButton className="event-page-button" type={buttonType} altStyle>
             Yes
           </MullButton>
           <MullButton
             onClick={() => setIsOpen(false)}
-            className="event-page-button event-page-cancel-button"
+            className="event-page-button"
             type={buttonType}
+            altStyle
           >
             No
           </MullButton>
@@ -137,9 +138,8 @@ export const EventPageInfo = ({
       }
       {isEventExpired && !isReview ? null : (
         <MullButton
-          className={`event-page-button ${
-            joined && !isEventOwner && !isReview ? 'event-page-joined-button' : null
-          }`}
+          className="event-page-button"
+          altStyle={(joined || isEventOwner) && !isReview}
           onClick={isReview ? null : isEventOwner ? () => setIsOpen(true) : handleJoinEventButton}
           type={buttonType}
         >

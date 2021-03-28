@@ -9,11 +9,8 @@
     flex-direction: row;
   }
   .user-profile-picture {
-    width: 3.5rem;
-    height: 3.5rem;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 0.0625rem solid black;
+    width: 3.5rem !important;
+    height: 3.5rem !important;
   }
   .user-details {
     display: flex;

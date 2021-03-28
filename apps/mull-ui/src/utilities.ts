@@ -48,12 +48,12 @@ export const formatChatBubbleDate = (date: Date) => {
 export const mediaUrl = (event: Partial<ISerializedEvent>) =>
   `${environment.backendUrl}/api/media/${event.image.id}`;
 
-const svgSize = 45;
-
 export const avatarUrl = (user: Partial<User>) =>
   user.avatar
     ? `${environment.backendUrl}/api/media/${user.avatar.id}`
     : `./assets/icons/icon-192x192.png`;
+
+const svgSize = 45;
 
 export const drawDetectionIcons = (
   canvas: HTMLCanvasElement,
