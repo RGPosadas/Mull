@@ -4,17 +4,15 @@ import {
   faLock,
   faMap,
   faMapMarkerAlt,
-  faTimes,
   faUserFriends,
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Dialog } from '@material-ui/core';
 import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
 import { useJoinEventMutation, useLeaveEventMutation } from '../../../../generated/graphql';
 import { mediaUrl } from '../../../../utilities';
-import { ExpandableText, MullButton } from '../../../components';
+import { ExpandableText, MullButton, MullModal } from '../../../components';
 import './event-page-info.scss';
 export interface EventPageInfoProps {
   event: Partial<ISerializedEvent>;
@@ -43,7 +41,7 @@ export const EventPageInfo = ({
 }: EventPageInfoProps) => {
   const [joinEvent] = useJoinEventMutation();
   const [leaveEvent] = useLeaveEventMutation();
-  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [joined, setJoined] = useState<boolean>(isJoined);
 
   const currentDate = new Date();
@@ -101,18 +99,12 @@ export const EventPageInfo = ({
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
       </div>
       {
-        <Dialog
-          open={modalIsOpen}
-          onClose={() => setIsOpen(false)}
-          classes={{
-            paperWidthSm: 'cancel-modal-container',
-          }}
+        <MullModal
+          open={modalOpen}
+          setOpen={setModalOpen}
+          paperClasses="cancel-modal-container"
           maxWidth="sm"
         >
-          <button className="close-button" onClick={() => setIsOpen(false)}>
-            <FontAwesomeIcon icon={faTimes} className="color-grey" size="2x" />
-          </button>
-
           <p className="cancel-event-title">Cancel event?</p>
 
           <img
@@ -127,20 +119,22 @@ export const EventPageInfo = ({
             Yes
           </MullButton>
           <MullButton
-            onClick={() => setIsOpen(false)}
+            onClick={() => setModalOpen(false)}
             className="event-page-button"
             type={buttonType}
             altStyle
           >
             No
           </MullButton>
-        </Dialog>
+        </MullModal>
       }
       {isEventExpired && !isReview ? null : (
         <MullButton
           className="event-page-button"
           altStyle={(joined || isEventOwner) && !isReview}
-          onClick={isReview ? null : isEventOwner ? () => setIsOpen(true) : handleJoinEventButton}
+          onClick={
+            isReview ? null : isEventOwner ? () => setModalOpen(true) : handleJoinEventButton
+          }
           type={buttonType}
         >
           {isReview ? 'Create' : isEventOwner ? 'Cancel' : joined ? 'Leave' : 'Join'}

@@ -20,6 +20,9 @@ export function MullModal({
   maxWidth = 'sm',
 }: MullModalProps) {
   paperClasses = `${paperClasses} mull-modal-container`;
+
+  // Despite the modal actually running the below code and rendering a full modal during tests, the coverage metric doesn't pick it up. Therefore ignoring for now
+  // istanbul ignore next
   return (
     <Dialog
       open={open}

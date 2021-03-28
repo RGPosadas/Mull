@@ -1,12 +1,11 @@
-import { DetectionResult } from '@mull/types';
+import { DetectionResult, wasteClassMap } from '@mull/types';
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { MULL_MODEL_URL } from '../../../constants';
-import { dummyDetectionResults } from '../../../mockdata';
+import { MULL_MODEL_URL, WasteTypeSvgMap } from '../../../constants';
 import { canvasToImageCoords, coordsInBox, drawDetectionIcons } from '../../../utilities';
+import { MullModal } from '../../components';
 import { useToast } from '../../hooks/useToast';
 import { TensorflowJsModel } from '../../services/tfjs.model';
-import IdentifiedWasteModal from './identified-waste-modal';
 import './waste-recognition-page.scss';
 
 /* eslint-disable-next-line */
@@ -25,9 +24,7 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
   const [modelLoading, setModelLoading] = useState<boolean>(true);
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalDetectionResult, setModalDetectionResult] = useState<DetectionResult>(
-    dummyDetectionResults[0]
-  );
+  const [modalDetectionResult, setModalDetectionResult] = useState<DetectionResult>(null);
   const [modalImageURL, setModalImageURL] = useState<string>('no-image');
 
   useEffect(() => {
@@ -182,14 +179,24 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
     return canvas.toDataURL();
   };
 
+  const mapEntry = wasteClassMap[modalDetectionResult?.class];
   return (
     <div className="page-container">
-      <IdentifiedWasteModal
-        imageSrc={modalImageURL}
-        detectionResult={modalDetectionResult}
-        open={modalOpen}
+      <MullModal
+        open={modalOpen && modalDetectionResult && modalImageURL ? true : false}
         setOpen={setModalOpen}
-      />
+        paperClasses="identified-waste-container"
+      >
+        <div className="identified-waste-modal-title">
+          <img src={WasteTypeSvgMap[mapEntry?.category]} alt="waste-icon" />
+          <h1>{modalDetectionResult?.class}</h1>
+        </div>
+
+        <img src={modalImageURL} className="identified-waste-modal-image" alt="selected-waste" />
+
+        <div className="identified-waste-modal-info">{mapEntry?.info}</div>
+      </MullModal>
+
       {modelLoading ? (
         <div className="waste-recognition-page-overlay-text">Warming up the Detection Model</div>
       ) : null}

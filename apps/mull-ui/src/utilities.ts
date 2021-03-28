@@ -49,7 +49,7 @@ export const mediaUrl = (event: Partial<ISerializedEvent>) =>
   `${environment.backendUrl}/api/media/${event.image.id}`;
 
 export const avatarUrl = (user: Partial<User>) =>
-  user.avatar
+  user && user.avatar
     ? `${environment.backendUrl}/api/media/${user.avatar.id}`
     : `./assets/icons/icon-192x192.png`;
 
