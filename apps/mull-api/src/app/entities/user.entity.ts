@@ -1,4 +1,4 @@
-import { IUser, RegistrationMethod, UserRelationship } from '@mull/types';
+import { IUser, RegistrationMethod, RelationshipType } from '@mull/types';
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import {
   Column,
@@ -16,8 +16,8 @@ registerEnumType(RegistrationMethod, {
   name: 'RegistrationMethod',
 });
 
-registerEnumType(UserRelationship, {
-  name: 'UserRelationship',
+registerEnumType(RelationshipType, {
+  name: 'RelationshipType',
 });
 
 @Entity()
@@ -82,7 +82,15 @@ export class User implements IUser {
     /* istanbul ignore next */ () => User,
     /* istanbul ignore next */ (user) => user.friends
   )
-  @JoinTable({ name: 'friends' })
+  @JoinTable({
+    name: 'friends',
+    joinColumn: {
+      name: 'adder',
+    },
+    inverseJoinColumn: {
+      name: 'added',
+    },
+  })
   @Field(/* istanbul ignore next */ () => [User])
   friends: User[];
 

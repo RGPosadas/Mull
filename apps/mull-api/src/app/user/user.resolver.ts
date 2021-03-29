@@ -1,4 +1,4 @@
-import { UserRelationship } from '@mull/types';
+import { RelationshipType } from '@mull/types';
 import { UseGuards } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { GraphQLUpload } from 'apollo-server-express';
@@ -10,6 +10,7 @@ import { EventService } from '../event/event.service';
 import { MediaService } from '../media/media.service';
 import { PostService } from '../post/post.service';
 import { CreateUserInput, UpdateUserInput } from './inputs/user.input';
+import { Relationship } from './outputs/user.output';
 import { UserService } from './user.service';
 
 @Resolver(/* istanbul ignore next */ () => User)
@@ -118,25 +119,27 @@ export class UserResolver {
     return this.userService.addFriend(currentUserId, userIdToAdd);
   }
 
-  @Query(/* istanbul ignore next */ () => UserRelationship)
+  @Mutation(/* istanbul ignore next */ () => Boolean)
+  async removeFriend(
+    @AuthenticatedUser() currentUserId: number,
+    @Args('userIdToRemove') userIdToRemove: number
+  ) {
+    return (
+      this.userService.removeFriend(currentUserId, userIdToRemove) &&
+      this.userService.removeFriend(userIdToRemove, currentUserId)
+    );
+  }
+
+  @Query(/* istanbul ignore next */ () => [Relationship])
+  async getRelationships(@AuthenticatedUser() id: number) {
+    return this.userService.getRelationships(id);
+  }
+
+  @Query(/* istanbul ignore next */ () => RelationshipType)
   async getUserRelationship(
     @AuthenticatedUser() userIdA: number,
     @Args('userIdB') userIdB: number
   ) {
-    const userAFriends = await this.userService.getFriends(userIdA);
-    const userBFriends = await this.userService.getFriends(userIdB);
-
-    const AaddedB = !!userAFriends.find((friend) => userIdB === friend.id);
-    const BaddedA = !!userBFriends.find((friend) => userIdA === friend.id);
-
-    if (AaddedB && BaddedA) {
-      return UserRelationship.FRIENDS;
-    } else if (AaddedB) {
-      return UserRelationship.PENDING_REQUEST;
-    } else if (BaddedA) {
-      return UserRelationship.ADDED_ME;
-    } else {
-      return UserRelationship.NONE;
-    }
+    return this.userService.getUserRelationship(userIdA, userIdB);
   }
 }

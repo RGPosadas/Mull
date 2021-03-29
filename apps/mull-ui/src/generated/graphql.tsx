@@ -147,6 +147,7 @@ export type Mutation = {
   leaveEvent: Scalars['Boolean'];
   login: LoginResult;
   post: Post;
+  removeFriend: Scalars['Boolean'];
   updateEvent: Event;
   updateFile: Media;
   updatePost: Post;
@@ -212,6 +213,11 @@ export type MutationLoginArgs = {
 
 export type MutationPostArgs = {
   post: CreatePostInput;
+};
+
+
+export type MutationRemoveFriendArgs = {
+  userIdToRemove: Scalars['Float'];
 };
 
 
@@ -292,7 +298,8 @@ export type Query = {
   friends: Array<Friend>;
   getChannelByEventId: EventChannel;
   getDirectMessageChannel?: Maybe<DirectMessageChannel>;
-  getUserRelationship: UserRelationship;
+  getRelationships: Array<Relationship>;
+  getUserRelationship: RelationshipType;
   hostEvents: Array<Event>;
   hostingCount: Scalars['Int'];
   isParticipant: Scalars['Boolean'];
@@ -345,6 +352,19 @@ export enum RegistrationMethod {
   Google = 'GOOGLE',
   Local = 'LOCAL',
   Twitter = 'TWITTER'
+}
+
+export type Relationship = {
+  __typename?: 'Relationship';
+  type: RelationshipType;
+  user: User;
+};
+
+export enum RelationshipType {
+  AddedMe = 'ADDED_ME',
+  Friends = 'FRIENDS',
+  None = 'NONE',
+  PendingRequest = 'PENDING_REQUEST'
 }
 
 export type Subscription = {
@@ -401,13 +421,6 @@ export type User = {
   registrationMethod: RegistrationMethod;
   timezone: Scalars['String'];
 };
-
-export enum UserRelationship {
-  AddedMe = 'ADDED_ME',
-  Friends = 'FRIENDS',
-  None = 'NONE',
-  PendingRequest = 'PENDING_REQUEST'
-}
 
 export type CreateEventMutationVariables = Exact<{
   event: CreateEventInput;

@@ -128,6 +128,7 @@ type Mutation {
   leaveEvent(eventId: Int!): Boolean!
   login(loginInput: LoginInput!): LoginResult!
   post(post: CreatePostInput!): Post!
+  removeFriend(userIdToRemove: Float!): Boolean!
   updateEvent(event: UpdateEventInput!): Event!
   updateFile(newFile: Upload!, oldFile: MediaInput!): Media!
   updatePost(post: UpdatePostInput!): Post!
@@ -182,7 +183,8 @@ type Query {
   friends: [Friend!]!
   getChannelByEventId(channelName: String!, eventId: Int!): EventChannel!
   getDirectMessageChannel(toUserId: Int!): DirectMessageChannel
-  getUserRelationship(userIdB: Float!): UserRelationship!
+  getRelationships: [Relationship!]!
+  getUserRelationship(userIdB: Float!): RelationshipType!
   hostEvents: [Event!]!
   hostingCount: Int!
   isParticipant(eventId: Int!): Boolean!
@@ -199,6 +201,18 @@ enum RegistrationMethod {
   GOOGLE
   LOCAL
   TWITTER
+}
+
+type Relationship {
+  type: RelationshipType!
+  user: User!
+}
+
+enum RelationshipType {
+  ADDED_ME
+  FRIENDS
+  NONE
+  PENDING_REQUEST
 }
 
 type Subscription {
@@ -249,11 +263,4 @@ type User {
   password: String
   registrationMethod: RegistrationMethod!
   timezone: String!
-}
-
-enum UserRelationship {
-  ADDED_ME
-  FRIENDS
-  NONE
-  PENDING_REQUEST
 }

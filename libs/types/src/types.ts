@@ -26,7 +26,7 @@ export enum RegistrationMethod {
   TWITTER = 'TWITTER',
 }
 
-export enum UserRelationship {
+export enum RelationshipType {
   FRIENDS,
   ADDED_ME,
   PENDING_REQUEST,
