@@ -1,8 +1,7 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { act, render } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import React from 'react';
-import { Router } from 'react-router-dom';
+import { MemoryRouter, Route } from 'react-router-dom';
 import { mockChannelWithPosts } from '../../../../../src/mockdata';
 import { ChannelByEventIdDocument, PostAddedDocument } from '../../../../generated/graphql';
 import { UserProvider } from '../../../context/user.context';
@@ -12,9 +11,11 @@ describe('Event Chat', () => {
   const renderHelper = (mocks: MockedResponse[], userId: number) => (
     <UserProvider value={{ userId, setUserId: jest.fn() }}>
       <MockedProvider mocks={mocks} addTypename={false}>
-        <Router history={createMemoryHistory()}>
-          <EventChat eventId={1} channelName="Announcements" restrictChatInput />
-        </Router>
+        <MemoryRouter initialEntries={['/messages/event/1/announcements']}>
+          <Route path="/messages/event/:id/announcements">
+            <EventChat channelName="Announcements" restrictChatInput />
+          </Route>
+        </MemoryRouter>
       </MockedProvider>
     </UserProvider>
   );

@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SwipeableViewHeader should match snapshot 1`] = `
+<div
+  className="sub-nav-bar-container undefined"
+>
+  <div
+    className="inner-cont"
+  >
+    <p
+      className="subnavigation-link active"
+      data-testid="subnavigation-slide1-button"
+      onClick={[Function]}
+    >
+      Slide1
+    </p>
+    <p
+      className="subnavigation-link "
+      data-testid="subnavigation-slide2-button"
+      onClick={[Function]}
+    >
+      Slide2
+    </p>
+  </div>
+</div>
+`;

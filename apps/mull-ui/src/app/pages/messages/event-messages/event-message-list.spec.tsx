@@ -1,10 +1,8 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
+import { createMemoryHistory, History } from 'history';
 import React from 'react';
-import { Router } from 'react-router-dom';
 import renderer, { act } from 'react-test-renderer';
-import { ROUTES } from '../../../../constants';
 import {
   OwnedEventsDocument,
   OwnedEventsQuery,
@@ -15,13 +13,11 @@ import { UserProvider } from '../../../context/user.context';
 import EventMessageList from './event-message-list';
 
 describe('EventMessageList', () => {
-  const renderHelper = (history, mocks: MockedResponse[]) => {
+  const renderHelper = (history: History, mocks: MockedResponse[]) => {
     return (
       <UserProvider value={{ userId: 1, setUserId: jest.fn() }}>
         <MockedProvider mocks={mocks} addTypename={false}>
-          <Router history={history}>
-            <EventMessageList />
-          </Router>
+          <EventMessageList history={history} />
         </MockedProvider>
       </UserProvider>
     );
@@ -29,7 +25,6 @@ describe('EventMessageList', () => {
 
   it('should render successfully', () => {
     const history = createMemoryHistory();
-    history.push(ROUTES.EVENT_MESSAGE_LIST.url);
 
     const { baseElement } = render(renderHelper(history, null));
     expect(baseElement).toBeTruthy();
@@ -120,7 +115,6 @@ describe('EventMessageList', () => {
       },
     ];
     const history = createMemoryHistory();
-    history.push(ROUTES.EVENT_MESSAGE_LIST.url);
 
     await act(async () => {
       const tree = renderer.create(renderHelper(history, mocks));
