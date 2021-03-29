@@ -193,4 +193,9 @@ describe('UserResolver', () => {
       RelationshipType.FRIENDS
     );
   });
+
+  it('should get true friends of user', async () => {
+    const trueFriends = await resolver.getTrueFriends(mockAllUsers[0].id);
+    expect(trueFriends).toEqual([mockAllFriendsOfId1[0]]);
+  });
 });
