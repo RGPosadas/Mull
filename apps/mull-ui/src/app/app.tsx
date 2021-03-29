@@ -8,17 +8,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ROUTES } from '../constants';
 import { environment } from '../environments/environment';
-import { User, useUserLazyQuery } from '../generated/graphql';
 import { setAccessToken } from './access-token';
 import './app.scss';
-import {
-  BotNavBar,
-  FriendModal,
-  MullModal,
-  PrivateRoute,
-  SubNavBar,
-  TopNavBar,
-} from './components';
+import { BotNavBar, PrivateRoute, SubNavBar, TopNavBar } from './components';
 import { UserProvider } from './context/user.context';
 import NotFoundPage from './pages/404/not-found-page';
 import CreateEventPage from './pages/create-event/create-event';
@@ -46,9 +38,6 @@ export const App = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [userId, setUserId] = useState<number>(null);
 
-  const [open, setOpen] = useState<boolean>(true);
-  const [getUser, { loading: userLoading, data: userData }] = useUserLazyQuery();
-
   useEffect(() => {
     axios
       .post(`${environment.backendUrl}/api/auth/refresh`, null, { withCredentials: true })
@@ -59,7 +48,6 @@ export const App = () => {
             const decodedToken: IAuthToken = jwtDecode(accessToken);
             setAccessToken(accessToken);
             setUserId(decodedToken.id);
-            getUser();
           } catch (err) {
             toast('Invalid Login Token', { type: toast.TYPE.ERROR });
           }
@@ -163,26 +151,6 @@ export const App = () => {
           </>
         ) : null}
       </div>
-      {userData && true && (
-        <FriendModal
-          open={open}
-          setOpen={setOpen}
-          user={userData.user as User}
-          button1Text="View Profile"
-          button1OnClick={() => {
-            console.log('asdf');
-          }}
-          button2Text="Cancel Request"
-          button2OnClick={() => {
-            console.log('asdf');
-          }}
-        ></FriendModal>
-      )}
-      {false && (
-        <MullModal open={open} setOpen={setOpen}>
-          Hello There!
-        </MullModal>
-      )}
     </UserProvider>
   );
 };
