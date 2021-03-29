@@ -5,7 +5,7 @@ import { PrivateRoute } from '../components';
 import SwipeableViewsHeader from '../components/navigation/swipeable-view-header/swipeable-view-header';
 import DirectMessagePage from '../pages/direct-message/direct-message';
 import AnnouncementsPage from '../pages/messages/announcements/announcements';
-import { EventMessagesMenu } from '../pages/messages/event-messages-menu/event-messages-menu';
+import EventMessagesHeader from '../pages/messages/event-messages-header/event-messages-header';
 import EventMessageList from '../pages/messages/event-messages/event-message-list';
 import GroupChatPage from '../pages/messages/group-chat/group-chat';
 
@@ -34,7 +34,7 @@ const MessagesMainRoute = ({ history }) => {
 
 const EventMessagesRoutes = ({ match }: RouteChildrenProps) => (
   <PrivateRoute path={`${match.path}/:id`}>
-    <EventMessagesMenu>
+    <EventMessagesHeader>
       <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
         <PrivateRoute
           exact
@@ -43,7 +43,7 @@ const EventMessagesRoutes = ({ match }: RouteChildrenProps) => (
         />
         <PrivateRoute exact path={`${match.path}/:id/group-chat`} component={GroupChatPage} />
       </div>
-    </EventMessagesMenu>
+    </EventMessagesHeader>
   </PrivateRoute>
 );
 
