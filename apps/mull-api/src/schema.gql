@@ -186,6 +186,7 @@ type Query {
   getDirectMessageChannel(toUserId: Int!): DirectMessageChannel
   getRelationships: [Relationship!]!
   getUserRelationship(userIdB: Int!): RelationshipType!
+  getTrueFriends: [User!]!
   hostEvents: [Event!]!
   hostingCount(id: Int!): Int!
   isParticipant(eventId: Int!): Boolean!
