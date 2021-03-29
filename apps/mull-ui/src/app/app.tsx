@@ -107,25 +107,6 @@ export const App = () => {
               </SwipeableRoutes>
             </div>
           </PrivateRoute>
-          {/* <PrivateRoute path={ROUTES.MESSAGES}>
-            <ChatPagesHeader>
-              <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
-                <PrivateRoute path={ROUTES.DIRECT_MESSAGES.url} component={DirectMessagePage} />
-                <PrivateRoute path={ROUTES.EVENT_MESSAGE_LIST.url} component={EventMessageList} />
-                <PrivateRoute exact path={ROUTES.MESSAGES}>
-                  <Redirect to={ROUTES.DIRECT_MESSAGES.url} />
-                </PrivateRoute>
-              </div>
-            </ChatPagesHeader>
-          </PrivateRoute>
-          <PrivateRoute path={ROUTES.EVENT_MESSAGES}>
-            <EventMessagesMenu>
-              <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
-                <PrivateRoute path={ROUTES.GROUPCHAT} component={GroupChatPage} />
-                <PrivateRoute path={ROUTES.ANNOUNCEMENTS} component={AnnouncementsPage} />
-              </div>
-            </EventMessagesMenu>
-          </PrivateRoute> */}
           <PrivateRoute path={ROUTES.MESSAGES} component={MessagesRoute} />
           <PrivateRoute path={ROUTES.CAMERA} component={WasteRecognitionPage} />
           {/* TODO: Messages main page: Add swipeable routes for DM + Event Message page */}
