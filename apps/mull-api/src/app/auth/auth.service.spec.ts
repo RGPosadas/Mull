@@ -107,6 +107,12 @@ describe('AuthService', () => {
     expect(mockCallback).toHaveBeenCalledWith(null, newUser);
   });
 
+  it('should clear refresh token', async () => {
+    const mockResponse = ({ clearCookie: jest.fn() } as unknown) as Response;
+    await service.clearRefreshToken(mockResponse);
+    expect(mockResponse.clearCookie).toHaveBeenCalled();
+  });
+
   it('should revoke an access token', async () => {
     userService.incrementTokenVersion.mockImplementation(() => {
       mockAllUsers[0].tokenVersion++;

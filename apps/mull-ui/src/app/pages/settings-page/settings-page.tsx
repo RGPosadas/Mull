@@ -1,7 +1,7 @@
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { environment } from 'apps/mull-ui/src/environments/environment';
 import axios from 'axios';
 import React from 'react';
+import { environment } from '../../../environments/environment';
 import SettingsButton from '../../components/settings-button/settings-button';
 import './settings-page.scss';
 
@@ -13,14 +13,14 @@ export function SettingsPage(props: SettingsPageProps) {
     axios
       .post(`${environment.backendUrl}/api/auth/clear`, null, { withCredentials: true })
       .then(() => {
-        location.reload();
+        window.location.reload();
       });
   };
 
   return (
     <div className="page-container">
       <h1 className="settings-page-title">Settings</h1>
-      <SettingsButton icon={faSignOutAlt} settingName="Log Out" onClick={logOut} />
+      <SettingsButton icon={faSignOutAlt} text="Log Out" onClick={logOut} />
     </div>
   );
 }

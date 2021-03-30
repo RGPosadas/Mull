@@ -5,10 +5,10 @@ import {
   faUserFriends,
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import { ROUTES } from 'apps/mull-ui/src/constants';
 import { History } from 'history';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../../../../constants';
 import { User, useUserProfileQuery } from '../../../../generated/graphql';
 import { avatarUrl, formatJoinDate } from '../../../../utilities';
 import ProfileHeader from '../../../components/profile-header/profile-header';
@@ -39,22 +39,22 @@ export const UserProfilePage = ({ history }: UserProfilePageProps) => {
       />
       <div className="settings-container">
         <h3>Portfolio</h3>
-        <SettingsButton icon={faLeaf} settingName="My Portfolio" />
+        <SettingsButton icon={faLeaf} text="My Portfolio" />
       </div>
       <div className="settings-container with-friends">
         <h3>Friends</h3>
-        <SettingsButton icon={faUserPlus} settingName="Add Friends" />
-        <SettingsButton icon={faUserFriends} settingName="My Friends" />
+        <SettingsButton icon={faUserPlus} text="Add Friends" />
+        <SettingsButton icon={faUserFriends} text="My Friends" />
         <p className={friendRequestExists ? 'friend-request-count' : 'no-friend-request'}>{4}</p>
       </div>
       <div className="settings-container below-friends">
         <h3>Misc.</h3>
         <Link to="/profile/edit">
-          <SettingsButton icon={faPencilAlt} settingName="Edit Profile" />
+          <SettingsButton icon={faPencilAlt} text="Edit Profile" />
         </Link>
         <SettingsButton
           icon={faCog}
-          settingName="Settings"
+          text="Settings"
           onClick={() => {
             history.push(ROUTES.SETTINGS);
           }}

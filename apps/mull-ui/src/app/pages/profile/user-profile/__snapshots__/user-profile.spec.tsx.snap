@@ -210,6 +210,7 @@ exports[`UserProfilePage should match snapshot 1`] = `
     <div>
       <button
         className="settings-button-container"
+        onClick={[Function]}
       >
         <svg
           aria-hidden="true"
