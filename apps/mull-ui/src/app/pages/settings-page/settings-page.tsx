@@ -2,6 +2,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import React from 'react';
 import { environment } from '../../../environments/environment';
+import { MullBackButton } from '../../components';
 import SettingsButton from '../../components/settings-button/settings-button';
 import './settings-page.scss';
 
@@ -19,6 +20,7 @@ export function SettingsPage(props: SettingsPageProps) {
 
   return (
     <div className="page-container">
+      <MullBackButton>Profile</MullBackButton>
       <h1 className="settings-page-title">Settings</h1>
       <SettingsButton icon={faSignOutAlt} text="Log Out" onClick={logOut} />
     </div>
