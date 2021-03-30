@@ -101,7 +101,7 @@ export class TensorflowJsModel implements WasteRecognitionModel {
         width: (xmax - xmin) * imageWidth,
         height: (ymax - ymin) * imageHeight,
       };
-      const clazz = wasteClasses[classes[i] - 1];
+      const clazz = wasteClasses[Math.round(classes[i] - 1)];
       detectionResults.push({ bndBox, class: clazz, confidence: scores[i] });
     }
 
@@ -116,6 +116,7 @@ export class TensorflowJsModel implements WasteRecognitionModel {
     }
     return detectionResults;
   }
+
   dispose(): void {
     if (this.model && !this.detecting) {
       try {

@@ -7,7 +7,7 @@ import {
   wasteClassMap,
 } from '@mull/types';
 import emojiRegexRGI from 'emoji-regex/es2015/RGI_Emoji.js';
-import { WasteTypeSvgMap } from './constants';
+import { WasteIconMap } from './constants';
 import { environment } from './environments/environment';
 import { User } from './generated/graphql';
 
@@ -74,11 +74,8 @@ export const drawDetectionIcons = (
       ctx.strokeRect(box.x, box.y, box.width, box.height);
       ctx.strokeText(`${result.class}: ${(result.confidence * 100).toFixed(1)}%`, box.x, box.y - 5);
     }
-    var icon = new Image();
-    icon.onload = () => {
-      ctx.drawImage(icon, dx, dy, svgSize, svgSize);
-    };
-    icon.src = WasteTypeSvgMap[category];
+
+    ctx.drawImage(WasteIconMap[category], dx, dy, svgSize, svgSize);
   });
 };
 

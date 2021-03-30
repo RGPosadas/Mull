@@ -1,7 +1,7 @@
 import { DetectionResult, wasteClassMap } from '@mull/types';
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { MULL_MODEL_URL, WasteTypeSvgMap } from '../../../constants';
+import { MULL_MODEL_URL, WasteIconUrlMap } from '../../../constants';
 import { canvasToImageCoords, coordsInBox, drawDetectionIcons } from '../../../utilities';
 import { MullModal } from '../../components';
 import { useToast } from '../../hooks/useToast';
@@ -80,18 +80,19 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
         .then((stream) => {
           streamRef.current = stream;
           videoRef.current.srcObject = stream;
-
-          const { width, height } = stream.getTracks()[0].getSettings();
-
-          videoRef.current.height = height;
-          videoRef.current.width = width;
-          canvasRef.current.height = height;
-          canvasRef.current.width = width;
-
           videoRef.current.play();
 
           return new Promise<MediaStream>((resolve, reject) => {
             videoRef.current.onloadedmetadata = () => {
+              // Doesn't work on all browsers. Keeping it here just in case
+              // const { width, height } = stream.getTracks()[0].getSettings();
+
+              const width = videoRef.current.videoWidth;
+              const height = videoRef.current.videoHeight;
+
+              canvasRef.current.height = height;
+              canvasRef.current.width = width;
+
               resolve(stream);
             };
           });
@@ -166,8 +167,8 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
     const canvas = hiddenCanvas.current;
     const ctx = canvas.getContext('2d');
 
-    canvas.width = videoRef.current.width;
-    canvas.height = videoRef.current.height;
+    canvas.width = videoRef.current.videoWidth;
+    canvas.height = videoRef.current.videoHeight;
     ctx.drawImage(videoRef.current, 0, 0);
 
     const imageData = ctx.getImageData(box.x, box.y, box.width, box.height);
@@ -188,7 +189,7 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
         paperClasses="identified-waste-container"
       >
         <div className="identified-waste-modal-title">
-          <img src={WasteTypeSvgMap[mapEntry?.category]} alt="waste-icon" />
+          <img src={WasteIconUrlMap[mapEntry?.category]} alt="waste-icon" />
           <h1>{modalDetectionResult?.class}</h1>
         </div>
 
@@ -204,6 +205,8 @@ export function WasteRecognitionPage(props: WasteRecognitionPageProps) {
         ref={videoRef}
         className="waste-recognition-page-overlap"
         data-testid="waste-recognition-page-video"
+        playsInline
+        muted
       />
       <canvas ref={canvasRef} className="waste-recognition-page-overlap" />
       <canvas ref={hiddenCanvas} hidden={true} />
