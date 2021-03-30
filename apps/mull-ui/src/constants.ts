@@ -21,6 +21,7 @@ export const ROUTES = {
   TOKEN_REDIRECT: '/token-redirect/:token',
   DIRECT_MESSAGES: '/dms',
   EVENT_MESSAGE_LIST: '/event-messages-list',
+  SETTINGS: '/settings',
 };
 
 export const DAY_IN_MILLISECONDS = 86400000;

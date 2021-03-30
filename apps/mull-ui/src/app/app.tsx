@@ -27,6 +27,7 @@ import GroupChatPage from './pages/messages/group-chat/group-chat';
 import EditProfilePage from './pages/profile/edit-profile/edit-profile';
 import UserProfilePage from './pages/profile/user-profile/user-profile';
 import RegisterPage from './pages/register/register';
+import SettingsPage from './pages/settings-page/settings-page';
 import TokenRedirectPage from './pages/token-redirect/token-redirect';
 import WasteRecognitionPage from './pages/waste-recognition-page/waste-recognition-page';
 
@@ -125,10 +126,10 @@ export const App = () => {
           {/* TODO: Messages main page: Add swipeable routes for DM + Event Message page */}
           <PrivateRoute path={ROUTES.DIRECT_MESSAGES} component={DirectMessagePage} />
           <PrivateRoute path={ROUTES.EVENT_MESSAGE_LIST} component={EventMessageList} />
-          <PrivateRoute>
-            <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
-            <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
-          </PrivateRoute>
+          <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
+          <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
+          <PrivateRoute path={ROUTES.SETTINGS} component={SettingsPage} />
+
           <PrivateRoute component={NotFoundPage} />
         </Switch>
 

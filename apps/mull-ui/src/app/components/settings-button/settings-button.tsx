@@ -6,12 +6,13 @@ import './settings-button.scss';
 export interface setttingsButtonProps {
   icon?: IconProp;
   settingName?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export const SettingsButton = ({ icon, settingName }: setttingsButtonProps) => {
+export const SettingsButton = ({ icon, settingName, onClick }: setttingsButtonProps) => {
   return (
     <div>
-      <button className="settings-button-container">
+      <button className="settings-button-container" onClick={onClick}>
         <FontAwesomeIcon className="settings-icon" icon={icon} />
         {settingName}
       </button>

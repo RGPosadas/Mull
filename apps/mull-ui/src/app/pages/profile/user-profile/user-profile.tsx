@@ -5,6 +5,8 @@ import {
   faUserFriends,
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
+import { ROUTES } from 'apps/mull-ui/src/constants';
+import { History } from 'history';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { User, useUserProfileQuery } from '../../../../generated/graphql';
@@ -13,7 +15,11 @@ import ProfileHeader from '../../../components/profile-header/profile-header';
 import SettingsButton from '../../../components/settings-button/settings-button';
 import './user-profile.scss';
 
-export const UserProfilePage = () => {
+export interface UserProfilePageProps {
+  history: History;
+}
+
+export const UserProfilePage = ({ history }: UserProfilePageProps) => {
   const { data: userProfile, loading } = useUserProfileQuery();
 
   if (loading) return <div className="page-container">Loading...</div>;
@@ -46,7 +52,13 @@ export const UserProfilePage = () => {
         <Link to="/profile/edit">
           <SettingsButton icon={faPencilAlt} settingName="Edit Profile" />
         </Link>
-        <SettingsButton icon={faCog} settingName="Settings" />
+        <SettingsButton
+          icon={faCog}
+          settingName="Settings"
+          onClick={() => {
+            history.push(ROUTES.SETTINGS);
+          }}
+        />
       </div>
       <div className="joined-date-container">
         <p>
