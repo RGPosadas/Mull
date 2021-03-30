@@ -53,6 +53,10 @@ export class AuthService {
     });
   }
 
+  clearRefreshToken(res: Response) {
+    res.clearCookie('mullToken');
+  }
+
   async revokeRefreshTokensForUser(userId: number): Promise<boolean> {
     return this.userService.incrementTokenVersion(userId);
   }
