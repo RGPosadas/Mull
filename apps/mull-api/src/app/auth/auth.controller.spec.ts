@@ -144,7 +144,7 @@ describe('Auth Controller', () => {
   });
 
   it('should clear cookies', async () => {
-    const mockRequest = ({ cookies: { mullToken: 'mockRefreshAccess' } } as unknown) as Request;
+    const mockRequest = ({} as unknown) as Request;
     const mockResponse = ({ send: jest.fn() } as unknown) as Response;
 
     await controller.clearToken(mockRequest, mockResponse);
