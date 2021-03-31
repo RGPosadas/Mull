@@ -1,7 +1,7 @@
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Dialog from '@material-ui/core/Dialog';
-import { ICreateEventForm } from '@mull/types';
+import { ICreateEventForm, IGooglePlace } from '@mull/types';
 import { FormikContextType } from 'formik';
 import React, { useState } from 'react';
 import { LocationInput } from '../../../../generated/graphql';
@@ -16,7 +16,8 @@ export interface LocationAutocompleteModalProps {
 export default function LocationAutocompleteModal({
   formik: { touched, setFieldValue, errors, values },
 }: LocationAutocompleteModalProps) {
-  const [inputValue, setInputValue] = useState(values.location.title);
+  const [inputValue, setInputValue] = useState(values.location?.title ? values.location.title : '');
+  const [value, setValue] = useState<IGooglePlace>(null);
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -30,6 +31,11 @@ export default function LocationAutocompleteModal({
   const handleSetValue = (location: LocationInput) => {
     setInputValue(location.title);
     setFieldValue('location', location);
+    if (location && location.title) {
+      setInputValue(location.title);
+    } else {
+      setInputValue('');
+    }
     handleClose();
   };
 
@@ -52,8 +58,11 @@ export default function LocationAutocompleteModal({
         </MullBackButton>
         <LocationAutoCompleteTextbox
           handleSetValue={handleSetValue}
-          input={inputValue}
+          inputValue={inputValue}
           setInputValue={setInputValue}
+          value={value}
+          setValue={setValue}
+          setFieldValue={setFieldValue}
         />
       </Dialog>
     </>
