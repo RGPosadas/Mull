@@ -15,8 +15,8 @@ export interface ICreateEventForm {
   activeRestriction: EventRestriction;
   startDate: Date;
   endDate: Date;
-  startTime: string;
-  endTime: string;
+  startTime: number;
+  endTime: number;
   eventTitle: string;
   description: string;
   location: ILocation;

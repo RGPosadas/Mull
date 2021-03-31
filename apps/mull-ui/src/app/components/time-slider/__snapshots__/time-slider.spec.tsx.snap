@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomTimePicker should match snapshot 1`] = `
+<div
+  className="custom-slider-container"
+>
+  <div
+    className="custom-text-input-label"
+  >
+    Text
+     
+    12:00 pm
+  </div>
+  <div
+    className="rc-slider custom-slider-style"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onMouseDown={[Function]}
+    onMouseUp={[Function]}
+    onTouchStart={[Function]}
+  >
+    <div
+      className="rc-slider-rail"
+      style={
+        Object {
+          "backgroundColor": "#27b09a",
+          "height": 10,
+        }
+      }
+    />
+    <div
+      className="rc-slider-track"
+      style={
+        Object {
+          "backgroundColor": "silver",
+          "height": 10,
+          "left": "0%",
+          "right": "auto",
+          "width": "50.526315789473685%",
+        }
+      }
+    />
+    <div
+      className="rc-slider-step"
+    />
+    <div
+      aria-disabled={false}
+      aria-valuemax={23.75}
+      aria-valuemin={0}
+      aria-valuenow={12}
+      className="rc-slider-handle"
+      onBlur={[Function]}
+      onKeyDown={[Function]}
+      onMouseDown={[Function]}
+      role="slider"
+      style={
+        Object {
+          "backgroundColor": "white",
+          "borderColor": "green",
+          "height": 28,
+          "left": "50.526315789473685%",
+          "marginTop": -9,
+          "right": "auto",
+          "transform": "translateX(-50%)",
+          "width": 28,
+        }
+      }
+      tabIndex={0}
+    />
+    <div
+      className="rc-slider-mark"
+    />
+  </div>
+  <span
+    className="error-message"
+  >
+    Time is not valid.
+  </span>
+</div>
+`;

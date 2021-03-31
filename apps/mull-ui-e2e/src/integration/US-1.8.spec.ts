@@ -12,8 +12,11 @@ frameSizes.forEach((frame) => {
 
     it('should review the event', () => {
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
-      cy.get('#startTime').type('11:20');
-      cy.get('#endTime').type('23:59');
+      cy.get('.rc-slider-handle')
+        .first()
+        .should('have.attr', 'aria-valuenow', 12)
+        .type('{leftarrow}');
+      cy.get('.rc-slider-handle').last().should('have.attr', 'aria-valuenow', 12);
       cy.get('#eventTitle').type('test title');
       cy.get('.-today').click();
       cy.get('.-today').click();
@@ -30,11 +33,11 @@ frameSizes.forEach((frame) => {
       cy.get('.event-image').should('have.attr', 'src');
       cy.get('[data-testid=start-date-div]').should(
         'have.text',
-        `${Cypress.moment().format('D MMM')}11:20 AM`
+        `${Cypress.moment().format('D MMM')}11:45 AM`
       );
       cy.get('[data-testid=end-date-div]').should(
         'have.text',
-        `${Cypress.moment().format('D MMM')}11:59 PM`
+        `${Cypress.moment().format('D MMM')}12:00 PM`
       );
       cy.get('[data-testid=event-page-location]').should('have.text', 'Current Location');
       cy.get('[data-testid=expandable-text-div]').should('have.text', 'test description');
@@ -43,8 +46,11 @@ frameSizes.forEach((frame) => {
 
     it('should review the event, then allow the user to edit the form', () => {
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
-      cy.get('#startTime').type('11:20');
-      cy.get('#endTime').type('23:59');
+      cy.get('.rc-slider-handle')
+        .first()
+        .should('have.attr', 'aria-valuenow', 12)
+        .type('{leftArrow}');
+      cy.get('.rc-slider-handle').last().should('have.attr', 'aria-valuenow', 12);
       cy.get('#eventTitle').type('test title');
       cy.get('.-today').click();
       cy.get('.-today').click();
@@ -68,11 +74,11 @@ frameSizes.forEach((frame) => {
       cy.get('.event-image').should('have.attr', 'src');
       cy.get('[data-testid=start-date-div]').should(
         'have.text',
-        `${Cypress.moment().format('D MMM')}11:20 AM`
+        `${Cypress.moment().format('D MMM')}11:45 AM`
       );
       cy.get('[data-testid=end-date-div]').should(
         'have.text',
-        `${Cypress.moment().format('D MMM')}11:59 PM`
+        `${Cypress.moment().format('D MMM')}12:00 PM`
       );
       cy.get('[data-testid=event-page-location]').should('have.text', 'Current Location');
       cy.get('[data-testid=expandable-text-div]').should('have.text', 'new test description');

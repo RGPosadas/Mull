@@ -14,14 +14,14 @@ import {
   useCreateEventMutation,
   useUploadFileMutation,
 } from '../../../generated/graphql';
-import { hasEmoji } from '../../../utilities';
+import { hasEmoji, floatToHHMM } from '../../../utilities';
 import { useToast } from '../../hooks/useToast';
 import {
   CustomFileUpload,
   CustomTextInput,
-  CustomTimePicker,
   MullButton,
   PillOptions,
+  TimeSlider,
 } from './../../components';
 import { EventPage } from './../event-page/event-page';
 import './create-event.scss';
@@ -61,8 +61,9 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
    * @param {string} time Time in HH:MM format
    * @param {Date} date Date object
    */
-  const addTimeToDate = (time: string, date: Date) => {
-    const [hour, minute] = time.split(':');
+  const addTimeToDate = (time: number, date: Date) => {
+    const timeAsString = floatToHHMM(time);
+    const [hour, minute] = timeAsString.toString().split(':');
     date.setHours(parseInt(hour));
     date.setMinutes(parseInt(minute));
   };
@@ -72,8 +73,8 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       activeRestriction: EventRestriction.NONE,
       startDate: null,
       endDate: null,
-      startTime: '',
-      endTime: '',
+      startTime: 12,
+      endTime: 12,
       eventTitle: '',
       description: '',
       location: { title: '' },
@@ -89,8 +90,9 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           const diff = Math.abs(+endDate - +this.parent.startDate);
           return diff <= 30 * DAY_IN_MILLISECONDS;
         }),
-      startTime: Yup.string().required('Start Time is required.'),
-      endTime: Yup.string()
+
+      startTime: Yup.number().required('Start Time is required.'),
+      endTime: Yup.number()
         .required('End Time is required.')
         .test(
           'endTime is after startTime',
@@ -98,7 +100,9 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           function (endTime) {
             const { startTime, startDate, endDate } = this.parent;
             if (endDate && startDate < endDate) return true;
-            return moment(endTime, 'HH:mm').isSameOrAfter(moment(startTime, 'HH:mm'));
+            return moment(floatToHHMM(endTime), 'HH:mm').isSameOrAfter(
+              moment(floatToHHMM(startTime), 'HH:mm')
+            );
           }
         ),
       eventTitle: Yup.string()
@@ -217,19 +221,18 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
                 formik.setFieldValue('endDate', date);
               }}
             />
-            <CustomTimePicker
-              label="Start Time"
-              fieldName="startTime"
-              value={formik.values.startTime}
-              onChange={formik.handleChange}
+            <TimeSlider
+              label="Start"
+              reverse={true}
+              time={formik.values.startTime}
+              onTimeChange={(time) => formik.setFieldValue('startTime', time)}
               hasErrors={formik.touched.startTime && !!formik.errors.startTime}
               errorMessage={formik.errors.startTime}
             />
-            <CustomTimePicker
-              label="End Time"
-              fieldName="endTime"
-              value={formik.values.endTime}
-              onChange={formik.handleChange}
+            <TimeSlider
+              label="End"
+              time={formik.values.endTime}
+              onTimeChange={(time) => formik.setFieldValue('endTime', time)}
               hasErrors={formik.touched.endTime && !!formik.errors.endTime}
               errorMessage={formik.errors.endTime}
             />
