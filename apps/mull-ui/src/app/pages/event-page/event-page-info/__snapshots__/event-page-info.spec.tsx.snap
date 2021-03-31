@@ -111,6 +111,7 @@ exports[`EventPageInfo should match snapshot 1`] = `
         className="expandable-span-button"
         data-testid="expandable-text-button"
         onClick={[Function]}
+        type="button"
       >
         more
       </button>
