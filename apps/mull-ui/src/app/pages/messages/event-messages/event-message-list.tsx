@@ -26,7 +26,7 @@ export const EventMessageList = ({ history }) => {
         eventPicture={getMediaUrl(event.image.id)}
         eventDate={new Date(event.startDate)}
         key={'event-bullet-' + index}
-        onClick={() => history.push(`${ROUTES.ANNOUNCEMENTS.url.replace(':id', `${event.id}`)}`)}
+        onClick={() => history.push(ROUTES.ANNOUNCEMENTS.url.replace(':id', `${event.id}`))}
       />
     ));
 
