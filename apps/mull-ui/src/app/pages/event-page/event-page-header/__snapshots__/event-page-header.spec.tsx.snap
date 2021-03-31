@@ -33,7 +33,7 @@ exports[`EventPageHeader should match snapshot 1`] = `
     </div>
   </button>
   <div
-    className="title"
+    className="event-page-title"
     data-testid="event-page-title"
   >
     Test title

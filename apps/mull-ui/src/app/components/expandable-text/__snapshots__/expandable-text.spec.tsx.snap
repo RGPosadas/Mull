@@ -2,7 +2,7 @@
 
 exports[`ExpandableText should match snapshot 1`] = `
 <div
-  className=""
+  className="expandable-text-container "
   data-testid="expandable-text-div"
 >
   Text

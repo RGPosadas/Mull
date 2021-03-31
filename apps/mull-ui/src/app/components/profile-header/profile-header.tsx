@@ -82,11 +82,9 @@ export const ProfileHeader = ({
           {isCurrentUser ? null : checkFriendStatus(isFriend)}
         </div>
       </div>
-      <div className="user-description-container">
-        <p className="user-description" data-testid="userDescription">
-          {userDescription}
-        </p>
-      </div>
+      <p className="profile-header-user-description" data-testid="userDescription">
+        {userDescription}
+      </p>
     </div>
   );
 };
