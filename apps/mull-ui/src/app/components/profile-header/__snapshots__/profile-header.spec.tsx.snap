@@ -71,15 +71,11 @@ exports[`ProfileHeader should match snapshot 1`] = `
       </button>
     </div>
   </div>
-  <div
-    className="user-description-container"
+  <p
+    className="profile-header-user-description"
+    data-testid="userDescription"
   >
-    <p
-      className="user-description"
-      data-testid="userDescription"
-    >
-      
-    </p>
-  </div>
+    
+  </p>
 </div>
 `;
