@@ -19,6 +19,7 @@ export interface LocationAutocompleteTextboxProps {
   setInputValue: (value: React.SetStateAction<string>) => void;
   value: IGooglePlace;
   setValue: (value: React.SetStateAction<IGooglePlace>) => void;
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
