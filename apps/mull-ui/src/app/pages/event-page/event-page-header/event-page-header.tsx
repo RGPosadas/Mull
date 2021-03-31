@@ -46,7 +46,7 @@ export const EventPageHeader = ({
   return (
     <div className="event-page-header-container" ref={headerRef}>
       <MullBackButton onClick={handleBackButton}>{prevPage}</MullBackButton>
-      <div className="title" data-testid="event-page-title">
+      <div className="event-page-title" data-testid="event-page-title">
         {event.title}
       </div>
       <img

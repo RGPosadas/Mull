@@ -36,7 +36,7 @@ export const ExpandableText = ({ children, cutoff = 150, className = '' }: Expan
   };
 
   return (
-    <div className={className} data-testid="expandable-text-div">
+    <div className={`expandable-text-container ${className}`} data-testid="expandable-text-div">
       {getText()}
       {getButton()}
     </div>
