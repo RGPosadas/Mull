@@ -50,10 +50,8 @@
   margin: 0.75rem;
 }
 
-.user-description-container {
-  display: flex;
+.profile-header-user-description {
+  white-space: pre-line;
   margin-bottom: 1.25rem;
-  .user-description {
-    white-space: pre-line;
-  }
+  word-break: break-word;
 }
