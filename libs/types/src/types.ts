@@ -113,7 +113,7 @@ export interface IPost {
   parentPost: IPost;
   message: string;
   createdTime: Date;
-  medias?: IMedia[];
+  media?: IMedia;
   channel: IChannel;
 }
 

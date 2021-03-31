@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactChild } from 'react';
 import './chat-bubble.scss';
 
 export interface chatBubbleProps {
   isCurrentUser?: boolean;
   chatDate?: string;
   userPicture?: string;
-  children?: string;
+  children?: ReactChild;
 }
 
 export const ChatBubble = ({

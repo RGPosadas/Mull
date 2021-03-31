@@ -65,7 +65,7 @@ exports[`EventMessageList should match snapshot 1`] = `
         <img
           alt="event"
           className="event-bullet-photo"
-          src="http://localhost:3333/api/media/1"
+          src="http://localhost:3333/api/media/2"
         />
         <div
           className="event-bullet-date-box"
@@ -100,7 +100,7 @@ exports[`EventMessageList should match snapshot 1`] = `
         <img
           alt="event"
           className="event-bullet-photo"
-          src="http://localhost:3333/api/media/1"
+          src="http://localhost:3333/api/media/3"
         />
         <div
           className="event-bullet-date-box"

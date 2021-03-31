@@ -1,15 +1,17 @@
 import { IChatForm, ISerializedPost } from '@mull/types';
 import { useFormik } from 'formik';
-import React, { useContext } from 'react';
+import React, { ChangeEvent, useContext, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { ROUTES } from '../../../../../src/constants';
 import {
+  CreatePostInput,
   Event,
   PostAddedDocument,
   useChannelByEventIdQuery,
   useCreatePostMutation,
+  useUploadFileMutation,
 } from '../../../../generated/graphql';
 import { ChatInput } from '../../../components';
 import ChatBubbleList from '../../../components/chat-bubble-list/chat-bubble-list';
@@ -33,6 +35,11 @@ export interface EventChatProps {
 export const EventChat = ({ eventId, channelName, restrictChatInput }: EventChatProps) => {
   const { updateToast } = useToast();
   const [createPostMutation] = useCreatePostMutation();
+
+  const [imageURLFile, setImageURLFile] = useState<string>('');
+  const [uploadFile] = useUploadFileMutation();
+  const [file, setFile] = useState<File>(null);
+
   const { userId } = useContext(UserContext);
   const { data, loading, error, subscribeToMore } = useChannelByEventIdQuery({
     variables: {
@@ -64,6 +71,21 @@ export const EventChat = ({ eventId, channelName, restrictChatInput }: EventChat
       },
     });
 
+  /**
+   * Handles image file uploads
+   * @param {ChangeEvent<HTMLInputElement>} event
+   */
+  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    setImageURLFile(URL.createObjectURL(event.target.files[0]));
+    setFile(event.target.files[0]);
+    formik.setFieldValue('imageFile', event.target.files[0]);
+  };
+
+  const handleCloseImage = () => {
+    setImageURLFile('');
+    setFile(null);
+  };
+
   const formik = useFormik<IChatForm>({
     initialValues: {
       message: '',
@@ -71,21 +93,30 @@ export const EventChat = ({ eventId, channelName, restrictChatInput }: EventChat
     },
 
     validationSchema: Yup.object({
-      message: Yup.string().required(),
+      message: file ? Yup.string().optional() : Yup.string().required(),
     }),
 
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
-        createPostMutation({
+        const uploadedFile = file
+          ? (await uploadFile({ variables: { file: file } })).data.uploadFile
+          : null;
+
+        const post = createPostMutation({
           variables: {
             post: {
               channel: { id: data.getChannelByEventId.id },
-              message: formik.values.message,
+              message: formik.values.message ? formik.values.message : '',
+              media: uploadedFile
+                ? { id: uploadedFile.id, mediaType: uploadedFile.mediaType }
+                : null,
               createdTime: Date.now(),
-            },
+            } as CreatePostInput,
           },
         });
+
         resetForm();
+        handleCloseImage();
       } catch (err) {
         updateToast('Unable to send message', toast.TYPE.ERROR);
         console.error(err);
@@ -100,9 +131,18 @@ export const EventChat = ({ eventId, channelName, restrictChatInput }: EventChat
     return (
       <div className="event-chat">
         <ChatBubbleList posts={data.getChannelByEventId.posts} subToMore={subToMore} />
-        {isEventHost(data.getChannelByEventId.event as Event) && <ChatInput formik={formik} />}
+        {isEventHost(data.getChannelByEventId.event as Event) && (
+          <ChatInput
+            formik={formik}
+            handleFileUpload={handleFileUpload}
+            image={imageURLFile}
+            handleCloseImage={handleCloseImage}
+          />
+        )}
       </div>
     );
+  } else {
+    return null;
   }
 };
 

@@ -1,7 +1,7 @@
 import { ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
 import { useOwnedEventsQuery, useParticipantEventsQuery } from '../../../../generated/graphql';
-import { mediaUrl } from '../../../../utilities';
+import { getMediaUrl } from '../../../../utilities';
 import { CustomTextInput } from '../../../components';
 import { EventBullet } from '../../../components/event-bullet/event-bullet';
 
@@ -21,7 +21,7 @@ export const EventMessageList = () => {
     .map((event, index) => (
       <EventBullet
         eventTitle={event.title}
-        eventPicture={mediaUrl(event)}
+        eventPicture={getMediaUrl(event.id)}
         eventDate={new Date(event.startDate)}
         key={'event-bullet-' + index}
       />

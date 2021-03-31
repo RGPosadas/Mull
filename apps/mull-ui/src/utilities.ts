@@ -45,8 +45,7 @@ export const formatChatBubbleDate = (date: Date) => {
   )} ${date.toLocaleDateString()}`;
 };
 
-export const mediaUrl = (event: Partial<ISerializedEvent>) =>
-  `${environment.backendUrl}/api/media/${event.image.id}`;
+export const getMediaUrl = (id: number) => `${environment.backendUrl}/api/media/${id.toString()}`;
 
 export const avatarUrl = (user: Partial<User>) =>
   user && user.avatar

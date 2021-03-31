@@ -7,7 +7,7 @@ import { PostReactionInput } from './post-reaction.input';
 
 @InputType()
 export class CreatePostInput {
-  @Field()
+  @Field({ nullable: true })
   message: string;
 
   @Field()
@@ -20,7 +20,7 @@ export class CreatePostInput {
   parentPost?: ParentPostInput;
 
   @Field(/* istanbul ignore next */ () => MediaInput, { nullable: true })
-  medias?: Media[];
+  media?: Media;
 
   @Field(/* istanbul ignore next */ () => PostReactionInput, { nullable: true })
   reactions?: PostReactionInput[];
