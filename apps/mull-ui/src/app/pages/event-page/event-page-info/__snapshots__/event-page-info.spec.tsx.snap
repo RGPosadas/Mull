@@ -102,7 +102,7 @@ exports[`EventPageInfo should match snapshot 1`] = `
       />
     </svg>
     <div
-      className="row-text"
+      className="expandable-text-container row-text"
       data-testid="expandable-text-div"
     >
       Lorem ipsum dolor sit amet, regione invidunt democritum vim in, movet antiopam gubergren ne per. Est nibh magna scribentur ea, vel te munere deseruiss
