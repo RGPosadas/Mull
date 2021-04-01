@@ -1,6 +1,6 @@
 import { faAlignLeft, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { EventRestriction, EventRestrictionMap, ICreateEventForm } from '@mull/types';
+import { EventRestriction, EventRestrictionMap, ICreateEventForm, LIMITS } from '@mull/types';
 import { FormikTouched, FormikValues, setNestedObjectValues, useFormik } from 'formik';
 import { History } from 'history';
 import { cloneDeep, isEmpty } from 'lodash';
@@ -107,14 +107,17 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         ),
       eventTitle: Yup.string()
         .required('Event Title is required.')
-        .max(65, 'Event Title length must be under 65 characters.')
+        .max(LIMITS.EVENT_TITLE, `Event Title must be under ${LIMITS.EVENT_TITLE} characters.`)
         .test('EmojiCheck', 'Emojis are not allowed in Event Title.', function (eventTitle) {
           return !hasEmoji(eventTitle);
         }),
       activeRestriction: Yup.number().min(0).max(2),
       description: Yup.string()
         .required('Event Description is required.')
-        .max(5000, 'Event Description must be under 5000 characters.'),
+        .max(
+          LIMITS.DESCRIPTION,
+          `Event Description must be under ${LIMITS.DESCRIPTION} characters.`
+        ),
       location: Yup.mixed()
         .required('Event Location is required.')
         .test(

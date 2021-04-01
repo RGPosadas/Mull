@@ -1,4 +1,4 @@
-import { IRegisterForm } from '@mull/types';
+import { IRegisterForm, LIMITS } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
 import React from 'react';
@@ -32,7 +32,7 @@ const Register = ({ history }: RegisterProps) => {
     validationSchema: Yup.object({
       name: Yup.string()
         .required('Name is required.')
-        .max(24, 'Name must be 24 characters or less.')
+        .max(LIMITS.USERNAME, `Name must be ${LIMITS.USERNAME} characters or less.`)
         .test('EmojiCheck', 'Emojis are not allowed in Name.', function (name) {
           return !hasEmoji(name);
         }),

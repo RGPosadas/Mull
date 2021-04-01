@@ -1,4 +1,4 @@
-import { IProfileEditForm } from '@mull/types';
+import { IProfileEditForm, LIMITS } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
@@ -37,11 +37,14 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
     validationSchema: Yup.object({
       displayName: Yup.string()
         .required('Display name is required')
-        .max(24, 'Display Name must be 24 characters or less.')
+        .max(LIMITS.USERNAME, `Display Name must be ${LIMITS.USERNAME} characters or less.`)
         .test('EmojiCheck', 'Emojis are not allowed in Display Name.', function (displayName) {
           return !hasEmoji(displayName);
         }),
-      description: Yup.string().max(250, 'Description must be 250 characters or less.'),
+      description: Yup.string().max(
+        LIMITS.DESCRIPTION,
+        `Description must be ${LIMITS.DESCRIPTION} characters or less.`
+      ),
     }),
 
     onSubmit: async () => {

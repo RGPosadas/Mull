@@ -32,3 +32,9 @@ export interface IChatForm {
   message: string;
   imageFile: string;
 }
+
+export const LIMITS = {
+  DESCRIPTION: 2048,
+  USERNAME: 64,
+  EVENT_TITLE: 64,
+};
