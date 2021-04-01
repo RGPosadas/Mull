@@ -24,23 +24,32 @@ export const ChatBubbleList = ({ posts, subToMore }: ChatBubbleListProps) => {
     setTimeout(() => messageEndRef.current?.scrollIntoView({ behavior: 'smooth' }), 100); // wait a little and scroll to bottom chat smoothly when new post added
   }, [posts]);
 
-  const chatBubbleList = posts.map((post) => {
-    return (
-      <ChatBubble
-        key={post.id}
-        isCurrentUser={userId === post.user.id}
-        chatDate={formatChatBubbleDate(new Date(post.createdTime))}
-        userPicture={avatarUrl(post.user)}
-      >
-        <>
-          {post.media && (
-            <img src={getMediaUrl(post.media.id)} className="chat-bubble-image" alt="" />
-          )}
-          {post.message !== '' && post.message}
-        </>
-      </ChatBubble>
-    );
-  });
+  // Copying because sometimes array is readonly (due to originating from query) and can't be sorted
+  const postsCopy = [...posts];
+
+  const chatBubbleList = postsCopy
+    .sort((post1, post2) => {
+      const date1 = new Date(post1.createdTime);
+      const date2 = new Date(post2.createdTime);
+      return date1.getTime() - date2.getTime();
+    })
+    .map((post) => {
+      return (
+        <ChatBubble
+          key={post.id}
+          isCurrentUser={userId === post.user.id}
+          chatDate={formatChatBubbleDate(new Date(post.createdTime))}
+          userPicture={avatarUrl(post.user)}
+        >
+          <>
+            {post.media && (
+              <img src={getMediaUrl(post.media.id)} className="chat-bubble-image" alt="" />
+            )}
+            {post.message !== '' && post.message}
+          </>
+        </ChatBubble>
+      );
+    });
 
   return (
     <div className="chat-bubble-list">
