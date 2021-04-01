@@ -38,7 +38,7 @@ export const ContactRow = ({
           <img className="user-profile-picture" src={avatarUrl(user)} alt="user" />
           <div className="user-details">
             <span className="username">{userName}</span>
-            <span className="last-message">{lastMessage}</span>
+            {lastMessage && <span className="last-message">{lastMessage}</span>}
           </div>
         </div>
       </Link>

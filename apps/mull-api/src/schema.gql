@@ -185,8 +185,8 @@ type Query {
   getChannelByEventId(channelName: String!, eventId: Int!): EventChannel!
   getDirectMessageChannel(toUserId: Int!): DirectMessageChannel
   getRelationships: [Relationship!]!
-  getUserRelationship(userIdB: Int!): RelationshipType!
   getTrueFriends: [User!]!
+  getUserRelationship(userIdB: Int!): RelationshipType!
   hostEvents: [Event!]!
   hostingCount(id: Int!): Int!
   isParticipant(eventId: Int!): Boolean!

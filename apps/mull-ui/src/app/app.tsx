@@ -23,6 +23,7 @@ import LoginPage from './pages/login/login';
 import EventMessageList from './pages/messages/event-messages/event-message-list';
 import AddFriendsPage from './pages/profile/add-friends/add-friends';
 import EditProfilePage from './pages/profile/edit-profile/edit-profile';
+import MyFriends from './pages/profile/myFriends-profile/myFriends-profile';
 import OtherUserProfilePage from './pages/profile/other-user-profile/other-user-profile';
 import UserProfilePage from './pages/profile/user-profile/user-profile';
 import RegisterPage from './pages/register/register';
@@ -109,6 +110,7 @@ export const App = () => {
           </PrivateRoute>
           <PrivateRoute path={ROUTES.MESSAGES} component={MessagesRoute} />
           <PrivateRoute path={ROUTES.CAMERA} component={WasteRecognitionPage} />
+          <PrivateRoute path={ROUTES.MY_FRIENDS} component={MyFriends} />
           {/* TODO: Messages main page: Add swipeable routes for DM + Event Message page */}
           <PrivateRoute path={ROUTES.DIRECT_MESSAGES.url} component={DirectMessagePage} />
           <PrivateRoute path={ROUTES.EVENT_MESSAGE_LIST.url} component={EventMessageList} />

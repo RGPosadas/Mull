@@ -21,6 +21,7 @@ export const ROUTES = {
   REGISTER: '/register',
   EVENT_BY_ID: '/events/:id',
   TOKEN_REDIRECT: '/token-redirect/:token',
+  MY_FRIENDS: '/my-friends',
   SETTINGS: '/settings',
   OTHER_USER_PROFILE: '/other-user-profile',
 };
