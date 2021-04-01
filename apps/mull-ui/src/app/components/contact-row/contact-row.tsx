@@ -10,12 +10,19 @@ import './contact-row.scss';
 /* eslint-disable-next-line */
 export interface ContactRowProps {
   userId?: number;
-  userName?: string;
+  userPicture?: string;
   lastMessage?: string;
+  userName?: string;
   icon: IconProp;
 }
 
-export const ContactRow = ({ userId, userName, lastMessage, icon }: ContactRowProps) => {
+export const ContactRow = ({
+  userId,
+  userPicture,
+  userName,
+  lastMessage,
+  icon,
+}: ContactRowProps) => {
   const user: Partial<User> = {
     name: `${userName}`,
   };
