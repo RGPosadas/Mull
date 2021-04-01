@@ -102,6 +102,10 @@ export default function LocationAutocompleteTextbox({
         }}
         onInputChange={(_event, value) => {
           setInputValue(value ? value : '');
+          if (!value) {
+            setValue(null);
+            setFieldValue('location', null);
+          }
           if (value && value !== CURRENT_LOCATION.description) {
             debounceGetLocation(value);
           }

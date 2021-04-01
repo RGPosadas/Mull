@@ -31,11 +31,6 @@ export default function LocationAutocompleteModal({
   const handleSetValue = (location: LocationInput) => {
     setInputValue(location.title);
     setFieldValue('location', location);
-    if (location && location.title) {
-      setInputValue(location.title);
-    } else {
-      setInputValue('');
-    }
     handleClose();
   };
 
