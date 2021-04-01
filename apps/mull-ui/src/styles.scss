@@ -15,19 +15,16 @@
 a {
   text-decoration: none;
 }
-
-button {
-  cursor: pointer;
-  outline: none;
-  background-color: transparent;
+button:hover,
+a:hover,
+input:focus,
+textarea:focus {
+  filter: brightness(96%);
 }
 
-button:hover {
-  filter: brightness(110%);
-}
-
-button:active {
-  filter: brightness(125%);
+button:active,
+a:active {
+  filter: brightness(80%);
 }
 
 .error-message {
@@ -46,7 +43,7 @@ button,
 .button {
   cursor: pointer;
   outline: none;
-  background-color: transparent;
+  background-color: white;
 }
 
 .nav-button {
@@ -72,6 +69,10 @@ button,
   object-fit: cover;
   border-radius: 50%;
   border: 1px solid black;
+}
+
+.home-page-no-event {
+  text-align: center;
 }
 
 @media (min-width: $breakpoint-mobile) {

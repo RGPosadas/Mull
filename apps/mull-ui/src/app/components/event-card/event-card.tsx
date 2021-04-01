@@ -13,7 +13,7 @@ export interface EventCardProps {
   style?: React.CSSProperties;
   isJoined?: boolean;
   isEventOwner?: boolean;
-  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 export const EventCard = ({
@@ -36,8 +36,8 @@ export const EventCard = ({
   const currentDate = new Date();
   const isEventExpired = currentDate.getTime() > new Date(event.endDate).getTime();
   return (
-    <div className="event-card-container button" onClick={onClick} style={style}>
-      <img className="event-card-image" src={getMediaUrl(event.image.id)} alt="Event" />
+    <button className="event-card-container button" onClick={onClick} style={style}>
+      <img className="event-card-image" src={getMediaUrl(event.id)} alt="Event" />
       <div className="event-card-datetime" data-testid="event-card-datetime">
         <div className="date-style">{`${day} ${month.toUpperCase()}`}</div>
         <div>{time.replace(/\s/g, '')}</div>
@@ -64,7 +64,7 @@ export const EventCard = ({
         </button>
       )}
 
-      <div className="event-card-description" onClick={onClick}>
+      <div className="event-card-description">
         <div className="event-card-text">
           <div className="event-card-title">{event.title}</div>
 
@@ -81,7 +81,7 @@ export const EventCard = ({
           <FontAwesomeIcon icon={faShareAlt} />
         </button>
       </div>
-    </div>
+    </button>
   );
 };
 

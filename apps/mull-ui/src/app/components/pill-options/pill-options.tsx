@@ -17,16 +17,18 @@ export const PillOptions = ({ options, onChange, active }: PillOptionsProps) => 
   return (
     <div className="pill-options">
       {options.map((option, idx) => (
-        <div
+        <button
           data-testid={`pill-id-${idx}`}
           key={option}
-          className={`pill-option ${active === idx ? `active` : ''}`}
+          className={`pill-option ${
+            active === idx ? `pill-option-active` : 'pill-option-inactive'
+          }`}
           onClick={() => {
             onChange(idx);
           }}
         >
           {option}
-        </div>
+        </button>
       ))}
     </div>
   );
