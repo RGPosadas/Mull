@@ -23,15 +23,6 @@
   width: 5.4rem;
 }
 
-.profile-button {
-  fill: $inactive-button-color;
-  position: absolute;
-  right: 1em;
-  display: flex;
-
-  @include vertical-center-fixed;
-}
-
 .extra-buttons {
   display: none;
 }

@@ -1,6 +1,5 @@
 import React, { CSSProperties } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ReactComponent as ProfileIcon } from '../../../../assets/icons/nav-bar-icons/ProfileIcon.svg';
 import logo from '../../../../assets/mull-logo.png';
 import { ROUTES } from '../../../../constants';
 import NavButtons from '../nav-buttons/nav-buttons';
@@ -24,14 +23,6 @@ export const TopNavBar = ({ style }: TopNavBarProps) => {
       <div className="extra-buttons">
         <NavButtons />
       </div>
-      <NavLink
-        to={ROUTES.PROFILE.DISPLAY}
-        className="profile-button"
-        activeClassName="active"
-        data-testid="profile-desktop-navlink"
-      >
-        <ProfileIcon className="nav-button" />
-      </NavLink>
     </div>
   );
 };
