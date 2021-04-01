@@ -1,4 +1,4 @@
-import { faCheck, faShareAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
@@ -72,14 +72,14 @@ export const EventCard = ({
         </div>
         <EventMembers profilePictures={dummyProfilePictures} />
         {/* TODO: Implement share */}
-        <button
+        {/* <button
           className="event-card-share"
           onClick={(e) => {
             e.stopPropagation();
           }}
         >
           <FontAwesomeIcon icon={faShareAlt} />
-        </button>
+        </button> */}
       </div>
     </button>
   );
