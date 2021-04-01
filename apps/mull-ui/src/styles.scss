@@ -20,13 +20,14 @@
 a {
   text-decoration: none;
 }
+.button:hover,
 button:hover,
 a:hover,
 input:focus,
 textarea:focus {
   filter: brightness(96%);
 }
-
+.button:active,
 button:active,
 a:active {
   filter: brightness(80%);

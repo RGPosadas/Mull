@@ -14,7 +14,7 @@ export interface MullBackButtonProps {
 export const MullBackButton = ({
   children = 'Back',
   onClick = null,
-  className,
+  className = '',
   style,
 }: MullBackButtonProps) => {
   const history = useHistory();

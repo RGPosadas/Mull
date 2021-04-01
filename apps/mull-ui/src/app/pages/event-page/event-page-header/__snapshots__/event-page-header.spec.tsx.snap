@@ -5,7 +5,7 @@ exports[`EventPageHeader should match snapshot 1`] = `
   className="event-page-header-container"
 >
   <button
-    className="mull-back-button undefined"
+    className="mull-back-button  "
     data-testid="mull-back-button"
     onClick={[Function]}
   >
