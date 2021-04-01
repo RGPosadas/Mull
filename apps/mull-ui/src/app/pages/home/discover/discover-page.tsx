@@ -22,7 +22,11 @@ export const DiscoverPage = ({ history }) => {
   }
   return (
     <div className="discover-page-tabs-container" data-testid="discover-tab">
-      {eventCards}
+      {eventCards && eventCards.length !== 0 ? (
+        eventCards
+      ) : (
+        <div className="home-page-no-event">No events found</div>
+      )}
     </div>
   );
 };
