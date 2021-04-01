@@ -52,7 +52,7 @@ export const EventPageHeader = ({
       <img
         className="event-image"
         data-testid="event-page-image"
-        src={eventImageURL ? eventImageURL : getMediaUrl(event.id)}
+        src={eventImageURL ? eventImageURL : getMediaUrl(event.image.id)}
         alt="Event Page"
         // Check header size after image has loaded
         onLoad={handleHeaderChange}
