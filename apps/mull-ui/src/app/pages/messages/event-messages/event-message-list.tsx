@@ -21,7 +21,7 @@ export const EventMessageList = () => {
     .map((event, index) => (
       <EventBullet
         eventTitle={event.title}
-        eventPicture={getMediaUrl(event.id)}
+        eventPicture={getMediaUrl(event.image.id)}
         eventDate={new Date(event.startDate)}
         key={'event-bullet-' + index}
       />
