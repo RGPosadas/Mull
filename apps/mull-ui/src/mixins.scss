@@ -1,0 +1,9 @@
+@mixin vertical-center-fixed {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin horizontal-center-fixed {
+  left: 50%;
+  transform: translateX(-50%);
+}

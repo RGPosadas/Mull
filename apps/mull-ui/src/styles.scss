@@ -50,14 +50,14 @@ button,
 }
 
 .nav-button {
-  width: 2.2em;
-  height: 2.2em;
+  width: $mobile-nav-button-size;
+  height: $mobile-nav-button-size;
 }
 
 .nav-middle-button {
   fill: $inactive-button-color;
-  width: 2.7em;
-  height: 2.7em;
+  width: $mobile-middle-nav-button-size;
+  height: $mobile-middle-nav-button-size;
 }
 
 .top-nav-bar-shadow {
@@ -77,7 +77,7 @@ button,
 @media (min-width: $breakpoint-mobile) {
   .nav-button,
   .nav-middle-button {
-    width: 3.5em;
-    height: 3.5em;
+    width: $desktop-nav-button-size;
+    height: $desktop-nav-button-size;
   }
 }

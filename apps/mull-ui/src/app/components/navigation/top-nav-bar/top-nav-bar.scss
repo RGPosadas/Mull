@@ -1,4 +1,5 @@
 @import '../../../../variables.scss';
+@import '../../../../mixins.scss';
 
 .top-nav-container {
   background: $background-color;
@@ -12,14 +13,13 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  padding: 0.7em 0;
+  padding: 0.5em 0;
   z-index: 3;
 }
-
-.logo {
+.top-nav-logo-container,
+.top-nav-logo {
+  align-self: center;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
   width: 5.4rem;
 }
 
@@ -27,6 +27,9 @@
   fill: $inactive-button-color;
   position: absolute;
   right: 1em;
+  display: flex;
+
+  @include vertical-center-fixed;
 }
 
 .extra-buttons {
@@ -35,15 +38,15 @@
 
 @media (min-width: $breakpoint-mobile) {
   .top-nav-container {
-    padding: 1em 0;
+    padding: 1rem 0;
     height: $top-nav-bar-height-desktop;
   }
-
-  .logo {
-    width: 11em;
+  .top-nav-logo-container {
     position: absolute;
     left: 1em;
-    bottom: 0.75rem;
+    .top-nav-logo {
+      width: 7em;
+    }
   }
 
   .extra-buttons {
