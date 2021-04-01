@@ -43,9 +43,20 @@ export const monthNames = [
   'Dec',
 ];
 
-export const WasteTypeSvgMap = {
+export const WasteIconUrlMap: { [a in WasteCategory]: string } = {
   [WasteCategory.COMPOST]: 'assets/icons/trash-recognition-icons/CompostIcon.svg',
   [WasteCategory.EWASTE]: 'assets/icons/trash-recognition-icons/GeneralIcon.svg',
   [WasteCategory.TRASH]: 'assets/icons/trash-recognition-icons/TrashIcon.svg',
   [WasteCategory.RECYCLABLE]: 'assets/icons/trash-recognition-icons/RecycleIcon.svg',
 };
+
+export const WasteIconMap: { [a in WasteCategory]: HTMLImageElement } = {
+  [WasteCategory.COMPOST]: new Image(),
+  [WasteCategory.EWASTE]: new Image(),
+  [WasteCategory.TRASH]: new Image(),
+  [WasteCategory.RECYCLABLE]: new Image(),
+};
+
+for (const [category, image] of Object.entries(WasteIconMap)) {
+  image.src = WasteIconUrlMap[category];
+}
