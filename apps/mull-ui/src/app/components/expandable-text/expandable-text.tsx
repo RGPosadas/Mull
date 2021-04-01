@@ -24,6 +24,7 @@ export const ExpandableText = ({ children, cutoff = 150, className = '' }: Expan
         <>
           {expand ? ' ' : '... '}
           <button
+            type="button"
             data-testid="expandable-text-button"
             className="expandable-span-button"
             onClick={() => setExpand(!expand)}
