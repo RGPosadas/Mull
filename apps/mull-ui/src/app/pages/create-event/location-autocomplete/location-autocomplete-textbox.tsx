@@ -15,16 +15,23 @@ import './location-autocomplete-textbox.scss';
 
 export interface LocationAutocompleteTextboxProps {
   handleSetValue: (location: LocationInput) => void;
-  input: string;
+  inputValue: string;
   setInputValue: (value: React.SetStateAction<string>) => void;
+  value: IGooglePlace;
+  setValue: (value: React.SetStateAction<IGooglePlace>) => void;
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
 const CURRENT_LOCATION: IGooglePlace = { description: 'Current Location', placeId: null };
 
 export default function LocationAutocompleteTextbox({
   handleSetValue,
-  input,
+  inputValue,
   setInputValue,
+  value,
+  setValue,
+  setFieldValue,
 }: LocationAutocompleteTextboxProps) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<IGooglePlace[]>([]);
@@ -60,7 +67,10 @@ export default function LocationAutocompleteTextbox({
           handleSetValue(location);
         },
         () => {
-          notifyToast('Cannot get your current location coordinates.', toast.TYPE.ERROR);
+          notifyToast('Cannot get your current location', toast.TYPE.ERROR);
+          setInputValue('');
+          setValue(null);
+          setFieldValue('location', null);
         },
         { enableHighAccuracy: true }
       );
@@ -76,8 +86,8 @@ export default function LocationAutocompleteTextbox({
         classes={{
           endAdornment: 'location-textbox-end-adornment',
         }}
-        inputValue={input}
-        defaultValue={input}
+        value={value}
+        inputValue={inputValue}
         open={open}
         getOptionLabel={(option) => (option.description ? option.description : '')}
         onFocus={() => {
@@ -92,19 +102,27 @@ export default function LocationAutocompleteTextbox({
         }}
         onInputChange={(_event, value) => {
           setInputValue(value ? value : '');
+          if (!value) {
+            setValue(null);
+            setFieldValue('location', null);
+          }
           if (value && value !== CURRENT_LOCATION.description) {
             debounceGetLocation(value);
           }
         }}
         onChange={(_event, value: IGooglePlace) => {
           if (value && value.description === CURRENT_LOCATION.description) {
+            setValue(CURRENT_LOCATION);
             getCurrentPosition();
-          } else if (value) {
+          } else if (value && value.description && value.placeId) {
+            setValue(value);
             handleSetValue({ title: value.description, placeId: value.placeId });
+          } else {
+            setValue(null);
           }
         }}
-        getOptionSelected={(option: IGooglePlace, value) => {
-          return option.description === ((value as unknown) as string);
+        getOptionSelected={(option: IGooglePlace, value: IGooglePlace) => {
+          return option.description === value?.description;
         }}
         renderOption={(option: IGooglePlace) => {
           const icon =

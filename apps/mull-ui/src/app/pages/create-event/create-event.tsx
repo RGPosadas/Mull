@@ -14,7 +14,7 @@ import {
   useCreateEventMutation,
   useUploadFileMutation,
 } from '../../../generated/graphql';
-import { hasEmoji, floatToHHMM } from '../../../utilities';
+import { floatToHHMM, hasEmoji } from '../../../utilities';
 import { useToast } from '../../hooks/useToast';
 import {
   CustomFileUpload,
@@ -77,7 +77,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       endTime: 12,
       eventTitle: '',
       description: '',
-      location: { title: '' },
+      location: null,
       imageFile: null,
     },
 
@@ -121,8 +121,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           'values.location.title cannot be empty string',
           'Event Location is required.',
           function (location) {
-            if (location.title && location.title === '') return true;
-            return location.title;
+            return location && location.title && location.title !== '';
           }
         ),
       imageFile: Yup.mixed().required('Image is required.'),

@@ -49,7 +49,7 @@ exports[`location autocomplete textbox should match snapshot 1`] = `
         >
           <button
             aria-label="Clear"
-            className="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator MuiAutocomplete-clearIndicatorDirty"
+            className="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator"
             disabled={false}
             onBlur={[Function]}
             onClick={[Function]}

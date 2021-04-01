@@ -1,10 +1,9 @@
 import { IGooglePlace } from '@mull/types';
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import axios from 'axios';
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import LocationAutocompleteTextbox, {
   LocationAutocompleteTextboxProps,
@@ -22,11 +21,16 @@ const mockedApiData: IGooglePlace[] = [
 
 const mockHandleClose: (e) => void = jest.fn();
 const mockSetInputValue: (e) => void = jest.fn();
+const mockSetValue: (e) => void = jest.fn();
+const mockSetFieldValue: (e) => void = jest.fn();
 
 const mockLocationAutocompleteTextboxProps: () => LocationAutocompleteTextboxProps = () => ({
   handleSetValue: mockHandleClose,
-  input: '845 rue Sherbrooke',
+  inputValue: '845 rue Sherbrooke',
   setInputValue: mockSetInputValue,
+  value: null,
+  setValue: mockSetValue,
+  setFieldValue: mockSetFieldValue,
 });
 
 describe('location autocomplete textbox', () => {
@@ -49,7 +53,7 @@ describe('location autocomplete textbox', () => {
   it('should have the correct text input value', () => {
     const props = mockLocationAutocompleteTextboxProps();
     const testInput = 'test string';
-    props.input = testInput;
+    props.inputValue = testInput;
     const utils = render(<LocationAutocompleteTextbox {...props} />);
     const autocompleteTextbox = utils.container.querySelector(
       '#location-input-field'
