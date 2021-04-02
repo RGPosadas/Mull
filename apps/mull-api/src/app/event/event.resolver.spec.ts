@@ -41,6 +41,10 @@ const mockEventService = () => ({
   ),
   getEventsRecommendedToUser: jest.fn().mockReturnValue(mockAllEvents[2]),
   getEventImage: jest.fn().mockReturnValue(mockImage),
+  getUserEventsPortfolio: jest.fn((id: number) => {
+    const currentDateTime = new Date();
+    return mockAllEvents.find((event) => event.host.id === id && event.endDate < currentDateTime);
+  }),
 });
 
 describe('UserResolver', () => {
@@ -134,8 +138,13 @@ describe('UserResolver', () => {
     expect(service.getEventsRecommendedToUser).toBeCalledTimes(1);
   });
 
-  it('shoud return an image', async () => {
+  it('should return an image', async () => {
     const image = await resolver.image(mockAllEvents[0]);
     expect(image).toEqual(mockImage);
+  });
+
+  it(`should get a user's portfolio`, async () => {
+    const userPortfolio = await resolver.portfolioEvents(mockAllEvents[0].host.id);
+    expect(userPortfolio).toEqual(mockAllEvents[0]);
   });
 });

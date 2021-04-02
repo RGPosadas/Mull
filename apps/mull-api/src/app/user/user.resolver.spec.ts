@@ -178,6 +178,10 @@ describe('UserResolver', () => {
     expect(await resolver.removeFriend(mockAllUsers[0].id, mockAllUsers[2].id)).toBeTruthy();
   });
 
+  it(`should remove a pending request`, async () => {
+    expect(await resolver.removeFriend(mockAllUsers[0].id, mockAllUsers[2].id)).toBeTruthy();
+  });
+
   it(`should return all of the relationships for a user`, async () => {
     expect(await resolver.getRelationships(mockAllUsers[0].id)).toEqual([
       { user: mockAllUsers[0], type: RelationshipType.FRIENDS },
