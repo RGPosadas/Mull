@@ -139,7 +139,18 @@ query OtherUserProfile($id: Int!) {
   hostingCount(id: $id)
   portfolioCount(id: $id)
   portfolioEvents(id: $id) {
-    ...EventCardContent
+    id
+    title
+    restriction
+    startDate
+    endDate
+    location {
+      title
+    }
+    image {
+      id
+      mediaType
+    }
   }
 }
 

@@ -37,6 +37,9 @@ describe('EditProfile', () => {
       {
         request: {
           query: UserDocument,
+          variables: {
+            id: 1,
+          },
         },
         result: {
           data: {
@@ -67,6 +70,9 @@ describe('EditProfile', () => {
       {
         request: {
           query: UserDocument,
+          variables: {
+            id: 1,
+          },
         },
         result: {
           data: {
@@ -102,6 +108,9 @@ describe('EditProfile', () => {
       {
         request: {
           query: UserDocument,
+          variables: {
+            id: 1,
+          },
         },
         result: {
           data: {

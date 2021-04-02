@@ -131,7 +131,7 @@ export const App = () => {
           <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
           <PrivateRoute path={ROUTES.SETTINGS} component={SettingsPage} />
           {/*TODO in TASK-83: route user profiles to /user/${user.id} */}
-          <PrivateRoute path={'/other-user-profile'} component={OtherUserProfilePage} />
+          <PrivateRoute path={ROUTES.OTHER_USER_PROFILE} component={OtherUserProfilePage} />
 
           <PrivateRoute component={NotFoundPage} />
         </Switch>

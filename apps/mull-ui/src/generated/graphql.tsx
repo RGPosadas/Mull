@@ -737,7 +737,14 @@ export type OtherUserProfileQuery = (
     )> }
   ), portfolioEvents: Array<(
     { __typename?: 'Event' }
-    & EventCardContentFragment
+    & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate' | 'endDate'>
+    & { location?: Maybe<(
+      { __typename?: 'Location' }
+      & Pick<Location, 'title'>
+    )>, image?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id' | 'mediaType'>
+    )> }
   )> }
 );
 
@@ -1477,10 +1484,21 @@ export const OtherUserProfileDocument = gql`
   hostingCount(id: $id)
   portfolioCount(id: $id)
   portfolioEvents(id: $id) {
-    ...EventCardContent
+    id
+    title
+    restriction
+    startDate
+    endDate
+    location {
+      title
+    }
+    image {
+      id
+      mediaType
+    }
   }
 }
-    ${EventCardContentFragmentDoc}`;
+    `;
 
 /**
  * __useOtherUserProfileQuery__
