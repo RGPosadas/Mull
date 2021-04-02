@@ -10,7 +10,7 @@ exports[`ProfileHeader should match snapshot 1`] = `
     <h1
       data-testid="userName"
     >
-      
+      Candice Runolfsdottir
     </h1>
     <button
       className="share-button"
@@ -40,16 +40,16 @@ exports[`ProfileHeader should match snapshot 1`] = `
     <img
       alt="user"
       className="user-profile-picture"
-      src=""
+      src="./assets/icons/icon-192x192.png"
     />
     <div
-      className="profile-side-container for-current-user"
+      className="profile-side-container"
     >
       <button
         className="profile-stats"
         data-testid="portfolioCount"
       >
-        0
+        2
         <br />
         Portfolio
       </button>
@@ -65,17 +65,29 @@ exports[`ProfileHeader should match snapshot 1`] = `
         className="profile-stats"
         data-testid="hostingCount"
       >
-        0
+        3
         <br />
         Hosting
       </button>
+      <div
+        className="friend-status-container"
+      >
+        <button
+          className="mull-button friend-status-button "
+          data-testid="mull-button"
+          onClick={[Function]}
+          type="submit"
+        >
+          Add Friend
+        </button>
+      </div>
     </div>
   </div>
   <p
     className="profile-header-user-description"
     data-testid="userDescription"
   >
-    
+    Hey, it's Candice! Thanks for following my profile~ I am really passionate about hte environment, so feel free to add me and let us go around helping the environment together!
   </p>
 </div>
 `;
