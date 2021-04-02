@@ -72,11 +72,6 @@ exports[`EventMessageList should match snapshot 1`] = `
         className="event-button"
         onClick={[Function]}
       >
-        <img
-          alt="event"
-          className="event-bullet-photo"
-          src="http://localhost:3333/api/media/1"
-        />
         <div
           className="event-bullet-container"
         >
@@ -119,11 +114,6 @@ exports[`EventMessageList should match snapshot 1`] = `
         className="event-button"
         onClick={[Function]}
       >
-        <img
-          alt="event"
-          className="event-bullet-photo"
-          src="http://localhost:3333/api/media/1"
-        />
         <div
           className="event-bullet-container"
         >
