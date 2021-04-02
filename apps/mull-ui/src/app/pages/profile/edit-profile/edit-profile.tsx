@@ -1,7 +1,7 @@
 import { IProfileEditForm } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { ROUTES } from '../../../../constants';
@@ -10,6 +10,7 @@ import { avatarUrl, hasEmoji } from '../../../../utilities';
 import { CustomFileUpload, CustomTextInput } from '../../../components';
 import { MullBackButton } from '../../../components/mull-back-button/mull-back-button';
 import MullButton from '../../../components/mull-button/mull-button';
+import UserContext from '../../../context/user.context';
 import { useToast } from '../../../hooks/useToast';
 import './edit-profile.scss';
 
@@ -20,7 +21,10 @@ export interface EditProfilePageProps {
 const EditProfile = ({ history }: EditProfilePageProps) => {
   const [imageURLFile, setImageURLFile] = useState<string>('');
   const [file, setFile] = useState<File>(null);
-  const { data: userData, loading: userLoading } = useUserQuery();
+  const currentUserId = useContext(UserContext).userId;
+  const { data: userData, loading: userLoading } = useUserQuery({
+    variables: { id: currentUserId },
+  });
   const [updateUser] = useUpdateUserMutation();
   const { updateToast, notifyToast } = useToast();
 
