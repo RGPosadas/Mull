@@ -1,10 +1,12 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { History } from 'history';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User } from '../../../generated/graphql';
+import { MullButton, MullModal } from '..';
+import { User, useRemoveFriendMutation } from '../../../generated/graphql';
 import { avatarUrl } from '../../../utilities';
-import FriendModal from '../modal/friend-modal/friend-modal';
 import './contact-row.scss';
 
 /* eslint-disable-next-line */
@@ -14,6 +16,8 @@ export interface ContactRowProps {
   lastMessage?: string;
   userName?: string;
   icon: IconProp;
+  history: History;
+  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
 }
 
 export const ContactRow = ({
@@ -22,14 +26,16 @@ export const ContactRow = ({
   userName,
   lastMessage,
   icon,
+  history,
 }: ContactRowProps) => {
   const user: Partial<User> = {
     name: `${userName}`,
   };
-  const [open, setOpen] = useState(false);
 
   // TODO: Replace boolean by the appropriate button option according to query
   const addedMe = false;
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [removeFriend] = useRemoveFriendMutation();
 
   return (
     <div className="contact-container">
@@ -42,23 +48,43 @@ export const ContactRow = ({
           </div>
         </div>
       </Link>
-      <button className="friend-settings-icon" onClick={() => setOpen(true)}>
-        <FontAwesomeIcon icon={icon} />
+      <button className="friend-settings-icon" onClick={() => setModalOpen(!modalOpen)}>
+        <FontAwesomeIcon icon={faEllipsisH} />
       </button>
-      <FriendModal
-        open={open}
-        setOpen={setOpen}
-        user={user}
-        // TODO: Button should redirect to appropriate page
-        button1Text="View Profile"
-        button1OnClick={() => {
-          console.log('clicked 1');
-        }}
-        button2Text={addedMe ? 'Add Friend' : 'Cancel Request'}
-        button2OnClick={() => {
-          console.log('clicked 2');
-        }}
-      />
+      <MullModal
+        open={modalOpen}
+        setOpen={setModalOpen}
+        paperClasses="my-friends-modal-container"
+        maxWidth="sm"
+      >
+        <img
+          className="user-profile-picture"
+          data-testid="event-page-image"
+          src={userPicture}
+          alt="Event Page"
+        />
+        <p>{userName}</p>
+        <MullButton
+          className="event-page-button contact-row-button"
+          type={'button'}
+          altStyle
+          onClick={() => history.push(`/profile/${userId}`)}
+        >
+          View Profile
+        </MullButton>
+        <MullButton
+          onClick={() => {
+            removeFriend({ variables: { userIdToRemove: userId } });
+            setModalOpen(false);
+            location.reload();
+          }}
+          className="event-page-button contact-row-button"
+          type={'button'}
+          altStyle
+        >
+          Remove Friend
+        </MullButton>
+      </MullModal>
     </div>
   );
 };

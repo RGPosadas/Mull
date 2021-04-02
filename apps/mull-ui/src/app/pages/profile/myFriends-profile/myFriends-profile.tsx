@@ -4,7 +4,7 @@ import { useGetTrueFriendsQuery, User } from '../../../../generated/graphql';
 import ContactRow from '../../../components/contact-row/contact-row';
 import './myFriends-profile.scss';
 
-const MyFriends = () => {
+const MyFriends = ({ history }) => {
   function compareUser(a: User, b: User) {
     if (a.name < b.name) {
       return -1;
@@ -30,6 +30,7 @@ const MyFriends = () => {
   }
 
   const { data, loading, error } = useGetTrueFriendsQuery();
+
   if (loading) return <div className="page-container">Loading...</div>;
 
   let mutableFriends = [...data.getTrueFriends] as User[];
@@ -39,16 +40,18 @@ const MyFriends = () => {
   const categorizedUsers = categorizeUsers(mutableFriends);
 
   let finalFriendsList = [];
-
   let friendsElement = categorizedUsers.forEach((value, key) => {
-    let currentCategoryContactRows = value.map((friend) => (
-      <ContactRow
-        key={friend.id}
-        userId={friend.id}
-        userName={friend.name}
-        userPicture={avatarUrl(friend)}
-      />
-    ));
+    let currentCategoryContactRows = value.map((friend) => {
+      return (
+        <ContactRow
+          key={friend.id}
+          userId={friend.id}
+          userName={friend.name}
+          userPicture={avatarUrl(friend)}
+          history={history}
+        />
+      );
+    });
     let currentLetterCategorizedList = (
       <div className="friend-category-container">
         <h2 className="friend-category-title">{key}</h2>
