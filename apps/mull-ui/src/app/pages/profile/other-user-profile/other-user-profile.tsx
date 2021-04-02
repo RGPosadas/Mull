@@ -1,10 +1,11 @@
 import { ISerializedEvent } from '@mull/types';
 import { History } from 'history';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useOtherUserProfileQuery, User } from '../../../../generated/graphql';
 import { sortEventsByDate } from '../../../../utilities';
 import { EventCard, MullBackButton } from '../../../components';
 import ProfileHeader from '../../../components/profile-header/profile-header';
+import UserContext from '../../../context/user.context';
 import './other-user-profile.scss';
 
 export interface OtherUserProfilePageProps {
@@ -19,8 +20,10 @@ export const OtherUserProfilePage = ({ history, prevPage }: OtherUserProfilePage
       id: 4,
     },
   });
+  const currentUserId = useContext(UserContext).userId;
 
   if (userProfileLoading) return <div className="page-container">Loading...</div>;
+  if (currentUserId === otherUserProfileData.user.id) history.push('profile');
 
   if (otherUserProfileData.portfolioEvents) {
     const events = (otherUserProfileData.portfolioEvents as unknown) as Partial<ISerializedEvent>[];
