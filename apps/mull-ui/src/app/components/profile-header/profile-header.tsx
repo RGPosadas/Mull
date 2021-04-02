@@ -1,6 +1,6 @@
 import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ProfileRelationshipButton } from '@mull/types';
+import { FriendStatusButton } from '@mull/types';
 import React, { useEffect, useState } from 'react';
 import { MullButton } from '..';
 import {
@@ -15,7 +15,7 @@ import { avatarUrl } from '../../../utilities';
 import FriendModal from '../modal/friend-modal/friend-modal';
 import './profile-header.scss';
 
-export function GetUserRelationship(otherUser: User) {
+export function SetUserRelationship(otherUser: User) {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [friendStatus, setFriendStatus] = useState<string>('');
   const [addFriend] = useAddFriendMutation();
@@ -33,10 +33,10 @@ export function GetUserRelationship(otherUser: User) {
   useEffect(() => {
     if (!otherUserRelationshipLoading) {
       otherUserRelationshipData.getUserRelationship === RelationshipType.Friends
-        ? setFriendStatus(ProfileRelationshipButton.FRIENDS)
+        ? setFriendStatus(FriendStatusButton.FRIENDS)
         : otherUserRelationshipData.getUserRelationship === RelationshipType.PendingRequest
-        ? setFriendStatus(ProfileRelationshipButton.PENDING)
-        : setFriendStatus(ProfileRelationshipButton.ADD_FRIEND);
+        ? setFriendStatus(FriendStatusButton.PENDING)
+        : setFriendStatus(FriendStatusButton.ADD_FRIEND);
     }
     // Ignored since the suggested fix broke the react hooks lifecycle
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
@@ -44,19 +44,18 @@ export function GetUserRelationship(otherUser: User) {
 
   if (otherUserRelationshipLoading) return <div className="page-container">Loading...</div>;
 
-  const isFriend = friendStatus === ProfileRelationshipButton.FRIENDS;
-  const isPending = friendStatus === ProfileRelationshipButton.PENDING;
+  const isFriend = friendStatus === FriendStatusButton.FRIENDS;
+  const isPending = friendStatus === FriendStatusButton.PENDING;
 
   return (
     <div className="friend-status-container">
       <MullButton
         className="friend-status-button"
         altStyle={isFriend}
-        data-testid={friendStatus}
         onClick={() => {
-          friendStatus === ProfileRelationshipButton.ADD_FRIEND
+          friendStatus === FriendStatusButton.ADD_FRIEND
             ? addFriend({ variables: { userIdToAdd: otherUser.id } }).then((data) => {
-                if (data.data.addFriend) setFriendStatus(ProfileRelationshipButton.PENDING);
+                if (data.data.addFriend) setFriendStatus(FriendStatusButton.PENDING);
               })
             : setModalOpen(true);
         }}
@@ -72,14 +71,14 @@ export function GetUserRelationship(otherUser: User) {
           isFriend
             ? removeFriend({ variables: { userIdToRemove: otherUser.id } }).then((data) => {
                 if (data.data.removeFriend) {
-                  setFriendStatus(ProfileRelationshipButton.ADD_FRIEND);
+                  setFriendStatus(FriendStatusButton.ADD_FRIEND);
                   setModalOpen(false);
                 }
               })
             : isPending
             ? removePendingRequest({ variables: { userIdToRemove: otherUser.id } }).then((data) => {
                 if (data.data.removePendingRequest) {
-                  setFriendStatus(ProfileRelationshipButton.ADD_FRIEND);
+                  setFriendStatus(FriendStatusButton.ADD_FRIEND);
                   setModalOpen(false);
                 }
               })
@@ -135,7 +134,7 @@ export const ProfileHeader = ({
             <br />
             Hosting
           </button>
-          {isCurrentUser ? null : GetUserRelationship(user)}
+          {isCurrentUser ? null : SetUserRelationship(user)}
         </div>
       </div>
       <p className="profile-header-user-description" data-testid="userDescription">

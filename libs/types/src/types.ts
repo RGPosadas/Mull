@@ -33,7 +33,7 @@ export enum RelationshipType {
   NONE,
 }
 
-export enum ProfileRelationshipButton {
+export enum FriendStatusButton {
   ADD_FRIEND = 'Add Friend',
   FRIENDS = 'Friends',
   PENDING = 'Pending',
