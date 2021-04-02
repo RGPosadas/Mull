@@ -88,4 +88,10 @@ export class EventResolver {
   async image(@Parent() event: Event) {
     return this.eventService.getEventImage(event.id);
   }
+
+  @UseGuards(AuthGuard)
+  @Query(/* istanbul ignore next */ () => [Event])
+  async portfolioEvents(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+    return await this.eventService.getUserEventsPortfolio(id);
+  }
 }
