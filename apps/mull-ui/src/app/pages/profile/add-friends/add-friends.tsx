@@ -18,6 +18,7 @@ export const AddFriendsPage = () => {
           title=""
           fieldName="searchValue"
           value=""
+          onChange={() => null}
           onClick={() => {
             setOpen(true);
           }}

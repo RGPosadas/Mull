@@ -1,8 +1,8 @@
 import { faSearch, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dialog } from '@material-ui/core';
-import { useFriendsQuery } from 'apps/mull-ui/src/generated/graphql';
 import React, { useState } from 'react';
+import { useFriendsQuery } from '../../../../generated/graphql';
 import { CustomTextInput, MullBackButton, TopNavBar } from '../../../components';
 import ContactRow from '../../../components/contact-row/contact-row';
 import './add-friends.scss';
@@ -15,10 +15,12 @@ export interface SearchUsersPageProps {
 export const SearchUsersPage = ({ open, setOpen }: SearchUsersPageProps) => {
   const [searchValue, setSearchValue] = useState('');
 
+  // TODO: Replace the test query by the actual strangers query
   const { data, loading } = useFriendsQuery();
 
   if (loading) return <div className="page-container">Loading...</div>;
 
+  // TODO: Goes with the first TODO - filter by strangers
   const contactRows = data.friends
     .filter(({ name }) => name.toLowerCase().includes(searchValue.toLowerCase()))
     .map(({ latestPost, ...friend }, index) => (
@@ -32,37 +34,35 @@ export const SearchUsersPage = ({ open, setOpen }: SearchUsersPageProps) => {
     ));
 
   return (
-    <>
-      <Dialog fullScreen transitionDuration={5} open={open}>
-        <TopNavBar />
-        <div className="page-container">
-          <MullBackButton onClick={() => setOpen(false)}>Profile</MullBackButton>
-          <div className="add-friends-container">
-            <h1 className="add-friends-title">Add Friends</h1>
-            <CustomTextInput
-              title=""
-              fieldName="searchValue"
-              value={searchValue}
-              onChange={(event) => {
-                setSearchValue(event.target.value);
-              }}
-              hasErrors={null}
-              errorMessage={null}
-              svgIcon={<FontAwesomeIcon className="input-icon" icon={faSearch} />}
-              placeholder={'Find Friends'}
-            />
-            <div>
-              {contactRows.length > 0 ? (
-                <div>{contactRows}</div>
-              ) : (
-                <p className="search-results">No results found</p>
-              )}
-            </div>
-            <div></div>
+    <Dialog fullScreen transitionDuration={5} open={open}>
+      <TopNavBar />
+      <div className="page-container">
+        <MullBackButton onClick={() => setOpen(false)}>Profile</MullBackButton>
+        <div className="add-friends-container">
+          <h1 className="add-friends-title">Add Friends</h1>
+          <CustomTextInput
+            title=""
+            fieldName="searchValue"
+            value={searchValue}
+            onChange={(event) => {
+              setSearchValue(event.target.value);
+            }}
+            hasErrors={null}
+            errorMessage={null}
+            svgIcon={<FontAwesomeIcon className="input-icon" icon={faSearch} />}
+            placeholder={'Find Friends'}
+          />
+          <div>
+            {contactRows.length > 0 ? (
+              <div>{contactRows}</div>
+            ) : (
+              <p className="search-results">No results found</p>
+            )}
           </div>
+          <div></div>
         </div>
-      </Dialog>
-    </>
+      </div>
+    </Dialog>
   );
 };
 

@@ -1,9 +1,9 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { User } from 'apps/mull-ui/src/generated/graphql';
-import { avatarUrl } from 'apps/mull-ui/src/utilities';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { User } from '../../../generated/graphql';
+import { avatarUrl } from '../../../utilities';
 import FriendModal from '../modal/friend-modal/friend-modal';
 import './contact-row.scss';
 
@@ -27,6 +27,8 @@ export const ContactRow = ({
     name: `${userName}`,
   };
   const [open, setOpen] = useState(false);
+
+  // TODO: Replace boolean by the appropriate button option according to query
   const addedMe = false;
 
   return (
