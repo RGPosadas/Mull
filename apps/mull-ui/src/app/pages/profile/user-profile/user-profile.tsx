@@ -32,12 +32,11 @@ export const UserProfilePage = ({ history }: UserProfilePageProps) => {
   return (
     <div className="page-container">
       <ProfileHeader
-        userName={userProfile.user.name}
-        userPicture={avatarUrl(userProfile.user as User)}
-        userDescription={userProfile.user.description}
         portfolioCount={userProfile.portfolioCount}
         friendCount={userProfile.friendCount}
         hostingCount={userProfile.hostingCount}
+        isCurrentUser={true}
+        user={userProfile.user as User}
       />
       <div className="settings-container">
         <h3>Portfolio</h3>
