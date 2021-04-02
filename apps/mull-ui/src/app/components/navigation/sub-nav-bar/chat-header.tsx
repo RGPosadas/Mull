@@ -9,8 +9,8 @@ export interface ChatHeaderProps {
 
 export const ChatHeader = ({ style, className, eventTitle }: ChatHeaderProps) => {
   return (
-    <div className={`header ${className ? className : ''}`} style={style}>
-      <h1>{eventTitle}</h1>
+    <div className={`chat-header ${className ? className : ''}`} style={style}>
+      <h1 className="chat-header-title">{eventTitle}</h1>
     </div>
   );
 };

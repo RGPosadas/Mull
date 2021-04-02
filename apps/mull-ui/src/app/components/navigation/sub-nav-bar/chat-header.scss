@@ -1,6 +1,6 @@
 @import '../../../../variables.scss';
 
-.header {
+.chat-header {
   background-color: $background-color;
   padding: 0.5rem 0 1.1rem 0;
   position: fixed;
@@ -16,14 +16,17 @@
   margin: 1rem;
 }
 
-h1 {
+.chat-header-title {
   flex-grow: 1;
   text-align: center;
   font-size: 1.2rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 @media (min-width: $breakpoint-mobile) {
-  .header {
+  .chat-header {
     top: $top-nav-bar-height-desktop;
   }
 }
