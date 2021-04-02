@@ -25,6 +25,7 @@ import ChatPagesHeader from './pages/messages/chat-pages-header';
 import EventMessageList from './pages/messages/event-messages/event-message-list';
 import GroupChatPage from './pages/messages/group-chat/group-chat';
 import EditProfilePage from './pages/profile/edit-profile/edit-profile';
+import OtherUserProfilePage from './pages/profile/other-user-profile/other-user-profile';
 import UserProfilePage from './pages/profile/user-profile/user-profile';
 import RegisterPage from './pages/register/register';
 import SettingsPage from './pages/settings-page/settings-page';
@@ -129,6 +130,8 @@ export const App = () => {
           <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
           <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
           <PrivateRoute path={ROUTES.SETTINGS} component={SettingsPage} />
+          {/*TODO in TASK-83: route user profiles to /user/${user.id} */}
+          <PrivateRoute path={'/other-user-profile'} component={OtherUserProfilePage} />
 
           <PrivateRoute component={NotFoundPage} />
         </Switch>
