@@ -41,7 +41,11 @@ export const EventMessageList = ({ history }) => {
         onChange={(e) => setSearchString(e.target.value)}
         placeholder="Search"
       />
-      <div className="event-bullets">{eventBullets}</div>
+      {eventBullets.length ? (
+        <div className="event-bullets">{eventBullets}</div>
+      ) : (
+        <p className="event-messages-not-found">No results found</p>
+      )}
     </div>
   );
 };
