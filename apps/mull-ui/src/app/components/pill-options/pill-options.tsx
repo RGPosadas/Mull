@@ -20,6 +20,7 @@ export const PillOptions = ({ options, onChange, active }: PillOptionsProps) => 
         <button
           data-testid={`pill-id-${idx}`}
           key={option}
+          type="button"
           className={`pill-option ${
             active === idx ? `pill-option-active` : 'pill-option-inactive'
           }`}
