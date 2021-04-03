@@ -23,7 +23,7 @@ export class EventService {
 
   getEvent(id: number): Promise<Event> {
     return this.eventRepository.findOne(id, {
-      relations: ['location', 'location.coordinates', 'host'],
+      relations: ['location', 'location.coordinates', 'host', 'host.avatar'],
     });
   }
 
