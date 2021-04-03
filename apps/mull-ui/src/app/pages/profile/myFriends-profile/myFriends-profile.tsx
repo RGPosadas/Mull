@@ -1,10 +1,15 @@
 import { avatarUrl } from 'apps/mull-ui/src/utilities';
 import React from 'react';
-import { useGetTrueFriendsQuery, User } from '../../../../generated/graphql';
+import {
+  useGetTrueFriendsQuery,
+  User,
+  useRemoveFriendMutation,
+} from '../../../../generated/graphql';
 import ContactRow from '../../../components/contact-row/contact-row';
 import './myFriends-profile.scss';
 
 const MyFriends = ({ history }) => {
+  const [removeFriend] = useRemoveFriendMutation();
   function compareUser(a: User, b: User) {
     if (a.name < b.name) {
       return -1;
@@ -49,6 +54,10 @@ const MyFriends = ({ history }) => {
           userName={friend.name}
           userPicture={avatarUrl(friend)}
           history={history}
+          modalButton1Text="View Profile"
+          modalButton2Text="Remove Friend"
+          modalButton1OnClick={() => history.push(`/profile/${friend.id}`)}
+          modalButton2OnClick={() => removeFriend({ variables: { userId: friend.id } })}
         />
       );
     });

@@ -5,7 +5,7 @@ import { History } from 'history';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MullButton, MullModal } from '..';
-import { User, useRemoveFriendMutation } from '../../../generated/graphql';
+import { User } from '../../../generated/graphql';
 import { avatarUrl } from '../../../utilities';
 import './contact-row.scss';
 
@@ -17,6 +17,10 @@ export interface ContactRowProps {
   userName?: string;
   icon: IconProp;
   history: History;
+  modalButton1Text: string;
+  modalButton1OnClick: any;
+  modalButton2Text: string;
+  modalButton2OnClick: any;
   onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
 }
 
@@ -27,6 +31,10 @@ export const ContactRow = ({
   lastMessage,
   icon,
   history,
+  modalButton1Text,
+  modalButton1OnClick,
+  modalButton2Text,
+  modalButton2OnClick,
 }: ContactRowProps) => {
   const user: Partial<User> = {
     name: `${userName}`,
@@ -35,7 +43,6 @@ export const ContactRow = ({
   // TODO: Replace boolean by the appropriate button option according to query
   const addedMe = false;
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [removeFriend] = useRemoveFriendMutation();
 
   return (
     <div className="contact-container">
@@ -68,13 +75,13 @@ export const ContactRow = ({
           className="event-page-button contact-row-button"
           type={'button'}
           altStyle
-          onClick={() => history.push(`/profile/${userId}`)}
+          onClick={modalButton1OnClick}
         >
-          View Profile
+          {modalButton1Text}
         </MullButton>
         <MullButton
-          onClick={() => {
-            removeFriend({ variables: { userIdToRemove: userId } });
+          onClick={async () => {
+            await modalButton2OnClick();
             setModalOpen(false);
             location.reload();
           }}
@@ -82,7 +89,7 @@ export const ContactRow = ({
           type={'button'}
           altStyle
         >
-          Remove Friend
+          {modalButton2Text}
         </MullButton>
       </MullModal>
     </div>
