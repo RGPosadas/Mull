@@ -66,7 +66,7 @@ export class EventResolver {
     return this.eventService.deleteEvent(id);
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(/* istanbul ignore next */ () => Boolean)
   async joinEvent(
     @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId: number,
     @AuthenticatedUser() userId: number
@@ -75,7 +75,7 @@ export class EventResolver {
     return true;
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(/* istanbul ignore next */ () => Boolean)
   async leaveEvent(
     @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId: number,
     @AuthenticatedUser() userId: number
@@ -87,5 +87,11 @@ export class EventResolver {
   @ResolveField(/* istanbul ignore next */ () => Media)
   async image(@Parent() event: Event) {
     return this.eventService.getEventImage(event.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Query(/* istanbul ignore next */ () => [Event])
+  async portfolioEvents(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
+    return await this.eventService.getUserEventsPortfolio(id);
   }
 }

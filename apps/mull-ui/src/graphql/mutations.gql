@@ -53,3 +53,15 @@ mutation CreatePost($post: CreatePostInput!) {
     }
   }
 }
+
+mutation AddFriend($userIdToAdd: Int!) {
+  addFriend(userIdToAdd: $userIdToAdd)
+}
+
+mutation RemoveFriend($userIdToRemove: Int!) {
+  removeFriend(userIdToRemove: $userIdToRemove)
+}
+
+mutation RemovePendingRequest($userIdToRemove: Int!) {
+  removePendingRequest(userIdToRemove: $userIdToRemove)
+}

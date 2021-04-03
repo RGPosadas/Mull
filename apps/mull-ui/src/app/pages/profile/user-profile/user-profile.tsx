@@ -6,13 +6,14 @@ import {
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { History } from 'history';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
 import { User, useUserProfileQuery } from '../../../../generated/graphql';
-import { avatarUrl, formatJoinDate } from '../../../../utilities';
+import { formatJoinDate } from '../../../../utilities';
 import ProfileHeader from '../../../components/profile-header/profile-header';
 import SettingsButton from '../../../components/settings-button/settings-button';
+import UserContext from '../../../context/user.context';
 import './user-profile.scss';
 
 export interface UserProfilePageProps {
@@ -20,7 +21,8 @@ export interface UserProfilePageProps {
 }
 
 export const UserProfilePage = ({ history }: UserProfilePageProps) => {
-  const { data: userProfile, loading } = useUserProfileQuery();
+  const currentUserId = useContext(UserContext).userId;
+  const { data: userProfile, loading } = useUserProfileQuery({ variables: { id: currentUserId } });
 
   if (loading) return <div className="page-container">Loading...</div>;
 
@@ -30,12 +32,11 @@ export const UserProfilePage = ({ history }: UserProfilePageProps) => {
   return (
     <div className="page-container">
       <ProfileHeader
-        userName={userProfile.user.name}
-        userPicture={avatarUrl(userProfile.user as User)}
-        userDescription={userProfile.user.description}
         portfolioCount={userProfile.portfolioCount}
         friendCount={userProfile.friendCount}
         hostingCount={userProfile.hostingCount}
+        isCurrentUser={true}
+        user={userProfile.user as User}
       />
       <div className="settings-container">
         <h3>Portfolio</h3>

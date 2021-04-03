@@ -29,8 +29,9 @@ export class UserResolver {
     return this.userService.getAllUsers();
   }
 
+  @UseGuards(AuthGuard)
   @Query(/* istanbul ignore next */ () => User)
-  async user(@AuthenticatedUser() id: number) {
+  async user(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
     return this.userService.getUser(id);
   }
 
@@ -96,25 +97,28 @@ export class UserResolver {
     return this.userService.deleteUser(id);
   }
 
+  @UseGuards(AuthGuard)
   @Query(/* istanbul ignore next */ () => Int)
-  async friendCount(@AuthenticatedUser() id: number) {
+  async friendCount(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
     return (await this.userService.getFriends(id)).length;
   }
 
+  @UseGuards(AuthGuard)
   @Query(/* istanbul ignore next */ () => Int)
-  async hostingCount(@AuthenticatedUser() id: number) {
+  async hostingCount(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
     return (await this.eventService.getEventsHostedByUser(id)).length;
   }
 
+  @UseGuards(AuthGuard)
   @Query(/* istanbul ignore next */ () => Int)
-  async portfolioCount(@AuthenticatedUser() id: number) {
+  async portfolioCount(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
     return (await this.eventService.getUserEventsPortfolio(id)).length;
   }
 
   @Mutation(/* istanbul ignore next */ () => Boolean)
   async addFriend(
     @AuthenticatedUser() currentUserId: number,
-    @Args('userIdToAdd') userIdToAdd: number
+    @Args('userIdToAdd', { type: /* istanbul ignore next */ () => Int }) userIdToAdd: number
   ) {
     return this.userService.addFriend(currentUserId, userIdToAdd);
   }
@@ -122,12 +126,20 @@ export class UserResolver {
   @Mutation(/* istanbul ignore next */ () => Boolean)
   async removeFriend(
     @AuthenticatedUser() currentUserId: number,
-    @Args('userIdToRemove') userIdToRemove: number
+    @Args('userIdToRemove', { type: /* istanbul ignore next */ () => Int }) userIdToRemove: number
   ) {
     return (
       this.userService.removeFriend(currentUserId, userIdToRemove) &&
       this.userService.removeFriend(userIdToRemove, currentUserId)
     );
+  }
+
+  @Mutation(/* istanbul ignore next */ () => Boolean)
+  async removePendingRequest(
+    @AuthenticatedUser() currentUserId: number,
+    @Args('userIdToRemove', { type: /* istanbul ignore next */ () => Int }) userIdToRemove: number
+  ) {
+    return this.userService.removeFriend(currentUserId, userIdToRemove);
   }
 
   @Query(/* istanbul ignore next */ () => [Relationship])
@@ -138,7 +150,7 @@ export class UserResolver {
   @Query(/* istanbul ignore next */ () => RelationshipType)
   async getUserRelationship(
     @AuthenticatedUser() userIdA: number,
-    @Args('userIdB') userIdB: number
+    @Args('userIdB', { type: /* istanbul ignore next */ () => Int }) userIdB: number
   ) {
     return this.userService.getUserRelationship(userIdA, userIdB);
   }

@@ -34,6 +34,9 @@ describe('UserProfilePage', () => {
       {
         request: {
           query: UserProfileDocument,
+          variables: {
+            id: 1,
+          },
         },
         result: {
           data: {

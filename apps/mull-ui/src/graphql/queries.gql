@@ -98,8 +98,8 @@ query EventPage($eventId: Int!) {
   }
 }
 
-query User {
-  user {
+query User($id: Int!) {
+  user(id: $id) {
     id
     name
     description
@@ -109,8 +109,8 @@ query User {
   }
 }
 
-query UserProfile {
-  user {
+query UserProfile($id: Int!) {
+  user(id: $id) {
     name
     description
     joinDate
@@ -119,9 +119,39 @@ query UserProfile {
     }
   }
 
-  friendCount
-  hostingCount
-  portfolioCount
+  friendCount(id: $id)
+  hostingCount(id: $id)
+  portfolioCount(id: $id)
+}
+
+query OtherUserProfile($id: Int!) {
+  user(id: $id) {
+    id
+    name
+    description
+    joinDate
+    avatar {
+      id
+    }
+  }
+
+  friendCount(id: $id)
+  hostingCount(id: $id)
+  portfolioCount(id: $id)
+  portfolioEvents(id: $id) {
+    id
+    title
+    restriction
+    startDate
+    endDate
+    location {
+      title
+    }
+    image {
+      id
+      mediaType
+    }
+  }
 }
 
 query ChannelByEventId($eventId: Int!, $channelName: String!) {
@@ -171,4 +201,8 @@ query Friends {
       message
     }
   }
+}
+
+query UserRelationship($userIdB: Int!) {
+  getUserRelationship(userIdB: $userIdB)
 }

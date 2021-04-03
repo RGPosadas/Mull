@@ -1,5 +1,5 @@
-import * as Apollo from '@apollo/client';
 import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -148,6 +148,7 @@ export type Mutation = {
   login: LoginResult;
   post: Post;
   removeFriend: Scalars['Boolean'];
+  removePendingRequest: Scalars['Boolean'];
   updateEvent: Event;
   updateFile: Media;
   updatePost: Post;
@@ -157,7 +158,7 @@ export type Mutation = {
 
 
 export type MutationAddFriendArgs = {
-  userIdToAdd: Scalars['Float'];
+  userIdToAdd: Scalars['Int'];
 };
 
 
@@ -217,7 +218,12 @@ export type MutationPostArgs = {
 
 
 export type MutationRemoveFriendArgs = {
-  userIdToRemove: Scalars['Float'];
+  userIdToRemove: Scalars['Int'];
+};
+
+
+export type MutationRemovePendingRequestArgs = {
+  userIdToRemove: Scalars['Int'];
 };
 
 
@@ -306,6 +312,7 @@ export type Query = {
   location: Location;
   participantEvents: Array<Event>;
   portfolioCount: Scalars['Int'];
+  portfolioEvents: Array<Event>;
   posts: Array<Post>;
   user: User;
   users: Array<User>;
@@ -322,6 +329,11 @@ export type QueryEventArgs = {
 };
 
 
+export type QueryFriendCountArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type QueryGetChannelByEventIdArgs = {
   channelName: Scalars['String'];
   eventId: Scalars['Int'];
@@ -334,7 +346,12 @@ export type QueryGetDirectMessageChannelArgs = {
 
 
 export type QueryGetUserRelationshipArgs = {
-  userIdB: Scalars['Float'];
+  userIdB: Scalars['Int'];
+};
+
+
+export type QueryHostingCountArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -344,6 +361,21 @@ export type QueryIsParticipantArgs = {
 
 
 export type QueryLocationArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryPortfolioCountArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryPortfolioEventsArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryUserArgs = {
   id: Scalars['Int'];
 };
 
@@ -525,6 +557,36 @@ export type CreatePostMutation = (
   ) }
 );
 
+export type AddFriendMutationVariables = Exact<{
+  userIdToAdd: Scalars['Int'];
+}>;
+
+
+export type AddFriendMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'addFriend'>
+);
+
+export type RemoveFriendMutationVariables = Exact<{
+  userIdToRemove: Scalars['Int'];
+}>;
+
+
+export type RemoveFriendMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'removeFriend'>
+);
+
+export type RemovePendingRequestMutationVariables = Exact<{
+  userIdToRemove: Scalars['Int'];
+}>;
+
+
+export type RemovePendingRequestMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'removePendingRequest'>
+);
+
 export type EventPageContentFragment = (
   { __typename?: 'Event' }
   & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
@@ -623,7 +685,9 @@ export type EventPageQuery = (
   ) }
 );
 
-export type UserQueryVariables = Exact<{ [key: string]: never; }>;
+export type UserQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
 
 
 export type UserQuery = (
@@ -638,7 +702,9 @@ export type UserQuery = (
   ) }
 );
 
-export type UserProfileQueryVariables = Exact<{ [key: string]: never; }>;
+export type UserProfileQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
 
 
 export type UserProfileQuery = (
@@ -652,6 +718,34 @@ export type UserProfileQuery = (
       & Pick<Media, 'id'>
     )> }
   ) }
+);
+
+export type OtherUserProfileQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type OtherUserProfileQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'friendCount' | 'hostingCount' | 'portfolioCount'>
+  & { user: (
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'name' | 'description' | 'joinDate'>
+    & { avatar?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id'>
+    )> }
+  ), portfolioEvents: Array<(
+    { __typename?: 'Event' }
+    & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate' | 'endDate'>
+    & { location?: Maybe<(
+      { __typename?: 'Location' }
+      & Pick<Location, 'title'>
+    )>, image?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id' | 'mediaType'>
+    )> }
+  )> }
 );
 
 export type ChannelByEventIdQueryVariables = Exact<{
@@ -711,6 +805,16 @@ export type FriendsQuery = (
       & Pick<Post, 'id' | 'message'>
     )> }
   )> }
+);
+
+export type UserRelationshipQueryVariables = Exact<{
+  userIdB: Scalars['Int'];
+}>;
+
+
+export type UserRelationshipQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'getUserRelationship'>
 );
 
 export type PostAddedSubscriptionVariables = Exact<{
@@ -1030,6 +1134,96 @@ export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
 export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
 export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
+export const AddFriendDocument = gql`
+    mutation AddFriend($userIdToAdd: Int!) {
+  addFriend(userIdToAdd: $userIdToAdd)
+}
+    `;
+export type AddFriendMutationFn = Apollo.MutationFunction<AddFriendMutation, AddFriendMutationVariables>;
+
+/**
+ * __useAddFriendMutation__
+ *
+ * To run a mutation, you first call `useAddFriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddFriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addFriendMutation, { data, loading, error }] = useAddFriendMutation({
+ *   variables: {
+ *      userIdToAdd: // value for 'userIdToAdd'
+ *   },
+ * });
+ */
+export function useAddFriendMutation(baseOptions?: Apollo.MutationHookOptions<AddFriendMutation, AddFriendMutationVariables>) {
+        return Apollo.useMutation<AddFriendMutation, AddFriendMutationVariables>(AddFriendDocument, baseOptions);
+      }
+export type AddFriendMutationHookResult = ReturnType<typeof useAddFriendMutation>;
+export type AddFriendMutationResult = Apollo.MutationResult<AddFriendMutation>;
+export type AddFriendMutationOptions = Apollo.BaseMutationOptions<AddFriendMutation, AddFriendMutationVariables>;
+export const RemoveFriendDocument = gql`
+    mutation RemoveFriend($userIdToRemove: Int!) {
+  removeFriend(userIdToRemove: $userIdToRemove)
+}
+    `;
+export type RemoveFriendMutationFn = Apollo.MutationFunction<RemoveFriendMutation, RemoveFriendMutationVariables>;
+
+/**
+ * __useRemoveFriendMutation__
+ *
+ * To run a mutation, you first call `useRemoveFriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFriendMutation, { data, loading, error }] = useRemoveFriendMutation({
+ *   variables: {
+ *      userIdToRemove: // value for 'userIdToRemove'
+ *   },
+ * });
+ */
+export function useRemoveFriendMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFriendMutation, RemoveFriendMutationVariables>) {
+        return Apollo.useMutation<RemoveFriendMutation, RemoveFriendMutationVariables>(RemoveFriendDocument, baseOptions);
+      }
+export type RemoveFriendMutationHookResult = ReturnType<typeof useRemoveFriendMutation>;
+export type RemoveFriendMutationResult = Apollo.MutationResult<RemoveFriendMutation>;
+export type RemoveFriendMutationOptions = Apollo.BaseMutationOptions<RemoveFriendMutation, RemoveFriendMutationVariables>;
+export const RemovePendingRequestDocument = gql`
+    mutation RemovePendingRequest($userIdToRemove: Int!) {
+  removePendingRequest(userIdToRemove: $userIdToRemove)
+}
+    `;
+export type RemovePendingRequestMutationFn = Apollo.MutationFunction<RemovePendingRequestMutation, RemovePendingRequestMutationVariables>;
+
+/**
+ * __useRemovePendingRequestMutation__
+ *
+ * To run a mutation, you first call `useRemovePendingRequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemovePendingRequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removePendingRequestMutation, { data, loading, error }] = useRemovePendingRequestMutation({
+ *   variables: {
+ *      userIdToRemove: // value for 'userIdToRemove'
+ *   },
+ * });
+ */
+export function useRemovePendingRequestMutation(baseOptions?: Apollo.MutationHookOptions<RemovePendingRequestMutation, RemovePendingRequestMutationVariables>) {
+        return Apollo.useMutation<RemovePendingRequestMutation, RemovePendingRequestMutationVariables>(RemovePendingRequestDocument, baseOptions);
+      }
+export type RemovePendingRequestMutationHookResult = ReturnType<typeof useRemovePendingRequestMutation>;
+export type RemovePendingRequestMutationResult = Apollo.MutationResult<RemovePendingRequestMutation>;
+export type RemovePendingRequestMutationOptions = Apollo.BaseMutationOptions<RemovePendingRequestMutation, RemovePendingRequestMutationVariables>;
 export const DiscoverEventsDocument = gql`
     query DiscoverEvents {
   discoverEvents {
@@ -1197,8 +1391,8 @@ export type EventPageQueryHookResult = ReturnType<typeof useEventPageQuery>;
 export type EventPageLazyQueryHookResult = ReturnType<typeof useEventPageLazyQuery>;
 export type EventPageQueryResult = Apollo.QueryResult<EventPageQuery, EventPageQueryVariables>;
 export const UserDocument = gql`
-    query User {
-  user {
+    query User($id: Int!) {
+  user(id: $id) {
     id
     name
     description
@@ -1221,10 +1415,11 @@ export const UserDocument = gql`
  * @example
  * const { data, loading, error } = useUserQuery({
  *   variables: {
+ *      id: // value for 'id'
  *   },
  * });
  */
-export function useUserQuery(baseOptions?: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>) {
+export function useUserQuery(baseOptions: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>) {
         return Apollo.useQuery<UserQuery, UserQueryVariables>(UserDocument, baseOptions);
       }
 export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQuery, UserQueryVariables>) {
@@ -1234,8 +1429,8 @@ export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
 export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
 export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
 export const UserProfileDocument = gql`
-    query UserProfile {
-  user {
+    query UserProfile($id: Int!) {
+  user(id: $id) {
     name
     description
     joinDate
@@ -1243,9 +1438,9 @@ export const UserProfileDocument = gql`
       id
     }
   }
-  friendCount
-  hostingCount
-  portfolioCount
+  friendCount(id: $id)
+  hostingCount(id: $id)
+  portfolioCount(id: $id)
 }
     `;
 
@@ -1261,10 +1456,11 @@ export const UserProfileDocument = gql`
  * @example
  * const { data, loading, error } = useUserProfileQuery({
  *   variables: {
+ *      id: // value for 'id'
  *   },
  * });
  */
-export function useUserProfileQuery(baseOptions?: Apollo.QueryHookOptions<UserProfileQuery, UserProfileQueryVariables>) {
+export function useUserProfileQuery(baseOptions: Apollo.QueryHookOptions<UserProfileQuery, UserProfileQueryVariables>) {
         return Apollo.useQuery<UserProfileQuery, UserProfileQueryVariables>(UserProfileDocument, baseOptions);
       }
 export function useUserProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserProfileQuery, UserProfileQueryVariables>) {
@@ -1273,6 +1469,62 @@ export function useUserProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type UserProfileQueryHookResult = ReturnType<typeof useUserProfileQuery>;
 export type UserProfileLazyQueryHookResult = ReturnType<typeof useUserProfileLazyQuery>;
 export type UserProfileQueryResult = Apollo.QueryResult<UserProfileQuery, UserProfileQueryVariables>;
+export const OtherUserProfileDocument = gql`
+    query OtherUserProfile($id: Int!) {
+  user(id: $id) {
+    id
+    name
+    description
+    joinDate
+    avatar {
+      id
+    }
+  }
+  friendCount(id: $id)
+  hostingCount(id: $id)
+  portfolioCount(id: $id)
+  portfolioEvents(id: $id) {
+    id
+    title
+    restriction
+    startDate
+    endDate
+    location {
+      title
+    }
+    image {
+      id
+      mediaType
+    }
+  }
+}
+    `;
+
+/**
+ * __useOtherUserProfileQuery__
+ *
+ * To run a query within a React component, call `useOtherUserProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOtherUserProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOtherUserProfileQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useOtherUserProfileQuery(baseOptions: Apollo.QueryHookOptions<OtherUserProfileQuery, OtherUserProfileQueryVariables>) {
+        return Apollo.useQuery<OtherUserProfileQuery, OtherUserProfileQueryVariables>(OtherUserProfileDocument, baseOptions);
+      }
+export function useOtherUserProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OtherUserProfileQuery, OtherUserProfileQueryVariables>) {
+          return Apollo.useLazyQuery<OtherUserProfileQuery, OtherUserProfileQueryVariables>(OtherUserProfileDocument, baseOptions);
+        }
+export type OtherUserProfileQueryHookResult = ReturnType<typeof useOtherUserProfileQuery>;
+export type OtherUserProfileLazyQueryHookResult = ReturnType<typeof useOtherUserProfileLazyQuery>;
+export type OtherUserProfileQueryResult = Apollo.QueryResult<OtherUserProfileQuery, OtherUserProfileQueryVariables>;
 export const ChannelByEventIdDocument = gql`
     query ChannelByEventId($eventId: Int!, $channelName: String!) {
   getChannelByEventId(eventId: $eventId, channelName: $channelName) {
@@ -1376,6 +1628,37 @@ export function useFriendsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Fr
 export type FriendsQueryHookResult = ReturnType<typeof useFriendsQuery>;
 export type FriendsLazyQueryHookResult = ReturnType<typeof useFriendsLazyQuery>;
 export type FriendsQueryResult = Apollo.QueryResult<FriendsQuery, FriendsQueryVariables>;
+export const UserRelationshipDocument = gql`
+    query UserRelationship($userIdB: Int!) {
+  getUserRelationship(userIdB: $userIdB)
+}
+    `;
+
+/**
+ * __useUserRelationshipQuery__
+ *
+ * To run a query within a React component, call `useUserRelationshipQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserRelationshipQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserRelationshipQuery({
+ *   variables: {
+ *      userIdB: // value for 'userIdB'
+ *   },
+ * });
+ */
+export function useUserRelationshipQuery(baseOptions: Apollo.QueryHookOptions<UserRelationshipQuery, UserRelationshipQueryVariables>) {
+        return Apollo.useQuery<UserRelationshipQuery, UserRelationshipQueryVariables>(UserRelationshipDocument, baseOptions);
+      }
+export function useUserRelationshipLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserRelationshipQuery, UserRelationshipQueryVariables>) {
+          return Apollo.useLazyQuery<UserRelationshipQuery, UserRelationshipQueryVariables>(UserRelationshipDocument, baseOptions);
+        }
+export type UserRelationshipQueryHookResult = ReturnType<typeof useUserRelationshipQuery>;
+export type UserRelationshipLazyQueryHookResult = ReturnType<typeof useUserRelationshipLazyQuery>;
+export type UserRelationshipQueryResult = Apollo.QueryResult<UserRelationshipQuery, UserRelationshipQueryVariables>;
 export const PostAddedDocument = gql`
     subscription PostAdded($channelId: Int!) {
   postAdded(channelId: $channelId) {

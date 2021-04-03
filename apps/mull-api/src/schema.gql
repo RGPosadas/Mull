@@ -115,7 +115,7 @@ input MediaInput {
 }
 
 type Mutation {
-  addFriend(userIdToAdd: Float!): Boolean!
+  addFriend(userIdToAdd: Int!): Boolean!
   createDirectMessageChannel(toUserId: Int!): DirectMessageChannel!
   createEvent(event: CreateEventInput!): Event!
   createLocation(location: LocationInput!): Location!
@@ -128,7 +128,8 @@ type Mutation {
   leaveEvent(eventId: Int!): Boolean!
   login(loginInput: LoginInput!): LoginResult!
   post(post: CreatePostInput!): Post!
-  removeFriend(userIdToRemove: Float!): Boolean!
+  removeFriend(userIdToRemove: Int!): Boolean!
+  removePendingRequest(userIdToRemove: Int!): Boolean!
   updateEvent(event: UpdateEventInput!): Event!
   updateFile(newFile: Upload!, oldFile: MediaInput!): Media!
   updatePost(post: UpdatePostInput!): Post!
@@ -179,20 +180,21 @@ type Query {
   discoverEvents: [Event!]!
   event(id: Int!): Event!
   events: [Event!]!
-  friendCount: Int!
+  friendCount(id: Int!): Int!
   friends: [Friend!]!
   getChannelByEventId(channelName: String!, eventId: Int!): EventChannel!
   getDirectMessageChannel(toUserId: Int!): DirectMessageChannel
   getRelationships: [Relationship!]!
-  getUserRelationship(userIdB: Float!): RelationshipType!
+  getUserRelationship(userIdB: Int!): RelationshipType!
   hostEvents: [Event!]!
-  hostingCount: Int!
+  hostingCount(id: Int!): Int!
   isParticipant(eventId: Int!): Boolean!
   location(id: Int!): Location!
   participantEvents: [Event!]!
-  portfolioCount: Int!
+  portfolioCount(id: Int!): Int!
+  portfolioEvents(id: Int!): [Event!]!
   posts: [Post!]!
-  user: User!
+  user(id: Int!): User!
   users: [User!]!
 }
 

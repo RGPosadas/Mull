@@ -1,6 +1,6 @@
 import { ISerializedEvent } from '@mull/types';
 import { cloneDeep } from 'lodash';
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   CreateEventInput,
@@ -8,6 +8,7 @@ import {
   useOwnedEventsQuery,
   useUserQuery,
 } from '../../../generated/graphql';
+import UserContext from '../../context/user.context';
 import { EventPageHeader } from './event-page-header/event-page-header';
 import { EventPageInfo } from './event-page-info/event-page-info';
 import './event-page.scss';
@@ -38,6 +39,7 @@ export const EventPage = ({
   const [headerHeight, setHeaderHeight] = useState<number>(0);
   const headerRef = useRef<HTMLDivElement>(null);
   const [eventOwner, setEventOwner] = useState<boolean>(false);
+  const currentUserId = useContext(UserContext).userId;
 
   let event = cloneDeep(reviewEvent) as ISerializedEvent;
 
@@ -59,6 +61,9 @@ export const EventPage = ({
   });
 
   const { loading: loadingUser, error: errorUser, data: dataUser } = useUserQuery({
+    variables: {
+      id: currentUserId,
+    },
     skip: !reviewEvent,
   });
 

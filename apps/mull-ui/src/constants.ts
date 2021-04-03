@@ -22,6 +22,7 @@ export const ROUTES = {
   DIRECT_MESSAGES: '/dms',
   EVENT_MESSAGE_LIST: '/event-messages-list',
   SETTINGS: '/settings',
+  OTHER_USER_PROFILE: '/other-user-profile',
 };
 
 export const DAY_IN_MILLISECONDS = 86400000;

@@ -33,6 +33,12 @@ export enum RelationshipType {
   NONE,
 }
 
+export enum FriendStatusButton {
+  ADD_FRIEND = 'Add Friend',
+  FRIENDS = 'Friends',
+  PENDING = 'Pending',
+}
+
 export const EventRestrictionMap = ['Everyone', 'Friends', 'Invite Only'];
 
 export interface IEvent {
