@@ -128,12 +128,12 @@ export const App = () => {
           {/* TODO: Messages main page: Add swipeable routes for DM + Event Message page */}
           <PrivateRoute path={ROUTES.DIRECT_MESSAGES} component={DirectMessagePage} />
           <PrivateRoute path={ROUTES.EVENT_MESSAGE_LIST} component={EventMessageList} />
+          <PrivateRoute path={ROUTES.PROFILE.ADDFRIENDS} component={AddFriendsPage} />
           <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
           <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
           <PrivateRoute path={ROUTES.SETTINGS} component={SettingsPage} />
           {/*TODO in TASK-83: route user profiles to /user/${user.id} */}
           <PrivateRoute path={ROUTES.OTHER_USER_PROFILE} component={OtherUserProfilePage} />
-          <PrivateRoute path={ROUTES.PROFILE.ADDFRIENDS} component={AddFriendsPage} />
           <PrivateRoute component={NotFoundPage} />
         </Switch>
 
