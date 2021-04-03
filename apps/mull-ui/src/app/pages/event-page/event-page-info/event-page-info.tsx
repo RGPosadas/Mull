@@ -1,8 +1,6 @@
 import {
   faAlignLeft,
-  faComments,
   faLock,
-  faMap,
   faMapMarkerAlt,
   faUserFriends,
   faUserPlus,
@@ -71,14 +69,14 @@ export const EventPageInfo = ({
         </p>
         {/* <p className="row-text">{event.host?.name}</p> */}
 
-        <FontAwesomeIcon icon={faComments} className="event-page-icon color-green" />
+        {/* <FontAwesomeIcon icon={faComments} className="event-page-icon color-green" /> */}
       </div>
       <div className="info-row">
         <FontAwesomeIcon icon={faMapMarkerAlt} className="event-page-icon color-grey" />
         <p className="row-text" data-testid="event-page-location">
           {event.location.title}
         </p>
-        <FontAwesomeIcon icon={faMap} className="event-page-icon color-green" />
+        {/* <FontAwesomeIcon icon={faMap} className="event-page-icon color-green" /> */}
       </div>
       <div className="info-row">
         <FontAwesomeIcon icon={faAlignLeft} className="event-page-icon color-grey" />
