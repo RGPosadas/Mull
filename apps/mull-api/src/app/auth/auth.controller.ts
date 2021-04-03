@@ -70,4 +70,11 @@ export class AuthController {
 
     return res.send({ ok: true, accessToken: this.authService.createAccessToken(user) });
   }
+
+  @Post('clear')
+  async clearToken(@Req() req: Request, @Res() res: Response) {
+    this.authService.clearRefreshToken(res);
+
+    return res.send({ ok: true });
+  }
 }

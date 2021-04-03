@@ -13,6 +13,7 @@ const mockAuthService = () => ({
     return { user: req.user };
   }),
   sendRefreshToken: jest.fn(),
+  clearRefreshToken: jest.fn(),
   createRefreshToken: jest.fn(),
   createAccessToken: jest.fn(),
 });
@@ -140,5 +141,13 @@ describe('Auth Controller', () => {
     authService.createAccessToken.mockReturnValue('accessToken');
     await controller.refreshToken(mockRequest, mockResponse);
     expect(mockResponse.send).toHaveBeenCalledWith({ ok: false, accessToken: '' });
+  });
+
+  it('should clear cookies', async () => {
+    const mockRequest = ({} as unknown) as Request;
+    const mockResponse = ({ send: jest.fn() } as unknown) as Response;
+
+    await controller.clearToken(mockRequest, mockResponse);
+    expect(mockResponse.send).toHaveBeenCalledWith({ ok: true });
   });
 });
