@@ -88,7 +88,7 @@ exports[`OtherUserProfile should match snapshot 1`] = `
             onClick={[Function]}
             type="submit"
           >
-            Add Friend
+            
           </button>
         </div>
       </div>
