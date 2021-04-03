@@ -1,10 +1,4 @@
-import {
-  faAlignLeft,
-  faLock,
-  faMapMarkerAlt,
-  faUserFriends,
-  faUserPlus,
-} from '@fortawesome/free-solid-svg-icons';
+import { faAlignLeft, faLock, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
@@ -90,12 +84,13 @@ export const EventPageInfo = ({
         </p>
       </div>
 
-      <div className="info-row">
-        {/* TODO: Placeholder. Implement friend invitation and image fetching before doing this*/}
+      {/* <div className="info-row">
+        {/* TODO: Placeholder. Implement friend invitation and image fetching before doing this}
         <FontAwesomeIcon icon={faUserFriends} className="event-page-icon color-grey" />
         <p className="row-text">{event.participants?.map((p) => p.name).join(', ')}</p>
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
-      </div>
+      </div> */}
+
       {
         <MullModal
           open={modalOpen}
