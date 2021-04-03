@@ -8,6 +8,7 @@ exports[`PillOptions should match snapshot 1`] = `
     className="pill-option pill-option-active"
     data-testid="pill-id-0"
     onClick={[Function]}
+    type="button"
   >
     Yes
   </button>
@@ -15,6 +16,7 @@ exports[`PillOptions should match snapshot 1`] = `
     className="pill-option pill-option-inactive"
     data-testid="pill-id-1"
     onClick={[Function]}
+    type="button"
   >
     No
   </button>
@@ -22,6 +24,7 @@ exports[`PillOptions should match snapshot 1`] = `
     className="pill-option pill-option-inactive"
     data-testid="pill-id-2"
     onClick={[Function]}
+    type="button"
   >
     Maybe
   </button>
