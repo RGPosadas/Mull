@@ -1,3 +1,4 @@
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { IUser } from '@mull/types';
 import React, { useState } from 'react';
 import { useFriendsQuery } from '../../../generated/graphql';
@@ -20,6 +21,7 @@ const DirectMessagePage = () => {
         userId={friend.id}
         userName={friend.name}
         lastMessage={latestPost ? latestPost.message : ''}
+        icon={faEllipsisH}
         // TODO in TASK-63: an onClick event that will create a DM channel if it doesn't exist between the current user and their friend
         userPicture={avatarUrl(friend as IUser)}
       />

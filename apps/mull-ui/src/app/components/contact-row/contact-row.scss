@@ -11,11 +11,13 @@
   .user-profile-picture {
     width: 3.5rem !important;
     height: 3.5rem !important;
+    min-height: 3.5rem !important;
   }
   .user-details {
     display: flex;
     padding: 0.3rem;
     flex-direction: column;
+    align-self: center;
     .username {
       margin-top: 0.5rem;
       font-weight: normal;
