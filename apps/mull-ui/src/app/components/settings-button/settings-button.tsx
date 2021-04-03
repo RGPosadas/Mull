@@ -11,12 +11,10 @@ export interface setttingsButtonProps {
 
 export const SettingsButton = ({ icon, text, onClick }: setttingsButtonProps) => {
   return (
-    <div>
-      <button className="settings-button-container" onClick={onClick}>
-        <FontAwesomeIcon className="settings-icon" icon={icon} />
-        {text}
-      </button>
-    </div>
+    <button className="settings-button-container" onClick={onClick}>
+      <FontAwesomeIcon className="settings-icon" icon={icon} />
+      {text}
+    </button>
   );
 };
 
