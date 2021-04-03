@@ -47,11 +47,16 @@ const US3_1Seeder = async (connection: Connection) => {
   }
 };
 
+const US8_5Seeder = async (connection: Connection) => {
+  await connection.query('INSERT INTO `mull-dev`.friends VALUES (1,2), (2,1), (1,3), (3,1)');
+};
+
 export default class DatabaseSeeder implements Seeder {
   public async run(factory: Factory, connection: Connection): Promise<any> {
     await factory(Event)().createMany(10);
     await createPosts(connection, factory);
     await US3_1Seeder(connection);
+    await US8_5Seeder(connection);
     await createFriends(connection);
   }
 }

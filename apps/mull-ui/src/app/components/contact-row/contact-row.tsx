@@ -55,7 +55,11 @@ export const ContactRow = ({
           </div>
         </div>
       </Link>
-      <button className="friend-settings-icon" onClick={() => setModalOpen(!modalOpen)}>
+      <button
+        className="friend-settings-icon"
+        data-testid="contact-row-button"
+        onClick={() => setModalOpen(!modalOpen)}
+      >
         <FontAwesomeIcon icon={faEllipsisH} />
       </button>
       <MullModal
