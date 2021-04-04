@@ -1,6 +1,7 @@
 import { faEllipsisH, faSearch, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
+import { mockUser1, mockUser2 } from '../../../../mockdata';
 import { CustomTextInput, MullBackButton } from '../../../components';
 import ContactRow from '../../../components/contact-row/contact-row';
 import './add-friends.scss';
@@ -31,11 +32,11 @@ export const AddFriendsPage = () => {
         <div>
           <div className="add-friend-individual">
             <h2>Added Me</h2>
-            <ContactRow userId={213} userName={'Jane Doe'} icon={faUserPlus}></ContactRow>
+            <ContactRow user={mockUser1} icon={faUserPlus}></ContactRow>
           </div>
           <div className="add-friend-individual">
             <h2>Pending Requests</h2>
-            <ContactRow userId={213} userName={'Donkey Kong'} icon={faEllipsisH}></ContactRow>
+            <ContactRow user={mockUser2} icon={faEllipsisH}></ContactRow>
           </div>
         </div>
       </div>

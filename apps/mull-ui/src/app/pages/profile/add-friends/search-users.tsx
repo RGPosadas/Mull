@@ -2,7 +2,7 @@ import { faSearch, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dialog } from '@material-ui/core';
 import React, { useState } from 'react';
-import { useFriendsQuery } from '../../../../generated/graphql';
+import { useFriendsQuery, User } from '../../../../generated/graphql';
 import { CustomTextInput, MullBackButton, TopNavBar } from '../../../components';
 import ContactRow from '../../../components/contact-row/contact-row';
 import './add-friends.scss';
@@ -26,8 +26,7 @@ export const SearchUsersPage = ({ open, setOpen }: SearchUsersPageProps) => {
     .map(({ latestPost, ...friend }, index) => (
       <ContactRow
         key={'contact-row-' + index}
-        userId={friend.id}
-        userName={friend.name}
+        user={(friend as unknown) as User}
         lastMessage={latestPost ? latestPost.message : ''}
         icon={faUserPlus}
       />
