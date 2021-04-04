@@ -12,6 +12,10 @@
   }
 }
 
+.nav-button-container {
+  display: flex;
+}
+
 .active {
   svg {
     fill: $primary-color;

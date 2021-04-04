@@ -1,5 +1,3 @@
-import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FriendStatusButton } from '@mull/types';
 import React, { useEffect, useState } from 'react';
 import { MullButton } from '..';
@@ -108,9 +106,9 @@ export const ProfileHeader = ({
     <div className="profile-header-container">
       <div className="user-name-container">
         <h1 data-testid="userName">{user.name}</h1>
-        <button className="share-button">
+        {/* <button className="share-button">
           <FontAwesomeIcon icon={faShareAlt} />
-        </button>
+        </button> */}
       </div>
       <div className="profile-header">
         <img className="user-profile-picture" src={avatarUrl(user)} alt="user" />

@@ -18,7 +18,7 @@ describe('NavButtons', () => {
 });
 
 it('button associated with current should be active ', () => {
-  const testId = 'map-navlink';
+  const testId = 'home-navlink';
 
   const history = createMemoryHistory();
   const dom = render(
@@ -27,7 +27,7 @@ it('button associated with current should be active ', () => {
     </Router>
   );
 
-  history.push(ROUTES.MAP);
+  history.push(ROUTES.HOME);
   const element = dom.getByTestId(testId);
   expect(element.classList.contains('active')).toBeTruthy();
 });

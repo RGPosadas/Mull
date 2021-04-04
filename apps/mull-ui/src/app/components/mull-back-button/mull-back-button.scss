@@ -18,3 +18,12 @@
     color: $primary-color;
   }
 }
+
+@media (min-width: $breakpoint-mobile) {
+  .mull-back-button {
+    display: none;
+    &.mull-back-button-always-show {
+      display: block;
+    }
+  }
+}

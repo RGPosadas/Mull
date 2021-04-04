@@ -22,10 +22,9 @@ describe('TopNavBar', () => {
   it('button associated with current route should be active ', () => {
     const testIds = {
       [ROUTES.HOME]: 'home-navlink',
-      [ROUTES.MAP]: 'map-navlink',
       [ROUTES.CREATE_EVENT]: 'create-event-navlink',
       [ROUTES.CAMERA]: 'camera-navlink',
-      [ROUTES.PROFILE.DISPLAY]: 'profile-desktop-navlink',
+      [ROUTES.PROFILE.DISPLAY]: 'profile-navlink',
       [ROUTES.MESSAGES]: 'messages-navlink',
     };
 

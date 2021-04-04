@@ -46,11 +46,12 @@
   &.joined {
     color: white;
     background-color: $primary-color;
-    border: 1px $primary-color solid;
   }
 
   &.not-joined {
     padding: 0;
+    background-color: transparent;
+    color: $primary-color;
   }
 
   svg {
@@ -61,10 +62,11 @@
 }
 
 .join-icon {
-  width: 2.15rem;
+  width: 2.18rem;
+  height: 2.18rem;
   position: relative;
-  bottom: 0.3rem;
-  left: 0.1rem;
+  bottom: 0.28rem;
+  left: 0.17rem;
 }
 
 .event-card-description {

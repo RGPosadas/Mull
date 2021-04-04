@@ -1,4 +1,4 @@
-import { EventRestriction, IEvent } from '@mull/types';
+import { EventRestriction, IEvent, LIMITS } from '@mull/types';
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import {
   Column,
@@ -28,7 +28,7 @@ export class Event implements IEvent {
   id: number;
 
   @Field()
-  @Column({ length: '64' })
+  @Column({ length: LIMITS.EVENT_TITLE })
   title: string;
 
   @Field()
@@ -40,7 +40,7 @@ export class Event implements IEvent {
   endDate: Date;
 
   @Field()
-  @Column({ length: '2048' })
+  @Column({ length: LIMITS.DESCRIPTION })
   description: string;
 
   @OneToOne(/* istanbul ignore next */ () => Media)

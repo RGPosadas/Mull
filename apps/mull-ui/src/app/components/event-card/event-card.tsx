@@ -1,4 +1,4 @@
-import { faCheck, faShareAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
@@ -37,7 +37,7 @@ export const EventCard = ({
   const isEventExpired = currentDate.getTime() > new Date(event.endDate).getTime();
   return (
     <div className="event-card-container button" onClick={onClick} style={style}>
-      <img className="event-card-image" src={getMediaUrl(event.image.id)} alt="Event" />
+      <img className="event-card-image" src={getMediaUrl(event.id)} alt="Event" />
       <div className="event-card-datetime" data-testid="event-card-datetime">
         <div className="date-style">{`${day} ${month.toUpperCase()}`}</div>
         <div>{time.replace(/\s/g, '')}</div>
@@ -64,7 +64,7 @@ export const EventCard = ({
         </button>
       )}
 
-      <div className="event-card-description" onClick={onClick}>
+      <div className="event-card-description">
         <div className="event-card-text">
           <div className="event-card-title">{event.title}</div>
 
@@ -72,14 +72,14 @@ export const EventCard = ({
         </div>
         <EventMembers profilePictures={dummyProfilePictures} />
         {/* TODO: Implement share */}
-        <button
+        {/* <button
           className="event-card-share"
           onClick={(e) => {
             e.stopPropagation();
           }}
         >
           <FontAwesomeIcon icon={faShareAlt} />
-        </button>
+        </button> */}
       </div>
     </div>
   );

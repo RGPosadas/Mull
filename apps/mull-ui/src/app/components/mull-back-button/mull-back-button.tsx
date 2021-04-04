@@ -14,7 +14,7 @@ export interface MullBackButtonProps {
 export const MullBackButton = ({
   children = 'Back',
   onClick = null,
-  className,
+  className = '',
   style,
 }: MullBackButtonProps) => {
   const history = useHistory();
@@ -26,7 +26,7 @@ export const MullBackButton = ({
   return (
     <button
       data-testid="mull-back-button"
-      className={`mull-back-button ${className}`}
+      className={`mull-back-button ${className} ${onClick ? 'mull-back-button-always-show' : ''}`}
       onClick={onClick || defaultOnClick}
       style={style}
     >

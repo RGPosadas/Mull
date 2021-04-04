@@ -6,13 +6,13 @@ exports[`TopNavBar should match snapshot 1`] = `
 >
   <a
     aria-current={null}
-    className="logo"
+    className="top-nav-logo-container"
     href="/home/discover"
     onClick={[Function]}
   >
     <img
       alt="Mull logo"
-      className="logo nav-element"
+      className="top-nav-logo"
       src="mull-logo.png"
     />
   </a>
@@ -24,6 +24,7 @@ exports[`TopNavBar should match snapshot 1`] = `
     >
       <a
         aria-current={null}
+        className="nav-button-container"
         data-testid="home-navlink"
         href="/home"
         onClick={[Function]}
@@ -36,30 +37,7 @@ exports[`TopNavBar should match snapshot 1`] = `
       </a>
       <a
         aria-current={null}
-        data-testid="map-navlink"
-        href="/map"
-        onClick={[Function]}
-      >
-        <svg
-          className="nav-button"
-        >
-          MapIcon.svg
-        </svg>
-      </a>
-      <a
-        aria-current={null}
-        data-testid="create-event-navlink"
-        href="/create-event"
-        onClick={[Function]}
-      >
-        <svg
-          className="nav-middle-button"
-        >
-          CreateEventIcon.svg
-        </svg>
-      </a>
-      <a
-        aria-current={null}
+        className="nav-button-container"
         data-testid="camera-navlink"
         href="/camera"
         onClick={[Function]}
@@ -72,6 +50,20 @@ exports[`TopNavBar should match snapshot 1`] = `
       </a>
       <a
         aria-current={null}
+        className="nav-button-container"
+        data-testid="create-event-navlink"
+        href="/create-event"
+        onClick={[Function]}
+      >
+        <svg
+          className="nav-middle-button"
+        >
+          CreateEventIcon.svg
+        </svg>
+      </a>
+      <a
+        aria-current={null}
+        className="nav-button-container"
         data-testid="messages-navlink"
         href="/messages"
         onClick={[Function]}
@@ -82,20 +74,20 @@ exports[`TopNavBar should match snapshot 1`] = `
           MessagesIcon.svg
         </svg>
       </a>
+      <a
+        aria-current={null}
+        className="nav-button-container"
+        data-testid="profile-navlink"
+        href="/profile"
+        onClick={[Function]}
+      >
+        <svg
+          className="nav-button"
+        >
+          ProfileIcon.svg
+        </svg>
+      </a>
     </div>
   </div>
-  <a
-    aria-current={null}
-    className="profile-button"
-    data-testid="profile-desktop-navlink"
-    href="/profile"
-    onClick={[Function]}
-  >
-    <svg
-      className="nav-button"
-    >
-      ProfileIcon.svg
-    </svg>
-  </a>
 </div>
 `;

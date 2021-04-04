@@ -24,7 +24,7 @@ describe('PillOptions', () => {
   it('should have an active option', () => {
     render(<PillOptions options={mockOptions} onChange={mockOnChange} active={0} />);
     const pill = screen.getByTestId('pill-id-0');
-    expect(pill.classList.contains('active')).toBeTruthy();
+    expect(pill.classList.contains('pill-option-active')).toBeTruthy();
   });
 
   it('should have a different active option', () => {
@@ -39,6 +39,6 @@ describe('PillOptions', () => {
     const activePill = mockOnChange.mock.calls[0][0];
     rerender(<PillOptions options={mockOptions} onChange={mockOnChange} active={activePill} />);
     pill = screen.getByTestId(`pill-id-${activePill}`);
-    expect(pill.classList.contains('active')).toBeTruthy();
+    expect(pill.classList.contains('pill-option-active')).toBeTruthy();
   });
 });

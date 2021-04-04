@@ -97,7 +97,7 @@ describe('CreateEvent', () => {
     fireEvent.change(input, { target: { value: 'Cleanup :)' } });
     input = utils.getByLabelText('Location');
     fireEvent.change(input, { target: { value: 'Rogers Park' } });
-    const activeRestriction = utils.container.querySelector('.pill-options > div:nth-child(2)');
+    const activeRestriction = utils.container.querySelector('.pill-options > .pill-option-active');
     fireEvent.click(activeRestriction);
 
     const submitButton = utils.container.querySelector('button[data-testid="mull-button"]');

@@ -1,4 +1,4 @@
-import { IUser, RegistrationMethod, RelationshipType } from '@mull/types';
+import { IUser, LIMITS, RegistrationMethod, RelationshipType } from '@mull/types';
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import {
   Column,
@@ -51,7 +51,7 @@ export class User implements IUser {
   avatar?: Media;
 
   @Field()
-  @Column()
+  @Column({ length: LIMITS.USERNAME })
   name: string;
 
   @Field({ nullable: true })
@@ -68,6 +68,7 @@ export class User implements IUser {
   @Field()
   @Column({
     default: '',
+    length: LIMITS.DESCRIPTION,
   })
   description: string;
 
