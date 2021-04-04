@@ -1,4 +1,3 @@
-import { avatarUrl } from 'apps/mull-ui/src/utilities';
 import React from 'react';
 import {
   useGetTrueFriendsQuery,
@@ -10,24 +9,35 @@ import './myFriends-profile.scss';
 
 const MyFriends = ({ history }) => {
   const [removeFriend] = useRemoveFriendMutation();
+
+  /**
+   * sorts an array of users by name
+   * @param {User} a
+   * @param {User} b
+   */
   function compareUser(a: User, b: User) {
-    if (a.name < b.name) {
+    if (a.name.toLocaleUpperCase() < b.name.toLocaleUpperCase()) {
       return -1;
     }
-    if (a.name > b.name) {
+    if (a.name.toLocaleUpperCase() > b.name.toLocaleUpperCase()) {
       return 1;
     }
     return 0;
   }
 
+  /**
+   * Returns a map where the key is a letter and the value is
+   * an array of users who's name start with the key
+   * @param {User[]} friends
+   */
   function categorizeUsers(friends: User[]) {
-    let orderedNames = new Map<string, User[]>();
+    const orderedNames = new Map<string, User[]>();
     friends.forEach((friend) => {
-      const firstLetter = friend.name[0];
+      const firstLetter = friend.name[0].toLocaleUpperCase();
       if (!orderedNames.has(firstLetter)) {
         orderedNames.set(firstLetter, [friend]);
       } else {
-        let usersWithLetter = orderedNames.get(firstLetter);
+        const usersWithLetter = orderedNames.get(firstLetter);
         usersWithLetter.push(friend);
       }
     });
@@ -38,21 +48,19 @@ const MyFriends = ({ history }) => {
 
   if (loading) return <div className="page-container">Loading...</div>;
 
-  let mutableFriends = [...data.getTrueFriends] as User[];
+  const mutableFriends = [...data.getTrueFriends] as User[];
 
   mutableFriends.sort(compareUser);
 
   const categorizedUsers = categorizeUsers(mutableFriends);
 
-  let finalFriendsList = [];
-  let friendsElement = categorizedUsers.forEach((value, key) => {
-    let currentCategoryContactRows = value.map((friend) => {
+  const finalFriendsList = [];
+  categorizedUsers.forEach((value, key) => {
+    const currentCategoryContactRows = value.map((friend) => {
       return (
         <ContactRow
           key={friend.id}
-          userId={friend.id}
-          userName={friend.name}
-          userPicture={avatarUrl(friend)}
+          user={friend}
           history={history}
           modalButton1Text="View Profile"
           modalButton2Text="Remove Friend"
@@ -61,8 +69,8 @@ const MyFriends = ({ history }) => {
         />
       );
     });
-    let currentLetterCategorizedList = (
-      <div className="friend-category-container">
+    const currentLetterCategorizedList = (
+      <div className="friend-category-container" key={key}>
         <h2 className="friend-category-title">{key}</h2>
         {currentCategoryContactRows}
       </div>

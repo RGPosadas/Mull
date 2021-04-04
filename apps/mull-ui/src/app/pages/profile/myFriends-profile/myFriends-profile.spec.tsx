@@ -1,11 +1,11 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render } from '@testing-library/react';
-import { GetTrueFriendsDocument, GetTrueFriendsQuery } from 'apps/mull-ui/src/generated/graphql';
 import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import renderer, { act as actRenderer } from 'react-test-renderer';
 import { ROUTES } from '../../../../../src/constants';
+import { GetTrueFriendsDocument, GetTrueFriendsQuery } from '../../../../generated/graphql';
 import { UserProvider } from '../../../context/user.context';
 import MyFriends from './myFriends-profile';
 

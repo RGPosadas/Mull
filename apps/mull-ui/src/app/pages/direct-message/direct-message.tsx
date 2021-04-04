@@ -1,8 +1,6 @@
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-import { IUser } from '@mull/types';
 import React, { useState } from 'react';
-import { useFriendsQuery } from '../../../generated/graphql';
-import { avatarUrl } from '../../../utilities';
+import { useFriendsQuery, User } from '../../../generated/graphql';
 import { CustomTextInput } from '../../components';
 import ContactRow from '../../components/contact-row/contact-row';
 import './direct-message.scss';
@@ -18,12 +16,10 @@ const DirectMessagePage = () => {
     .map(({ latestPost, ...friend }, index) => (
       <ContactRow
         key={'contact-row-' + index}
-        userId={friend.id}
-        userName={friend.name}
+        user={(friend as unknown) as User}
         lastMessage={latestPost ? latestPost.message : ''}
         icon={faEllipsisH}
         // TODO in TASK-63: an onClick event that will create a DM channel if it doesn't exist between the current user and their friend
-        userPicture={avatarUrl(friend as IUser)}
       />
     ));
 

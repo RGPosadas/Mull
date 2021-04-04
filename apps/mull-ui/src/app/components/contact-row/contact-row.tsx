@@ -1,56 +1,44 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { History } from 'history';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MullButton, MullModal } from '..';
+import { FriendModal } from '..';
 import { User } from '../../../generated/graphql';
 import { avatarUrl } from '../../../utilities';
 import './contact-row.scss';
 
 /* eslint-disable-next-line */
 export interface ContactRowProps {
-  userId?: number;
-  userPicture?: string;
+  user: User;
   lastMessage?: string;
-  userName?: string;
-  icon: IconProp;
-  history: History;
-  modalButton1Text: string;
-  modalButton1OnClick: any;
-  modalButton2Text: string;
-  modalButton2OnClick: any;
-  onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
+  modalButton1Text?: string;
+  modalButton1OnClick?: () => void;
+  modalButton2Text?: string;
+  modalButton2OnClick?: () => void;
+  icon?: IconProp;
 }
 
 export const ContactRow = ({
-  userId,
-  userPicture,
-  userName,
+  user,
   lastMessage,
-  icon,
-  history,
   modalButton1Text,
   modalButton1OnClick,
   modalButton2Text,
   modalButton2OnClick,
+  icon = faEllipsisH,
 }: ContactRowProps) => {
-  const user: Partial<User> = {
-    name: `${userName}`,
-  };
-
   // TODO: Replace boolean by the appropriate button option according to query
   const addedMe = false;
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   return (
     <div className="contact-container">
-      <Link to={`/profile/${userId}`}>
+      <Link to={`/profile/${user.id}`}>
         <div className="user-information">
           <img className="user-profile-picture" src={avatarUrl(user)} alt="user" />
           <div className="user-details">
-            <span className="username">{userName}</span>
+            <span className="username">{user.name}</span>
             {lastMessage && <span className="last-message">{lastMessage}</span>}
           </div>
         </div>
@@ -60,42 +48,23 @@ export const ContactRow = ({
         data-testid="contact-row-button"
         onClick={() => setModalOpen(!modalOpen)}
       >
-        <FontAwesomeIcon icon={faEllipsisH} />
+        <FontAwesomeIcon icon={icon} />
       </button>
-      <MullModal
+      <FriendModal
+        user={user}
         open={modalOpen}
         setOpen={setModalOpen}
         paperClasses="my-friends-modal-container"
-        maxWidth="sm"
-      >
-        <img
-          className="user-profile-picture"
-          data-testid="event-page-image"
-          src={userPicture}
-          alt="Event Page"
-        />
-        <p>{userName}</p>
-        <MullButton
-          className="event-page-button contact-row-button"
-          type={'button'}
-          altStyle
-          onClick={modalButton1OnClick}
-        >
-          {modalButton1Text}
-        </MullButton>
-        <MullButton
-          onClick={async () => {
-            await modalButton2OnClick();
-            setModalOpen(false);
-            location.reload();
-          }}
-          className="event-page-button contact-row-button"
-          type={'button'}
-          altStyle
-        >
-          {modalButton2Text}
-        </MullButton>
-      </MullModal>
+        maxWidth="xl"
+        button1Text={modalButton1Text}
+        button1OnClick={modalButton1OnClick}
+        button2Text={modalButton2Text}
+        button2OnClick={async () => {
+          await modalButton2OnClick();
+          setModalOpen(false);
+          window.location.reload();
+        }}
+      ></FriendModal>
     </div>
   );
 };
