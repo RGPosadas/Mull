@@ -22,7 +22,7 @@ describe('OtherUserProfile', () => {
       <UserProvider value={{ userId: 1, setUserId: jest.fn() }}>
         <MockedProvider mocks={mocks} addTypename={false}>
           <Router history={history}>
-            <OtherUserProfilePage history={history} prevPage="Add Friends" />
+            <OtherUserProfilePage history={history} prevPage="Add Friends" otherUserId={4} />
           </Router>
         </MockedProvider>
       </UserProvider>
@@ -94,7 +94,7 @@ describe('OtherUserProfile', () => {
     history.push(ROUTES.OTHER_USER_PROFILE);
     await actRenderer(async () => {
       const tree = renderer.create(renderHelper(history, mocks));
-      await new Promise((resolve) => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       expect(tree.toJSON()).toMatchSnapshot();
     });
   });

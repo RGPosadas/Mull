@@ -1,7 +1,7 @@
-import { ROUTES } from 'apps/mull-ui/src/constants';
 import { History } from 'history';
 import React, { useContext } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
+import { ROUTES } from '../../constants';
 import UserContext from '../context/user.context';
 import OtherUserProfilePage from '../pages/profile/other-user-profile/other-user-profile';
 
