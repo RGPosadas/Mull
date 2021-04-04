@@ -4,6 +4,7 @@ import {
   User,
   useRemoveFriendMutation,
 } from '../../../../generated/graphql';
+import { MullBackButton } from '../../../components';
 import ContactRow from '../../../components/contact-row/contact-row';
 import './myFriends-profile.scss';
 
@@ -79,8 +80,9 @@ const MyFriends = ({ history }) => {
 
   return (
     <div className="page-container my-friends">
+      <MullBackButton>Profile</MullBackButton>
       <h1 className="my-friends-page-title">My Friends</h1>
-      {finalFriendsList}
+      {finalFriendsList.length > 0 ? finalFriendsList : 'No friends found.'}
     </div>
   );
 };

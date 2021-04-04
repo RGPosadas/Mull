@@ -17,7 +17,7 @@ frameSizes.forEach((frame) => {
     it(`should remove a friend from the list`, () => {
       cy.mockRefreshRequest();
       cy.visit('http://localhost:4200/my-friends');
-      let count = Cypress.$('.contact-container').length;
+      const count = Cypress.$('.contact-container').length;
       cy.get('[data-testid=contact-row-button]').first().click();
       cy.get('.contact-container').should('have.length', count);
       cy.get('[data-testid=mull-button]').contains('Remove Friend').first().click();
