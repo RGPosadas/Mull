@@ -9,21 +9,22 @@ export interface EventBulletProps {
   onClick?: (event: React.MouseEvent<HTMLInputElement>) => void; //TODO: redirect to the correct DM page
 }
 
-export const EventBullet = ({ eventTitle, eventPicture, eventDate }: EventBulletProps) => {
+export const EventBullet = ({ eventTitle, eventPicture, eventDate, onClick }: EventBulletProps) => {
   return (
     <div>
-      <div className="event-bullet-container">
-        <img className="event-bullet-photo" src={eventPicture} alt="event" />
-        <div className="event-bullet-date-box">
-          <span className="event-box-bold-font">{eventDate.getDate()}</span>
-          <span className="event-box-font">{monthNames[eventDate.getMonth()]}</span>
-          <span className="event-box-font">
-            {eventDate.getHours()}:{eventDate.getMinutes()}
-          </span>
+      <button className="event-button" onClick={onClick}>
+        <div className="event-bullet-container">
+          <img className="event-bullet-photo" src={eventPicture} alt="event" />
+          <div className="event-bullet-date-box">
+            <span className="event-box-bold-font">{eventDate.getDate()}</span>
+            <span className="event-box-font">{monthNames[eventDate.getMonth()]}</span>
+            <span className="event-box-font">
+              {eventDate.getHours()}:{eventDate.getMinutes()}
+            </span>
+          </div>
+          <div className="event-title">{eventTitle}</div>
         </div>
-
-        <div>{eventTitle}</div>
-      </div>
+      </button>
     </div>
   );
 };

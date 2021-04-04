@@ -4,8 +4,9 @@ import { useOwnedEventsQuery, useParticipantEventsQuery } from '../../../../gene
 import { getMediaUrl } from '../../../../utilities';
 import { CustomTextInput } from '../../../components';
 import { EventBullet } from '../../../components/event-bullet/event-bullet';
+import './event-message-list.scss';
 
-export const EventMessageList = () => {
+export const EventMessageList = ({ history }) => {
   const { data: participatingData, loading: participatingLoading } = useParticipantEventsQuery();
   const { data: ownedData, loading: ownedLoading } = useOwnedEventsQuery();
   const [searchString, setSearchString] = useState<string>('');
@@ -24,11 +25,12 @@ export const EventMessageList = () => {
         eventPicture={getMediaUrl(event.image.id)}
         eventDate={new Date(event.startDate)}
         key={'event-bullet-' + index}
+        onClick={() => history.push(`/messages/event/${event.id}/announcements`)}
       />
     ));
 
   return (
-    <div className="page-container">
+    <div className="event-message-list">
       <CustomTextInput
         title={null}
         fieldName="searchField"
@@ -38,7 +40,11 @@ export const EventMessageList = () => {
         onChange={(e) => setSearchString(e.target.value)}
         placeholder="Search"
       />
-      <div>{eventBullets}</div>
+      {eventBullets.length ? (
+        <div className="event-bullets">{eventBullets}</div>
+      ) : (
+        <p className="event-messages-not-found">No results found</p>
+      )}
     </div>
   );
 };

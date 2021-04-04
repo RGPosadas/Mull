@@ -20,10 +20,7 @@ import DiscoverPage from './pages/home/discover/discover-page';
 import MyEventsPage from './pages/home/my-events/my-events';
 import UpcomingPage from './pages/home/upcoming/upcoming';
 import LoginPage from './pages/login/login';
-import AnnouncementsPage from './pages/messages/announcements/announcements';
-import ChatPagesHeader from './pages/messages/chat-pages-header';
 import EventMessageList from './pages/messages/event-messages/event-message-list';
-import GroupChatPage from './pages/messages/group-chat/group-chat';
 import AddFriendsPage from './pages/profile/add-friends/add-friends';
 import EditProfilePage from './pages/profile/edit-profile/edit-profile';
 import OtherUserProfilePage from './pages/profile/other-user-profile/other-user-profile';
@@ -32,6 +29,7 @@ import RegisterPage from './pages/register/register';
 import SettingsPage from './pages/settings-page/settings-page';
 import TokenRedirectPage from './pages/token-redirect/token-redirect';
 import WasteRecognitionPage from './pages/waste-recognition-page/waste-recognition-page';
+import MessagesRoute from './routes/messages.route';
 
 /**
  * Main component of the application
@@ -60,11 +58,7 @@ export const App = () => {
   }, []);
 
   const getTopBarStyle = (): CSSProperties => {
-    if (
-      location.pathname.includes(ROUTES.HOME) ||
-      location.pathname.includes(ROUTES.MESSAGES) ||
-      location.pathname.includes(ROUTES.DIRECT_MESSAGES)
-    ) {
+    if (location.pathname.includes(ROUTES.HOME) || location.pathname.includes(ROUTES.MESSAGES)) {
       return { boxShadow: 'none' };
     }
     return {};
@@ -113,27 +107,21 @@ export const App = () => {
               </SwipeableRoutes>
             </div>
           </PrivateRoute>
-          <PrivateRoute path={ROUTES.MESSAGES}>
-            <ChatPagesHeader>
-              <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
-                <PrivateRoute path={ROUTES.GROUPCHAT.url} component={GroupChatPage} />
-                <PrivateRoute path={ROUTES.ANNOUNCEMENTS.url} component={AnnouncementsPage} />
-                <PrivateRoute exact path={ROUTES.MESSAGES}>
-                  <Redirect to={ROUTES.ANNOUNCEMENTS.url} />
-                </PrivateRoute>
-              </div>
-            </ChatPagesHeader>
-          </PrivateRoute>
+          <PrivateRoute path={ROUTES.MESSAGES} component={MessagesRoute} />
           <PrivateRoute path={ROUTES.CAMERA} component={WasteRecognitionPage} />
           {/* TODO: Messages main page: Add swipeable routes for DM + Event Message page */}
-          <PrivateRoute path={ROUTES.DIRECT_MESSAGES} component={DirectMessagePage} />
-          <PrivateRoute path={ROUTES.EVENT_MESSAGE_LIST} component={EventMessageList} />
+          <PrivateRoute path={ROUTES.DIRECT_MESSAGES.url} component={DirectMessagePage} />
+          <PrivateRoute path={ROUTES.EVENT_MESSAGE_LIST.url} component={EventMessageList} />
           <PrivateRoute path={ROUTES.PROFILE.ADDFRIENDS} component={AddFriendsPage} />
           <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
           <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
           <PrivateRoute path={ROUTES.SETTINGS} component={SettingsPage} />
           {/*TODO in TASK-83: route user profiles to /user/${user.id} */}
           <PrivateRoute path={ROUTES.OTHER_USER_PROFILE} component={OtherUserProfilePage} />
+          <PrivateRoute>
+            <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
+            <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
+          </PrivateRoute>
           <PrivateRoute component={NotFoundPage} />
         </Switch>
 

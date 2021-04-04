@@ -817,6 +817,19 @@ export type UserRelationshipQuery = (
   & Pick<Query, 'getUserRelationship'>
 );
 
+export type EventTitleQueryVariables = Exact<{
+  eventId: Scalars['Int'];
+}>;
+
+
+export type EventTitleQuery = (
+  { __typename?: 'Query' }
+  & { event: (
+    { __typename?: 'Event' }
+    & Pick<Event, 'title'>
+  ) }
+);
+
 export type PostAddedSubscriptionVariables = Exact<{
   channelId: Scalars['Int'];
 }>;
@@ -1659,6 +1672,39 @@ export function useUserRelationshipLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type UserRelationshipQueryHookResult = ReturnType<typeof useUserRelationshipQuery>;
 export type UserRelationshipLazyQueryHookResult = ReturnType<typeof useUserRelationshipLazyQuery>;
 export type UserRelationshipQueryResult = Apollo.QueryResult<UserRelationshipQuery, UserRelationshipQueryVariables>;
+export const EventTitleDocument = gql`
+    query EventTitle($eventId: Int!) {
+  event(id: $eventId) {
+    title
+  }
+}
+    `;
+
+/**
+ * __useEventTitleQuery__
+ *
+ * To run a query within a React component, call `useEventTitleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventTitleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventTitleQuery({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *   },
+ * });
+ */
+export function useEventTitleQuery(baseOptions: Apollo.QueryHookOptions<EventTitleQuery, EventTitleQueryVariables>) {
+        return Apollo.useQuery<EventTitleQuery, EventTitleQueryVariables>(EventTitleDocument, baseOptions);
+      }
+export function useEventTitleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventTitleQuery, EventTitleQueryVariables>) {
+          return Apollo.useLazyQuery<EventTitleQuery, EventTitleQueryVariables>(EventTitleDocument, baseOptions);
+        }
+export type EventTitleQueryHookResult = ReturnType<typeof useEventTitleQuery>;
+export type EventTitleLazyQueryHookResult = ReturnType<typeof useEventTitleLazyQuery>;
+export type EventTitleQueryResult = Apollo.QueryResult<EventTitleQuery, EventTitleQueryVariables>;
 export const PostAddedDocument = gql`
     subscription PostAdded($channelId: Int!) {
   postAdded(channelId: $channelId) {

@@ -11,7 +11,7 @@ frameSizes.forEach((frame) => {
     it('should post messages on the group chat page', () => {
       cy.mockRefreshRequest();
       const date = new Date();
-      cy.visit('http://localhost:4200/messages/group-chat');
+      cy.visit('http://localhost:4200/messages/event/1/group-chat');
       cy.get('.event-chat', { timeout: 5000 }).should('exist');
       cy.get('.custom-text-input').type(`${date.toString()}{enter}`);
       /* eslint-disable-next-line cypress/no-unnecessary-waiting */

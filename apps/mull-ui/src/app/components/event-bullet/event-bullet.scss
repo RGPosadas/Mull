@@ -7,14 +7,15 @@
 }
 
 .event-bullet-photo {
-  max-width: 3rem;
-  max-height: 2.9rem;
+  max-width: 5rem;
+  max-height: 100%;
   border-radius: 15%;
 }
 
 .event-bullet-date-box {
   display: flex;
   border: 0.125rem #a9a9a9;
+  flex: 0 0 auto;
   border-radius: 15%;
   border-style: solid;
   flex-direction: column;
@@ -31,4 +32,13 @@
 
 .event-box-font {
   font-size: 0.625rem;
+}
+
+.event-button {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.event-button:hover {
+  background: rgb(212, 212, 212);
 }

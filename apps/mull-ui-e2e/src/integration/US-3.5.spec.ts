@@ -11,7 +11,7 @@ frameSizes.forEach((frame) => {
     it('should post an image on the group chat page', () => {
       const text = 'Test with image';
       cy.mockRefreshRequest();
-      cy.visit('http://localhost:4200/messages/group-chat');
+      cy.visit('http://localhost:4200/messages/event/1/group-chat');
       cy.get('.event-chat', { timeout: 5000 }).should('exist');
 
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
