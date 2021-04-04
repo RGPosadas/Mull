@@ -51,7 +51,11 @@ export const OtherUserProfilePage = ({
       />
 
       <div className="portfolio-container" data-testid="portfolio-events">
-        {eventCards}
+        {eventCards.length > 0 ? (
+          eventCards
+        ) : (
+          <div className="no-events-found-msg">No portfolio found</div>
+        )}
       </div>
     </div>
   );
