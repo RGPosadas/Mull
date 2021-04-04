@@ -15,6 +15,10 @@ export interface PillOptionsProps {
  */
 export const PillOptions = ({ options, onChange, active }: PillOptionsProps) => {
   return (
+      <label className="custom-text-input-label" htmlFor={'description'}>
+    <div className="pill-options-container">
+        Restriction
+      </label>
     <div className="pill-options">
       {options.map((option, idx) => (
         <button
