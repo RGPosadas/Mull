@@ -256,6 +256,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               errorMessage={formik.errors.eventTitle}
               svgIcon={<FontAwesomeIcon className="input-icon" icon={faPencilAlt} />}
             />
+            <LocationAutocompleteModal formik={formik} />
             <div className="textarea-create-event-container">
               <label className="description-label" htmlFor={'description'}>
                 Description
@@ -277,8 +278,6 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
                 <span className="error-message">{formik.errors.description}</span>
               ) : null}
             </div>
-            <LocationAutocompleteModal formik={formik} />
-
             <PillOptions
               options={EventRestrictionMap}
               onChange={handleRestrictions}
