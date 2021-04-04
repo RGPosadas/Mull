@@ -24,6 +24,7 @@ export const ROUTES = {
   MY_FRIENDS: '/my-friends',
   SETTINGS: '/settings',
   OTHER_USER_PROFILE: '/other-user-profile',
+  USER_BY_ID: '/user/:id',
 };
 
 export const DAY_IN_MILLISECONDS = 86400000;
