@@ -154,4 +154,16 @@ export class UserResolver {
   ) {
     return this.userService.getUserRelationship(userIdA, userIdB);
   }
+
+  @Query(/* istanbul ignore next */ () => [User])
+  async getTrueFriends(@AuthenticatedUser() currentUser: number) {
+    const currentUserFriends = await this.userService.getFriends(currentUser);
+    const trueFriends: User[] = [];
+    currentUserFriends.forEach((friend) => {
+      if (friend.friends.some((user) => user.id === currentUser)) {
+        trueFriends.push(friend);
+      }
+    });
+    return trueFriends;
+  }
 }

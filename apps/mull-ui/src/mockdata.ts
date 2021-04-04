@@ -58,7 +58,7 @@ export const dummyDetectionResults: DetectionResult[] = [
   },
 ];
 
-const mockUser1 = {
+export const mockUser1 = {
   id: 1,
   password: '$2b$10$Wo/ClOmaI/qItblWM1saEeWgqv9S9nt6QO4KW1kBXdzPT1.q8XuuG',
   email: 'mock@mock.com',
@@ -73,7 +73,7 @@ const mockUser1 = {
   joinDate: new Date('2020-10-31T22:09:00.000Z'),
 };
 
-const mockUser2 = {
+export const mockUser2 = {
   id: 2,
   password: '$2b$10$Wo/ClOmaI/qItblWM1saEeWgqv9S9nt6QO4KW1kBXdzPT1.q8XuuG',
   email: 'mock@mock.com',

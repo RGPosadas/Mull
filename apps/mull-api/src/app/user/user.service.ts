@@ -32,7 +32,9 @@ export class UserService {
   }
 
   async getFriends(userId: number): Promise<User[]> {
-    const { friends } = await this.userRepository.findOne(userId, { relations: ['friends'] });
+    const { friends } = await this.userRepository.findOne(userId, {
+      relations: ['friends', 'friends.friends', 'friends.avatar'],
+    });
     return friends;
   }
 

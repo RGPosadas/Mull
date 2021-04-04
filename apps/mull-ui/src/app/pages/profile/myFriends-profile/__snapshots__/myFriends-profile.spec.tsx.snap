@@ -1,0 +1,218 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyFriends should match snapshot 1`] = `
+<div
+  className="page-container my-friends"
+>
+  <button
+    className="mull-back-button  "
+    data-testid="mull-back-button"
+    onClick={[Function]}
+  >
+    <svg
+      aria-hidden="true"
+      className="svg-inline--fa fa-chevron-left fa-w-10 mull-back-button-icon"
+      data-icon="chevron-left"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 320 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+    <div
+      className="mull-back-button-text"
+    >
+      Profile
+    </div>
+  </button>
+  <h1
+    className="my-friends-page-title"
+  >
+    My Friends
+  </h1>
+  <div
+    className="friend-category-container"
+  >
+    <h2
+      className="friend-category-title"
+    >
+      L
+    </h2>
+    <div
+      className="contact-container"
+    >
+      <a
+        href="/profile/2"
+        onClick={[Function]}
+      >
+        <div
+          className="user-information"
+        >
+          <img
+            alt="user"
+            className="user-profile-picture"
+            src="./assets/icons/icon-192x192.png"
+          />
+          <div
+            className="user-details"
+          >
+            <span
+              className="username"
+            >
+              Luffy
+            </span>
+          </div>
+        </div>
+      </a>
+      <button
+        className="friend-settings-icon"
+        data-testid="contact-row-button"
+        onClick={[Function]}
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-ellipsis-h fa-w-16 "
+          data-icon="ellipsis-h"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div
+    className="friend-category-container"
+  >
+    <h2
+      className="friend-category-title"
+    >
+      N
+    </h2>
+    <div
+      className="contact-container"
+    >
+      <a
+        href="/profile/3"
+        onClick={[Function]}
+      >
+        <div
+          className="user-information"
+        >
+          <img
+            alt="user"
+            className="user-profile-picture"
+            src="./assets/icons/icon-192x192.png"
+          />
+          <div
+            className="user-details"
+          >
+            <span
+              className="username"
+            >
+              Nami
+            </span>
+          </div>
+        </div>
+      </a>
+      <button
+        className="friend-settings-icon"
+        data-testid="contact-row-button"
+        onClick={[Function]}
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-ellipsis-h fa-w-16 "
+          data-icon="ellipsis-h"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div
+    className="friend-category-container"
+  >
+    <h2
+      className="friend-category-title"
+    >
+      Z
+    </h2>
+    <div
+      className="contact-container"
+    >
+      <a
+        href="/profile/1"
+        onClick={[Function]}
+      >
+        <div
+          className="user-information"
+        >
+          <img
+            alt="user"
+            className="user-profile-picture"
+            src="./assets/icons/icon-192x192.png"
+          />
+          <div
+            className="user-details"
+          >
+            <span
+              className="username"
+            >
+              Zoro
+            </span>
+          </div>
+        </div>
+      </a>
+      <button
+        className="friend-settings-icon"
+        data-testid="contact-row-button"
+        onClick={[Function]}
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-ellipsis-h fa-w-16 "
+          data-icon="ellipsis-h"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+`;

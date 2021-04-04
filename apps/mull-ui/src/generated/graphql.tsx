@@ -305,6 +305,7 @@ export type Query = {
   getChannelByEventId: EventChannel;
   getDirectMessageChannel?: Maybe<DirectMessageChannel>;
   getRelationships: Array<Relationship>;
+  getTrueFriends: Array<User>;
   getUserRelationship: RelationshipType;
   hostEvents: Array<Event>;
   hostingCount: Scalars['Int'];
@@ -828,6 +829,21 @@ export type EventTitleQuery = (
     { __typename?: 'Event' }
     & Pick<Event, 'title'>
   ) }
+);
+
+export type GetTrueFriendsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTrueFriendsQuery = (
+  { __typename?: 'Query' }
+  & { getTrueFriends: Array<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'name'>
+    & { avatar?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'mediaType' | 'id'>
+    )> }
+  )> }
 );
 
 export type PostAddedSubscriptionVariables = Exact<{
@@ -1705,6 +1721,43 @@ export function useEventTitleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type EventTitleQueryHookResult = ReturnType<typeof useEventTitleQuery>;
 export type EventTitleLazyQueryHookResult = ReturnType<typeof useEventTitleLazyQuery>;
 export type EventTitleQueryResult = Apollo.QueryResult<EventTitleQuery, EventTitleQueryVariables>;
+export const GetTrueFriendsDocument = gql`
+    query GetTrueFriends {
+  getTrueFriends {
+    id
+    name
+    avatar {
+      mediaType
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetTrueFriendsQuery__
+ *
+ * To run a query within a React component, call `useGetTrueFriendsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTrueFriendsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTrueFriendsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetTrueFriendsQuery(baseOptions?: Apollo.QueryHookOptions<GetTrueFriendsQuery, GetTrueFriendsQueryVariables>) {
+        return Apollo.useQuery<GetTrueFriendsQuery, GetTrueFriendsQueryVariables>(GetTrueFriendsDocument, baseOptions);
+      }
+export function useGetTrueFriendsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTrueFriendsQuery, GetTrueFriendsQueryVariables>) {
+          return Apollo.useLazyQuery<GetTrueFriendsQuery, GetTrueFriendsQueryVariables>(GetTrueFriendsDocument, baseOptions);
+        }
+export type GetTrueFriendsQueryHookResult = ReturnType<typeof useGetTrueFriendsQuery>;
+export type GetTrueFriendsLazyQueryHookResult = ReturnType<typeof useGetTrueFriendsLazyQuery>;
+export type GetTrueFriendsQueryResult = Apollo.QueryResult<GetTrueFriendsQuery, GetTrueFriendsQueryVariables>;
 export const PostAddedDocument = gql`
     subscription PostAdded($channelId: Int!) {
   postAdded(channelId: $channelId) {

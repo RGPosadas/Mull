@@ -1,64 +1,70 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FriendModal } from '..';
 import { User } from '../../../generated/graphql';
 import { avatarUrl } from '../../../utilities';
-import FriendModal from '../modal/friend-modal/friend-modal';
 import './contact-row.scss';
 
 /* eslint-disable-next-line */
 export interface ContactRowProps {
-  userId?: number;
-  userPicture?: string;
+  user: User;
   lastMessage?: string;
-  userName?: string;
-  icon: IconProp;
+  modalButton1Text?: string;
+  modalButton1OnClick?: () => void;
+  modalButton2Text?: string;
+  modalButton2OnClick?: () => void;
+  icon?: IconProp;
 }
 
 export const ContactRow = ({
-  userId,
-  userPicture,
-  userName,
+  user,
   lastMessage,
-  icon,
+  modalButton1Text,
+  modalButton1OnClick,
+  modalButton2Text,
+  modalButton2OnClick,
+  icon = faEllipsisH,
 }: ContactRowProps) => {
-  const user: Partial<User> = {
-    name: `${userName}`,
-  };
-  const [open, setOpen] = useState(false);
-
   // TODO: Replace boolean by the appropriate button option according to query
   const addedMe = false;
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   return (
     <div className="contact-container">
-      <Link to={`/profile/${userId}`}>
+      <Link to={`/profile/${user.id}`}>
         <div className="user-information">
           <img className="user-profile-picture" src={avatarUrl(user)} alt="user" />
           <div className="user-details">
-            <span className="username">{userName}</span>
-            <span className="last-message">{lastMessage}</span>
+            <span className="username">{user.name}</span>
+            {lastMessage && <span className="last-message">{lastMessage}</span>}
           </div>
         </div>
       </Link>
-      <button className="friend-settings-icon" onClick={() => setOpen(true)}>
+      <button
+        className="friend-settings-icon"
+        data-testid="contact-row-button"
+        onClick={() => setModalOpen(!modalOpen)}
+      >
         <FontAwesomeIcon icon={icon} />
       </button>
       <FriendModal
-        open={open}
-        setOpen={setOpen}
         user={user}
-        // TODO: Button should redirect to appropriate page
-        button1Text="View Profile"
-        button1OnClick={() => {
-          console.log('clicked 1');
+        open={modalOpen}
+        setOpen={setModalOpen}
+        paperClasses="my-friends-modal-container"
+        maxWidth="xl"
+        button1Text={modalButton1Text}
+        button1OnClick={modalButton1OnClick}
+        button2Text={modalButton2Text}
+        button2OnClick={async () => {
+          await modalButton2OnClick();
+          setModalOpen(false);
+          window.location.reload();
         }}
-        button2Text={addedMe ? 'Add Friend' : 'Cancel Request'}
-        button2OnClick={() => {
-          console.log('clicked 2');
-        }}
-      />
+      ></FriendModal>
     </div>
   );
 };

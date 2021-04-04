@@ -58,7 +58,7 @@ describe('EditProfile', () => {
     history.push(ROUTES.PROFILE.DISPLAY);
     await actRenderer(async () => {
       const tree = renderer.create(renderHelper(history, mocks));
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       expect(tree.toJSON()).toMatchSnapshot();
     });
   });
@@ -89,7 +89,7 @@ describe('EditProfile', () => {
 
     await act(async () => {
       const utils = render(renderHelper(history, mocks));
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       const saveButton = utils.container.querySelector('button[data-testid="mull-button"]');
 
       await waitFor(() => {
@@ -127,7 +127,7 @@ describe('EditProfile', () => {
 
     await act(async () => {
       const utils = render(renderHelper(history, mocks));
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 200));
 
       window.URL.createObjectURL = jest.fn();
       const file = new File(['zoro'], 'zoro.png', { type: 'image/png' });

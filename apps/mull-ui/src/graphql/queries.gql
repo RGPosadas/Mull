@@ -212,3 +212,14 @@ query EventTitle($eventId: Int!) {
     title
   }
 }
+
+query GetTrueFriends {
+  getTrueFriends {
+    id
+    name
+    avatar {
+      mediaType
+      id
+    }
+  }
+}

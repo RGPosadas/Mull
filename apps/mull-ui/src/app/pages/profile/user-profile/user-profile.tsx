@@ -47,7 +47,9 @@ export const UserProfilePage = ({ history }: UserProfilePageProps) => {
         <Link to={ROUTES.PROFILE.ADDFRIENDS}>
           <SettingsButton icon={faUserPlus} text="Add Friends" />
         </Link>
-        <SettingsButton icon={faUserFriends} text="My Friends" />
+        <Link to="my-friends">
+          <SettingsButton icon={faUserFriends} text="My Friends" />
+        </Link>
         <p className={friendRequestExists ? 'friend-request-count' : 'no-friend-request'}>{4}</p>
       </div>
       <div className="settings-container below-friends">
