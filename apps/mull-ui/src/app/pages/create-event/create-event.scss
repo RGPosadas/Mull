@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   .custom-text-input-container {
-    margin-bottom: 1.875rem;
+    margin-top: 1.875rem;
     width: 100%;
   }
   .custom-file-upload-container label {
@@ -48,6 +48,7 @@
 .textarea-create-event-container {
   position: relative;
   width: 100%;
+  margin-top: 1.875rem;
 
   .description-label {
     color: black;
@@ -92,6 +93,7 @@
     padding: 1em 2.5em 1em 1em;
     margin-bottom: 0.275rem;
     width: 100%;
+    margin-top: 0.5rem;
     box-sizing: border-box;
     &.error {
       border-color: $error-color;
