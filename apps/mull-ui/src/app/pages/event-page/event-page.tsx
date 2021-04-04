@@ -2,6 +2,7 @@ import { ISerializedEvent } from '@mull/types';
 import { cloneDeep } from 'lodash';
 import React, { useContext, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { ROUTES } from '../../../constants';
 import {
   CreateEventInput,
   useEventPageQuery,
@@ -87,7 +88,13 @@ export const EventPage = ({
         headerRef={headerRef}
         event={event}
         prevPage={prevPage}
-        handleBackButton={onBackButtonClick}
+        handleBackButton={
+          onBackButtonClick
+            ? onBackButtonClick
+            : () => {
+                window.location.href = ROUTES.DISCOVER.url;
+              }
+        }
         eventImageURL={eventImageURL}
         setHeaderHeight={setHeaderHeight}
       />

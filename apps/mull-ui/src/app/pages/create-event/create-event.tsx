@@ -139,7 +139,11 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           data: { uploadFile: uploadedFile },
         } = await uploadFile({ variables: { file: file } });
 
-        await createEvent({
+        const {
+          data: {
+            createEvent: { id: eventId },
+          },
+        } = await createEvent({
           variables: {
             event: {
               ...payload,
@@ -148,7 +152,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           },
         });
         updateToast('Event Created', toast.TYPE.SUCCESS);
-        history.push(ROUTES.HOME);
+        history.push(ROUTES.EVENT_BY_ID.replace(':id', `${eventId}`));
       } catch (err) {
         updateToast('Fatal Error: Event Not Created', toast.TYPE.ERROR);
         console.error(err);
