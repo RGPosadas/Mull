@@ -159,7 +159,7 @@ describe('UserResolver', () => {
   });
 
   it(`'should return the user's friend count`, async () => {
-    expect(await resolver.friendCount(1)).toEqual(3);
+    expect(await resolver.friendCount(1)).toEqual(1);
   });
 
   it(`'should return the user's hosting count`, async () => {
