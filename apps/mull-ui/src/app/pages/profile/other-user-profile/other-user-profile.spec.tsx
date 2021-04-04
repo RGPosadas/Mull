@@ -94,7 +94,7 @@ describe('OtherUserProfile', () => {
     history.push(ROUTES.OTHER_USER_PROFILE);
     await actRenderer(async () => {
       const tree = renderer.create(renderHelper(history, mocks));
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       expect(tree.toJSON()).toMatchSnapshot();
     });
   });

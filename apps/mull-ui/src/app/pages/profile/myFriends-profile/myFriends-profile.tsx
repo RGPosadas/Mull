@@ -82,7 +82,12 @@ const MyFriends = ({ history }) => {
     <div className="page-container my-friends">
       <MullBackButton>Profile</MullBackButton>
       <h1 className="my-friends-page-title">My Friends</h1>
-      {finalFriendsList.length > 0 ? finalFriendsList : 'No friends found.'}
+
+      {finalFriendsList.length > 0 ? (
+        finalFriendsList
+      ) : (
+        <p className="no-friends-msg">No friends found </p>
+      )}
     </div>
   );
 };
