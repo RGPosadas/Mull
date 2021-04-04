@@ -1,5 +1,6 @@
 import { IChatForm, ISerializedPost } from '@mull/types';
 import { useFormik } from 'formik';
+import { History } from 'history';
 import React, { ChangeEvent, useContext, useState } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -27,11 +28,12 @@ interface subscriptionData {
 }
 
 export interface EventChatProps {
+  history: History;
   channelName: string;
   restrictChatInput: boolean;
 }
 
-export const EventChat = ({ channelName, restrictChatInput }: EventChatProps) => {
+export const EventChat = ({ history, channelName, restrictChatInput }: EventChatProps) => {
   const { updateToast } = useToast();
   const [createPostMutation] = useCreatePostMutation();
 
@@ -131,7 +133,11 @@ export const EventChat = ({ channelName, restrictChatInput }: EventChatProps) =>
   if (data) {
     return (
       <div className="event-chat">
-        <ChatBubbleList posts={data.getChannelByEventId.posts} subToMore={subToMore} />
+        <ChatBubbleList
+          posts={data.getChannelByEventId.posts}
+          subToMore={subToMore}
+          history={history}
+        />
         {isEventHost(data.getChannelByEventId.event as Event) && (
           <ChatInput
             formik={formik}

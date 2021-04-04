@@ -24,7 +24,7 @@ const MessagesMainRoute = ({ history }) => {
       />
       <div className="page-container with-sub-nav">
         <SwipeableViews index={index} onChangeIndex={handleChangeIndex}>
-          <DirectMessagePage />
+          <DirectMessagePage history={history} />
           <EventMessageList history={history} />
         </SwipeableViews>
       </div>

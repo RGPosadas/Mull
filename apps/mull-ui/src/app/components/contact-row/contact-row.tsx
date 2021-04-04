@@ -34,7 +34,7 @@ export const ContactRow = ({
 
   return (
     <div className="contact-container">
-      <Link to={`/profile/${user.id}`}>
+      <Link to={`/user/${user.id}`}>
         <div className="user-information">
           <img className="user-profile-picture" src={avatarUrl(user)} alt="user" />
           <div className="user-details">

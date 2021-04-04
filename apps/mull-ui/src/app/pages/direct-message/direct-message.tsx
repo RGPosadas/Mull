@@ -1,11 +1,15 @@
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { History } from 'history';
 import React, { useState } from 'react';
 import { useFriendsQuery, User } from '../../../generated/graphql';
 import { CustomTextInput } from '../../components';
 import ContactRow from '../../components/contact-row/contact-row';
 import './direct-message.scss';
 
-const DirectMessagePage = () => {
+export interface DirectMessagePageProps {
+  history: History;
+}
+const DirectMessagePage = ({ history }: DirectMessagePageProps) => {
   const [searchValue, setSearchValue] = useState('');
   const { data, loading } = useFriendsQuery();
 
@@ -19,6 +23,8 @@ const DirectMessagePage = () => {
         user={(friend as unknown) as User}
         lastMessage={latestPost ? latestPost.message : ''}
         icon={faEllipsisH}
+        modalButton1Text="View Profile"
+        modalButton1OnClick={() => history.push(`/user/${friend.id}`)}
         // TODO in TASK-63: an onClick event that will create a DM channel if it doesn't exist between the current user and their friend
       />
     ));
