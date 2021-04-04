@@ -12,6 +12,7 @@ import {
   useUserRelationshipQuery,
 } from '../../../generated/graphql';
 import { avatarUrl } from '../../../utilities';
+import ExpandableText from '../expandable-text/expandable-text';
 import FriendModal from '../modal/friend-modal/friend-modal';
 import { MullButton } from '../mull-button/mull-button';
 import { Spinner } from '../spinner/spinner';
@@ -170,9 +171,9 @@ export const ProfileHeader = ({
           {isCurrentUser ? null : SetUserRelationship(user, friendCountRefetch)}
         </div>
       </div>
-      <p className="profile-header-user-description" data-testid="userDescription">
+      <ExpandableText className="profile-header-user-description" data-testid="expandable-text-div">
         {user.description}
-      </p>
+      </ExpandableText>
     </div>
   );
 };

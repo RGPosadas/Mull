@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { ROUTES } from '../../../../constants';
 import { User, useUpdateUserMutation, useUserQuery } from '../../../../generated/graphql';
-import { avatarUrl, hasEmoji, validateFileSize } from '../../../../utilities';
+import { avatarUrl, exceedsNbOfLines, hasEmoji, validateFileSize } from '../../../../utilities';
 import { CustomFileUpload, CustomTextInput, Spinner } from '../../../components';
 import { MullBackButton } from '../../../components/mull-back-button/mull-back-button';
 import MullButton from '../../../components/mull-button/mull-button';
@@ -41,11 +41,19 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
         .test('EmojiCheck', 'Emojis are not allowed in Display Name.', function (displayName) {
           return !hasEmoji(displayName);
         }),
-      description: Yup.string().max(
-        LIMITS.DESCRIPTION,
-        `Description must be ${LIMITS.DESCRIPTION} characters or less.`
-      ),
       imageFile: Yup.mixed().test('big-file', 'File size is too large', validateFileSize),
+      description: Yup.string()
+        .max(
+          LIMITS.PROFILE_DESCRIPTION,
+          `Description must be ${LIMITS.PROFILE_DESCRIPTION} characters or less.`
+        )
+        .test(
+          'NbOfLinesCheck',
+          `Description must not exceed ${LIMITS.LINES} lines.`,
+          function (description) {
+            return exceedsNbOfLines(description);
+          }
+        ),
     }),
 
     onSubmit: async () => {

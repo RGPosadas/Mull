@@ -8,6 +8,7 @@ import {
   wasteClassMap,
 } from '@mull/types';
 import emojiRegexRGI from 'emoji-regex/es2015/RGI_Emoji.js';
+import { string } from 'yup';
 import { WasteIconMap } from './constants';
 import { environment } from './environments/environment';
 import { User } from './generated/graphql';
@@ -94,6 +95,16 @@ export const drawDetectionIcons = (
 
 export const hasEmoji = (text: string) => {
   return !!emojiRegexRGI().exec(text);
+};
+
+const textLength = string.length;
+export const exceedsNbOfLines = (text: string) => {
+  let countLines = 1;
+  for (let i = 0; i < textLength; i++) if (text.charAt(i) === '\n') countLines++;
+  if (countLines > 6) {
+    return false;
+  }
+  return true;
 };
 
 /**
