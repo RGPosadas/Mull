@@ -229,3 +229,19 @@ query GetTrueFriends {
     }
   }
 }
+query PortfolioEvents {
+  portfolioEvents {
+    id
+    title
+    restriction
+    startDate
+    endDate
+    location {
+      title
+    }
+    image {
+      id
+      mediaType
+    }
+  }
+}
