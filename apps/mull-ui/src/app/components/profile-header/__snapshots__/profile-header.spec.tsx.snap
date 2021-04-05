@@ -8,6 +8,7 @@ exports[`ProfileHeader should match snapshot 1`] = `
     className="user-name-container"
   >
     <h1
+      className="profile-header-username"
       data-testid="userName"
     >
       Candice Runolfsdottir
