@@ -7,6 +7,8 @@ import { Router } from 'react-router-dom';
 import renderer, { act as actRenderer } from 'react-test-renderer';
 import { ROUTES } from '../../../../../src/constants';
 import {
+  FriendCountDocument,
+  FriendCountQuery,
   OtherUserProfileDocument,
   OtherUserProfileQuery,
   RelationshipType,
@@ -46,7 +48,6 @@ describe('OtherUserProfile', () => {
           joinDate: '2020-04-28T06:03:28.000Z',
           avatar: null,
         },
-        friendCount: 2,
         hostingCount: 3,
         portfolioCount: 1,
         portfolioEvents: [
@@ -77,6 +78,19 @@ describe('OtherUserProfile', () => {
   it('should match snapshot', async () => {
     const mocks: MockedResponse[] = [
       otherUserMock,
+      {
+        request: {
+          query: FriendCountDocument,
+          variables: {
+            id: 4,
+          },
+        },
+        result: {
+          data: {
+            friendCount: 1,
+          } as FriendCountQuery,
+        },
+      },
       {
         request: {
           query: UserRelationshipDocument,
