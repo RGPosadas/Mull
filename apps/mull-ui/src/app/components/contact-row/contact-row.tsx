@@ -1,6 +1,7 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ROUTES } from 'apps/mull-ui/src/constants';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FriendModal } from '..';
@@ -34,7 +35,7 @@ export const ContactRow = ({
 
   return (
     <div className="contact-container">
-      <Link to={`/user/${user.id}`}>
+      <Link to={ROUTES.USER_BY_ID.replace(':id', user.id + '')}>
         <div className="user-information">
           <img className="user-profile-picture" src={avatarUrl(user)} alt="user" />
           <div className="user-details">
@@ -59,11 +60,7 @@ export const ContactRow = ({
         button1Text={modalButton1Text}
         button1OnClick={modalButton1OnClick}
         button2Text={modalButton2Text}
-        button2OnClick={async () => {
-          await modalButton2OnClick();
-          setModalOpen(false);
-          window.location.reload();
-        }}
+        button2OnClick={modalButton2OnClick}
       ></FriendModal>
     </div>
   );
