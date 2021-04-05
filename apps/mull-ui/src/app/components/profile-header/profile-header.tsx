@@ -44,6 +44,7 @@ export function SetUserRelationship(otherUser: User) {
 
   const isFriend = friendStatus === FriendStatusButton.FRIENDS;
   const isPending = friendStatus === FriendStatusButton.PENDING;
+  const isAddedMe = otherUserRelationshipData.getUserRelationship === RelationshipType.AddedMe;
 
   return (
     <div className="friend-status-container">
@@ -53,7 +54,11 @@ export function SetUserRelationship(otherUser: User) {
         onClick={() => {
           friendStatus === FriendStatusButton.ADD_FRIEND
             ? addFriend({ variables: { userIdToAdd: otherUser.id } }).then((data) => {
-                if (data.data.addFriend) setFriendStatus(FriendStatusButton.PENDING);
+                if (data.data.addFriend) {
+                  isAddedMe
+                    ? setFriendStatus(FriendStatusButton.FRIENDS)
+                    : setFriendStatus(FriendStatusButton.PENDING);
+                }
               })
             : setModalOpen(true);
         }}
@@ -66,7 +71,7 @@ export function SetUserRelationship(otherUser: User) {
         user={otherUser}
         button1Text={isFriend ? 'Remove Friend' : isPending ? 'Cancel Pending Request' : ''}
         button1OnClick={() =>
-          isFriend
+          isFriend || isAddedMe
             ? removeFriend({ variables: { userIdToRemove: otherUser.id } }).then((data) => {
                 if (data.data.removeFriend) {
                   setFriendStatus(FriendStatusButton.ADD_FRIEND);
