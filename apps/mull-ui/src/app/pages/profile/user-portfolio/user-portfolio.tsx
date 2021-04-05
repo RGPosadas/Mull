@@ -1,15 +1,15 @@
 import { ISerializedEvent } from '@mull/types';
-import { usePortfolioEventsQuery } from 'apps/mull-ui/src/generated/graphql';
+import { useUserPortfolioEventsQuery } from 'apps/mull-ui/src/generated/graphql';
 import React from 'react';
-import { EventCard } from '../../../components';
+import { EventCard, MullBackButton } from '../../../components';
 import './user-portfolio.scss';
 
 export const UserPortfolio = ({ history }) => {
-  const { data, loading } = usePortfolioEventsQuery({});
+  const { data, loading } = useUserPortfolioEventsQuery({});
 
   if (loading) return <div className="page-container">Loading...</div>;
   if (data) {
-    const events = (data.portfolioEvents as unknown) as Partial<ISerializedEvent>[];
+    const events = (data.userPortfolioEvents as unknown) as Partial<ISerializedEvent>[];
     var eventCards = events.map((event, index) => (
       <EventCard
         key={`user-portfolio-${index}`}
@@ -20,9 +20,12 @@ export const UserPortfolio = ({ history }) => {
     ));
   }
   return (
-    <div className="user-portfolio-container">
-      <h1 className="user-portfolio-title">My Portfolio</h1>
-      {eventCards && eventCards.length > 0 ? eventCards : <div>No completed events</div>}
+    <div className="page-container">
+      <MullBackButton>Profile</MullBackButton>
+      <div className="user-portfolio-container">
+        <h1 className="user-portfolio-title">My Portfolio</h1>
+        {eventCards && eventCards.length > 0 ? eventCards : <div>No completed events</div>}
+      </div>
     </div>
   );
 };
