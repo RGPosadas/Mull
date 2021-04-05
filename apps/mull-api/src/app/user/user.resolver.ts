@@ -147,6 +147,14 @@ export class UserResolver {
     return this.userService.getRelationships(id);
   }
 
+  @Query(/* istanbul ignore next */ () => [User])
+  async getStrangers(
+    @AuthenticatedUser() id: number,
+    @Args('searchInput', { type: /* istanbul ignore next */ () => String }) searchInput: string
+  ) {
+    return this.userService.getStrangers(id, searchInput);
+  }
+
   @Query(/* istanbul ignore next */ () => RelationshipType)
   async getUserRelationship(
     @AuthenticatedUser() userIdA: number,

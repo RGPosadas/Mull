@@ -136,6 +136,24 @@ export class UserService {
     return relationships;
   }
 
+  async getStrangers(id: number, searchInput: string): Promise<User[]> {
+    const strangers = this.userRepository
+      .createQueryBuilder('user')
+      .leftJoin('friends', 'f1', 'f1.adder = user.id')
+      .leftJoin('friends', 'f2', 'f2.added = user.id')
+      .where(
+        `(f1.adder <> :id OR f1.adder IS NULL) 
+        AND (f1.added <> :id OR f1.added IS NULL) 
+        AND (f2.adder <> :id OR f2.adder IS NULL) 
+        AND (f2.added <> :id OR f2.added IS NULL)
+         AND INSTR(user.name, :searchInput) > 0`,
+        { id, searchInput }
+      )
+      .getMany();
+
+    return strangers;
+  }
+
   /**
    * Function returns the relationship between two users.
    *
