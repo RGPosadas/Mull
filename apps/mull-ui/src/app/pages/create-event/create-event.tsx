@@ -71,8 +71,8 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
   const formik = useFormik<ICreateEventForm>({
     initialValues: {
       activeRestriction: EventRestriction.NONE,
-      startDate: null,
-      endDate: null,
+      startDate: undefined,
+      endDate: undefined,
       startTime: 12,
       endTime: 12,
       eventTitle: '',
@@ -213,8 +213,15 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
             <DateCalendar
               startDate={formik.values.startDate}
               endDate={formik.values.endDate}
-              hasErrors={formik.touched.endDate && !!formik.errors.endDate}
-              errorMessage={formik.errors.endDate as string}
+              hasErrors={
+                (formik.touched.startDate && !!formik.errors.startDate) ||
+                (formik.touched.endDate && !!formik.errors.endDate)
+              }
+              errorMessage={
+                (formik.errors.startDate ? (formik.errors.startDate as string) : '') +
+                ' ' +
+                (formik.errors.endDate ? (formik.errors.endDate as string) : '')
+              }
               onStartDateChange={(date) => {
                 formik.setFieldValue('startDate', date);
                 formik.setFieldValue('endDate', null);
