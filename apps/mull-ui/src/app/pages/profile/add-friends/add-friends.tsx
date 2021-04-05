@@ -42,8 +42,12 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
     history.push(ROUTES.USER_BY_ID.replace(':id', id));
   };
 
-  if (relData.loading || relData.error) {
-    return <div>something happened: {relData.error}</div>;
+  if (relData.error) {
+    console.error(relData.error);
+  }
+
+  if (relData.loading) {
+    return <div>Loading...</div>;
   }
 
   relData.data.getRelationships.forEach((relationship) => {
@@ -80,7 +84,7 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
           <>
             <div className="add-friends-section">
               <h2>Added Me</h2>
-              {relMap.get(RelationshipType.AddedMe) &&
+              {relMap.get(RelationshipType.AddedMe) ? (
                 relMap.get(RelationshipType.AddedMe).map((user, i) => (
                   <ContactRow
                     id={`added-me-${user.id}`}
@@ -98,11 +102,14 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
                       });
                     }}
                   />
-                ))}
+                ))
+              ) : (
+                <div className="add-friends-no-request">No friend requests from others</div>
+              )}
             </div>
             <div className="add-friends-section">
               <h2>Pending Requests</h2>
-              {relMap.get(RelationshipType.PendingRequest) &&
+              {relMap.get(RelationshipType.PendingRequest) ? (
                 relMap.get(RelationshipType.PendingRequest).map((user, i) => (
                   <ContactRow
                     id={`pending-request-${user.id}`}
@@ -120,7 +127,10 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
                       });
                     }}
                   />
-                ))}
+                ))
+              ) : (
+                <div className="add-friends-no-request">No pending friend requests</div>
+              )}
             </div>
           </>
         ) : (
