@@ -18,6 +18,7 @@ export interface ContactRowProps {
   modalButton2Text?: string;
   modalButton2OnClick?: () => void;
   icon?: IconProp;
+  id?: string;
 }
 
 export const ContactRow = ({
@@ -28,13 +29,14 @@ export const ContactRow = ({
   modalButton2Text,
   modalButton2OnClick,
   icon = faEllipsisH,
+  id = '',
 }: ContactRowProps) => {
   // TODO: Replace boolean by the appropriate button option according to query
   const addedMe = false;
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   return (
-    <div className="contact-container">
+    <div className="contact-container" id={id}>
       <Link to={ROUTES.USER_BY_ID.replace(':id', user.id + '')}>
         <div className="user-information">
           <img className="user-profile-picture" src={avatarUrl(user)} alt="user" />
@@ -45,7 +47,7 @@ export const ContactRow = ({
         </div>
       </Link>
       <button
-        className="friend-settings-icon"
+        className="contact-row-icon"
         data-testid="contact-row-button"
         onClick={() => setModalOpen(!modalOpen)}
       >

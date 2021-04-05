@@ -64,7 +64,7 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
         <h1>Add Friends</h1>
         <CustomTextInput
           title=""
-          fieldName="searchValue"
+          fieldName="add-friends-search-input"
           value={searchInput}
           onChange={(e) => {
             setSearchInput(e.target.value);
@@ -83,6 +83,7 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
               {relMap.get(RelationshipType.AddedMe) &&
                 relMap.get(RelationshipType.AddedMe).map((user, i) => (
                   <ContactRow
+                    id={`added-me-${user.id}`}
                     key={i}
                     user={user}
                     icon={faUserPlus}
@@ -104,6 +105,7 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
               {relMap.get(RelationshipType.PendingRequest) &&
                 relMap.get(RelationshipType.PendingRequest).map((user, i) => (
                   <ContactRow
+                    id={`pending-request-${user.id}`}
                     key={i}
                     user={user}
                     icon={faEllipsisH}
@@ -126,6 +128,7 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
             {strangerData.data
               ? strangerData.data.getStrangers.map((user, i) => (
                   <ContactRow
+                    id={`add-friends-search-result-${user.id}`}
                     key={i}
                     user={(user as unknown) as User}
                     icon={faUserPlus}

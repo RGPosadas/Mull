@@ -72,7 +72,7 @@ exports[`MyFriends should match snapshot 1`] = `
         </div>
       </a>
       <button
-        className="friend-settings-icon"
+        className="contact-row-icon"
         data-testid="contact-row-button"
         onClick={[Function]}
       >
@@ -131,7 +131,7 @@ exports[`MyFriends should match snapshot 1`] = `
         </div>
       </a>
       <button
-        className="friend-settings-icon"
+        className="contact-row-icon"
         data-testid="contact-row-button"
         onClick={[Function]}
       >
@@ -190,7 +190,7 @@ exports[`MyFriends should match snapshot 1`] = `
         </div>
       </a>
       <button
-        className="friend-settings-icon"
+        className="contact-row-icon"
         data-testid="contact-row-button"
         onClick={[Function]}
       >

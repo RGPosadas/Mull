@@ -16,7 +16,7 @@ define(Event, () => {
   event.description = faker.lorem.paragraph();
   event.startDate = startDate;
   event.endDate = endDate;
-  event.restriction = faker.random.number(3);
+  event.restriction = faker.random.number(2);
 
   event.host = factory(User)() as any;
   event.coHosts = factory(User)().createMany(faker.random.number(maxCoHostNumber)) as any;

@@ -44,9 +44,15 @@ const loginUser = (username: string, password: string) => {
 const createEvent = (date, pillId = 0) => {
   cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
 
-  cy.get('.rc-slider-handle').first().should('have.attr', 'aria-valuenow', 12).type('{leftarrow}');
+  cy.get('.rc-slider-handle')
+    .first()
+    .should('have.attr', 'aria-valuenow', 12)
+    .type('{leftarrow}'.repeat(50));
 
-  cy.get('.rc-slider-handle').last().should('have.attr', 'aria-valuenow', 12).type('{rightarrow}');
+  cy.get('.rc-slider-handle')
+    .last()
+    .should('have.attr', 'aria-valuenow', 12)
+    .type('{rightarrow}'.repeat(50));
 
   cy.get('#eventTitle').type(date.toString());
 
@@ -88,6 +94,7 @@ frameSizes.forEach((frame) => {
 
     it('should show a public event on the discover page', () => {
       const currentDate = new Date();
+      cy.wait(1000);
       cy.visit('http://localhost:4200/create-event', geolocationStub);
       createEvent(currentDate);
       cy.mockRefreshRequest(-999);
@@ -97,6 +104,7 @@ frameSizes.forEach((frame) => {
 
     it('should not show private event on discover page', () => {
       const currentDate = new Date();
+      cy.wait(1000);
       cy.visit('http://localhost:4200/create-event', geolocationStub);
       createEvent(currentDate, 2); // set event as private
       cy.mockRefreshRequest(-999);

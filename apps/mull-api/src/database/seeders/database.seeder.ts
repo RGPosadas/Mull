@@ -47,6 +47,19 @@ const US3_1Seeder = async (connection: Connection) => {
   }
 };
 
+const US8_1Seeder = async (connection: Connection) => {
+  await connection.query(
+    "INSERT INTO `mull-dev`.user (id, `password`, `email`, `timezone`, `registrationMethod`, `tokenVersion`, `joinDate`, `name`, `description`) VALUES ('8100', 'password', 'first@us81.test', '', 'LOCAL', '0', '2021-04-04 14:16:39', 'test1', '');"
+  );
+  await connection.query(
+    "INSERT INTO `mull-dev`.user (id, `password`, `email`, `timezone`, `registrationMethod`, `tokenVersion`, `joinDate`, `name`, `description`) VALUES ('8101', 'password', 'second@us81.test', '', 'LOCAL', '0', '2021-04-04 14:16:39', 'test2', '');"
+  );
+  await connection.query(
+    "INSERT INTO `mull-dev`.user (id, `password`, `email`, `timezone`, `registrationMethod`, `tokenVersion`, `joinDate`, `name`, `description`) VALUES ('8102', 'password', 'third@us81.test', '', 'LOCAL', '0', '2021-04-04 14:16:39', 'test2', '');"
+  );
+  await connection.query('INSERT INTO `mull-dev`.friends VALUES (8101, 1), (8102, 1)');
+};
+
 const US8_5Seeder = async (connection: Connection) => {
   await connection.query('INSERT INTO `mull-dev`.friends VALUES (1,2), (2,1), (1,3), (3,1)');
 };
@@ -56,6 +69,7 @@ export default class DatabaseSeeder implements Seeder {
     await factory(Event)().createMany(10);
     await createPosts(connection, factory);
     await US3_1Seeder(connection);
+    await US8_1Seeder(connection);
     await US8_5Seeder(connection);
     await createFriends(connection);
   }

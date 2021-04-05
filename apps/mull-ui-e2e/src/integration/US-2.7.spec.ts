@@ -15,11 +15,11 @@ frameSizes.forEach((frame) => {
       cy.get('.rc-slider-handle')
         .first()
         .should('have.attr', 'aria-valuenow', 12)
-        .type('{leftarrow}');
+        .type('{leftarrow}'.repeat(50));
       cy.get('.rc-slider-handle')
         .last()
         .should('have.attr', 'aria-valuenow', 12)
-        .type('rightarrow}');
+        .type('{rightarrow}'.repeat(50));
       cy.get('#eventTitle').type('Title for US-2.7: Preview Event E2E');
       cy.get('.-today').click();
       cy.get('.-today').click();
@@ -34,7 +34,7 @@ frameSizes.forEach((frame) => {
       cy.visit('http://localhost:4200/home/myevents');
       cy.get('.event-card-container').first().click();
 
-      cy.get('.title').should('have.text', 'Title for US-2.7: Preview Event E2E');
+      cy.get('.event-page-title').should('have.text', 'Title for US-2.7: Preview Event E2E');
       cy.get('.event-image').should('have.attr', 'src');
       cy.get('[data-testid=start-date-div]').should(
         'have.text',
@@ -42,7 +42,7 @@ frameSizes.forEach((frame) => {
       );
       cy.get('[data-testid=end-date-div]').should(
         'have.text',
-        `${Cypress.moment().format('D MMM')}11:59 PM`
+        `${Cypress.moment().format('D MMM')}11:45 PM`
       );
       cy.get('[data-testid=event-page-location]').should('have.text', 'Current Location');
       cy.get('[data-testid=expandable-text-div]').should(
