@@ -137,7 +137,9 @@ export const ProfileHeader = ({
   return (
     <div className="profile-header-container">
       <div className="user-name-container">
-        <h1 data-testid="userName">{user.name}</h1>
+        <h1 data-testid="userName" className="profile-header-username">
+          {user.name}
+        </h1>
         {/* <button className="share-button">
           <FontAwesomeIcon icon={faShareAlt} />
         </button> */}
