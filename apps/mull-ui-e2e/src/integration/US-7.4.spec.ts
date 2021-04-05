@@ -19,7 +19,6 @@ frameSizes.forEach((frame) => {
                   avatar: null,
                   __typename: 'User',
                 },
-                friendCount: 1,
                 hostingCount: 2,
                 portfolioCount: 1,
                 portfolioEvents: [
@@ -53,6 +52,17 @@ frameSizes.forEach((frame) => {
             statusCode: 200,
             body: {
               data: { getUserRelationship: friendStatusButton },
+            },
+            delayMs: 1000,
+          });
+        }
+      });
+      cy.intercept('POST', 'http://localhost:3333/graphql', (req) => {
+        if (req.body.operationName === 'FriendCount') {
+          req.reply({
+            statusCode: 200,
+            body: {
+              data: { friendCount: 1 },
             },
             delayMs: 1000,
           });
@@ -101,6 +111,17 @@ frameSizes.forEach((frame) => {
       cy.get('[data-testid=mull-button]').click();
       cy.get('[data-testid=mull-button]').eq(1).click();
       cy.get('[data-testid=mull-button]').should('have.text', 'Add Friend');
+    });
+
+    it(`should show a user that has added the current user`, () => {
+      mockOtherUser('ADDED_ME');
+      cy.get('[data-testid=mull-button]').should('have.text', 'Add Friend');
+    });
+
+    it(`should let the current user add a friend that has added them`, () => {
+      mockOtherUser('ADDED_ME');
+      cy.get('[data-testid=mull-button]').click();
+      cy.get('[data-testid=mull-button]').should('have.text', 'Friends');
     });
   });
 });
