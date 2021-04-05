@@ -52,6 +52,19 @@ export const avatarUrl = (user: Partial<User>) =>
     ? `${environment.backendUrl}/api/media/${user.avatar.id}`
     : `./assets/icons/icon-192x192.png`;
 
+export const validateFileSize = (file: File) => {
+  if (!file) {
+    return true;
+  }
+
+  const maxFileSize = 10000000;
+  if (file.size / maxFileSize > 1) {
+    return false;
+  }
+
+  return true;
+};
+
 const svgSize = 45;
 
 export const drawDetectionIcons = (

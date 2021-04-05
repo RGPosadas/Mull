@@ -54,7 +54,7 @@ import { UserModule } from './user';
        */
       playground: !environment.production,
       uploads: {
-        maxFileSize: 10000000000000,
+        maxFileSize: 10000000,
       },
       cors: {
         origin: environment.production
