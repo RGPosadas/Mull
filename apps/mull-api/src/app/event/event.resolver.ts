@@ -37,7 +37,7 @@ export class EventResolver {
   }
 
   @Query(/* istanbul ignore next */ () => [Event])
-  async portfolioEvents(@AuthenticatedUser() userId: number) {
+  async userPortfolioEvents(@AuthenticatedUser() userId: number) {
     return this.eventService.getUserEventsPortfolio(userId);
   }
 

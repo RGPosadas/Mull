@@ -1,5 +1,5 @@
-import * as Apollo from '@apollo/client';
 import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -316,6 +316,7 @@ export type Query = {
   portfolioEvents: Array<Event>;
   posts: Array<Post>;
   user: User;
+  userPortfolioEvents: Array<Event>;
   users: Array<User>;
 };
 
@@ -723,6 +724,24 @@ export type UserProfileQuery = (
       & Pick<Media, 'id'>
     )> }
   ) }
+);
+
+export type UserPortfolioEventsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserPortfolioEventsQuery = (
+  { __typename?: 'Query' }
+  & { userPortfolioEvents: Array<(
+    { __typename?: 'Event' }
+    & Pick<Event, 'id' | 'title' | 'restriction' | 'startDate' | 'endDate'>
+    & { location?: Maybe<(
+      { __typename?: 'Location' }
+      & Pick<Location, 'title'>
+    )>, image?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id' | 'mediaType'>
+    )> }
+  )> }
 );
 
 export type OtherUserProfileQueryVariables = Exact<{
@@ -1515,6 +1534,49 @@ export function useUserProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type UserProfileQueryHookResult = ReturnType<typeof useUserProfileQuery>;
 export type UserProfileLazyQueryHookResult = ReturnType<typeof useUserProfileLazyQuery>;
 export type UserProfileQueryResult = Apollo.QueryResult<UserProfileQuery, UserProfileQueryVariables>;
+export const UserPortfolioEventsDocument = gql`
+    query UserPortfolioEvents {
+  userPortfolioEvents {
+    id
+    title
+    restriction
+    startDate
+    endDate
+    location {
+      title
+    }
+    image {
+      id
+      mediaType
+    }
+  }
+}
+    `;
+
+/**
+ * __useUserPortfolioEventsQuery__
+ *
+ * To run a query within a React component, call `useUserPortfolioEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserPortfolioEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserPortfolioEventsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserPortfolioEventsQuery(baseOptions?: Apollo.QueryHookOptions<UserPortfolioEventsQuery, UserPortfolioEventsQueryVariables>) {
+        return Apollo.useQuery<UserPortfolioEventsQuery, UserPortfolioEventsQueryVariables>(UserPortfolioEventsDocument, baseOptions);
+      }
+export function useUserPortfolioEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserPortfolioEventsQuery, UserPortfolioEventsQueryVariables>) {
+          return Apollo.useLazyQuery<UserPortfolioEventsQuery, UserPortfolioEventsQueryVariables>(UserPortfolioEventsDocument, baseOptions);
+        }
+export type UserPortfolioEventsQueryHookResult = ReturnType<typeof useUserPortfolioEventsQuery>;
+export type UserPortfolioEventsLazyQueryHookResult = ReturnType<typeof useUserPortfolioEventsLazyQuery>;
+export type UserPortfolioEventsQueryResult = Apollo.QueryResult<UserPortfolioEventsQuery, UserPortfolioEventsQueryVariables>;
 export const OtherUserProfileDocument = gql`
     query OtherUserProfile($id: Int!) {
   user(id: $id) {

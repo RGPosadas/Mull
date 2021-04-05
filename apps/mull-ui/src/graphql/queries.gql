@@ -127,6 +127,23 @@ query UserProfile($id: Int!) {
   portfolioCount(id: $id)
 }
 
+query UserPortfolioEvents {
+  userPortfolioEvents {
+    id
+    title
+    restriction
+    startDate
+    endDate
+    location {
+      title
+    }
+    image {
+      id
+      mediaType
+    }
+  }
+}
+
 query OtherUserProfile($id: Int!) {
   user(id: $id) {
     id
@@ -226,22 +243,6 @@ query GetTrueFriends {
     avatar {
       mediaType
       id
-    }
-  }
-}
-query PortfolioEvents {
-  portfolioEvents {
-    id
-    title
-    restriction
-    startDate
-    endDate
-    location {
-      title
-    }
-    image {
-      id
-      mediaType
     }
   }
 }
