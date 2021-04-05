@@ -15,7 +15,7 @@ frameSizes.forEach((frame) => {
     it(`should show the user's portfolio`, () => {
       cy.visit('http://localhost:4200/profile/portfolio');
       cy.intercept('POST', 'http://localhost:3333/graphql', (req) => {
-        if (req.body.operationName === 'portfolioEvents') {
+        if (req.body.operationName === 'UserPortfolioEvents') {
           req.reply({
             statusCode: 200,
             body: {
