@@ -15,7 +15,7 @@ import './event-page.scss';
 
 export interface EventPageProps {
   reviewEvent?: Partial<CreateEventInput>;
-  prevPage: string;
+  prevPage?: string;
   eventImageURL?: string;
   buttonType?: 'submit' | 'button' | 'reset';
   onBackButtonClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
