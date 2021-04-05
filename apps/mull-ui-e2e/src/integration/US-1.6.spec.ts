@@ -94,7 +94,6 @@ frameSizes.forEach((frame) => {
 
     it('should show a public event on the discover page', () => {
       const currentDate = new Date();
-      cy.wait(1000);
       cy.visit('http://localhost:4200/create-event', geolocationStub);
       createEvent(currentDate);
       cy.mockRefreshRequest(-999);
@@ -104,7 +103,6 @@ frameSizes.forEach((frame) => {
 
     it('should not show private event on discover page', () => {
       const currentDate = new Date();
-      cy.wait(1000);
       cy.visit('http://localhost:4200/create-event', geolocationStub);
       createEvent(currentDate, 2); // set event as private
       cy.mockRefreshRequest(-999);

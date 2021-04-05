@@ -102,6 +102,7 @@ exports[`UserProfilePage should match snapshot 1`] = `
       Friends
     </h3>
     <a
+      className="add-friends-link"
       href="/profile/add-friends"
       onClick={[Function]}
     >
@@ -127,6 +128,11 @@ exports[`UserProfilePage should match snapshot 1`] = `
         </svg>
         Add Friends
       </button>
+      <p
+        className="friend-request-count"
+      >
+        1
+      </p>
     </a>
     <a
       href="/my-friends"
@@ -155,11 +161,6 @@ exports[`UserProfilePage should match snapshot 1`] = `
         My Friends
       </button>
     </a>
-    <p
-      className="friend-request-count"
-    >
-      4
-    </p>
   </div>
   <div
     className="settings-container below-friends"

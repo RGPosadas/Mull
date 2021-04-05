@@ -29,18 +29,18 @@ export const UserProfilePage = ({ history }: UserProfilePageProps) => {
   const currentUserId = useContext(UserContext).userId;
   const { data: userProfile, loading } = useUserProfileQuery({ variables: { id: currentUserId } });
   const relData = useGetRelationshipsQuery();
+  console.log(relData.data, relData.loading);
 
   if (loading || relData.loading) return <div className="page-container">Loading...</div>;
 
   const { year, month, day } = formatJoinDate(new Date(userProfile.user.joinDate));
 
   let pendingCount = 0;
-  relData.data.getRelationships.forEach((relationship) => {
+  relData.data?.getRelationships.forEach((relationship) => {
     if (relationship.type === RelationshipType.AddedMe) {
       pendingCount++;
     }
   });
-
   return (
     <div className="page-container">
       <ProfileHeader
@@ -60,7 +60,7 @@ export const UserProfilePage = ({ history }: UserProfilePageProps) => {
         <h3>Friends</h3>
         <Link to={ROUTES.PROFILE.ADDFRIENDS} className="add-friends-link">
           <SettingsButton icon={faUserPlus} text="Add Friends" />
-          {pendingCount && <p className="friend-request-count">{pendingCount}</p>}
+          {pendingCount ? <p className="friend-request-count">{pendingCount}</p> : null}
         </Link>
         <Link to="my-friends">
           <SettingsButton icon={faUserFriends} text="My Friends" />

@@ -29,7 +29,7 @@ export const ContactRow = ({
   modalButton2Text,
   modalButton2OnClick,
   icon = faEllipsisH,
-  id = '',
+  id = undefined,
 }: ContactRowProps) => {
   // TODO: Replace boolean by the appropriate button option according to query
   const addedMe = false;

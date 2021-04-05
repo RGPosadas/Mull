@@ -1,3 +1,4 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
 /// <reference types="Cypress" />
 import 'cypress-file-upload';
 import { frameSizes } from './../fixtures/frame-sizes';
@@ -12,14 +13,14 @@ frameSizes.forEach((frame, i) => {
 
     it(`should show list of requests from me and other users`, () => {
       cy.mockRefreshRequest();
-      cy.wait(1000); // Queries were failing due to the page refreshing too quickly
+      cy.wait(500); // Queries were failing due to the page refreshing too quickly
       cy.visit('http://localhost:4200/profile/add-friends');
     });
 
     it(`should allow users to create and cancel pending friend requests`, () => {
       cy.mockRefreshRequest();
       const username = 'test1';
-      cy.wait(1000); // Queries were failing due to the page refreshing too quickly
+      cy.wait(500); // Queries were failing due to the page refreshing too quickly
       cy.visit('http://localhost:4200/profile/add-friends');
       cy.get('#add-friends-search-input').type(username);
       cy.get(`#add-friends-search-result-8100 > button`).click();
@@ -30,7 +31,7 @@ frameSizes.forEach((frame, i) => {
 
     it(`should allow users to accept requests from other people`, () => {
       cy.mockRefreshRequest();
-      cy.wait(1000); // Queries were failing due to the page refreshing too quickly
+      cy.wait(500); // Queries were failing due to the page refreshing too quickly
       cy.visit('http://localhost:4200/profile/add-friends');
       cy.get(`#added-me-${ids[i]} > button`).first().click();
       cy.get('.friend-modal-button').eq(1).click();
