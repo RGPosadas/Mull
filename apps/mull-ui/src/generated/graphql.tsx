@@ -728,7 +728,7 @@ export type OtherUserProfileQueryVariables = Exact<{
 
 export type OtherUserProfileQuery = (
   { __typename?: 'Query' }
-  & Pick<Query, 'friendCount' | 'hostingCount' | 'portfolioCount'>
+  & Pick<Query, 'hostingCount' | 'portfolioCount'>
   & { user: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'name' | 'description' | 'joinDate'>
@@ -747,6 +747,16 @@ export type OtherUserProfileQuery = (
       & Pick<Media, 'id' | 'mediaType'>
     )> }
   )> }
+);
+
+export type FriendCountQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type FriendCountQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'friendCount'>
 );
 
 export type ChannelByEventIdQueryVariables = Exact<{
@@ -1509,7 +1519,6 @@ export const OtherUserProfileDocument = gql`
       id
     }
   }
-  friendCount(id: $id)
   hostingCount(id: $id)
   portfolioCount(id: $id)
   portfolioEvents(id: $id) {
@@ -1554,6 +1563,37 @@ export function useOtherUserProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type OtherUserProfileQueryHookResult = ReturnType<typeof useOtherUserProfileQuery>;
 export type OtherUserProfileLazyQueryHookResult = ReturnType<typeof useOtherUserProfileLazyQuery>;
 export type OtherUserProfileQueryResult = Apollo.QueryResult<OtherUserProfileQuery, OtherUserProfileQueryVariables>;
+export const FriendCountDocument = gql`
+    query FriendCount($id: Int!) {
+  friendCount(id: $id)
+}
+    `;
+
+/**
+ * __useFriendCountQuery__
+ *
+ * To run a query within a React component, call `useFriendCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFriendCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFriendCountQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useFriendCountQuery(baseOptions: Apollo.QueryHookOptions<FriendCountQuery, FriendCountQueryVariables>) {
+        return Apollo.useQuery<FriendCountQuery, FriendCountQueryVariables>(FriendCountDocument, baseOptions);
+      }
+export function useFriendCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FriendCountQuery, FriendCountQueryVariables>) {
+          return Apollo.useLazyQuery<FriendCountQuery, FriendCountQueryVariables>(FriendCountDocument, baseOptions);
+        }
+export type FriendCountQueryHookResult = ReturnType<typeof useFriendCountQuery>;
+export type FriendCountLazyQueryHookResult = ReturnType<typeof useFriendCountLazyQuery>;
+export type FriendCountQueryResult = Apollo.QueryResult<FriendCountQuery, FriendCountQueryVariables>;
 export const ChannelByEventIdDocument = gql`
     query ChannelByEventId($eventId: Int!, $channelName: String!) {
   getChannelByEventId(eventId: $eventId, channelName: $channelName) {

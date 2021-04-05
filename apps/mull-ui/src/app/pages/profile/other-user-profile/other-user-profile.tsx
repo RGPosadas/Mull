@@ -1,7 +1,7 @@
 import { ISerializedEvent } from '@mull/types';
 import { History } from 'history';
 import React from 'react';
-import { useOtherUserProfileQuery, User } from '../../../../generated/graphql';
+import { useFriendCountQuery, useOtherUserProfileQuery, User } from '../../../../generated/graphql';
 import { sortEventsByDate } from '../../../../utilities';
 import { EventCard, MullBackButton } from '../../../components';
 import ProfileHeader from '../../../components/profile-header/profile-header';
@@ -18,13 +18,25 @@ export const OtherUserProfilePage = ({
   prevPage,
   otherUserId,
 }: OtherUserProfilePageProps) => {
-  const { data: otherUserProfileData, loading: userProfileLoading } = useOtherUserProfileQuery({
+  const { data: otherUserProfileData, loading: otherUserProfileLoading } = useOtherUserProfileQuery(
+    {
+      variables: {
+        id: otherUserId,
+      },
+    }
+  );
+  const {
+    data: friendCountData,
+    loading: friendCountLoading,
+    refetch: friendCountRefetch,
+  } = useFriendCountQuery({
     variables: {
       id: otherUserId,
     },
   });
 
-  if (userProfileLoading) return <div className="page-container">Loading...</div>;
+  if (otherUserProfileLoading || friendCountLoading)
+    return <div className="page-container">Loading...</div>;
 
   if (otherUserProfileData.portfolioEvents) {
     const events = (otherUserProfileData.portfolioEvents as unknown) as Partial<ISerializedEvent>[];
@@ -45,9 +57,10 @@ export const OtherUserProfilePage = ({
       <MullBackButton>{prevPage}</MullBackButton>
       <ProfileHeader
         portfolioCount={otherUserProfileData.portfolioCount}
-        friendCount={otherUserProfileData.friendCount}
+        friendCount={friendCountData.friendCount}
         hostingCount={otherUserProfileData.hostingCount}
         user={otherUserProfileData.user as User}
+        friendCountRefetch={friendCountRefetch}
       />
 
       <div className="portfolio-container" data-testid="portfolio-events">
