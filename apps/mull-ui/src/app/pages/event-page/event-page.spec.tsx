@@ -78,6 +78,9 @@ describe('EventPage', () => {
               host: {
                 id: 1,
                 name: 'Test user 2',
+                avatar: {
+                  id: 1,
+                },
               },
               restriction: 1,
               image: {

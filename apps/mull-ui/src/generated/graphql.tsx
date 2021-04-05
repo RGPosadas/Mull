@@ -600,6 +600,10 @@ export type EventPageContentFragment = (
   )>, host: (
     { __typename?: 'User' }
     & Pick<User, 'id' | 'name'>
+    & { avatar?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id'>
+    )> }
   ) }
 );
 
@@ -885,6 +889,9 @@ export const EventPageContentFragmentDoc = gql`
   host {
     id
     name
+    avatar {
+      id
+    }
   }
 }
     `;

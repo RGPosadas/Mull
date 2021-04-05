@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { ReactComponent as CreateEventIcon } from '../../../../assets/icons/nav-bar-icons/CreateEventIcon.svg';
 import { ReactComponent as HomeIcon } from '../../../../assets/icons/nav-bar-icons/HomeIcon.svg';
 import { ReactComponent as MachineLearningIcon } from '../../../../assets/icons/nav-bar-icons/MachineLearningIcon.svg';
@@ -9,6 +9,7 @@ import { ROUTES } from '../../../../constants';
 import './nav-buttons.scss';
 
 export const NavButtons = () => {
+  const { pathname } = useLocation();
   return (
     <div className="nav-buttons-container">
       <NavLink
@@ -16,6 +17,7 @@ export const NavButtons = () => {
         className="nav-button-container"
         activeClassName="active"
         data-testid="home-navlink"
+        isActive={() => pathname.includes('/events/') || pathname.includes(ROUTES.HOME)}
       >
         <HomeIcon className="nav-button" />
       </NavLink>

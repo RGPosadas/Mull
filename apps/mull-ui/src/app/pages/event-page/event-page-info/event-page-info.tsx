@@ -1,17 +1,9 @@
-import {
-  faAlignLeft,
-  faComments,
-  faLock,
-  faMap,
-  faMapMarkerAlt,
-  faUserFriends,
-  faUserPlus,
-} from '@fortawesome/free-solid-svg-icons';
+import { faAlignLeft, faLock, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EventRestrictionMap, ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
-import { useJoinEventMutation, useLeaveEventMutation } from '../../../../generated/graphql';
-import { getMediaUrl } from '../../../../utilities';
+import { useJoinEventMutation, useLeaveEventMutation, User } from '../../../../generated/graphql';
+import { avatarUrl, getMediaUrl } from '../../../../utilities';
 import { ExpandableText, MullButton, MullModal } from '../../../components';
 import './event-page-info.scss';
 export interface EventPageInfoProps {
@@ -59,26 +51,18 @@ export const EventPageInfo = ({
   return (
     <div className={`event-page-info-container ${className}`} style={style}>
       <div className="info-row">
-        {/* TODO: Currently using placeholder for the profile picture. The US will need to actually fetch image from media server */}
-        <img
-          src="https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png"
-          className="event-page-icon"
-          alt="Event"
-        ></img>
-        {/* TODO: Remove placeholder text once users are implemented */}
+        <img src={avatarUrl(event.host as User)} className="event-page-avatar" alt="Event"></img>
         <p className="row-text" data-testid="event-page-host">
           {event.host.name}
         </p>
-        {/* <p className="row-text">{event.host?.name}</p> */}
-
-        <FontAwesomeIcon icon={faComments} className="event-page-icon color-green" />
+        {/* <FontAwesomeIcon icon={faComments} className="event-page-icon color-green" /> */}
       </div>
       <div className="info-row">
         <FontAwesomeIcon icon={faMapMarkerAlt} className="event-page-icon color-grey" />
         <p className="row-text" data-testid="event-page-location">
           {event.location.title}
         </p>
-        <FontAwesomeIcon icon={faMap} className="event-page-icon color-green" />
+        {/* <FontAwesomeIcon icon={faMap} className="event-page-icon color-green" /> */}
       </div>
       <div className="info-row">
         <FontAwesomeIcon icon={faAlignLeft} className="event-page-icon color-grey" />
@@ -92,12 +76,13 @@ export const EventPageInfo = ({
         </p>
       </div>
 
-      <div className="info-row">
-        {/* TODO: Placeholder. Implement friend invitation and image fetching before doing this*/}
+      {/* <div className="info-row">
+        {/* TODO: Placeholder. Implement friend invitation and image fetching before doing this}
         <FontAwesomeIcon icon={faUserFriends} className="event-page-icon color-grey" />
         <p className="row-text">{event.participants?.map((p) => p.name).join(', ')}</p>
         <FontAwesomeIcon icon={faUserPlus} className="event-page-icon color-green" />
-      </div>
+      </div> */}
+
       {
         <MullModal
           open={modalOpen}

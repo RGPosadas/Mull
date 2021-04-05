@@ -15,6 +15,9 @@ fragment EventPageContent on Event {
   host {
     id
     name
+    avatar {
+      id
+    }
   }
 }
 
