@@ -168,6 +168,16 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
     formik.setFieldValue('activeRestriction', idx);
   };
 
+  const scrollToFirstError = (errors) => {
+    const errorKeys = Object.keys(errors);
+
+    if (errorKeys.length > 0) {
+      const errorElement = document.getElementsByClassName('error-message')[0];
+      const y = errorElement.getBoundingClientRect().y + window.pageYOffset - 120;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
   /**
    * Handles the 'Done' button press. It will run the validation on the form and
    * make the payload ready for the review page.
@@ -190,6 +200,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       setIsInReview(true);
     } else {
       formik.setTouched(setNestedObjectValues<FormikTouched<FormikValues>>(errors, true));
+      scrollToFirstError(errors);
     }
   };
 

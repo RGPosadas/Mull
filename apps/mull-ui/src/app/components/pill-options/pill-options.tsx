@@ -15,26 +15,25 @@ export interface PillOptionsProps {
  */
 export const PillOptions = ({ options, onChange, active }: PillOptionsProps) => {
   return (
-      <label className="custom-text-input-label" htmlFor={'description'}>
     <div className="pill-options-container">
-        Restriction
-      </label>
-    <div className="pill-options">
-      {options.map((option, idx) => (
-        <button
-          data-testid={`pill-id-${idx}`}
-          key={option}
-          type="button"
-          className={`pill-option ${
-            active === idx ? `pill-option-active` : 'pill-option-inactive'
-          }`}
-          onClick={() => {
-            onChange(idx);
-          }}
-        >
-          {option}
-        </button>
-      ))}
+      <label className="custom-text-input-label">Restriction</label>
+      <div className="pill-options">
+        {options.map((option, idx) => (
+          <button
+            data-testid={`pill-id-${idx}`}
+            key={option}
+            type="button"
+            className={`pill-option ${
+              active === idx ? `pill-option-active` : 'pill-option-inactive'
+            }`}
+            onClick={() => {
+              onChange(idx);
+            }}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
