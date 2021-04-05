@@ -1,10 +1,10 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ROUTES } from 'apps/mull-ui/src/constants';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FriendModal } from '..';
+import { ROUTES } from '../../../constants';
 import { User } from '../../../generated/graphql';
 import { avatarUrl } from '../../../utilities';
 import './contact-row.scss';

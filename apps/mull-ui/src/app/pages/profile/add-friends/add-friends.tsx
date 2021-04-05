@@ -1,6 +1,9 @@
 import { faEllipsisH, faSearch, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ROUTES } from 'apps/mull-ui/src/constants';
+import { History } from 'history';
+import { debounce } from 'lodash';
+import React, { useMemo, useState } from 'react';
+import { ROUTES } from '../../../../constants';
 import {
   RelationshipType,
   useAddFriendMutation,
@@ -8,10 +11,7 @@ import {
   useGetStrangersLazyQuery,
   User,
   useRemoveFriendMutation,
-} from 'apps/mull-ui/src/generated/graphql';
-import { History } from 'history';
-import { debounce } from 'lodash';
-import React, { useMemo, useState } from 'react';
+} from '../../../../generated/graphql';
 import { CustomTextInput, MullBackButton } from '../../../components';
 import ContactRow from '../../../components/contact-row/contact-row';
 import './add-friends.scss';
@@ -35,7 +35,7 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
       debounce((searchInput: string) => {
         getStrangers({ variables: { searchInput } });
       }, 500),
-    []
+    [getStrangers]
   );
 
   const goToProfile = (id: string) => {
@@ -93,7 +93,7 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
                     modalButton2Text="Accept Request"
                     modalButton2OnClick={() => {
                       addFriend({ variables: { userIdToAdd: user.id } }).then(() => {
-                        location.reload();
+                        window.location.reload();
                       });
                     }}
                   />
@@ -114,7 +114,7 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
                     modalButton2Text="Cancel Request"
                     modalButton2OnClick={() => {
                       removeFriend({ variables: { userIdToRemove: user.id } }).then(() => {
-                        location.reload();
+                        window.location.reload();
                       });
                     }}
                   />
@@ -122,26 +122,27 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
             </div>
           </>
         ) : (
-          <>
-            {strangerData.data &&
-              strangerData.data.getStrangers.map((user, i) => (
-                <ContactRow
-                  key={i}
-                  user={(user as unknown) as User}
-                  icon={faUserPlus}
-                  modalButton1Text="View Profile"
-                  modalButton1OnClick={() => {
-                    goToProfile(user.id + '');
-                  }}
-                  modalButton2Text="Send friend Request"
-                  modalButton2OnClick={() => {
-                    addFriend({ variables: { userIdToAdd: user.id } }).then(() => {
-                      location.reload();
-                    });
-                  }}
-                />
-              ))}
-          </>
+          <div>
+            {strangerData.data
+              ? strangerData.data.getStrangers.map((user, i) => (
+                  <ContactRow
+                    key={i}
+                    user={(user as unknown) as User}
+                    icon={faUserPlus}
+                    modalButton1Text="View Profile"
+                    modalButton1OnClick={() => {
+                      goToProfile(user.id + '');
+                    }}
+                    modalButton2Text="Send friend Request"
+                    modalButton2OnClick={() => {
+                      addFriend({ variables: { userIdToAdd: user.id } }).then(() => {
+                        window.location.reload();
+                      });
+                    }}
+                  />
+                ))
+              : null}
+          </div>
         )}
       </div>
     </div>
