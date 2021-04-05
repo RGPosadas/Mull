@@ -5,7 +5,10 @@ import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
-import { PortfolioEventsDocument, PortfolioEventsQuery } from '../../../../generated/graphql';
+import {
+  UserPortfolioEventsDocument,
+  UserPortfolioEventsQuery,
+} from '../../../../generated/graphql';
 import { UserProvider } from '../../../context/user.context';
 import UserPortfolio from './user-portfolio';
 
@@ -35,11 +38,11 @@ describe('UserPortfolio', () => {
       const mocks: MockedResponse[] = [
         {
           request: {
-            query: PortfolioEventsDocument,
+            query: UserPortfolioEventsDocument,
           },
           result: {
             data: {
-              portfolioEvents: [
+              userPortfolioEvents: [
                 {
                   id: 1,
                   title: 'test',
@@ -57,7 +60,7 @@ describe('UserPortfolio', () => {
                   },
                 },
               ],
-            } as PortfolioEventsQuery,
+            } as UserPortfolioEventsQuery,
           },
         },
       ];
