@@ -1,7 +1,10 @@
+import { ApolloQueryResult } from '@apollo/client';
 import { FriendStatusButton } from '@mull/types';
 import React, { useEffect, useState } from 'react';
 import { MullButton } from '..';
 import {
+  Exact,
+  FriendCountQuery,
   RelationshipType,
   useAddFriendMutation,
   User,
@@ -13,7 +16,16 @@ import { avatarUrl } from '../../../utilities';
 import FriendModal from '../modal/friend-modal/friend-modal';
 import './profile-header.scss';
 
-export function SetUserRelationship(otherUser: User) {
+export function SetUserRelationship(
+  otherUser: User,
+  friendCountRefetch: (
+    variables?: Partial<
+      Exact<{
+        id: number;
+      }>
+    >
+  ) => Promise<ApolloQueryResult<FriendCountQuery>>
+) {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [friendStatus, setFriendStatus] = useState<string>('');
   const [addFriend] = useAddFriendMutation();
@@ -22,6 +34,7 @@ export function SetUserRelationship(otherUser: User) {
   const {
     data: otherUserRelationshipData,
     loading: otherUserRelationshipLoading,
+    refetch: otherUserRelationshipRefetch,
   } = useUserRelationshipQuery({
     variables: {
       userIdB: otherUser.id,
@@ -44,6 +57,7 @@ export function SetUserRelationship(otherUser: User) {
 
   const isFriend = friendStatus === FriendStatusButton.FRIENDS;
   const isPending = friendStatus === FriendStatusButton.PENDING;
+  const isAddedMe = otherUserRelationshipData.getUserRelationship === RelationshipType.AddedMe;
 
   return (
     <div className="friend-status-container">
@@ -53,7 +67,15 @@ export function SetUserRelationship(otherUser: User) {
         onClick={() => {
           friendStatus === FriendStatusButton.ADD_FRIEND
             ? addFriend({ variables: { userIdToAdd: otherUser.id } }).then((data) => {
-                if (data.data.addFriend) setFriendStatus(FriendStatusButton.PENDING);
+                if (data.data.addFriend) {
+                  if (isAddedMe) {
+                    friendCountRefetch();
+                    otherUserRelationshipRefetch();
+                    setFriendStatus(FriendStatusButton.FRIENDS);
+                  } else {
+                    setFriendStatus(FriendStatusButton.PENDING);
+                  }
+                }
               })
             : setModalOpen(true);
         }}
@@ -66,9 +88,11 @@ export function SetUserRelationship(otherUser: User) {
         user={otherUser}
         button1Text={isFriend ? 'Remove Friend' : isPending ? 'Cancel Pending Request' : ''}
         button1OnClick={() =>
-          isFriend
+          isFriend || isAddedMe
             ? removeFriend({ variables: { userIdToRemove: otherUser.id } }).then((data) => {
                 if (data.data.removeFriend) {
+                  friendCountRefetch();
+                  otherUserRelationshipRefetch();
                   setFriendStatus(FriendStatusButton.ADD_FRIEND);
                   setModalOpen(false);
                 }
@@ -93,6 +117,13 @@ export interface profileHeaderProps {
   hostingCount?: number;
   isCurrentUser?: boolean;
   user?: User;
+  friendCountRefetch?: (
+    variables?: Partial<
+      Exact<{
+        id: number;
+      }>
+    >
+  ) => Promise<ApolloQueryResult<FriendCountQuery>>;
 }
 
 export const ProfileHeader = ({
@@ -101,6 +132,7 @@ export const ProfileHeader = ({
   hostingCount = 0,
   isCurrentUser = false,
   user = null,
+  friendCountRefetch = null,
 }: profileHeaderProps) => {
   return (
     <div className="profile-header-container">
@@ -132,7 +164,7 @@ export const ProfileHeader = ({
             <br />
             Hosting
           </button>
-          {isCurrentUser ? null : SetUserRelationship(user)}
+          {isCurrentUser ? null : SetUserRelationship(user, friendCountRefetch)}
         </div>
       </div>
       <p className="profile-header-user-description" data-testid="userDescription">

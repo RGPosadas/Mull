@@ -1,29 +1,42 @@
 import { ISerializedEvent } from '@mull/types';
 import { History } from 'history';
-import React, { useContext } from 'react';
-import { useOtherUserProfileQuery, User } from '../../../../generated/graphql';
+import React from 'react';
+import { useFriendCountQuery, useOtherUserProfileQuery, User } from '../../../../generated/graphql';
 import { sortEventsByDate } from '../../../../utilities';
 import { EventCard, MullBackButton } from '../../../components';
 import ProfileHeader from '../../../components/profile-header/profile-header';
-import UserContext from '../../../context/user.context';
 import './other-user-profile.scss';
 
 export interface OtherUserProfilePageProps {
   history: History;
-  prevPage: string;
+  prevPage?: string;
+  otherUserId: number;
 }
 
-export const OtherUserProfilePage = ({ history, prevPage }: OtherUserProfilePageProps) => {
-  const { data: otherUserProfileData, loading: userProfileLoading } = useOtherUserProfileQuery({
+export const OtherUserProfilePage = ({
+  history,
+  prevPage,
+  otherUserId,
+}: OtherUserProfilePageProps) => {
+  const { data: otherUserProfileData, loading: otherUserProfileLoading } = useOtherUserProfileQuery(
+    {
+      variables: {
+        id: otherUserId,
+      },
+    }
+  );
+  const {
+    data: friendCountData,
+    loading: friendCountLoading,
+    refetch: friendCountRefetch,
+  } = useFriendCountQuery({
     variables: {
-      // TODO in TASK-83: get id of other user
-      id: 4,
+      id: otherUserId,
     },
   });
-  const currentUserId = useContext(UserContext).userId;
 
-  if (userProfileLoading) return <div className="page-container">Loading...</div>;
-  if (currentUserId === otherUserProfileData.user.id) history.push('profile');
+  if (otherUserProfileLoading || friendCountLoading)
+    return <div className="page-container">Loading...</div>;
 
   if (otherUserProfileData.portfolioEvents) {
     const events = (otherUserProfileData.portfolioEvents as unknown) as Partial<ISerializedEvent>[];
@@ -44,13 +57,18 @@ export const OtherUserProfilePage = ({ history, prevPage }: OtherUserProfilePage
       <MullBackButton>{prevPage}</MullBackButton>
       <ProfileHeader
         portfolioCount={otherUserProfileData.portfolioCount}
-        friendCount={otherUserProfileData.friendCount}
+        friendCount={friendCountData.friendCount}
         hostingCount={otherUserProfileData.hostingCount}
         user={otherUserProfileData.user as User}
+        friendCountRefetch={friendCountRefetch}
       />
 
       <div className="portfolio-container" data-testid="portfolio-events">
-        {eventCards}
+        {eventCards.length > 0 ? (
+          eventCards
+        ) : (
+          <div className="no-events-found-msg">No portfolio found</div>
+        )}
       </div>
     </div>
   );

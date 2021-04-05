@@ -49,7 +49,7 @@ exports[`MyFriends should match snapshot 1`] = `
       className="contact-container"
     >
       <a
-        href="/profile/2"
+        href="/user/2"
         onClick={[Function]}
       >
         <div
@@ -108,7 +108,7 @@ exports[`MyFriends should match snapshot 1`] = `
       className="contact-container"
     >
       <a
-        href="/profile/3"
+        href="/user/3"
         onClick={[Function]}
       >
         <div
@@ -167,7 +167,7 @@ exports[`MyFriends should match snapshot 1`] = `
       className="contact-container"
     >
       <a
-        href="/profile/1"
+        href="/user/1"
         onClick={[Function]}
       >
         <div

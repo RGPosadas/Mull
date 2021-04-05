@@ -100,7 +100,7 @@ export class UserResolver {
   @UseGuards(AuthGuard)
   @Query(/* istanbul ignore next */ () => Int)
   async friendCount(@Args('id', { type: /* istanbul ignore next */ () => Int }) id: number) {
-    return (await this.userService.getFriends(id)).length;
+    return (await this.getTrueFriends(id)).length;
   }
 
   @UseGuards(AuthGuard)

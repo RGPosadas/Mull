@@ -1,4 +1,5 @@
 import { ISerializedPost } from '@mull/types';
+import { History } from 'history';
 import React, { useContext, useEffect, useRef } from 'react';
 import { avatarUrl, formatChatBubbleDate, getMediaUrl } from '../../../utilities';
 import ChatBubble from '../../components/chat-bubble/chat-bubble';
@@ -6,11 +7,12 @@ import UserContext from '../../context/user.context';
 import './chat-bubble-list.scss';
 
 export interface ChatBubbleListProps {
+  history: History;
   posts: Partial<ISerializedPost>[];
   subToMore: () => void;
 }
 
-export const ChatBubbleList = ({ posts, subToMore }: ChatBubbleListProps) => {
+export const ChatBubbleList = ({ history, posts, subToMore }: ChatBubbleListProps) => {
   const messageEndRef = useRef<HTMLDivElement>(null);
   const { userId } = useContext(UserContext);
 
@@ -40,6 +42,9 @@ export const ChatBubbleList = ({ posts, subToMore }: ChatBubbleListProps) => {
           isCurrentUser={userId === post.user.id}
           chatDate={formatChatBubbleDate(new Date(post.createdTime))}
           userPicture={avatarUrl(post.user)}
+          onClick={() => {
+            history.push(`/user/${post.user.id}`);
+          }}
         >
           <>
             {post.media && (

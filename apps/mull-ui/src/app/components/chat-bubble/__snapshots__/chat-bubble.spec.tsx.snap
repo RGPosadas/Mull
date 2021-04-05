@@ -15,6 +15,7 @@ exports[`ChatBubble should match snapshot 1`] = `
     <img
       alt="user"
       className="user-picture"
+      onClick={null}
       src=""
     />
     <p

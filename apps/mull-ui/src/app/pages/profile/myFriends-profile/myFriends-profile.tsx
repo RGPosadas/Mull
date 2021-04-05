@@ -64,7 +64,7 @@ const MyFriends = ({ history }) => {
           user={friend}
           modalButton1Text="View Profile"
           modalButton2Text="Remove Friend"
-          modalButton1OnClick={() => history.push(`/profile/${friend.id}`)}
+          modalButton1OnClick={() => history.push(`/user/${friend.id}`)}
           modalButton2OnClick={() => removeFriend({ variables: { userIdToRemove: friend.id } })}
         />
       );

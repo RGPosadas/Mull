@@ -67,7 +67,7 @@ exports[`OtherUserProfile should match snapshot 1`] = `
           className="profile-stats"
           data-testid="friendCount"
         >
-          2
+          1
           <br />
           Friends
         </button>

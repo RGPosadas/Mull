@@ -73,7 +73,7 @@ describe('ProfileHeader', () => {
     history.push(ROUTES.OTHER_USER_PROFILE);
     await actRenderer(async () => {
       const tree = renderer.create(renderHelper(history, mocks, false, mockUser));
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       expect(tree.toJSON()).toMatchSnapshot();
     });
   });
@@ -95,7 +95,7 @@ describe('ProfileHeader', () => {
     history.push(ROUTES.OTHER_USER_PROFILE);
     await act(async () => {
       const utils = render(renderHelper(history, mocks, false, mockUser));
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       const friendStatusButton = utils.container.querySelector('button[data-testid="mull-button"]');
       expect(friendStatusButton).toHaveTextContent(FriendStatusButton.FRIENDS);
     });
@@ -118,7 +118,7 @@ describe('ProfileHeader', () => {
     history.push(ROUTES.OTHER_USER_PROFILE);
     await act(async () => {
       const utils = render(renderHelper(history, mocks, false, mockUser));
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       const friendStatusButton = utils.container.querySelector('button[data-testid="mull-button"]');
       expect(friendStatusButton).toHaveTextContent(FriendStatusButton.PENDING);
     });
@@ -141,7 +141,7 @@ describe('ProfileHeader', () => {
     history.push(ROUTES.OTHER_USER_PROFILE);
     await act(async () => {
       const utils = render(renderHelper(history, mocks, false, mockUser));
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       const friendStatusButton = utils.container.querySelector('button[data-testid="mull-button"]');
       expect(friendStatusButton).toHaveTextContent(FriendStatusButton.ADD_FRIEND);
     });
@@ -164,7 +164,7 @@ describe('ProfileHeader', () => {
     history.push(ROUTES.OTHER_USER_PROFILE);
     await act(async () => {
       const utils = render(renderHelper(history, mocks, false, mockUser));
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       const friendStatusButton = utils.container.querySelector('button[data-testid="mull-button"]');
       expect(friendStatusButton).toHaveTextContent(FriendStatusButton.ADD_FRIEND);
     });

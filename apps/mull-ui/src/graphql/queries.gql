@@ -138,7 +138,6 @@ query OtherUserProfile($id: Int!) {
     }
   }
 
-  friendCount(id: $id)
   hostingCount(id: $id)
   portfolioCount(id: $id)
   portfolioEvents(id: $id) {
@@ -155,6 +154,10 @@ query OtherUserProfile($id: Int!) {
       mediaType
     }
   }
+}
+
+query FriendCount($id: Int!) {
+  friendCount(id: $id)
 }
 
 query ChannelByEventId($eventId: Int!, $channelName: String!) {

@@ -7,6 +7,8 @@ import { Router } from 'react-router-dom';
 import renderer, { act as actRenderer } from 'react-test-renderer';
 import { ROUTES } from '../../../../../src/constants';
 import {
+  FriendCountDocument,
+  FriendCountQuery,
   OtherUserProfileDocument,
   OtherUserProfileQuery,
   RelationshipType,
@@ -22,7 +24,7 @@ describe('OtherUserProfile', () => {
       <UserProvider value={{ userId: 1, setUserId: jest.fn() }}>
         <MockedProvider mocks={mocks} addTypename={false}>
           <Router history={history}>
-            <OtherUserProfilePage history={history} prevPage="Add Friends" />
+            <OtherUserProfilePage history={history} prevPage="Add Friends" otherUserId={4} />
           </Router>
         </MockedProvider>
       </UserProvider>
@@ -46,7 +48,6 @@ describe('OtherUserProfile', () => {
           joinDate: '2020-04-28T06:03:28.000Z',
           avatar: null,
         },
-        friendCount: 2,
         hostingCount: 3,
         portfolioCount: 1,
         portfolioEvents: [
@@ -79,6 +80,19 @@ describe('OtherUserProfile', () => {
       otherUserMock,
       {
         request: {
+          query: FriendCountDocument,
+          variables: {
+            id: 4,
+          },
+        },
+        result: {
+          data: {
+            friendCount: 1,
+          } as FriendCountQuery,
+        },
+      },
+      {
+        request: {
           query: UserRelationshipDocument,
           variables: {
             userIdB: 4,
@@ -94,7 +108,7 @@ describe('OtherUserProfile', () => {
     history.push(ROUTES.OTHER_USER_PROFILE);
     await actRenderer(async () => {
       const tree = renderer.create(renderHelper(history, mocks));
-      await new Promise((resolve) => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       expect(tree.toJSON()).toMatchSnapshot();
     });
   });
