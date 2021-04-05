@@ -3,6 +3,7 @@ import { UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mockAllDirectMessageChannels } from '../channel/channel.mockdata';
 import { ChannelService } from '../channel/channel.service';
+import { User } from '../entities';
 import { mockAllEvents } from '../event/event.mockdata';
 import { EventService } from '../event/event.service';
 import { mockAllMedias, mockFileJPEG, mockFilePNG } from '../media/media.mockdata';
@@ -50,6 +51,7 @@ const mockUserService = () => ({
   getRelationships: jest.fn((): Relationship[] => [
     { user: mockAllUsers[0], type: RelationshipType.FRIENDS },
   ]),
+  getStrangers: jest.fn((): User[] => mockAllUsers),
   getUserRelationship: jest.fn((): RelationshipType => RelationshipType.FRIENDS),
 });
 
@@ -180,12 +182,19 @@ describe('UserResolver', () => {
 
   it(`should remove a pending request`, async () => {
     expect(await resolver.removeFriend(mockAllUsers[0].id, mockAllUsers[2].id)).toBeTruthy();
+    expect(
+      await resolver.removePendingRequest(mockAllUsers[0].id, mockAllUsers[2].id)
+    ).toBeTruthy();
   });
 
   it(`should return all of the relationships for a user`, async () => {
     expect(await resolver.getRelationships(mockAllUsers[0].id)).toEqual([
       { user: mockAllUsers[0], type: RelationshipType.FRIENDS },
     ]);
+  });
+
+  it(`should return all strangers for a user`, async () => {
+    expect(await resolver.getStrangers(mockAllUsers[0].id, 'test')).toEqual(mockAllUsers);
   });
 
   it(`should return the relationship between two users`, async () => {
