@@ -25,7 +25,12 @@ export const ChatInput = ({
       {formik.touched.imageFile && !!formik.errors.imageFile ? (
         <span className="error-message">{formik.errors.imageFile}</span>
       ) : null}
-      <form className="chat-input-form" onSubmit={formik.handleSubmit} data-testid="chat-input">
+      <form
+        className="chat-input-form"
+        onSubmit={formik.handleSubmit}
+        data-testid="chat-input"
+        autoComplete="off"
+      >
         {image && (
           <img className="chat-input-image-size" src={image} alt="" onClick={handleCloseImage} />
         )}
