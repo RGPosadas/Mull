@@ -23,32 +23,32 @@ exports[`ProfileHeader should match snapshot 1`] = `
       src="./assets/icons/icon-192x192.png"
     />
     <div
-      className="profile-side-container"
+      className="profile-side-container for-other-user"
     >
-      <button
-        className="profile-stats"
+      <p
+        className="profile-stats for-other-user"
         data-testid="portfolioCount"
       >
         2
         <br />
         Portfolio
-      </button>
-      <button
-        className="profile-stats"
+      </p>
+      <p
+        className="profile-stats for-other-user"
         data-testid="friendCount"
       >
         0
         <br />
         Friends
-      </button>
-      <button
-        className="profile-stats"
+      </p>
+      <p
+        className="profile-stats for-other-user"
         data-testid="hostingCount"
       >
         3
         <br />
         Hosting
-      </button>
+      </p>
       <div
         className="friend-status-container"
       >

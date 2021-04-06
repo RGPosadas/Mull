@@ -28,30 +28,30 @@ exports[`UserProfilePage should match snapshot 1`] = `
       <div
         className="profile-side-container for-current-user"
       >
-        <button
+        <p
           className="profile-stats"
           data-testid="portfolioCount"
         >
           0
           <br />
           Portfolio
-        </button>
-        <button
+        </p>
+        <p
           className="profile-stats"
           data-testid="friendCount"
         >
           0
           <br />
           Friends
-        </button>
-        <button
+        </p>
+        <p
           className="profile-stats"
           data-testid="hostingCount"
         >
           1
           <br />
           Hosting
-        </button>
+        </p>
       </div>
     </div>
     <div

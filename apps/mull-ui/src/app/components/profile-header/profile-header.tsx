@@ -150,24 +150,35 @@ export const ProfileHeader = ({
         <img className="user-profile-picture" src={avatarUrl(user)} alt="user" />
         <div
           className={
-            isCurrentUser ? 'profile-side-container for-current-user' : 'profile-side-container'
+            isCurrentUser
+              ? 'profile-side-container for-current-user'
+              : 'profile-side-container for-other-user'
           }
         >
-          <button className="profile-stats" data-testid="portfolioCount">
+          <p
+            className={isCurrentUser ? 'profile-stats' : 'profile-stats for-other-user'}
+            data-testid="portfolioCount"
+          >
             {portfolioCount}
             <br />
             Portfolio
-          </button>
-          <button className="profile-stats" data-testid="friendCount">
+          </p>
+          <p
+            className={isCurrentUser ? 'profile-stats' : 'profile-stats for-other-user'}
+            data-testid="friendCount"
+          >
             {friendCount}
             <br />
             Friends
-          </button>
-          <button className="profile-stats" data-testid="hostingCount">
+          </p>
+          <p
+            className={isCurrentUser ? 'profile-stats' : 'profile-stats for-other-user'}
+            data-testid="hostingCount"
+          >
             {hostingCount}
             <br />
             Hosting
-          </button>
+          </p>
           {isCurrentUser ? null : SetUserRelationship(user, friendCountRefetch)}
         </div>
       </div>

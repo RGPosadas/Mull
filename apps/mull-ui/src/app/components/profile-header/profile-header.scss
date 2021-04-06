@@ -32,11 +32,16 @@
 .for-current-user {
   flex: 1;
   text-align: center;
+  display: flex;
 }
 
 .profile-stats {
   font-weight: bold;
   width: 30%;
+}
+
+.for-other-user {
+  display: inline-block;
 }
 
 .friend-status-container {
