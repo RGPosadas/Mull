@@ -63,11 +63,20 @@ exports[`ProfileHeader should match snapshot 1`] = `
       </div>
     </div>
   </div>
-  <p
-    className="profile-header-user-description"
-    data-testid="userDescription"
+  <div
+    className="expandable-text-container profile-header-user-description"
+    data-testid="expandable-text-div"
   >
-    Hey, it's Candice! Thanks for following my profile~ I am really passionate about hte environment, so feel free to add me and let us go around helping the environment together!
-  </p>
+    Hey, it's Candice! Thanks for following my profile~ I am really passionate about hte environment, so feel free to add me and let us go around helping 
+    ... 
+    <button
+      className="expandable-span-button"
+      data-testid="expandable-text-button"
+      onClick={[Function]}
+      type="button"
+    >
+      more
+    </button>
+  </div>
 </div>
 `;
