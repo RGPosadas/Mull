@@ -48,12 +48,13 @@ export const Login = ({ history }: LoginProps) => {
       try {
         var { data, errors } = await login({ variables: { loginInput } });
       } catch (err) {
-        updateToast(toast.TYPE.ERROR, err.message);
+        updateToast(err.message, toast.TYPE.ERROR);
         return;
       }
 
       if (errors) {
-        console.error(errors);
+        const messages = errors.map((err) => err.message).reduce((err1, err2) => `${err1} ${err2}`);
+        updateToast(`Error, user not created: ${messages}`, toast.TYPE.ERROR);
         return;
       }
 
