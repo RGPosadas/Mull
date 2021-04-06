@@ -1,15 +1,8 @@
 @import '../../../../variables.scss';
+@import '../../../../mixins.scss';
 
 .settings-container {
   padding: 0.5rem 0;
-}
-
-.with-friends {
-  padding: 0.9rem 0 0 0;
-}
-
-.below-friends {
-  padding: 0 0 0.5rem 0;
 }
 
 .joined-date-container {
@@ -18,19 +11,27 @@
   text-align: center;
 }
 
+.add-friends-link {
+  position: relative;
+  display: block;
+}
+
 .friend-request-count {
+  position: absolute;
   display: flex;
-  background-color: $primary-color;
+  align-items: center;
+  justify-content: center;
+
   border-radius: 50%;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.8rem;
+  height: 1.8rem;
+
   font-weight: bold;
   color: white;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  top: -6.7rem;
-  left: 90%;
+  background-color: $primary-color;
+
+  right: 1rem;
+  @include vertical-center-fixed;
 }
 
 .no-friend-request {

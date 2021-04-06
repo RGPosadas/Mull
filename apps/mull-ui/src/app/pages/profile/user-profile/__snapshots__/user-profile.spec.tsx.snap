@@ -11,6 +11,7 @@ exports[`UserProfilePage should match snapshot 1`] = `
       className="user-name-container"
     >
       <h1
+        className="profile-header-username"
         data-testid="userName"
       >
         Jane Doe
@@ -63,9 +64,9 @@ exports[`UserProfilePage should match snapshot 1`] = `
   <div
     className="settings-container"
   >
-    <h3>
+    <h2>
       Portfolio
-    </h3>
+    </h2>
     <a
       href="/profile/portfolio"
       onClick={[Function]}
@@ -95,12 +96,13 @@ exports[`UserProfilePage should match snapshot 1`] = `
     </a>
   </div>
   <div
-    className="settings-container with-friends"
+    className="settings-container"
   >
-    <h3>
+    <h2>
       Friends
-    </h3>
+    </h2>
     <a
+      className="add-friends-link"
       href="/profile/add-friends"
       onClick={[Function]}
     >
@@ -126,6 +128,11 @@ exports[`UserProfilePage should match snapshot 1`] = `
         </svg>
         Add Friends
       </button>
+      <p
+        className="friend-request-count"
+      >
+        1
+      </p>
     </a>
     <a
       href="/my-friends"
@@ -154,18 +161,13 @@ exports[`UserProfilePage should match snapshot 1`] = `
         My Friends
       </button>
     </a>
-    <p
-      className="friend-request-count"
-    >
-      4
-    </p>
   </div>
   <div
-    className="settings-container below-friends"
+    className="settings-container"
   >
-    <h3>
+    <h2>
       Misc.
-    </h3>
+    </h2>
     <a
       href="/profile/edit"
       onClick={[Function]}

@@ -65,7 +65,10 @@ const MyFriends = ({ history }) => {
           modalButton1Text="View Profile"
           modalButton2Text="Remove Friend"
           modalButton1OnClick={() => history.push(`/user/${friend.id}`)}
-          modalButton2OnClick={() => removeFriend({ variables: { userIdToRemove: friend.id } })}
+          modalButton2OnClick={async () => {
+            await removeFriend({ variables: { userIdToRemove: friend.id } });
+            window.location.reload();
+          }}
         />
       );
     });

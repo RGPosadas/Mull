@@ -305,6 +305,7 @@ export type Query = {
   getChannelByEventId: EventChannel;
   getDirectMessageChannel?: Maybe<DirectMessageChannel>;
   getRelationships: Array<Relationship>;
+  getStrangers: Array<User>;
   getTrueFriends: Array<User>;
   getUserRelationship: RelationshipType;
   hostEvents: Array<Event>;
@@ -344,6 +345,11 @@ export type QueryGetChannelByEventIdArgs = {
 
 export type QueryGetDirectMessageChannelArgs = {
   toUserId: Scalars['Int'];
+};
+
+
+export type QueryGetStrangersArgs = {
+  searchInput: Scalars['String'];
 };
 
 
@@ -849,6 +855,42 @@ export type UserRelationshipQueryVariables = Exact<{
 export type UserRelationshipQuery = (
   { __typename?: 'Query' }
   & Pick<Query, 'getUserRelationship'>
+);
+
+export type GetRelationshipsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetRelationshipsQuery = (
+  { __typename?: 'Query' }
+  & { getRelationships: Array<(
+    { __typename?: 'Relationship' }
+    & Pick<Relationship, 'type'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'name'>
+      & { avatar?: Maybe<(
+        { __typename?: 'Media' }
+        & Pick<Media, 'id' | 'mediaType'>
+      )> }
+    ) }
+  )> }
+);
+
+export type GetStrangersQueryVariables = Exact<{
+  searchInput: Scalars['String'];
+}>;
+
+
+export type GetStrangersQuery = (
+  { __typename?: 'Query' }
+  & { getStrangers: Array<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'name'>
+    & { avatar?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id' | 'mediaType'>
+    )> }
+  )> }
 );
 
 export type EventTitleQueryVariables = Exact<{
@@ -1797,6 +1839,84 @@ export function useUserRelationshipLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type UserRelationshipQueryHookResult = ReturnType<typeof useUserRelationshipQuery>;
 export type UserRelationshipLazyQueryHookResult = ReturnType<typeof useUserRelationshipLazyQuery>;
 export type UserRelationshipQueryResult = Apollo.QueryResult<UserRelationshipQuery, UserRelationshipQueryVariables>;
+export const GetRelationshipsDocument = gql`
+    query GetRelationships {
+  getRelationships {
+    user {
+      id
+      name
+      avatar {
+        id
+        mediaType
+      }
+    }
+    type
+  }
+}
+    `;
+
+/**
+ * __useGetRelationshipsQuery__
+ *
+ * To run a query within a React component, call `useGetRelationshipsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRelationshipsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRelationshipsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetRelationshipsQuery(baseOptions?: Apollo.QueryHookOptions<GetRelationshipsQuery, GetRelationshipsQueryVariables>) {
+        return Apollo.useQuery<GetRelationshipsQuery, GetRelationshipsQueryVariables>(GetRelationshipsDocument, baseOptions);
+      }
+export function useGetRelationshipsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRelationshipsQuery, GetRelationshipsQueryVariables>) {
+          return Apollo.useLazyQuery<GetRelationshipsQuery, GetRelationshipsQueryVariables>(GetRelationshipsDocument, baseOptions);
+        }
+export type GetRelationshipsQueryHookResult = ReturnType<typeof useGetRelationshipsQuery>;
+export type GetRelationshipsLazyQueryHookResult = ReturnType<typeof useGetRelationshipsLazyQuery>;
+export type GetRelationshipsQueryResult = Apollo.QueryResult<GetRelationshipsQuery, GetRelationshipsQueryVariables>;
+export const GetStrangersDocument = gql`
+    query GetStrangers($searchInput: String!) {
+  getStrangers(searchInput: $searchInput) {
+    id
+    name
+    avatar {
+      id
+      mediaType
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetStrangersQuery__
+ *
+ * To run a query within a React component, call `useGetStrangersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStrangersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStrangersQuery({
+ *   variables: {
+ *      searchInput: // value for 'searchInput'
+ *   },
+ * });
+ */
+export function useGetStrangersQuery(baseOptions: Apollo.QueryHookOptions<GetStrangersQuery, GetStrangersQueryVariables>) {
+        return Apollo.useQuery<GetStrangersQuery, GetStrangersQueryVariables>(GetStrangersDocument, baseOptions);
+      }
+export function useGetStrangersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStrangersQuery, GetStrangersQueryVariables>) {
+          return Apollo.useLazyQuery<GetStrangersQuery, GetStrangersQueryVariables>(GetStrangersDocument, baseOptions);
+        }
+export type GetStrangersQueryHookResult = ReturnType<typeof useGetStrangersQuery>;
+export type GetStrangersLazyQueryHookResult = ReturnType<typeof useGetStrangersLazyQuery>;
+export type GetStrangersQueryResult = Apollo.QueryResult<GetStrangersQuery, GetStrangersQueryVariables>;
 export const EventTitleDocument = gql`
     query EventTitle($eventId: Int!) {
   event(id: $eventId) {

@@ -5,8 +5,8 @@ export interface CustomTextInputProps {
   title: string;
   value: string;
   fieldName: string;
-  errorMessage: string;
-  hasErrors: boolean;
+  errorMessage?: string;
+  hasErrors?: boolean;
   svgIcon?: ReactNode;
   password?: boolean;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -33,8 +33,8 @@ export const CustomTextInput = ({
   value,
   fieldName,
   onChange,
-  hasErrors,
-  errorMessage,
+  hasErrors = false,
+  errorMessage = null,
   svgIcon,
   password,
   onClick,

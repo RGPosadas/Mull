@@ -5,7 +5,13 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import renderer, { act } from 'react-test-renderer';
 import { ROUTES } from '../../../../constants';
-import { UserProfileDocument, UserProfileQuery } from '../../../../generated/graphql';
+import {
+  GetRelationshipsDocument,
+  GetRelationshipsQuery,
+  RelationshipType,
+  UserProfileDocument,
+  UserProfileQuery,
+} from '../../../../generated/graphql';
 import { UserProvider } from '../../../context/user.context';
 import UserProfilePage from './user-profile';
 
@@ -51,6 +57,29 @@ describe('UserProfilePage', () => {
             hostingCount: 1,
             portfolioCount: 0,
           } as UserProfileQuery,
+        },
+      },
+      {
+        request: {
+          query: GetRelationshipsDocument,
+          variables: {},
+        },
+        result: {
+          data: {
+            getRelationships: [
+              {
+                user: {
+                  id: 1,
+                  name: 'hello',
+                  avatar: {
+                    id: 1,
+                    mediaType: 'jpeg',
+                  },
+                },
+                type: RelationshipType.AddedMe,
+              },
+            ],
+          } as GetRelationshipsQuery,
         },
       },
     ];

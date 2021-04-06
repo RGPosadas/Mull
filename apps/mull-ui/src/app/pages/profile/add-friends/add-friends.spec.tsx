@@ -12,7 +12,7 @@ describe('AddFriendsPage', () => {
       <UserProvider value={{ userId: 1, setUserId: jest.fn() }}>
         <MockedProvider mocks={mocks} addTypename={false}>
           <Router history={history}>
-            <AddFriendsPage />
+            <AddFriendsPage history={history} />
           </Router>
         </MockedProvider>
       </UserProvider>

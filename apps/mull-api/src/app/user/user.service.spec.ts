@@ -155,6 +155,18 @@ describe('UserService', () => {
     ]);
   });
 
+  it('should return the strangers of a user', async () => {
+    repository.createQueryBuilder.mockImplementation(() => ({
+      leftJoin: jest.fn().mockReturnThis(),
+      where: jest.fn().mockReturnThis(),
+      getMany: jest.fn().mockReturnValue([mockAllUsers[0], mockAllUsers[1]]),
+    }));
+    expect(await service.getStrangers(mockAllUsers[0].id, 'test')).toEqual([
+      mockAllUsers[0],
+      mockAllUsers[1],
+    ]);
+  });
+
   it('should return FRIENDS for relationship', async () => {
     const userRelationship = await service.getUserRelationship(
       mockAllUsers[0].id,

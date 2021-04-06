@@ -38,13 +38,26 @@ const createPosts = async (connection: Connection, factory: Factory) => {
   await factory(Post)(parseInt(count[0]['COUNT(*)'])).createMany(50);
 };
 
-const US3_1Seeder = async (connection: Connection) => {
+const US31_e2eSetup = async (connection: Connection) => {
   await connection.query('UPDATE `mull-dev`.event SET hostId = 1 WHERE event.id = 1');
   try {
     await connection.query('INSERT INTO `mull-dev`.event_participants VALUES (1, 2)');
   } catch (e) {
     // user 2 is already a participant of event 1
   }
+};
+
+const US81_e2eSetup = async (connection: Connection) => {
+  await connection.query(
+    "INSERT INTO `mull-dev`.user (id, `password`, `email`, `timezone`, `registrationMethod`, `tokenVersion`, `joinDate`, `name`, `description`) VALUES ('8100', 'password', 'first@us81.test', '', 'LOCAL', '0', '2021-04-04 14:16:39', 'test1', '');"
+  );
+  await connection.query(
+    "INSERT INTO `mull-dev`.user (id, `password`, `email`, `timezone`, `registrationMethod`, `tokenVersion`, `joinDate`, `name`, `description`) VALUES ('8101', 'password', 'second@us81.test', '', 'LOCAL', '0', '2021-04-04 14:16:39', 'test2', '');"
+  );
+  await connection.query(
+    "INSERT INTO `mull-dev`.user (id, `password`, `email`, `timezone`, `registrationMethod`, `tokenVersion`, `joinDate`, `name`, `description`) VALUES ('8102', 'password', 'third@us81.test', '', 'LOCAL', '0', '2021-04-04 14:16:39', 'test2', '');"
+  );
+  await connection.query('INSERT INTO `mull-dev`.friends VALUES (8101, 1), (8102, 1)');
 };
 
 const US8_5Seeder = async (connection: Connection) => {
@@ -55,7 +68,8 @@ export default class DatabaseSeeder implements Seeder {
   public async run(factory: Factory, connection: Connection): Promise<any> {
     await factory(Event)().createMany(10);
     await createPosts(connection, factory);
-    await US3_1Seeder(connection);
+    await US31_e2eSetup(connection);
+    await US81_e2eSetup(connection);
     await US8_5Seeder(connection);
     await createFriends(connection);
   }

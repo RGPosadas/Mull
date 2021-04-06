@@ -44,9 +44,15 @@ const loginUser = (username: string, password: string) => {
 const createEvent = (date, pillId = 0) => {
   cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
 
-  cy.get('.rc-slider-handle').first().should('have.attr', 'aria-valuenow', 12).type('{leftarrow}');
+  cy.get('.rc-slider-handle')
+    .first()
+    .should('have.attr', 'aria-valuenow', 12)
+    .type('{leftarrow}'.repeat(50));
 
-  cy.get('.rc-slider-handle').last().should('have.attr', 'aria-valuenow', 12).type('{rightarrow}');
+  cy.get('.rc-slider-handle')
+    .last()
+    .should('have.attr', 'aria-valuenow', 12)
+    .type('{rightarrow}'.repeat(50));
 
   cy.get('#eventTitle').type(date.toString());
 

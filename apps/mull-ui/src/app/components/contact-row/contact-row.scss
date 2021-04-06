@@ -4,6 +4,7 @@
   display: flex;
   margin-top: 2rem;
   justify-content: space-between;
+  align-items: center;
   .user-information {
     display: flex;
     flex-direction: row;
@@ -34,7 +35,7 @@
       padding-left: 0.5rem;
     }
   }
-  .friend-settings-icon {
+  .contact-row-icon {
     color: $primary-color;
   }
   a {

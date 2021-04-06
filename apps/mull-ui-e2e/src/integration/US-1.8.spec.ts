@@ -29,7 +29,7 @@ frameSizes.forEach((frame) => {
       cy.get('[data-testid=pill-id-1]').click();
       cy.get('.create-event-button').click();
 
-      cy.get('.title').should('have.text', 'test title');
+      cy.get('.event-page-title').should('have.text', 'test title');
       cy.get('.event-image').should('have.attr', 'src');
       cy.get('[data-testid=start-date-div]').should(
         'have.text',
@@ -70,7 +70,7 @@ frameSizes.forEach((frame) => {
       cy.get('[data-testid=pill-id-0]').click();
       cy.get('.create-event-button').click();
 
-      cy.get('.title').should('have.text', 'new test title');
+      cy.get('.event-page-title').should('have.text', 'new test title');
       cy.get('.event-image').should('have.attr', 'src');
       cy.get('[data-testid=start-date-div]').should(
         'have.text',

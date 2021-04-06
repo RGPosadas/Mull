@@ -9,7 +9,12 @@ import { History } from 'history';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
-import { User, useUserProfileQuery } from '../../../../generated/graphql';
+import {
+  RelationshipType,
+  useGetRelationshipsQuery,
+  User,
+  useUserProfileQuery,
+} from '../../../../generated/graphql';
 import { formatJoinDate } from '../../../../utilities';
 import ProfileHeader from '../../../components/profile-header/profile-header';
 import SettingsButton from '../../../components/settings-button/settings-button';
@@ -23,12 +28,18 @@ export interface UserProfilePageProps {
 export const UserProfilePage = ({ history }: UserProfilePageProps) => {
   const currentUserId = useContext(UserContext).userId;
   const { data: userProfile, loading } = useUserProfileQuery({ variables: { id: currentUserId } });
+  const relData = useGetRelationshipsQuery();
 
-  if (loading) return <div className="page-container">Loading...</div>;
+  if (loading || relData.loading) return <div className="page-container">Loading...</div>;
 
   const { year, month, day } = formatJoinDate(new Date(userProfile.user.joinDate));
-  const friendRequestExists = true;
 
+  let pendingCount = 0;
+  relData.data?.getRelationships.forEach((relationship) => {
+    if (relationship.type === RelationshipType.AddedMe) {
+      pendingCount++;
+    }
+  });
   return (
     <div className="page-container">
       <ProfileHeader
@@ -39,23 +50,23 @@ export const UserProfilePage = ({ history }: UserProfilePageProps) => {
         user={userProfile.user as User}
       />
       <div className="settings-container">
-        <h3>Portfolio</h3>
+        <h2>Portfolio</h2>
         <Link to={ROUTES.PROFILE.PORTFOLIO}>
           <SettingsButton icon={faLeaf} text="My Portfolio" />
         </Link>
       </div>
-      <div className="settings-container with-friends">
-        <h3>Friends</h3>
-        <Link to={ROUTES.PROFILE.ADDFRIENDS}>
+      <div className="settings-container">
+        <h2>Friends</h2>
+        <Link to={ROUTES.PROFILE.ADDFRIENDS} className="add-friends-link">
           <SettingsButton icon={faUserPlus} text="Add Friends" />
+          {pendingCount ? <p className="friend-request-count">{pendingCount}</p> : null}
         </Link>
         <Link to="my-friends">
           <SettingsButton icon={faUserFriends} text="My Friends" />
         </Link>
-        <p className={friendRequestExists ? 'friend-request-count' : 'no-friend-request'}>{4}</p>
       </div>
-      <div className="settings-container below-friends">
-        <h3>Misc.</h3>
+      <div className="settings-container">
+        <h2>Misc.</h2>
         <Link to="/profile/edit">
           <SettingsButton icon={faPencilAlt} text="Edit Profile" />
         </Link>

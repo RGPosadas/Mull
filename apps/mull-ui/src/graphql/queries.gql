@@ -230,6 +230,31 @@ query UserRelationship($userIdB: Int!) {
   getUserRelationship(userIdB: $userIdB)
 }
 
+query GetRelationships {
+  getRelationships {
+    user {
+      id
+      name
+      avatar {
+        id
+        mediaType
+      }
+    }
+    type
+  }
+}
+
+query GetStrangers($searchInput: String!) {
+  getStrangers(searchInput: $searchInput) {
+    id
+    name
+    avatar {
+      id
+      mediaType
+    }
+  }
+}
+
 query EventTitle($eventId: Int!) {
   event(id: $eventId) {
     title
