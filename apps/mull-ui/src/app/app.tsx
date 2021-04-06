@@ -22,7 +22,6 @@ import LoginPage from './pages/login/login';
 import AddFriendsPage from './pages/profile/add-friends/add-friends';
 import EditProfilePage from './pages/profile/edit-profile/edit-profile';
 import MyFriends from './pages/profile/myFriends-profile/myFriends-profile';
-import OtherUserProfilePage from './pages/profile/other-user-profile/other-user-profile';
 import UserPortfolio from './pages/profile/user-portfolio/user-portfolio';
 import UserProfilePage from './pages/profile/user-profile/user-profile';
 import RegisterPage from './pages/register/register';
@@ -30,6 +29,7 @@ import SettingsPage from './pages/settings-page/settings-page';
 import TokenRedirectPage from './pages/token-redirect/token-redirect';
 import WasteRecognitionPage from './pages/waste-recognition-page/waste-recognition-page';
 import MessagesRoute from './routes/messages.route';
+import ProfilesRoute from './routes/profiles.route';
 
 /**
  * Main component of the application
@@ -114,8 +114,7 @@ export const App = () => {
           <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
           <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
           <PrivateRoute path={ROUTES.SETTINGS} component={SettingsPage} />
-          {/*TODO in TASK-83: route user profiles to /user/${user.id} */}
-          <PrivateRoute path={ROUTES.OTHER_USER_PROFILE} component={OtherUserProfilePage} />
+          <PrivateRoute exact path={ROUTES.USER_BY_ID} component={ProfilesRoute} />
           <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
           <PrivateRoute path={ROUTES.PROFILE.PORTFOLIO} component={UserPortfolio} />
           <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />

@@ -40,7 +40,7 @@ export const UserProfilePage = ({ history }: UserProfilePageProps) => {
       />
       <div className="settings-container">
         <h3>Portfolio</h3>
-        <Link to="/profile/portfolio">
+        <Link to={ROUTES.PROFILE.PORTFOLIO}>
           <SettingsButton icon={faLeaf} text="My Portfolio" />
         </Link>
       </div>

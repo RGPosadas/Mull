@@ -1,6 +1,6 @@
 import { ISerializedEvent } from '@mull/types';
-import { useUserPortfolioEventsQuery } from 'apps/mull-ui/src/generated/graphql';
 import React from 'react';
+import { useUserPortfolioEventsQuery } from '../../../../generated/graphql';
 import { EventCard, MullBackButton } from '../../../components';
 import './user-portfolio.scss';
 
