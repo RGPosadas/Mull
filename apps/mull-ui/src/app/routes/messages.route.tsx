@@ -3,7 +3,7 @@ import { RouteChildrenProps } from 'react-router';
 import SwipeableViews from 'react-swipeable-views';
 import { PrivateRoute } from '../components';
 import SwipeableViewsHeader from '../components/navigation/swipeable-view-header/swipeable-view-header';
-import DirectMessagePage from '../pages/direct-message/direct-message';
+import DirectMessageListPage from '../pages/direct-message/direct-message-list/direct-message-list';
 import AnnouncementsPage from '../pages/messages/announcements/announcements';
 import EventMessagesHeader from '../pages/messages/event-messages-header/event-messages-header';
 import EventMessageList from '../pages/messages/event-messages/event-message-list';
@@ -24,7 +24,7 @@ const MessagesMainRoute = ({ history }) => {
       />
       <div className="page-container with-sub-nav">
         <SwipeableViews index={index} onChangeIndex={handleChangeIndex}>
-          <DirectMessagePage history={history} />
+          <DirectMessageListPage history={history} />
           <EventMessageList history={history} />
         </SwipeableViews>
       </div>
