@@ -28,7 +28,7 @@ export const CustomFileUpload = ({
         {imageURL ? (
           <img className="custom-file-upload-image" src={imageURL} alt="Event" />
         ) : (
-          <div className={className}>
+          <div className={`button ${className}`}>
             <FontAwesomeIcon className="custom-file-upload-icon" icon={faImages} />
           </div>
         )}

@@ -50,9 +50,12 @@
   }
 }
 
-.chat-input-image-size {
+.chat-input-image {
+  object-fit: contain;
   max-height: 3rem;
-  max-width: 9rem;
+  max-width: 8rem;
+  border-radius: 10px;
+  margin-right: 0.5rem;
 }
 
 @media (min-width: $breakpoint-mobile) {

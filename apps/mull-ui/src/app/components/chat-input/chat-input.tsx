@@ -22,8 +22,13 @@ export const ChatInput = ({
 }: ChatInputProps) => {
   return (
     <div className="chat-input-container">
-      {formik.touched.imageFile && !!formik.errors.imageFile ? (
-        <span className="error-message">{formik.errors.imageFile}</span>
+      {(formik.touched.imageFile && !!formik.errors.imageFile) ||
+      (formik.touched.message && !!formik.errors.message) ? (
+        <span className="error-message">
+          {`${formik.errors.message ? formik.errors.message : ''} ${
+            formik.errors.imageFile ? formik.errors.imageFile : ''
+          }`}
+        </span>
       ) : null}
       <form
         className="chat-input-form"
@@ -32,7 +37,7 @@ export const ChatInput = ({
         autoComplete="off"
       >
         {image && (
-          <img className="chat-input-image-size" src={image} alt="" onClick={handleCloseImage} />
+          <img className="chat-input-image" src={image} alt="" onClick={handleCloseImage} />
         )}
         <CustomFileUpload
           className="file-upload-feedback"

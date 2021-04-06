@@ -37,6 +37,7 @@ export interface EventChatProps {
 export const EventChat = ({ history, channelName, restrictChatInput }: EventChatProps) => {
   const { updateToast } = useToast();
   const [createPostMutation] = useCreatePostMutation();
+  const { notifyToast } = useToast();
 
   const [imageURLFile, setImageURLFile] = useState<string>('');
   const [uploadFile] = useUploadFileMutation();
@@ -99,7 +100,11 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
     },
 
     validationSchema: Yup.object({
-      message: file ? Yup.string().optional() : Yup.string().required(),
+      message: file
+        ? Yup.string().optional()
+        : Yup.string()
+            .required()
+            .test('no-whitespace', "Message can't be empty", (value) => !/^\s*$/.test(value)),
       imageFile: Yup.mixed().test('big-file', 'File size is too large', validateFileSize),
     }),
 
@@ -109,17 +114,19 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
           ? (await uploadFile({ variables: { file: file } })).data.uploadFile
           : null;
 
-        const post = createPostMutation({
+        createPostMutation({
           variables: {
             post: {
               channel: { id: data.getChannelByEventId.id },
-              message: formik.values.message ? formik.values.message : '',
+              message: formik.values.message ? formik.values.message.trim() : '',
               media: uploadedFile
                 ? { id: uploadedFile.id, mediaType: uploadedFile.mediaType }
                 : null,
               createdTime: Date.now(),
             } as CreatePostInput,
           },
+        }).catch((e) => {
+          notifyToast(e, toast.TYPE.ERROR);
         });
 
         resetForm();
