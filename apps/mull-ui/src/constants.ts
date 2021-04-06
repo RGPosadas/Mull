@@ -14,7 +14,12 @@ export const ROUTES = {
   MESSAGES: '/messages',
   GROUPCHAT: { url: '/messages/event/:id/group-chat', displayName: 'Group Chat' },
   ANNOUNCEMENTS: { url: '/messages/event/:id/announcements', displayName: 'Announcements' },
-  PROFILE: { DISPLAY: '/profile', EDIT: '/profile/edit', ADDFRIENDS: '/profile/add-friends' },
+  PROFILE: {
+    DISPLAY: '/profile',
+    EDIT: '/profile/edit',
+    ADDFRIENDS: '/profile/add-friends',
+    PORTFOLIO: '/profile/portfolio',
+  },
   DIRECT_MESSAGES: { url: '/messages/dms', displayName: 'Direct Messages' },
   EVENT_MESSAGE_LIST: { url: '/messages/event', displayName: 'Event Messages' },
   LOGIN: '/login',

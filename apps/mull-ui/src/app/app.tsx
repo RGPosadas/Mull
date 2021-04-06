@@ -22,6 +22,7 @@ import LoginPage from './pages/login/login';
 import AddFriendsPage from './pages/profile/add-friends/add-friends';
 import EditProfilePage from './pages/profile/edit-profile/edit-profile';
 import MyFriends from './pages/profile/myFriends-profile/myFriends-profile';
+import UserPortfolio from './pages/profile/user-portfolio/user-portfolio';
 import UserProfilePage from './pages/profile/user-profile/user-profile';
 import RegisterPage from './pages/register/register';
 import SettingsPage from './pages/settings-page/settings-page';
@@ -89,7 +90,7 @@ export const App = () => {
           />
           <Route exact path={ROUTES.TOKEN_REDIRECT} component={TokenRedirectPage} />
           <PrivateRoute exact path={ROUTES.CREATE_EVENT} component={CreateEventPage} />
-          <Route exact path={ROUTES.EVENT_BY_ID} children={<EventPage prevPage="Discover" />} />
+          <Route exact path={ROUTES.EVENT_BY_ID} children={<EventPage />} />
           <PrivateRoute path={ROUTES.HOME}>
             <SubNavBar
               routes={[ROUTES.DISCOVER, ROUTES.UPCOMING, ROUTES.MY_EVENTS]}
@@ -115,6 +116,7 @@ export const App = () => {
           <PrivateRoute path={ROUTES.SETTINGS} component={SettingsPage} />
           <PrivateRoute exact path={ROUTES.USER_BY_ID} component={ProfilesRoute} />
           <PrivateRoute path={ROUTES.PROFILE.EDIT} component={EditProfilePage} />
+          <PrivateRoute path={ROUTES.PROFILE.PORTFOLIO} component={UserPortfolio} />
           <PrivateRoute exact path={ROUTES.PROFILE.DISPLAY} component={UserProfilePage} />
           <PrivateRoute component={NotFoundPage} />
         </Switch>

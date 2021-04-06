@@ -36,6 +36,11 @@ export class EventResolver {
     return this.eventService.getEventsAttendedByUser(userId);
   }
 
+  @Query(/* istanbul ignore next */ () => [Event])
+  async userPortfolioEvents(@AuthenticatedUser() userId: number) {
+    return this.eventService.getUserEventsPortfolio(userId);
+  }
+
   @Query(/* istanbul ignore next */ () => Boolean)
   async isParticipant(
     @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId: number,
