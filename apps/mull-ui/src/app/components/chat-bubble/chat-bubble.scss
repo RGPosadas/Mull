@@ -1,6 +1,7 @@
 @import '../../../variables.scss';
+@import '../../../mixins.scss';
 
-.chat-container {
+.chat-bubble-container {
   margin: 1rem 0;
 }
 
@@ -42,10 +43,18 @@
   }
 }
 
-.announcement-time {
+.chat-bubble-header {
+  display: flex;
+  position: relative;
   font-size: 0.875rem;
-  text-align: center;
   color: $inactive-button-color;
+  justify-content: center;
+}
+
+.chat-bubble-header-username {
+  position: absolute;
+  right: 0.25rem;
+  @include vertical-center-fixed;
 }
 
 .user-picture {

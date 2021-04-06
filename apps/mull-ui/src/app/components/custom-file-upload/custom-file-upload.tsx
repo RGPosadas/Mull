@@ -33,7 +33,7 @@ export const CustomFileUpload = ({
           </div>
         )}
         {displayPencilIcon && (
-          <FontAwesomeIcon className="custom-file-upload-pencil-icon" icon={faPencilAlt} />
+          <FontAwesomeIcon className="custom-file-upload-pencil-icon button" icon={faPencilAlt} />
         )}
       </label>
       {hasErrors ? <span className="error-message">{errorMessage}</span> : null}
