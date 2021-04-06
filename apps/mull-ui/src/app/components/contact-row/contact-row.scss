@@ -5,49 +5,60 @@
   margin-top: 2rem;
   justify-content: space-between;
   align-items: center;
+
   .user-information {
     display: flex;
     flex-direction: row;
+    cursor: pointer;
   }
+
   .user-profile-picture {
     width: 3.5rem !important;
     height: 3.5rem !important;
     min-height: 3.5rem !important;
   }
+
   .user-details {
     display: flex;
     padding: 0.3rem;
     flex-direction: column;
     align-self: center;
+
     .username {
       margin-top: 0.5rem;
       font-weight: normal;
       font-size: 1.125rem;
       line-height: 1.125rem;
     }
+
     .last-message {
       margin-top: 0.2rem;
       font-weight: 300;
       font-size: 0.75rem;
       line-height: 0.75rem;
     }
+
     span {
       padding-left: 0.5rem;
     }
   }
   .contact-row-icon {
-    color: $primary-color;
-  }
-  a {
-    text-decoration: none;
-    color: black;
-    width: 100%;
-  }
-  a:hover {
-    cursor: pointer;
-  }
-}
+    .friend-settings-icon {
+      color: $primary-color;
+    }
 
-.my-friends-modal-container {
-  width: 21.875rem;
+    a {
+      text-decoration: none;
+      color: black;
+      width: 100%;
+    }
+
+    a:hover {
+      cursor: pointer;
+    }
+  }
+
+  .my-friends-modal-container {
+    width: 21.875rem;
+  }
 }
