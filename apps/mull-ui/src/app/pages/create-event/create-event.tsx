@@ -14,7 +14,7 @@ import {
   useCreateEventMutation,
   useUploadFileMutation,
 } from '../../../generated/graphql';
-import { floatToHHMM, hasEmoji } from '../../../utilities';
+import { floatToHHMM, hasEmoji, validateFileSize } from '../../../utilities';
 import { useToast } from '../../hooks/useToast';
 import {
   CustomFileUpload,
@@ -127,7 +127,9 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
             return location && location.title && location.title !== '';
           }
         ),
-      imageFile: Yup.mixed().required('Image is required.'),
+      imageFile: Yup.mixed()
+        .required('Image is required.')
+        .test('big-file', 'File size is too large', validateFileSize),
     }),
 
     onSubmit: async () => {
@@ -201,7 +203,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       ) : (
         <div className="page-container">
           <div className="create-event">
-            <p className="create-event-text">Create Event</p>
+            <h1 className="create-event-text">Create Event</h1>
             <CustomFileUpload
               className="custom-file-upload custom-file-upload-icon-container"
               imageURL={imageURLFile}

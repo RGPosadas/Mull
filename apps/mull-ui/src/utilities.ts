@@ -3,6 +3,7 @@ import {
   Coordinates,
   DetectionResult,
   ISerializedEvent,
+  LIMITS,
   Size,
   wasteClassMap,
 } from '@mull/types';
@@ -51,6 +52,18 @@ export const avatarUrl = (user: Partial<User>) =>
   user && user.avatar
     ? `${environment.backendUrl}/api/media/${user.avatar.id}`
     : `./assets/icons/icon-192x192.png`;
+
+export const validateFileSize = (file: File) => {
+  if (!file) {
+    return true;
+  }
+
+  if (file.size / LIMITS.IMAGE_SIZE > 1) {
+    return false;
+  }
+
+  return true;
+};
 
 const svgSize = 45;
 

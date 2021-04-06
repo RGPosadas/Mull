@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { ROUTES } from '../../../../constants';
 import { User, useUpdateUserMutation, useUserQuery } from '../../../../generated/graphql';
-import { avatarUrl, hasEmoji } from '../../../../utilities';
+import { avatarUrl, hasEmoji, validateFileSize } from '../../../../utilities';
 import { CustomFileUpload, CustomTextInput } from '../../../components';
 import { MullBackButton } from '../../../components/mull-back-button/mull-back-button';
 import MullButton from '../../../components/mull-button/mull-button';
@@ -45,6 +45,7 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
         LIMITS.DESCRIPTION,
         `Description must be ${LIMITS.DESCRIPTION} characters or less.`
       ),
+      imageFile: Yup.mixed().test('big-file', 'File size is too large', validateFileSize),
     }),
 
     onSubmit: async () => {

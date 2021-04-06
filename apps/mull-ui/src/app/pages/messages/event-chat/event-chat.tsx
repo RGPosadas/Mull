@@ -14,6 +14,7 @@ import {
   useCreatePostMutation,
   useUploadFileMutation,
 } from '../../../../generated/graphql';
+import { validateFileSize } from '../../../../utilities';
 import { ChatInput } from '../../../components';
 import ChatBubbleList from '../../../components/chat-bubble-list/chat-bubble-list';
 import UserContext from '../../../context/user.context';
@@ -87,6 +88,8 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
   const handleCloseImage = () => {
     setImageURLFile('');
     setFile(null);
+    formik.setFieldValue('imageFile', '');
+    formik.setErrors({});
   };
 
   const formik = useFormik<IChatForm>({
@@ -97,6 +100,7 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
 
     validationSchema: Yup.object({
       message: file ? Yup.string().optional() : Yup.string().required(),
+      imageFile: Yup.mixed().test('big-file', 'File size is too large', validateFileSize),
     }),
 
     onSubmit: async (values, { resetForm }) => {

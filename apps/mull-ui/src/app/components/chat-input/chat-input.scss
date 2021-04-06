@@ -8,11 +8,17 @@
   bottom: $bot-nav-bar-height-mobile;
   padding: 1rem;
   display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   align-items: center;
   background-color: $background-color;
   .custom-file-upload-container {
     margin-right: 0.8rem;
+  }
+  .chat-input-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
   }
   .chat-input-button {
     position: absolute;
