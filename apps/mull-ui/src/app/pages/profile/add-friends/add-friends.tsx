@@ -146,7 +146,7 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
                     modalButton1OnClick={() => {
                       goToProfile(user.id + '');
                     }}
-                    modalButton2Text="Send friend Request"
+                    modalButton2Text="Send Friend Request"
                     modalButton2OnClick={() => {
                       addFriend({ variables: { userIdToAdd: user.id } }).then(() => {
                         window.location.reload();

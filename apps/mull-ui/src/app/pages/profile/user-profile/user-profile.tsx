@@ -29,7 +29,6 @@ export const UserProfilePage = ({ history }: UserProfilePageProps) => {
   const currentUserId = useContext(UserContext).userId;
   const { data: userProfile, loading } = useUserProfileQuery({ variables: { id: currentUserId } });
   const relData = useGetRelationshipsQuery();
-  console.log(relData.data, relData.loading);
 
   if (loading || relData.loading) return <div className="page-container">Loading...</div>;
 
