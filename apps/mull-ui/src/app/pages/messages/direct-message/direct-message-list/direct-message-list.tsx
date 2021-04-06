@@ -5,8 +5,8 @@ import {
   useCreateDirectMessageChannelMutation,
   useFriendsQuery,
   User,
-} from '../../../../generated/graphql';
-import { ContactRow, CustomTextInput } from '../../../components';
+} from '../../../../../generated/graphql';
+import { ContactRow, CustomTextInput } from '../../../../components';
 import './direct-message-list.scss';
 
 export interface DirectMessagePageProps {
