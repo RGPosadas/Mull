@@ -3,7 +3,6 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import React, { CSSProperties, useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
-import SwipeableRoutes from 'react-swipeable-routes';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ROUTES } from '../constants';
@@ -97,14 +96,14 @@ export const App = () => {
               className="top-nav-bar-shadow"
             />
             <div className="page-container with-sub-nav-bar">
-              <SwipeableRoutes>
+              <Switch>
                 <PrivateRoute path={ROUTES.DISCOVER.url} component={DiscoverPage} />
                 <PrivateRoute path={ROUTES.UPCOMING.url} component={UpcomingPage} />
                 <PrivateRoute path={ROUTES.MY_EVENTS.url} component={MyEventsPage} />
-                <PrivateRoute exact path={ROUTES.HOME}>
+                <PrivateRoute path={ROUTES.HOME}>
                   <Redirect to={ROUTES.DISCOVER.url} />
                 </PrivateRoute>
-              </SwipeableRoutes>
+              </Switch>
             </div>
           </PrivateRoute>
           <PrivateRoute path={ROUTES.MESSAGES} component={MessagesRoute} />
