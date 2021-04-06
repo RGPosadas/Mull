@@ -1,9 +1,12 @@
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { History } from 'history';
 import React, { useState } from 'react';
-import { useFriendsQuery, User } from '../../../generated/graphql';
-import { CustomTextInput } from '../../components';
-import ContactRow from '../../components/contact-row/contact-row';
+import {
+  useCreateDirectMessageChannelMutation,
+  useFriendsQuery,
+  User,
+} from '../../../../generated/graphql';
+import { ContactRow, CustomTextInput } from '../../../components';
 import './direct-message-list.scss';
 
 export interface DirectMessagePageProps {
@@ -12,12 +15,13 @@ export interface DirectMessagePageProps {
 const DirectMessageListPage = ({ history }: DirectMessagePageProps) => {
   const [searchValue, setSearchValue] = useState('');
   const { data, loading } = useFriendsQuery();
+  const [createDirectMessageChannel] = useCreateDirectMessageChannelMutation();
 
   if (loading) return <div className="page-container">Loading...</div>;
 
   const contactRows = data.friends
     .filter(({ name }) => name.toLowerCase().includes(searchValue.toLowerCase()))
-    .map(({ latestPost, ...friend }, index) => (
+    .map(({ latestPost, directMessageChannel, ...friend }, index) => (
       <ContactRow
         key={'contact-row-' + index}
         user={(friend as unknown) as User}
@@ -25,7 +29,17 @@ const DirectMessageListPage = ({ history }: DirectMessagePageProps) => {
         icon={faEllipsisH}
         modalButton1Text="View Profile"
         modalButton1OnClick={() => history.push(`/user/${friend.id}`)}
-        // TODO in TASK-63: an onClick event that will create a DM channel if it doesn't exist between the current user and their friend
+        userInformationOnClick={async () => {
+          if (directMessageChannel) history.push(`/messages/dm/${directMessageChannel.id}`);
+          else {
+            const {
+              data: {
+                createDirectMessageChannel: { id },
+              },
+            } = await createDirectMessageChannel({ variables: { toUserId: friend.id } });
+            history.push(`/messages/dm/${id}`);
+          }
+        }}
       />
     ));
 

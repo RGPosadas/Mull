@@ -601,6 +601,19 @@ export type RemovePendingRequestMutation = (
   & Pick<Mutation, 'removePendingRequest'>
 );
 
+export type CreateDirectMessageChannelMutationVariables = Exact<{
+  toUserId: Scalars['Int'];
+}>;
+
+
+export type CreateDirectMessageChannelMutation = (
+  { __typename?: 'Mutation' }
+  & { createDirectMessageChannel: (
+    { __typename?: 'DirectMessageChannel' }
+    & Pick<DirectMessageChannel, 'id'>
+  ) }
+);
+
 export type EventPageContentFragment = (
   { __typename?: 'Event' }
   & Pick<Event, 'id' | 'title' | 'description' | 'startDate' | 'endDate' | 'restriction'>
@@ -1353,6 +1366,38 @@ export function useRemovePendingRequestMutation(baseOptions?: Apollo.MutationHoo
 export type RemovePendingRequestMutationHookResult = ReturnType<typeof useRemovePendingRequestMutation>;
 export type RemovePendingRequestMutationResult = Apollo.MutationResult<RemovePendingRequestMutation>;
 export type RemovePendingRequestMutationOptions = Apollo.BaseMutationOptions<RemovePendingRequestMutation, RemovePendingRequestMutationVariables>;
+export const CreateDirectMessageChannelDocument = gql`
+    mutation CreateDirectMessageChannel($toUserId: Int!) {
+  createDirectMessageChannel(toUserId: $toUserId) {
+    id
+  }
+}
+    `;
+export type CreateDirectMessageChannelMutationFn = Apollo.MutationFunction<CreateDirectMessageChannelMutation, CreateDirectMessageChannelMutationVariables>;
+
+/**
+ * __useCreateDirectMessageChannelMutation__
+ *
+ * To run a mutation, you first call `useCreateDirectMessageChannelMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDirectMessageChannelMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDirectMessageChannelMutation, { data, loading, error }] = useCreateDirectMessageChannelMutation({
+ *   variables: {
+ *      toUserId: // value for 'toUserId'
+ *   },
+ * });
+ */
+export function useCreateDirectMessageChannelMutation(baseOptions?: Apollo.MutationHookOptions<CreateDirectMessageChannelMutation, CreateDirectMessageChannelMutationVariables>) {
+        return Apollo.useMutation<CreateDirectMessageChannelMutation, CreateDirectMessageChannelMutationVariables>(CreateDirectMessageChannelDocument, baseOptions);
+      }
+export type CreateDirectMessageChannelMutationHookResult = ReturnType<typeof useCreateDirectMessageChannelMutation>;
+export type CreateDirectMessageChannelMutationResult = Apollo.MutationResult<CreateDirectMessageChannelMutation>;
+export type CreateDirectMessageChannelMutationOptions = Apollo.BaseMutationOptions<CreateDirectMessageChannelMutation, CreateDirectMessageChannelMutationVariables>;
 export const DiscoverEventsDocument = gql`
     query DiscoverEvents {
   discoverEvents {
