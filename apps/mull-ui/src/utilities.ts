@@ -3,6 +3,7 @@ import {
   Coordinates,
   DetectionResult,
   ISerializedEvent,
+  LIMITS,
   Size,
   wasteClassMap,
 } from '@mull/types';
@@ -57,8 +58,7 @@ export const validateFileSize = (file: File) => {
     return true;
   }
 
-  const maxFileSize = 10000000;
-  if (file.size / maxFileSize > 1) {
+  if (file.size / LIMITS.IMAGE_SIZE > 1) {
     return false;
   }
 

@@ -1,4 +1,4 @@
-import { IWebSocketParams } from '@mull/types';
+import { IWebSocketParams, LIMITS } from '@mull/types';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -54,7 +54,7 @@ import { UserModule } from './user';
        */
       playground: !environment.production,
       uploads: {
-        maxFileSize: 10000000,
+        maxFileSize: LIMITS.IMAGE_SIZE,
       },
       cors: {
         origin: environment.production

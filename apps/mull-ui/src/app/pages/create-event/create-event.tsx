@@ -51,8 +51,6 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
    * @param {ChangeEvent<HTMLInputElement>} event
    */
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name: fileName, size: fileSize } = event.target.files[0];
-    console.log(fileSize);
     setImageURLFile(URL.createObjectURL(event.target.files[0]));
     setFile(event.target.files[0]);
     formik.setFieldValue('imageFile', event.target.files[0]);
