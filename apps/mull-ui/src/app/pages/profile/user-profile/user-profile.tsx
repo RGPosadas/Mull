@@ -50,13 +50,13 @@ export const UserProfilePage = ({ history }: UserProfilePageProps) => {
         user={userProfile.user as User}
       />
       <div className="settings-container">
-        <h3>Portfolio</h3>
+        <h2>Portfolio</h2>
         <Link to={ROUTES.PROFILE.PORTFOLIO}>
           <SettingsButton icon={faLeaf} text="My Portfolio" />
         </Link>
       </div>
-      <div className="settings-container with-friends">
-        <h3>Friends</h3>
+      <div className="settings-container">
+        <h2>Friends</h2>
         <Link to={ROUTES.PROFILE.ADDFRIENDS} className="add-friends-link">
           <SettingsButton icon={faUserPlus} text="Add Friends" />
           {pendingCount ? <p className="friend-request-count">{pendingCount}</p> : null}
@@ -65,8 +65,8 @@ export const UserProfilePage = ({ history }: UserProfilePageProps) => {
           <SettingsButton icon={faUserFriends} text="My Friends" />
         </Link>
       </div>
-      <div className="settings-container below-friends">
-        <h3>Misc.</h3>
+      <div className="settings-container">
+        <h2>Misc.</h2>
         <Link to="/profile/edit">
           <SettingsButton icon={faPencilAlt} text="Edit Profile" />
         </Link>

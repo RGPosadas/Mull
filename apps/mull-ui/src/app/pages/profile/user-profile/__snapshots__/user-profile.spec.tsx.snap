@@ -64,9 +64,9 @@ exports[`UserProfilePage should match snapshot 1`] = `
   <div
     className="settings-container"
   >
-    <h3>
+    <h2>
       Portfolio
-    </h3>
+    </h2>
     <a
       href="/profile/portfolio"
       onClick={[Function]}
@@ -96,11 +96,11 @@ exports[`UserProfilePage should match snapshot 1`] = `
     </a>
   </div>
   <div
-    className="settings-container with-friends"
+    className="settings-container"
   >
-    <h3>
+    <h2>
       Friends
-    </h3>
+    </h2>
     <a
       className="add-friends-link"
       href="/profile/add-friends"
@@ -163,11 +163,11 @@ exports[`UserProfilePage should match snapshot 1`] = `
     </a>
   </div>
   <div
-    className="settings-container below-friends"
+    className="settings-container"
   >
-    <h3>
+    <h2>
       Misc.
-    </h3>
+    </h2>
     <a
       href="/profile/edit"
       onClick={[Function]}
