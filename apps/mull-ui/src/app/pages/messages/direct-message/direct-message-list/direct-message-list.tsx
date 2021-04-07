@@ -2,6 +2,8 @@ import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { History } from 'history';
 import React, { useContext, useState } from 'react';
 import {
+  Friend,
+  Post,
   useCreateDirectMessageChannelMutation,
   useFriendsQuery,
   User,
@@ -20,22 +22,26 @@ const DirectMessageListPage = ({ history }: DirectMessageListPageProps) => {
   const { data, loading } = useFriendsQuery();
   const [createDirectMessageChannel] = useCreateDirectMessageChannelMutation();
 
+  const buildLastMessage = (latestPost: Post, friend: Partial<Friend>): string => {
+    let lastMessage: string;
+    if (!latestPost) lastMessage = `Start chatting with ${friend.name}!`;
+    else if (latestPost.media)
+      lastMessage = `${latestPost.user.id === userId ? 'You' : friend.name} sent an image.`;
+    else if (latestPost.message && !latestPost.media)
+      lastMessage = `${latestPost.user.id === userId ? 'You:' : ''} ${latestPost.message}`;
+    return lastMessage;
+  };
+
   if (loading) return <div className="page-container">Loading...</div>;
 
   const contactRows = data.friends
     .filter(({ name }) => name.toLowerCase().includes(searchValue.toLowerCase()))
     .map(({ latestPost, directMessageChannel, ...friend }, index) => {
-      let lastMessage = '';
-      if (latestPost.media)
-        lastMessage = `${latestPost.user.id === userId ? 'You' : friend.name} sent an image.`;
-      if (latestPost.message && !latestPost.media)
-        lastMessage = `${latestPost.user.id === userId ? 'You:' : ''} ${latestPost.message}`;
-
       return (
         <ContactRow
           key={'contact-row-' + index}
           user={(friend as unknown) as User}
-          lastMessage={lastMessage}
+          lastMessage={buildLastMessage(latestPost as Post, friend as Partial<Friend>)}
           icon={faEllipsisH}
           userInformationOnClick={async () => {
             if (directMessageChannel) history.push(`/messages/dm/${friend.id}`);
