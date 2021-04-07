@@ -1,7 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { User } from '../entities';
 import { mockAllUsers } from '../user/user.mockdata';
-import { mockAllEvents, mockImage, mockPartialEvent, mockGetOneEventWithParticipants } from './event.mockdata';
+import {
+  mockAllEvents,
+  mockImage,
+  mockPartialEvent,
+  mockGetOneEventWithParticipants,
+} from './event.mockdata';
 import { EventResolver } from './event.resolver';
 import { DEFAULT_EVENT_CHANNELS, EventService } from './event.service';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';

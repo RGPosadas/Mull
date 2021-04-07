@@ -55,7 +55,9 @@ export class EventResolver {
   }
 
   @Query(/* istanbul ignore next */ () => [User])
-  async threeParticipant(@Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId: number) {
+  async threeParticipant(
+    @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId: number
+  ) {
     return this.eventService.getThreeRandomParticipants(eventId);
   }
 

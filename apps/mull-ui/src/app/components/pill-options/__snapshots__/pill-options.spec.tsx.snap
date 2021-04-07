@@ -2,31 +2,40 @@
 
 exports[`PillOptions should match snapshot 1`] = `
 <div
-  className="pill-options"
+  className="pill-options-container"
 >
-  <button
-    className="pill-option pill-option-active"
-    data-testid="pill-id-0"
-    onClick={[Function]}
-    type="button"
+  <label
+    className="custom-text-input-label"
   >
-    Yes
-  </button>
-  <button
-    className="pill-option pill-option-inactive"
-    data-testid="pill-id-1"
-    onClick={[Function]}
-    type="button"
+    Restriction
+  </label>
+  <div
+    className="pill-options"
   >
-    No
-  </button>
-  <button
-    className="pill-option pill-option-inactive"
-    data-testid="pill-id-2"
-    onClick={[Function]}
-    type="button"
-  >
-    Maybe
-  </button>
+    <button
+      className="pill-option pill-option-active"
+      data-testid="pill-id-0"
+      onClick={[Function]}
+      type="button"
+    >
+      Yes
+    </button>
+    <button
+      className="pill-option pill-option-inactive"
+      data-testid="pill-id-1"
+      onClick={[Function]}
+      type="button"
+    >
+      No
+    </button>
+    <button
+      className="pill-option pill-option-inactive"
+      data-testid="pill-id-2"
+      onClick={[Function]}
+      type="button"
+    >
+      Maybe
+    </button>
+  </div>
 </div>
 `;

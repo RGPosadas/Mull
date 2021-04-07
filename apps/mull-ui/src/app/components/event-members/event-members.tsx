@@ -1,4 +1,4 @@
-import { useGetThreeRandomParticipantsQuery, User } from 'apps/mull-ui/src/generated/graphql';
+import { useGetThreeRandomParticipantsQuery, User } from '../../../generated/graphql';
 import React from 'react';
 import { avatarUrl } from '../../../utilities';
 import './event-members.scss';
