@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Event } from '../entities';
 import { mockAllUsers } from '../user/user.mockdata';
 import { MockType } from '../user/user.service.spec';
-import { mockAllEvents, mockPartialEvent } from './event.mockdata';
+import { mockAllEvents, mockPartialEvent, mockGetOneEventWithParticipants } from './event.mockdata';
 import { DEFAULT_EVENT_CHANNELS, EventService } from './event.service';
 import { CreateEventInput } from './inputs/event.input';
 
@@ -29,6 +29,8 @@ const mockEventRepository = () => ({
     setParameters: jest.fn().mockReturnThis(),
     getQuery: jest.fn().mockReturnThis(),
     getMany: jest.fn().mockReturnValue(mockAllEvents[0]),
+    orderBy: jest.fn().mockReturnThis(),
+    limit: jest.fn().mockReturnThis(),
   })),
   query: jest.fn().mockReturnThis(),
 });
@@ -207,5 +209,17 @@ describe('EventService', () => {
   it(`should return a user's portfolio`, async () => {
     const portfolio = await service.getUserEventsPortfolio(mockAllEvents[0].host.id);
     expect(portfolio).toEqual(mockAllEvents[0]);
+  });
+
+  it(`should get some participants from an event`, async () => {
+    repository.createQueryBuilder.mockImplementation(() => ({
+      leftJoinAndSelect: jest.fn().mockReturnThis(),
+      where: jest.fn().mockReturnThis(),
+      orderBy: jest.fn().mockReturnThis(),
+      limit: jest.fn().mockReturnThis(),
+      getOne: jest.fn().mockReturnValue(mockGetOneEventWithParticipants),
+    }));
+    const participants = await service.getThreeRandomParticipants(mockAllEvents[4].id);
+    expect(participants).toEqual(mockGetOneEventWithParticipants.participants);
   });
 });

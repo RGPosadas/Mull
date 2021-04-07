@@ -108,6 +108,29 @@ export const mockAllEvents: Event[] = [
       post: null,
     },
   },
+  {
+    id: 39,
+    title: 'participants',
+    description: 'Vroom Vroom',
+    startDate: new Date('2020-10-27T01:31:00.000Z'),
+    endDate: new Date('2020-11-01T01:31:00.000Z'),
+    restriction: 0,
+    host: userWithId1,
+    coHosts: [userWithId7],
+    participants: mockAllUsers,
+    location: {
+      id: 1,
+      title: 'locationA',
+      coordinates: null,
+      placeId: 'googlePlaceIdA',
+      event: null,
+    },
+    image: {
+      id: 1,
+      mediaType: 'jpeg',
+      post: null,
+    },
+  },
 ];
 
 export const mockQueryReturn = [
@@ -148,4 +171,16 @@ export const mockImage: Media = {
   id: 1,
   mediaType: 'jpeg',
   post: null,
+};
+
+export const mockGetOneEventWithParticipants: Event = {
+  id: 39,
+  title: 'participants',
+  description: 'Vroom Vroom',
+  startDate: new Date('2020-10-27T01:31:00.000Z'),
+  endDate: new Date('2020-11-01T01:31:00.000Z'),
+  restriction: 0,
+  host: userWithId1,
+  coHosts: [userWithId7],
+  participants: [userWithId1, userWithId7, userWithId3],
 };
