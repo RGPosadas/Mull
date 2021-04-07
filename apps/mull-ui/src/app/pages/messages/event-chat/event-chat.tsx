@@ -109,10 +109,7 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
         : Yup.string()
             .required()
             .test('no-whitespace', "Message can't be empty", (value) => !/^\s*$/.test(value))
-            .max(
-              LIMITS.POST_MESSAGE,
-              `A post can only have up to ${LIMITS.POST_MESSAGE} characters.`
-            ),
+            .max(LIMITS.POST_MESSAGE, `A post must be at most ${LIMITS.POST_MESSAGE} characters.`),
       imageFile: Yup.mixed().test('big-file', 'File size is too large', validateFileSize),
     }),
 

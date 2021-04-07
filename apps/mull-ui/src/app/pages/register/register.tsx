@@ -32,7 +32,7 @@ const Register = ({ history }: RegisterProps) => {
     validationSchema: Yup.object({
       name: Yup.string()
         .required('Name is required.')
-        .max(LIMITS.USERNAME, `Name must be ${LIMITS.USERNAME} characters or less.`)
+        .max(LIMITS.USERNAME, `Name must be at most ${LIMITS.USERNAME} characters.`)
         .test('EmojiCheck', 'Emojis are not allowed in Name.', function (name) {
           return !hasEmoji(name);
         }),

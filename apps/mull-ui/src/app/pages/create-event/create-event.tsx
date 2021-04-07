@@ -108,7 +108,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         ),
       eventTitle: Yup.string()
         .required('Event Title is required.')
-        .max(LIMITS.EVENT_TITLE, `Event Title must be under ${LIMITS.EVENT_TITLE} characters.`)
+        .max(LIMITS.EVENT_TITLE, `Event Title must be at most ${LIMITS.EVENT_TITLE} characters.`)
         .test('EmojiCheck', 'Emojis are not allowed in Event Title.', function (eventTitle) {
           return !hasEmoji(eventTitle);
         }),
@@ -117,7 +117,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         .required('Event Description is required.')
         .max(
           LIMITS.DESCRIPTION,
-          `Event Description must be under ${LIMITS.DESCRIPTION} characters.`
+          `Event Description must be at most ${LIMITS.DESCRIPTION} characters.`
         ),
       location: Yup.mixed()
         .required('Event Location is required.')
