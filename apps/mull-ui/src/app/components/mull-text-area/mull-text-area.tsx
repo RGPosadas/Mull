@@ -30,7 +30,11 @@ export function MullTextArea({
 }: MullTextAreaProps) {
   const grower = useRef<HTMLDivElement>(null);
   return (
-    <div className={`mull-text-area-container ${hasErrors ? 'error' : ''}`}>
+    <div
+      className={`mull-text-area-container ${hasErrors ? 'error' : ''}`}
+      onFocus={onFocus}
+      onBlur={onBlur}
+    >
       <label className="mull-text-area-label" htmlFor={fieldName}>
         {title}
       </label>
@@ -47,8 +51,6 @@ export function MullTextArea({
           contentEditable={true}
           suppressContentEditableWarning={true}
           role="textbox"
-          onFocus={onFocus}
-          onBlur={onBlur}
         />
         <div className="mull-text-area-icon">{svgIcon ? svgIcon : null}</div>
       </div>

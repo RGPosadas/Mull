@@ -165,32 +165,36 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
   };
 
   const inputOnFocus = () => {
-    const botNav = document.getElementsByClassName('bot-nav-container')[0] as HTMLDivElement;
-    botNav.style.display = 'none';
+    if (window.innerWidth < 800) {
+      const botNav = document.getElementsByClassName('bot-nav-container')[0] as HTMLDivElement;
+      botNav.style.display = 'none';
 
-    const chatInputContainer = document.getElementsByClassName(
-      'chat-input-container'
-    )[0] as HTMLDivElement;
+      const chatInputContainer = document.getElementsByClassName(
+        'chat-input-container'
+      )[0] as HTMLDivElement;
 
-    chatInputBot.current = chatInputContainer.style.bottom;
+      chatInputBot.current = chatInputContainer.style.bottom;
 
-    chatInputContainer.style.bottom = '0';
+      chatInputContainer.style.bottom = '0';
 
-    updateContainerStyle();
-    forceUpdate();
+      updateContainerStyle();
+      forceUpdate();
+    }
   };
   const inputOnBlur = () => {
-    const botNav = document.getElementsByClassName('bot-nav-container')[0] as HTMLDivElement;
-    botNav.style.display = 'block';
+    if (window.innerWidth < 800) {
+      const botNav = document.getElementsByClassName('bot-nav-container')[0] as HTMLDivElement;
+      botNav.style.display = 'block';
 
-    const chatInputContainer = document.getElementsByClassName(
-      'chat-input-container'
-    )[0] as HTMLDivElement;
+      const chatInputContainer = document.getElementsByClassName(
+        'chat-input-container'
+      )[0] as HTMLDivElement;
 
-    chatInputContainer.style.bottom = chatInputBot.current;
+      chatInputContainer.style.bottom = chatInputBot.current;
 
-    updateContainerStyle();
-    forceUpdate();
+      updateContainerStyle();
+      forceUpdate();
+    }
   };
 
   useEffect(() => {
