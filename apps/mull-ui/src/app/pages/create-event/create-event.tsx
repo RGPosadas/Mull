@@ -148,7 +148,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
           },
         });
         updateToast('Event Created', toast.TYPE.SUCCESS);
-        history.push(ROUTES.HOME);
+        history.push(ROUTES.MY_EVENTS.url);
       } catch (err) {
         updateToast('Fatal Error: Event Not Created', toast.TYPE.ERROR);
         console.error(err);
@@ -162,6 +162,16 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
    */
   const handleRestrictions = (idx: number) => {
     formik.setFieldValue('activeRestriction', idx);
+  };
+
+  const scrollToFirstError = (errors) => {
+    const errorKeys = Object.keys(errors);
+
+    if (errorKeys.length > 0) {
+      const errorElement = document.getElementsByClassName('error-message')[0];
+      const y = errorElement.getBoundingClientRect().y + window.pageYOffset - 120;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
   };
 
   /**
@@ -186,6 +196,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       setIsInReview(true);
     } else {
       formik.setTouched(setNestedObjectValues<FormikTouched<FormikValues>>(errors, true));
+      scrollToFirstError(errors);
     }
   };
 
@@ -256,6 +267,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               errorMessage={formik.errors.eventTitle}
               svgIcon={<FontAwesomeIcon className="input-icon" icon={faPencilAlt} />}
             />
+            <LocationAutocompleteModal formik={formik} />
             <div className="textarea-create-event-container">
               <label className="description-label" htmlFor={'description'}>
                 Description
@@ -277,8 +289,6 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
                 <span className="error-message">{formik.errors.description}</span>
               ) : null}
             </div>
-            <LocationAutocompleteModal formik={formik} />
-
             <PillOptions
               options={EventRestrictionMap}
               onChange={handleRestrictions}
