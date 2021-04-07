@@ -5,6 +5,7 @@
   padding: 0.5rem 0 1.1rem 0;
   position: fixed;
   top: $top-nav-bar-height-mobile;
+  left: 0;
   display: flex;
   width: 100%;
   align-items: center;
@@ -24,6 +25,24 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.direct-message-header-title {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.direct-message-header-name {
+  padding: 0.45rem 0.5rem;
+  font-size: 1.2rem;
+}
+
+.direct-message-header-image {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 @media (min-width: $breakpoint-mobile) {
