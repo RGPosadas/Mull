@@ -14,7 +14,7 @@ import {
   useDirectMessageQuery,
   useUploadFileMutation,
 } from '../../../../generated/graphql';
-import { avatarUrl } from '../../../../utilities';
+import { avatarUrl, validateFileSize } from '../../../../utilities';
 import { ChatHeader, ChatInput } from '../../../components';
 import ChatBubbleList from '../../../components/chat-bubble-list/chat-bubble-list';
 import UserContext from '../../../context/user.context';
@@ -97,6 +97,7 @@ export const DirectMessageChat = ({ history }: DirectMessageChatProps) => {
 
     validationSchema: Yup.object({
       message: file ? Yup.string().optional() : Yup.string().required(),
+      imageFile: Yup.mixed().test('big-file', 'File size is too large', validateFileSize),
     }),
 
     onSubmit: async (_, { resetForm }) => {
