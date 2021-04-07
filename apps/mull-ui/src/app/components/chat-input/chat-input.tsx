@@ -1,15 +1,19 @@
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IChatForm } from '@mull/types';
-import { FormikContextType } from 'formik';
-import React, { ChangeEvent, MouseEventHandler } from 'react';
+import { FormikContextType, FormikErrors } from 'formik';
+import React, { ChangeEvent, MouseEventHandler, useEffect, useRef } from 'react';
 import CustomFileUpload from '../custom-file-upload/custom-file-upload';
 import MullTextArea from '../mull-text-area/mull-text-area';
 import './chat-input.scss';
 
 export interface ChatInputProps {
   formik: FormikContextType<IChatForm> & {
-    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
+    setFieldValue: (
+      field: string,
+      value: any,
+      shouldValidate?: boolean
+    ) => Promise<void> | Promise<FormikErrors<IChatForm>>;
   };
   image?: string;
   handleFileUpload?: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -22,6 +26,26 @@ export const ChatInput = ({
   handleFileUpload,
   handleCloseImage,
 }: ChatInputProps) => {
+  const inputRef = useRef<HTMLDivElement>(null);
+
+  const onKeyPress = (e: KeyboardEvent) => {
+    if (e.code == 'Enter' && !e.shiftKey) {
+      formik.submitForm();
+      setTimeout(() => {
+        inputRef.current.innerText = '';
+      }, 100);
+    }
+  };
+
+  useEffect(() => {
+    if (inputRef) {
+      inputRef.current.addEventListener('keydown', onKeyPress);
+    }
+    return () => {
+      inputRef.current.removeEventListener('keydown', onKeyPress);
+    };
+  }, []);
+
   return (
     <div className="chat-input-container">
       {(formik.touched.imageFile && !!formik.errors.imageFile) ||
@@ -51,11 +75,11 @@ export const ChatInput = ({
         />
 
         <MullTextArea
+          inputRef={inputRef}
           title=""
           fieldName="message"
           onChange={(e) => {
             formik.setFieldValue('message', e.target.textContent);
-            console.log(e.target.textContent);
           }}
           hasErrors={null}
           errorMessage={null}

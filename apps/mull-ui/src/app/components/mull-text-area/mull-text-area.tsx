@@ -2,6 +2,7 @@ import React, { ChangeEvent, ReactNode, useRef } from 'react';
 import './mull-text-area.scss';
 
 export interface MullTextAreaProps {
+  inputRef?: React.MutableRefObject<HTMLDivElement>;
   title: string;
   fieldName: string;
   errorMessage?: string;
@@ -13,6 +14,7 @@ export interface MullTextAreaProps {
 }
 
 export function MullTextArea({
+  inputRef,
   title,
   fieldName,
   onChange,
@@ -30,6 +32,7 @@ export function MullTextArea({
       </label>
       <div className="mull-text-area-sub-container grow-wrap" ref={grower}>
         <div
+          ref={inputRef}
           style={{ whiteSpace: 'pre-wrap' }}
           className={`mull-text-area input-border ${hasErrors ? 'error' : ''}`}
           id={fieldName}

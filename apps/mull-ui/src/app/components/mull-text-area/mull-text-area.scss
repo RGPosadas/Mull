@@ -25,8 +25,7 @@
   line-height: 1.5;
 }
 
-.mull-text-area,
-.grow-wrap::after {
+.mull-text-area {
   display: block;
   outline: none;
   box-sizing: border-box;
@@ -35,4 +34,5 @@
   max-width: 100%;
   max-height: 8rem;
   overflow: auto;
+  word-break: break-all;
 }

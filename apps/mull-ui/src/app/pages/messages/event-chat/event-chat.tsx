@@ -1,11 +1,10 @@
 import { IChatForm, ISerializedPost, LIMITS } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
-import React, { ChangeEvent, useContext, useState } from 'react';
-import { Redirect, useParams } from 'react-router-dom';
+import React, { ChangeEvent, CSSProperties, useContext, useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-import { ROUTES } from '../../../../../src/constants';
 import {
   CreatePostInput,
   Event,
@@ -52,6 +51,8 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
       channelName,
     },
   });
+  const [containerStyle, setContainerStyle] = useState<CSSProperties>({ marginBottom: '76px' });
+  const eventChatRef = useRef<HTMLDivElement>(null);
 
   const isEventHost = (event: Event) => {
     if (restrictChatInput) {
@@ -148,6 +149,25 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
       }
     },
   });
+
+  const updateContainerStyle = () => {
+    const chatInputContainer = document.getElementsByClassName(
+      'chat-input-container'
+    )[0] as HTMLDivElement;
+    if (chatInputContainer) {
+      setContainerStyle({ marginBottom: chatInputContainer.clientHeight + 'px' });
+      window.scrollTo({ top: 9999, behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    updateContainerStyle();
+  }, []);
+
+  useEffect(() => {
+    updateContainerStyle();
+  }, [formik.values.message]);
+
   if (error) {
     return <Redirect to={ROUTES.LOGIN} />;
   }
@@ -156,7 +176,7 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
 
   if (data) {
     return (
-      <div className="event-chat">
+      <div className="event-chat" style={containerStyle} ref={eventChatRef}>
         <ChatBubbleList
           posts={data.getChannelByEventId.posts}
           subToMore={subToMore}
