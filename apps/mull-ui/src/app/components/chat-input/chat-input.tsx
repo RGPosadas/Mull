@@ -18,6 +18,8 @@ export interface ChatInputProps {
   image?: string;
   handleFileUpload?: (event: ChangeEvent<HTMLInputElement>) => void;
   handleCloseImage?: MouseEventHandler<HTMLImageElement>;
+  onFocus?: React.FocusEventHandler<HTMLDivElement>;
+  onBlur?: React.FocusEventHandler<HTMLDivElement>;
 }
 
 export const ChatInput = ({
@@ -25,6 +27,8 @@ export const ChatInput = ({
   image,
   handleFileUpload,
   handleCloseImage,
+  onFocus,
+  onBlur,
 }: ChatInputProps) => {
   const inputRef = useRef<HTMLDivElement>(null);
 
@@ -80,6 +84,8 @@ export const ChatInput = ({
           onChange={(e) => {
             formik.setFieldValue('message', e.target.textContent);
           }}
+          onFocus={onFocus}
+          onBlur={onBlur}
           hasErrors={null}
           errorMessage={null}
           autoComplete="off"

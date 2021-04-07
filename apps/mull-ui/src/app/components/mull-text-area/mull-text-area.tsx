@@ -10,6 +10,8 @@ export interface MullTextAreaProps {
   svgIcon?: ReactNode;
   onChange?: (event: ChangeEvent<HTMLDivElement>) => void;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onFocus?: React.FocusEventHandler<HTMLDivElement>;
+  onBlur?: React.FocusEventHandler<HTMLDivElement>;
   placeholder?: string;
 }
 
@@ -17,11 +19,13 @@ export function MullTextArea({
   inputRef,
   title,
   fieldName,
-  onChange,
   hasErrors = false,
   errorMessage = null,
   svgIcon,
+  onChange,
   onClick,
+  onFocus,
+  onBlur,
   placeholder,
 }: MullTextAreaProps) {
   const grower = useRef<HTMLDivElement>(null);
@@ -43,6 +47,8 @@ export function MullTextArea({
           contentEditable={true}
           suppressContentEditableWarning={true}
           role="textbox"
+          onFocus={onFocus}
+          onBlur={onBlur}
         />
         <div className="mull-text-area-icon">{svgIcon ? svgIcon : null}</div>
       </div>

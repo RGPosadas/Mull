@@ -17,6 +17,7 @@ import { validateFileSize } from '../../../../utilities';
 import { ChatInput, Spinner } from '../../../components';
 import ChatBubbleList from '../../../components/chat-bubble-list/chat-bubble-list';
 import UserContext from '../../../context/user.context';
+import { useForceUpdate } from '../../../hooks/useForceUpdate';
 import { useToast } from '../../../hooks/useToast';
 
 interface subscriptionData {
@@ -51,8 +52,10 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
       channelName,
     },
   });
-  const [containerStyle, setContainerStyle] = useState<CSSProperties>({ marginBottom: '76px' });
+  const [containerStyle, setContainerStyle] = useState<CSSProperties>({});
   const eventChatRef = useRef<HTMLDivElement>(null);
+  const chatInputBot = useRef<string>('');
+  const forceUpdate = useForceUpdate();
 
   const isEventHost = (event: Event) => {
     if (restrictChatInput) {
@@ -155,13 +158,45 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
       'chat-input-container'
     )[0] as HTMLDivElement;
     if (chatInputContainer) {
-      setContainerStyle({ marginBottom: chatInputContainer.clientHeight + 'px' });
+      const margin = window.innerHeight - chatInputContainer.getBoundingClientRect().top;
+      setContainerStyle({ marginBottom: margin + 'px' });
       window.scrollTo({ top: 9999, behavior: 'smooth' });
     }
   };
 
-  useEffect(() => {
+  const inputOnFocus = () => {
+    const botNav = document.getElementsByClassName('bot-nav-container')[0] as HTMLDivElement;
+    botNav.style.display = 'none';
+
+    const chatInputContainer = document.getElementsByClassName(
+      'chat-input-container'
+    )[0] as HTMLDivElement;
+
+    chatInputBot.current = chatInputContainer.style.bottom;
+
+    chatInputContainer.style.bottom = '0';
+
     updateContainerStyle();
+    forceUpdate();
+  };
+  const inputOnBlur = () => {
+    const botNav = document.getElementsByClassName('bot-nav-container')[0] as HTMLDivElement;
+    botNav.style.display = 'block';
+
+    const chatInputContainer = document.getElementsByClassName(
+      'chat-input-container'
+    )[0] as HTMLDivElement;
+
+    chatInputContainer.style.bottom = chatInputBot.current;
+
+    updateContainerStyle();
+    forceUpdate();
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      updateContainerStyle();
+    }, 200);
   }, []);
 
   useEffect(() => {
@@ -184,6 +219,8 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
         />
         {isEventHost(data.getChannelByEventId.event as Event) && (
           <ChatInput
+            onFocus={inputOnFocus}
+            onBlur={inputOnBlur}
             formik={formik}
             handleFileUpload={handleFileUpload}
             image={imageURLFile}
