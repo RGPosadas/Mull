@@ -49,6 +49,8 @@ export class PostService {
     return this.postRepository
       .createQueryBuilder('post')
       .leftJoinAndSelect('post.channel', 'channel')
+      .leftJoinAndSelect('post.user', 'user')
+      .leftJoinAndSelect('post.media', 'media')
       .where('channel.id = :channelId', { channelId })
       .orderBy('post.createdTime', 'DESC')
       .getOne();

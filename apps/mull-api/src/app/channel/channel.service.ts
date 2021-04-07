@@ -89,6 +89,10 @@ export class ChannelService {
     const directMessageChannelsList = await this.directMessageChannelRepository
       .createQueryBuilder()
       .leftJoinAndSelect('DirectMessageChannel.participants', 'participants')
+      .leftJoinAndSelect('DirectMessageChannel.posts', 'posts')
+      .leftJoinAndSelect('posts.user', 'user')
+      .leftJoinAndSelect('user.avatar', 'avatar')
+      .leftJoinAndSelect('posts.media', 'media')
       .where('participants.id = :userId1 OR participants.id = :userId2', { userId1, userId2 })
       .getMany();
 
