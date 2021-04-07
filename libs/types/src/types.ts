@@ -76,6 +76,7 @@ export interface IPoint {
 export interface IUser {
   id: number;
   name?: string;
+  avatar?: IMedia;
 }
 
 export interface IMedia {

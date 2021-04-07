@@ -316,6 +316,7 @@ export type Query = {
   portfolioCount: Scalars['Int'];
   portfolioEvents: Array<Event>;
   posts: Array<Post>;
+  threeParticipant: Array<User>;
   user: User;
   userPortfolioEvents: Array<Event>;
   users: Array<User>;
@@ -380,6 +381,11 @@ export type QueryPortfolioCountArgs = {
 
 export type QueryPortfolioEventsArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryThreeParticipantArgs = {
+  eventId: Scalars['Int'];
 };
 
 
@@ -917,6 +923,22 @@ export type GetTrueFriendsQuery = (
     & { avatar?: Maybe<(
       { __typename?: 'Media' }
       & Pick<Media, 'mediaType' | 'id'>
+    )> }
+  )> }
+);
+
+export type GetThreeRandomParticipantsQueryVariables = Exact<{
+  eventId: Scalars['Int'];
+}>;
+
+
+export type GetThreeRandomParticipantsQuery = (
+  { __typename?: 'Query' }
+  & { threeParticipant: Array<(
+    { __typename?: 'User' }
+    & { avatar?: Maybe<(
+      { __typename?: 'Media' }
+      & Pick<Media, 'id'>
     )> }
   )> }
 );
@@ -1987,6 +2009,41 @@ export function useGetTrueFriendsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type GetTrueFriendsQueryHookResult = ReturnType<typeof useGetTrueFriendsQuery>;
 export type GetTrueFriendsLazyQueryHookResult = ReturnType<typeof useGetTrueFriendsLazyQuery>;
 export type GetTrueFriendsQueryResult = Apollo.QueryResult<GetTrueFriendsQuery, GetTrueFriendsQueryVariables>;
+export const GetThreeRandomParticipantsDocument = gql`
+    query GetThreeRandomParticipants($eventId: Int!) {
+  threeParticipant(eventId: $eventId) {
+    avatar {
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetThreeRandomParticipantsQuery__
+ *
+ * To run a query within a React component, call `useGetThreeRandomParticipantsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetThreeRandomParticipantsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetThreeRandomParticipantsQuery({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *   },
+ * });
+ */
+export function useGetThreeRandomParticipantsQuery(baseOptions: Apollo.QueryHookOptions<GetThreeRandomParticipantsQuery, GetThreeRandomParticipantsQueryVariables>) {
+        return Apollo.useQuery<GetThreeRandomParticipantsQuery, GetThreeRandomParticipantsQueryVariables>(GetThreeRandomParticipantsDocument, baseOptions);
+      }
+export function useGetThreeRandomParticipantsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetThreeRandomParticipantsQuery, GetThreeRandomParticipantsQueryVariables>) {
+          return Apollo.useLazyQuery<GetThreeRandomParticipantsQuery, GetThreeRandomParticipantsQueryVariables>(GetThreeRandomParticipantsDocument, baseOptions);
+        }
+export type GetThreeRandomParticipantsQueryHookResult = ReturnType<typeof useGetThreeRandomParticipantsQuery>;
+export type GetThreeRandomParticipantsLazyQueryHookResult = ReturnType<typeof useGetThreeRandomParticipantsLazyQuery>;
+export type GetThreeRandomParticipantsQueryResult = Apollo.QueryResult<GetThreeRandomParticipantsQuery, GetThreeRandomParticipantsQueryVariables>;
 export const PostAddedDocument = gql`
     subscription PostAdded($channelId: Int!) {
   postAdded(channelId: $channelId) {
