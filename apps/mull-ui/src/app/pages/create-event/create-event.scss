@@ -104,18 +104,8 @@
 .pill-options-container {
   width: 100%;
   margin-top: 1rem;
-  .pill-options {
-    width: 100%;
-    margin-top: 0.5rem;
-    button:nth-of-type(2) { // remove border around second pill
-      border-right: 0;
-      border-left: 0;
-    }
-    .pill-option {
-      width: 100%;
-    }
-  }
 }
+
 @media (min-width: $breakpoint-mobile) {
   .create-event-text {
     font-size: 1.5rem;
