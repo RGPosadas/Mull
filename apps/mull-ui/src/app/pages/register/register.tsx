@@ -51,12 +51,12 @@ const Register = ({ history }: RegisterProps) => {
       try {
         var { errors } = await createUser({ variables: { user } });
       } catch (err) {
-        updateToast(toast.TYPE.ERROR, err.message);
+        updateToast(err.message, toast.TYPE.ERROR);
         return;
       }
 
       if (errors) {
-        const messages = errors.map((err) => err.message).reduce((err1, err2) => err1 + err2);
+        const messages = errors.map((err) => err.message).reduce((err1, err2) => `${err1} ${err2}`);
         updateToast(`Error, user not created: ${messages}`, toast.TYPE.ERROR);
         return;
       }
