@@ -13,6 +13,7 @@ export * from './modal/friend-modal/friend-modal';
 export * from './modal/mull-modal/mull-modal';
 export * from './mull-back-button/mull-back-button';
 export * from './mull-button/mull-button';
+export * from './mull-text-area/mull-text-area';
 export * from './navigation/bot-nav-bar/bot-nav-bar';
 export * from './navigation/nav-buttons/nav-buttons';
 export * from './navigation/sub-nav-bar/chat-header';

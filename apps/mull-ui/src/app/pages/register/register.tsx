@@ -88,6 +88,7 @@ const Register = ({ history }: RegisterProps) => {
           onChange={formik.handleChange}
           hasErrors={formik.touched.email && !!formik.errors.email}
           errorMessage={formik.errors.email}
+          type="email"
         />
         <CustomTextInput
           title="Password"
@@ -96,7 +97,7 @@ const Register = ({ history }: RegisterProps) => {
           onChange={formik.handleChange}
           hasErrors={formik.touched.email && !!formik.errors.password}
           errorMessage={formik.errors.password}
-          password
+          type="password"
         />
         <button type="submit" className="register-button">
           Create Account

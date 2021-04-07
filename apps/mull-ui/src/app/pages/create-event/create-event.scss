@@ -5,8 +5,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  .custom-text-input-container {
-    margin-top: 1.875rem;
+  .custom-text-input-container,
+  .mull-text-area-container,
+  .pill-options-container {
+    margin-top: 1.5rem;
     width: 100%;
   }
   .custom-file-upload-container label {
@@ -58,13 +60,6 @@
     align-self: flex-start;
   }
 
-  .description-input-icon {
-    position: absolute;
-    right: 1rem;
-    top: 4.25rem;
-    color: rgba(0, 0, 0, 0.5);
-  }
-
   ::-webkit-scrollbar {
     width: 0.313rem;
   }
@@ -99,11 +94,6 @@
       border-color: $error-color;
     }
   }
-}
-
-.pill-options-container {
-  width: 100%;
-  margin-top: 1rem;
 }
 
 @media (min-width: $breakpoint-mobile) {

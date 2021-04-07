@@ -20,6 +20,7 @@ import {
   CustomFileUpload,
   CustomTextInput,
   MullButton,
+  MullTextArea,
   PillOptions,
   TimeSlider,
 } from './../../components';
@@ -267,28 +268,20 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               errorMessage={formik.errors.eventTitle}
               svgIcon={<FontAwesomeIcon className="input-icon" icon={faPencilAlt} />}
             />
-            <LocationAutocompleteModal formik={formik} />
-            <div className="textarea-create-event-container">
-              <label className="description-label" htmlFor={'description'}>
-                Description
-              </label>
-              <div className="textarea-sub-container">
-                <textarea
-                  id="description"
-                  className={`description-msg ${
-                    formik.touched.description && !!formik.errors.description ? 'error' : ''
-                  }`}
-                  rows={1}
-                  value={formik.values.description}
-                  onChange={formik.handleChange}
-                />
-              </div>
-              <FontAwesomeIcon className="description-input-icon" icon={faAlignLeft} />
 
-              {formik.touched.description && !!formik.errors.description ? (
-                <span className="error-message">{formik.errors.description}</span>
-              ) : null}
-            </div>
+            <LocationAutocompleteModal formik={formik} />
+
+            <MullTextArea
+              title="Description"
+              fieldName="description"
+              onChange={(e) => {
+                formik.setFieldValue('description', e.target.textContent);
+              }}
+              hasErrors={formik.touched.description && !!formik.errors.description}
+              errorMessage={formik.errors.description}
+              svgIcon={<FontAwesomeIcon className="input-icon" icon={faAlignLeft} />}
+            />
+
             <PillOptions
               options={EventRestrictionMap}
               onChange={handleRestrictions}

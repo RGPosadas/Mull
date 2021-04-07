@@ -1,4 +1,4 @@
-import { IChatForm, ISerializedPost } from '@mull/types';
+import { IChatForm, ISerializedPost, LIMITS } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
 import React, { ChangeEvent, useContext, useState } from 'react';
@@ -104,7 +104,11 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
         ? Yup.string().optional()
         : Yup.string()
             .required()
-            .test('no-whitespace', "Message can't be empty", (value) => !/^\s*$/.test(value)),
+            .test('no-whitespace', "Message can't be empty", (value) => !/^\s*$/.test(value))
+            .max(
+              LIMITS.POST_MESSAGE,
+              `A post can only have up to ${LIMITS.POST_MESSAGE} characters.`
+            ),
       imageFile: Yup.mixed().test('big-file', 'File size is too large', validateFileSize),
     }),
 
@@ -113,6 +117,13 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
         const uploadedFile = file
           ? (await uploadFile({ variables: { file: file } })).data.uploadFile
           : null;
+
+        // The div which makes up the "textarea" of the chat input isn't tied to the form, and its text needs to be cleared out after submit.
+        const textAreas = document.getElementsByClassName('mull-text-area');
+        for (let i = 0; i < textAreas.length; i++) {
+          const element = textAreas[i];
+          element.textContent = '';
+        }
 
         createPostMutation({
           variables: {
