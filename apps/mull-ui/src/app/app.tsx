@@ -91,7 +91,7 @@ export const App = () => {
           <Route exact path={ROUTES.TOKEN_REDIRECT} component={TokenRedirectPage} />
           <PrivateRoute exact path={ROUTES.CREATE_EVENT} component={CreateEventPage} />
           <Route exact path={ROUTES.EVENT_BY_ID} children={<EventPage />} />
-          <PrivateRoute path={ROUTES.HOME}>
+          <PrivateRoute path={[ROUTES.DISCOVER.url, ROUTES.UPCOMING.url, ROUTES.MY_EVENTS.url]}>
             <SubNavBar
               routes={[ROUTES.DISCOVER, ROUTES.UPCOMING, ROUTES.MY_EVENTS]}
               className="top-nav-bar-shadow"
@@ -101,9 +101,6 @@ export const App = () => {
                 <PrivateRoute path={ROUTES.DISCOVER.url} component={DiscoverPage} />
                 <PrivateRoute path={ROUTES.UPCOMING.url} component={UpcomingPage} />
                 <PrivateRoute path={ROUTES.MY_EVENTS.url} component={MyEventsPage} />
-                <PrivateRoute exact path={ROUTES.HOME}>
-                  <Redirect to={ROUTES.DISCOVER.url} />
-                </PrivateRoute>
               </SwipeableRoutes>
             </div>
           </PrivateRoute>
