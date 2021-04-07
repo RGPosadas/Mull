@@ -221,7 +221,13 @@ query Friends {
     }
     latestPost {
       id
+      user {
+        id
+      }
       message
+      media {
+        id
+      }
     }
   }
 }
@@ -274,6 +280,38 @@ query GetTrueFriends {
 
 query GetThreeRandomParticipants($eventId: Int!) {
   threeParticipant(eventId: $eventId) {
+    avatar {
+      id
+    }
+  }
+}
+
+query DirectMessage($friendUserId: Int!) {
+  getDirectMessageChannel(toUserId: $friendUserId) {
+    id
+    posts {
+      id
+      message
+      createdTime
+      user {
+        id
+        name
+        avatar {
+          id
+          mediaType
+        }
+      }
+      media {
+        id
+        mediaType
+      }
+    }
+  }
+}
+
+query DirectMessageHeader($userId: Int!) {
+  user(id: $userId) {
+    name
     avatar {
       id
     }
