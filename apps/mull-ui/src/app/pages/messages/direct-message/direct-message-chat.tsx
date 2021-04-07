@@ -14,6 +14,7 @@ import {
   useDirectMessageQuery,
   useUploadFileMutation,
 } from '../../../../generated/graphql';
+import { avatarUrl } from '../../../../utilities';
 import { ChatHeader, ChatInput } from '../../../components';
 import ChatBubbleList from '../../../components/chat-bubble-list/chat-bubble-list';
 import UserContext from '../../../context/user.context';
@@ -143,7 +144,7 @@ export const DirectMessageChat = ({ history }: DirectMessageChatProps) => {
         {!headerLoading && (
           <ChatHeader
             userName={headerData.user.name}
-            userPictureId={headerData.user.avatar.id}
+            userAvatarUrl={avatarUrl(headerData.user)}
             isDirectMessage
           />
         )}
