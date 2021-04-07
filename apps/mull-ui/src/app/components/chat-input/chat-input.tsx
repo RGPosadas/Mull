@@ -1,6 +1,6 @@
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IChatForm } from '@mull/types';
+import { IChatForm, LIMITS } from '@mull/types';
 import { FormikContextType, FormikErrors } from 'formik';
 import React, { ChangeEvent, MouseEventHandler, useEffect, useRef } from 'react';
 import CustomFileUpload from '../custom-file-upload/custom-file-upload';
@@ -73,7 +73,6 @@ export const ChatInput = ({
           handleFileUpload={handleFileUpload}
           fieldName="imageFile"
         />
-
         <MullTextArea
           inputRef={inputRef}
           title=""
@@ -90,6 +89,11 @@ export const ChatInput = ({
             </button>
           }
         />
+        {LIMITS.POST_MESSAGE - formik.values.message.length < 100 ? (
+          <div className="chat-input-limit-message">
+            {LIMITS.POST_MESSAGE - formik.values.message.length}/{LIMITS.POST_MESSAGE}
+          </div>
+        ) : null}{' '}
       </form>
     </div>
   );

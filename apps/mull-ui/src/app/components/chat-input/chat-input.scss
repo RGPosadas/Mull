@@ -56,6 +56,19 @@
   margin-right: 0.5rem;
 }
 
+.chat-input-limit-message {
+  font-size: 0.7rem;
+  position: absolute;
+  right: 1.4rem;
+  bottom: 1.4rem;
+}
+
+.chat-input-form {
+  .mull-text-area {
+    padding-right: 3.2rem !important;
+  }
+}
+
 @media (min-width: $breakpoint-mobile) {
   .chat-input-container {
     width: $page-container-width;
