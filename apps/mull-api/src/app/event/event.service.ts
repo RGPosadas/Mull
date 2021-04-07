@@ -187,4 +187,22 @@ export class EventService {
       .setParameters({ userId })
       .getMany();
   }
+
+  /**
+   * Randomly selects three participants from a givin event
+   * @param eventId
+   * @returns
+   */
+  async getThreeRandomParticipants(eventId: number): Promise<User[]> {
+    const { participants } = await this.eventRepository
+      .createQueryBuilder('event')
+      .leftJoinAndSelect('event.participants', 'participant')
+      .leftJoinAndSelect('participant.avatar', 'avatar')
+      .where('event.id = :eventId', { eventId })
+      .orderBy('RAND()')
+      .limit(3)
+      .getOne();
+
+    return participants;
+  }
 }

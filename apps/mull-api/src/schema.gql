@@ -196,6 +196,7 @@ type Query {
   portfolioCount(id: Int!): Int!
   portfolioEvents(id: Int!): [Event!]!
   posts: [Post!]!
+  threeParticipant(eventId: Int!): [User!]!
   user(id: Int!): User!
   userPortfolioEvents: [Event!]!
   users: [User!]!
