@@ -1,6 +1,6 @@
-import { User } from 'apps/mull-ui/src/generated/graphql';
-import { avatarUrl } from 'apps/mull-ui/src/utilities';
 import React, { ReactChild } from 'react';
+import { User } from '../../../generated/graphql';
+import { avatarUrl } from '../../../utilities';
 import './chat-bubble.scss';
 
 export interface chatBubbleProps {

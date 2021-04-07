@@ -11,6 +11,7 @@ export interface ChatInputProps {
   formik: FormikContextType<IChatForm> & {
     setFieldValue: (
       field: string,
+      /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
       value: any,
       shouldValidate?: boolean
     ) => Promise<void> | Promise<FormikErrors<IChatForm>>;
@@ -33,7 +34,7 @@ export const ChatInput = ({
   const inputRef = useRef<HTMLDivElement>(null);
 
   const onKeyPress = (e: KeyboardEvent) => {
-    if (e.code == 'Enter' && !e.shiftKey) {
+    if (e.code === 'Enter' && !e.shiftKey) {
       formik.submitForm();
       setTimeout(() => {
         inputRef.current.innerText = '';
@@ -42,12 +43,13 @@ export const ChatInput = ({
   };
 
   useEffect(() => {
-    if (inputRef) {
-      inputRef.current.addEventListener('keydown', onKeyPress);
-    }
+    const localInputRef = inputRef.current;
+    inputRef.current.addEventListener('keydown', onKeyPress);
+
     return () => {
-      inputRef.current.removeEventListener('keydown', onKeyPress);
+      localInputRef.removeEventListener('keydown', onKeyPress);
     };
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 
   return (

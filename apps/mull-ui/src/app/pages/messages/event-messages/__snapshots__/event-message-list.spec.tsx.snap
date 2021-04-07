@@ -11,16 +11,23 @@ exports[`EventMessageList should match snapshot 1`] = `
       className="custom-text-input-label"
       htmlFor="searchField"
     />
-    <input
-      className="custom-text-input input-border "
-      data-testid="custom-text-input"
-      id="searchField"
-      name="searchField"
-      onChange={[Function]}
-      placeholder="Search"
-      type="text"
-      value=""
-    />
+    <div
+      className="custom-text-input-sub-container"
+    >
+      <input
+        className="custom-text-input input-border "
+        data-testid="custom-text-input"
+        id="searchField"
+        name="searchField"
+        onChange={[Function]}
+        placeholder="Search"
+        type="text"
+        value=""
+      />
+      <div
+        className="custom-text-input-icon"
+      />
+    </div>
   </div>
   <div
     className="event-bullets"

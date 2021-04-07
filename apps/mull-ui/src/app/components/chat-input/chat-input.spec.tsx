@@ -4,10 +4,10 @@ import renderer from 'react-test-renderer';
 import ChatInput from './chat-input';
 
 const mockFormik = {
-  values: { location: 'test string' },
-  setFieldValue: { location: 'value' },
-  touched: { location: false },
-  errors: { location: false },
+  values: { message: 'test string', imageFile: '' },
+  setFieldValue: jest.fn(),
+  touched: { message: false, imageFile: false },
+  errors: { message: '', imageFile: '' },
   handleSubmit: jest.fn(),
 };
 

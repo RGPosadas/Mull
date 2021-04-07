@@ -13,7 +13,7 @@ frameSizes.forEach((frame) => {
       const date = new Date();
       cy.visit('http://localhost:4200/messages/event/1/announcements');
       cy.get('.event-chat', { timeout: 5000 }).should('exist');
-      cy.get('.custom-text-input').type(`${date.toString()}{enter}`);
+      cy.get('.mull-text-area').type(`${date.toString()}{enter}`);
       /* eslint-disable-next-line cypress/no-unnecessary-waiting */
       cy.wait(500); // Test was flaky with aliases
       cy.contains(date.toString());
