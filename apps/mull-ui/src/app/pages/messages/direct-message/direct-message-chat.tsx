@@ -1,5 +1,6 @@
 import { IChatForm, ISerializedPost } from '@mull/types';
 import { useFormik } from 'formik';
+import { History } from 'history';
 import React, { ChangeEvent, useContext, useState } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -26,7 +27,11 @@ interface subscriptionData {
   };
 }
 
-export const DirectMessageChat = () => {
+export interface DirectMessageChatProps {
+  history: History;
+}
+
+export const DirectMessageChat = ({ history }: DirectMessageChatProps) => {
   const [imageURLFile, setImageURLFile] = useState<string>('');
   const [file, setFile] = useState<File>(null);
   const { updateToast } = useToast();
@@ -142,7 +147,11 @@ export const DirectMessageChat = () => {
             isDirectMessage
           />
         )}
-        <ChatBubbleList posts={chatData.getDirectMessageChannel.posts} subToMore={subToMore} />
+        <ChatBubbleList
+          history={history}
+          posts={chatData.getDirectMessageChannel.posts}
+          subToMore={subToMore}
+        />
         <ChatInput
           formik={formik}
           handleFileUpload={handleFileUpload}

@@ -3,9 +3,9 @@ import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FriendModal } from '..';
 import { User } from '../../../generated/graphql';
 import { avatarUrl } from '../../../utilities';
+import { FriendModal } from '../modal/friend-modal/friend-modal';
 import './contact-row.scss';
 
 /* eslint-disable-next-line */
