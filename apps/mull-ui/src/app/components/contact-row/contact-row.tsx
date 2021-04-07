@@ -36,13 +36,13 @@ export const ContactRow = ({
   const addedMe = false;
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const userInformation = (
-    <div className="user-information">
+    <>
       <img className="user-profile-picture" src={avatarUrl(user)} alt="user" />
       <div className="user-details">
         <span className="username">{user.name}</span>
         {lastMessage && <span className="last-message">{lastMessage}</span>}
       </div>
-    </div>
+    </>
   );
 
   return (
