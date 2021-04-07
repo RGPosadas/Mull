@@ -1,19 +1,22 @@
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { History } from 'history';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   useCreateDirectMessageChannelMutation,
   useFriendsQuery,
   User,
 } from '../../../../../generated/graphql';
 import { ContactRow, CustomTextInput } from '../../../../components';
+import UserContext from '../../../../context/user.context';
 import './direct-message-list.scss';
 
-export interface DirectMessagePageProps {
+export interface DirectMessageListPageProps {
   history: History;
 }
-const DirectMessageListPage = ({ history }: DirectMessagePageProps) => {
+
+const DirectMessageListPage = ({ history }: DirectMessageListPageProps) => {
   const [searchValue, setSearchValue] = useState('');
+  const { userId } = useContext(UserContext);
   const { data, loading } = useFriendsQuery();
   const [createDirectMessageChannel] = useCreateDirectMessageChannelMutation();
 
@@ -21,27 +24,29 @@ const DirectMessageListPage = ({ history }: DirectMessagePageProps) => {
 
   const contactRows = data.friends
     .filter(({ name }) => name.toLowerCase().includes(searchValue.toLowerCase()))
-    .map(({ latestPost, directMessageChannel, ...friend }, index) => (
-      <ContactRow
-        key={'contact-row-' + index}
-        user={(friend as unknown) as User}
-        lastMessage={latestPost ? latestPost.message : ''}
-        icon={faEllipsisH}
-        modalButton1Text="View Profile"
-        modalButton1OnClick={() => history.push(`/user/${friend.id}`)}
-        userInformationOnClick={async () => {
-          if (directMessageChannel) history.push(`/messages/dm/${directMessageChannel.id}`);
-          else {
-            const {
-              data: {
-                createDirectMessageChannel: { id },
-              },
-            } = await createDirectMessageChannel({ variables: { toUserId: friend.id } });
-            history.push(`/messages/dm/${id}`);
-          }
-        }}
-      />
-    ));
+    .map(({ latestPost, directMessageChannel, ...friend }, index) => {
+      let lastMessage = '';
+      if (latestPost.media)
+        lastMessage = `${latestPost.user.id === userId ? 'You' : friend.name} sent an image.`;
+      if (latestPost.message && !latestPost.media)
+        lastMessage = `${latestPost.user.id === userId ? 'You:' : ''} ${latestPost.message}`;
+
+      return (
+        <ContactRow
+          key={'contact-row-' + index}
+          user={(friend as unknown) as User}
+          lastMessage={lastMessage}
+          icon={faEllipsisH}
+          userInformationOnClick={async () => {
+            if (directMessageChannel) history.push(`/messages/dm/${friend.id}`);
+            else {
+              await createDirectMessageChannel({ variables: { toUserId: friend.id } });
+              history.push(`/messages/dm/${friend.id}`);
+            }
+          }}
+        />
+      );
+    });
 
   return (
     <div className="direct-messages-container">
