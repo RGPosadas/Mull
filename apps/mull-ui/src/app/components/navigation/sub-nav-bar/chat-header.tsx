@@ -21,7 +21,7 @@ export const ChatHeader = ({
   return (
     <div className={`chat-header top-nav-bar-shadow ${className ? className : ''}`} style={style}>
       {isDirectMessage ? (
-        <div className="direct-message-header-title">
+        <div className="direct-message-header-title" data-testid="direct-message-header">
           <img className="direct-message-header-image" src={userAvatarUrl} alt="user" />
           <h2 className="direct-message-header-name">{userName}</h2>
         </div>
