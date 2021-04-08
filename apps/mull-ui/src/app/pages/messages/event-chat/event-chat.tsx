@@ -105,7 +105,9 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
 
     validationSchema: Yup.object({
       message: file
-        ? Yup.string().optional()
+        ? Yup.string()
+            .optional()
+            .max(LIMITS.POST_MESSAGE, `A post must be at most ${LIMITS.POST_MESSAGE} characters.`)
         : Yup.string()
             .required()
             .test('no-whitespace', "Message can't be empty", (value) => !/^\s*$/.test(value))

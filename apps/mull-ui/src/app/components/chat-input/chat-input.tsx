@@ -38,6 +38,14 @@ export const ChatInput = ({
     lastKeyEventRef.current = e;
   };
 
+  const onSubmit = async () => {
+    await formik.submitForm();
+    if (/^\s*$/.test(formik.values.message) || !formik.errors.message) {
+      formik.setFieldValue('message', '');
+      inputRef.current.textContent = '';
+    }
+  };
+
   useEffect(() => {
     const localInputRef = inputRef.current;
     inputRef.current.addEventListener('keydown', onKeyDown);
@@ -78,8 +86,7 @@ export const ChatInput = ({
 
             // User tried to submit form
             if (lastKeyEventRef.current.key === 'Enter' && !lastKeyEventRef.current.shiftKey) {
-              target.textContent = '';
-              formik.submitForm();
+              onSubmit();
             }
           }}
           onFocus={onFocus}
@@ -88,16 +95,18 @@ export const ChatInput = ({
           errorMessage={null}
           autoComplete="off"
           svgIcon={
-            <button type="submit" className="chat-input-button">
+            <button type="button" className="chat-input-button" onClick={onSubmit}>
               <FontAwesomeIcon icon={faPaperPlane} />
             </button>
           }
         />
         {LIMITS.POST_MESSAGE - formik.values.message.length < 100 ? (
-          <div className="chat-input-limit-message">
+          <div
+            className={`chat-input-limit-message ${formik.errors.message ? 'error-max-chat' : ''}`}
+          >
             {LIMITS.POST_MESSAGE - formik.values.message.length}/{LIMITS.POST_MESSAGE}
           </div>
-        ) : null}{' '}
+        ) : null}
       </form>
     </div>
   );

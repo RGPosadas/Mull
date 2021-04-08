@@ -41,7 +41,6 @@ export function MullTextArea({
       <div className="mull-text-area-sub-container grow-wrap" ref={grower}>
         <div
           ref={inputRef}
-          style={{ whiteSpace: 'pre-wrap' }}
           className={`mull-text-area input-border ${hasErrors ? 'error' : ''}`}
           id={fieldName}
           data-testid="mull-text-area"

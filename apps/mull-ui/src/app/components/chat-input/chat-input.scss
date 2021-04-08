@@ -69,6 +69,10 @@
   }
 }
 
+.error-max-chat {
+  color: red;
+}
+
 @media (min-width: $breakpoint-mobile) {
   .chat-input-container {
     width: $page-container-width;
