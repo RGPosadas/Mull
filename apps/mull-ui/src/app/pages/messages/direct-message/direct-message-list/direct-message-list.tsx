@@ -28,7 +28,7 @@ const DirectMessageListPage = ({ history }: DirectMessageListPageProps) => {
     else if (latestPost.media)
       lastMessage = `${latestPost.user.id === userId ? 'You' : friend.name} sent an image.`;
     else if (latestPost.message && !latestPost.media)
-      lastMessage = `${latestPost.user.id === userId ? 'You:' : ''} ${latestPost.message}`;
+      lastMessage = `${latestPost.user.id === userId ? 'You: ' : ''}${latestPost.message}`;
     return lastMessage;
   };
 
@@ -49,6 +49,10 @@ const DirectMessageListPage = ({ history }: DirectMessageListPageProps) => {
               await createDirectMessageChannel({ variables: { toUserId: friend.id } });
               history.push(`/messages/dm/${friend.id}`);
             }
+          }}
+          modalButton1Text="View Profile"
+          modalButton1OnClick={() => {
+            history.push(`/user/${friend.id}`);
           }}
         />
       );
