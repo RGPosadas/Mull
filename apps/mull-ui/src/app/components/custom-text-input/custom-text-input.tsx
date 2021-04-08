@@ -54,6 +54,7 @@ export const CustomTextInput = ({
       <div className="custom-text-input-sub-container">
         <input
           className={`custom-text-input input-border ${hasErrors ? 'error' : ''}`}
+          aria-label={fieldName}
           id={fieldName}
           name={fieldName}
           data-testid="custom-text-input"

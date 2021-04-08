@@ -245,6 +245,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               }}
             />
             <TimeSlider
+              ariaLabel="Start time slider"
               label="Start"
               reverse={true}
               time={formik.values.startTime}
@@ -253,6 +254,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               errorMessage={formik.errors.startTime}
             />
             <TimeSlider
+              ariaLabel="End time slider"
               label="End"
               time={formik.values.endTime}
               onTimeChange={(time) => formik.setFieldValue('endTime', time)}
