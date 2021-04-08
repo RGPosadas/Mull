@@ -16,7 +16,7 @@ import {
   useUploadFileMutation,
 } from '../../../../generated/graphql';
 import { validateFileSize } from '../../../../utilities';
-import { ChatHeader, ChatInput } from '../../../components';
+import { ChatHeader, ChatInput, Spinner } from '../../../components';
 import ChatBubbleList from '../../../components/chat-bubble-list/chat-bubble-list';
 import { useToast } from '../../../hooks/useToast';
 
@@ -136,14 +136,17 @@ export const DirectMessageChat = ({ history }: DirectMessageChatProps) => {
     return <Redirect to={ROUTES.MESSAGES} />;
   }
 
-  if (chatLoading) return <div className="page-container">Loading...</div>;
+  if (chatLoading) return <Spinner />;
 
   return (
     <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
       <div className="direct-message-chat">
-        {!headerLoading && (
-          <ChatHeader user={headerData.user as Partial<User>} history={history} isDirectMessage />
-        )}
+        <ChatHeader
+          isLoading={headerLoading}
+          user={headerData.user as Partial<User>}
+          history={history}
+          isDirectMessage
+        />
         <ChatBubbleList
           history={history}
           posts={chatData.getDirectMessageChannel.posts}
