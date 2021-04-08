@@ -118,7 +118,7 @@ button,
 
 .empty-array-msg {
   text-align: center;
-  color: #777;
+  color: $inactive-text-color;
   &.text-left {
     text-align: left;
   }
