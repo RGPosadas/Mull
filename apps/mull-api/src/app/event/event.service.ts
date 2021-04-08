@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { cloneDeep } from 'lodash';
 import { Brackets, Repository } from 'typeorm';
 import { CreateEventChannelInput } from '../channel/inputs/channel.input';
 import { Event, Media, User } from '../entities';
@@ -126,7 +127,7 @@ export class EventService {
     return this.eventRepository.save({
       ...input,
       host: { id: hostId },
-      channels: DEFAULT_EVENT_CHANNELS,
+      channels: cloneDeep(DEFAULT_EVENT_CHANNELS),
     });
   }
 
