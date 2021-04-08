@@ -15,7 +15,7 @@ import {
   useUploadFileMutation,
 } from '../../../../generated/graphql';
 import { validateFileSize } from '../../../../utilities';
-import { ChatInput } from '../../../components';
+import { ChatInput, Spinner } from '../../../components';
 import ChatBubbleList from '../../../components/chat-bubble-list/chat-bubble-list';
 import UserContext from '../../../context/user.context';
 import { useToast } from '../../../hooks/useToast';
@@ -133,7 +133,9 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
   if (error) {
     return <Redirect to={ROUTES.LOGIN} />;
   }
-  if (loading) return <div className="page-container">Loading...</div>;
+
+  if (loading) return <Spinner />;
+
   if (data) {
     return (
       <div className="event-chat">

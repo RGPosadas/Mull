@@ -4,7 +4,7 @@ import {
   User,
   useRemoveFriendMutation,
 } from '../../../../generated/graphql';
-import { MullBackButton } from '../../../components';
+import { MullBackButton, Spinner } from '../../../components';
 import ContactRow from '../../../components/contact-row/contact-row';
 import './myFriends-profile.scss';
 
@@ -47,7 +47,7 @@ const MyFriends = ({ history }) => {
 
   const { data, loading, error } = useGetTrueFriendsQuery();
 
-  if (loading) return <div className="page-container">Loading...</div>;
+  if (loading) return <Spinner />;
 
   const mutableFriends = [...data.getTrueFriends] as User[];
 

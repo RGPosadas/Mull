@@ -2,7 +2,7 @@ import { ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
 import { useOwnedEventsQuery, useParticipantEventsQuery } from '../../../../generated/graphql';
 import { getMediaUrl } from '../../../../utilities';
-import { CustomTextInput } from '../../../components';
+import { CustomTextInput, Spinner } from '../../../components';
 import { EventBullet } from '../../../components/event-bullet/event-bullet';
 import './event-message-list.scss';
 
@@ -11,7 +11,7 @@ export const EventMessageList = ({ history }) => {
   const { data: ownedData, loading: ownedLoading } = useOwnedEventsQuery();
   const [searchString, setSearchString] = useState<string>('');
 
-  if (participatingLoading || ownedLoading) return <div className="page-container">Loading...</div>;
+  if (participatingLoading || ownedLoading) return <Spinner />;
 
   const events = (participatingData.participantEvents
     .concat(ownedData.hostEvents)

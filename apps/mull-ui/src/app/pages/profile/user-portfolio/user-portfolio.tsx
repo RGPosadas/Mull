@@ -1,13 +1,13 @@
 import { ISerializedEvent } from '@mull/types';
 import React from 'react';
 import { useUserPortfolioEventsQuery } from '../../../../generated/graphql';
-import { EventCard, MullBackButton } from '../../../components';
+import { EventCard, MullBackButton, Spinner } from '../../../components';
 import './user-portfolio.scss';
 
 export const UserPortfolio = ({ history }) => {
   const { data, loading } = useUserPortfolioEventsQuery({});
 
-  if (loading) return <div className="page-container">Loading...</div>;
+  if (loading) return <Spinner />;
   if (data) {
     const events = (data.userPortfolioEvents as unknown) as Partial<ISerializedEvent>[];
     var eventCards = events.map((event, index) => (

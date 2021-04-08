@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { ROUTES } from '../../../../constants';
 import { User, useUpdateUserMutation, useUserQuery } from '../../../../generated/graphql';
 import { avatarUrl, hasEmoji, validateFileSize } from '../../../../utilities';
-import { CustomFileUpload, CustomTextInput } from '../../../components';
+import { CustomFileUpload, CustomTextInput, Spinner } from '../../../components';
 import { MullBackButton } from '../../../components/mull-back-button/mull-back-button';
 import MullButton from '../../../components/mull-button/mull-button';
 import UserContext from '../../../context/user.context';
@@ -80,7 +80,7 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [userData]);
 
-  if (userLoading) return <div className="page-container">Loading...</div>;
+  if (userLoading) return <Spinner />;
 
   /**
    * Handles image file uploads

@@ -12,7 +12,7 @@ import {
   User,
   useRemoveFriendMutation,
 } from '../../../../generated/graphql';
-import { CustomTextInput, MullBackButton } from '../../../components';
+import { CustomTextInput, MullBackButton, Spinner } from '../../../components';
 import ContactRow from '../../../components/contact-row/contact-row';
 import './add-friends.scss';
 
@@ -47,7 +47,7 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
   }
 
   if (relData.loading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   relData.data.getRelationships.forEach((relationship) => {

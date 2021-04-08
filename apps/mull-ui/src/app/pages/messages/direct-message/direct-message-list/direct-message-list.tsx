@@ -8,7 +8,7 @@ import {
   useFriendsQuery,
   User,
 } from '../../../../../generated/graphql';
-import { ContactRow, CustomTextInput } from '../../../../components';
+import { ContactRow, CustomTextInput, Spinner } from '../../../../components';
 import UserContext from '../../../../context/user.context';
 import './direct-message-list.scss';
 
@@ -32,7 +32,7 @@ const DirectMessageListPage = ({ history }: DirectMessageListPageProps) => {
     return lastMessage;
   };
 
-  if (loading) return <div className="page-container">Loading...</div>;
+  if (loading) return <Spinner />;
 
   const contactRows = data.friends
     .filter(({ name }) => name.toLowerCase().includes(searchValue.toLowerCase()))

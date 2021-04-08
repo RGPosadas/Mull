@@ -3,7 +3,7 @@ import { History } from 'history';
 import React from 'react';
 import { useFriendCountQuery, useOtherUserProfileQuery, User } from '../../../../generated/graphql';
 import { sortEventsByDate } from '../../../../utilities';
-import { EventCard, MullBackButton } from '../../../components';
+import { EventCard, MullBackButton, Spinner } from '../../../components';
 import ProfileHeader from '../../../components/profile-header/profile-header';
 import './other-user-profile.scss';
 
@@ -35,8 +35,7 @@ export const OtherUserProfilePage = ({
     },
   });
 
-  if (otherUserProfileLoading || friendCountLoading)
-    return <div className="page-container">Loading...</div>;
+  if (otherUserProfileLoading || friendCountLoading) return <Spinner />;
 
   if (otherUserProfileData.portfolioEvents) {
     const events = (otherUserProfileData.portfolioEvents as unknown) as Partial<ISerializedEvent>[];

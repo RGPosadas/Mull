@@ -2,12 +2,14 @@ import { History } from 'history';
 import React, { CSSProperties } from 'react';
 import { User } from '../../../../generated/graphql';
 import { avatarUrl } from '../../../../utilities';
+import withSpinnerHOC from '../../with-spinner/with-spinner';
 import './chat-header.scss';
 
 export interface ChatHeaderProps {
   style?: CSSProperties;
   className?: string;
   isDirectMessage?: boolean;
+  isLoading?: boolean;
   user?: Partial<User>;
   eventTitle?: string;
   history?: History;
@@ -41,4 +43,4 @@ export const ChatHeader = ({
   );
 };
 
-export default ChatHeader;
+export default withSpinnerHOC(ChatHeader);

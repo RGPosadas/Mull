@@ -14,6 +14,7 @@ import {
 import { avatarUrl } from '../../../utilities';
 import FriendModal from '../modal/friend-modal/friend-modal';
 import { MullButton } from '../mull-button/mull-button';
+import { Spinner } from '../spinner/spinner';
 import './profile-header.scss';
 
 export function SetUserRelationship(
@@ -53,7 +54,7 @@ export function SetUserRelationship(
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [otherUserRelationshipData]);
 
-  if (otherUserRelationshipLoading) return <div className="page-container">Loading...</div>;
+  if (otherUserRelationshipLoading) return <Spinner />;
 
   const isFriend = friendStatus === FriendStatusButton.FRIENDS;
   const isPending = friendStatus === FriendStatusButton.PENDING;
