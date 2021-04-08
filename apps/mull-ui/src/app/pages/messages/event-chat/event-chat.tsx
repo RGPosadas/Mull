@@ -160,7 +160,9 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
       const margin =
         document.documentElement.clientHeight - chatInputContainer.getBoundingClientRect().top;
       setContainerStyle({ marginBottom: margin + 'px' });
-      window.scrollTo({ top: 9999, behavior: 'smooth' });
+      setTimeout(() => {
+        window.scrollTo({ top: eventChatRef.current.clientHeight + 1000 });
+      }, 100);
     }
   };
 
@@ -178,7 +180,6 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
       chatInputContainer.style.bottom = '0';
 
       updateContainerStyle();
-      forceUpdate();
     }
   };
   const inputOnBlur = () => {
@@ -193,7 +194,6 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
       chatInputContainer.style.bottom = chatInputBot.current;
 
       updateContainerStyle();
-      forceUpdate();
     }
   };
 

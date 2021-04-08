@@ -66,11 +66,6 @@ exports[`ChatInput should match snapshot 1`] = `
           id="message"
           onInput={[Function]}
           role="textbox"
-          style={
-            Object {
-              "whiteSpace": "pre-wrap",
-            }
-          }
           suppressContentEditableWarning={true}
         />
         <div
@@ -78,7 +73,8 @@ exports[`ChatInput should match snapshot 1`] = `
         >
           <button
             className="chat-input-button"
-            type="submit"
+            onClick={[Function]}
+            type="button"
           >
             <svg
               aria-hidden="true"
@@ -101,7 +97,6 @@ exports[`ChatInput should match snapshot 1`] = `
         </div>
       </div>
     </div>
-     
   </form>
 </div>
 `;
