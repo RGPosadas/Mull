@@ -42,8 +42,8 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
           return !hasEmoji(displayName);
         }),
       description: Yup.string().max(
-        LIMITS.DESCRIPTION,
-        `Description must be ${LIMITS.DESCRIPTION} characters or less.`
+        LIMITS.PROFILE_DESCRIPTION,
+        `Description must be ${LIMITS.PROFILE_DESCRIPTION} characters or less.`
       ),
       imageFile: Yup.mixed().test('big-file', 'File size is too large', validateFileSize),
     }),
@@ -57,7 +57,7 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
             userInput: {
               id: userData.user.id,
               name: formik.values.displayName,
-              description: formik.values.description,
+              description: formik.values.description.trim(),
             },
           },
         });

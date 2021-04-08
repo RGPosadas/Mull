@@ -2,6 +2,7 @@
 
 .profile-header-container {
   position: relative;
+  margin-bottom: 1.5rem;
 }
 
 .profile-header-username {
@@ -31,11 +32,16 @@
 .for-current-user {
   flex: 1;
   text-align: center;
+  display: flex;
 }
 
 .profile-stats {
   font-weight: bold;
   width: 30%;
+}
+
+.for-other-user {
+  display: inline-block;
 }
 
 .friend-status-container {

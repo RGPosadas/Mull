@@ -12,6 +12,7 @@ import {
   useUserRelationshipQuery,
 } from '../../../generated/graphql';
 import { avatarUrl } from '../../../utilities';
+import ExpandableText from '../expandable-text/expandable-text';
 import FriendModal from '../modal/friend-modal/friend-modal';
 import { MullButton } from '../mull-button/mull-button';
 import { Spinner } from '../spinner/spinner';
@@ -148,31 +149,40 @@ export const ProfileHeader = ({
       <div className="profile-header">
         <img className="user-profile-picture" src={avatarUrl(user)} alt="user" />
         <div
-          className={
-            isCurrentUser ? 'profile-side-container for-current-user' : 'profile-side-container'
-          }
+          className={`profile-side-container ${
+            isCurrentUser ? 'for-current-user' : 'for-other-user'
+          }`}
         >
-          <button className="profile-stats" data-testid="portfolioCount">
+          <p
+            className={`profile-stats ${isCurrentUser ? '' : 'for-other-user'}`}
+            data-testid="portfolioCount"
+          >
             {portfolioCount}
             <br />
             Portfolio
-          </button>
-          <button className="profile-stats" data-testid="friendCount">
+          </p>
+          <p
+            className={`profile-stats ${isCurrentUser ? '' : 'for-other-user'}`}
+            data-testid="friendCount"
+          >
             {friendCount}
             <br />
             Friends
-          </button>
-          <button className="profile-stats" data-testid="hostingCount">
+          </p>
+          <p
+            className={`profile-stats ${isCurrentUser ? '' : 'for-other-user'}`}
+            data-testid="hostingCount"
+          >
             {hostingCount}
             <br />
             Hosting
-          </button>
+          </p>
           {isCurrentUser ? null : SetUserRelationship(user, friendCountRefetch)}
         </div>
       </div>
-      <p className="profile-header-user-description" data-testid="userDescription">
+      <ExpandableText className="profile-header-user-description" data-testid="expandable-text-div">
         {user.description}
-      </p>
+      </ExpandableText>
     </div>
   );
 };

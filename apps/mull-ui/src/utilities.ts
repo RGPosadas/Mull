@@ -96,6 +96,15 @@ export const hasEmoji = (text: string) => {
   return !!emojiRegexRGI().exec(text);
 };
 
+export const exceedsNbOfLines = (text: string, nbLines: number) => {
+  const matches = text.match(/\n/gi);
+  return text && matches && matches.length >= nbLines;
+};
+
+export const getIndexOfNthOccurence = (string: string, subString: string, index: number) => {
+  return string.split(subString, index).join(subString).length;
+};
+
 /**
  * Transforms the given canvasCoordinates to image space.
  *

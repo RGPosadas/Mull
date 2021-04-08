@@ -27,7 +27,7 @@ frameSizes.forEach((frame) => {
       cy.visit('http://localhost:4200/profile');
 
       cy.get('[data-testid=userName]').should('have.text', 'Andrea Gloria');
-      cy.get('[data-testid=userDescription]').should('have.text', '');
+      cy.get('[data-testid=expandable-text-div]').should('have.text', '');
       cy.get('[data-testid=friendCount]').should('have.text', '0Friends');
       cy.get('[data-testid=portfolioCount]').should('have.text', '0Portfolio');
       cy.get('[data-testid=hostingCount]').should('have.text', '0Hosting');
@@ -43,7 +43,7 @@ frameSizes.forEach((frame) => {
       cy.get('.save-button').click();
 
       cy.get('[data-testid=userName]').should('have.text', 'Andrea Gloria');
-      cy.get('[data-testid=userDescription]').should(
+      cy.get('[data-testid=expandable-text-div]').should(
         'have.text',
         'This is my updated description!'
       );
