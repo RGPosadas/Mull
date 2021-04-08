@@ -17,9 +17,9 @@ export const EventMessagesHeader = ({ children }: EventMessagesMenuProps) => {
   const eventId = parseInt(id);
   const { data, loading } = useEventTitleQuery({ variables: { eventId } });
   const groupChatRoute = ROUTES.GROUPCHAT;
-  groupChatRoute.url = groupChatRoute.url.replace(':id', id);
+  groupChatRoute.url = `/messages/event/${eventId}/group-chat`;
   const announcementRoute = ROUTES.ANNOUNCEMENTS;
-  announcementRoute.url = announcementRoute.url.replace(':id', id);
+  announcementRoute.url = `/messages/event/${eventId}/announcements`;
 
   if (loading) return <div>Loading...</div>;
 
