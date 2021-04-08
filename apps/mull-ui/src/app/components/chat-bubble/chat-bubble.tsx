@@ -22,7 +22,7 @@ export const ChatBubble = ({
     <div className="chat-bubble-container">
       <div className="chat-bubble-header">
         <p>{chatDate}</p>
-        <p className="chat-bubble-header-username">{user.name}</p>
+        {!isCurrentUser ? <p className="chat-bubble-header-username">{user.name}</p> : null}
       </div>
       <div className={`${isCurrentUser ? 'current-user' : 'other-user'}-chat-container`}>
         <img className="user-picture button" src={avatarUrl(user)} alt="user" onClick={onClick} />
