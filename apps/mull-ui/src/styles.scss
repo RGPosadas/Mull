@@ -86,14 +86,18 @@ button,
   border: 1px solid black;
 }
 
-.home-page-no-event {
-  text-align: center;
-}
-
 @media (min-width: $breakpoint-mobile) {
   .nav-button,
   .nav-middle-button {
     width: $desktop-nav-button-size;
     height: $desktop-nav-button-size;
+  }
+}
+
+.empty-array-msg {
+  text-align: center;
+  color: #777;
+  &.text-left {
+    text-align: left;
   }
 }

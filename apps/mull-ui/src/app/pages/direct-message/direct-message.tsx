@@ -43,7 +43,7 @@ const DirectMessagePage = ({ history }: DirectMessagePageProps) => {
       {contactRows.length > 0 ? (
         <div>{contactRows}</div>
       ) : (
-        <p className="search-results">No results found</p>
+        <p className="search-results empty-array-msg">No results found</p>
       )}
     </div>
   );
