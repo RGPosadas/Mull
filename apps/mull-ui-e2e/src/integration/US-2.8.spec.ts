@@ -10,7 +10,7 @@ frameSizes.forEach((frame) => {
 
     it('should join an event on the discover event page', () => {
       cy.visit('http://localhost:4200/home/discover');
-      cy.get('#event-card-join').first().click();
+      cy.get('.event-card-join').first().click();
     });
 
     it('should join an event on the preview event page', () => {
@@ -21,7 +21,7 @@ frameSizes.forEach((frame) => {
 
     it('should leave an event on the upcoming event page', () => {
       cy.visit('http://localhost:4200/home/upcoming');
-      cy.get('#event-card-join').first().click();
+      cy.get('.event-card-join').first().click();
     });
 
     it('should leave an event on the preview event page', () => {
