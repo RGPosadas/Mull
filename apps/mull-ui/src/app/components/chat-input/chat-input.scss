@@ -74,6 +74,11 @@
 }
 
 @media (min-width: $breakpoint-mobile) {
+  .chat-input-form {
+    .custom-text-input {
+      margin-top: 0;
+    }
+  }
   .chat-input-container {
     width: $page-container-width;
     margin-left: auto;
