@@ -19,8 +19,8 @@ export interface ChatInputProps {
   image?: string;
   handleFileUpload?: (event: ChangeEvent<HTMLInputElement>) => void;
   handleCloseImage?: MouseEventHandler<HTMLImageElement>;
-  onFocus?: React.FocusEventHandler<HTMLDivElement>;
-  onBlur?: React.FocusEventHandler<HTMLDivElement>;
+  onFocus?: React.FocusEventHandler<HTMLFormElement>;
+  onBlur?: React.FocusEventHandler<HTMLFormElement>;
 }
 
 export const ChatInput = ({
@@ -39,11 +39,16 @@ export const ChatInput = ({
   };
 
   const onSubmit = async () => {
-    await formik.submitForm();
     if (/^\s*$/.test(formik.values.message) || !formik.errors.message) {
-      formik.setFieldValue('message', '');
       inputRef.current.textContent = '';
+      await formik.submitForm();
+      formik.setFieldValue('message', '');
+    } else {
+      await formik.submitForm();
     }
+    setTimeout(() => {
+      onBlur(null);
+    }, 50);
   };
 
   useEffect(() => {
@@ -57,12 +62,15 @@ export const ChatInput = ({
   }, []);
 
   return (
-    <div className="chat-input-container">
+    <div className="chat-input-container" id="chat-input-container">
       <form
+        id="chat-input-form"
         className="chat-input-form"
         onSubmit={formik.handleSubmit}
         data-testid="chat-input"
         autoComplete="off"
+        onFocus={onFocus}
+        onBlur={onBlur}
       >
         {image && (
           <img className="chat-input-image" src={image} alt="" onClick={handleCloseImage} />
@@ -78,22 +86,19 @@ export const ChatInput = ({
         <MullTextArea
           inputRef={inputRef}
           title=""
-          fieldName="message"
+          fieldName="chat-input-textarea"
           onInput={(e) => {
             const target = e.target as HTMLDivElement;
 
-            formik.setFieldValue('message', (e.target as HTMLDivElement).textContent);
+            formik.setFieldValue('message', target.textContent);
 
             // User tried to submit form
             if (lastKeyEventRef.current.key === 'Enter' && !lastKeyEventRef.current.shiftKey) {
               onSubmit();
             }
           }}
-          onFocus={onFocus}
-          onBlur={onBlur}
           hasErrors={null}
           errorMessage={null}
-          autoComplete="off"
           svgIcon={
             <button type="button" className="chat-input-button" onClick={onSubmit}>
               <FontAwesomeIcon icon={faPaperPlane} />

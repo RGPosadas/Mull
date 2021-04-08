@@ -3,11 +3,13 @@
 exports[`ChatInput should match snapshot 1`] = `
 <div
   className="chat-input-container"
+  id="chat-input-container"
 >
   <form
     autoComplete="off"
     className="chat-input-form"
     data-testid="chat-input"
+    id="chat-input-form"
     onSubmit={[MockFunction]}
   >
     <div
@@ -52,7 +54,7 @@ exports[`ChatInput should match snapshot 1`] = `
     >
       <label
         className="mull-text-area-label"
-        htmlFor="message"
+        htmlFor="chat-input-textarea"
       >
         
       </label>
@@ -63,7 +65,7 @@ exports[`ChatInput should match snapshot 1`] = `
           className="mull-text-area input-border "
           contentEditable={true}
           data-testid="mull-text-area"
-          id="message"
+          id="chat-input-textarea"
           onInput={[Function]}
           role="textbox"
           suppressContentEditableWarning={true}

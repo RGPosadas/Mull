@@ -2,9 +2,10 @@ import { IChatForm, ISerializedPost, LIMITS } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
 import React, { ChangeEvent, CSSProperties, useContext, useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
+import { ROUTES } from '../../../../constants';
 import {
   CreatePostInput,
   Event,
@@ -17,8 +18,8 @@ import { validateFileSize } from '../../../../utilities';
 import { ChatInput, Spinner } from '../../../components';
 import ChatBubbleList from '../../../components/chat-bubble-list/chat-bubble-list';
 import UserContext from '../../../context/user.context';
-import { useForceUpdate } from '../../../hooks/useForceUpdate';
 import { useToast } from '../../../hooks/useToast';
+import { chatInputOnBlur, chatInputOnFocus, updateChatContainerStyle } from '../common';
 
 interface subscriptionData {
   subscriptionData: {
@@ -53,9 +54,8 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
     },
   });
   const [containerStyle, setContainerStyle] = useState<CSSProperties>({});
-  const eventChatRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const chatInputBot = useRef<string>('');
-  const forceUpdate = useForceUpdate();
 
   const isEventHost = (event: Event) => {
     if (restrictChatInput) {
@@ -121,13 +121,6 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
           ? (await uploadFile({ variables: { file: file } })).data.uploadFile
           : null;
 
-        // The div which makes up the "textarea" of the chat input isn't tied to the form, and its text needs to be cleared out after submit.
-        const textAreas = document.getElementsByClassName('mull-text-area');
-        for (let i = 0; i < textAreas.length; i++) {
-          const element = textAreas[i];
-          element.textContent = '';
-        }
-
         createPostMutation({
           variables: {
             post: {
@@ -152,59 +145,14 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
     },
   });
 
-  const updateContainerStyle = () => {
-    const chatInputContainer = document.getElementsByClassName(
-      'chat-input-container'
-    )[0] as HTMLDivElement;
-    if (chatInputContainer) {
-      const margin =
-        document.documentElement.clientHeight - chatInputContainer.getBoundingClientRect().top;
-      setContainerStyle({ marginBottom: margin + 'px' });
-      setTimeout(() => {
-        window.scrollTo({ top: eventChatRef.current.clientHeight + 1000 });
-      }, 100);
-    }
-  };
-
-  const inputOnFocus = () => {
-    if (window.innerWidth < 800) {
-      const botNav = document.getElementsByClassName('bot-nav-container')[0] as HTMLDivElement;
-      botNav.style.display = 'none';
-
-      const chatInputContainer = document.getElementsByClassName(
-        'chat-input-container'
-      )[0] as HTMLDivElement;
-
-      chatInputBot.current = chatInputContainer.style.bottom;
-
-      chatInputContainer.style.bottom = '0';
-
-      updateContainerStyle();
-    }
-  };
-  const inputOnBlur = () => {
-    if (window.innerWidth < 800) {
-      const botNav = document.getElementsByClassName('bot-nav-container')[0] as HTMLDivElement;
-      botNav.style.display = 'block';
-
-      const chatInputContainer = document.getElementsByClassName(
-        'chat-input-container'
-      )[0] as HTMLDivElement;
-
-      chatInputContainer.style.bottom = chatInputBot.current;
-
-      updateContainerStyle();
-    }
-  };
-
   useEffect(() => {
     setTimeout(() => {
-      updateContainerStyle();
+      updateChatContainerStyle(setContainerStyle, containerRef);
     }, 200);
   }, []);
 
   useEffect(() => {
-    updateContainerStyle();
+    updateChatContainerStyle(setContainerStyle, containerRef);
   }, [formik.values.message]);
 
   if (error) {
@@ -215,7 +163,7 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
 
   if (data) {
     return (
-      <div className="event-chat" style={containerStyle} ref={eventChatRef}>
+      <div className="event-chat" style={containerStyle} ref={containerRef}>
         <ChatBubbleList
           posts={data.getChannelByEventId.posts}
           subToMore={subToMore}
@@ -223,8 +171,12 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
         />
         {isEventHost(data.getChannelByEventId.event as Event) && (
           <ChatInput
-            onFocus={inputOnFocus}
-            onBlur={inputOnBlur}
+            onFocus={() => {
+              chatInputOnFocus(chatInputBot, setContainerStyle, containerRef);
+            }}
+            onBlur={() => {
+              chatInputOnBlur(chatInputBot, setContainerStyle, containerRef);
+            }}
             formik={formik}
             handleFileUpload={handleFileUpload}
             image={imageURLFile}
