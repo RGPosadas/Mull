@@ -1,4 +1,4 @@
-import { ISerializedEvent } from '@mull/types';
+import { ISerializedEvent, IUser } from '@mull/types';
 import { cloneDeep } from 'lodash';
 import React, { useContext, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -8,6 +8,7 @@ import {
   useOwnedEventsQuery,
   useUserQuery,
 } from '../../../generated/graphql';
+import { Spinner } from '../../components';
 import UserContext from '../../context/user.context';
 import { EventPageHeader } from './event-page-header/event-page-header';
 import { EventPageInfo } from './event-page-info/event-page-info';
@@ -73,12 +74,11 @@ export const EventPage = ({
   }
 
   if (!loadingUser && dataUser) {
-    event.host = dataUser.user;
+    event.host = (dataUser.user as unknown) as IUser;
   }
 
   if (loadingEvent || loadingUser || !event.host) {
-    // TODO: Replace with spinner or loading component
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (

@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { setAccessToken } from './access-token';
 import './app.scss';
 import { BotNavBar, PrivateRoute, SubNavBar, TopNavBar } from './components';
+import Spinner from './components/spinner/spinner';
 import { UserProvider } from './context/user.context';
 import NotFoundPage from './pages/404/not-found-page';
 import CreateEventPage from './pages/create-event/create-event';
@@ -65,7 +66,7 @@ export const App = () => {
   };
 
   // TODO: Replace with spinner or loading component
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Spinner />;
 
   return (
     <UserProvider value={{ userId, setUserId }}>

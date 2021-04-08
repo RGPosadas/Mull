@@ -16,6 +16,7 @@ import {
   useUserProfileQuery,
 } from '../../../../generated/graphql';
 import { formatJoinDate } from '../../../../utilities';
+import { Spinner } from '../../../components';
 import ProfileHeader from '../../../components/profile-header/profile-header';
 import SettingsButton from '../../../components/settings-button/settings-button';
 import UserContext from '../../../context/user.context';
@@ -30,7 +31,7 @@ export const UserProfilePage = ({ history }: UserProfilePageProps) => {
   const { data: userProfile, loading } = useUserProfileQuery({ variables: { id: currentUserId } });
   const relData = useGetRelationshipsQuery();
 
-  if (loading || relData.loading) return <div className="page-container">Loading...</div>;
+  if (loading || relData.loading) return <Spinner />;
 
   const { year, month, day } = formatJoinDate(new Date(userProfile.user.joinDate));
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router';
 import { ROUTES } from '../../../../constants';
 import { useEventTitleQuery } from '../../../../generated/graphql';
-import { ChatHeader, SubNavBar } from '../../../components';
+import { ChatHeader, Spinner, SubNavBar } from '../../../components';
 
 export interface EventMessagesMenuProps {
   children: React.ReactNode;
@@ -21,7 +21,7 @@ export const EventMessagesHeader = ({ children }: EventMessagesMenuProps) => {
   const announcementRoute = ROUTES.ANNOUNCEMENTS;
   announcementRoute.url = `/messages/event/${eventId}/announcements`;
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Spinner />;
 
   return (
     <div>
