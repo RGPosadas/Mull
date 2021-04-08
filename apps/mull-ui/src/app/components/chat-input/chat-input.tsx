@@ -44,7 +44,7 @@ export const ChatInput = ({
           onChange={formik.handleChange}
           hasErrors={null}
           errorMessage={null}
-          autoComplete={'off'}
+          autoComplete="off"
           svgIcon={
             <button type="submit" className="chat-input-button">
               <FontAwesomeIcon icon={faPaperPlane} className="send-icon" />

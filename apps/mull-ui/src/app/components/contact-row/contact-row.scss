@@ -56,30 +56,19 @@
     .friend-settings-icon {
       color: $primary-color;
     }
+  }
 
-    a {
-      text-decoration: none;
-      color: black;
-      width: 100%;
-    }
+  a {
+    text-decoration: none;
+    color: black;
+    width: 100%;
+  }
 
-    a:hover {
-      cursor: pointer;
-    }
+  a:hover {
+    cursor: pointer;
   }
 
   .my-friends-modal-container {
     width: 21.875rem;
-  }
-
-  @media (min-width: $breakpoint-mobile) {
-    .user-details {
-      .last-message {
-        max-width: 25vw;
-      }
-      .username {
-        max-width: 25vw;
-      }
-    }
   }
 }
