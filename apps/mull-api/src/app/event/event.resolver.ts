@@ -1,7 +1,7 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { AuthenticatedUser, AuthGuard } from '../auth/auth.guard';
-import { Event, Media } from '../entities';
+import { Event, Media, User } from '../entities';
 import { EventService } from './event.service';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
 
@@ -52,6 +52,13 @@ export class EventResolver {
   @Query(/* istanbul ignore next */ () => [Event])
   async discoverEvents(@AuthenticatedUser() userId: number) {
     return this.eventService.getEventsRecommendedToUser(userId);
+  }
+
+  @Query(/* istanbul ignore next */ () => [User])
+  async threeParticipant(
+    @Args('eventId', { type: /* istanbul ignore next */ () => Int }) eventId: number
+  ) {
+    return this.eventService.getThreeRandomParticipants(eventId);
   }
 
   @Mutation(/* istanbul ignore next */ () => Event)

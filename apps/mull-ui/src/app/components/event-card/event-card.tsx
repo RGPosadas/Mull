@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ISerializedEvent } from '@mull/types';
 import React, { useState } from 'react';
 import { useJoinEventMutation, useLeaveEventMutation } from '../../../generated/graphql';
-import { dummyProfilePictures } from '../../../mockdata'; // TODO query the participants profile pictures
 import { formatDate, getMediaUrl } from '../../../utilities';
 import EventMembers from '../event-members/event-members';
 import './event-card.scss';
@@ -37,7 +36,7 @@ export const EventCard = ({
   const isEventExpired = currentDate.getTime() > new Date(event.endDate).getTime();
   return (
     <div className="event-card-container button" onClick={onClick} style={style}>
-      <img className="event-card-image" src={getMediaUrl(event.id)} alt="Event" />
+      <img className="event-card-image" src={getMediaUrl(event.image.id)} alt="Event" />
       <div className="event-card-datetime" data-testid="event-card-datetime">
         <div className="date-style">{`${day} ${month.toUpperCase()}`}</div>
         <div>{time.replace(/\s/g, '')}</div>
@@ -70,7 +69,7 @@ export const EventCard = ({
 
           <div className="event-card-location">{`${distance}km • ${event.location.title}`}</div>
         </div>
-        <EventMembers profilePictures={dummyProfilePictures} />
+        <EventMembers eventId={event.id} />
         {/* TODO: Implement share */}
         {/* <button
           className="event-card-share"

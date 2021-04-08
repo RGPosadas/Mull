@@ -40,25 +40,6 @@ exports[`EventCard should match snapshot 1`] = `
         15km • 1260 Remembrance Road Montreal, Qc
       </div>
     </div>
-    <div
-      className="event-members-div"
-    >
-      <img
-        alt="participant_1"
-        className="profile-picture"
-        src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
-      />
-      <img
-        alt="participant_2"
-        className="profile-picture"
-        src="https://i.pinimg.com/236x/92/f0/ed/92f0edd9b0ecefdd5b7a48b8e1f7d340.jpg"
-      />
-      <img
-        alt="participant_3"
-        className="profile-picture"
-        src="https://pbs.twimg.com/profile_images/748593045566853124/9DDVz0uT_400x400.jpg"
-      />
-    </div>
   </div>
 </div>
 `;

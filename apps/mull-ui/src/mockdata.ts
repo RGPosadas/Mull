@@ -1,12 +1,5 @@
 import { DetectionResult, EventRestriction, ISerializedEvent, ISerializedPost } from '@mull/types';
 
-// TODO delete when US 2.1 is completed
-export const dummyProfilePictures: string[] = [
-  'https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg',
-  'https://i.pinimg.com/236x/92/f0/ed/92f0edd9b0ecefdd5b7a48b8e1f7d340.jpg',
-  'https://pbs.twimg.com/profile_images/748593045566853124/9DDVz0uT_400x400.jpg',
-];
-
 export const dummyEvent: ISerializedEvent = {
   id: 1,
   title: 'Test title',
@@ -23,6 +16,10 @@ export const dummyEvent: ISerializedEvent = {
     {
       id: 1,
       name: 'User 1',
+      avatar: {
+        id: 1,
+        mediaType: 'jpeg',
+      },
     },
     {
       id: 2,

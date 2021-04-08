@@ -1,17 +1,30 @@
+import { useGetThreeRandomParticipantsQuery, User } from '../../../generated/graphql';
 import React from 'react';
+import { avatarUrl } from '../../../utilities';
 import './event-members.scss';
 
 export interface EventMembersProps {
-  profilePictures: string[];
+  eventId: number;
 }
 
-export const EventMembers = ({ profilePictures }: EventMembersProps) => {
-  const profileImages = profilePictures
-    .slice(0, 3)
-    .map((image, index) => (
-      <img className="profile-picture" key={index} src={image} alt={`participant_${index + 1}`} />
+export const EventMembers = ({ eventId }: EventMembersProps) => {
+  const { data: participantsData } = useGetThreeRandomParticipantsQuery({
+    variables: {
+      eventId: eventId,
+    },
+  });
+  if (participantsData) {
+    const profileImages = participantsData.threeParticipant.map((participant, index) => (
+      <img
+        className="profile-picture"
+        key={index}
+        src={avatarUrl(participant as User)}
+        alt={`participant_${index + 1}`}
+      />
     ));
-  return <div className="event-members-div">{profileImages}</div>;
+    return <div className="event-members-div">{profileImages}</div>;
+  }
+  return null;
 };
 
 export default EventMembers;

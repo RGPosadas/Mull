@@ -1,7 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { User } from '../entities';
 import { mockAllUsers } from '../user/user.mockdata';
-import { mockAllEvents, mockImage, mockPartialEvent } from './event.mockdata';
+import {
+  mockAllEvents,
+  mockImage,
+  mockPartialEvent,
+  mockGetOneEventWithParticipants,
+} from './event.mockdata';
 import { EventResolver } from './event.resolver';
 import { DEFAULT_EVENT_CHANNELS, EventService } from './event.service';
 import { CreateEventInput, UpdateEventInput } from './inputs/event.input';
@@ -45,6 +50,9 @@ const mockEventService = () => ({
     const currentDateTime = new Date();
     return mockAllEvents.find((event) => event.host.id === id && event.endDate < currentDateTime);
   }),
+  getThreeRandomParticipants: jest
+    .fn()
+    .mockReturnValue(mockGetOneEventWithParticipants.participants),
 });
 
 describe('UserResolver', () => {
@@ -146,5 +154,10 @@ describe('UserResolver', () => {
   it(`should get a user's portfolio`, async () => {
     const userPortfolio = await resolver.portfolioEvents(mockAllEvents[0].host.id);
     expect(userPortfolio).toEqual(mockAllEvents[0]);
+  });
+
+  it(`should get at most three participants`, async () => {
+    const participants = await resolver.threeParticipant(mockAllEvents[0].id);
+    expect(participants.length).toBeLessThanOrEqual(3);
   });
 });

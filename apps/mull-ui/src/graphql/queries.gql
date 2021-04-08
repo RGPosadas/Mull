@@ -271,3 +271,11 @@ query GetTrueFriends {
     }
   }
 }
+
+query GetThreeRandomParticipants($eventId: Int!) {
+  threeParticipant(eventId: $eventId) {
+    avatar {
+      id
+    }
+  }
+}

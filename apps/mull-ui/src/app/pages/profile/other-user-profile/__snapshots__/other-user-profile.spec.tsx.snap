@@ -113,7 +113,7 @@ exports[`OtherUserProfile should match snapshot 1`] = `
       <img
         alt="Event"
         className="event-card-image"
-        src="http://localhost:3333/api/media/9"
+        src="http://localhost:3333/api/media/10"
       />
       <div
         className="event-card-datetime"
@@ -144,25 +144,6 @@ exports[`OtherUserProfile should match snapshot 1`] = `
           >
             15km • 51067 Schimmel Cliff, North Christop, Connecticut, 75399-7391
           </div>
-        </div>
-        <div
-          className="event-members-div"
-        >
-          <img
-            alt="participant_1"
-            className="profile-picture"
-            src="https://blog.photofeeler.com/wp-content/uploads/2017/04/are-bumble-profiles-fake-how-many.jpeg"
-          />
-          <img
-            alt="participant_2"
-            className="profile-picture"
-            src="https://i.pinimg.com/236x/92/f0/ed/92f0edd9b0ecefdd5b7a48b8e1f7d340.jpg"
-          />
-          <img
-            alt="participant_3"
-            className="profile-picture"
-            src="https://pbs.twimg.com/profile_images/748593045566853124/9DDVz0uT_400x400.jpg"
-          />
         </div>
       </div>
     </div>
