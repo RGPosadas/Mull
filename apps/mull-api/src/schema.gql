@@ -181,12 +181,11 @@ type Query {
   event(id: Int!): Event!
   events: [Event!]!
   friendCount(id: Int!): Int!
-  friends: [Friend!]!
   getChannelByEventId(channelName: String!, eventId: Int!): EventChannel!
   getDirectMessageChannel(toUserId: Int!): DirectMessageChannel
   getRelationships: [Relationship!]!
   getStrangers(searchInput: String!): [User!]!
-  getTrueFriends: [User!]!
+  getTrueFriends: [Friend!]!
   getUserRelationship(userIdB: Int!): RelationshipType!
   hostEvents: [Event!]!
   hostingCount(id: Int!): Int!

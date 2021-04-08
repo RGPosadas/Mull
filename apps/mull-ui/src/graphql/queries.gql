@@ -208,8 +208,8 @@ query ChannelByEventId($eventId: Int!, $channelName: String!) {
   }
 }
 
-query Friends {
-  friends {
+query DirectMessageListFriends {
+  getTrueFriends {
     id
     name
     avatar {

@@ -301,12 +301,11 @@ export type Query = {
   event: Event;
   events: Array<Event>;
   friendCount: Scalars['Int'];
-  friends: Array<Friend>;
   getChannelByEventId: EventChannel;
   getDirectMessageChannel?: Maybe<DirectMessageChannel>;
   getRelationships: Array<Relationship>;
   getStrangers: Array<User>;
-  getTrueFriends: Array<User>;
+  getTrueFriends: Array<Friend>;
   getUserRelationship: RelationshipType;
   hostEvents: Array<Event>;
   hostingCount: Scalars['Int'];
@@ -845,12 +844,12 @@ export type ChannelByEventIdQuery = (
   ) }
 );
 
-export type FriendsQueryVariables = Exact<{ [key: string]: never; }>;
+export type DirectMessageListFriendsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FriendsQuery = (
+export type DirectMessageListFriendsQuery = (
   { __typename?: 'Query' }
-  & { friends: Array<(
+  & { getTrueFriends: Array<(
     { __typename?: 'Friend' }
     & Pick<Friend, 'id' | 'name'>
     & { avatar?: Maybe<(
@@ -938,8 +937,8 @@ export type GetTrueFriendsQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetTrueFriendsQuery = (
   { __typename?: 'Query' }
   & { getTrueFriends: Array<(
-    { __typename?: 'User' }
-    & Pick<User, 'id' | 'name'>
+    { __typename?: 'Friend' }
+    & Pick<Friend, 'id' | 'name'>
     & { avatar?: Maybe<(
       { __typename?: 'Media' }
       & Pick<Media, 'mediaType' | 'id'>
@@ -1883,9 +1882,9 @@ export function useChannelByEventIdLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type ChannelByEventIdQueryHookResult = ReturnType<typeof useChannelByEventIdQuery>;
 export type ChannelByEventIdLazyQueryHookResult = ReturnType<typeof useChannelByEventIdLazyQuery>;
 export type ChannelByEventIdQueryResult = Apollo.QueryResult<ChannelByEventIdQuery, ChannelByEventIdQueryVariables>;
-export const FriendsDocument = gql`
-    query Friends {
-  friends {
+export const DirectMessageListFriendsDocument = gql`
+    query DirectMessageListFriends {
+  getTrueFriends {
     id
     name
     avatar {
@@ -1910,29 +1909,29 @@ export const FriendsDocument = gql`
     `;
 
 /**
- * __useFriendsQuery__
+ * __useDirectMessageListFriendsQuery__
  *
- * To run a query within a React component, call `useFriendsQuery` and pass it any options that fit your needs.
- * When your component renders, `useFriendsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useDirectMessageListFriendsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDirectMessageListFriendsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useFriendsQuery({
+ * const { data, loading, error } = useDirectMessageListFriendsQuery({
  *   variables: {
  *   },
  * });
  */
-export function useFriendsQuery(baseOptions?: Apollo.QueryHookOptions<FriendsQuery, FriendsQueryVariables>) {
-        return Apollo.useQuery<FriendsQuery, FriendsQueryVariables>(FriendsDocument, baseOptions);
+export function useDirectMessageListFriendsQuery(baseOptions?: Apollo.QueryHookOptions<DirectMessageListFriendsQuery, DirectMessageListFriendsQueryVariables>) {
+        return Apollo.useQuery<DirectMessageListFriendsQuery, DirectMessageListFriendsQueryVariables>(DirectMessageListFriendsDocument, baseOptions);
       }
-export function useFriendsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FriendsQuery, FriendsQueryVariables>) {
-          return Apollo.useLazyQuery<FriendsQuery, FriendsQueryVariables>(FriendsDocument, baseOptions);
+export function useDirectMessageListFriendsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DirectMessageListFriendsQuery, DirectMessageListFriendsQueryVariables>) {
+          return Apollo.useLazyQuery<DirectMessageListFriendsQuery, DirectMessageListFriendsQueryVariables>(DirectMessageListFriendsDocument, baseOptions);
         }
-export type FriendsQueryHookResult = ReturnType<typeof useFriendsQuery>;
-export type FriendsLazyQueryHookResult = ReturnType<typeof useFriendsLazyQuery>;
-export type FriendsQueryResult = Apollo.QueryResult<FriendsQuery, FriendsQueryVariables>;
+export type DirectMessageListFriendsQueryHookResult = ReturnType<typeof useDirectMessageListFriendsQuery>;
+export type DirectMessageListFriendsLazyQueryHookResult = ReturnType<typeof useDirectMessageListFriendsLazyQuery>;
+export type DirectMessageListFriendsQueryResult = Apollo.QueryResult<DirectMessageListFriendsQuery, DirectMessageListFriendsQueryVariables>;
 export const UserRelationshipDocument = gql`
     query UserRelationship($userIdB: Int!) {
   getUserRelationship(userIdB: $userIdB)
