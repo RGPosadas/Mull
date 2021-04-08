@@ -73,7 +73,8 @@
 
   .login {
     font-weight: bold;
-    background-color: rgba($color: $primary-color, $alpha: 0.6);
+    background-color: $primary-color;
+    color: $background-color;
   }
 
   .twitter {
