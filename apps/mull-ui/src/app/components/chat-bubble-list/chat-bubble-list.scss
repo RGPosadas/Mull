@@ -1,4 +1,6 @@
 .chat-bubble-image {
   max-width: 11rem;
+  max-height: 12rem;
   display: block;
+  object-fit: contain;
 }
