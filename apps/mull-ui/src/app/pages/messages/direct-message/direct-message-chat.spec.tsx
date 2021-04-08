@@ -86,7 +86,7 @@ describe('DirectMessage', () => {
         },
       },
       result: {
-        data: { user: { avatar: null, name: 'Brock Hampton' } },
+        data: { user: { id: 2, avatar: null, name: 'Brock Hampton' } },
       },
     },
   ];

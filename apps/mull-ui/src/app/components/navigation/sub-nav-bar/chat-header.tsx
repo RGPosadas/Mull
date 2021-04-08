@@ -8,9 +8,9 @@ export interface ChatHeaderProps {
   style?: CSSProperties;
   className?: string;
   isDirectMessage?: boolean;
-  user: Partial<User>;
+  user?: Partial<User>;
   eventTitle?: string;
-  history: History;
+  history?: History;
 }
 
 export const ChatHeader = ({

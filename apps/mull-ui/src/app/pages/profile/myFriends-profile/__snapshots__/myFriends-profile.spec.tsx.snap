@@ -49,29 +49,25 @@ exports[`MyFriends should match snapshot 1`] = `
       className="contact-container"
     >
       <a
-        href="/profile/2"
+        href="/user/2"
         onClick={[Function]}
       >
         <div
           className="user-information"
         >
+          <img
+            alt="user"
+            className="user-profile-picture"
+            src="./assets/icons/icon-192x192.png"
+          />
           <div
-            className="user-information"
+            className="user-details"
           >
-            <img
-              alt="user"
-              className="user-profile-picture"
-              src="./assets/icons/icon-192x192.png"
-            />
-            <div
-              className="user-details"
+            <span
+              className="username"
             >
-              <span
-                className="username"
-              >
-                Luffy
-              </span>
-            </div>
+              Luffy
+            </span>
           </div>
         </div>
       </a>
@@ -112,29 +108,25 @@ exports[`MyFriends should match snapshot 1`] = `
       className="contact-container"
     >
       <a
-        href="/profile/3"
+        href="/user/3"
         onClick={[Function]}
       >
         <div
           className="user-information"
         >
+          <img
+            alt="user"
+            className="user-profile-picture"
+            src="./assets/icons/icon-192x192.png"
+          />
           <div
-            className="user-information"
+            className="user-details"
           >
-            <img
-              alt="user"
-              className="user-profile-picture"
-              src="./assets/icons/icon-192x192.png"
-            />
-            <div
-              className="user-details"
+            <span
+              className="username"
             >
-              <span
-                className="username"
-              >
-                Nami
-              </span>
-            </div>
+              Nami
+            </span>
           </div>
         </div>
       </a>
@@ -175,29 +167,25 @@ exports[`MyFriends should match snapshot 1`] = `
       className="contact-container"
     >
       <a
-        href="/profile/1"
+        href="/user/1"
         onClick={[Function]}
       >
         <div
           className="user-information"
         >
+          <img
+            alt="user"
+            className="user-profile-picture"
+            src="./assets/icons/icon-192x192.png"
+          />
           <div
-            className="user-information"
+            className="user-details"
           >
-            <img
-              alt="user"
-              className="user-profile-picture"
-              src="./assets/icons/icon-192x192.png"
-            />
-            <div
-              className="user-details"
+            <span
+              className="username"
             >
-              <span
-                className="username"
-              >
-                Zoro
-              </span>
-            </div>
+              Zoro
+            </span>
           </div>
         </div>
       </a>
