@@ -23,6 +23,16 @@ export class UserResolver {
     private readonly postService: PostService
   ) {}
 
+  private filterTrueFriends(currentUserId: number, currentUserFriends: User[]) {
+    const trueFriends: User[] = [];
+    currentUserFriends.forEach((friend) => {
+      if (friend.friends.some((user) => user.id === currentUserId)) {
+        trueFriends.push(friend);
+      }
+    });
+    return trueFriends;
+  }
+
   @Query(/* istanbul ignore next */ () => [User])
   @UseGuards(AuthGuard)
   async users() {
@@ -37,7 +47,7 @@ export class UserResolver {
 
   @Query(/* istanbul ignore next */ () => [Friend])
   async friends(@AuthenticatedUser() id: number) {
-    const friends = await this.userService.getFriends(id);
+    const friends = this.filterTrueFriends(id, await this.userService.getFriends(id));
     const modifiedFriends: Friend[] = [];
 
     for (const friend of friends) {
@@ -166,12 +176,6 @@ export class UserResolver {
   @Query(/* istanbul ignore next */ () => [User])
   async getTrueFriends(@AuthenticatedUser() currentUser: number) {
     const currentUserFriends = await this.userService.getFriends(currentUser);
-    const trueFriends: User[] = [];
-    currentUserFriends.forEach((friend) => {
-      if (friend.friends.some((user) => user.id === currentUser)) {
-        trueFriends.push(friend);
-      }
-    });
-    return trueFriends;
+    return this.filterTrueFriends(currentUser, currentUserFriends);
   }
 }
