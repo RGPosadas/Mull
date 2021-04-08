@@ -27,7 +27,8 @@
   text-overflow: ellipsis;
 }
 
-.direct-message-header-title {
+.direct-message-header {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   flex: 1;

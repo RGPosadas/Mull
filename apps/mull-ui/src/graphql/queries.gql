@@ -311,6 +311,7 @@ query DirectMessage($friendUserId: Int!) {
 
 query DirectMessageHeader($userId: Int!) {
   user(id: $userId) {
+    id
     name
     avatar {
       id

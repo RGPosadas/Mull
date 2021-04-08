@@ -1,7 +1,7 @@
 import { IChatForm, ISerializedPost } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
-import React, { ChangeEvent, useContext, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
@@ -12,12 +12,12 @@ import {
   useCreatePostMutation,
   useDirectMessageHeaderQuery,
   useDirectMessageQuery,
+  User,
   useUploadFileMutation,
 } from '../../../../generated/graphql';
-import { avatarUrl, validateFileSize } from '../../../../utilities';
+import { validateFileSize } from '../../../../utilities';
 import { ChatHeader, ChatInput } from '../../../components';
 import ChatBubbleList from '../../../components/chat-bubble-list/chat-bubble-list';
-import UserContext from '../../../context/user.context';
 import { useToast } from '../../../hooks/useToast';
 
 interface subscriptionData {
@@ -55,7 +55,6 @@ export const DirectMessageChat = ({ history }: DirectMessageChatProps) => {
   });
 
   const [uploadFile] = useUploadFileMutation();
-  const { userId } = useContext(UserContext);
   const [createPostMutation] = useCreatePostMutation();
 
   const subToMore = () =>
@@ -143,11 +142,7 @@ export const DirectMessageChat = ({ history }: DirectMessageChatProps) => {
     <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
       <div className="direct-message-chat">
         {!headerLoading && (
-          <ChatHeader
-            userName={headerData.user.name}
-            userAvatarUrl={avatarUrl(headerData.user)}
-            isDirectMessage
-          />
+          <ChatHeader user={headerData.user as Partial<User>} history={history} isDirectMessage />
         )}
         <ChatBubbleList
           history={history}

@@ -1000,7 +1000,7 @@ export type DirectMessageHeaderQuery = (
   { __typename?: 'Query' }
   & { user: (
     { __typename?: 'User' }
-    & Pick<User, 'name'>
+    & Pick<User, 'id' | 'name'>
     & { avatar?: Maybe<(
       { __typename?: 'Media' }
       & Pick<Media, 'id'>
@@ -2200,6 +2200,7 @@ export type DirectMessageQueryResult = Apollo.QueryResult<DirectMessageQuery, Di
 export const DirectMessageHeaderDocument = gql`
     query DirectMessageHeader($userId: Int!) {
   user(id: $userId) {
+    id
     name
     avatar {
       id
