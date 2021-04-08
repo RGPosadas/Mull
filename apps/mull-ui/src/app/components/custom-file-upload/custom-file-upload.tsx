@@ -28,12 +28,12 @@ export const CustomFileUpload = ({
         {imageURL ? (
           <img className="custom-file-upload-image" src={imageURL} alt="Event" />
         ) : (
-          <div className={className}>
+          <div className={`button ${className}`}>
             <FontAwesomeIcon className="custom-file-upload-icon" icon={faImages} />
           </div>
         )}
         {displayPencilIcon && (
-          <FontAwesomeIcon className="custom-file-upload-pencil-icon" icon={faPencilAlt} />
+          <FontAwesomeIcon className="custom-file-upload-pencil-icon button" icon={faPencilAlt} />
         )}
       </label>
       {hasErrors ? <span className="error-message">{errorMessage}</span> : null}

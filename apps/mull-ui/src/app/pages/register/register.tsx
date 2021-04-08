@@ -32,7 +32,7 @@ const Register = ({ history }: RegisterProps) => {
     validationSchema: Yup.object({
       name: Yup.string()
         .required('Name is required.')
-        .max(LIMITS.USERNAME, `Name must be ${LIMITS.USERNAME} characters or less.`)
+        .max(LIMITS.USERNAME, `Name must be at most ${LIMITS.USERNAME} characters.`)
         .test('EmojiCheck', 'Emojis are not allowed in Name.', function (name) {
           return !hasEmoji(name);
         }),
@@ -88,6 +88,7 @@ const Register = ({ history }: RegisterProps) => {
           onChange={formik.handleChange}
           hasErrors={formik.touched.email && !!formik.errors.email}
           errorMessage={formik.errors.email}
+          type="email"
         />
         <CustomTextInput
           title="Password"
@@ -96,7 +97,7 @@ const Register = ({ history }: RegisterProps) => {
           onChange={formik.handleChange}
           hasErrors={formik.touched.email && !!formik.errors.password}
           errorMessage={formik.errors.password}
-          password
+          type="password"
         />
         <button type="submit" className="register-button">
           Create Account

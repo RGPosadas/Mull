@@ -8,7 +8,7 @@ export interface CustomTextInputProps {
   errorMessage?: string;
   hasErrors?: boolean;
   svgIcon?: ReactNode;
-  password?: boolean;
+  type?: 'text' | 'password' | 'email';
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
   readOnly?: boolean;
@@ -40,7 +40,7 @@ export const CustomTextInput = ({
   hasErrors = false,
   errorMessage = null,
   svgIcon,
-  password,
+  type = 'text',
   onClick,
   readOnly,
   placeholder,
@@ -51,20 +51,22 @@ export const CustomTextInput = ({
       <label className="custom-text-input-label" htmlFor={fieldName}>
         {title}
       </label>
-      <input
-        className={`custom-text-input input-border ${hasErrors ? 'error' : ''}`}
-        id={fieldName}
-        name={fieldName}
-        data-testid="custom-text-input"
-        type={password ? 'password' : 'text'}
-        value={value}
-        onChange={onChange}
-        onClick={onClick}
-        readOnly={readOnly}
-        placeholder={placeholder}
-        autoComplete={autoComplete}
-      />
-      {svgIcon ? svgIcon : null}
+      <div className="custom-text-input-sub-container">
+        <input
+          className={`custom-text-input input-border ${hasErrors ? 'error' : ''}`}
+          id={fieldName}
+          name={fieldName}
+          data-testid="custom-text-input"
+          type={type}
+          value={value}
+          onChange={onChange}
+          onClick={onClick}
+          readOnly={readOnly}
+          placeholder={placeholder}
+          autoComplete={autoComplete}
+        />
+        <div className="custom-text-input-icon">{svgIcon ? svgIcon : null}</div>
+      </div>
       {hasErrors ? <span className="error-message">{errorMessage}</span> : null}
     </div>
   );

@@ -38,4 +38,5 @@ export const LIMITS = {
   USERNAME: 64,
   EVENT_TITLE: 64,
   IMAGE_SIZE: 10000000,
+  POST_MESSAGE: 512,
 };

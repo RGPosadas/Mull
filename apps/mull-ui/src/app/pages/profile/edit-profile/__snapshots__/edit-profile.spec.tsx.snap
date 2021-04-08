@@ -55,7 +55,7 @@ exports[`EditProfile should match snapshot 1`] = `
         />
         <svg
           aria-hidden="true"
-          className="svg-inline--fa fa-pencil-alt fa-w-16 custom-file-upload-pencil-icon"
+          className="svg-inline--fa fa-pencil-alt fa-w-16 custom-file-upload-pencil-icon button"
           data-icon="pencil-alt"
           data-prefix="fas"
           focusable="false"
@@ -89,15 +89,22 @@ exports[`EditProfile should match snapshot 1`] = `
       >
         Display Name
       </label>
-      <input
-        className="custom-text-input input-border "
-        data-testid="custom-text-input"
-        id="displayName"
-        name="displayName"
-        onChange={[Function]}
-        type="text"
-        value="Jane Doe"
-      />
+      <div
+        className="custom-text-input-sub-container"
+      >
+        <input
+          className="custom-text-input input-border "
+          data-testid="custom-text-input"
+          id="displayName"
+          name="displayName"
+          onChange={[Function]}
+          type="text"
+          value="Jane Doe"
+        />
+        <div
+          className="custom-text-input-icon"
+        />
+      </div>
     </div>
     <label
       className="description-label"

@@ -10,15 +10,22 @@ exports[`CustomTextInput should match snapshot 1`] = `
   >
     Text
   </label>
-  <input
-    className="custom-text-input input-border error"
-    data-testid="custom-text-input"
-    id="text"
-    name="text"
-    onChange={[MockFunction]}
-    type="text"
-    value=""
-  />
+  <div
+    className="custom-text-input-sub-container"
+  >
+    <input
+      className="custom-text-input input-border error"
+      data-testid="custom-text-input"
+      id="text"
+      name="text"
+      onChange={[MockFunction]}
+      type="text"
+      value=""
+    />
+    <div
+      className="custom-text-input-icon"
+    />
+  </div>
   <span
     className="error-message"
   >

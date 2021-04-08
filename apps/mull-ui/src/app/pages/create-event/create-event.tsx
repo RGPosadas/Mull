@@ -20,6 +20,7 @@ import {
   CustomFileUpload,
   CustomTextInput,
   MullButton,
+  MullTextArea,
   PillOptions,
   TimeSlider,
 } from './../../components';
@@ -107,7 +108,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         ),
       eventTitle: Yup.string()
         .required('Event Title is required.')
-        .max(LIMITS.EVENT_TITLE, `Event Title must be under ${LIMITS.EVENT_TITLE} characters.`)
+        .max(LIMITS.EVENT_TITLE, `Event Title must be at most ${LIMITS.EVENT_TITLE} characters.`)
         .test('EmojiCheck', 'Emojis are not allowed in Event Title.', function (eventTitle) {
           return !hasEmoji(eventTitle);
         }),
@@ -116,7 +117,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
         .required('Event Description is required.')
         .max(
           LIMITS.DESCRIPTION,
-          `Event Description must be under ${LIMITS.DESCRIPTION} characters.`
+          `Event Description must be at most ${LIMITS.DESCRIPTION} characters.`
         ),
       location: Yup.mixed()
         .required('Event Location is required.')
@@ -267,28 +268,22 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
               errorMessage={formik.errors.eventTitle}
               svgIcon={<FontAwesomeIcon className="input-icon" icon={faPencilAlt} />}
             />
-            <LocationAutocompleteModal formik={formik} />
-            <div className="textarea-create-event-container">
-              <label className="description-label" htmlFor={'description'}>
-                Description
-              </label>
-              <div className="textarea-sub-container">
-                <textarea
-                  id="description"
-                  className={`description-msg ${
-                    formik.touched.description && !!formik.errors.description ? 'error' : ''
-                  }`}
-                  rows={1}
-                  value={formik.values.description}
-                  onChange={formik.handleChange}
-                />
-              </div>
-              <FontAwesomeIcon className="description-input-icon" icon={faAlignLeft} />
 
-              {formik.touched.description && !!formik.errors.description ? (
-                <span className="error-message">{formik.errors.description}</span>
-              ) : null}
-            </div>
+            <LocationAutocompleteModal formik={formik} />
+
+            <MullTextArea
+              title="Description"
+              fieldName="description"
+              onInput={(e) => {
+                const target = e.target as HTMLDivElement;
+
+                formik.setFieldValue('description', target.textContent);
+              }}
+              hasErrors={formik.touched.description && !!formik.errors.description}
+              errorMessage={formik.errors.description}
+              svgIcon={<FontAwesomeIcon className="input-icon" icon={faAlignLeft} />}
+            />
+
             <PillOptions
               options={EventRestrictionMap}
               onChange={handleRestrictions}

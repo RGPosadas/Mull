@@ -2,21 +2,28 @@
 
 exports[`ChatBubble should match snapshot 1`] = `
 <div
-  className="chat-container"
+  className="chat-bubble-container"
 >
-  <p
-    className="announcement-time"
+  <div
+    className="chat-bubble-header"
   >
-    
-  </p>
+    <p>
+      
+    </p>
+    <p
+      className="chat-bubble-header-username"
+    >
+      Bob
+    </p>
+  </div>
   <div
     className="other-user-chat-container"
   >
     <img
       alt="user"
-      className="user-picture"
+      className="user-picture button"
       onClick={null}
-      src=""
+      src="http://localhost:3333/api/media/1"
     />
     <p
       className="chat-bubble"

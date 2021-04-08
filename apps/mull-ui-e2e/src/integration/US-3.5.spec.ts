@@ -15,7 +15,7 @@ frameSizes.forEach((frame) => {
       cy.get('.event-chat', { timeout: 5000 }).should('exist');
 
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
-      cy.get('.custom-text-input').type(`${text}{enter}`);
+      cy.get('.mull-text-area').type(`${text}{enter}`);
 
       cy.contains(text);
     });

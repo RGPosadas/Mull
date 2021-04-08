@@ -1,3 +1,4 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
 /// <reference types="Cypress" />
 import 'cypress-file-upload';
 import { geolocationStub } from '../fixtures';
@@ -74,7 +75,10 @@ frameSizes.forEach((frame) => {
     });
 
     it('should type into the event description input', () => {
-      cy.get('#description').type('test description').should('have.value', 'test description');
+      cy.get('#description')
+        .type('test description')
+        .wait(500)
+        .should('have.text', 'test description');
     });
 
     it('should type into the event location modal and return autocompleted address', () => {
@@ -112,16 +116,7 @@ frameSizes.forEach((frame) => {
 
     it('should show errors when fields are not completed', () => {
       cy.get('.create-event-button').click();
-      cy.get('.custom-file-upload-container > .error-message').should(
-        'have.text',
-        'Image is required.'
-      );
-      cy.get('#eventTitle ~ .error-message').should('have.text', 'Event Title is required.');
-      cy.get('.textarea-create-event-container > .error-message').should(
-        'have.text',
-        'Event Description is required.'
-      );
-      cy.get('#location ~ .error-message').should('have.text', 'Event Location is required.');
+      cy.get('.error-message').first().should('have.text', 'Image is required.');
     });
 
     const fillEventForm = () => {

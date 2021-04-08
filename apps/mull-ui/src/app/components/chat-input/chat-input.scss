@@ -21,13 +21,11 @@
     width: 100%;
   }
   .chat-input-button {
-    position: absolute;
-    bottom: 0.4rem;
-    right: 0.5rem;
+    position: relative;
+    left: 0.5rem;
     width: 2rem;
     height: 2rem;
     border-radius: 100%;
-    border: 1px $primary-color solid;
     background: $primary-color;
     box-sizing: border-box;
     padding: 0.3em;
@@ -50,9 +48,29 @@
   }
 }
 
-.chat-input-image-size {
+.chat-input-image {
+  object-fit: contain;
   max-height: 3rem;
-  max-width: 9rem;
+  max-width: 8rem;
+  border-radius: 10px;
+  margin-right: 0.5rem;
+}
+
+.chat-input-limit-message {
+  font-size: 0.7rem;
+  position: absolute;
+  right: 1.4rem;
+  bottom: 1.4rem;
+}
+
+.chat-input-form {
+  .mull-text-area {
+    padding-right: 3.2rem !important;
+  }
+}
+
+.error-max-chat {
+  color: red;
 }
 
 @media (min-width: $breakpoint-mobile) {
@@ -61,5 +79,10 @@
     margin-left: auto;
     margin-right: auto;
     bottom: 0;
+    padding: 1rem 0;
+  }
+
+  .chat-input-limit-message {
+    right: 0.4rem;
   }
 }

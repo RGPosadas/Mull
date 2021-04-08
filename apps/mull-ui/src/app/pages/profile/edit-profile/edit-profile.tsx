@@ -37,7 +37,7 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
     validationSchema: Yup.object({
       displayName: Yup.string()
         .required('Display name is required')
-        .max(LIMITS.USERNAME, `Display Name must be ${LIMITS.USERNAME} characters or less.`)
+        .max(LIMITS.USERNAME, `Display Name must be at most ${LIMITS.USERNAME} characters.`)
         .test('EmojiCheck', 'Emojis are not allowed in Display Name.', function (displayName) {
           return !hasEmoji(displayName);
         }),

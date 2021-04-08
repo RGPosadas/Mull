@@ -86,6 +86,28 @@ button,
   border: 1px solid black;
 }
 
+.home-page-no-event {
+  text-align: center;
+}
+
+.input-border {
+  border-radius: 15px;
+  border: 1.5px $primary-color solid;
+  &.error {
+    border-color: #ff0000;
+  }
+}
+
+.input-icon {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.error {
+  .input-icon {
+    color: red;
+  }
+}
+
 @media (min-width: $breakpoint-mobile) {
   .nav-button,
   .nav-middle-button {

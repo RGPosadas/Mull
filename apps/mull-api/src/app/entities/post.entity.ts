@@ -1,3 +1,4 @@
+import { LIMITS } from '@mull/types';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import {
   Column,
@@ -30,7 +31,7 @@ export class Post {
   parentPost?: Post;
 
   @Field()
-  @Column({ nullable: true })
+  @Column({ nullable: true, length: LIMITS.POST_MESSAGE })
   message: string;
 
   @Field()

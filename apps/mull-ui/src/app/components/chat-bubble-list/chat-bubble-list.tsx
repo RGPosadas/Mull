@@ -1,7 +1,7 @@
 import { ISerializedPost } from '@mull/types';
 import { History } from 'history';
 import React, { useContext, useEffect, useRef } from 'react';
-import { avatarUrl, formatChatBubbleDate, getMediaUrl } from '../../../utilities';
+import { formatChatBubbleDate, getMediaUrl } from '../../../utilities';
 import ChatBubble from '../../components/chat-bubble/chat-bubble';
 import UserContext from '../../context/user.context';
 import './chat-bubble-list.scss';
@@ -41,7 +41,7 @@ export const ChatBubbleList = ({ history, posts, subToMore }: ChatBubbleListProp
           key={post.id}
           isCurrentUser={userId === post.user.id}
           chatDate={formatChatBubbleDate(new Date(post.createdTime))}
-          userPicture={avatarUrl(post.user)}
+          user={post.user}
           onClick={() => {
             history.push(`/user/${post.user.id}`);
           }}

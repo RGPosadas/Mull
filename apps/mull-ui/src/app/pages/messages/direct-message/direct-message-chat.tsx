@@ -1,7 +1,8 @@
-import { IChatForm, ISerializedPost } from '@mull/types';
+import { CSSProperties } from '@material-ui/styles';
+import { IChatForm, ISerializedPost, LIMITS } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
@@ -19,6 +20,7 @@ import { validateFileSize } from '../../../../utilities';
 import { ChatHeader, ChatInput, Spinner } from '../../../components';
 import ChatBubbleList from '../../../components/chat-bubble-list/chat-bubble-list';
 import { useToast } from '../../../hooks/useToast';
+import { chatInputOnBlur, chatInputOnFocus, updateChatContainerStyle } from '../common';
 
 interface subscriptionData {
   subscriptionData: {
@@ -56,6 +58,10 @@ export const DirectMessageChat = ({ history }: DirectMessageChatProps) => {
 
   const [uploadFile] = useUploadFileMutation();
   const [createPostMutation] = useCreatePostMutation();
+
+  const [containerStyle, setContainerStyle] = useState<CSSProperties>({});
+  const containerRef = useRef<HTMLDivElement>(null);
+  const chatInputBot = useRef<string>('');
 
   const subToMore = () =>
     subscribeToMore({
@@ -95,7 +101,14 @@ export const DirectMessageChat = ({ history }: DirectMessageChatProps) => {
     },
 
     validationSchema: Yup.object({
-      message: file ? Yup.string().optional() : Yup.string().required(),
+      message: file
+        ? Yup.string()
+            .optional()
+            .max(LIMITS.POST_MESSAGE, `A post must be at most ${LIMITS.POST_MESSAGE} characters.`)
+        : Yup.string()
+            .required()
+            .test('no-whitespace', "Message can't be empty", (value) => !/^\s*$/.test(value))
+            .max(LIMITS.POST_MESSAGE, `A post must be at most ${LIMITS.POST_MESSAGE} characters.`),
       imageFile: Yup.mixed().test('big-file', 'File size is too large', validateFileSize),
     }),
 
@@ -127,6 +140,16 @@ export const DirectMessageChat = ({ history }: DirectMessageChatProps) => {
     },
   });
 
+  useEffect(() => {
+    setTimeout(() => {
+      updateChatContainerStyle(setContainerStyle, containerRef);
+    }, 200);
+  }, []);
+
+  useEffect(() => {
+    updateChatContainerStyle(setContainerStyle, containerRef);
+  }, [formik.values.message]);
+
   if (chatError) {
     return <Redirect to={ROUTES.LOGIN} />;
   }
@@ -139,7 +162,11 @@ export const DirectMessageChat = ({ history }: DirectMessageChatProps) => {
   if (chatLoading) return <Spinner />;
 
   return (
-    <div className="page-container with-sub-nav-and-header with-bottom-chat-input">
+    <div
+      className="page-container no-bot-nav with-sub-nav-and-header"
+      style={containerStyle}
+      ref={containerRef}
+    >
       <div className="direct-message-chat">
         <ChatHeader
           isLoading={headerLoading}
@@ -157,6 +184,12 @@ export const DirectMessageChat = ({ history }: DirectMessageChatProps) => {
           handleFileUpload={handleFileUpload}
           image={imageURLFile}
           handleCloseImage={handleCloseImage}
+          onFocus={() => {
+            chatInputOnFocus(chatInputBot, setContainerStyle, containerRef);
+          }}
+          onBlur={() => {
+            chatInputOnBlur(chatInputBot, setContainerStyle, containerRef);
+          }}
         />
       </div>
     </div>

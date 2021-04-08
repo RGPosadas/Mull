@@ -93,8 +93,8 @@ describe('CreateEvent', () => {
     fireEvent.click(calendarDate);
     let input = utils.getByLabelText('Event Title');
     fireEvent.change(input, { target: { value: 'Clean up at rogers park' } });
-    input = utils.getByLabelText('Description');
-    fireEvent.change(input, { target: { value: 'Cleanup :)' } });
+    input = utils.baseElement.getElementsByClassName('mull-text-area')[0] as HTMLDivElement;
+    fireEvent.input(input, { target: { textContent: 'Cleanup :)' } });
     input = utils.getByLabelText('Location');
     fireEvent.change(input, { target: { value: 'Rogers Park' } });
     const activeRestriction = utils.container.querySelector('.pill-options > .pill-option-active');

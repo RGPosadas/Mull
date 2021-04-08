@@ -1,11 +1,11 @@
-import { IChatForm, ISerializedPost } from '@mull/types';
+import { IChatForm, ISerializedPost, LIMITS } from '@mull/types';
 import { useFormik } from 'formik';
 import { History } from 'history';
-import React, { ChangeEvent, useContext, useState } from 'react';
+import React, { ChangeEvent, CSSProperties, useContext, useEffect, useRef, useState } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-import { ROUTES } from '../../../../../src/constants';
+import { ROUTES } from '../../../../constants';
 import {
   CreatePostInput,
   Event,
@@ -19,6 +19,7 @@ import { ChatInput, Spinner } from '../../../components';
 import ChatBubbleList from '../../../components/chat-bubble-list/chat-bubble-list';
 import UserContext from '../../../context/user.context';
 import { useToast } from '../../../hooks/useToast';
+import { chatInputOnBlur, chatInputOnFocus, updateChatContainerStyle } from '../common';
 
 interface subscriptionData {
   subscriptionData: {
@@ -37,6 +38,7 @@ export interface EventChatProps {
 export const EventChat = ({ history, channelName, restrictChatInput }: EventChatProps) => {
   const { updateToast } = useToast();
   const [createPostMutation] = useCreatePostMutation();
+  const { notifyToast } = useToast();
 
   const [imageURLFile, setImageURLFile] = useState<string>('');
   const [uploadFile] = useUploadFileMutation();
@@ -51,6 +53,9 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
       channelName,
     },
   });
+  const [containerStyle, setContainerStyle] = useState<CSSProperties>({});
+  const containerRef = useRef<HTMLDivElement>(null);
+  const chatInputBot = useRef<string>('');
 
   const isEventHost = (event: Event) => {
     if (restrictChatInput) {
@@ -99,7 +104,14 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
     },
 
     validationSchema: Yup.object({
-      message: file ? Yup.string().optional() : Yup.string().required(),
+      message: file
+        ? Yup.string()
+            .optional()
+            .max(LIMITS.POST_MESSAGE, `A post must be at most ${LIMITS.POST_MESSAGE} characters.`)
+        : Yup.string()
+            .required()
+            .test('no-whitespace', "Message can't be empty", (value) => !/^\s*$/.test(value))
+            .max(LIMITS.POST_MESSAGE, `A post must be at most ${LIMITS.POST_MESSAGE} characters.`),
       imageFile: Yup.mixed().test('big-file', 'File size is too large', validateFileSize),
     }),
 
@@ -109,17 +121,19 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
           ? (await uploadFile({ variables: { file: file } })).data.uploadFile
           : null;
 
-        const post = createPostMutation({
+        createPostMutation({
           variables: {
             post: {
               channel: { id: data.getChannelByEventId.id },
-              message: formik.values.message ? formik.values.message : '',
+              message: formik.values.message ? formik.values.message.trim() : '',
               media: uploadedFile
                 ? { id: uploadedFile.id, mediaType: uploadedFile.mediaType }
                 : null,
               createdTime: Date.now(),
             } as CreatePostInput,
           },
+        }).catch((e) => {
+          notifyToast(e, toast.TYPE.ERROR);
         });
 
         resetForm();
@@ -130,6 +144,17 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
       }
     },
   });
+
+  useEffect(() => {
+    setTimeout(() => {
+      updateChatContainerStyle(setContainerStyle, containerRef);
+    }, 200);
+  }, []);
+
+  useEffect(() => {
+    updateChatContainerStyle(setContainerStyle, containerRef);
+  }, [formik.values.message]);
+
   if (error) {
     return <Redirect to={ROUTES.LOGIN} />;
   }
@@ -138,7 +163,7 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
 
   if (data) {
     return (
-      <div className="event-chat">
+      <div className="event-chat" style={containerStyle} ref={containerRef}>
         <ChatBubbleList
           posts={data.getChannelByEventId.posts}
           subToMore={subToMore}
@@ -146,6 +171,12 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
         />
         {isEventHost(data.getChannelByEventId.event as Event) && (
           <ChatInput
+            onFocus={() => {
+              chatInputOnFocus(chatInputBot, setContainerStyle, containerRef);
+            }}
+            onBlur={() => {
+              chatInputOnBlur(chatInputBot, setContainerStyle, containerRef);
+            }}
             formik={formik}
             handleFileUpload={handleFileUpload}
             image={imageURLFile}
