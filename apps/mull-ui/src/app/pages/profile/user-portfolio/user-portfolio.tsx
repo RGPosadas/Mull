@@ -24,7 +24,11 @@ export const UserPortfolio = ({ history }) => {
       <MullBackButton>Profile</MullBackButton>
       <div className="user-portfolio-container">
         <h1 className="user-portfolio-title">My Portfolio</h1>
-        {eventCards && eventCards.length > 0 ? eventCards : <div>No completed events</div>}
+        {eventCards && eventCards.length > 0 ? (
+          eventCards
+        ) : (
+          <div className="empty-array-msg">No completed events</div>
+        )}
       </div>
     </div>
   );

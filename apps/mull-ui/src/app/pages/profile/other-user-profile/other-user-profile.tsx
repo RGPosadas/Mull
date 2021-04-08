@@ -67,7 +67,7 @@ export const OtherUserProfilePage = ({
         {eventCards.length > 0 ? (
           eventCards
         ) : (
-          <div className="no-events-found-msg">No portfolio found</div>
+          <div className="empty-array-msg">No portfolio found</div>
         )}
       </div>
     </div>

@@ -104,7 +104,9 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
                   />
                 ))
               ) : (
-                <div className="add-friends-no-request">No friend requests from others</div>
+                <div className="add-friends-no-request empty-array-msg text-left">
+                  No friend requests from others
+                </div>
               )}
             </div>
             <div className="add-friends-section">
@@ -129,7 +131,9 @@ export const AddFriendsPage = ({ history }: AddFriendsPageProps) => {
                   />
                 ))
               ) : (
-                <div className="add-friends-no-request">No pending friend requests</div>
+                <div className="add-friends-no-request empty-array-msg text-left">
+                  No pending friend requests
+                </div>
               )}
             </div>
           </>

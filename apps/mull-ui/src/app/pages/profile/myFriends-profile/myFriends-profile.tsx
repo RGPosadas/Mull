@@ -89,7 +89,7 @@ const MyFriends = ({ history }) => {
       {finalFriendsList.length > 0 ? (
         finalFriendsList
       ) : (
-        <p className="no-friends-msg">No friends found </p>
+        <p className="empty-array-msg">No friends found </p>
       )}
     </div>
   );

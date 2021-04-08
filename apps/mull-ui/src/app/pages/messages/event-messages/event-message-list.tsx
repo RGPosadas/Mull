@@ -43,7 +43,7 @@ export const EventMessageList = ({ history }) => {
       {eventBullets.length ? (
         <div className="event-bullets">{eventBullets}</div>
       ) : (
-        <p className="event-messages-not-found">No results found</p>
+        <p className="event-messages-not-found empty-array-msg">No results found</p>
       )}
     </div>
   );

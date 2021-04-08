@@ -25,7 +25,7 @@ export const DiscoverPage = ({ history }) => {
       {eventCards && eventCards.length > 0 ? (
         eventCards
       ) : (
-        <div className="home-page-no-event">No events found</div>
+        <div className="empty-array-msg">No events found</div>
       )}
     </div>
   );
