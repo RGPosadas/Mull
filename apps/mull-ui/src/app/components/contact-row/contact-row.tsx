@@ -52,7 +52,7 @@ export const ContactRow = ({
           {userInformation}
         </div>
       ) : (
-        <Link to={`/profile/${user.id}`}>
+        <Link to={`/user/${user.id}`}>
           <div className="user-information">{userInformation}</div>
         </Link>
       )}
@@ -73,7 +73,7 @@ export const ContactRow = ({
         button1OnClick={modalButton1OnClick}
         button2Text={modalButton2Text}
         button2OnClick={modalButton2OnClick}
-      ></FriendModal>
+      />
     </div>
   );
 };

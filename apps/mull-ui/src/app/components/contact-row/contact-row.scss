@@ -29,6 +29,11 @@
       font-weight: normal;
       font-size: 1.125rem;
       line-height: 1.125rem;
+      width: 100%;
+      max-width: 60vw;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .last-message {
@@ -36,6 +41,11 @@
       font-weight: 300;
       font-size: 0.75rem;
       line-height: 0.75rem;
+      width: 100%;
+      max-width: 60vw;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     span {
@@ -60,5 +70,16 @@
 
   .my-friends-modal-container {
     width: 21.875rem;
+  }
+
+  @media (min-width: $breakpoint-mobile) {
+    .user-details {
+      .last-message {
+        max-width: 25vw;
+      }
+      .username {
+        max-width: 25vw;
+      }
+    }
   }
 }
