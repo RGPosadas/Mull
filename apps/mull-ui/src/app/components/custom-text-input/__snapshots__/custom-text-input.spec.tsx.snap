@@ -14,6 +14,7 @@ exports[`CustomTextInput should match snapshot 1`] = `
     className="custom-text-input-sub-container"
   >
     <input
+      aria-label="text"
       className="custom-text-input input-border error"
       data-testid="custom-text-input"
       id="text"

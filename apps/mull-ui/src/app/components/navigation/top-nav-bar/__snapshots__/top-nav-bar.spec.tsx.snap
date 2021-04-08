@@ -24,6 +24,7 @@ exports[`TopNavBar should match snapshot 1`] = `
     >
       <a
         aria-current={null}
+        aria-label="Home"
         className="nav-button-container"
         data-testid="home-navlink"
         href="/home"
@@ -37,6 +38,7 @@ exports[`TopNavBar should match snapshot 1`] = `
       </a>
       <a
         aria-current={null}
+        aria-label="Camera"
         className="nav-button-container"
         data-testid="camera-navlink"
         href="/camera"
@@ -50,6 +52,7 @@ exports[`TopNavBar should match snapshot 1`] = `
       </a>
       <a
         aria-current={null}
+        aria-label="Create Event"
         className="nav-button-container"
         data-testid="create-event-navlink"
         href="/create-event"
@@ -63,6 +66,7 @@ exports[`TopNavBar should match snapshot 1`] = `
       </a>
       <a
         aria-current={null}
+        aria-label="Messages"
         className="nav-button-container"
         data-testid="messages-navlink"
         href="/messages"
@@ -76,6 +80,7 @@ exports[`TopNavBar should match snapshot 1`] = `
       </a>
       <a
         aria-current={null}
+        aria-label="Profile"
         className="nav-button-container"
         data-testid="profile-navlink"
         href="/profile"

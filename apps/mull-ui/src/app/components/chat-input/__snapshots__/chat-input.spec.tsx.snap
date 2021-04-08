@@ -74,6 +74,7 @@ exports[`ChatInput should match snapshot 1`] = `
           className="mull-text-area-icon"
         >
           <button
+            aria-label="Send message"
             className="chat-input-button"
             onClick={[Function]}
             type="button"

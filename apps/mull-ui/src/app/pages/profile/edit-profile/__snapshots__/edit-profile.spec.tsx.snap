@@ -93,6 +93,7 @@ exports[`EditProfile should match snapshot 1`] = `
         className="custom-text-input-sub-container"
       >
         <input
+          aria-label="displayName"
           className="custom-text-input input-border "
           data-testid="custom-text-input"
           id="displayName"
