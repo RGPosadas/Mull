@@ -149,14 +149,12 @@ export const ProfileHeader = ({
       <div className="profile-header">
         <img className="user-profile-picture" src={avatarUrl(user)} alt="user" />
         <div
-          className={
-            isCurrentUser
-              ? 'profile-side-container for-current-user'
-              : 'profile-side-container for-other-user'
-          }
+          className={`profile-side-container ${
+            isCurrentUser ? 'for-current-user' : 'for-other-user'
+          }`}
         >
           <p
-            className={isCurrentUser ? 'profile-stats' : 'profile-stats for-other-user'}
+            className={`profile-stats ${isCurrentUser ? '' : 'for-other-user'}`}
             data-testid="portfolioCount"
           >
             {portfolioCount}
@@ -164,7 +162,7 @@ export const ProfileHeader = ({
             Portfolio
           </p>
           <p
-            className={isCurrentUser ? 'profile-stats' : 'profile-stats for-other-user'}
+            className={`profile-stats ${isCurrentUser ? '' : 'for-other-user'}`}
             data-testid="friendCount"
           >
             {friendCount}
@@ -172,7 +170,7 @@ export const ProfileHeader = ({
             Friends
           </p>
           <p
-            className={isCurrentUser ? 'profile-stats' : 'profile-stats for-other-user'}
+            className={`profile-stats ${isCurrentUser ? '' : 'for-other-user'}`}
             data-testid="hostingCount"
           >
             {hostingCount}

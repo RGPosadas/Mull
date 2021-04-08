@@ -29,7 +29,7 @@ exports[`UserProfilePage should match snapshot 1`] = `
         className="profile-side-container for-current-user"
       >
         <p
-          className="profile-stats"
+          className="profile-stats "
           data-testid="portfolioCount"
         >
           0
@@ -37,7 +37,7 @@ exports[`UserProfilePage should match snapshot 1`] = `
           Portfolio
         </p>
         <p
-          className="profile-stats"
+          className="profile-stats "
           data-testid="friendCount"
         >
           0
@@ -45,7 +45,7 @@ exports[`UserProfilePage should match snapshot 1`] = `
           Friends
         </p>
         <p
-          className="profile-stats"
+          className="profile-stats "
           data-testid="hostingCount"
         >
           1
