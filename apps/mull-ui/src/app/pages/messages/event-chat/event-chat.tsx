@@ -157,7 +157,8 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
       'chat-input-container'
     )[0] as HTMLDivElement;
     if (chatInputContainer) {
-      const margin = window.innerHeight - chatInputContainer.getBoundingClientRect().top;
+      const margin =
+        document.documentElement.clientHeight - chatInputContainer.getBoundingClientRect().top;
       setContainerStyle({ marginBottom: margin + 'px' });
       window.scrollTo({ top: 9999, behavior: 'smooth' });
     }
