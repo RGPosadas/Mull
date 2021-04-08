@@ -1,11 +1,12 @@
-import { ISerializedEvent, IUser } from '@mull/types';
 import { cloneDeep } from 'lodash';
 import React, { useContext, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   CreateEventInput,
+  Event,
   useEventPageQuery,
   useOwnedEventsQuery,
+  User,
   useUserQuery,
 } from '../../../generated/graphql';
 import { Spinner } from '../../components';
@@ -42,7 +43,7 @@ export const EventPage = ({
   const [eventOwner, setEventOwner] = useState<boolean>(false);
   const currentUserId = useContext(UserContext).userId;
 
-  let event = cloneDeep(reviewEvent) as ISerializedEvent;
+  let event = cloneDeep(reviewEvent) as Event;
 
   const { data: ownedEvents } = useOwnedEventsQuery({});
 
@@ -69,12 +70,12 @@ export const EventPage = ({
   });
 
   if (!loadingEvent && dataEvent) {
-    event = cloneDeep(dataEvent.event);
+    event = cloneDeep(dataEvent.event) as Event;
     isJoined = dataEvent.isParticipant;
   }
 
   if (!loadingUser && dataUser) {
-    event.host = (dataUser.user as unknown) as IUser;
+    event.host = dataUser.user as User;
   }
 
   if (loadingEvent || loadingUser || !event.host) {
