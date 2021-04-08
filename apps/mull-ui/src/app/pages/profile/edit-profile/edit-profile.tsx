@@ -41,20 +41,10 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
         .test('EmojiCheck', 'Emojis are not allowed in Display Name.', function (displayName) {
           return !hasEmoji(displayName);
         }),
-      description: Yup.string()
-        .max(
-          LIMITS.PROFILE_DESCRIPTION,
-          `Description must be ${LIMITS.PROFILE_DESCRIPTION} characters or less.`
-        )
-        .test(
-          'NbOfLinesCheck',
-          `Description must not exceed ${LIMITS.PROFILE_DESCRIPTION_LINES} lines.`,
-          (description) => {
-            return (
-              !description || !description.match(/\n/gi) || description.match(/\n/gi).length < 6
-            );
-          }
-        ),
+      description: Yup.string().max(
+        LIMITS.PROFILE_DESCRIPTION,
+        `Description must be ${LIMITS.PROFILE_DESCRIPTION} characters or less.`
+      ),
       imageFile: Yup.mixed().test('big-file', 'File size is too large', validateFileSize),
     }),
 
@@ -67,7 +57,7 @@ const EditProfile = ({ history }: EditProfilePageProps) => {
             userInput: {
               id: userData.user.id,
               name: formik.values.displayName,
-              description: formik.values.description,
+              description: formik.values.description.trim(),
             },
           },
         });

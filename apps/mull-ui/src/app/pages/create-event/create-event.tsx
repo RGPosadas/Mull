@@ -188,7 +188,7 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
       setPayload({
         startDate: formik.values.startDate,
         endDate: formik.values.endDate,
-        description: formik.values.description,
+        description: formik.values.description.trim(),
         title: formik.values.eventTitle,
         restriction: formik.values.activeRestriction,
         location: formik.values.location,
