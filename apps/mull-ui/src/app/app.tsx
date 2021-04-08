@@ -65,7 +65,6 @@ export const App = () => {
     return {};
   };
 
-  // TODO: Replace with spinner or loading component
   if (loading) return <Spinner />;
 
   return (
