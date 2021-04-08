@@ -274,8 +274,10 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
             <MullTextArea
               title="Description"
               fieldName="description"
-              onChange={(e) => {
-                formik.setFieldValue('description', e.target.textContent);
+              onInput={(e) => {
+                const target = e.target as HTMLDivElement;
+
+                formik.setFieldValue('description', target.textContent);
               }}
               hasErrors={formik.touched.description && !!formik.errors.description}
               errorMessage={formik.errors.description}

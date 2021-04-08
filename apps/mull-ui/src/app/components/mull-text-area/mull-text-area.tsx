@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactNode, useRef } from 'react';
+import React, { ReactNode, useRef } from 'react';
 import './mull-text-area.scss';
 
 export interface MullTextAreaProps {
@@ -8,7 +8,7 @@ export interface MullTextAreaProps {
   errorMessage?: string;
   hasErrors?: boolean;
   svgIcon?: ReactNode;
-  onChange?: (event: ChangeEvent<HTMLDivElement>) => void;
+  onInput?: React.FormEventHandler<HTMLDivElement>;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   onFocus?: React.FocusEventHandler<HTMLDivElement>;
   onBlur?: React.FocusEventHandler<HTMLDivElement>;
@@ -22,7 +22,7 @@ export function MullTextArea({
   hasErrors = false,
   errorMessage = null,
   svgIcon,
-  onChange,
+  onInput,
   onClick,
   onFocus,
   onBlur,
@@ -45,7 +45,7 @@ export function MullTextArea({
           className={`mull-text-area input-border ${hasErrors ? 'error' : ''}`}
           id={fieldName}
           data-testid="mull-text-area"
-          onInput={onChange}
+          onInput={onInput}
           onClick={onClick}
           placeholder={placeholder}
           contentEditable={true}

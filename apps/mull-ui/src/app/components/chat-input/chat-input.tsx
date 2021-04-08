@@ -32,36 +32,24 @@ export const ChatInput = ({
   onBlur,
 }: ChatInputProps) => {
   const inputRef = useRef<HTMLDivElement>(null);
+  const lastKeyEventRef = useRef<KeyboardEvent>();
 
-  const onKeyPress = (e: KeyboardEvent) => {
-    if (e.code === 'Enter' && !e.shiftKey) {
-      formik.submitForm();
-      setTimeout(() => {
-        inputRef.current.innerText = '';
-      }, 100);
-    }
+  const onKeyDown = (e: KeyboardEvent) => {
+    lastKeyEventRef.current = e;
   };
 
   useEffect(() => {
     const localInputRef = inputRef.current;
-    inputRef.current.addEventListener('keydown', onKeyPress);
+    inputRef.current.addEventListener('keydown', onKeyDown);
 
     return () => {
-      localInputRef.removeEventListener('keydown', onKeyPress);
+      localInputRef.removeEventListener('keydown', onKeyDown);
     };
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, []);
 
   return (
     <div className="chat-input-container">
-      {(formik.touched.imageFile && !!formik.errors.imageFile) ||
-      (formik.touched.message && !!formik.errors.message) ? (
-        <span className="error-message">
-          {`${formik.errors.message ? formik.errors.message : ''} ${
-            formik.errors.imageFile ? formik.errors.imageFile : ''
-          }`}
-        </span>
-      ) : null}
       <form
         className="chat-input-form"
         onSubmit={formik.handleSubmit}
@@ -83,8 +71,16 @@ export const ChatInput = ({
           inputRef={inputRef}
           title=""
           fieldName="message"
-          onChange={(e) => {
-            formik.setFieldValue('message', e.target.textContent);
+          onInput={(e) => {
+            const target = e.target as HTMLDivElement;
+
+            formik.setFieldValue('message', (e.target as HTMLDivElement).textContent);
+
+            // User tried to submit form
+            if (lastKeyEventRef.current.key === 'Enter' && !lastKeyEventRef.current.shiftKey) {
+              target.textContent = '';
+              formik.submitForm();
+            }
           }}
           onFocus={onFocus}
           onBlur={onBlur}

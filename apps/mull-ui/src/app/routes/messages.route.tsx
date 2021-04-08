@@ -36,7 +36,7 @@ const MessagesMainRoute = ({ history }) => {
 const EventMessagesRoutes = ({ match }: RouteChildrenProps) => (
   <PrivateRoute path={`${match.path}/:id`}>
     <EventMessagesHeader>
-      <div className="page-container no-bot-nav">
+      <div className="page-container no-bot-nav with-sub-nav-and-header">
         <PrivateRoute
           exact
           path={`${match.path}/:id/announcements`}
