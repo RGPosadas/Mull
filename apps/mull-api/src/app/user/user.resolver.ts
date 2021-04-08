@@ -46,7 +46,7 @@ export class UserResolver {
   }
 
   @Query(/* istanbul ignore next */ () => [Friend])
-  async friends(@AuthenticatedUser() id: number) {
+  async getTrueFriends(@AuthenticatedUser() id: number) {
     const friends = this.filterTrueFriends(id, await this.userService.getFriends(id));
     const modifiedFriends: Friend[] = [];
 
@@ -171,11 +171,5 @@ export class UserResolver {
     @Args('userIdB', { type: /* istanbul ignore next */ () => Int }) userIdB: number
   ) {
     return this.userService.getUserRelationship(userIdA, userIdB);
-  }
-
-  @Query(/* istanbul ignore next */ () => [User])
-  async getTrueFriends(@AuthenticatedUser() currentUser: number) {
-    const currentUserFriends = await this.userService.getFriends(currentUser);
-    return this.filterTrueFriends(currentUser, currentUserFriends);
   }
 }
