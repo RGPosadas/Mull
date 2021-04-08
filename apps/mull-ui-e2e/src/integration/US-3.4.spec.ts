@@ -16,12 +16,12 @@ frameSizes.forEach((frame) => {
       cy.get('.direct-message-chat', { timeout: 5000 }).should('exist');
       const message = `Hello ${faker.random.number()}`;
       cy.get('.custom-text-input').type(`${message}{enter}`);
-      cy.contains(message);
+      cy.contains(message, { timeout: 5000 });
 
       const imageText = `Image ${faker.random.number()}`;
       cy.get('#imageFile').attachFile('../fixtures/trashed-park.jpg');
       cy.get('.custom-text-input').type(`${imageText}{enter}`);
-      cy.contains(imageText);
+      cy.contains(imageText, { timeout: 5000 });
     });
   });
 });
