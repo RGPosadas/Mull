@@ -65,3 +65,9 @@ mutation RemoveFriend($userIdToRemove: Int!) {
 mutation RemovePendingRequest($userIdToRemove: Int!) {
   removePendingRequest(userIdToRemove: $userIdToRemove)
 }
+
+mutation CreateDirectMessageChannel($toUserId: Int!) {
+  createDirectMessageChannel(toUserId: $toUserId) {
+    id
+  }
+}

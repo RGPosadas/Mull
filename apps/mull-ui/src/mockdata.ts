@@ -147,10 +147,38 @@ export const mockPosts: ISerializedPost[] = [
   },
 ];
 
+export const mockDmPosts = [
+  {
+    id: 1,
+    message: 'sup',
+    createdTime: '2021-04-07T16:45:19.000Z',
+    user: mockUser1,
+    media: {
+      id: 1,
+      mediaType: 'png',
+    },
+  },
+  {
+    id: 1,
+    message: 'nothing much',
+    createdTime: '2021-04-07T16:45:37.000Z',
+    user: mockUser2,
+    media: {
+      id: 1,
+      mediaType: 'png',
+    },
+  },
+];
+
 export const mockChannelWithPosts = {
   id: 3,
   name: 'announcements',
   rights: 0,
   posts: mockPosts,
   event: dummyEvent,
+};
+
+export const mockDmChannelWithPosts = {
+  id: 4,
+  posts: mockDmPosts,
 };

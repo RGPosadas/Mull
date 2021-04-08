@@ -1,7 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client';
 import { FriendStatusButton } from '@mull/types';
 import React, { useEffect, useState } from 'react';
-import { MullButton } from '..';
 import {
   Exact,
   FriendCountQuery,
@@ -14,6 +13,7 @@ import {
 } from '../../../generated/graphql';
 import { avatarUrl } from '../../../utilities';
 import FriendModal from '../modal/friend-modal/friend-modal';
+import { MullButton } from '../mull-button/mull-button';
 import './profile-header.scss';
 
 export function SetUserRelationship(

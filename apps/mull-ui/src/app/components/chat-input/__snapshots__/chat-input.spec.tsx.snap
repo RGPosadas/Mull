@@ -56,6 +56,7 @@ exports[`ChatInput should match snapshot 1`] = `
         
       </label>
       <input
+        autoComplete="off"
         className="custom-text-input input-border "
         data-testid="custom-text-input"
         id="message"
