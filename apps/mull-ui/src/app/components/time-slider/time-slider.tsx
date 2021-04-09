@@ -5,6 +5,7 @@ import { getStringTime } from '../../../utilities';
 import './time-slider.scss';
 
 export interface TimeSliderProps {
+  ariaLabel: string;
   label: string;
   reverse?: boolean;
   time: number;
@@ -14,6 +15,7 @@ export interface TimeSliderProps {
 }
 
 export const TimeSlider = ({
+  ariaLabel,
   label,
   reverse,
   time,
@@ -27,6 +29,7 @@ export const TimeSlider = ({
         {label} {getStringTime(time)}
       </div>
       <Slider
+        ariaLabelForHandle={ariaLabel}
         className="custom-slider-style"
         min={0}
         max={23.75}

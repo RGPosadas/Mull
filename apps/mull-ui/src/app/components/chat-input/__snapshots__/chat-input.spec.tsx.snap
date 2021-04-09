@@ -62,6 +62,7 @@ exports[`ChatInput should match snapshot 1`] = `
         className="mull-text-area-sub-container grow-wrap"
       >
         <div
+          aria-label="chat-input-textarea"
           className="mull-text-area input-border "
           contentEditable={true}
           data-testid="mull-text-area"
@@ -74,6 +75,7 @@ exports[`ChatInput should match snapshot 1`] = `
           className="mull-text-area-icon"
         >
           <button
+            aria-label="Send message"
             className="chat-input-button"
             onClick={[Function]}
             type="button"

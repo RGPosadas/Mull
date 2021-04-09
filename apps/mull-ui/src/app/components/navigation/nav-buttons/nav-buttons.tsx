@@ -14,6 +14,7 @@ export const NavButtons = () => {
     <div className="nav-buttons-container">
       <NavLink
         to={ROUTES.HOME}
+        aria-label="Home"
         className="nav-button-container"
         activeClassName="active"
         data-testid="home-navlink"
@@ -23,6 +24,7 @@ export const NavButtons = () => {
       </NavLink>
       <NavLink
         to={ROUTES.CAMERA}
+        aria-label="Camera"
         className="nav-button-container"
         activeClassName="active"
         data-testid="camera-navlink"
@@ -31,6 +33,7 @@ export const NavButtons = () => {
       </NavLink>
       <NavLink
         to={ROUTES.CREATE_EVENT}
+        aria-label="Create Event"
         className="nav-button-container"
         activeClassName="active"
         data-testid="create-event-navlink"
@@ -39,6 +42,7 @@ export const NavButtons = () => {
       </NavLink>
       <NavLink
         to={ROUTES.MESSAGES}
+        aria-label="Messages"
         className="nav-button-container"
         activeClassName="active"
         data-testid="messages-navlink"
@@ -47,6 +51,7 @@ export const NavButtons = () => {
       </NavLink>
       <NavLink
         to={ROUTES.PROFILE.DISPLAY}
+        aria-label="Profile"
         className="nav-button-container"
         activeClassName="active"
         data-testid="profile-navlink"

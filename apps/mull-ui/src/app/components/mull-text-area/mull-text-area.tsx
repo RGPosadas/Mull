@@ -40,6 +40,7 @@ export function MullTextArea({
       </label>
       <div className="mull-text-area-sub-container grow-wrap" ref={grower}>
         <div
+          aria-label={fieldName}
           ref={inputRef}
           className={`mull-text-area input-border ${hasErrors ? 'error' : ''}`}
           id={fieldName}

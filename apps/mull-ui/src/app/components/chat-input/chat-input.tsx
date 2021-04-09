@@ -100,7 +100,12 @@ export const ChatInput = ({
           hasErrors={null}
           errorMessage={null}
           svgIcon={
-            <button type="button" className="chat-input-button" onClick={onSubmit}>
+            <button
+              aria-label="Send message"
+              type="button"
+              className="chat-input-button"
+              onClick={onSubmit}
+            >
               <FontAwesomeIcon icon={faPaperPlane} />
             </button>
           }

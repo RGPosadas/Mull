@@ -26,7 +26,7 @@
     width: 2rem;
     height: 2rem;
     border-radius: 100%;
-    background: $primary-color;
+    background: $primary-color-lightened;
     box-sizing: border-box;
     padding: 0.3em;
     svg {
@@ -34,7 +34,7 @@
     }
   }
   svg {
-    color: $primary-color;
+    color: $primary-color-lightened;
     &.custom-file-upload-icon {
       font-size: 1.5em; //em used to follow fontawesome standards for sizing
       padding: 0.2rem;
@@ -74,6 +74,11 @@
 }
 
 @media (min-width: $breakpoint-mobile) {
+  .chat-input-form {
+    .custom-text-input {
+      margin-top: 0;
+    }
+  }
   .chat-input-container {
     width: $page-container-width;
     margin-left: auto;

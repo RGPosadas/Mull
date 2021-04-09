@@ -53,7 +53,6 @@ export const EventCard = ({
             }
           }}
           className={`event-card-join ${joined ? 'joined' : 'not-joined'}`}
-          id={'event-card-join'}
         >
           {joined ? (
             <FontAwesomeIcon icon={faCheck} />
