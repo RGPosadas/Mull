@@ -8,12 +8,12 @@
 }
 
 .nice-dates-day:before {
-  background-color: $primary-color;
+  background-color: $primary-color-lightened;
   z-index: 1;
 }
 
 .nice-dates-day:after {
-  background-color: $primary-color;
+  background-color: $primary-color-lightened;
   z-index: 1;
 }
 
