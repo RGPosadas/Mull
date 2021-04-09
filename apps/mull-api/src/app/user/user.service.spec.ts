@@ -40,6 +40,7 @@ const mockUserRepository = () => ({
     innerJoin: jest.fn().mockReturnThis(),
     where: jest.fn().mockReturnThis(),
     getMany: jest.fn().mockReturnThis(),
+    leftJoinAndSelect: jest.fn().mockReturnThis(),
   })),
 });
 
@@ -145,6 +146,7 @@ describe('UserService', () => {
   it('should return the relationships of a user', async () => {
     repository.createQueryBuilder.mockImplementation(() => ({
       innerJoin: jest.fn().mockReturnThis(),
+      leftJoinAndSelect: jest.fn().mockReturnThis(),
       where: jest.fn().mockReturnThis(),
       getMany: jest.fn().mockReturnValue([mockAllUsers[1], mockAllUsers[2]]),
     }));
@@ -158,6 +160,7 @@ describe('UserService', () => {
   it('should return the strangers of a user', async () => {
     repository.createQueryBuilder.mockImplementation(() => ({
       leftJoin: jest.fn().mockReturnThis(),
+      leftJoinAndSelect: jest.fn().mockReturnThis(),
       where: jest.fn().mockReturnThis(),
       getMany: jest.fn().mockReturnValue([mockAllUsers[0], mockAllUsers[1]]),
     }));
