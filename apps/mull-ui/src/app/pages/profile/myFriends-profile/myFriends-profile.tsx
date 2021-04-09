@@ -49,7 +49,7 @@ const MyFriends = ({ history }) => {
 
   if (loading) return <Spinner />;
 
-  const mutableFriends = [...data.getTrueFriends] as User[];
+  const mutableFriends = ([...data.getTrueFriends] as unknown) as User[];
 
   mutableFriends.sort(compareUser);
 

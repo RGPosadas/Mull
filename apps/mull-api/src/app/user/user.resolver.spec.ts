@@ -135,11 +135,6 @@ describe('UserResolver', () => {
     expect(returnedUsers).toEqual(mockAllUsers);
   });
 
-  it('should fetch all friends of mockUser 1', async () => {
-    const returnedUserFriends = await resolver.friends(mockAllUsers[0].id);
-    expect(returnedUserFriends).toEqual(mockAllFriendsOfId1);
-  });
-
   it('should update the user and upload a new avatar', async () => {
     const updatedUser = await resolver.updateUser(mockUpdateUserInput[0], mockFileJPEG);
     expect(updatedUser).toEqual(mockExpectedUpdatedUser[0]);

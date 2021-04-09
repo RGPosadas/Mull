@@ -5,7 +5,7 @@ import {
   Friend,
   Post,
   useCreateDirectMessageChannelMutation,
-  useFriendsQuery,
+  useDirectMessageListFriendsQuery,
   User,
 } from '../../../../../generated/graphql';
 import { ContactRow, CustomTextInput, Spinner } from '../../../../components';
@@ -19,7 +19,7 @@ export interface DirectMessageListPageProps {
 const DirectMessageListPage = ({ history }: DirectMessageListPageProps) => {
   const [searchValue, setSearchValue] = useState('');
   const { userId } = useContext(UserContext);
-  const { data, loading } = useFriendsQuery();
+  const { data, loading } = useDirectMessageListFriendsQuery();
   const [createDirectMessageChannel] = useCreateDirectMessageChannelMutation();
 
   const buildLastMessage = (latestPost: Post, friend: Partial<Friend>): string => {
@@ -34,7 +34,7 @@ const DirectMessageListPage = ({ history }: DirectMessageListPageProps) => {
 
   if (loading) return <Spinner />;
 
-  const contactRows = data.friends
+  const contactRows = data.getTrueFriends
     .filter(({ name }) => name.toLowerCase().includes(searchValue.toLowerCase()))
     .map(({ latestPost, directMessageChannel, ...friend }, index) => {
       return (
