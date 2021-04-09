@@ -19,7 +19,7 @@ frameSizes.forEach((frame) => {
       cy.get('.Toastify__toast.Toastify__toast--success', { timeout: 5000 }).should(
         'have.css',
         'background-color',
-        'rgb(39, 176, 154)'
+        'rgb(29, 132, 116)'
       );
     });
   });

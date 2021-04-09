@@ -13,11 +13,11 @@ frameSizes.forEach((frame) => {
       cy.get('a.subnavigation-link').then(($subnav) => {
         $subnav[1].click();
       });
-      cy.get('a.subnavigation-link').eq(1).should('have.css', 'color', 'rgb(39, 176, 154)');
+      cy.get('a.subnavigation-link').eq(1).should('have.css', 'color', 'rgb(29, 132, 116)');
       cy.get('a.subnavigation-link').then(($subnav) => {
         $subnav[2].click();
       });
-      cy.get('a.subnavigation-link').eq(2).should('have.css', 'color', 'rgb(39, 176, 154)');
+      cy.get('a.subnavigation-link').eq(2).should('have.css', 'color', 'rgb(29, 132, 116)');
       cy.get('.event-card-container').should('be.visible');
     });
   });

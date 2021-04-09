@@ -6,7 +6,7 @@ import { frameSizes } from './../fixtures/frame-sizes';
 const ids = [8101, 8102];
 
 frameSizes.forEach((frame, i) => {
-  describe(`US-8.5: Friends List (${frame.name} view)`, () => {
+  describe(`US-8.1: Add Friends (${frame.name} view)`, () => {
     beforeEach(() => {
       cy.viewport(frame.res[0], frame.res[1]);
     });

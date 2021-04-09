@@ -18,7 +18,7 @@ const registerUser = (email: string, password: string) => {
   cy.get('.Toastify__toast.Toastify__toast--success', { timeout: 5000 }).should(
     'have.css',
     'background-color',
-    'rgb(39, 176, 154)'
+    'rgb(29, 132, 116)'
   );
 };
 /**
@@ -33,7 +33,7 @@ const loginUser = (username: string, password: string) => {
   cy.get('.Toastify__toast.Toastify__toast--success', { timeout: 5000 }).should(
     'have.css',
     'background-color',
-    'rgb(39, 176, 154)'
+    'rgb(29, 132, 116)'
   );
 };
 /**
@@ -72,7 +72,7 @@ const createEvent = (date, pillId = 0) => {
   cy.get('.Toastify__toast.Toastify__toast--success', { timeout: 5000 }).should(
     'have.css',
     'background-color',
-    'rgb(39, 176, 154)'
+    'rgb(29, 132, 116)'
   );
 };
 
