@@ -46,7 +46,7 @@ export const ContactRow = ({
   );
 
   return (
-    <div className="contact-container">
+    <div className="contact-container" id={id}>
       {userInformationOnClick ? (
         <div className="user-information" onClick={() => userInformationOnClick()}>
           {userInformation}

@@ -108,10 +108,10 @@ frameSizes.forEach((frame) => {
     it('should change restriction open', () => {
       cy.get('[data-testid=pill-id-1]')
         .click()
-        .should('have.css', 'background-color', 'rgb(39, 176, 154)');
+        .should('have.css', 'background-color', 'rgb(29, 132, 116)');
       cy.get('[data-testid=pill-id-2]')
         .click()
-        .should('have.css', 'background-color', 'rgb(39, 176, 154)');
+        .should('have.css', 'background-color', 'rgb(29, 132, 116)');
     });
 
     it('should show errors when fields are not completed', () => {
@@ -201,7 +201,7 @@ frameSizes.forEach((frame) => {
       cy.get('.Toastify__toast.Toastify__toast--success', { timeout: 5000 }).should(
         'have.css',
         'background-color',
-        'rgb(39, 176, 154)'
+        'rgb(29, 132, 116)'
       );
     });
   });
