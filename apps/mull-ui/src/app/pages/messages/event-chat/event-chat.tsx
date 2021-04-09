@@ -156,7 +156,7 @@ export const EventChat = ({ history, channelName, restrictChatInput }: EventChat
   }, [formik.values.message]);
 
   if (error) {
-    return <Redirect to={ROUTES.LOGIN} />;
+    return <Redirect to={ROUTES.NOT_FOUND} />;
   }
 
   if (loading) return <Spinner />;

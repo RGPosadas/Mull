@@ -30,6 +30,7 @@ export const ROUTES = {
   SETTINGS: '/settings',
   OTHER_USER_PROFILE: '/other-user-profile',
   USER_BY_ID: '/user/:id',
+  NOT_FOUND: '/not-found',
 };
 
 export const DAY_IN_MILLISECONDS = 86400000;
