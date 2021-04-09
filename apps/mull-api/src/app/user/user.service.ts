@@ -20,7 +20,7 @@ export class UserService {
   }
 
   getUser(id: number): Promise<User> {
-    return this.userRepository.findOne(id, { relations: ['avatar', 'friends'] });
+    return this.userRepository.findOne(id, { relations: ['avatar', 'friends', 'friends.avatar'] });
   }
 
   findByEmail(email: string): Promise<User[]> {
@@ -97,6 +97,7 @@ export class UserService {
     // With this, we get the people who added the current user
     const addedCurrentUser = await this.userRepository
       .createQueryBuilder('user')
+      .leftJoinAndSelect('user.avatar', 'avatar')
       .innerJoin('friends', 'friends', 'friends.adder = user.id')
       .where('friends.added = :id', { id })
       .getMany();
@@ -139,6 +140,7 @@ export class UserService {
   async getStrangers(id: number, searchInput: string): Promise<User[]> {
     const strangers = this.userRepository
       .createQueryBuilder('user')
+      .leftJoinAndSelect('user.avatar', 'avatar')
       .leftJoin('friends', 'f1', 'f1.adder = user.id')
       .leftJoin('friends', 'f2', 'f2.added = user.id')
       .where(
