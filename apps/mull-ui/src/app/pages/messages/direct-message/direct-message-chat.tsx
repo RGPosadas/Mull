@@ -150,16 +150,11 @@ export const DirectMessageChat = ({ history }: DirectMessageChatProps) => {
     updateChatContainerStyle(setContainerStyle, containerRef);
   }, [formik.values.message]);
 
-  if (chatError) {
-    return <Redirect to={ROUTES.LOGIN} />;
-  }
-
-  if (headerError) {
-    updateToast('Unable to load header', toast.TYPE.ERROR);
-    return <Redirect to={ROUTES.MESSAGES} />;
-  }
-
   if (chatLoading) return <Spinner />;
+
+  if (!chatData.getDirectMessageChannel || chatError || headerError) {
+    return <Redirect to={ROUTES.NOT_FOUND} />;
+  }
 
   return (
     <div

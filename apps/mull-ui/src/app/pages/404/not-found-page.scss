@@ -1,3 +1,26 @@
+@import '../../../variables.scss';
+
 .not-found {
   text-align: center;
+  margin-top: 17.5rem;
+}
+
+.sad-mull-icon {
+  width: 5rem;
+}
+
+.not-found-message {
+  padding: 1.5rem 0;
+  font-weight: bold;
+  font-size: medium;
+}
+
+@media (min-width: $breakpoint-mobile) {
+  .sad-mull-icon {
+    width: 7.5rem;
+  }
+
+  .not-found-message {
+    font-size: larger;
+  }
 }
