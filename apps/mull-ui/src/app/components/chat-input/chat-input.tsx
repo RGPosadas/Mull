@@ -46,9 +46,9 @@ export const ChatInput = ({
     } else {
       await formik.submitForm();
     }
-    setTimeout(() => {
-      onBlur(null);
-    }, 50);
+    // setTimeout(() => {
+    // onBlur(null);
+    // }, 50);
   };
 
   useEffect(() => {
