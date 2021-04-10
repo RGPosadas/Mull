@@ -30,7 +30,7 @@ export const EventCard = ({
   const [leaveEvent] = useLeaveEventMutation();
 
   // TODO: Implement distance calculator
-  const distance = 15;
+  // const distance = 15;
 
   const currentDate = new Date();
   const isEventExpired = currentDate.getTime() > new Date(event.endDate).getTime();
@@ -66,7 +66,7 @@ export const EventCard = ({
         <div className="event-card-text">
           <div className="event-card-title">{event.title}</div>
 
-          <div className="event-card-location">{`${distance}km • ${event.location.title}`}</div>
+          <div className="event-card-location">{`${event.location.title}`}</div>
         </div>
         <EventMembers eventId={event.id} />
         {/* TODO: Implement share */}

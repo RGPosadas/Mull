@@ -200,7 +200,6 @@ export class EventService {
       .leftJoinAndSelect('event.participants', 'participant')
       .leftJoinAndSelect('participant.avatar', 'avatar')
       .where('event.id = :eventId', { eventId })
-      .orderBy('RAND()')
       .limit(3)
       .getOne();
 
