@@ -2,6 +2,7 @@ import { IAuthToken, IRefreshResponse } from '@mull/types';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import React, { CSSProperties, useEffect, useState } from 'react';
+import { hotjar } from 'react-hotjar';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import SwipeableRoutes from 'react-swipeable-routes';
 import { toast, ToastContainer } from 'react-toastify';
@@ -31,6 +32,8 @@ import TokenRedirectPage from './pages/token-redirect/token-redirect';
 import WasteRecognitionPage from './pages/waste-recognition-page/waste-recognition-page';
 import MessagesRoute from './routes/messages.route';
 import ProfilesRoute from './routes/profiles.route';
+
+hotjar.initialize(2213606, 6);
 
 /**
  * Main component of the application

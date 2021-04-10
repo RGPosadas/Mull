@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mull-frontend
-          image: 'ritchellegmp/mull-frontend:latest'
+          image: 'ritchellegmp/mull-frontend:usability-testing-release-3'
           imagePullPolicy: Always
           ports:
             - name: frontend
