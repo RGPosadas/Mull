@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { formatChatBubbleDate, getMediaUrl } from '../../../utilities';
 import ChatBubble from '../../components/chat-bubble/chat-bubble';
 import UserContext from '../../context/user.context';
-import './chat-bubble-list.scss';
 
 export interface ChatBubbleListProps {
   history: History;

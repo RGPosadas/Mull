@@ -118,7 +118,7 @@ export const DirectMessageChat = ({ history }: DirectMessageChatProps) => {
           ? (await uploadFile({ variables: { file: file } })).data.uploadFile
           : null;
 
-        const post = await createPostMutation({
+        await createPostMutation({
           variables: {
             post: {
               channel: { id: chatData.getDirectMessageChannel.id },
