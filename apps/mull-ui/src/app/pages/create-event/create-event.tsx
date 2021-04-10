@@ -20,7 +20,6 @@ import {
   CustomFileUpload,
   CustomTextInput,
   MullButton,
-  MullTextArea,
   PillOptions,
   TimeSlider,
 } from './../../components';
@@ -273,18 +272,27 @@ const CreateEventPage = ({ history }: CreateEventProps) => {
 
             <LocationAutocompleteModal formik={formik} />
 
-            <MullTextArea
-              title="Description"
-              fieldName="description"
-              onInput={(e) => {
-                const target = e.target as HTMLDivElement;
+            <div className="textarea-create-event-container">
+              <label className="description-label" htmlFor={'description'}>
+                Description
+              </label>
+              <div className="textarea-sub-container">
+                <textarea
+                  id="description"
+                  className={`description-msg ${
+                    formik.touched.description && !!formik.errors.description ? 'error' : ''
+                  }`}
+                  rows={1}
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                />
+                <FontAwesomeIcon className="description-input-icon" icon={faAlignLeft} />
+              </div>
 
-                formik.setFieldValue('description', target.textContent);
-              }}
-              hasErrors={formik.touched.description && !!formik.errors.description}
-              errorMessage={formik.errors.description}
-              svgIcon={<FontAwesomeIcon className="input-icon" icon={faAlignLeft} />}
-            />
+              {formik.touched.description && !!formik.errors.description ? (
+                <span className="error-message">{formik.errors.description}</span>
+              ) : null}
+            </div>
 
             <PillOptions
               options={EventRestrictionMap}
