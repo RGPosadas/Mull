@@ -1,4 +1,5 @@
 @import '../../../variables.scss';
+@import '../../../mixins.scss';
 
 .create-event {
   display: flex;
@@ -93,6 +94,17 @@
       border-color: $error-color;
     }
   }
+}
+
+.description-input-icon {
+  position: absolute;
+  right: 1rem;
+  @include vertical-center-fixed;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.textarea-sub-container {
+  position: relative;
 }
 
 @media (min-width: $breakpoint-mobile) {
