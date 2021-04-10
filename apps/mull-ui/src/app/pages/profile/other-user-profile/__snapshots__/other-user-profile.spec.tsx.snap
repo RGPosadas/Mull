@@ -151,7 +151,7 @@ exports[`OtherUserProfile should match snapshot 1`] = `
           <div
             className="event-card-location"
           >
-            15km • 51067 Schimmel Cliff, North Christop, Connecticut, 75399-7391
+            51067 Schimmel Cliff, North Christop, Connecticut, 75399-7391
           </div>
         </div>
       </div>
