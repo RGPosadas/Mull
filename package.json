@@ -51,7 +51,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@nestjs/common": "^7.6.5",
     "@nestjs/core": "^7.0.0",
-    "@nestjs/graphql": "^7.7.0",
+    "@nestjs/graphql": "^13.0.4",
     "@nestjs/jwt": "^7.2.0",
     "@nestjs/passport": "^7.1.0",
     "@nestjs/platform-express": "^7.0.0",
